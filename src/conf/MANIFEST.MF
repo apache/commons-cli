@@ -1,15 +1,11 @@
-Name: org/apache/commons/cli
+Implementation-Title: Jakarta Commons CLI2
+
+Name: org/apache/commons/cli/
 Specification-Title: Jakarta Commons CLI
 Specification-Vendor: Apache Software Foundation
 Specification-Version: 1.0
-Implementation-Title: org.apache.commons.cli
-Implementation-Vendor: Apache Software Foundation
-Implementation-Version: 2.0
 
-Name: org/apache/commons/cli2
+Name: org/apache/commons/cli2/
 Specification-Title: Jakarta Commons CLI2
 Specification-Vendor: Apache Software Foundation
 Specification-Version: 2.0
-Implementation-Title: org.apache.commons.cli2
-Implementation-Vendor: Apache Software Foundation
-Implementation-Version: 2.0
