@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.6 2002/08/14 22:27:39 jkeyes Exp $
- * $Revision: 1.6 $
- * $Date: 2002/08/14 22:27:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.7 2002/08/15 22:05:18 jkeyes Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/08/15 22:05:18 $
  *
  * ====================================================================
  *
@@ -181,33 +181,12 @@ public class PosixParser implements CommandLineParser {
                                 // to be the argument value
 
                                 // if there is no argument value
-                                if( token.substring(i+1).length() == 0 ) {
+                                if( token.substring(i+1).length() == 0 && !opt.hasOptionalArg() ) {
                                     throw new MissingArgumentException( "Missing argument value for " + opt.getOpt() );
                                 }
-
-                                /*
-                                String var = token.substring(i+1);
-                                char sep = opt.getValueSeparator();
-
-                                if( sep > 0 ) {
-                                    int findex;
-                                    while( ( findex = var.indexOf( sep ) ) != -1 ) {
-                                        String val = var.substring( 0, findex );
-                                        var = var.substring( findex + 1);
-                                        if( !opt.addValue( val ) ) {
-                                            cmd.addArg( val );
-                                        }
-                                    }
-                                    if( !opt.addValue( var ) ) {
-                                        cmd.addArg( var );
-                                    };
-                                }
                                 else {
-                                    // add the argument value
                                     opt.addValue( token.substring(i+1) );
                                 }
-                                */
-                                opt.addValue( token.substring(i+1) );
 
                                 // set the option 
                                 cmd.setOpt( opt );
@@ -261,7 +240,7 @@ public class PosixParser implements CommandLineParser {
     throws ParseException
     {
         // get the option represented by arg
-        Option opt = null;//(Option) options.getOption( arg );
+        Option opt = null;
 
         boolean hasOption = options.hasOption( arg );
 
@@ -304,7 +283,7 @@ public class PosixParser implements CommandLineParser {
     public void processArgs( Option opt, ListIterator iter ) 
     throws ParseException 
     {
-        if( !iter.hasNext() ) {
+        if( !iter.hasNext() && !opt.hasOptionalArg() ) {
             throw new MissingArgumentException( "no argument for:" + opt.getOpt() );
         }
         // loop until an option is found
@@ -319,29 +298,6 @@ public class PosixParser implements CommandLineParser {
             }
             // its a value
             else {
-                /*
-                char sep = opt.getValueSeparator();
-                
-                if( sep > 0 ) {
-                    int findex;
-                    while( ( findex = var.indexOf( sep ) ) != -1 ) {
-                        String val = var.substring( 0, findex );
-                        var = var.substring( findex + 1);
-                        if( !opt.addValue( val ) ) {
-                            iter.previous();
-                            return;
-                        }
-                    }
-                    if( !opt.addValue( var ) ) {
-                        iter.previous();
-                        return;
-                    };
-                }
-                else if( !opt.addValue( var ) ) {
-                    iter.previous();
-                    return;
-                }
-                */
                 if( !opt.addValue( var ) ) {
                     iter.previous();
                     break;

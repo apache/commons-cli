@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.1 2002/08/15 20:31:23 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.2 2002/08/15 22:05:19 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -60,7 +60,46 @@ public class BugsTest extends TestCase
         catch( ParseException exp ) {
             fail( "Unexpected Exception: " + exp.getMessage() );
         }
+    }
 
+    public void test11456()
+    {
+        // Posix 
+        Options options = new Options();
+        options.addOption( OptionBuilder.hasOptionalArg()
+                           .create( 'a' ) );
+        options.addOption( OptionBuilder.hasArg()
+                           .create( 'b' ) );
+        String[] args = new String[] { "-a", "-bvalue" };
+
+        CommandLineParser parser = CommandLineParserFactory.newParser();
+
+        try {
+            CommandLine cmd = parser.parse( options, args );
+            assertEquals( cmd.getOptionValue( 'b' ), "value" );
+        }
+        catch( ParseException exp ) {
+            fail( "Unexpected Exception: " + exp.getMessage() );
+        }
+
+        // GNU
+        options = new Options();
+        options.addOption( OptionBuilder.hasOptionalArg()
+                           .create( 'a' ) );
+        options.addOption( OptionBuilder.hasArg()
+                           .create( 'b' ) );
+        args = new String[] { "-a", "-b", "value" };
+
+        parser = CommandLineParserFactory.newParser( "org.apache.commons.cli.GnuParser" );
+
+        try {
+            CommandLine cmd = parser.parse( options, args );
+            assertEquals( cmd.getOptionValue( 'b' ), "value" );
+        }
+        catch( ParseException exp ) {
+            fail( "Unexpected Exception: " + exp.getMessage() );
+        }
 
     }
+
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.4 2002/08/04 23:04:52 jkeyes Exp $
- * $Revision: 1.4 $
- * $Date: 2002/08/04 23:04:52 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.5 2002/08/15 22:05:18 jkeyes Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/08/15 22:05:18 $
  *
  * ====================================================================
  *
@@ -83,6 +83,7 @@ public class OptionBuilder {
     /** option type */
     private static Object type;
 
+    private static boolean optionalArg;
     private static char valuesep;
 
     /** option builder instance */
@@ -223,6 +224,16 @@ public class OptionBuilder {
     }
 
     /**
+     * <p>The next Option can have an optional argument.</p>
+     *
+     * @return the OptionBuilder instance
+     */
+    public static OptionBuilder hasOptionalArg( ) {
+        instance.optionalArg = true;
+        return instance;
+    }
+
+    /**
      * <p>The next Option created will have a value that will be an instance 
      * of <code>type</code>.</p>
      *
@@ -279,6 +290,7 @@ public class OptionBuilder {
         // set the option properties
         option.setLongOpt( longopt );
         option.setRequired( required );
+        option.setOptionalArg( optionalArg );
         option.setArgs( numberOfArgs );
         option.setType( type );
         option.setValueSeparator( valuesep );

@@ -106,6 +106,8 @@ public class Option implements Cloneable {
     /** required specifies whether this option is required to be present */
     private boolean    required     = false;
 
+    private boolean optionalArg = false;
+
     /** 
      * numberOfArgs specifies the number of argument values this option 
      * can have 
@@ -253,6 +255,26 @@ public class Option implements Cloneable {
 
     public void setLongOpt( String longOpt ) {
         this.longOpt = longOpt;
+    }
+
+    /**
+     * Sets whether this Option can have an optional argument.
+     *
+     * @param optionalArg specifies whether the Option can have
+     * an optional argument.
+     */
+    public void setOptionalArg( boolean optionalArg ) {
+        if( optionalArg ) {
+            this.numberOfArgs = 1;
+        }
+        this.optionalArg = optionalArg;
+    }
+
+    /**
+     * @return whether this Option can have an optional argument
+     */
+    public boolean hasOptionalArg( ) {
+        return this.optionalArg;
     }
     
     /** <p>Query to see if this Option has a long name</p>
@@ -438,6 +460,7 @@ public class Option implements Cloneable {
     public Object clone() {
         Option option = new Option( getOpt(), getDescription() );
         option.setArgs( getArgs() );
+        option.setOptionalArg( hasOptionalArg() );
         option.setRequired( isRequired() );
         option.setLongOpt( getLongOpt() );
         option.setType( getType() );

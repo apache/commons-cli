@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.5 2002/08/14 22:27:39 jkeyes Exp $
- * $Revision: 1.5 $
- * $Date: 2002/08/14 22:27:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.6 2002/08/15 22:05:18 jkeyes Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/08/15 22:05:18 $
  *
  * ====================================================================
  *
@@ -184,7 +184,7 @@ public class GnuParser implements CommandLineParser {
     public void processArgs( Option opt, ListIterator iter ) 
     throws ParseException 
     {
-        if( !iter.hasNext() ) {
+        if( !iter.hasNext() && !opt.hasOptionalArg() ) {
             throw new MissingArgumentException( "no argument for:" + opt.getOpt() );
         }
         // loop until an option is found
@@ -261,7 +261,7 @@ public class GnuParser implements CommandLineParser {
         }
 
         // if the option takes an argument value
-        if ( opt.hasArg() ) { 
+        if ( opt.hasArg() ) {
             processArgs( opt, iter );
         }
 
