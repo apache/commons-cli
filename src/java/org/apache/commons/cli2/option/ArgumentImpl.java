@@ -146,7 +146,7 @@ public class ArgumentImpl extends OptionImpl implements Argument {
         final ListIterator arguments,
         final Option option)
         throws OptionException {
-        int argumentCount = commandLine.getValues(option).size();
+        int argumentCount = commandLine.getValues(option,Collections.EMPTY_LIST).size();
         final int initialCount = argumentCount;
         while (arguments.hasNext() && argumentCount < maximum) {
 
@@ -193,11 +193,6 @@ public class ArgumentImpl extends OptionImpl implements Argument {
                 ++argumentCount;
                 commandLine.addValue(option, allValues);
             }
-        }
-
-        if (this.defaultValues == null
-            && (argumentCount < minimum || initialCount == argumentCount)) {
-                throw new OptionException(option, "cli.error.missing.values");
         }
     }
 
