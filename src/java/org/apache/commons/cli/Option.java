@@ -192,19 +192,24 @@ public class Option {
         this.type         = type;
     }
     
-    /** <p>Retrieve the single-character name of this Option</p>
+    /** <p>Retrieve the name of this Option</p>
      *
      * <p>It is this character which can be used with
      * {@link CommandLine#hasOption(String opt)} and
      * {@link CommandLine#getOptionValue(String opt)} to check
      * for existence and argument.<p>
      *
-     * @return Single character name of this option
+     * @return The name of this option
      */
     public String getOpt() {
         return this.opt;
     }
 
+    /**
+     * <p>Retrieve the type of this Option</p>
+     * 
+     * @return The type of this option
+     */
     public Object getType() {
         return this.type;
     }

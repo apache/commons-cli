@@ -72,21 +72,36 @@ public class PatternOptionBuilder {
 
     /// TODO: These need to break out to OptionType and also to be pluggable.
 
-    static public final Class STRING_VALUE        = java.lang.String.class;
-    static public final Class OBJECT_VALUE        = java.lang.Object.class;
-    static public final Class NUMBER_VALUE        = java.lang.Number.class;
-    static public final Class DATE_VALUE          = java.util.Date.class;
-    static public final Class CLASS_VALUE         = java.lang.Class.class;
+    /** String class */
+    public static final Class STRING_VALUE        = java.lang.String.class;
+    /** Object class */
+    public static final Class OBJECT_VALUE        = java.lang.Object.class;
+    /** Number class */
+    public static final Class NUMBER_VALUE        = java.lang.Number.class;
+    /** Date class */
+    public static final Class DATE_VALUE          = java.util.Date.class;
+    /** Class class */
+    public static final Class CLASS_VALUE         = java.lang.Class.class;
 
 /// can we do this one?? 
 // is meant to check that the file exists, else it errors.
 // ie) it's for reading not writing.
-    static public final Class EXISTING_FILE_VALUE = java.io.FileInputStream.class;
-    static public final Class FILE_VALUE          = java.io.File.class;
-    static public final Class FILES_VALUE         = java.io.File[].class;
-    static public final Class URL_VALUE           = java.net.URL.class;
+    /** FileInputStream class */
+    public static final Class EXISTING_FILE_VALUE = java.io.FileInputStream.class;
+    /** File class */
+    public static final Class FILE_VALUE          = java.io.File.class;
+    /** File array class */
+    public static final Class FILES_VALUE         = java.io.File[].class;
+    /** URL class */
+    public static final Class URL_VALUE           = java.net.URL.class;
 
-    static public Object getValueClass(char ch) {
+    /**
+     * <p>Retrieve the class that <code>ch</code> represents.</p>
+     *
+     * @param ch the specified character
+     * @return The class that <code>ch</code> represents
+     */
+    public static Object getValueClass(char ch) {
         if (ch == '@') {
             return PatternOptionBuilder.OBJECT_VALUE;
         } else if (ch == ':') {
@@ -109,7 +124,14 @@ public class PatternOptionBuilder {
         return null;
     }
  
-    static public boolean isValueCode(char ch) {
+    /**
+     * <p>Returns whether <code>ch</code> is a value code, i.e.
+     * whether it represents a class in a pattern.</p>
+     * 
+     * @param ch the specified character
+     * @return true if <code>ch</code> is a value code, otherwise false.
+     */
+    public static boolean isValueCode(char ch) {
         if( (ch != '@') &&
             (ch != ':') &&
             (ch != '%') &&
@@ -126,7 +148,14 @@ public class PatternOptionBuilder {
         return true;
     }       
  
-    static public Options parsePattern(String pattern) {
+    /**
+     * <p>Returns the {@link Options} instance represented by 
+     * <code>pattern</code>.</p>
+     *
+     * @param pattern the pattern string
+     * @return The {@link Options} instance
+     */
+    public static Options parsePattern(String pattern) {
         int sz = pattern.length();
 
         char opt = ' ';

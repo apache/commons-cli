@@ -79,10 +79,29 @@ import org.apache.commons.lang.Numbers;
   */    
 public class TypeHandler {
 
-    static public Object createValue(String str, Object obj) {
+    /**
+     * <p>Returns the <code>Object</code> of type <code>obj</code>
+     * with the value of <code>str</code>.</p>
+     *
+     * @param str the command line value
+     * @param obj the type of argument
+     * @return The instance of <code>obj</code> initialised with
+     * the value of <code>str</code>.
+     */
+    public static Object createValue(String str, Object obj) {
         return createValue(str, (Class)obj);
     }
-    static public Object createValue(String str, Class clazz) {
+
+    /**
+     * <p>Returns the <code>Object</code> of type <code>clazz</code>
+     * with the value of <code>str</code>.</p>
+     *
+     * @param str the command line value
+     * @param clazz the type of argument
+     * @return The instance of <code>clazz</code> initialised with
+     * the value of <code>str</code>.
+     */
+    public static Object createValue(String str, Class clazz) {
         if( PatternOptionBuilder.STRING_VALUE == clazz) {
             return str;
         } else
@@ -115,10 +134,12 @@ public class TypeHandler {
     }
 
     /**
-      * Create an Object from the classname and empty constructor.
-      * Returns null if it couldn't create the Object.
+      * <p>Create an Object from the classname and empty constructor.</p>
+      *
+      * @param str the argument value
+      * @return the initialised object, or null if it couldn't create the Object.
       */
-    static public Object createObject(String str) {
+    public static Object createObject(String str) {
         Class cl = null;
         try {
             cl = Class.forName(str);
@@ -144,9 +165,13 @@ public class TypeHandler {
     }
 
     /**
-      * Create a number from a String.
-      */
-    static public Number createNumber(String str) {
+     * <p>Create a number from a String.</p>
+     *
+     * @param str the value
+     * @return the number represented by <code>str</code>, if <code>str</code>
+     * is not a number, null is returned.
+     */
+    public static Number createNumber(String str) {
         // Needs to be able to create
         try {
             // do searching for decimal point etc, but atm just make an Integer
@@ -157,7 +182,13 @@ public class TypeHandler {
         }
     }
 
-    static public Class createClass(String str) {
+    /**
+     * <p>Returns the class whose name is <code>str</code>.</p>
+     *
+     * @param str the class name
+     * @return The class if it is found, otherwise return null
+     */
+    public static Class createClass(String str) {
         try {
             return Class.forName(str);
         } catch (ClassNotFoundException cnfe) {
@@ -166,7 +197,14 @@ public class TypeHandler {
         }
     }
 
-    static public Date createDate(String str) {
+    /**
+     * <p>Returns the date represented by <code>str</code>.</p>
+     *
+     * @param str the date string
+     * @return The date if <code>str</code> is a valid date string,
+     * otherwise return null.
+     */
+    public static Date createDate(String str) {
         Date date = null;
         if(date == null) {
             System.err.println("Unable to parse: "+str);
@@ -174,7 +212,14 @@ public class TypeHandler {
         return date;
     }
 
-    static public URL createURL(String str) {
+    /**
+     * <p>Returns the URL represented by <code>str</code>.</p>
+     *
+     * @param str the URL string
+     * @return The URL is <code>str</code> is well-formed, otherwise
+     * return null.
+     */
+    public static URL createURL(String str) {
         try {
             return new URL(str);
         } catch (MalformedURLException mue) {
@@ -183,11 +228,23 @@ public class TypeHandler {
         }
     }
 
-    static public File createFile(String str) {
+    /**
+     * <p>Returns the File represented by <code>str</code>.</p>
+     *
+     * @param str the File location
+     * @return The file represented by <code>str</code>.
+     */
+    public static File createFile(String str) {
         return new File(str);
     }
 
-    static public File[] createFiles(String str) {
+    /**
+     * <p>Returns the File[] represented by <code>str</code>.</p>
+     *
+     * @param str the paths to the files
+     * @return The File[] represented by <code>str</code>.
+     */
+    public static File[] createFiles(String str) {
 // to implement/port:
 //        return FileW.findFiles(str);
         return null;

@@ -108,19 +108,19 @@ public class CommandLine {
         return options.containsKey( opt );
     }
 
+    /**
+     * @param opt the name of the option
+     * @return the type of opt
+     */
     public Object getOptionObject(String opt) {
-        String[] result = (String[])options.get( opt );
+        String res = getOptionValue( opt );
         Object type = types.get( opt );
-        String res = result == null ? null : result[0];
-        if(res == null) {
-            return null;
-        }
-        return TypeHandler.createValue(res, type);
+        return res == null ? null : TypeHandler.createValue(res, type);
     }
 
     /** <p>Retrieve the argument, if any,  of an option.</p>
      *
-     * @param opt Short single-character name of the option
+     * @param opt the name of the option
      * @return Value of the argument if option is set, and has an argument, else null.
      */
     public String getOptionValue(String opt) {
