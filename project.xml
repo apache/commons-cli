@@ -27,7 +27,7 @@
   <logo>/images/logo.jpg</logo>
 
   <url>http://jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</url>
-  <package>org.apache.commons.${pom.artifactId.substring(8)}</package>
+  <package>org.apache.commons</package>
 
   <organization>
     <name>Apache Software Foundation</name>
