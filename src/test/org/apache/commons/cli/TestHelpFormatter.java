@@ -12,21 +12,18 @@ package org.apache.commons.cli;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.io.StringWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /** 
  * Test case for the HelpFormatter class 
  *
  * @author Slawek Zachcial
+ * @author John Keyes ( jbjk at mac.com )
  **/
-public class TestHelpFormatter
-extends TestCase
+public class TestHelpFormatter extends TestCase
 {
-   // --------------------------------------------------------------- Constants
-
-   // ------------------------------------------------------------------ Static
-
    public static void main( String[] args )
    {
       String[] testName = { TestHelpFormatter.class.getName() };
@@ -38,14 +35,10 @@ extends TestCase
       return new TestSuite(TestHelpFormatter.class);
    }
 
-   // -------------------------------------------------------------- Attributes
-
-   // ------------------------------------------------------------ Constructors
    public TestHelpFormatter( String s )
    {
       super( s );
    }
-   // ------------------------------------------------------------------ Public
 
    public void testFindWrapPos()
       throws Exception
@@ -100,64 +93,79 @@ extends TestCase
    }
 
    public void testPrintOptions()
-      throws Exception
+   throws Exception
    {
-      StringBuffer sb = new StringBuffer();
-      HelpFormatter hf = new HelpFormatter();
-      final int leftPad = 1;
-      final int descPad = 3;
-      final String lpad = hf.createPadding(leftPad);
-      final String dpad = hf.createPadding(descPad);
-      Options options = null;
-      String expected = null;
+       StringBuffer sb = new StringBuffer();
+       HelpFormatter hf = new HelpFormatter();
+       final int leftPad = 1;
+       final int descPad = 3;
+       final String lpad = hf.createPadding(leftPad);
+       final String dpad = hf.createPadding(descPad);
+       Options options = null;
+       String expected = null;
 
-      options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa");
-      expected = lpad + "-a" + dpad + "aaaa aaaa aaaa aaaa aaaa";
-      hf.renderOptions(sb, 60, options, leftPad, descPad);
-      assertEquals("simple non-wrapped option", expected, sb.toString());
+       options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa");
+       expected = lpad + "-a" + dpad + "aaaa aaaa aaaa aaaa aaaa";
+       hf.renderOptions(sb, 60, options, leftPad, descPad);
+       assertEquals("simple non-wrapped option", expected, sb.toString());
 
-      int nextLineTabStop = leftPad+descPad+"-a".length();
-      expected =
-         lpad + "-a" + dpad + "aaaa aaaa aaaa" + hf.defaultNewLine +
-         hf.createPadding(nextLineTabStop) + "aaaa aaaa";
-      sb.setLength(0);
-      hf.renderOptions(sb, nextLineTabStop+17, options, leftPad, descPad);
-      assertEquals("simple wrapped option", expected, sb.toString());
+       int nextLineTabStop = leftPad+descPad+"-a".length();
+       expected =
+           lpad + "-a" + dpad + "aaaa aaaa aaaa" + hf.defaultNewLine +
+           hf.createPadding(nextLineTabStop) + "aaaa aaaa";
+       sb.setLength(0);
+       hf.renderOptions(sb, nextLineTabStop+17, options, leftPad, descPad);
+       assertEquals("simple wrapped option", expected, sb.toString());
 
 
-      options = new Options().addOption("a", "aaa", false, "dddd dddd dddd dddd");
-      expected = lpad + "-a,--aaa" + dpad + "dddd dddd dddd dddd";
-      sb.setLength(0);
-      hf.renderOptions(sb, 60, options, leftPad, descPad);
-      assertEquals("long non-wrapped option", expected, sb.toString());
+       options = new Options().addOption("a", "aaa", false, "dddd dddd dddd dddd");
+       expected = lpad + "-a,--aaa" + dpad + "dddd dddd dddd dddd";
+       sb.setLength(0);
+       hf.renderOptions(sb, 60, options, leftPad, descPad);
+       assertEquals("long non-wrapped option", expected, sb.toString());
 
-      nextLineTabStop = leftPad+descPad+"-a,--aaa".length();
-      expected =
-         lpad + "-a,--aaa" + dpad + "dddd dddd" + hf.defaultNewLine +
-         hf.createPadding(nextLineTabStop) + "dddd dddd";
-      sb.setLength(0);
-      hf.renderOptions(sb, 25, options, leftPad, descPad);
-      assertEquals("long wrapped option", expected, sb.toString());
+       nextLineTabStop = leftPad+descPad+"-a,--aaa".length();
+       expected =
+           lpad + "-a,--aaa" + dpad + "dddd dddd" + hf.defaultNewLine +
+           hf.createPadding(nextLineTabStop) + "dddd dddd";
+       sb.setLength(0);
+       hf.renderOptions(sb, 25, options, leftPad, descPad);
+       assertEquals("long wrapped option", expected, sb.toString());
 
-      options = new Options().
-         addOption("a", "aaa", false, "dddd dddd dddd dddd").
-         addOption("b", false, "feeee eeee eeee eeee");
-      expected =
-         lpad + "-a,--aaa" + dpad + "dddd dddd" + hf.defaultNewLine +
-         hf.createPadding(nextLineTabStop) + "dddd dddd" + hf.defaultNewLine +
-         lpad + "-b      " + dpad + "feeee eeee" + hf.defaultNewLine +
-         hf.createPadding(nextLineTabStop) + "eeee eeee";
-      sb.setLength(0);
-      hf.renderOptions(sb, 25, options, leftPad, descPad);
-      assertEquals("multiple wrapped options", expected, sb.toString());
+       options = new Options().
+           addOption("a", "aaa", false, "dddd dddd dddd dddd").
+           addOption("b", false, "feeee eeee eeee eeee");
+       expected =
+           lpad + "-a,--aaa" + dpad + "dddd dddd" + hf.defaultNewLine +
+           hf.createPadding(nextLineTabStop) + "dddd dddd" + hf.defaultNewLine +
+           lpad + "-b      " + dpad + "feeee eeee" + hf.defaultNewLine +
+           hf.createPadding(nextLineTabStop) + "eeee eeee";
+       sb.setLength(0);
+       hf.renderOptions(sb, 25, options, leftPad, descPad);
+       assertEquals("multiple wrapped options", expected, sb.toString());
    }
 
-   // --------------------------------------------------------------- Protected
+   public void testAutomaticUsage()
+   throws Exception
+   {
+       HelpFormatter hf = new HelpFormatter();
+       Options options = null;
+       String expected = "usage: app [-a]\n";
+       ByteArrayOutputStream out = new ByteArrayOutputStream( );
+       PrintWriter pw = new PrintWriter( out );
 
-   // ------------------------------------------------------- Package protected   
-   
-   // ----------------------------------------------------------------- Private
-   
-   // ----------------------------------------------------------- Inner classes
+       options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa");
+       hf.printUsage( pw, 60, "app", options );
+       pw.flush();
+       assertEquals("simple auto usage", expected, out.toString());
+       out.reset();
 
+       expected = "usage: app [-b] [-a]\n";
+       options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa")
+       .addOption("b", false, "bbb" );
+       hf.printUsage( pw, 60, "app", options );
+       pw.flush();
+       assertEquals("simple auto usage", expected, out.toString());
+       out.reset();
+   }
 }

@@ -62,11 +62,12 @@
 package org.apache.commons.cli;
 
 import java.io.PrintWriter;
-import java.util.Iterator;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 /** 
  * A formatter of help messages for the current command line options
@@ -117,7 +118,14 @@ public class HelpFormatter
    public void printHelp( String cmdLineSyntax,
                           Options options )
    {
-      printHelp( defaultWidth, cmdLineSyntax, null, options, null );
+       printHelp( defaultWidth, cmdLineSyntax, null, options, null, false );
+   }
+
+   public void printHelp( String cmdLineSyntax,
+                          Options options,
+                          boolean autoUsage )
+   {
+       printHelp( defaultWidth, cmdLineSyntax, null, options, null, autoUsage );
    }
 
    public void printHelp( String cmdLineSyntax,
@@ -125,19 +133,50 @@ public class HelpFormatter
                           Options options,
                           String footer )
    {
-      printHelp(defaultWidth, cmdLineSyntax, header, options, footer);
+       printHelp( cmdLineSyntax, header, options, footer, false );
    }
 
+   public void printHelp( String cmdLineSyntax,
+                          String header,
+                          Options options,
+                          String footer,
+                          boolean autoUsage )
+   {
+      printHelp(defaultWidth, cmdLineSyntax, header, options, footer, autoUsage );
+   }
+   
    public void printHelp( int width,
                           String cmdLineSyntax,
                           String header,
                           Options options,
                           String footer )
    {
+       printHelp( width, cmdLineSyntax, header, options, footer, false );
+   }
+
+   public void printHelp( int width,
+                          String cmdLineSyntax,
+                          String header,
+                          Options options,
+                          String footer,
+                          boolean autoUsage )
+   {
       PrintWriter pw = new PrintWriter(System.out);
       printHelp( pw, width, cmdLineSyntax, header,
-                 options, defaultLeftPad, defaultDescPad, footer );
+                 options, defaultLeftPad, defaultDescPad, footer, autoUsage );
       pw.flush();
+   }
+   public void printHelp( PrintWriter pw,
+                          int width,
+                          String cmdLineSyntax,
+                          String header,
+                          Options options,
+                          int leftPad,
+                          int descPad,
+                          String footer )
+   throws IllegalArgumentException
+   {
+       printHelp( pw, width, cmdLineSyntax, header, options, leftPad, descPad, footer, false );
    }
 
    public void printHelp( PrintWriter pw,
@@ -147,7 +186,8 @@ public class HelpFormatter
                           Options options,
                           int leftPad,
                           int descPad,
-                          String footer )
+                          String footer,
+                          boolean autoUsage )
       throws IllegalArgumentException
    {
       if ( cmdLineSyntax == null || cmdLineSyntax.length() == 0 )
@@ -155,7 +195,13 @@ public class HelpFormatter
          throw new IllegalArgumentException("cmdLineSyntax not provided");
       }
 
-      printUsage( pw, width, cmdLineSyntax );
+      if ( autoUsage ) {
+          printUsage( pw, width, cmdLineSyntax, options );
+      }
+      else {
+          printUsage( pw, width, cmdLineSyntax );
+      }
+
       if ( header != null && header.trim().length() > 0 )
       {
          printWrapped( pw, width, header );
@@ -165,6 +211,83 @@ public class HelpFormatter
       {
          printWrapped( pw, width, footer );
       }
+   }
+
+   /**
+    * <p>Prints the usage statement for the specified application.</p>
+    *
+    * @param pw The PrintWriter to print the usage statement 
+    * @param width ??
+    * @param appName The application name
+    * @param options The command line Options
+    *
+    */
+   public void printUsage( PrintWriter pw, int width, String app, Options options ) 
+   {
+       // initialise the string buffer
+       StringBuffer buff = new StringBuffer( defaultSyntaxPrefix ).append( app ).append( " " );
+       
+       // create a list for processed option groups
+       ArrayList list = new ArrayList();
+
+       // temp variable
+       Option option;
+
+       // iterate over the options
+       for ( Iterator i = options.getOptions().iterator(); i.hasNext(); )
+       {
+           // get the next Option
+           option = (Option) i.next();
+
+           // check if the option is part of an OptionGroup
+           OptionGroup group = options.getOptionGroup( option );
+
+           // if the option is part of a group and the group has not already
+           // been processed
+           if( group != null && !list.contains(group)) {
+
+               // add the group to the processed list
+               list.add( group );
+
+               // get the names of the options from the OptionGroup
+               Collection names = group.getNames();
+
+               buff.append( "[" ); 
+
+               // for each option in the OptionGroup
+               for( Iterator iter = names.iterator(); iter.hasNext(); ) {
+                   buff.append( iter.next() );
+                   if( iter.hasNext() ) {
+                       buff.append( " | " );
+                   }
+               }
+               buff.append( "]" );
+           }
+           // if the Option is not part of an OptionGroup
+           else {
+               // if the Option is not a required option
+               if( !option.isRequired() ) {
+                   buff.append( "[" );
+               }
+               buff.append( "-" ).append( option.getOpt() );
+
+               // if the Option has a value
+               if( option.hasArg() ) {
+                   buff.append( " arg" );
+               }
+
+               // if the Option is not a required option
+               if( !option.isRequired() ) {
+                   buff.append( "]" );
+               }
+               buff.append( " " );
+           }
+       }
+
+       System.out.println( "->" + buff.toString() );
+       // call printWrapped
+       printWrapped( pw, width, buff.toString().indexOf(' ')+1,
+                     buff.toString() );
    }
 
    public void printUsage( PrintWriter pw, int width, String cmdLineSyntax )

@@ -94,7 +94,7 @@ public class OptionGroup {
      * @return the names of the options in this group as a 
      * <code>Collection</code>
      */
-    private Collection getNames() {
+    public Collection getNames() {
         // the key set is the collection of names
         return optionMap.keySet();
     }
