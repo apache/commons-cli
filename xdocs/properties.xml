@@ -2,14 +2,18 @@
 <document>
 
   <properties>
-    <author email="jbjk@mac.com">John Keyes</author>
-    <title>Option</title>
+    <author email="john@integralsource.com">John Keyes</author>
+    <title>Option Properties</title>
   </properties>
 
   <body>
     <section name="Option Properties">
       <p>
-        The following are the properties of an <a href="apidocs/org/apache/commons/cli/Option.html">Option</a>.
+        The following are the properties that each 
+        <a href="apidocs/org/apache/commons/cli/Options.html">Option</a> has.  All of these
+        can be set using the accessors or using the methods
+        defined on the
+        <a href="apidocs/org/apache/commons/cli/OptionBuilder.html">OptionBuilder</a>.
       </p>
       <table>
         <tr>
@@ -18,49 +22,72 @@
           <th>Description</th>
         </tr>
         <tr>
-          <td>Opt</td>
+          <td>opt</td>
           <td>java.lang.String</td>
-          <td>the identification string</td>
+          <td>the identification string of the Option.</td>
         </tr>
         <tr>
-          <td>LongOpt</td>
+          <td>longOpt</td>
           <td>java.lang.String</td>
           <td>an alias and more descriptive identification string</td>
         </tr>
         <tr>
-          <td>Description</td>
+          <td>description</td>
           <td>java.lang.String</td>
           <td>a description of the function of the option</td>
         </tr>
         <tr>
-          <td>Required</td>
+          <td>required</td>
           <td>boolean</td>
           <td>a flag to say whether the option <b>must</b> appear on 
             the command line.</td>
         </tr>
         <tr>
-          <td>MultipleArgs</td>
+          <td>multipleArgs</td>
           <td>boolean</td>
           <td>a flag to say whether the option takes multiple argument 
             values</td>
         </tr>
         <tr>
-          <td>Arg</td>
+          <td>arg</td>
           <td>boolean</td>
           <td>a flag to say whether the option takes an argument</td>
         </tr>
         <tr>
-          <td>Type</td>
+          <td>args</td>
+          <td>boolean</td>
+          <td>a flag to say whether the option takes more than one argument</td>
+        </tr>
+        <tr>
+          <td>optionalArg</td>
+          <td>boolean</td>
+          <td>a flag to say whether the option's argument is optional</td>
+        </tr>
+        <tr>
+          <td>argName</td>
+          <td>java.lang.String</td>
+          <td>the name of the argument value for the usage statement</td>
+        </tr>
+        <tr>
+          <td>valueSeparator</td>
+          <td>char</td>
+          <td>the character value used to split the argument string, that
+            is used in conjunction with multipleArgs e.g.
+            if the separator is ',' and the argument string is 'a,b,c' then
+            there are three argument values, 'a', 'b' and 'c'.</td>
+        </tr>
+        <tr>
+          <td>type</td>
           <td>java.lang.Object</td>
           <td>the type of the argument</td>
         </tr>
         <tr>
-          <td>Value</td>
+          <td>value</td>
           <td>java.lang.String</td>
           <td>the value of the option</td>
         </tr>
         <tr>
-          <td>Values</td>
+          <td>values</td>
           <td>java.lang.String[]</td>
           <td>the values of the option</td>
         </tr>

@@ -5,13 +5,9 @@
 
   <body>
     <menu name="User Documentation">
-      <item name="Command Line Processing"  href="/introduction.html"/>
-      <item name="Option">
-        <item name="Properties" href="/properties.html"/>
-        <item name="Construction" href="/creation.html"/>
-        <item name="Simple Example" href="/usage.html"/>
-      </item>
-      <item name="Command Line Parser" href="/parser.html"/>
+      <item name="Introduction"      href="/introduction.html"/>
+      <item name="Usage Scenarios"   href="/usage.html"/>
+      <item name="Option Properties" href="/properties.html"/>
     </menu>
   </body>
 </project>

@@ -30,8 +30,9 @@
         <code>Options</code>.
       </p>
       <p>
-        The <a href="usage.html">Simple Example</a> document provides examples
-        how to create an <code>Options</code> object.
+        The <a href="usage.html">Usage Scenarios</a> document provides
+        examples how to create an <code>Options</code> object and also
+        provides some real world examples.
       </p>
       <p>
         The result of the definition stage is an <code>Options</code> 
@@ -72,7 +73,7 @@
         to the user code.
       </p>
       <p>
-        The <a href="usage.html">Simple Example</a> document provides examples
+        The <a href="usage.html">Usage Scenarios</a> document provides examples
         how to create an <code>Options</code> object.
       </p>
       <p>
