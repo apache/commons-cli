@@ -65,7 +65,7 @@
     
     <dependency>
       <id>commons-lang</id>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
   
     <dependency>
