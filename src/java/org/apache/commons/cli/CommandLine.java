@@ -91,6 +91,9 @@ public class CommandLine {
     /** the processed options */
     private Map options = new HashMap();
 
+    /** the option name map */
+    private Map names   = new HashMap();
+
     /** Map of unique options for ease to get complete list of options */
     private Map hashcodeMap = new HashMap();
 
@@ -179,8 +182,13 @@ public class CommandLine {
     public String[] getOptionValues( String opt ) {
         List values = new java.util.ArrayList();
 
-        if( options.containsKey( opt ) ) {
-            List opts = (List)options.get( opt );
+        String key = opt;
+        if( names.containsKey( opt ) ) {
+            key = (String)names.get( opt );
+        }
+
+        if( options.containsKey( key ) ) {
+            List opts = (List)options.get( key );
             Iterator iter = opts.iterator();
 
             while( iter.hasNext() ) {
@@ -289,6 +297,9 @@ public class CommandLine {
         String key = opt.getOpt();
         if( " ".equals(key) ) {
             key = opt.getLongOpt();
+        }
+        else {
+            names.put( opt.getLongOpt(), key );
         }
 
         if( options.get( key ) != null ) {

@@ -87,6 +87,7 @@ public class ParseTest extends TestCase
             assertTrue( "Confirm -a is set", cl.hasOption("a") );
             assertTrue( "Confirm -b is set", cl.hasOption("b") );
             assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
+            assertTrue( "Confirm arg of --bfile", cl.getOptionValue( "bfile" ).equals( "toast" ) );
             assertTrue( "Confirm size of extra args", cl.getArgList().size() == 2);
         } 
         catch (ParseException e)
