@@ -17,29 +17,43 @@
 <document>
 
  <properties>
-  <title></title>
+    <title>Introduction</title>
     <author email="commons-dev@jakarta.apache.org">commons-dev</author>
  </properties>
 
   <body>
-
-    <section name="CLI : Command Line Interface">
-
+    <section name="Jakarta Commons CLI">
       <p>
-        The CLI library provides a simple and easy to use API for working
-        with the command line arguments and options.
+        The Jakarta Commons CLI library provides an API for processing command
+        line interfaces.
       </p>
       <p>
-        CLI is based on ideas and code from 
+        CLI1 was formed by the merger of ideas and code from three different
+        libraries and allows most simple interfaces to be modelled.  CLI1
+        became increasingly difficult to maintain and develop further and so
+        CLI2 has been developed with the goals of clearer responsibilities and
+        being more flexible.  The intention is that CLI2 should be able to
+        model a far greater selection of interfaces and do so more completely,
+        validating as much as possible.
+      </p>
+      <p>
+        The redesigned CLI2 is rooted in the <code>org.apache.commons.cli2</code>
+        package and the distribution retains the <code>org.apache.commons.cli</code>
+        package so that the upgrade doesn't break old code.  The CLI1 package
+        should be regarded as deprecated to encourage the transition to the
+        more flexible CLI2 framework but minor bug fixes and patches may be
+        accepted to ensure that CLI1 based applications continue to function as
+        expected.
+      </p>
+      <p>
+        The rest of the documentation is split into the followin three sections:
         <ul>
-          <li>werken.opt by Bob Mcwhirter</li>
-          <li>The cli package in Avalon Excalibur by Peter Donald</li>
-          <li>Optz by John Keyes</li>
+          <li><a href="manual/index.html">CLI2</a> - a reference manual for version 2</li>
+          <li><a href="introduction.html">CLI1</a> - documentation for version 1 </li>
+          <li><a href="examples/index.html">Examples</a> - a selection of worked examples demonstrating CLI2 features</li>
         </ul>
       </p>
-
     </section>
-
   </body>
-  
+
 </document>
