@@ -48,7 +48,11 @@ public class ApplicationTest extends TestCase {
         options.addOption( "logger", true, "the class which is to perform the logging" );
         options.addOption( "listener", true, "add an instance of a class as a project listener" );
         options.addOption( "buildfile", true, "use given buildfile" );
-        options.addOption( "D", null, true, "use value for given property", false, true );
+        options.addOption( OptionBuilder.withDescription( "use value for given property" )
+                                        .hasArg()
+                                        .hasMultipleArgs()
+                                        .create( 'D' ) );
+                           //, null, true, , false, true );
         options.addOption( "find", true, "search for buildfile towards the root of the filesystem and use it" );
 
         String[] args = new String[]{ "-buildfile", "mybuild.xml",

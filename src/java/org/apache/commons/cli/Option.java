@@ -163,7 +163,7 @@ public class Option {
     public Option(String opt, boolean hasArg, String description) 
     throws IllegalArgumentException
     {
-        this(opt, null, hasArg, description, false, false);
+        this(opt, null, hasArg, description);
     }
     
     /**
@@ -177,68 +177,12 @@ public class Option {
     public Option(String opt, String longOpt, boolean hasArg, String description) 
     throws IllegalArgumentException
     {
-        this(opt, longOpt, hasArg, description, false, false );
-    }
-
-    /**
-     * Creates an Option using the specified parameters.
-     *
-     * @param opt short representation of the option
-     * @param longOpt the long representation of the option
-     * @param hasArg specifies whether the Option takes an argument or not
-     * @param description describes the function of the option
-     * @param required specifies whether the option is required or not
-     */
-    public Option(String opt, String longOpt, boolean hasArg, String description,
-                  boolean required ) 
-    throws IllegalArgumentException
-    {
-        this(opt, longOpt, hasArg, description, required, false );
-    }
-
-    /**
-     * Creates an Option using the specified parameters.
-     *
-     * @param opt short representation of the option
-     * @param longOpt the long representation of the option
-     * @param hasArg specifies whether the Option takes an argument or not
-     * @param description describes the function of the option
-     * @param required specifies whether the option is required or not
-     * @param multipleArgs specifies whether the option has multiple argument 
-     * values
-     */
-    public Option(String opt, String longOpt, boolean hasArg, String description, 
-                  boolean required, boolean multipleArgs ) 
-    throws IllegalArgumentException
-    {
-        this(opt, longOpt, hasArg, description, required, multipleArgs, null );
-    }
-
-    /**
-     * Creates an Option using the specified parameters.
-     *
-     * @param opt short representation of the option
-     * @param longOpt the long representation of the option
-     * @param hasArg specifies whether the Option takes an argument or not
-     * @param description describes the function of the option
-     * @param required specifies whether the option is required or not
-     * @param multipleArgs specifies whether the option has multiple argument 
-     * values
-     * @param type specifies the type of the option
-     */
-    public Option(String opt, String longOpt, boolean hasArg, String description, 
-                  boolean required, boolean multipleArgs, Object type ) 
-    throws IllegalArgumentException
-    {
         validateOption( opt );
 
         this.opt          = opt;
         this.longOpt      = longOpt;
         this.hasArg       = hasArg;
         this.description  = description;
-        this.required     = required;
-        this.multipleArgs = multipleArgs;
-        this.type         = type;
     }
     
     /** <p>Retrieve the name of this Option</p>

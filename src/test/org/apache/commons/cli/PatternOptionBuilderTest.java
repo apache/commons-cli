@@ -23,7 +23,7 @@ import java.io.PrintWriter;
 public class PatternOptionBuilderTest
 extends TestCase
 {
-   public static void main( String[] args )
+    public static void main( String[] args )
    {
       String[] testName = { PatternOptionBuilderTest.class.getName() };
       junit.textui.TestRunner.main(testName);
@@ -40,25 +40,32 @@ extends TestCase
    }
 
    public void testSimplePattern()
-      throws Exception
    {
-      Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/");
-      String[] args = new String[] { "-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://jakarta.apache.org/" };
+       try {
+           Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/");
+           String[] args = new String[] { "-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://jakarta.apache.org/" };
       
-      CommandLineParser parser = CommandLineParserFactory.newParser();
-      CommandLine line = parser.parse(options,args);
-      assertEquals("flag a", "foo", line.getOptionValue("a"));
-      assertEquals("string flag a", "foo", line.getOptionObject("a"));
-      assertEquals("object flag b", new java.util.Vector(), line.getOptionObject("b"));
-      assertEquals("boolean true flag c", true, line.hasOption("c"));
-      assertEquals("boolean false flag d", false, line.hasOption("d"));
-      assertEquals("file flag e", new java.io.File("build.xml"), line.getOptionObject("e"));
-      assertEquals("class flag f", java.util.Calendar.class, line.getOptionObject("f"));
-      assertEquals("number flag n", new Float(4.5), line.getOptionObject("n"));
-      assertEquals("url flag t", new java.net.URL("http://jakarta.apache.org/"), line.getOptionObject("t"));
-/// DATES NOT SUPPORTED YET.
-//      assertEquals("number flag t", new java.util.Date(1023400137276L), line.getOptionObject('z'));
-//     input is:  "Thu Jun 06 17:48:57 EDT 2002"
+           CommandLineParser parser = CommandLineParserFactory.newParser();
+           CommandLine line = parser.parse(options,args);
+           assertEquals("flag a", "foo", line.getOptionValue("a"));
+           assertEquals("string flag a", "foo", line.getOptionObject("a"));
+           assertEquals("object flag b", new java.util.Vector(), line.getOptionObject("b"));
+           assertEquals("boolean true flag c", true, line.hasOption("c"));
+           assertEquals("boolean false flag d", false, line.hasOption("d"));
+           assertEquals("file flag e", new java.io.File("build.xml"), line.getOptionObject("e"));
+           assertEquals("class flag f", java.util.Calendar.class, line.getOptionObject("f"));
+           assertEquals("number flag n", new Float(4.5), line.getOptionObject("n"));
+           assertEquals("url flag t", new java.net.URL("http://jakarta.apache.org/"), line.getOptionObject("t"));
+           /// DATES NOT SUPPORTED YET.
+           //      assertEquals("number flag t", new java.util.Date(1023400137276L), line.getOptionObject('z'));
+           //     input is:  "Thu Jun 06 17:48:57 EDT 2002"
+       }
+       catch( ParseException exp ) {
+           fail( exp.getMessage() );
+       }
+       catch( java.net.MalformedURLException exp ) {
+           fail( exp.getMessage() );
+       }
    }
 
 }

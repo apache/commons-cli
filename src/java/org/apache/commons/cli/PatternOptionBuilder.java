@@ -164,7 +164,7 @@ public class PatternOptionBuilder {
         Object type = null;
 
         Options options = new Options();
-
+        
         for(int i=0; i<sz; i++) {
             ch = pattern.charAt(i);
 
@@ -173,7 +173,10 @@ public class PatternOptionBuilder {
             if(!isValueCode(ch)) {
                 if(opt != ' ') {
                     // we have a previous one to deal with
-                    options.addOption("" + opt, null, (type != null), "", required, false, type);
+                    options.addOption( OptionBuilder.hasArg( type != null )
+                                                    .isRequired( required )
+                                                    .withType( type )
+                                                    .create( opt ) );
                     required = false;
                     type = null;
                     opt = ' ';
@@ -189,7 +192,10 @@ public class PatternOptionBuilder {
 
         if(opt != ' ') {
             // we have a final one to deal with
-            options.addOption( "" + opt, null, (type != null), "", required, false, type);
+            options.addOption( OptionBuilder.hasArg( type != null )
+                                            .isRequired( required )
+                                            .withType( type )
+                                            .create( opt ) );
         }
 
         return options;

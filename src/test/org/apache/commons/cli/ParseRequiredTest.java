@@ -40,11 +40,11 @@ public class ParseRequiredTest extends TestCase
                        "enable-a",
                        false,
                        "turn [a] on or off")
-            .addOption("b",
-                       "bfile",
-                       true,
-                       "set the value of [b]",
-                       true);
+            .addOption( OptionBuilder.withLongOpt( "bfile" )
+                                     .hasArg()
+                                     .isRequired()
+                                     .withDescription( "set the value of [b]" )
+                                     .create( 'b' ) );
     }
 
     public void tearDown()

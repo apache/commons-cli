@@ -128,7 +128,7 @@ public class Options {
      * @return the resulting Options instance
      */
     public Options addOption(String opt, boolean hasArg, String description) {
-        addOption( opt, null, hasArg, description, false );
+        addOption( opt, null, hasArg, description );
         return this;
     }
     
@@ -142,58 +142,7 @@ public class Options {
      * @return the resulting Options instance
      */
     public Options addOption(String opt, String longOpt, boolean hasArg, String description) {
-        addOption( opt, longOpt, hasArg, description, false );        
-        return this;
-    }
-
-    /** <p>Add an option that contains a short-name and a long-name</p>
-     * <p>It may be specified as requiring an argument.</p>
-     *
-     * @param opt Short single-character name of the option.
-     * @param longOpt Long multi-character name of the option.
-     * @param hasArg flag signally if an argument is required after this option
-     * @param description Self-documenting description
-     * @param required specifies if this option is required
-     * @return the resulting Options instance
-     */
-    public Options addOption(String opt, String longOpt, boolean hasArg, String description,
-                             boolean required) {
-        addOption( new Option(opt, longOpt, hasArg, description, required) );        
-        return this;
-    }
-
-    /** <p>Add an option that contains a short-name and a long-name</p>
-     * <p>It may be specified as requiring an argument.</p>
-     *
-     * @param opt Short single-character name of the option.
-     * @param longOpt Long multi-character name of the option.
-     * @param hasArg flag signally if an argument is required after this option
-     * @param description Self-documenting description
-     * @param required specifies if this option is required
-     * @param multipleArgs specifies if this option can accept multiple argument values
-     * @return the resulting Options instance
-     */
-    public Options addOption(String opt, String longOpt, boolean hasArg, String description,
-                             boolean required, boolean multipleArgs) {
-        addOption( new Option(opt, longOpt, hasArg, description, required, multipleArgs) );        
-        return this;
-    }
-
-    /** <p>Add an option that contains a short-name and a long-name</p>
-     * <p>It may be specified as requiring an argument.</p>
-     *
-     * @param opt Short single-character name of the option.
-     * @param longOpt Long multi-character name of the option.
-     * @param hasArg flag signally if an argument is required after this option
-     * @param description Self-documenting description
-     * @param required specifies if this option is required
-     * @param multipleArgs specifies if this option can accept multiple argument values
-     * @param type specifies the type for the value of the option
-     * @return the resulting Options instance
-     */
-    public Options addOption(String opt, String longOpt, boolean hasArg, String description,
-                             boolean required, boolean multipleArgs, Object type) {
-        addOption( new Option(opt, longOpt, hasArg, description, required, multipleArgs, type) );        
+        addOption( new Option( opt, longOpt, hasArg, description ) );        
         return this;
     }
 

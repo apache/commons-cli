@@ -57,12 +57,11 @@ public class ValuesTest extends TestCase
                        true,
                        "set -d");
         
-        opts.addOption("e",
-                       "e",
-                       true,
-                       "set -e",
-                       false,
-                       true);
+        opts.addOption( OptionBuilder.withLongOpt( "e" )
+                                     .hasArg()
+                                     .hasMultipleArgs()
+                                     .withDescription( "set -e ")
+                                     .create( 'e' ) );
 
         opts.addOption("f",
                        "f",

@@ -27,29 +27,12 @@ CommandLineParser parser = CommandLineParserFactory.newParser();</source>
         GnuParser</a>.  Both of these implement the <a href="apidocs/org/apache/commons/cli/CommandLineParser.html">
         CommandLineParser</a> interface.  
       </p>
-      <p>
-        The parser implementation is specified using the 
-        <code>org.apache.commons.cli.parser</code> system property.  This is set
-        to be the <a href="apidocs/org/apache/commons/cli/PosixParser.html">PosixParser</a>
-        by default.
-      </p>
       <source>
 // parser is a PosixParser
 CommandLineParser parser = CommandLineParserFactory.newParser();
 
-// configure CLI to use the GNU Parser
-System.setProperty( "org.apache.commons.cli.parser",
-                    "org.apache.commons.cli.GnuParser" );
-
 // parser is a GnuParser 
-parser = CommandLineParserFactory.newParser();
-
-// configure CLI to use the Posix Parser
-System.setProperty( "org.apache.commons.cli.parser",
-                    "org.apache.commons.cli.PosixParser" );
-      
-// parser is a PosixParser 
-parser = CommandLineParserFactory.newParser();
+parser = CommandLineParserFactory.newParser( "org.apache.commons.cli.GnuParser" );
       </source>
     </section>
     <section name="Parse the command line">
