@@ -192,7 +192,7 @@ public class Option implements Cloneable {
      * @return true if <code>c</code> is a letter.
      */
     private boolean isValidChar( char c ) {
-        return Character.isLetter( c );
+        return Character.isJavaIdentifierPart( c );
     }
 
     /**

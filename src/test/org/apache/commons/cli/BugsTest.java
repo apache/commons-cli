@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.5 2002/08/31 17:53:11 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.6 2002/09/01 22:54:56 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -179,7 +179,7 @@ public class BugsTest extends TestCase
 
         // Therefore, place them in an option group
 
-        String[] argv = new String[] { "-exec", "-execopto", "-execoptt" };
+        String[] argv = new String[] { "-exec", "-exec_opt1", "-exec_opt2" };
         OptionGroup grp = new OptionGroup();
 
         grp.addOption(new Option("exec",false,"description for this option"));
@@ -190,8 +190,8 @@ public class BugsTest extends TestCase
 
         // for the exec option, there are 2 options...
         Options execOptions = new Options();
-        execOptions.addOption("execopto",false," desc");
-        execOptions.addOption("execoptt",false," desc");
+        execOptions.addOption("exec_opt1",false," desc");
+        execOptions.addOption("exec_opt2",false," desc");
 
         // similarly, for rep there are 2 options...
         Options repOptions = new Options();
@@ -214,8 +214,8 @@ public class BugsTest extends TestCase
             if(cmd.hasOption("exec")){
                 cmd = parser.parse(execOptions,argv,false);
                 // process the exec_op1 and exec_opt2...
-                assertTrue( cmd.hasOption("execopto") );
-                assertTrue( cmd.hasOption("execoptt") );
+                assertTrue( cmd.hasOption("exec_opt1") );
+                assertTrue( cmd.hasOption("exec_opt2") );
             }
             else if(cmd.hasOption("rep")){
                 cmd = parser.parse(repOptions,argv,false);

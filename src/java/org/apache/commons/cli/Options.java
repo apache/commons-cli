@@ -61,11 +61,13 @@
 
 package org.apache.commons.cli;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /** <p>Main entry-point into the library.</p>
  *
@@ -91,7 +93,7 @@ public class Options {
     private Map  longOpts     = new HashMap();
 
     /** a map of the required options */
-    private Map  requiredOpts = new HashMap();
+    private List requiredOpts = new ArrayList();
     
     /** a map of the option groups */
     private Map optionGroups  = new HashMap();
@@ -163,7 +165,7 @@ public class Options {
         
         // if the option is required add it to the required list
         if ( opt.isRequired() ) {
-            requiredOpts.put( shortOpt, opt );
+            requiredOpts.add( shortOpt );
         }
 
         shortOpts.put( shortOpt, opt );
@@ -184,7 +186,7 @@ public class Options {
      *
      * @return Collection of required options
      */
-    public Map getRequiredOptions() {
+    public List getRequiredOptions() {
         return requiredOpts;
     }
     
