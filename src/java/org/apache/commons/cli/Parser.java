@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.11 2002/12/09 23:47:25 jkeyes Exp $
- * $Revision: 1.11 $
- * $Date: 2002/12/09 23:47:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.12 2003/01/17 20:00:14 jkeyes Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/01/17 20:00:14 $
  *
  * ====================================================================
  *
@@ -72,7 +72,7 @@ import java.util.Properties;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public abstract class Parser implements CommandLineParser {
 
@@ -375,9 +375,10 @@ public abstract class Parser implements CommandLineParser {
             // found a value
             else
             {
+
                 try
                 {
-                    opt.addValue(str);
+                    opt.addValue( Util.stripLeadingAndTrailingQuotes(str) );
                 }
                 catch (RuntimeException exp)
                 {

@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.15 2003/01/16 23:06:52 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.16 2003/01/17 20:00:14 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -381,7 +381,7 @@ public class BugsTest extends TestCase
         Options options = new Options();
         options.addOption( m );
         CommandLine line = parser.parse( options, args );
-        assertEquals( "\"Two Words\"", line.getOptionValue( "m" ) );
+        assertEquals( "Two Words", line.getOptionValue( "m" ) );
     }
 
 }

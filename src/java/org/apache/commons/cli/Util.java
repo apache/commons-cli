@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Util.java,v 1.2 2002/12/09 23:47:25 jkeyes Exp $
- * $Revision: 1.2 $
- * $Date: 2002/12/09 23:47:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Util.java,v 1.3 2003/01/17 20:00:14 jkeyes Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/17 20:00:14 $
  *
  * ====================================================================
  *
@@ -73,8 +73,7 @@ class Util {
      *
      * @param str The string from which the hyphens should be removed.
      *
-     * @return the hyphens from the begining of <code>str</code> and
-     * return the new String.
+     * @return the new String.
      */
     static String stripLeadingHyphens(String str)
     {
@@ -87,6 +86,26 @@ class Util {
             return str.substring(1, str.length());
         }
 
+        return str;
+    }
+
+    /**
+     * <p>Remove the leading and trailing quotes from <code>str</code>,
+     * e.g. if str is '"one two"', then 'one two' is returned.</p>
+     *
+     * @param str The string from which the leading and trailing quotes
+     * should be removed.
+     *
+     * @return The string without the leading and trailing quotes.
+     */
+    static String stripLeadingAndTrailingQuotes(String str)
+    {
+        if (str.startsWith("\"")) {
+            str = str.substring(1, str.length());
+        }
+        if (str.endsWith("\"")) {
+            str = str.substring(0, str.length()-1);
+        }
         return str;
     }
 }
