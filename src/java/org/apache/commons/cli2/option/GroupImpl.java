@@ -227,6 +227,9 @@ public class GroupImpl extends OptionImpl implements Group {
             if(option.isRequired()){
                 option.validate(commandLine);
             }
+            if(option instanceof Group){
+            	option.validate(commandLine);
+            }
             // if the child option is present then validate it
             if (commandLine.hasOption(option)) {
                 if (++present > maximum) {
