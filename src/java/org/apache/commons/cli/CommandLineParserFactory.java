@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Attic/CommandLineParserFactory.java,v 1.2 2002/07/25 21:40:08 jkeyes Exp $
- * $Revision: 1.2 $
- * $Date: 2002/07/25 21:40:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Attic/CommandLineParserFactory.java,v 1.3 2002/08/24 22:15:31 jkeyes Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/08/24 22:15:31 $
  *
  * ====================================================================
  *
@@ -79,8 +79,12 @@ public class CommandLineParserFactory {
         return newParser( DEFAULT_PARSER );
     }
 
+    /**
+     * @return the CommandLineParser specified by <code>classname</code>.
+     */
     public static CommandLineParser newParser( String classname ) {
         try {
+            // return the new CommandLineParser
             return (CommandLineParser)Class.forName( classname ).newInstance();
         }
         catch( Exception exp ) {
@@ -93,6 +97,7 @@ public class CommandLineParserFactory {
                 // this will not happen ?
             }
         }
+        // must return something
         return null;
     }
 }
