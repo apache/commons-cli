@@ -184,8 +184,11 @@ public class Options {
         }
 
         // if the option is required add it to the required list
-        if (opt.isRequired() && !requiredOpts.contains(key))
+        if (opt.isRequired() ) 
         {
+            if( requiredOpts.contains(key) ) {
+                requiredOpts.remove( requiredOpts.indexOf(key) );
+            }
             requiredOpts.add(key);
         }
 
