@@ -106,6 +106,9 @@ public class Option implements Cloneable {
     /** hasArg specifies whether this option has an associated argument */
     private boolean hasArg;
 
+    /** argName specifies the name of the argument for this option */
+    private String argName;
+
     /** description of the option */
     private String description;
 
@@ -364,6 +367,35 @@ public class Option implements Cloneable {
       */
      public void setRequired( boolean required ) {
          this.required = required;
+     }
+
+     /**
+      * <p>Sets the display name for the argument value.</p>
+      *
+      * @param argName the display name for the argument value.
+      */
+     public void setArgName( String argName ) {
+         this.argName = argName;
+     }
+
+     /**
+      * <p>Gets the display name for the argument value.</p>
+      *
+      * @return the display name for the argument value.
+      */
+     public String getArgName() {
+         return this.argName;
+     }
+
+     /**
+      * <p>Returns whether the display name for the argument value
+      * has been set.</p>
+      *
+      * @return if the display name for the argument value has been
+      * set.
+      */
+     public boolean hasArgName() {
+         return (this.argName != null || this.argName.length() > 0 );
      }
 
      /** 

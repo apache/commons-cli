@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.5 2002/09/19 22:59:43 jkeyes Exp $
- * $Revision: 1.5 $
- * $Date: 2002/09/19 22:59:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.6 2002/10/08 21:24:11 jkeyes Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/10/08 21:24:11 $
  *
  * ====================================================================
  *
@@ -72,7 +72,7 @@ import java.util.Map;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public abstract class Parser implements CommandLineParser {
 
@@ -217,26 +217,26 @@ public abstract class Parser implements CommandLineParser {
     }
 
     public void processArgs( Option opt, ListIterator iter ) 
-    throws ParseException 
+    throws ParseException
     {
-        if( !iter.hasNext() && !opt.hasOptionalArg() ) {
-            throw new MissingArgumentException( "no argument for:" + opt.getOpt() );
-        }
         // loop until an option is found
         while( iter.hasNext() ) {
             String var = (String)iter.next();
+
+            // found an Option
             if( options.hasOption( var ) ) {
                 iter.previous();
                 break;
             }
-
-            // its a value
-            else {
-                if( !opt.addValue( var ) ) {
-                    iter.previous();
-                    break;
-                }
+            // found a value
+            else if( !opt.addValue( var ) ) {
+                iter.previous();
+                break;
             }
+        }
+
+        if( opt.getValues() == null && !opt.hasOptionalArg() ) {
+            throw new MissingArgumentException( "no argument for:" + opt.getOpt() );
         }
     }
 

@@ -269,11 +269,24 @@ public class HelpFormatter
                if( !option.isRequired() ) {
                    buff.append( "[" );
                }
-               buff.append( "-" ).append( option.getOpt() );
+               
+               if( !" ".equals( option.getOpt() ) ) {
+                   buff.append( "-" ).append( option.getOpt() );
+               }
+               else {
+                   buff.append( "--" ).append( option.getLongOpt() );
+               }
+
+               if( option.getValueSeparator() != (char)0 ) {
+                   buff.append( option.getValueSeparator() );
+               }
+               else if( option.hasArg() ){
+                   buff.append( " " );
+               }
 
                // if the Option has a value
                if( option.hasArg() ) {
-                   buff.append( " arg" );
+                   buff.append( option.getArgName() );
                }
 
                // if the Option is not a required option
@@ -284,7 +297,6 @@ public class HelpFormatter
            }
        }
 
-       System.out.println( "->" + buff.toString() );
        // call printWrapped
        printWrapped( pw, width, buff.toString().indexOf(' ')+1,
                      buff.toString() );
@@ -334,7 +346,9 @@ public class HelpFormatter
       StringBuffer optBuf;
       List prefixList = new ArrayList();
       Option option;
-      for ( Iterator i = options.getOptions().iterator(); i.hasNext(); )
+      List optList = options.helpOptions();
+       Collections.sort( optList, new StringBufferComparator() );
+      for ( Iterator i = optList.iterator(); i.hasNext(); )
       {
          option = (Option) i.next();
          optBuf = new StringBuffer(8);
@@ -353,49 +367,30 @@ public class HelpFormatter
 
          }
 
-
-         if ( option.hasArg() )
-         {
-            //FIXME - should have a way to specify arg name per option
-            optBuf.append(' ').append(defaultArgName);
+         if( option.hasArg() ) {
+             if( option.hasArgName() ) {
+                 optBuf.append( option.getArgName() );
+             }
+             else {
+                 optBuf.append(' ');
+             }
          }
+
          prefixList.add(optBuf);
          max = optBuf.length() > max ? optBuf.length() : max;
-      }
 
-      //right pad the prefixes
-      for ( Iterator i = prefixList.iterator(); i.hasNext(); )
-      {
-         optBuf = (StringBuffer) i.next();
          if ( optBuf.length() < max )
          {
-            optBuf.append(createPadding(max-optBuf.length()));
+             optBuf.append(createPadding(max-optBuf.length()));
          }
          optBuf.append(dpad);
-      }
-
-      //sort this list ascending
-      Collections.sort(prefixList, new StringBufferComparator());
-
-      //finally render options
-      int nextLineTabStop = max + descPad;
-      String opt;
-      int optOffset = leftPad + defaultOptPrefix.length();
-
-      for ( Iterator i = prefixList.iterator(); i.hasNext(); )
-      {
-         optBuf = (StringBuffer) i.next();
-         opt = optBuf.toString().trim();
-         if( opt.indexOf( ',' ) != -1 ) {
-             opt = opt.substring(0, opt.indexOf( ',', optOffset ) );
-         }
-         option = options.getOption(opt);
-
+         
+         int nextLineTabStop = max + descPad;
          renderWrappedText(sb, width, nextLineTabStop,
                            optBuf.append(option.getDescription()).toString());
          if ( i.hasNext() )
          {
-            sb.append(defaultNewLine);
+             sb.append(defaultNewLine);
          }
       }
 

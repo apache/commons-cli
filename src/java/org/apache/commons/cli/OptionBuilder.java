@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.10 2002/09/19 22:59:43 jkeyes Exp $
- * $Revision: 1.10 $
- * $Date: 2002/09/19 22:59:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.11 2002/10/08 21:24:11 jkeyes Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/10/08 21:24:11 $
  *
  * ====================================================================
  *
@@ -76,6 +76,8 @@ public class OptionBuilder {
     private static String longopt;
     /** option description */
     private static String description;
+    /** argument name */
+    private static String argName;
     /** is required? */
     private static boolean required;
     /** the number of arguments */
@@ -99,6 +101,7 @@ public class OptionBuilder {
      */
     private static void reset() {
         description = null;
+        argName = null;
         longopt = null;
         type = null;
         required = false;
@@ -139,6 +142,18 @@ public class OptionBuilder {
      */
     public static OptionBuilder hasArg( boolean hasArg ) {
         instance.numberOfArgs = ( hasArg == true ) ? 1 : Option.UNINITIALIZED;
+        return instance;
+    }
+
+    /**
+     * <p>The next Option created will have the specified argument value 
+     * name.</p>
+     *
+     * @param name the name for the argument value
+     * @return the OptionBuilder instance
+     */
+    public static OptionBuilder withArgName( String name ) {
+        instance.argName = name;
         return instance;
     }
 
@@ -344,6 +359,7 @@ public class OptionBuilder {
         option.setArgs( numberOfArgs );
         option.setType( type );
         option.setValueSeparator( valuesep );
+        option.setArgName( argName );
         // reset the OptionBuilder properties
         instance.reset();
 

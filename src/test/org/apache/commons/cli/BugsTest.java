@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.7 2002/09/19 22:59:44 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.8 2002/10/08 21:24:11 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -228,5 +228,38 @@ public class BugsTest extends TestCase
         catch( ParseException exp ) {
             fail( "Unexpected exception: " + exp.getMessage() );
         }
+    }
+
+    public void test13425() {
+        Options options = new Options();
+        Option oldpass = OptionBuilder.withLongOpt( "old-password" )
+            .withDescription( "Use this option to specify the old password" )
+            .hasArg()
+            .create( 'o' );
+        Option newpass = OptionBuilder.withLongOpt( "new-password" )
+            .withDescription( "Use this option to specify the new password" )
+            .hasArg()
+            .create( 'n' );
+
+        String[] args = { 
+            "-o", 
+            "-n", 
+            "newpassword" 
+        };
+
+        options.addOption( oldpass );
+        options.addOption( newpass );
+
+        Parser parser = new PosixParser();
+
+        try {
+            CommandLine line = parser.parse( options, args );
+        }
+        // catch the exception and leave the method
+        catch( Exception exp ) {
+            assertTrue( exp != null );
+            return;
+        }
+        fail( "MissingArgumentException not caught." );
     }
 }

@@ -195,6 +195,15 @@ public class Options {
         return Collections.unmodifiableCollection( opts );
     }
 
+    /**
+     * <p>Returns the Options for use by the HelpFormatter.</p>
+     *
+     * @return the List of Options
+     */
+    List helpOptions() {
+        return new ArrayList( shortOpts.values() );
+    }
+
     /** <p>Returns the required options as a 
      * <code>java.util.Collection</code>.</p>
      *
