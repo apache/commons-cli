@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document>
+
+  <properties>
+    <author email="jbjk@mac.com">John Keyes</author>
+    <title>Branches and Versions</title>
+  </properties>
+
+  <body>
+    <section name="Versions">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td><code>CLI_1_0</code></td>
+          <td>CLI 1.0</td>
+        </tr>
+      </table>
+    </section>
+
+    <section name="Development Versions">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td><code>CLI_1_0_BETA_1</code></td>
+          <td>First beta release of CLI 1.0.</td>
+        </tr>
+      </table>
+    </section>
+
+    <section name="Branches">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td><code>CLI_2_DEV_BRANCH</code></td>
+          <td>Development branch for jkeyes's CLI 2 code</td>
+        </tr>
+      </table>
+    </section>
+  </body>
+</document>
+      
