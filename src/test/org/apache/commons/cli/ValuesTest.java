@@ -77,9 +77,11 @@ public class ValuesTest extends TestCase
                                        "-f",
                                        "arg1", "arg2" };
 
+        CommandLineParser parser = CommandLineParserFactory.newParser();
+
         try
         {
-            _cl = opts.parse(args);
+            _cl = parser.parse(opts,args);
         }
         catch (ParseException e)
         {

@@ -61,11 +61,10 @@
 
 package org.apache.commons.cli;
 
+import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Collections;
@@ -87,11 +86,6 @@ import java.util.Collections;
  */
 public class Options {
 
-    private String defaultParserImpl = "org.apache.commons.cli.PosixParser";
-    private String parserImpl = defaultParserImpl;
-
-    private CommandLineParser parser;
-
     /** the list of options */
     private List options      = new ArrayList();
 
@@ -110,20 +104,6 @@ public class Options {
     /** <p>Construct a new Options descriptor</p>
      */
     public Options() {        
-        parserImpl = System.getProperty( "org.apache.commons.cli.parser" );
-        try {
-            parser = (CommandLineParser)Class.forName( parserImpl ).newInstance();
-        }
-        catch( Exception exp ) {
-            // could not create according to parserImpl so default to
-            // PosixParser
-            try {
-                parser = (CommandLineParser)Class.forName( defaultParserImpl ).newInstance();
-            }
-            catch( Exception exp2 ) {
-                // this will not happen ?
-            }
-        }
     }
 
     /**
@@ -222,325 +202,6 @@ public class Options {
         return this;
     }
 
-    /** <p>Parse the given list of arguments against this descriptor<p>
-     *
-     * @param args Args to parse
-     *
-     * @return {@link CommandLine} containing information related to parse state
-     *
-     * @throws MissingArgumentException if an argument value for an option is not present
-     * @throws UnrecognizedOptionException if an unrecognised option is present
-     * @throws MissingOptionException if a required option is not present
-     * @throws AlreadySelectedException if the same option appears more than once
-     */
-    public CommandLine parse(String[] args) 
-    throws MissingArgumentException, UnrecognizedOptionException, 
-        MissingOptionException, AlreadySelectedException {
-        return parse( args, 0, args.length, false);
-    }
-    
-    /** <p>Parse the given list of arguments against this descriptor</p>
-     *
-     * <p>This method will cease parsing upon the first non-option token,
-     * storing the rest of the tokens for access through {@link CommandLine#getArgs()}.</p>
-     *
-     * <p>This is useful for parsing a command-line in pieces, such as:</p>
-     *
-     * <p><code>
-     * <pre>
-     * myApp -s &lt;server&gt; -p &lt;port&gt; command -p &lt;printer&gt; -s &lt;style&gt;
-     * </pre>
-     * </code></p>
-     *
-     * <p>Here, it'll parse up-to, but not including <code>command</code>. The
-     * tokens <code>command -p &lt;printer&gt; -s &lt;style&gt;</code> are available
-     * through {@link CommandLine#getArgs()}, which may subsequently be parsed by
-     * another different <code>Options</code> instance.<p>
-     *
-     * @param args Args to parse
-     * @param stopAtNonOption stop parsing at the first non-option token
-     *
-     * @return {@link CommandLine} containing information related to parse state
-     *
-     * @throws MissingArgumentException if an argument value for an option is not present
-     * @throws UnrecognizedOptionException if an unrecognised option is present
-     * @throws MissingOptionException if a required option is not present
-     * @throws AlreadySelectedException if the same option appears more than once
-     */
-    public CommandLine parse(String[] args, boolean stopAtNonOption) 
-    throws MissingArgumentException, UnrecognizedOptionException, 
-        MissingOptionException, AlreadySelectedException {
-        return parse( args, 0, args.length, stopAtNonOption);
-    }
-    
-    /** <p>Parse the given list of arguments against this descriptor</p>
-     *
-     * <p>This method allows parsing from <code>formIndex</code> inclusive
-     * to <code>toIndex</code> exclusive, of the <code>args</code> parameter,
-     * to allow parsing a specific portion of a command-line.<p>
-     *
-     * @param args Args to parse
-     * @param fromIndex index of args to start parsing
-     * @param toIndex index of args to stop parsing
-     *
-     * @return {@link CommandLine} containing information related to parse state
-     *
-     * @throws MissingArgumentException if an argument value for an option is not present
-     * @throws UnrecognizedOptionException if an unrecognised option is present
-     * @throws MissingOptionException if a required option is not present
-     * @throws AlreadySelectedException if the same option appears more than once
-     */
-    public CommandLine parse(String[] args, int fromIndex, int toIndex) 
-    throws MissingArgumentException, UnrecognizedOptionException, 
-        MissingOptionException, AlreadySelectedException {
-        return parse( args, fromIndex, toIndex, false );
-    }
-    
-    /** <p>Parse the given list of arguments against this descriptor</p>
-     *
-     * <p>This method will cease parsing upon the first non-option token,
-     * storing the rest of the tokens for access through {@link CommandLine#getArgs()}.</p>
-     *
-     * <p>This is useful for parsing a command-line in pieces, such as:</p>
-     *
-     * <p><code>
-     * <pre>
-     * myApp -s &lt;server&gt; -p &lt;port&gt; command -p &lt;printer&gt; -s &lt;style&gt;
-     * </pre>
-     * </code></p>
-     *
-     * <p>Here, it'll parse up-to, but not including <code>command</code>. The
-     * tokens <code>command -p &lt;printer&gt; -s &lt;style&gt;</code> are available
-     * through {@link CommandLine#getArgs()}, which may subsequently be parsed by
-     * another different <code>Options</code> instance.<p>
-     *
-     * <p>This method also allows parsing from <code>formIndex</code> inclusive
-     * to <code>toIndex</code> exclusive, of the <code>args</code> parameter,
-     * to allow parsing a specific portion of a command-line.<p>
-     *
-     * @param args Args to parse
-     * @param fromIndex index of args to start parsing
-     * @param toIndex index of args to stop parsing
-     * @param stopAtNonOption stop parsing at the first non-option token
-     *
-     * @return {@link CommandLine} containing information related to parse state
-     *
-     * @throws MissingArgumentException if an argument value for an option is not present
-     * @throws UnrecognizedOptionException if an unrecognised option is present
-     * @throws MissingOptionException if a required option is not present
-     * @throws AlreadySelectedException if the same option appears more than once
-     */
-    public CommandLine parse(String[] args, int fromIndex, int toIndex, boolean stopAtNonOption)
-    throws MissingArgumentException, UnrecognizedOptionException, 
-        MissingOptionException, AlreadySelectedException {
-        List argList = java.util.Arrays.asList( args );
-        
-        return parse( argList, stopAtNonOption);
-    }
-    
-    /** <p>Parse the given list of arguments against this descriptor</p>
-     *
-     * @param args Args to parse
-     *
-     * @return {@link CommandLine} containing information related to parse state
-     *
-     * @throws MissingArgumentException if an argument value for an option is not present
-     * @throws UnrecognizedOptionException if an unrecognised option is present
-     * @throws MissingOptionException if a required option is not present
-     * @throws AlreadySelectedException if the same option appears more than once
-     */
-    public CommandLine parse(List args)
-    throws MissingArgumentException, UnrecognizedOptionException, 
-        MissingOptionException, AlreadySelectedException {
-        return parse( args, false );
-    }
-    
-    /** <p>Parse the given list of arguments against this descriptor</p>
-     *
-     * <p>This method will cease parsing upon the first non-option token,
-     * storing the rest of the tokens for access through {@link CommandLine#getArgs()}.</p>
-     *
-     * <p>This is useful for parsing a command-line in pieces, such as:</p>
-     *
-     * <p><code>
-     * <pre>
-     * myApp -s &lt;server&gt; -p &lt;port&gt; command -p &lt;printer&gt; -s &lt;style&gt;
-     * </pre>
-     * </code></p>
-     *
-     * <p>Here, it'll parse up-to, but not including <code>command</code>. The
-     * tokens <code>command -p &lt;printer&gt; -s &lt;style&gt;</code> are available
-     * through {@link CommandLine#getArgs()}, which may subsequently be parsed by
-     * another different <code>Options</code> instance.<p>
-     *
-     * <p>This method also allows parsing from <code>formIndex</code> inclusive
-     * to <code>toIndex</code> exclusive, of the <code>args</code> parameter,
-     * to allow parsing a specific portion of a command-line.<p>
-     *
-     * @param inArgs Arguments to parse
-     * @param stopAtNonOption stop parsing at the first non-option token
-     *
-     * @return {@link CommandLine} containing information related to parse state
-     *
-     * @throws MissingArgumentException if an argument value for an option is not present
-     * @throws UnrecognizedOptionException if an unrecognised option is present
-     * @throws MissingOptionException if a required option is not present
-     * @throws AlreadySelectedException if the same option appears more than once
-     */
-    public CommandLine parse(List inArgs, boolean stopAtNonOption) 
-    throws MissingArgumentException, UnrecognizedOptionException, 
-        MissingOptionException, AlreadySelectedException {
-        CommandLine cl = new CommandLine();
-        
-        List args = parser.parse( this, inArgs, stopAtNonOption );
-
-        ListIterator argIter = args.listIterator();
-        String   eachArg = null;
-        Option   eachOpt = null;
-        boolean  eatTheRest = false;
-
-        while ( argIter.hasNext() ) {
-
-            eachArg = (String) argIter.next();
-
-            if ( eachArg.equals("--") ) {
-                // signalled end-of-opts.  Eat the rest
-                
-                eatTheRest = true;
-            }
-            else if ( eachArg.startsWith("--") ) {
-                eachOpt = (Option) longOpts.get( eachArg );
-                processOption( eachArg, eachOpt, argIter, cl );
-            }
-            else if ( eachArg.equals("-") ) {
-                // Just-another-argument
-                
-                if ( stopAtNonOption ) {
-                    eatTheRest = true;
-                }
-                else {
-                    cl.addArg( eachArg );
-                }
-            }
-            else if ( eachArg.startsWith("-") ) {
-                eachOpt = (Option) shortOpts.get( eachArg );
-                processOption( eachArg, eachOpt, argIter, cl );
-            }                
-            else {
-                cl.addArg( eachArg );
-                if ( stopAtNonOption ) {
-                    eatTheRest = true;
-                }
-            }
-            
-            if ( eatTheRest ) {
-                while ( argIter.hasNext() ) {
-                    eachArg = (String) argIter.next();
-                    cl.addArg( eachArg );
-                }
-            }
-        }
-
-        // this will throw a MissingOptionException
-        checkRequiredOptions();
-
-        return cl;
-    }
-
-    /**
-     * @throws MissingOptionException if all of the required options are
-     * not present.
-     */
-    private void checkRequiredOptions() throws MissingOptionException {
-        if( requiredOpts.size() > 0 ) {
-            Set optKeys = requiredOpts.keySet();
-
-            Iterator iter = optKeys.iterator();
-
-            StringBuffer buff = new StringBuffer();
-
-            while( iter.hasNext() ) {
-                Option missing = (Option)requiredOpts.get( iter.next() );
-                buff.append( "-" );
-                buff.append( missing.getOpt() );
-                buff.append( " " );
-                buff.append( missing.getDescription() );
-            }
-
-            throw new MissingOptionException( buff.toString() );
-        }
-    }
-
-    /**
-     * <p>processOption rakes the current option and checks if it is
-     * an unrecognised option, whether the argument value is missing or
-     * whether the option has already been selected.</p>
-     *
-     * @param eachArg the current option read from command line
-     * @param option the current option corresponding to eachArg
-     * @param argIter the argument iterator
-     * @param cl the current command line
-     *
-     * @throws MissingArgumentException if an argument value for an option is not present
-     * @throws UnrecognizedOptionException if an unrecognised option is present
-     * @throws AlreadySelectedException if the same option appears more than once
-     */
-    private void processOption( String eachArg, Option option, ListIterator argIter, 
-                                CommandLine cl)
-    throws UnrecognizedOptionException, AlreadySelectedException, 
-        MissingArgumentException {
-
-        if ( option == null ) {
-            throw new UnrecognizedOptionException("Unrecognized option: " + eachArg);
-        }
-        else {
-
-            if ( optionGroups.get( option ) != null ) {
-                ( (OptionGroup)( optionGroups.get( option ) ) ).setSelected( option );
-            }
-
-            // if required remove from list
-            if ( option.isRequired() ) {
-                requiredOpts.remove( "-" + option.getOpt() );
-            }
-
-            if ( option.hasArg() ) {
-                if ( argIter.hasNext() ) {
-                    eachArg = (String) argIter.next();
-                    option.addValue( eachArg );
-                    
-                    if( option.hasMultipleArgs() ) {
-                        while( argIter.hasNext() ) {
-                            eachArg = (String)argIter.next();
-                            if( eachArg.startsWith("-") ) {
-                                argIter.previous();
-                                cl.setOpt( option );
-                                break;
-                            }
-                            else {
-                                option.addValue( eachArg );
-                            }
-                        }
-                    }
-                    else {
-                        cl.setOpt( option );
-                        return;
-                    }
-                    if( !argIter.hasNext() ) {
-                        cl.setOpt( option );
-                    }
-                }
-                else {
-                    throw new MissingArgumentException( eachArg + " requires an argument.");
-                }
-
-            }
-            else {
-                cl.setOpt( option );
-            }
-        }
-    }
-
     /**
      * <p>Adds the option to the necessary member lists</p>
      *
@@ -569,6 +230,15 @@ public class Options {
     public List getOptions() {
         return Collections.unmodifiableList(options);
     }
+
+    /** <p>Returns the required options as a 
+     * <code>java.util.Collection</code>.</p>
+     *
+     * @return Collection of required options
+     */
+    public Collection getRequiredOptions() {
+        return requiredOpts.values();
+    }
     
     /** <p>Retrieve the named {@link Option}</p>
      *
@@ -589,6 +259,17 @@ public class Options {
         else {
             return (Option) shortOpts.get( opt );
         }
+    }
+
+    /** <p>Returns the OptionGroup the <code>opt</code>
+     * belongs to.</p>
+     * @param opt the option whose OptionGroup is being queried.
+     *
+     * @return the OptionGroup if <code>opt</code> is part
+     * of an OptionGroup, otherwise return null
+     */
+    public OptionGroup getOptionGroup( Option opt ) {
+        return (OptionGroup)optionGroups.get( opt );
     }
     
     /** <p>Dump state, suitable for debugging.</p>

@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: ParseTest.java,v 1.1 2001/12/19 18:16:25 jstrachan Exp $
+ * $Id: GnuParseTest.java,v 1.1 2002/07/04 22:32:12 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -14,25 +14,24 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class ParseTest extends TestCase
+public class GnuParseTest extends TestCase
 {
-
     private Options _options = null;
     private CommandLineParser _parser = null;
 
     public static Test suite() { 
-        return new TestSuite(ParseTest.class); 
+        return new TestSuite( GnuParseTest.class ); 
     }
 
-    public ParseTest(String name)
+    public GnuParseTest( String name )
     {
-        super(name);
+        super( name );
     }
 
     public void setUp()
     {
         System.setProperty( "org.apache.commons.cli.parser",
-                            "org.apache.commons.cli.PosixParser");
+                            "org.apache.commons.cli.GnuParser");
 
         _options = new Options()
             .addOption("a",
@@ -98,30 +97,9 @@ public class ParseTest extends TestCase
         }
     }
 
-    public void testComplexShort()
-    {
-        String[] args = new String[] { "-acbtoast",
-                                       "foo", "bar" };
-
-        try
-        {
-            CommandLine cl = _parser.parse(_options, args);
-            
-            assertTrue( "Confirm -a is set", cl.hasOption("a") );
-            assertTrue( "Confirm -b is set", cl.hasOption("b") );
-            assertTrue( "Confirm -c is set", cl.hasOption("c") );
-            assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
-            assertTrue( "Confirm size of extra args", cl.getArgList().size() == 2);
-        }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
-    }
-
     public void testExtraOption()
     {
-        String[] args = new String[] { "-adbtoast",
+        String[] args = new String[] { "-a", "-d", "-b", "toast",
                                        "foo", "bar" };
 
         boolean caught = false;
@@ -149,7 +127,7 @@ public class ParseTest extends TestCase
     public void testMissingArg()
     {
 
-        String[] args = new String[] { "-acb" };
+        String[] args = new String[] { "-b" };
 
         boolean caught = false;
 
@@ -173,13 +151,14 @@ public class ParseTest extends TestCase
     {
         String[] args = new String[] { "-c",
                                        "foober",
-                                       "-btoast" };
+                                       "-b",
+                                       "toast" };
 
         try
         {
             CommandLine cl = _parser.parse(_options, args, true);
             assertTrue( "Confirm -c is set", cl.hasOption("c") );
-            assertTrue( "Confirm  2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
+            assertTrue( "Confirm  3 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 3);
         }
         catch (ParseException e)
         {
@@ -191,13 +170,14 @@ public class ParseTest extends TestCase
     {
         String[] args = new String[] { "-c",
                                        "foobar",
-                                       "-btoast" };
+                                       "-b",
+                                       "toast" };
 
         try
         {
             CommandLine cl = _parser.parse(_options, args, true);
             assertTrue( "Confirm -c is set", cl.hasOption("c") );
-            assertTrue( "Confirm  2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
+            assertTrue( "Confirm  3 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 3);
 
             cl = _parser.parse(_options, cl.getArgs() );
 

@@ -38,6 +38,7 @@ public class ApplicationTest extends TestCase {
         System.setProperty( "org.apache.commons.cli.parser",
                             "org.apache.commons.cli.GnuParser");
 
+        CommandLineParser parser = CommandLineParserFactory.newParser();
         Options options = new Options();
         options.addOption( "help", false, "print this message" );
         options.addOption( "projecthelp", false, "print project help information" );
@@ -58,7 +59,7 @@ public class ApplicationTest extends TestCase {
             "-projecthelp" };
 
         try {
-            CommandLine line = options.parse( args );
+            CommandLine line = parser.parse( options, args );
 
             // check multiple values
             String[] opts = line.getOptionValues( "D" );

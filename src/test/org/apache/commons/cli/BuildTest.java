@@ -47,22 +47,6 @@ public class BuildTest extends TestCase
         opts.addOption("b",
                        true,
                        "toggle -b");
-/*
-        try
-        {
-            opts.addOption('a',
-                           false,
-                           "toggle -a");
-            
-            opts.addOption('b',
-                           true,
-                           "toggle -b");
-        }
-        catch (DuplicateOptionException e)
-        {
-            fail(e.toString());
-        }
-*/
     }
 
     public void testDuplicateSimple()
@@ -77,23 +61,6 @@ public class BuildTest extends TestCase
                        "toggle -a*");
         
         assertEquals( "last one in wins", "toggle -a*", opts.getOption("a").getDescription() );
-/*
-        try
-        {
-            opts.addOption('a',
-                           false,
-                           "toggle -a");
-            
-            opts.addOption('a',
-                           true,
-                           "toggle -a");
-
-            fail("Should've thrown DuplicateOptionException");
-        }
-        catch (DuplicateOptionException e)
-        {
-        }
- */
     }
 
     public void testLong()
@@ -110,24 +77,6 @@ public class BuildTest extends TestCase
                        true,
                        "set -b");
 
-/*        
-        try
-        {
-            opts.addOption('a',
-                           "--a",
-                           false,
-                           "toggle -a");
-
-            opts.addOption('b',
-                           "--b",
-                           true,
-                           "set -b");
-        }
-        catch (DuplicateOptionException e)
-        {
-            fail(e.toString());
-        }
-*/
     }
 
     public void testDuplicateLong()
@@ -143,24 +92,5 @@ public class BuildTest extends TestCase
                        false,
                        "toggle -a*");
         assertEquals( "last one in wins", "toggle -a*", opts.getOption("a").getDescription() );
-/*
-        try
-        {
-            opts.addOption('a',
-                           "--a",
-                           false,
-                           "toggle -a");
-
-            opts.addOption('a',
-                           "--a",
-                           false,
-                           "toggle -a");
-
-            fail("Should've thrown DuplicateOptionException");
-        }
-        catch (DuplicateOptionException e)
-        {
-        }
-*/
     }
 }

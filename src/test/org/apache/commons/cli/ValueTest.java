@@ -57,33 +57,6 @@ public class ValueTest extends TestCase
                        true,
                        "set -d");
 
-/*            
-        try
-        {
-            opts.addOption('a',
-                           false,
-                           "toggle -a");
-            
-            opts.addOption('b',
-                           true,
-                           "set -b");
-            
-            opts.addOption('c',
-                           "c",
-                           false,
-                           "toggle -c");
-            
-            opts.addOption('d',
-                           "d",
-                           true,
-                           "set -d");
-        }
-        catch (DuplicateOptionException e)
-        {
-            fail("Cannot setUp() Options: " + e.toString());
-        }
-*/
-
         String[] args = new String[] { "-a",
                                        "-b", "foo",
                                        "--c",
@@ -91,7 +64,8 @@ public class ValueTest extends TestCase
 
         try
         {
-            _cl = opts.parse(args);
+            CommandLineParser parser = CommandLineParserFactory.newParser();
+            _cl = parser.parse(opts,args);
         }
         catch (ParseException e)
         {

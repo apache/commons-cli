@@ -45,7 +45,8 @@ extends TestCase
       Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/");
       String[] args = new String[] { "-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://jakarta.apache.org/" };
       
-      CommandLine line = options.parse(args);
+      CommandLineParser parser = CommandLineParserFactory.newParser();
+      CommandLine line = parser.parse(options,args);
       assertEquals("flag a", "foo", line.getOptionValue("a"));
       assertEquals("string flag a", "foo", line.getOptionObject("a"));
       assertEquals("object flag b", new java.util.Vector(), line.getOptionObject("b"));

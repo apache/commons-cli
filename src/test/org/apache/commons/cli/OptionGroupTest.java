@@ -22,6 +22,8 @@ public class OptionGroupTest extends TestCase
 {
 
     private Options _options = null;
+    private CommandLineParser parser = CommandLineParserFactory.newParser();
+
 
     public static Test suite() 
     { 
@@ -62,7 +64,7 @@ public class OptionGroupTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse( _options, args);
 
             assertTrue( "Confirm -r is NOT set", !cl.hasOption("r") );
             assertTrue( "Confirm -f is set", cl.hasOption("f") );
@@ -83,7 +85,7 @@ public class OptionGroupTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse( _options, args);
 
             assertTrue( "Confirm -r is set", cl.hasOption("r") );
             assertTrue( "Confirm -f is NOT set", !cl.hasOption("f") );
@@ -104,7 +106,7 @@ public class OptionGroupTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse( _options, args);
 
             assertTrue( "Confirm -r is set", cl.hasOption("r") );
             assertTrue( "Confirm -f is set", cl.hasOption("f") );
@@ -125,7 +127,7 @@ public class OptionGroupTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse( _options, args);
 
             assertTrue( "Confirm -r is NOT set", !cl.hasOption("r") );
             assertTrue( "Confirm -f is set", cl.hasOption("f") );
@@ -146,7 +148,7 @@ public class OptionGroupTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse( _options, args);
 
             assertTrue( "Confirm -r is set", cl.hasOption("r") );
             assertTrue( "Confirm -f is set", cl.hasOption("f") );
@@ -167,7 +169,7 @@ public class OptionGroupTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse( _options, args);
 
             assertTrue( "Confirm -r is NOT set", !cl.hasOption("r") );
             assertTrue( "Confirm -f is NOT set", !cl.hasOption("f") );
@@ -188,7 +190,7 @@ public class OptionGroupTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse( _options, args);
             fail( "two arguments from group not allowed" );
         }
         catch (ParseException e)
@@ -206,7 +208,7 @@ public class OptionGroupTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse( _options, args);
             fail( "two arguments from group not allowed" );
         }
         catch (ParseException e)
@@ -224,7 +226,7 @@ public class OptionGroupTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse( _options, args);
             assertTrue( "Confirm -r is NOT set", !cl.hasOption("r") );
             assertTrue( "Confirm -f is set", cl.hasOption("f") );
             assertTrue( "Confirm -d is NOT set", !cl.hasOption("d") );

@@ -22,6 +22,7 @@ public class ParseRequiredTest extends TestCase
 {
 
     private Options _options = null;
+    private CommandLineParser parser = CommandLineParserFactory.newParser();
 
     public static Test suite() { 
         return new TestSuite(ParseRequiredTest.class); 
@@ -57,7 +58,7 @@ public class ParseRequiredTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse(_options,args);
             
             assertTrue( "Confirm -a is NOT set", !cl.hasOption("a") );
             assertTrue( "Confirm -b is set", cl.hasOption("b") );
@@ -76,7 +77,7 @@ public class ParseRequiredTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse(_options,args);
 
             assertTrue( "Confirm -a is set", cl.hasOption("a") );
             assertTrue( "Confirm -b is set", cl.hasOption("b") );
@@ -95,7 +96,7 @@ public class ParseRequiredTest extends TestCase
 
         try
         {
-            CommandLine cl = _options.parse(args);
+            CommandLine cl = parser.parse(_options,args);
             fail( "exception should have been thrown" );
         }
         catch (ParseException e)

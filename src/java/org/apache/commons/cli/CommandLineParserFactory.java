@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/CommandLineParser.java,v 1.2 2002/07/04 22:32:12 jkeyes Exp $
- * $Revision: 1.2 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Attic/CommandLineParserFactory.java,v 1.1 2002/07/04 22:32:12 jkeyes Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/07/04 22:32:12 $
  *
  * ====================================================================
@@ -61,33 +61,35 @@
 package org.apache.commons.cli;
 
 /**
+ * Constructs CommandLineParser instances.  The implementation class
+ * is specified by the <code>org.apache.commons.cli.parser</code>
+ * system property.
+ *
  * @author John Keyes (jbjk at mac.com)
  */
-public interface CommandLineParser {
-    
-    /**
-     * Parse the arguments according to the specified options.
-     *
-     * @param options the specified Options
-     * @param arguments the command line arguments
-     * @return the list of atomic option and value tokens
-     * @throws ParseException if there are any problems encountered
-     * while parsing the command line tokens.
-     */
-    public CommandLine parse( Options options, String[] arguments )
-    throws ParseException;
+public class CommandLineParserFactory {
+
+    /** The PosixParser is the default parser implementation */
+    private static String DEFAULT_PARSER = "org.apache.commons.cli.PosixParser";
 
     /**
-     * Parse the arguments according to the specified options.
-     *
-     * @param options the specified Options
-     * @param arguments the command line arguments
-     * @param stopAtNonOption specifies whether to continue parsing the
-     * arguments if a non option is encountered.
-     * @return the list of atomic option and value tokens
-     * @throws ParseException if there are any problems encountered
-     * while parsing the command line tokens.
+     * @return the CommandLineParser
      */
-    public CommandLine parse( Options options, String[] arguments, boolean stopAtNonOption )
-    throws ParseException;
+    public static CommandLineParser newParser() {
+        String parserImpl = System.getProperty( "org.apache.commons.cli.parser" );
+        try {
+            return (CommandLineParser)Class.forName( parserImpl ).newInstance();
+        }
+        catch( Exception exp ) {
+            // could not create according to parserImpl so default to
+            // PosixParser
+            try {
+                return (CommandLineParser)Class.forName( DEFAULT_PARSER ).newInstance();
+            }
+            catch( Exception exp2 ) {
+                // this will not happen ?
+            }
+        }
+        return null;
+    }
 }
