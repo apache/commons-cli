@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.9 2002/11/25 23:43:40 jkeyes Exp $
- * $Revision: 1.9 $
- * $Date: 2002/11/25 23:43:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.10 2002/11/27 23:22:02 jkeyes Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/11/27 23:22:02 $
  *
  * ====================================================================
  *
@@ -74,7 +74,7 @@ import java.util.Properties;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public abstract class Parser implements CommandLineParser {
 
@@ -255,9 +255,28 @@ public abstract class Parser implements CommandLineParser {
             String option = e.nextElement().toString();
             if( !cmd.hasOption( option ) ) {
                 Option opt = options.getOption( option );
-                if( opt.getValues() == null || opt.getValues().length == 0 ) {
-                    opt.addValue( properties.getProperty( option ) );
+
+                // get the value from the properties instance
+                String value = properties.getProperty( option );
+
+                if( opt.hasArgs() ) {
+                    if( opt.getValues() == null || opt.getValues().length == 0 ) {
+                        try {
+                            opt.addValue( value );
+                        }
+                        catch( RuntimeException exp ) {
+                            // if we cannot add the value don't worry about it
+                        }
+                    }
                 }
+                else if ( ! ( "yes".equalsIgnoreCase( value ) ||
+                              "true".equalsIgnoreCase( value ) ||
+                              "1".equalsIgnoreCase( value) ) ) {
+                    // if the value is not yes, true or 1 then don't add the
+                    // option to the CommandLine
+                    break;
+                }
+
                 cmd.addOption( opt );
             }
         }
