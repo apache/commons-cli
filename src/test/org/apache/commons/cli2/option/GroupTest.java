@@ -28,6 +28,8 @@ import org.apache.commons.cli2.HelpLine;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.builder.DefaultOptionBuilder;
+import org.apache.commons.cli2.builder.GroupBuilder;
 
 /**
  * @author Rob Oxspring
@@ -245,6 +247,42 @@ public class GroupTest extends GroupTestCase {
         catch (OptionException moe) {
             assertEquals(option, moe.getOption());
         }
+    }
+    
+    public void testValidate_RequiredChild() throws OptionException {
+        final Option required = new DefaultOptionBuilder().withLongName("required").withRequired(true).create();
+        final Option optional = new DefaultOptionBuilder().withLongName("optional").withRequired(false).create();
+        final Group group = new GroupBuilder()
+            .withOption(required)
+            .withOption(optional)
+            .withMinimum(1)
+            .create();
+
+        WriteableCommandLine commandLine;
+        
+        commandLine = commandLine(group, list());
+        try {
+            group.validate(commandLine);
+            fail("Missing option 'required'");
+        }
+        catch (OptionException moe) {
+            assertEquals(required, moe.getOption());
+        }
+        
+        commandLine = commandLine(group, list());
+        commandLine.addOption(optional);
+        try {
+            group.validate(commandLine);
+            fail("Missing option 'required'");
+        }
+        catch (OptionException moe) {
+            assertEquals(required, moe.getOption());
+        }
+        
+        commandLine = commandLine(group, list());
+        commandLine.addOption(required);
+        group.validate(commandLine);
+        
     }
 
     /*

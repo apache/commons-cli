@@ -223,6 +223,11 @@ public class GroupImpl extends OptionImpl implements Group {
         
         for (final Iterator i = options.iterator(); i.hasNext();) {
             final Option option = (Option) i.next();
+            // if the child option is required then validate it
+            if(option.isRequired()){
+                option.validate(commandLine);
+            }
+            // if the child option is present then validate it
             if (commandLine.hasOption(option)) {
                 if (++present > maximum) {
                     unexpected = option;

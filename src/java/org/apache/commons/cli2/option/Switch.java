@@ -140,7 +140,6 @@ public class Switch extends ParentImpl {
         final String arg = (String)arguments.next();
 
         if (canProcess(arg)) {
-            commandLine.addOption(this);
             if (arg.startsWith(enabledPrefix)) {
                 commandLine.addSwitch(this, true);
                 arguments.set(enabledPrefix + preferredName);

@@ -440,6 +440,7 @@ public abstract class CommandLineTestCase extends CLITestCase {
                     "--help",
                     "login",
                     "rob",
+                    "+display",
                     "--help",
                     "--help",
                     "target1",
@@ -448,7 +449,7 @@ public abstract class CommandLineTestCase extends CLITestCase {
         assertEquals(1, cl.getOptionCount(login));
         assertEquals(3, cl.getOptionCount(help));
         assertEquals(2, cl.getOptionCount(targets));
-        assertEquals(0, cl.getOptionCount(display));
+        assertEquals(1, cl.getOptionCount(display));
     }
 
     public final void testGetOptionCount_Strings() throws OptionException {
@@ -473,6 +474,7 @@ public abstract class CommandLineTestCase extends CLITestCase {
                     "--help",
                     "login",
                     "rob",
+                    "+display",
                     "--help",
                     "--help",
                     "target1",
@@ -480,6 +482,6 @@ public abstract class CommandLineTestCase extends CLITestCase {
 
         assertEquals(1, cl.getOptionCount("login"));
         assertEquals(3, cl.getOptionCount("-?"));
-        assertEquals(0, cl.getOptionCount("+display"));
+        assertEquals(1, cl.getOptionCount("+display"));
     }
 }
