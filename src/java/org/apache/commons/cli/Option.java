@@ -287,101 +287,104 @@ public class Option implements Cloneable {
         return this.description;
     }
 
-     /** 
-      * <p>Query to see if this Option requires an argument</p>
-      *
-      * @return boolean flag indicating if an argument is required
-      */
-     public boolean isRequired() {
-         return this.required;
-     }
+    /** 
+     * <p>Query to see if this Option requires an argument</p>
+     *
+     * @return boolean flag indicating if an argument is required
+     */
+    public boolean isRequired() {
+        return this.required;
+    }
 
-     /**
-      * <p>Sets whether this Option is mandatory.</p>
-      *
-      * @param required specifies whether this Option is mandatory
-      */
-     public void setRequired( boolean required ) {
-         this.required = required;
-     }
+    /**
+     * <p>Sets whether this Option is mandatory.</p>
+     *
+     * @param required specifies whether this Option is mandatory
+     */
+    public void setRequired( boolean required ) {
+        this.required = required;
+    }
 
-     /**
-      * <p>Sets the display name for the argument value.</p>
-      *
-      * @param argName the display name for the argument value.
-      */
-     public void setArgName( String argName ) {
-         this.argName = argName;
-     }
+    /**
+     * <p>Sets the display name for the argument value.</p>
+     *
+     * @param argName the display name for the argument value.
+     */
+    public void setArgName( String argName ) {
+        this.argName = argName;
+    }
 
-     /**
-      * <p>Gets the display name for the argument value.</p>
-      *
-      * @return the display name for the argument value.
-      */
-     public String getArgName() {
-         return this.argName;
-     }
+    /**
+     * <p>Gets the display name for the argument value.</p>
+     *
+     * @return the display name for the argument value.
+     */
+    public String getArgName() {
+        return this.argName;
+    }
 
-     /**
-      * <p>Returns whether the display name for the argument value
-      * has been set.</p>
-      *
-      * @return if the display name for the argument value has been
-      * set.
-      */
-     public boolean hasArgName() {
-         return (this.argName != null && this.argName.length() > 0 );
-     }
+    /**
+     * <p>Returns whether the display name for the argument value
+     * has been set.</p>
+     *
+     * @return if the display name for the argument value has been
+     * set.
+     */
+    public boolean hasArgName() {
+        return (this.argName != null && this.argName.length() > 0 );
+    }
 
-     /** 
-      * <p>Query to see if this Option can take many values</p>
-      *
-      * @return boolean flag indicating if multiple values are allowed
-      */
-     public boolean hasArgs() {
-         return ( this.numberOfArgs > 1 || this.numberOfArgs == UNLIMITED_VALUES );
-     }
+    /** 
+     * <p>Query to see if this Option can take many values</p>
+     *
+     * @return boolean flag indicating if multiple values are allowed
+     */
+    public boolean hasArgs() {
+        return this.numberOfArgs > 1 || this.numberOfArgs == UNLIMITED_VALUES;
+    }
 
-     /** 
-      * <p>Sets the number of argument values this Option can take.</p>
-      *
-      * @param num the number of argument values
-      */
-     public void setArgs( int num ) {
-         this.numberOfArgs = num;
-     }
+    /** 
+     * <p>Sets the number of argument values this Option can take.</p>
+     *
+     * @param num the number of argument values
+     */
+    public void setArgs( int num ) {
+        this.numberOfArgs = num;
+    }
 
-     /**
-      * <p>Sets the value separator.  For example if the argument value
-      * was a Java property, the value separator would be '='.</p>
-      *
-      * @param sep The value separator.
-      */
-     public void setValueSeparator( char sep ) {
-         this.valuesep = sep;
-     }
+    /**
+     * <p>Sets the value separator.  For example if the argument value
+     * was a Java property, the value separator would be '='.</p>
+     *
+     * @param sep The value separator.
+     */
+    public void setValueSeparator( char sep ) {
+        this.valuesep = sep;
+    }
 
-     /**
-      * <p>Returns the value separator character.</p>
-      *
-      * @return the value separator character.
-      */
-     public char getValueSeparator() {
-         return this.valuesep;
-     }
+    /**
+     * <p>Returns the value separator character.</p>
+     *
+     * @return the value separator character.
+     */
+    public char getValueSeparator() {
+        return this.valuesep;
+    }
 
-     /** 
-      * <p>Returns the number of argument values this Option can take.</p>
-      *
-      * @return num the number of argument values
-      */
-     public int getArgs( ) {
-         return this.numberOfArgs;
-     }
+    /**
+     * ...
+     */
+    public boolean hasValueSeparator() {
+        return ( this.valuesep > 0 );
+    }
 
-    public void clearValues() {
-        this.values.clear();
+    /** 
+     * <p>Returns the number of argument values this Option can take.</p>
+     *
+     * @return num the number of argument values
+     */
+    public int getArgs( ) {
+        return this.numberOfArgs;
     }
 
     /**
@@ -389,38 +392,73 @@ public class Option implements Cloneable {
      * 
      * @param value is a/the value of this Option
      */
-    public boolean addValue( String value ) {
-
+    void addValue( String value )
+    {
         switch( numberOfArgs ) {
             case UNINITIALIZED:
-                return false;
-            case UNLIMITED_VALUES:
-                if( getValueSeparator() > 0 ) {
-                    int index = 0;
-                    while( (index = value.indexOf( getValueSeparator() ) ) != -1 ) {
-                        this.values.add( value.substring( 0, index ) );
-                        value = value.substring( index+1 );
-                    }
-                }
-                this.values.add( value );
-                return true;
+                break;
             default:
-                if( getValueSeparator() > 0 ) {
-                    int index = 0;
-                    while( (index = value.indexOf( getValueSeparator() ) ) != -1 ) {
-                        if( values.size() > numberOfArgs-1 ) {
-                            return false;
-                        }
-                        this.values.add( value.substring( 0, index ) );
-                        value = value.substring( index+1 );
-                    }
-                }
-                if( values.size() > numberOfArgs-1 ) {
-                    return false;
-                }
-                this.values.add( value );
-                return true;
+                processValue( value );
         }
+    }
+
+    /**
+     * <p>Processes the value.  If this Option has a value separator
+     * the value will have to be parsed into individual tokens.  When
+     * n-1 tokens have been processed and there are more value separators
+     * in the value, parsing is ceased and the remaining characters are
+     * added as a single token.</p>
+     *
+     * @since 1.0.1
+     */
+    private void processValue( String value ) {
+
+        // this Option has a separator character
+        if( hasValueSeparator() ) {
+
+            // get the separator character
+            char sep = getValueSeparator();
+
+            // store the index for the value separator
+            int index = value.indexOf( sep );
+
+            // while there are more value separators
+            while( index != -1 ) {
+
+                // next value to be added 
+                if( values.size() == numberOfArgs-1 ) {
+                    break;
+                } 
+
+                // store
+                add( value.substring( 0, index ) );
+
+                // parse
+                value = value.substring( index+1 );
+
+                // get new index
+                index = value.indexOf( sep );
+            }
+        }
+
+        // store the actual value or the last value that has been parsed
+        add( value );
+    }
+
+    /**
+     * <p>Add the value to this Option.  If the number of arguments
+     * is greater than zero and there is enough space in the list then
+     * add the value.  Otherwise, throw a runtime exception.
+     * </p>
+     *
+     * @since 1.0.1
+     */
+    private void add( String value ) {
+        if( numberOfArgs > 0 && values.size() > numberOfArgs-1 ) {
+            throw new RuntimeException( "Cannot add value, list full." );
+        }
+        // store value
+        this.values.add( value );
     }
 
     /**

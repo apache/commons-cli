@@ -165,20 +165,19 @@ public class Options {
      * @return the resulting Options instance
      */
     public Options addOption(Option opt)  {
-        String shortOpt = opt.getOpt();
+        String key = opt.getKey();
         
-        // add it to the long option list
-        if ( opt.hasLongOpt() ) {
-            longOpts.put( opt.getLongOpt(), opt );
-        }
+            // add it to the long option list
+            if ( opt.hasLongOpt() ) {
+                longOpts.put( opt.getLongOpt(), opt );
+            }
         
-        // if the option is required add it to the required list
-        if ( opt.isRequired() ) {
-            requiredOpts.add( opt.getKey() );
-        }
+            // if the option is required add it to the required list
+            if ( opt.isRequired() && !requiredOpts.contains( key ) ) {
+                requiredOpts.add( key );
+            }
+            shortOpts.put( key, opt );
 
-        shortOpts.put( shortOpt, opt );
-        
         return this;
     }
     

@@ -192,8 +192,8 @@ public class ValuesTest extends TestCase
         String[] values = new String[] { "key", "value", "key", "value" };
         assertTrue( _cmdline.hasOption( "j" ) );
         assertTrue( _cmdline.hasOption( 'j' ) );
-        assertTrue( _cmdline.getOptionValues( "j" ).length == 4);
-        assertTrue( _cmdline.getOptionValues( 'j' ).length == 4);
+        assertEquals( 4, _cmdline.getOptionValues( "j" ).length );
+        assertEquals( 4, _cmdline.getOptionValues( 'j' ).length );
         assertTrue( Arrays.equals( values, _cmdline.getOptionValues( "j" ) ) );
         assertTrue( Arrays.equals( values, _cmdline.getOptionValues( 'j' ) ) );
 

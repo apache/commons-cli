@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.8 2002/11/18 08:41:26 jkeyes Exp $
- * $Revision: 1.8 $
- * $Date: 2002/11/18 08:41:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.9 2002/11/25 23:43:40 jkeyes Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/11/25 23:43:40 $
  *
  * ====================================================================
  *
@@ -74,7 +74,7 @@ import java.util.Properties;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public abstract class Parser implements CommandLineParser {
 
@@ -299,9 +299,14 @@ public abstract class Parser implements CommandLineParser {
                 break;
             }
             // found a value
-            else if( !opt.addValue( str ) ) {
-                iter.previous();
-                break;
+            else {
+                try {
+                    opt.addValue( str ) ;
+                }
+                catch( RuntimeException exp ) {
+                    iter.previous();
+                    break;
+                }
             }
         }
 
