@@ -15,6 +15,10 @@
  */
 package org.apache.commons.cli;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.StringWriter;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -274,12 +278,30 @@ public class BugsTest extends TestCase
                                        .hasArg()
                                        .create( 'd' );
         options.addOption( dir );
-        try {
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp( "dir", options );
+        
+        
+        final PrintStream oldSystemOut = System.out;
+        try{
+            final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            final PrintStream print = new PrintStream(bytes);
+            
+            // capture this platform's eol symbol
+            print.println();
+            final String eol = bytes.toString();
+            bytes.reset();
+            
+            System.setOut(new PrintStream(bytes));
+            try {
+                HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp( "dir", options );
+            }
+            catch( Exception exp ) {
+                fail( "Unexpected Exception: " + exp.getMessage() );
+            }
+            assertEquals("usage: dir"+eol+" -d <arg>   dir"+eol,bytes.toString());
         }
-        catch( Exception exp ) {
-            fail( "Unexpected Exception: " + exp.getMessage() );
+        finally {
+            System.setOut(oldSystemOut);
         }
     }
 
