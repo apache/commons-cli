@@ -69,18 +69,29 @@ public abstract class OptionImpl implements Option {
             final OptionImpl that = (OptionImpl)thatObj;
 
             return getId() == that.getId()
-                && getPreferredName().equals(that.getPreferredName())
-                && (getDescription() == that.getDescription()
-                    || getDescription().equals(that.getDescription()))
-                && getPrefixes().equals(that.getPrefixes())
-                && getTriggers().equals(that.getTriggers());
+				&& equals(getPreferredName(),that.getPreferredName())
+				&& equals(getDescription(),that.getDescription())
+				&& equals(getPrefixes(),that.getPrefixes())
+				&& equals(getTriggers(),that.getTriggers());
         }
         else {
             return false;
         }
     }
 
-    public int hashCode() {
+	private boolean equals(Object left, Object right) {
+		if(left==null && right==null){
+			return true;
+		}
+		else if(left==null || right==null){
+			return false;
+		}
+		else{
+			return left.equals(right);
+		}
+	}
+
+	public int hashCode() {
         int hashCode = getId();
         hashCode = hashCode * 37 + getPreferredName().hashCode();
         if (getDescription() != null) {
