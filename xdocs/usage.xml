@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="jbjk@mac.com">John Keyes</author>
+    <title>Usage Scenario's</title>
+  </properties>
+
+  <body>
+    <section name="Usage Scenario's">
+      <p>
+        The following sections describe some example scenarios on how to 
+        use CLI in applications.
+      </p>
+
+      <subsection name="Using a boolean option">
+        <p>
+          A boolean option is represented on a command line by the presence
+          of the option, i.e. if the option is found then the option value
+          is true, otherwise the value is false.
+        </p>
+        <p>
+          The <code>DateApp</code> utility prints the current date to standard output.  If the 
+          <code>-t</code> option is present the current time is also printed.
+        </p>
+        </subsection>
+        <subsection name="Create the Options">
+        <p>
+          An <a href="apidocs/org/apache/commons/cli/Options.html">
+          <code>Options</code></a> object must be created and the <code>t</code>
+          <code>Option</code> must be added to it.
+        </p>
+        <source>
+// create Options object
+Options options = new Options();
+
+// add t option
+options.addOption('t', false, "display current time");</source>
+        <p>
+          The <code>addOption</code> method has three parameters.  The first
+          parameter is a <code>char</code> that represents the option.  The
+          second paramter is a <code>boolean</code> that specifies whether the
+          option requires an argument or not.  In the case of a boolean option
+          (sometimes referred to as a flag) an argument value is not present so
+          it <code>false</code> is passed.  The third parameter is the description
+          of the option.  This description will be used in the usage text of the
+          application.
+        </p>
+      </subsection>
+      <subsection name="Parsing the command line arguments">
+        <p>
+          The <code>parse</code> methods of <code>Options</code> are used to 
+          parse the command line arguments.  
+        </p>
+        <source>
+CommandLine cmd = options.parse(args);</source>
+        <p>
+          Now we need to check if the <code>t</code> option is present.  To do
+          this we will interrogate the 
+          <a href="apidocs/org/apache/commons/cli/CommandLine.html"><code>CommandLine</code>
+          </a> object.  The <code>hasOption</code> method takes a 
+          <code>char</code> parameter and returns true if the option represented 
+          by the <code>char</code> is present, otherwise it returns false.
+        </p>
+        <source>
+if(cmd.hasOption('t')) {
+    // print the date and time
+}
+else {
+    // print the date
+}</source>
+      </subsection>
+      <subsection name="International Time">
+        <p>
+          The <code>InternationalDateApp</code> utility extends the 
+          <code>DateApp</code> utility by providing the ability to print the
+          date and time in any country in the world.  To facilitate this a new
+          command line option, <code>c</code>, has been introduced.
+        </p>
+        <source>
+// add c option
+options.addOption('c', true, "country code");</source>
+        <p>
+          The second parameter is true this time.  This specifies that the
+          <code>c</code> option requires an argument value.  If the required option
+          argument value is specified on the command line it is returned,
+          otherwise <code>null</code> is returned.
+        </p>
+      </subsection>
+      <subsection name="Retrieving the argument value">
+        <p>
+          The <code>getOptionValue</code> methods of <code>Options</code> are
+          used to retrieve the argument values of options.
+        </p>
+        <source>
+// get c option value
+String countryCode = options.getOptionValue('c');
+
+if(countryCode == null) {
+    // print default date
+}
+else {
+    // print date for country specified by countryCode
+}</source>
+      </subsection>
+      <subsection name="More Information">
+        <p>
+          <ul>
+            <li>CLI <a href="apidocs/index.html">javadoc</a></li>
+            <li>CLI examples</li>
+          </ul>
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

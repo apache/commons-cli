@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="CLI">
+
+  <title>CLI</title>
+
+  <body>
+    <menu name="Examples">
+      <item name="Simple Option"                   href="/usage.html"/>
+    </menu>
+  </body>
+</project>
