@@ -67,7 +67,7 @@ package org.apache.commons.cli;
  * @author John Keyes (john @ integralsource.com)
  * @version $Revision: 1.4 $
  */
-class AlreadySelectedException extends ParseException {
+public class AlreadySelectedException extends ParseException {
 
     /** Construct a new Exception with a message
      *
