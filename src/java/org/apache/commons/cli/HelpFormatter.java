@@ -797,7 +797,7 @@ public class HelpFormatter {
         if (((pos = text.indexOf('\n', startPos)) != -1 && pos <= width)
             || ((pos = text.indexOf('\t', startPos)) != -1 && pos <= width))
         {
-            return pos;
+            return pos+1;
         }
         else if ((startPos + width) >= text.length())
         {
@@ -872,7 +872,7 @@ public class HelpFormatter {
 
         int pos = s.length();
 
-        while ((pos >= 0) && Character.isWhitespace(s.charAt(pos - 1)))
+        while ((pos > 0) && Character.isWhitespace(s.charAt(pos - 1)))
         {
             --pos;
         }

@@ -497,5 +497,22 @@ public class BugsTest extends TestCase
         assertTrue(cl.hasOption('o'));
         assertEquals("ovalue",cl.getOptionValue('o'));
     }
+    
+    public void test21215() {
+        Options options = new Options();
+        HelpFormatter formatter = new HelpFormatter();
+        String SEP = System.getProperty("line.separator");
+        String header = SEP+"Header";
+        String footer = "Footer";
+        StringWriter out = new StringWriter();
+        formatter.printHelp(new PrintWriter(out),80, "foobar", header, options, 2, 2, footer, true);
+        assertEquals(
+                "usage: foobar"+SEP+
+                ""+SEP+
+                "Header"+SEP+
+                ""+SEP+
+                "Footer"+SEP
+                ,out.toString());
+    }
 
 }
