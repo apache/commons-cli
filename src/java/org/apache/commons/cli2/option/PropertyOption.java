@@ -31,8 +31,8 @@ import org.apache.commons.cli2.WriteableCommandLine;
  */
 public class PropertyOption extends OptionImpl {
 
-    private static final String DEFAULT_OPTION_STRING = "-D";
-    private static final String DEFAULT_DESCRIPTION =
+    public static final String DEFAULT_OPTION_STRING = "-D";
+    public static final String DEFAULT_DESCRIPTION =
         "Passes properties and values to the application";
 
     private final String optionString;
