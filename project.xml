@@ -34,7 +34,28 @@
       <organization>integral Source</organization>
     </developer>
   </developers>
-  
+
+  <contributors>
+    <!-- Helped in merging Avalon CLI -->
+    <contributor>
+      <name>Berin Loritsch</name>
+      <email>bloritsch@apache.org</email>
+      <id>bloritsch</id>
+      <roles>
+        <role>helped in the Avalon CLI merge</role>
+      </roles>
+    </contributor>
+    <!-- Supplied patch -->
+    <contributor>
+      <name>Peter Maddocks</name>
+      <email>peter_maddocks@hp.com</email>
+      <organization>Hewlett-Packard</organization>
+      <roles>
+        <role>supplied patch</role>
+      </roles>
+    </contributor>
+  </contributors>
+
   <dependencies>
     
     <dependency>
