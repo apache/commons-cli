@@ -3,7 +3,7 @@
 <project>
   <extend>../project.xml</extend>
   <id>commons-cli</id>
-  <name>commons-cli</name>
+  <name>CLI</name>
 
   <currentVersion>1.0-dev</currentVersion>
   <inceptionYear>2002</inceptionYear>
