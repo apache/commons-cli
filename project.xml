@@ -6,10 +6,17 @@
   <name>CLI</name>
 
   <currentVersion>1.0</currentVersion>
+
+  <organization>
+    <name>Apache Software Foundation</name>
+    <url>http://www.apache.org</url>
+    <logo>http://jakarta.apache.org/images/jakarta-logo.gif</logo>
+  </organization>
+
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons CLI</shortDescription>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
-  <logo>/images/1x1.gif</logo>
+  <logo>/images/logo.png</logo>
   
   <description>
   	Commons CLI provides a simple API for working with the command line arguments and options.
