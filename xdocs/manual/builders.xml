@@ -23,7 +23,7 @@
 
   <body>
     <section name="Builders">
-      <img src="../images/builders.jpg"/>
+      <p>TODO describe builders and resaons for their use</p>
       <subsection name="GroupBuilder">
       </subsection>
       <subsection name="ArgumentBuilder">
