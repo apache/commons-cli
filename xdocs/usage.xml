@@ -32,7 +32,7 @@
         <p>
           A boolean option is represented on a command line by the presence
           of the option, i.e. if the option is found then the option value
-          is true, otherwise the value is false.
+          is <code>true</code>, otherwise the value is <code>false</code>.
         </p>
         <p>
           The <code>DateApp</code> utility prints the current date to standard
@@ -43,7 +43,7 @@
       <subsection name="Create the Options">
         <p>
           An <a href="apidocs/org/apache/commons/cli/Options.html">
-          Options</a> object must be created and the<code>Option</code> must be 
+          Options</a> object must be created and the <code>Option</code> must be 
           added to it.
         </p>
         <source>
@@ -55,10 +55,10 @@ options.addOption("t", false, "display current time");</source>
           <p>
             The <code>addOption</code> method has three parameters.  The first
             parameter is a <code>java.lang.String</code> that represents the option. 
-            Thesecond paramter is a <code>boolean</code> that specifies whether the
+            The second parameter is a <code>boolean</code> that specifies whether the
             option requires an argument or not.  In the case of a boolean option
             (sometimes referred to as a flag) an argument value is not present so
-            it <code>false</code> is passed.  The third parameter is the description
+            <code>false</code> is passed.  The third parameter is the description
             of the option.  This description will be used in the usage text of the
             application.
           </p>
@@ -66,7 +66,9 @@ options.addOption("t", false, "display current time");</source>
       <subsection name="Parsing the command line arguments">
         <p>
           The <code>parse</code> methods of <code>CommandLineParser</code> are used 
-          to parse the command line arguments.  
+          to parse the command line arguments.  The <code>PosixPaser</code> is
+          great when you need to handle options that are one character long,
+          like the <code>t</code> option in this example.
         </p>
         <source>CommandLineParser parser = new PosixParser();
 CommandLine cmd = parser.parse( options, args);</source>
@@ -75,9 +77,9 @@ CommandLine cmd = parser.parse( options, args);</source>
           this we will interrogate the 
           <a href="apidocs/org/apache/commons/cli/CommandLine.html">CommandLine
           </a> object.  The <code>hasOption</code> method takes a 
-          <code>java.lang.String</code> parameter and returns true if the option 
+          <code>java.lang.String</code> parameter and returns <code>true</code> if the option 
           represented by the <code>java.lang.String</code> is present, otherwise 
-          it returns false.
+          it returns <code>false</code>.
         </p>
         <source>if(cmd.hasOption("t")) {
     // print the date and time
@@ -96,7 +98,7 @@ else {
         <source>// add c option
 options.addOption("c", true, "country code");</source>
         <p>
-          The second parameter is true this time.  This specifies that the
+          The second parameter is <code>true</code> this time.  This specifies that the
           <code>c</code> option requires an argument value.  If the required option
           argument value is specified on the command line it is returned,
           otherwise <code>null</code> is returned.
@@ -104,11 +106,11 @@ options.addOption("c", true, "country code");</source>
       </subsection>
       <subsection name="Retrieving the argument value">
         <p>
-          The <code>getOptionValue</code> methods of <code>Options</code> are
+          The <code>getOptionValue</code> methods of <code>CommandLine</code> are
           used to retrieve the argument values of options.
         </p>
         <source>// get c option value
-String countryCode = options.getOptionValue("c");
+String countryCode = cmd.getOptionValue("c");
 
 if(countryCode == null) {
     // print default date
@@ -121,9 +123,9 @@ else {
 
     <section name="Ant Example">
       <p>
-        As one of the most ubquituous Java applications 
-        <a href="http://jakarta.apache.org/ant">Ant</a> it will be used
-        here to illustrate how to create the Options required.  The following
+        One of the most ubiquitous Java applications 
+        <a href="http://ant.apache.org/">Ant</a> will be used
+        here to illustrate how to create the <code>Options</code> required.  The following
         is the help output for Ant.
       </p>
       <source>ant [options] [target [target2 [target3] ...]]
@@ -145,8 +147,8 @@ else {
       <subsection name="Boolean Options">
         <p>
           Lets create the boolean options for the application as they
-          are the easiest to create.  For clarity the constructors on
-          Option are used here.
+          are the easiest to create.  For clarity the constructors for
+          <code>Option</code> are used here.
         </p>
         <source>Option help = new Option( "help", "print this message" );
 Option projecthelp = new Option( "projecthelp", "print project help information" );
@@ -159,7 +161,7 @@ Option emacs = new Option( "emacs",
       </subsection>
       <subsection name="Argument Options">
         <p> 
-          The argument options are created using the OptionBuilder.
+          The argument options are created using the <code>OptionBuilder</code>.
         </p>
         <source>Option logfile   = OptionBuilder.withArgName( "file" )
                                 .hasArg()
@@ -186,12 +188,12 @@ Option buildfile = OptionBuilder.withArgName( "file" )
 Option find      = OptionBuilder.withArgName( "file" )
                                 .hasArg()
                                 .withDescription( "search for buildfile towards the "
-                                  + "root of the filesystem and use it" )
+                                                  + "root of the filesystem and use it" )
                                 .create( "file" );</source>
       </subsection>
       <subsection name="Java Property Option">
         <p>
-          The last option to create is the Java property and it too is created
+          The last option to create is the Java property and it is also created
           using the OptionBuilder.
         </p>
         <source>Option property  = OptionBuilder.withArgName( "property=value" )
@@ -207,7 +209,7 @@ Option find      = OptionBuilder.withArgName( "file" )
           to create the 
           <a href="apidocs/org/apache/commons/cli/Options.html">Options</a> 
           instance.  This is achieved using the 
-          <a href="apidocs/org/apache/commons/cli/CommandLine.html#hasOption(java.lang.String)">addOption</a> 
+          <a href="apidocs/org/apache/commons/cli/CommandLine.html#addOption(org.apache.commons.cli.Option)">addOption</a> 
           method of <code>Options</code>.
         </p>
         <source>Options options = new Options();
@@ -232,13 +234,15 @@ options.addOption( property );</source>
       </subsection>
       <subsection name="Create the Parser">
         <p>
-          We now need to create a Parser.  This will parse the command
-          line arguments, using the rules specified by the Options and
+          We now need to create a <code>Parser</code>.  This will parse the command
+          line arguments, using the rules specified by the <code>Options</code> and
           return an instance of <a href="apidocs/org/apache/commons/cli/CommandLine.html">CommandLine</a>.
+          This time we will use a <a href="apidocs/org/apache/commons/cli/GnuParser.html">GnuParser</a>
+          which is able to handle options that are more than one character long.
         </p>
         <source>public static void main( String[] args ) {
     // create the parser
-    CommandLineParser parser = new PosixParser();
+    CommandLineParser parser = new GnuParser();
     try {
         // parse the command line arguments
         CommandLine line = parser.parse( options, args );
@@ -251,7 +255,7 @@ options.addOption( property );</source>
       </subsection>
       <subsection name="Querying the commandline">
         <p>
-          To see if an option has been passed the<code>hasOption</code>
+          To see if an option has been passed the <code>hasOption</code>
           method is used.  The argument value can be retrieved using
           the <code>getValue</code> method.
         </p>
@@ -300,8 +304,7 @@ formatter.printHelp( "ant", options );</source>
       <p>
         One of the most widely used command line applications in the *nix world
         is <code>ls</code>.  To parse a command line for an application like this
-        a different parser is required, the
-        <a href="apidocs/org/apache/commons/cli/PosixParser.html">PosixParser</a>.
+        we will use the <a href="apidocs/org/apache/commons/cli/PosixParser.html">PosixParser</a>.
         Due to the large number of options required for <code>ls</code> this
         example will only cover a small proportion of the options.  The following
         is a section of the help output.
