@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.14 2003/01/16 21:37:10 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.15 2003/01/16 23:06:52 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -372,6 +372,16 @@ public class BugsTest extends TestCase
         CommandLine line = parser.parse(cliOptions, CLI_ARGS);
         assertEquals( option.getValue(), "c" );
         assertTrue( !line.hasOption("c") );
+    }
+
+    public void test15648() throws Exception {
+        CommandLineParser parser = new PosixParser();
+        final String[] args = new String[] { "-m", "\"Two Words\"" };
+        Option m = OptionBuilder.hasArgs().create("m");
+        Options options = new Options();
+        options.addOption( m );
+        CommandLine line = parser.parse( options, args );
+        assertEquals( "\"Two Words\"", line.getOptionValue( "m" ) );
     }
 
 }
