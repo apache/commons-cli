@@ -396,7 +396,7 @@ public class Option implements Cloneable {
     {
         switch( numberOfArgs ) {
             case UNINITIALIZED:
-                break;
+                throw new RuntimeException( "Cannot add value, no arguments allowed." );
             default:
                 processValue( value );
         }
