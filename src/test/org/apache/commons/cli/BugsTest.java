@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.13 2003/01/13 08:17:26 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.14 2003/01/16 21:37:10 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -344,7 +344,7 @@ public class BugsTest extends TestCase
         }
     }
 
-    public void test14786() {
+    public void test14786() throws Exception {
         Option o = OptionBuilder.isRequired().withDescription("test").create("test");
         Options opts = new Options();
         opts.addOption(o);
@@ -353,12 +353,9 @@ public class BugsTest extends TestCase
         CommandLineParser parser = new GnuParser();
 
         String[] args = new String[] { "-test" };
-        try {
-            CommandLine line = parser.parse( opts, args );
-        }
-        catch( ParseException exp ) {
-            fail( "Unexpected exception:" + exp.getMessage() );
-        }
+
+        CommandLine line = parser.parse( opts, args );
+        assertTrue( line.hasOption( "test" ) );
     }
 
     public void test15046() throws Exception {
