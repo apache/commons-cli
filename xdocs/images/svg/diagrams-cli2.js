@@ -111,8 +111,6 @@ Parser.addMethod("setHelpFormatter(...)");
 Parser.addMethod("setHelpOption(...)");
 Parser.addMethod("setHelpTrigger(...)");
 
-
-
 var DefaultingCommandLine = new Class("DefaultingCommandLine");
 DefaultingCommandLine.addMethod("appendCommandLine(...)");
 DefaultingCommandLine.addMethod("insertCommandLine(...)");
@@ -126,3 +124,167 @@ var PreferencesCommandLine = new Class("PreferencesCommandLine");
 PreferencesCommandLine.addAttribute("preferences");
 PreferencesCommandLine.addNote("java.util.prefs.Preferences");
 
+
+
+
+
+var ArgumentBuilder = new Class("ArgumentBuilder");
+ArgumentBuilder.addMethod("withId(...)");
+ArgumentBuilder.addMethod("withName(...)");
+ArgumentBuilder.addMethod("withDescription(...)");
+ArgumentBuilder.addMethod("withConsumeRemaining(...)");
+ArgumentBuilder.addMethod("withValidator(...)");
+ArgumentBuilder.addMethod("withMinimum(...)");
+ArgumentBuilder.addMethod("withMaximum(...)");
+ArgumentBuilder.addMethod("withDefault(...)");
+ArgumentBuilder.addMethod("withDefaults(...)");
+ArgumentBuilder.addMethod("withInitialSeparator(...)");
+ArgumentBuilder.addMethod("withSubsequentSeparator(...)");
+ArgumentBuilder.addMethod("create()");
+ArgumentBuilder.addMethod("reset()");
+
+var CommandBuilder = new Class("CommandBuilder");
+CommandBuilder.addMethod("withId(...)");
+CommandBuilder.addMethod("withName(...)");
+CommandBuilder.addMethod("withDescription(...)");
+CommandBuilder.addMethod("withArgument(...)");
+CommandBuilder.addMethod("withChildren(...)");
+CommandBuilder.addMethod("withRequired(...)");
+CommandBuilder.addMethod("create()");
+CommandBuilder.addMethod("reset()");
+
+var DefaultOptionBuilder = new Class("DefaultOptionBuilder");
+DefaultOptionBuilder.addMethod("withId(...)");
+DefaultOptionBuilder.addMethod("withShortName(...)");
+DefaultOptionBuilder.addMethod("withLongName(...)");
+DefaultOptionBuilder.addMethod("withDescription(...)");
+DefaultOptionBuilder.addMethod("withArgument(...)");
+DefaultOptionBuilder.addMethod("withChildren(...)");
+DefaultOptionBuilder.addMethod("withRequired(...)");
+DefaultOptionBuilder.addMethod("create()");
+DefaultOptionBuilder.addMethod("reset()");
+DefaultOptionBuilder.addAttribute("shortPrefix");
+DefaultOptionBuilder.addAttribute("longPrefix");
+DefaultOptionBuilder.addAttribute("burstEnabled");
+
+var DefaultOptionBuilder = new Class("DefaultOptionBuilder");
+DefaultOptionBuilder.addMethod("withId(...)");
+DefaultOptionBuilder.addMethod("withShortName(...)");
+DefaultOptionBuilder.addMethod("withLongName(...)");
+DefaultOptionBuilder.addMethod("withDescription(...)");
+DefaultOptionBuilder.addMethod("withArgument(...)");
+DefaultOptionBuilder.addMethod("withChildren(...)");
+DefaultOptionBuilder.addMethod("withRequired(...)");
+DefaultOptionBuilder.addMethod("create()");
+DefaultOptionBuilder.addMethod("reset()");
+
+var GroupBuilder = new Class("GroupBuilder");
+GroupBuilder.addMethod("withName(...)");
+GroupBuilder.addMethod("withDescription(...)");
+GroupBuilder.addMethod("withOption(...)");
+GroupBuilder.addMethod("withMinimum(...)");
+GroupBuilder.addMethod("withMaximum(...)");
+GroupBuilder.addMethod("create()");
+GroupBuilder.addMethod("reset()");
+
+var PatternBuilder = new Class("PatternBuilder");
+PatternBuilder.addMethod("withPattern(...)");
+PatternBuilder.addMethod("create()");
+PatternBuilder.addMethod("reset()");
+PatternBuilder.addAttribute("groupBuilder");
+PatternBuilder.addAttribute("optionBuilder");
+PatternBuilder.addAttribute("argumentBuilder");
+
+var SwitchBuilder = new Class("SwitchBuilder");
+SwitchBuilder.addMethod("withId(...)");
+SwitchBuilder.addMethod("withName(...)");
+SwitchBuilder.addMethod("withDescription(...)");
+SwitchBuilder.addMethod("withArgument(...)");
+SwitchBuilder.addMethod("withChildren(...)");
+SwitchBuilder.addMethod("withRequired(...)");
+SwitchBuilder.addMethod("create()");
+SwitchBuilder.addMethod("reset()");
+SwitchBuilder.addAttribute("enabledPrefix");
+SwitchBuilder.addAttribute("disabledPrefix");
+
+
+
+var Validator = new Class("Validator");
+Validator.addMethod("validate(...)");
+
+var ClassValidator = new Class("ClassValidator");
+ClassValidator.addAttribute("classLoader");
+ClassValidator.addAttribute("instance");
+ClassValidator.addAttribute("loadable");
+
+var DateValidator = new Class("DateValidator");
+DateValidator.addAttribute("formats");
+DateValidator.addAttribute("minimum");
+DateValidator.addAttribute("maximum");
+
+var EnumValidator = new Class("EnumValidator");
+EnumValidator.addAttribute("validValues");
+
+var FileValidator = new Class("FileValidator");
+FileValidator.addAttribute("directory");
+FileValidator.addAttribute("existing");
+FileValidator.addAttribute("file");
+FileValidator.addAttribute("hidden");
+FileValidator.addAttribute("readable");
+FileValidator.addAttribute("writable");
+
+var FileValidator = new Class("FileValidator");
+FileValidator.addAttribute("format");
+FileValidator.addAttribute("minimum");
+FileValidator.addAttribute("maximum");
+
+var UrlValidator = new Class("UrlValidator");
+UrlValidator.addAttribute("format");
+UrlValidator.addAttribute("minimum");
+UrlValidator.addAttribute("maximum");
+
+
+
+
+var Comparators = new Class("Comparators");
+Comparators.addMethod("chain(...)");
+Comparators.addMethod("commandFirst(...)");
+Comparators.addMethod("commandLast(...)");
+Comparators.addMethod("defaultOptionFirst(...)");
+Comparators.addMethod("defaultOptionLast(...)");
+Comparators.addMethod("groupFirst(...)");
+Comparators.addMethod("groupLast(...)");
+Comparators.addMethod("namedFirst(...)");
+Comparators.addMethod("namedLast(...)");
+Comparators.addMethod("preferredNameFirst(...)");
+Comparators.addMethod("preferredNameLast(...)");
+Comparators.addMethod("requiredFirst(...)");
+Comparators.addMethod("requiredLast(...)");
+Comparators.addMethod("switchFirst(...)");
+Comparators.addMethod("switchLast(...)");
+
+var HelpFormatter = new Class("HelpFormatter");
+HelpFormatter.addMethod("print()");
+HelpFormatter.addMethod("printDivider()");
+HelpFormatter.addMethod("printException()");
+HelpFormatter.addMethod("printFooter()");
+HelpFormatter.addMethod("printGutterLeft()");
+HelpFormatter.addMethod("printGutterRight()");
+HelpFormatter.addMethod("printHeader()");
+HelpFormatter.addMethod("printHelp()");
+HelpFormatter.addMethod("printUsage()");
+HelpFormatter.addAttribute("comparator");
+HelpFormatter.addAttribute("displaySettings");
+HelpFormatter.addAttribute("divider");
+HelpFormatter.addAttribute("exception");
+HelpFormatter.addAttribute("footer");
+HelpFormatter.addAttribute("fullUsageSettings");
+HelpFormatter.addAttribute("group");
+HelpFormatter.addAttribute("gutterCenter");
+HelpFormatter.addAttribute("gutterLeft");
+HelpFormatter.addAttribute("gutterRight");
+HelpFormatter.addAttribute("header");
+HelpFormatter.addAttribute("lineUsageSettings");
+HelpFormatter.addAttribute("pageWidth");
+HelpFormatter.addAttribute("printWriter");
+HelpFormatter.addAttribute("shellCommand");
