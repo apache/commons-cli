@@ -24,8 +24,20 @@
   <body>
     <section name="Validators">
       <img src="../images/validators.jpg"/>
-      <subsection name="??">
+
+      <subsection name="ClassValidator">
       </subsection>
+      <subsection name="DateValidator">
+      </subsection>
+      <subsection name="EnumValidator">
+      </subsection>
+      <subsection name="FileValidator">
+      </subsection>
+      <subsection name="NumberValidator">
+      </subsection>
+      <subsection name="UrlValidator">
+      </subsection>
+
     </section>
   </body>
 </document>
