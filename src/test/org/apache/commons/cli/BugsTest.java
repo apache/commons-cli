@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.8 2002/10/08 21:24:11 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.9 2002/10/19 21:18:26 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -262,4 +262,20 @@ public class BugsTest extends TestCase
         }
         fail( "MissingArgumentException not caught." );
     }
+
+    public void test13666() {
+        Options options = new Options();
+        Option dir = OptionBuilder.withDescription( "dir" )
+                                       .hasArg()
+                                       .create( 'd' );
+        options.addOption( dir );
+        try {
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp( "dir", options );
+        }
+        catch( Exception exp ) {
+            fail( "Unexpected Exception: " + exp.getMessage() );
+        }
+    }
+
 }
