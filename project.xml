@@ -11,7 +11,7 @@
   <gumpRepositoryId>jakarta</gumpRepositoryId>
   
   <description>
-  	Commons CLI provdes a simple API for working with the command line arguments and options.
+  	Commons CLI provides a simple API for working with the command line arguments and options.
   </description>
   
   <developers>
