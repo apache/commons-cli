@@ -1,12 +1,12 @@
-/*
+/**
  * Copyright 1999-2001,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -62,7 +62,7 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>Resets the member variables to their default values.</p>
+     * Resets the member variables to their default values.
      */
     private static void reset()
     {
@@ -80,7 +80,7 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created will have the following long option value.</p>
+     * The next Option created will have the following long option value.
      *
      * @param longopt the long option value
      * @return the OptionBuilder instance
@@ -93,7 +93,7 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created will require an argument value.</p>
+     * The next Option created will require an argument value.
      *
      * @return the OptionBuilder instance
      */
@@ -105,8 +105,8 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created will require an argument value if
-     * <code>hasArg</code> is true.</p>
+     * The next Option created will require an argument value if
+     * <code>hasArg</code> is true.
      *
      * @param hasArg if true then the Option has an argument value
      * @return the OptionBuilder instance
@@ -119,8 +119,8 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created will have the specified argument value 
-     * name.</p>
+     * The next Option created will have the specified argument value 
+     * name.
      *
      * @param name the name for the argument value
      * @return the OptionBuilder instance
@@ -133,7 +133,7 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created will be required.</p>
+     * The next Option created will be required.
      *
      * @return the OptionBuilder instance
      */
@@ -145,8 +145,8 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created uses <code>sep</code> as a means to
-     * separate argument values.</p>
+     * The next Option created uses <code>sep</code> as a means to
+     * separate argument values.
      *
      * <b>Example:</b>
      * <pre>
@@ -170,8 +170,8 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created uses '<code>=</code>' as a means to
-     * separate argument values.</p>
+     * The next Option created uses '<code>=</code>' as a means to
+     * separate argument values.
      *
      * <b>Example:</b>
      * <pre>
@@ -193,8 +193,8 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created will be required if <code>required</code>
-     * is true.</p>
+     * The next Option created will be required if <code>required</code>
+     * is true.
      *
      * @param required if true then the Option is required
      * @return the OptionBuilder instance
@@ -207,7 +207,7 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created can have unlimited argument values.</p>
+     * The next Option created can have unlimited argument values.
      *
      * @return the OptionBuilder instance
      */
@@ -219,8 +219,8 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created can have <code>num</code> 
-     * argument values.</p>
+     * The next Option created can have <code>num</code> 
+     * argument values.
      *
      * @param num the number of args that the option can have
      * @return the OptionBuilder instance
@@ -233,7 +233,7 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option can have an optional argument.</p>
+     * The next Option can have an optional argument.
      *
      * @return the OptionBuilder instance
      */
@@ -246,8 +246,8 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option can have an unlimited number of
-     * optional arguments.</p>
+     * The next Option can have an unlimited number of
+     * optional arguments.
      *
      * @return the OptionBuilder instance
      */
@@ -260,8 +260,8 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option can have the specified number of 
-     * optional arguments.</p>
+     * The next Option can have the specified number of 
+     * optional arguments.
      *
      * @param numArgs - the maximum number of optional arguments
      * the next Option created can have.
@@ -276,8 +276,8 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created will have a value that will be an instance 
-     * of <code>type</code>.</p>
+     * The next Option created will have a value that will be an instance 
+     * of <code>type</code>.
      *
      * @param type the type of the Options argument value
      * @return the OptionBuilder instance
@@ -290,7 +290,7 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created will have the specified description</p>
+     * The next Option created will have the specified description
      *
      * @param description a description of the Option's purpose
      * @return the OptionBuilder instance
@@ -303,8 +303,8 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>Create an Option using the current settings and with 
-     * the specified Option <code>char</code>.</p>
+     * Create an Option using the current settings and with 
+     * the specified Option <code>char</code>.
      *
      * @param opt the character representation of the Option
      * @return the Option instance
@@ -318,7 +318,7 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>Create an Option using the current settings</p>
+     * Create an Option using the current settings
      *
      * @return the Option instance
      * @throws IllegalArgumentException if <code>longOpt</code> has
@@ -336,8 +336,8 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>Create an Option using the current settings and with 
-     * the specified Option <code>char</code>.</p>
+     * Create an Option using the current settings and with 
+     * the specified Option <code>char</code>.
      *
      * @param opt the <code>java.lang.String</code> representation 
      * of the Option

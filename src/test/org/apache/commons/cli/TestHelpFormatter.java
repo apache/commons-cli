@@ -1,20 +1,25 @@
-/*
- * Copyright (C) The Apache Software Foundation. All rights reserved.
+/**
+ * Copyright 2001-2004 The Apache Software Foundation
  *
- * This software is published under the terms of the Apache Software License
- * version 1.1, a copy of which has been included with this distribution in
- * the LICENSE file.
- * 
- * $Id: TestHelpFormatter.java,v 1.2 2002/05/17 11:44:32 jstrachan Exp $
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.apache.commons.cli;
 
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
-import java.io.StringWriter;
+
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /** 
  * Test case for the HelpFormatter class 
@@ -160,7 +165,7 @@ public class TestHelpFormatter extends TestCase
        assertEquals("simple auto usage", expected, out.toString().trim());
        out.reset();
 
-       expected = "usage: app [-b] [-a]";
+       expected = "usage: app [-a] [-b]";
        options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa")
        .addOption("b", false, "bbb" );
        hf.printUsage( pw, 60, "app", options );

@@ -1,40 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <module name="commons-cli">
-
-
   <description>Commons CLI</description>
-  <url href="http://jakarta.apache.org/commons/sandbox/cli.html"/>
-  
-  <cvs repository="jakarta"/>
-  
-  <!-- This is really the cvs module. We need to change this but -->
-  <!-- I will leave this for now until everything works.         -->
-  
+  <url href="http://jakarta.apache.org/commons/index.html">
+  </url>
+  <cvs module="jakarta-commons" repository="jakarta">
+  </cvs>
   <project name="commons-cli">
-    
-    <!-- Standard Maven target to produce Javadocs, source -->
-    <!-- and binary distributions.                         -->
-    <ant buildfile="build-gump.xml" target="jar">
-      <property name="maven.final.name" value="commons-cli-@@DATE@@"/>
+    <ant buildfile="build.xml" target="dist">
+      <property name="final.name" value="commons-cli-@@DATE@@">
+      </property>
     </ant>
-
-    <package>org.apache.commons.cli</package>
-
-    <!-- All Maven projects need Ant and Xerces to build. -->
-    <depend project="jakarta-ant"/>
-    <depend project="xml-xerces"/>
-
-    <depend project="commons-logging"/>
-    <depend project="commons-lang"/>
-
-    <work nested="target/classes"/>
-    <home nested="target"/>
-    <jar name="commons-cli-@@DATE@@.jar"/>
-    <javadoc nested="docs/apidocs"/>
-
-    <nag from="Maven Developers &lt;turbine-maven-dev@jakarta.apache.org&gt;"
-         to="commons-dev@jakarta.apache.org"/>
-
-    
+    <package>org.apache.commons.*</package>
+    <depend project="commons-lang">
+    </depend>
+    <depend project="jakarta-ant">
+    </depend>
+    <depend project="jdepend">
+    </depend>
+    <depend project="junit">
+    </depend>
+    <depend project="xml-xerces">
+    </depend>
+    <work nested="target/classes">
+    </work>
+    <home nested="target">
+    </home>
+    <jar name="commons-cli-@@DATE@@.jar">
+    </jar>
+    <javadoc module="jakarta-commons" nested="target/docs/apidocs">
+    </javadoc>
+    <nag to="commons-dev@jakarta.apache.org" from="commons-cli development &lt;commons-dev@jakarta.apache.org&gt;">
+    </nag>
   </project>
-  
 </module>

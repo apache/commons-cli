@@ -1,12 +1,12 @@
-/*
+/**
  * Copyright 1999-2001,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -109,7 +109,7 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Creates an Option using the specified parameters.</p>
+     * Creates an Option using the specified parameters.
      *
      * @param opt short representation of the option
      * @param longOpt the long representation of the option
@@ -140,9 +140,9 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Returns the id of this Option.  This is only set when the
+     * Returns the id of this Option.  This is only set when the
      * Option shortOpt is a single character.  This is used for switch
-     * statements.</p>
+     * statements.
      *
      * @return the id of this Option
      */
@@ -152,7 +152,7 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Returns the 'unique' Option identifier.</p>
+     * Returns the 'unique' Option identifier.
      * 
      * @return the 'unique' Option identifier
      */
@@ -167,12 +167,13 @@ public class Option implements Cloneable {
         return this.opt;
     }
 
-    /** <p>Retrieve the name of this Option.</p>
+    /** 
+     * Retrieve the name of this Option.
      *
-     * <p>It is this String which can be used with
+     * It is this String which can be used with
      * {@link CommandLine#hasOption(String opt)} and
      * {@link CommandLine#getOptionValue(String opt)} to check
-     * for existence and argument.<p>
+     * for existence and argument.
      *
      * @return The name of this option
      */
@@ -182,7 +183,7 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Retrieve the type of this Option.</p>
+     * Retrieve the type of this Option.
      * 
      * @return The type of this option
      */
@@ -192,7 +193,7 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Sets the type of this Option.</p>
+     * Sets the type of this Option.
      *
      * @param type the type of this Option
      */
@@ -202,7 +203,7 @@ public class Option implements Cloneable {
     }
 
     /** 
-     * <p>Retrieve the long name of this Option.</p>
+     * Retrieve the long name of this Option.
      *
      * @return Long name of this option, or null, if there is no long name
      */
@@ -212,7 +213,7 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Sets the long name of this Option.</p>
+     * Sets the long name of this Option.
      *
      * @param longOpt the long name of this Option
      */
@@ -222,7 +223,7 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Sets whether this Option can have an optional argument.</p>
+     * Sets whether this Option can have an optional argument.
      *
      * @param optionalArg specifies whether the Option can have
      * an optional argument.
@@ -240,7 +241,8 @@ public class Option implements Cloneable {
         return this.optionalArg;
     }
 
-    /** <p>Query to see if this Option has a long name</p>
+    /** 
+     * Query to see if this Option has a long name
      *
      * @return boolean flag indicating existence of a long name
      */
@@ -249,7 +251,8 @@ public class Option implements Cloneable {
         return (this.longOpt != null);
     }
 
-    /** <p>Query to see if this Option requires an argument</p>
+    /** 
+     * Query to see if this Option requires an argument
      *
      * @return boolean flag indicating if an argument is required
      */
@@ -258,7 +261,8 @@ public class Option implements Cloneable {
         return (this.numberOfArgs > 0) || (numberOfArgs == UNLIMITED_VALUES);
     }
 
-    /** <p>Retrieve the self-documenting description of this Option</p>
+    /** 
+     * Retrieve the self-documenting description of this Option
      *
      * @return The string description of this option
      */
@@ -268,7 +272,7 @@ public class Option implements Cloneable {
     }
 
     /** 
-     * <p>Query to see if this Option requires an argument</p>
+     * Query to see if this Option requires an argument
      *
      * @return boolean flag indicating if an argument is required
      */
@@ -278,7 +282,7 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Sets whether this Option is mandatory.</p>
+     * Sets whether this Option is mandatory.
      *
      * @param required specifies whether this Option is mandatory
      */
@@ -288,7 +292,7 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Sets the display name for the argument value.</p>
+     * Sets the display name for the argument value.
      *
      * @param argName the display name for the argument value.
      */
@@ -298,7 +302,7 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Gets the display name for the argument value.</p>
+     * Gets the display name for the argument value.
      *
      * @return the display name for the argument value.
      */
@@ -308,8 +312,8 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Returns whether the display name for the argument value
-     * has been set.</p>
+     * Returns whether the display name for the argument value
+     * has been set.
      *
      * @return if the display name for the argument value has been
      * set.
@@ -320,7 +324,7 @@ public class Option implements Cloneable {
     }
 
     /** 
-     * <p>Query to see if this Option can take many values</p>
+     * Query to see if this Option can take many values.
      *
      * @return boolean flag indicating if multiple values are allowed
      */
@@ -331,7 +335,7 @@ public class Option implements Cloneable {
     }
 
     /** 
-     * <p>Sets the number of argument values this Option can take.</p>
+     * Sets the number of argument values this Option can take.
      *
      * @param num the number of argument values
      */
@@ -341,8 +345,8 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Sets the value separator.  For example if the argument value
-     * was a Java property, the value separator would be '='.</p>
+     * Sets the value separator.  For example if the argument value
+     * was a Java property, the value separator would be '='.
      *
      * @param sep The value separator.
      */
@@ -352,7 +356,7 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Returns the value separator character.</p>
+     * Returns the value separator character.
      *
      * @return the value separator character.
      */
@@ -362,9 +366,9 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Return whether this Option has specified a value separator.</p>
+     * Return whether this Option has specified a value separator.
      * 
-     * @return whether this Option has specified a value separator.</p>
+     * @return whether this Option has specified a value separator.
      */
     public boolean hasValueSeparator()
     {
@@ -372,7 +376,7 @@ public class Option implements Cloneable {
     }
 
     /** 
-     * <p>Returns the number of argument values this Option can take.</p>
+     * Returns the number of argument values this Option can take.
      *
      * @return num the number of argument values
      */
@@ -382,7 +386,7 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Adds the specified value to this Option.</p>
+     * Adds the specified value to this Option.
      * 
      * @param value is a/the value of this Option
      */
@@ -399,11 +403,11 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Processes the value.  If this Option has a value separator
+     * Processes the value.  If this Option has a value separator
      * the value will have to be parsed into individual tokens.  When
      * n-1 tokens have been processed and there are more value separators
      * in the value, parsing is ceased and the remaining characters are
-     * added as a single token.</p>
+     * added as a single token.
      *
      * @param value The String to be processed.
      *
@@ -449,10 +453,9 @@ public class Option implements Cloneable {
     }
 
     /**
-     * <p>Add the value to this Option.  If the number of arguments
+     * Add the value to this Option.  If the number of arguments
      * is greater than zero and there is enough space in the list then
      * add the value.  Otherwise, throw a runtime exception.
-     * </p>
      *
      * @param value The value to be added to this Option
      *
@@ -557,7 +560,7 @@ public class Option implements Cloneable {
     }
 
     /** 
-     * <p>Dump state, suitable for debugging.</p>
+     * Dump state, suitable for debugging.
      *
      * @return Stringified form of this object
      */

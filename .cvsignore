@@ -3,6 +3,6 @@ dist
 target
 velocity.log
 .project
-
 maven.log
 .classpath
+jcoverage.ser

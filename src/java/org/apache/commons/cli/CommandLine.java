@@ -1,12 +1,12 @@
-/*
+/**
  * Copyright 1999-2001,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -55,14 +55,14 @@ public class CommandLine {
     private Option[] optionsArray;
 
     /**
-     * <p>Creates a command line.</p>
+     * Creates a command line.
      */
     CommandLine()
     {
     }
 
     /** 
-     * <p>Query to see if an option has been set.</p>
+     * Query to see if an option has been set.
      *
      * @param opt Short name of the option
      * @return true if set, false if not
@@ -73,7 +73,7 @@ public class CommandLine {
     }
 
     /** 
-     * <p>Query to see if an option has been set.</p>
+     * Query to see if an option has been set.
      *
      * @param opt character name of the option
      * @return true if set, false if not
@@ -84,7 +84,7 @@ public class CommandLine {
     }
 
     /**
-     * <p>Return the <code>Object</code> type of this <code>Option</code>.</p>
+     * Return the <code>Object</code> type of this <code>Option</code>.
      *
      * @param opt the name of the option
      * @return the type of this <code>Option</code>
@@ -104,7 +104,7 @@ public class CommandLine {
     }
 
     /**
-     * <p>Return the <code>Object</code> type of this <code>Option</code>.</p>
+     * Return the <code>Object</code> type of this <code>Option</code>.
      *
      * @param opt the name of the option
      * @return the type of opt
@@ -115,7 +115,7 @@ public class CommandLine {
     }
 
     /** 
-     * <p>Retrieve the argument, if any, of this option.</p>
+     * Retrieve the argument, if any, of this option.
      *
      * @param opt the name of the option
      * @return Value of the argument if option is set, and has an argument,
@@ -129,7 +129,7 @@ public class CommandLine {
     }
 
     /** 
-     * <p>Retrieve the argument, if any, of this option.</p>
+     * Retrieve the argument, if any, of this option.
      *
      * @param opt the character name of the option
      * @return Value of the argument if option is set, and has an argument,
@@ -141,7 +141,7 @@ public class CommandLine {
     }
 
     /** 
-     * <p>Retrieves the array of values, if any, of an option.</p>
+     * Retrieves the array of values, if any, of an option.
      *
      * @param opt string name of the option
      * @return Values of the argument if option is set, and has an argument,
@@ -169,7 +169,7 @@ public class CommandLine {
     }
 
     /** 
-     * <p>Retrieves the array of values, if any, of an option.</p>
+     * Retrieves the array of values, if any, of an option.
      *
      * @param opt character name of the option
      * @return Values of the argument if option is set, and has an argument,
@@ -181,7 +181,7 @@ public class CommandLine {
     }
 
     /** 
-     * <p>Retrieve the argument, if any, of an option.</p>
+     * Retrieve the argument, if any, of an option.
      *
      * @param opt name of the option
      * @param defaultValue is the default value to be returned if the option 
@@ -197,7 +197,7 @@ public class CommandLine {
     }
 
     /** 
-     * <p>Retrieve the argument, if any, of an option.</p>
+     * Retrieve the argument, if any, of an option.
      *
      * @param opt character name of the option
      * @param defaultValue is the default value to be returned if the option 
@@ -211,7 +211,7 @@ public class CommandLine {
     }
 
     /** 
-     * <p>Retrieve any left-over non-recognized options and arguments</p>
+     * Retrieve any left-over non-recognized options and arguments
      *
      * @return remaining items passed in but not parsed as an array
      */
@@ -225,7 +225,7 @@ public class CommandLine {
     }
 
     /** 
-     * <p>Retrieve any left-over non-recognized options and arguments</p>
+     * Retrieve any left-over non-recognized options and arguments
      *
      * @return remaining items passed in but not parsed as a <code>List</code>.
      */
@@ -257,7 +257,7 @@ public class CommandLine {
     */
 
     /**
-     * <p>Add left-over unrecognized option/argument.</p>
+     * Add left-over unrecognized option/argument.
      *
      * @param arg the unrecognised option/argument.
      */
@@ -267,8 +267,8 @@ public class CommandLine {
     }
 
     /**
-     * <p>Add an option to the command line.  The values of 
-     * the option are stored.</p>
+     * Add an option to the command line.  The values of 
+     * the option are stored.
      *
      * @param opt the processed option
      */
@@ -291,7 +291,7 @@ public class CommandLine {
     }
 
     /**
-     * <p>Returns an iterator over the Option members of CommandLine.</p>
+     * Returns an iterator over the Option members of CommandLine.
      *
      * @return an <code>Iterator</code> over the processed {@link Option} 
      * members of this {@link CommandLine}
@@ -302,7 +302,7 @@ public class CommandLine {
     }
 
     /**
-     * <p>Returns an array of the processed {@link Option}s.</p>
+     * Returns an array of the processed {@link Option}s.
      *
      * @return an array of the processed {@link Option}s.
      */

@@ -1,12 +1,12 @@
-/*
+/**
  * Copyright 1999-2001,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -657,7 +657,7 @@ public class HelpFormatter {
         Option option;
         List optList = options.helpOptions();
 
-        Collections.sort(optList, new StringBufferComparator());
+        Collections.sort(optList, new OptionComparator());
 
         for (Iterator i = optList.iterator(); i.hasNext();)
         {
@@ -885,9 +885,9 @@ public class HelpFormatter {
     // ---------------------------------------------------------- Inner classes
     /**
      * <p>This class implements the <code>Comparator</code> interface
-     * for comparing StringBuffers.</p>
+     * for comparing Options.</p>
      */
-    private static class StringBufferComparator
+    private static class OptionComparator
         implements Comparator {
 
         /**
@@ -895,8 +895,8 @@ public class HelpFormatter {
          * integer, zero, or a positive integer as the first argument 
          * is less than, equal to, or greater than the second.</p>
          *
-         * @param o1 The first StringBuffer to be compared.
-         * @param o2 The second StringBuffer to be compared.
+         * @param o1 The first Option to be compared.
+         * @param o2 The second Option to be compared.
          *
          * @return a negative integer, zero, or a positive integer as 
          * the first argument is less than, equal to, or greater than the 
@@ -904,31 +904,10 @@ public class HelpFormatter {
          */
         public int compare(Object o1, Object o2)
         {
-            String str1 = stripPrefix(o1.toString());
-            String str2 = stripPrefix(o2.toString());
+            Option opt1 = (Option)o1;
+            Option opt2 = (Option)o2;
 
-            return (str1.compareTo(str2));
-        }
-
-        /**
-         * <p>Removes any leading hyphens from <code>strOption</code>.</p>
-         *         
-         * @param strOption The String from which to strip the leading
-         * hyphens.
-         *
-         * @return The String without any leading hyphens.
-         */
-        private String stripPrefix(String strOption)
-        {
-            // Strip any leading '-' characters
-            int iStartIndex = strOption.lastIndexOf('-');
-
-            if (iStartIndex == -1)
-            {
-                iStartIndex = 0;
-            }
-
-            return strOption.substring(iStartIndex);
+            return opt1.getKey().compareToIgnoreCase(opt2.getKey());
         }
     }
 }

@@ -15,58 +15,26 @@
    limitations under the License.
 -->
 <project>
-  <pomVersion>3</pomVersion>
+  <extend>../commons-build/project.xml</extend>
   <id>commons-cli</id>
   <name>CLI</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>2.0</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons CLI</shortDescription>
-  <description>Commons CLI provides a simple API for working with the command line arguments and options.</description>
+  <description>
+  	Commons CLI provides a simple API for working with the command line arguments and options.
+  </description>
   <logo>/images/logo.png</logo>
-  
-  <url>http://jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</url>
-  <package>org.apache.commons.${pom.artifactId.substring(8)}</package>
 
   <organization>
-    <name>The Apache Software Foundation</name>
-    <url>http://jakarta.apache.org</url>
-    <logo>http://jakarta.apache.org/images/original-jakarta-logo.gif</logo>
+    <name>Apache Software Foundation</name>
+    <url>http://www.apache.org</url>
+    <logo>http://jakarta.apache.org/images/jakarta-logo.gif</logo>
   </organization>
-  
-  <licenses>
-	<license>
-    	<name>The Apache Software License, Version 2.0</name>
-    	<url>/LICENSE.txt</url>
-    	<distribution>repo</distribution>
-	</license>
-  </licenses>
-  
-  <gumpRepositoryId>jakarta</gumpRepositoryId>
-  <issueTrackingUrl>http://issues.apache.org/bugzilla/</issueTrackingUrl>
-  <siteAddress>jakarta.apache.org</siteAddress>
-  <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
-  
-  <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/${pom.artifactId.substring(8)}</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/${pom.artifactId.substring(8)}/</url>
-  </repository>
-  
-  <mailingLists>
-    <mailingList>
-      <name>Commons Dev List</name>
-      <subscribe>commons-dev-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>commons-dev-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-dev@jakarta.apache.org</archive>
-    </mailingList>
-    <mailingList>
-      <name>Commons User List</name>
-      <subscribe>commons-user-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>commons-user-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-user@jakarta.apache.org</archive>
-    </mailingList>
-  </mailingLists>
 
+  <gumpRepositoryId>jakarta</gumpRepositoryId>
+  
+  
   <developers>
     <developer>
       <name>James Strachan</name>
@@ -85,6 +53,12 @@
       <id>jkeyes</id>
       <email>jbjk@mac.com</email>
       <organization>integral Source</organization>
+    </developer>
+    <developer>
+      <name>Rob Oxspring</name>
+      <id>roxspring</id>
+      <email>roxspring@imapmail.org</email>
+      <organization></organization>
     </developer>
   </developers>
 
@@ -112,11 +86,6 @@
   <dependencies>
     
     <dependency>
-      <id>commons-logging</id>
-      <version>1.0</version>
-    </dependency>
-    
-    <dependency>
       <id>commons-lang</id>
       <version>1.0</version>
     </dependency>
@@ -126,39 +95,41 @@
       <version>3.8.1</version>
     </dependency>
   
-  </dependencies>
-
+    <dependency>
+      <id>jdepend</id>
+      <version>2.5</version>
+    </dependency>
   
-   <build>
-    	<nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
-    	<sourceDirectory>src/java</sourceDirectory>
-    	<unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-    	<integrationUnitTestSourceDirectory/>
-    	<aspectSourceDirectory/>
-
-    	<!-- Unit test classes -->
-    	<unitTest>
-            <directory>${pom.build.unitTestSourceDirectory}</directory>
-            <includes>
-                <include>**/*Test*.java</include>
-            </includes>
-        </unitTest>
-
-    	<!-- Integration unit test classes -->
-    	<integrationUnitTestPatterns></integrationUnitTestPatterns>
+  </dependencies>
+  
+  <build>
+    <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <resources>
+        <resource>
+          <directory>src/java/org/apache/commons/cli2</directory>
+          <targetPath>org/apache/commons/cli2</targetPath>
+          <includes>
+            <include>**/*.properties</include>
+          </includes>
+        </resource>
+    </resources>
     
-    	<resources>
-      		<includes>
-       			<include>**/*.properties</include>
-      		</includes>
-    	</resources>
-    	<jars/>
-  	</build>
-  	
-  	
-    <reports>
-  	<report>maven-changelog-plugin</report>
-   	<report>maven-changes-plugin</report>
+    <!-- Unit test classes -->
+    <unitTest>
+      <includes>
+        <include>**/Test*.java</include>
+        <include>**/*Test.java</include>
+      </includes>
+    </unitTest>
+  </build>
+
+  <reports>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-changes-plugin</report>
     <report>maven-developer-activity-plugin</report>
     <report>maven-file-activity-plugin</report>
     <report>maven-javadoc-plugin</report>
@@ -167,5 +138,10 @@
     <report>maven-jxr-plugin</report>
     <report>maven-license-plugin</report>
     <report>maven-tasklist-plugin</report>
-  </reports>
-</project>
+    <report>maven-pmd-plugin</report>
+    <report>maven-simian-plugin</report>
+    <report>maven-faq-plugin</report>
+    <report>maven-jcoverage-plugin</report>
+    <report>maven-tasks-plugin</report>
+    <report>maven-findbugs-plugin</report>
+  </reports></project>

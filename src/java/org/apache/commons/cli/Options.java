@@ -1,12 +1,12 @@
-/*
+/**
  * Copyright 1999-2001,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -52,14 +53,14 @@ public class Options {
     /** a map of the option groups */
     private Map optionGroups = new HashMap();
 
-    /** <p>Construct a new Options descriptor</p>
+    /** Construct a new Options descriptor
      */
     public Options()
     {
     }
 
     /**
-     * <p>Add the specified option group.</p>
+     * Add the specified option group.
      *
      * @param group the OptionGroup that is to be added
      * @return the resulting Options instance
@@ -89,9 +90,18 @@ public class Options {
 
         return this;
     }
+    
+    /**
+     * Lists the OptionGroups that are members of this Options instance.
+     * @return a Collection of OptionGroup instances.
+     */
+    Collection getOptionGroups(){
+    	return new HashSet(optionGroups.values());
+    }
 
-    /** <p>Add an option that only contains a short-name</p>
-     * <p>It may be specified as requiring an argument.</p>
+    /** 
+     * Add an option that only contains a short-name.
+     * It may be specified as requiring an argument.
      *
      * @param opt Short single-character name of the option.
      * @param hasArg flag signally if an argument is required after this option
@@ -105,8 +115,9 @@ public class Options {
         return this;
     }
 
-    /** <p>Add an option that contains a short-name and a long-name</p>
-     * <p>It may be specified as requiring an argument.</p>
+    /** 
+     * Add an option that contains a short-name and a long-name.
+     * It may be specified as requiring an argument.
      *
      * @param opt Short single-character name of the option.
      * @param longOpt Long multi-character name of the option.
@@ -123,7 +134,7 @@ public class Options {
     }
 
     /**
-     * <p>Adds an option instance</p>
+     * Adds an option instance
      *
      * @param opt the option that is to be added 
      * @return the resulting Options instance
@@ -152,7 +163,8 @@ public class Options {
         return this;
     }
 
-    /** <p>Retrieve a read-only list of options in this set</p>
+    /** 
+     * Retrieve a read-only list of options in this set
      *
      * @return read-only Collection of {@link Option} objects in this descriptor
      */
@@ -162,7 +174,7 @@ public class Options {
     }
 
     /**
-     * <p>Returns the Options for use by the HelpFormatter.</p>
+     * Returns the Options for use by the HelpFormatter.
      *
      * @return the List of Options
      */
@@ -187,8 +199,9 @@ public class Options {
         return new ArrayList(opts);
     }
 
-    /** <p>Returns the required options as a 
-     * <code>java.util.Collection</code>.</p>
+    /** 
+     * Returns the required options as a
+     * <code>java.util.Collection</code>.
      *
      * @return Collection of required options
      */
@@ -197,7 +210,8 @@ public class Options {
         return requiredOpts;
     }
 
-    /** <p>Retrieve the named {@link Option}</p>
+    /** 
+     * Retrieve the named {@link Option}
      *
      * @param opt short or long name of the {@link Option}
      * @return the option represented by opt
@@ -215,8 +229,8 @@ public class Options {
     }
 
     /** 
-     * <p>Returns whether the named {@link Option} is a member
-     * of this {@link Options}</p>
+     * Returns whether the named {@link Option} is a member
+     * of this {@link Options}.
      *
      * @param opt short or long name of the {@link Option}
      * @return true if the named {@link Option} is a member
@@ -229,8 +243,9 @@ public class Options {
         return shortOpts.containsKey(opt) || longOpts.containsKey(opt);
     }
 
-    /** <p>Returns the OptionGroup the <code>opt</code>
-     * belongs to.</p>
+    /** 
+     * Returns the OptionGroup the <code>opt</code>
+     * belongs to.
      * @param opt the option whose OptionGroup is being queried.
      *
      * @return the OptionGroup if <code>opt</code> is part
@@ -241,7 +256,8 @@ public class Options {
         return (OptionGroup) optionGroups.get(opt.getKey());
     }
 
-    /** <p>Dump state, suitable for debugging.</p>
+    /** 
+     * Dump state, suitable for debugging.
      *
      * @return Stringified form of this object
      */
