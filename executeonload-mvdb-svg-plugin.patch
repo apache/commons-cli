@@ -1,0 +1,243 @@
+Index: plugin.jelly
+===================================================================
+RCS file: /home/cvspublic/maven/plugins/svg/plugin.jelly,v
+retrieving revision 1.6
+diff -u -r1.6 plugin.jelly
+--- plugin.jelly	22 May 2004 11:39:25 -0000	1.6
++++ plugin.jelly	19 Jan 2005 13:16:32 -0000
+@@ -25,7 +25,8 @@
+   <j:set var="svgSrcDir" value="${maven.svg.src.dir}"/>
+   <j:set var="svgCleanup" value="${maven.svg.cleanup}"/>
+   <j:set var="svgTarget" value="${maven.svg.target}"/>
+-
++  <j:set var="svgTarget" value="${maven.svg.target}"/>
++  <j:set var="svgExecuteOnload" value="${maven.svg.onload}"/>
+ 
+   <define:taglib uri="svgConverter">
+     <define:jellybean
+@@ -59,19 +60,12 @@
+     <j:if test="${convert != null}">
+       <j:forEach var="file" items="${svgFiles.iterator()}">
+         <echo>Converting ${file} to ${svgDestDir} using type ${svgTarget}</echo>
+-        <j:if test="${svgTarget.equalsIgnoreCase('both')}">
+-          <svgConverter:convert type="jpg"
+-                      file="${file}"
+-                      destination="${svgDestDir}"/>
+-          <svgConverter:convert type="png"
+-                      file="${file}"
+-                      destination="${svgDestDir}"/>
+-        </j:if>
+-        <j:if test="${!(svgTarget.equalsIgnoreCase('both'))}">
+-          <svgConverter:convert type="${svgTarget}"
+-                      file="${file}"
+-                      destination="${svgDestDir}"/>
+-        </j:if>
++          <svgConverter:convert 
++            type="${svgTarget}" 
++            file="${file}" 
++            destination="${svgDestDir}"
++            executeOnload="${svgExecuteOnload}"
++            />
+         <!-- Todo : clean up after ourselves ? -->
+       </j:forEach>
+     </j:if>
+Index: project.xml
+===================================================================
+RCS file: /home/cvspublic/maven/plugins/svg/project.xml,v
+retrieving revision 1.6
+diff -u -r1.6 project.xml
+--- project.xml	22 May 2004 11:39:25 -0000	1.6
++++ project.xml	19 Jan 2005 13:16:32 -0000
+@@ -156,7 +156,14 @@
+       <url>http://xml.apache.org/batik</url>
+     </dependency>
+ 
+-<!--    <dependency>
++    <dependency>
++      <groupId>rhino</groupId>
++      <artifactId>js</artifactId>
++      <version>1.6R1</version>
++      <url>http://xml.apache.org/batik</url>
++    </dependency>
++
++	<!--    <dependency>
+       <id>junit</id>
+       <version>3.8.1</version>
+     </dependency>
+Index: src/java/org/mvdb/maven/plugins/svg/SVGConverter.java
+===================================================================
+RCS file: /home/cvspublic/maven/plugins/svg/src/java/org/mvdb/maven/plugins/svg/SVGConverter.java,v
+retrieving revision 1.4
+diff -u -r1.4 SVGConverter.java
+--- src/java/org/mvdb/maven/plugins/svg/SVGConverter.java	20 May 2004 23:38:27 -0000	1.4
++++ src/java/org/mvdb/maven/plugins/svg/SVGConverter.java	19 Jan 2005 13:16:32 -0000
+@@ -29,6 +29,7 @@
+ import org.apache.batik.transcoder.image.ImageTranscoder;
+ import org.apache.batik.transcoder.image.JPEGTranscoder;
+ import org.apache.batik.transcoder.image.PNGTranscoder;
++import org.apache.batik.transcoder.image.TIFFTranscoder;
+ 
+ /**
+  * This class converts svg images to png, jpg and tiff.
+@@ -50,6 +51,10 @@
+      * The destination of the file
+      */
+     private String destination;
++    /**
++     * True iff any onload script should be executed
++     */
++    private boolean executeOnload = false;
+ 
+     /**
+      * 
+@@ -63,11 +68,27 @@
+      * It defaults to png.
+      */
+     public void convert() {
+-        if ("jpg".equalsIgnoreCase(getType())) {
++        String type = getType();
++        if(type==null) { 
++            type = "png";
++        }
++        if ("all".equalsIgnoreCase(type) || "both".equalsIgnoreCase(type)) {
++            convertToTIFF();
+             convertToJPG();
+-        } else {
+             convertToPNG();
+         }
++        else if("png".equalsIgnoreCase(type)) {
++            convertToPNG();
++        }
++        else if("jpg".equalsIgnoreCase(type) || "jpeg".equalsIgnoreCase(type)) {
++            convertToJPG();
++        }
++        else if("tif".equalsIgnoreCase(type) || "tiff".equalsIgnoreCase(type)) {
++            convertToTIFF();
++        }
++        else {
++            throw new IllegalArgumentException("Don't know how to handle type: " + type);
++        }
+     }
+     
+     /**
+@@ -88,6 +109,12 @@
+         transcoder.addTranscodingHint(JPEGTranscoder.KEY_QUALITY, new Float(.8));
+         convertTo(transcoder, ".jpg");
+     }
++    
++    public void convertToTIFF() {
++        setType("tif");
++        TIFFTranscoder transcoder = new TIFFTranscoder();
++        convertTo(transcoder, ".tif");
++    }
+ 
+     /**
+      * Converts the svg file to the target file
+@@ -118,18 +145,18 @@
+         try {
+             out = new FileOutputStream(pngFileName);
+             TranscoderOutput output = new TranscoderOutput(out);
+-//            System.out.println("hints : " + transcoder.getTranscodingHints());
++            if(executeOnload) {
++                transcoder.addTranscodingHint(ImageTranscoder.KEY_EXECUTE_ONLOAD, Boolean.TRUE);
++            }
+             transcoder.transcode(input, output);
++        } catch(FileNotFoundException e) {
++            throw new IllegalArgumentException("Cannot find file " + pngFileName);
++        } catch(TranscoderException e) {
++            Exception te = ((TranscoderException)e).getException();
++            te.printStackTrace(System.err);
++            throw new IllegalArgumentException("Exception : \n" + te);
+         } catch (Exception e) {
+-            if (e instanceof FileNotFoundException) {
+-                throw new IllegalArgumentException("Cannot find file " + pngFileName);
+-            } else if (e instanceof TranscoderException) {
+-                Exception te = ((TranscoderException)e).getException();
+-                te.printStackTrace(System.err);
+-                throw new IllegalArgumentException("Exception : \n" + te);
+-            } else {
+-                e.printStackTrace(System.err);
+-            }
++            e.printStackTrace(System.err);
+         } finally {
+             if (out != null) {
+                 try {
+@@ -183,5 +210,19 @@
+     public void setType(String type) {
+         this.type = type;
+     }
+-
++    
++    
++    /**
++     * @return Returns the executeOnload.
++     */
++    public boolean isExecuteOnload() {
++        return executeOnload;
++    }
++    
++    /**
++     * @param executeOnload The executeOnload to set.
++     */
++    public void setExecuteOnload(boolean executeOnload) {
++        this.executeOnload = executeOnload;
++    }
+ }
+Index: src/test/org/mvdb/maven/plugins/svg/SVGConverterTest.java
+===================================================================
+RCS file: /home/cvspublic/maven/plugins/svg/src/test/org/mvdb/maven/plugins/svg/SVGConverterTest.java,v
+retrieving revision 1.2
+diff -u -r1.2 SVGConverterTest.java
+--- src/test/org/mvdb/maven/plugins/svg/SVGConverterTest.java	1 Mar 2004 17:17:45 -0000	1.2
++++ src/test/org/mvdb/maven/plugins/svg/SVGConverterTest.java	19 Jan 2005 13:16:33 -0000
+@@ -182,4 +182,20 @@
+         file.delete();
+         new File("tmp").delete();
+     }
++    
++    public void testScripted() {
++        System.out.println("testScripted");
++        SVGConverter converter = new SVGConverter();
++        converter.setDestination("tmp/");
++        converter.setFile("src/test-resources/scripted.svg");
++        converter.setExecuteOnload(true);
++        File destDir = new File("tmp");
++        destDir.mkdir();
++        converter.convert();
++        
++        File destFile = new File("tmp/scripted.png");
++        assertTrue(destFile.exists());
++        destFile.delete();
++        destDir.delete();
++    }
+ }
+Index: src/test-resources/scripted.svg
+===================================================================
+RCS file: src/test-resources/scripted.svg
+diff -N src/test-resources/scripted.svg
+--- /dev/null	1 Jan 1970 00:00:00 -0000
++++ src/test-resources/scripted.svg	1 Jan 1970 00:00:00 -0000
+@@ -0,0 +1,23 @@
++<?xml version="1.0" standalone="no"?>
++<svg id="root" width="100" height="100" x="0" y="0">
++	<script type="text/ecmascript">
++	    var namespace = "http://www.w3.org/2000/svg";
++	    
++		function drawCircle(evt) {
++			first = evt.target.getFirstChild();
++			e = document.createElementNS(namespace, "circle");
++			e.setAttributeNS(null, "cx", 50);
++			e.setAttributeNS(null, "cy", 50);
++			e.setAttributeNS(null, "r", 45);
++			e.setAttributeNS(null, "stroke", "red");
++			e.setAttributeNS(null, "stroke-width", 1);
++			e.setAttributeNS(null, "fill", "yellow");
++			e.appendChild(document.createTextNode(this.name));
++			evt.target.insertBefore(e,first);
++		}
++	</script>
++	
++	<g onload="drawCircle(evt)">
++		<rect x="20"  y="20" width="60" height="60" stroke="red" stroke-width="1" fill="yellow"/>
++	</g>
++</svg>
