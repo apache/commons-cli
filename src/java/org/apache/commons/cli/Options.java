@@ -124,7 +124,6 @@ public class Options {
                 // this will not happen ?
             }
         }
-        System.out.println( parser.getClass().getName() );
     }
 
     /**
@@ -394,7 +393,7 @@ public class Options {
         CommandLine cl = new CommandLine();
         
         List args = parser.parse( this, inArgs, stopAtNonOption );
-        
+
         ListIterator argIter = args.listIterator();
         String   eachArg = null;
         Option   eachOpt = null;
@@ -571,26 +570,26 @@ public class Options {
         return Collections.unmodifiableList(options);
     }
     
-    /** <p>Retrieve the named {@link Option}<p>
+    /** <p>Retrieve the named {@link Option}</p>
      *
      * @param opt short single-character name of the {@link Option}
      * @return the option represented by opt
      */
     public Option getOption(String opt) {
-        if( opt.startsWith( "--" ) ) {
+
+        // short option
+        if( opt.length() == 1 ) {
+            return (Option) shortOpts.get( "-" + opt );
+        }
+        // long option
+        else if( opt.startsWith( "--" ) ) {
             return (Option) longOpts.get( opt );
         }
-        return (Option) shortOpts.get( "-" + opt );
+        // a just-in-case
+        else {
+            return (Option) shortOpts.get( opt );
+        }
     }
-    
-    /** <p>Retrieve the named {@link Option}<p>
-     *
-     * @param longOpt long name of the {@link Option}
-     * @return the option represented by longOpt
-     */
-    /*public Option getOption(String longOpt) {
-        return (Option) longOpts.get( longOpt );
-    } */
     
     /** <p>Dump state, suitable for debugging.</p>
      *
