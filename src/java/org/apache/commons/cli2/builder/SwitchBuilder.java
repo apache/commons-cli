@@ -37,6 +37,7 @@ public class SwitchBuilder {
     private Argument argument;
     private Group children;
     private int id;
+    private Boolean switchDefault;
 
     /**
      * Creates a new SwitchBuilder using defaults.
@@ -86,7 +87,8 @@ public class SwitchBuilder {
                 required,
                 argument,
                 children,
-                id);
+                id,
+                switchDefault);
 
         reset();
 
@@ -104,6 +106,7 @@ public class SwitchBuilder {
         argument = null;
         children = null;
         id = 0;
+        switchDefault = null;
     }
 
     /**
@@ -171,6 +174,17 @@ public class SwitchBuilder {
      */
     public final SwitchBuilder withId(final int newId) {
         this.id = newId;
+        return this;
+    }
+    
+    /**
+     * Sets the default state for this switch
+     * 
+     * @param switchDefault the default state
+     * @return this SwitchBuilder
+     */
+    public final SwitchBuilder withSwitchDefault(final Boolean switchDefault) {
+        this.switchDefault = switchDefault;
         return this;
     }
 }

@@ -49,6 +49,16 @@ public interface Argument extends Option {
         final ListIterator args,
         final Option option)
             throws OptionException;
+    
+    /**
+     * Adds defaults to a CommandLine.
+     * 
+     * @param commandLine
+     *            The CommandLine object to store defaults in.
+     * @param option
+     *            The Option to store the defaults against.
+     */
+    void defaultValues(final WriteableCommandLine commandLine, final Option option);
 
     /**
      * Performs any necessary validation on the values added to the

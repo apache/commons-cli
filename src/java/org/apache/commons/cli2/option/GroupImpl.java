@@ -444,6 +444,20 @@ public class GroupImpl extends OptionImpl implements Group {
     public boolean isRequired() {
         return getMinimum()>0;
     }
+    
+    public void defaults(final WriteableCommandLine commandLine) {
+        super.defaults(commandLine);
+        
+        for (final Iterator i = options.iterator(); i.hasNext();) {
+            final Option option = (Option) i.next();
+            option.defaults(commandLine);
+        }
+        
+        for (final Iterator i = anonymous.iterator(); i.hasNext();) {
+            final Option option = (Option) i.next();
+            option.defaults(commandLine);
+        }
+    }
 }
 
 class ReverseStringComparator implements Comparator {

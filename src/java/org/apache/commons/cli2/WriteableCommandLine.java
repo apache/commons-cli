@@ -15,6 +15,8 @@
  */
 package org.apache.commons.cli2;
 
+import java.util.List;
+
 /**
  * A CommandLine that detected values and options can be written to.
  */
@@ -32,6 +34,13 @@ public interface WriteableCommandLine extends CommandLine {
      * @param value the value to add
      */
     void addValue(final Option option, final Object value);
+
+    /**
+     * Sets the default values for an Option in the CommandLine
+     * @param option the Option to add to
+     * @param defaultValues the defaults for the option
+     */
+    void setDefaultValues(final Option option, final List defaultValues);
     
     /**
      * Adds a switch value to an Option in the CommandLine.
@@ -40,6 +49,13 @@ public interface WriteableCommandLine extends CommandLine {
      * @throws IllegalStateException if the switch has already been added
      */
     void addSwitch(final Option option, final boolean value) throws IllegalStateException;
+    
+    /**
+     * Sets the default state for a Switch in the CommandLine.
+     * @param option the Option to add to
+     * @param defaultSwitch the defaults state for ths switch
+     */
+    void setDefaultSwitch(final Option option, final Boolean defaultSwitch);
     
     /**
      * Adds a property value to a name in the CommandLine.

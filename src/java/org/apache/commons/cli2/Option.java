@@ -47,6 +47,17 @@ public interface Option {
         final WriteableCommandLine commandLine,
         final ListIterator args)
         throws OptionException;
+    
+    /**
+     * Adds defaults to a CommandLine.
+     * 
+     * Any defaults for this option are applied as well as the defaults for 
+     * any contained options
+     * 
+     * @param commandLine
+     *            The CommandLine object to store defaults in
+     */
+    void defaults(final WriteableCommandLine commandLine);
 
     /**
      * Indicates whether this Option will be able to process the particular

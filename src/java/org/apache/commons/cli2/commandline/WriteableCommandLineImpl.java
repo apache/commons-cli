@@ -18,7 +18,6 @@ package org.apache.commons.cli2.commandline;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.cli2.Argument;
-import org.apache.commons.cli2.CommandLine;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.WriteableCommandLine;
 
@@ -41,11 +39,10 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
     private final Map nameToOption = new HashMap();
     private final Map values = new HashMap();
     private final Map switches = new HashMap();
-    private final Map defaults = new HashMap();
+    private final Map defaultValues = new HashMap();
+    private final Map defaultSwitches = new HashMap();
     private final List normalised;
     private final Set prefixes;
-
-    private CommandLine defaultCommandLine = null;
 
     /**
      * Creates a new WriteableCommandLineImpl rooted on the specified Option, to
@@ -91,38 +88,26 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
 
     public boolean hasOption(final Option option) {
         final boolean present = options.contains(option);
-        if (!present && defaultCommandLine != null) {
-            return defaultCommandLine.hasOption(option);
-        }
-        else {
-            return present;
-        }
+        return present;
     }
     
     public Option getOption(final String trigger) {
         return (Option)nameToOption.get(trigger);
     }
 
-    //TODO Document the order of values and defaults
     public List getValues(final Option option, final List defaultValues) {
 
         // First grab the command line values
         List valueList = (List)values.get(option);
 
-        // Secondly try alternate CommandLines
-        if ((valueList == null || valueList.isEmpty())
-        && defaultCommandLine != null) {
-            valueList = defaultCommandLine.getValues(option, null);
-        }
-
-        // Thirdly try the defaults supplied to the method
+        // Secondly try the defaults supplied to the method
         if (valueList == null || valueList.isEmpty()) {
             valueList = defaultValues;
         }
 
-        // Fourthly try the option's default values
+        // Thirdly try the option's default values
         if (valueList == null || valueList.isEmpty()) {
-            valueList = (List)this.defaults.get(option);
+            valueList = (List)this.defaultValues.get(option);
         }
 
         // Finally use an empty list
@@ -137,18 +122,15 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
         // First grab the command line values
         Boolean bool = (Boolean)switches.get(option);
 
-        // Secondly try alternate CommandLines
-        if (bool == null && defaultCommandLine != null) {
-            bool = defaultCommandLine.getSwitch(option);
-        }
-
-        // Thirdly try the defaults supplied to the method
+        // Secondly try the defaults supplied to the method
         if (bool == null) {
             bool = defaultValue;
         }
 
-        // Fourthly try the option's default values
-        //????
+        // Thirdly try the option's default values
+        if (bool == null) {
+            bool = (Boolean)this.defaultSwitches.get(option);
+        }
 
         return bool;
     }
@@ -162,15 +144,7 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
     }
 
     public Set getProperties() {
-        if (defaultCommandLine == null) {
-            return Collections.unmodifiableSet(properties.keySet());
-        }
-        else {
-            final Set props = new HashSet();
-            props.addAll(properties.keySet());
-            props.addAll(defaultCommandLine.getProperties());
-            return Collections.unmodifiableSet(props);
-        }
+        return Collections.unmodifiableSet(properties.keySet());
     }
     
     public boolean looksLikeOption(final String trigger) {
@@ -211,5 +185,23 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
 
     public Set getOptionTriggers() {
         return Collections.unmodifiableSet(nameToOption.keySet());
+    }
+
+    public void setDefaultValues(final Option option, final List defaults) {
+        if (defaults==null) {
+            defaultValues.remove(option);
+        }
+        else {
+            defaultValues.put(option, defaults);
+        }
+    }
+
+    public void setDefaultSwitch(final Option option, final Boolean defaultSwitch) {
+        if (defaultSwitch==null) {
+            defaultSwitches.remove(defaultSwitch);
+        }
+        else {
+            defaultSwitches.put(option, defaultSwitch);
+        }
     }
 }

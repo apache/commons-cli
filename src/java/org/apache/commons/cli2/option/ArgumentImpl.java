@@ -103,7 +103,7 @@ public class ArgumentImpl extends OptionImpl implements Argument {
         final char subsequentSeparator,
         final Validator validator,
         final String consumeRemaining,
-        final List defaultValues,
+        final List valueDefaults,
         final int id) {
         
         super(id,false);
@@ -117,20 +117,20 @@ public class ArgumentImpl extends OptionImpl implements Argument {
         this.subsequentSplit = subsequentSeparator != NUL;
         this.validator = validator;
         this.consumeRemaining = consumeRemaining;
-        this.defaultValues = defaultValues;
+        this.defaultValues = valueDefaults;
 
         if (minimum > maximum) {
             throw new IllegalArgumentException(
                 resources.getMessage("cli.error.minimum.exceeds.maximum"));
         }
 
-        if (defaultValues != null) {
-            if (defaultValues.size() < minimum) {
+        if (valueDefaults != null) {
+            if (valueDefaults.size() < minimum) {
                 throw new IllegalArgumentException(
                     resources.getMessage("cli.error.too.few.defaults"));
             }
 
-            if (defaultValues.size() > maximum) {
+            if (valueDefaults.size() > maximum) {
                 throw new IllegalArgumentException(
                     resources.getMessage("cli.error.too.many.defaults"));
             }
@@ -366,5 +366,14 @@ public class ArgumentImpl extends OptionImpl implements Argument {
     
     public boolean isRequired() {
         return getMinimum()>0;
+    }
+    
+    public void defaults(final WriteableCommandLine commandLine) {
+        super.defaults(commandLine);
+        defaultValues(commandLine,this);
+    }
+    
+    public void defaultValues(final WriteableCommandLine commandLine, final Option option) {
+        commandLine.setDefaultValues(option, defaultValues);
     }
 }

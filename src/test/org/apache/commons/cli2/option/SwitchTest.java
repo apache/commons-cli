@@ -47,7 +47,8 @@ public class SwitchTest extends ParentTestCase {
             true,
             null,
             null,
-            'd');
+            'd',
+            null);
     }
 
     /*

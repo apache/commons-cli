@@ -252,4 +252,16 @@ public abstract class ParentImpl extends OptionImpl implements Parent {
 			return found;
 		}
 	}
+    
+    public void defaults(final WriteableCommandLine commandLine) {
+        super.defaults(commandLine);
+        
+        if(argument!=null) {
+            argument.defaultValues(commandLine,this);
+        }
+        
+        if(children!=null) {
+            children.defaults(commandLine);
+        }
+    }
 }

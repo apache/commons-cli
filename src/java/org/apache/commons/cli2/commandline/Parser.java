@@ -56,10 +56,13 @@ public class Parser {
     public CommandLine parse(final String[] arguments) throws OptionException {
 
         final List argumentList = new LinkedList(Arrays.asList(arguments));
-        final ListIterator iterator = argumentList.listIterator();
         final WriteableCommandLine commandLine =
             new WriteableCommandLineImpl(group, new ArrayList());
+        
+        // pick up any defaults from the model
+        group.defaults(commandLine);
 
+        final ListIterator iterator = argumentList.listIterator();
         while (group.canProcess(iterator)) {
             group.process(commandLine, iterator);
         }

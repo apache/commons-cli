@@ -19,6 +19,7 @@ import java.util.ListIterator;
 
 import org.apache.commons.cli2.DisplaySetting;
 import org.apache.commons.cli2.Option;
+import org.apache.commons.cli2.WriteableCommandLine;
 
 /**
  * A base implementation of Option providing limited ground work for further
@@ -98,5 +99,9 @@ public abstract class OptionImpl implements Option {
 
     public boolean isRequired() {
         return required;
+    }
+    
+    public void defaults(final WriteableCommandLine commandLine) {
+        // nothing to do normally
     }
 }

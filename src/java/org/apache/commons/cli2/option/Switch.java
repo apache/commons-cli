@@ -52,6 +52,7 @@ public class Switch extends ParentImpl {
     private final String preferredName;
     private final Set aliases;
     private final Set prefixes;
+    private final Boolean defaultSwitch;
 
     /**
      * Creates a new Switch with the specified parameters
@@ -74,7 +75,8 @@ public class Switch extends ParentImpl {
         final boolean required,
         final Argument argument,
         final Group children,
-        final int id) {
+        final int id,
+        final Boolean switchDefault) {
         super(argument, children, description, id, required);
 
         if (enabledPrefix == null) {
@@ -122,7 +124,8 @@ public class Switch extends ParentImpl {
         newPrefixes.add(enabledPrefix);
         newPrefixes.add(disabledPrefix);
         this.prefixes = Collections.unmodifiableSet(newPrefixes);
-
+        
+        this.defaultSwitch = switchDefault;
     }
 
     public void processParent(
@@ -230,5 +233,9 @@ public class Switch extends ParentImpl {
 
     public String getPreferredName() {
         return enabledPrefix + preferredName;
+    }
+    
+    public void defaults(final WriteableCommandLine commandLine) {
+        commandLine.setDefaultSwitch(this, defaultSwitch);
     }
 }
