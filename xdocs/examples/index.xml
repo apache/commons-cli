@@ -23,7 +23,20 @@
 
   <body>
     <section name="Overview">
-      <p>TODO quick overview to the examples</p>
+      <p>
+        The examples section aims to show how a variety of applications and 
+        tools could be modelled using CLI2.  We make no claim that these tools 
+        use CLI2 in their implementation but simply use their interfaces to 
+        demonstrate commonly needed features.  Some examples will make 
+        simplifications to keep the documentation consise.
+      </p>
+      <p>
+        Many aspects of the API are touched upon but few are described in 
+        great detail.  If more information is required then the reader is 
+        encouraged to review the API documentation and look at the unit tests 
+        for inspiration.  Failing that, further advice and discussion can be 
+        found on the <code>commons-user@jakarta.apache.org</code> mailing list.
+      </p>
     </section>
   </body>
 </document>
