@@ -4,12 +4,22 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+/**
+ * <p>
+ * This is a collection of tests that test real world
+ * applications command lines.
+ * </p>
+ * 
+ * <p>
+ * The following are the applications that are tested:
+ * <ul>
+ * <li>Ant</li>
+ * </ul>
+ * </p>
+ *
+ * @author John Keyes (jbjk at mac.com)
+ */
 public class ApplicationTest extends TestCase {
-
-    static {
-        System.setProperty( "org.apache.commons.cli.parser",
-                            "org.apache.commons.cli.GnuParser");
-    }
 
     public static Test suite() { 
         return new TestSuite(ApplicationTest.class); 
@@ -20,7 +30,14 @@ public class ApplicationTest extends TestCase {
         super(name);
     }
 
+    /**
+     * Ant test
+     */
     public void testAnt() {
+        // use the GNU parser
+        System.setProperty( "org.apache.commons.cli.parser",
+                            "org.apache.commons.cli.GnuParser");
+
         Options options = new Options();
         options.addOption( "help", false, "print this message" );
         options.addOption( "projecthelp", false, "print project help information" );
@@ -33,29 +50,31 @@ public class ApplicationTest extends TestCase {
         options.addOption( "logger", true, "the class which is to perform the logging" );
         options.addOption( "listener", true, "add an instance of a class as a project listener" );
         options.addOption( "buildfile", true, "use given buildfile" );
-        options.addOption( "D", true, "use value for given property" );
+        options.addOption( "D", null, true, "use value for given property", false, true );
         options.addOption( "find", true, "search for buildfile towards the root of the filesystem and use it" );
 
-        String[] args = new String[]{ "-buildfile", "mybuild.xml" };
+        String[] args = new String[]{ "-buildfile", "mybuild.xml",
+            "-Dproperty=value", "-Dproperty1=value1",
+            "-projecthelp" };
 
         try {
             CommandLine line = options.parse( args );
-            assertTrue( "mybuild.xml" == line.getOptionValue( "buildfile" ) );
+
+            // check multiple values
+            String[] opts = line.getOptionValues( "D" );
+            assertEquals( opts[0], "property=value" );
+            assertEquals( opts[1], "property1=value1" );
+
+            // check single value
+            assertEquals( line.getOptionValue( "buildfile"), "mybuild.xml" );
+
+            // check option
+            assertTrue( line.hasOption( "projecthelp") );
         }
         catch( ParseException exp ) {
             fail( "Unexpected exception:" + exp.getMessage() );
         }
 
-        args = new String[]{ "-buildfile", "mybuild.xml",
-        "-Dproperty=value" };
-    
-        try {
-            CommandLine line = options.parse( args );
-            assertEquals( line.getOptionValue( "D" ), "property=value" );
-        }
-        catch( ParseException exp ) {
-            fail( "Unexpected exception:" + exp.getMessage() );
-        }
     }
 
 }
