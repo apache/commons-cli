@@ -64,8 +64,6 @@ package org.apache.commons.cli;
 import java.util.Collection;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Collections;
 
@@ -85,9 +83,6 @@ import java.util.Collections;
  * @version $Revision: 1.5 $
  */
 public class Options {
-
-    /** the list of options */
-    private List options      = new ArrayList();
 
     /** a map of the options with the character key */
     private Map  shortOpts    = new HashMap();
@@ -206,9 +201,10 @@ public class Options {
      * <p>Adds an option instance</p>
      *
      * @param opt the option that is to be added 
+     * @return the resulting Options instance
      */
     public Options addOption(Option opt)  {
-        String shortOptStr = "-" + opt.getOpt();
+        String shortOpt = "-" + opt.getOpt();
         
         // add it to the long option list
         if ( opt.hasLongOpt() ) {
@@ -217,21 +213,20 @@ public class Options {
         
         // if the option is required add it to the required list
         if ( opt.isRequired() ) {
-            requiredOpts.put( "-" + opt.getOpt(), opt );
+            requiredOpts.put( shortOpt, opt );
         }
 
-        shortOpts.put( "-" + opt.getOpt(), opt );
+        shortOpts.put( shortOpt, opt );
         
-        options.add( opt );
         return this;
     }
     
     /** <p>Retrieve a read-only list of options in this set</p>
      *
-     * @return read-only List of {@link Option} objects in this descriptor
+     * @return read-only Collection of {@link Option} objects in this descriptor
      */
-    public List getOptions() {
-        return Collections.unmodifiableList(options);
+    public Collection getOptions() {
+        return Collections.unmodifiableCollection( shortOpts.values() );
     }
 
     /** <p>Returns the required options as a 
