@@ -72,6 +72,7 @@ import java.util.Comparator;
  * A formatter of help messages for the current command line options
  *
  * @author Slawek Zachcial
+ * @author John Keyes (jbjk at mac.com)
  **/
 public class HelpFormatter
 {
@@ -244,14 +245,21 @@ public class HelpFormatter
 
       //finally render options
       int nextLineTabStop = max + descPad;
-      char opt;
+      String opt;
       int optOffset = leftPad + defaultOptPrefix.length();
 
       for ( Iterator i = prefixList.iterator(); i.hasNext(); )
       {
          optBuf = (StringBuffer) i.next();
-         opt = optBuf.charAt(optOffset);
-         option = options.getOption( "" + opt);
+         opt = optBuf.toString();
+         if( opt.indexOf( ',' ) != -1 ) {
+             opt = opt.substring( optOffset, opt.indexOf( ',', optOffset ) );
+         }
+         else {
+             opt = opt.substring( optOffset, opt.indexOf( ' ', optOffset ) );
+         }
+         option = options.getOption( "-" + opt );
+
          renderWrappedText(sb, width, nextLineTabStop,
                            optBuf.append(option.getDescription()).toString());
          if ( i.hasNext() )
