@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.4 2002/08/18 19:07:42 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.5 2002/08/31 17:53:11 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -172,4 +172,61 @@ public class BugsTest extends TestCase
 
     }
 
+    public void test12210() {
+        // create the main options object which will handle the first parameter
+        Options mainOptions = new Options();
+        // There can be 2 main exclusive options:  -exec|-rep
+
+        // Therefore, place them in an option group
+
+        String[] argv = new String[] { "-exec", "-execopto", "-execoptt" };
+        OptionGroup grp = new OptionGroup();
+
+        grp.addOption(new Option("exec",false,"description for this option"));
+
+        grp.addOption(new Option("rep",false,"description for this option"));
+
+        mainOptions.addOptionGroup(grp);
+
+        // for the exec option, there are 2 options...
+        Options execOptions = new Options();
+        execOptions.addOption("execopto",false," desc");
+        execOptions.addOption("execoptt",false," desc");
+
+        // similarly, for rep there are 2 options...
+        Options repOptions = new Options();
+        repOptions.addOption("repopto",false,"desc");
+        repOptions.addOption("repoptt",false,"desc");
+
+        // create the parser
+        GnuParser parser = new GnuParser();
+
+        // finally, parse the arguments:
+
+        // first parse the main options to see what the user has specified
+        // We set stopAtNonOption to true so it does not touch the remaining
+        // options
+        try {
+            CommandLine cmd = parser.parse(mainOptions,argv,true);
+            // get the remaining options...
+            argv = cmd.getArgs();
+
+            if(cmd.hasOption("exec")){
+                cmd = parser.parse(execOptions,argv,false);
+                // process the exec_op1 and exec_opt2...
+                assertTrue( cmd.hasOption("execopto") );
+                assertTrue( cmd.hasOption("execoptt") );
+            }
+            else if(cmd.hasOption("rep")){
+                cmd = parser.parse(repOptions,argv,false);
+                // process the rep_op1 and rep_opt2...
+            }
+            else {
+                fail( "exec option not found" );
+            }
+        }
+        catch( ParseException exp ) {
+            fail( "Unexpected exception: " + exp.getMessage() );
+        }
+    }
 }

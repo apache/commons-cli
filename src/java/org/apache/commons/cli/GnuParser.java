@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.8 2002/08/26 20:15:02 jkeyes Exp $
- * $Revision: 1.8 $
- * $Date: 2002/08/26 20:15:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.9 2002/08/31 17:53:11 jkeyes Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/08/31 17:53:11 $
  *
  * ====================================================================
  *
@@ -64,8 +64,6 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Iterator;
 
 /**
  * The class GnuParser provides an implementation of the 
@@ -73,7 +71,7 @@ import java.util.Iterator;
  *
  * @author John Keyes (jbjk at mac.com)
  * @see Parser
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public class GnuParser extends Parser {
 
@@ -106,20 +104,82 @@ public class GnuParser extends Parser {
                                 boolean stopAtNonOption )
     {
         init();
+        boolean eatTheRest = false;
+        Option currentOption = null;
+
         for( int i = 0; i < arguments.length; i++ ) {
-            Option option = options.getOption( arguments[i] );
-            try {
-                Option specialOption = options.getOption( arguments[i].substring(0,2) );
-                if( specialOption != null && option == null ) {
-                    tokens.add( arguments[i].substring(0,2) );
-                    tokens.add( arguments[i].substring(2) );
+            if( "--".equals( arguments[i] ) ) {
+                eatTheRest = true;
+                tokens.add( "--" );
+            }
+            else if ( "-".equals( arguments[i] ) ) {
+                tokens.add( "-" );
+            }
+            else if( arguments[i].startsWith( "-" ) ) {
+                Option option = options.getOption( arguments[i] );
+
+                // this is not an Option
+                if( option == null ) {
+                    // handle special properties Option
+                    Option specialOption = options.getOption( arguments[i].substring(0,2) );
+                    if( specialOption != null ) {
+                        tokens.add( arguments[i].substring(0,2) );
+                        tokens.add( arguments[i].substring(2) );
+                    }
+                    else if( stopAtNonOption ) {
+                        eatTheRest = true;
+                        tokens.add( arguments[i] );
+                    }
+                    else {
+                        tokens.add( arguments[i] );
+                    }
                 }
                 else {
-                    tokens.add( arguments[i] );
+                    currentOption = option;
+                    // special option
+                    Option specialOption = options.getOption( arguments[i].substring(0,2) );
+                    if( specialOption != null && option == null ) {
+                        tokens.add( arguments[i].substring(0,2) );
+                        tokens.add( arguments[i].substring(2) );
+                    }
+                    else if( currentOption != null && currentOption.hasArg() ) {
+                        if( currentOption.hasArg() ) {
+                            tokens.add( arguments[i] );
+                            currentOption= null;
+                        }
+                        else if ( currentOption.hasArgs() ) {
+                            tokens.add( arguments[i] );
+                        }
+                        else if ( stopAtNonOption ) {
+                            eatTheRest = true;
+                            tokens.add( "--" );
+                            tokens.add( arguments[i] );
+                        }
+                        else {
+                            tokens.add( arguments[i] );
+                        }
+                    } 
+                    else if (currentOption != null ) {
+                        tokens.add( arguments[i] );
+                    } 
+                    else if ( stopAtNonOption ) {
+                        eatTheRest = true;
+                        tokens.add( "--" );
+                        tokens.add( arguments[i] );
+                    }
+                    else {
+                        tokens.add( arguments[i] );
+                    }
                 }
             }
-            catch( IndexOutOfBoundsException exp ) {
+            else {
                 tokens.add( arguments[i] );
+            }
+
+            if( eatTheRest ) {
+                for( i++; i < arguments.length; i++ ) {
+                    tokens.add( arguments[i] );
+                }
             }
         }
         return (String[])tokens.toArray( new String[] {} );

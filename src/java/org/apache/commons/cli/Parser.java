@@ -49,6 +49,10 @@ public abstract class Parser implements CommandLineParser {
                         cmd.addArg( t );
                     }
                 }
+                else if ( stopAtNonOption && !options.hasOption( t ) ) {
+                    eatTheRest = true;
+                    cmd.addArg( t );
+                }
                 else {
                     processOption( t, iterator );
                 }
@@ -62,7 +66,10 @@ public abstract class Parser implements CommandLineParser {
 
             if( eatTheRest ) {
                 while( iterator.hasNext() ) {
-                    cmd.addArg( (String)iterator.next() );
+                    String str = (String)iterator.next();
+                    if( !"--".equals( str ) ) {
+                        cmd.addArg( str );
+                    }
                 }
             }
         }
