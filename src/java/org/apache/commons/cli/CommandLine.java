@@ -61,10 +61,11 @@
 
 package org.apache.commons.cli;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.HashMap;
 
 /** <p>Represents list of arguments parsed against
  * a {@link Options} descriptor.<p>
@@ -90,9 +91,6 @@ public class CommandLine {
     /** the recognised options/arguments */
     private Map  options = new HashMap();
 
-    /** the option types */
-    private Map  types   = new HashMap();
-
     /**
      * <p>Creates a command line.</p>
      */
@@ -112,9 +110,9 @@ public class CommandLine {
      * @param opt the name of the option
      * @return the type of opt
      */
-    public Object getOptionObject(String opt) {
+    public Object getOptionObject( String opt ) {
         String res = getOptionValue( opt );
-        Object type = types.get( opt );
+        Object type = ((Option)options.get( opt )).getType();
         return res == null ? null : TypeHandler.createValue(res, type);
     }
 
@@ -123,9 +121,8 @@ public class CommandLine {
      * @param opt the name of the option
      * @return Value of the argument if option is set, and has an argument, else null.
      */
-    public String getOptionValue(String opt) {
-        String[] result = (String[])options.get( opt );
-        return result == null ? null : result[0];
+    public String getOptionValue( String opt ) {
+        return (String)((Option)options.get( opt )).getValue();
     }
 
     /** <p>Retrieves the array of values, if any, of an option.</p>
@@ -133,9 +130,8 @@ public class CommandLine {
      * @param opt Single-character name of the option
      * @return An array of values if the option is set, and has an argument, else null.
      */
-    public String[] getOptionValues(String opt) {
-        String[] result = (String[])options.get( opt );
-        return result == null ? null : result;
+    public String[] getOptionValues( String opt ) {
+        return (String[])((Option)options.get( opt )).getValues();
     }
     
     /** <p>Retrieve the argument, if any,  of an option.</p>
@@ -144,9 +140,9 @@ public class CommandLine {
      * @param defaultValue is the default value to be returned if the option is not specified
      * @return Value of the argument if option is set, and has an argument, else null.
      */
-    public String getOptionValue(String opt, String defaultValue) {
-        String answer = getOptionValue(opt);
-        return (answer != null) ? answer : defaultValue;
+    public String getOptionValue( String opt, String defaultValue ) {
+        String answer = getOptionValue( opt );
+        return ( answer != null ) ? answer : defaultValue;
     }
     
     /** <p>Retrieve any left-over non-recognized options and arguments</p>
@@ -191,36 +187,25 @@ public class CommandLine {
     void addArg(String arg) {
         args.add( arg );
     }
-    
-    /**
-     * <p>Add an option that does not have any value to the 
-     * command line.</p>
-     *
-     * @param opt the processed option
-     */
-    void setOpt(String opt) {
-        options.put( opt, null );
-    }
-    
-    /**
-     * <p>Add an option with the specified value to the 
-     * command line.</p>
-     *
-     * @param opt the processed option
-     * @param value the value of the option
-     */
-    void setOpt(String opt, String value) {
-        options.put( opt, value );
-    }
-    
+        
     /**
      * <p>Add an option to the command line.  The values of 
      * the option are stored.</p>
      *
      * @param opt the processed option
      */
-    void setOpt(Option opt) {
-        options.put( opt.getOpt(), opt.getValues() );
-        types.put( opt.getOpt(), opt.getType() );
+    void setOpt( Option opt ) {
+        options.put( opt.getOpt(), opt );
     }
+
+    /**
+     * <p>Returns an iterator over the Option members of CommandLine.</p>
+     *
+     * @return an <code>Iterator</code> over the processed {@link Option} 
+     * members of this {@link CommandLine}
+     */
+    public Iterator iterator( ) {
+        return options.values().iterator();
+    }
+
 }

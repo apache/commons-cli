@@ -313,11 +313,20 @@ public class Option {
     }
 
     /**
-     * @return the value/first value of this Option or null if there are no
-     * values
+     * @return the value/first value of this Option or 
+     * null if there are no values.
      */
     public String getValue() {
         return this.values.size()==0 ? null : (String)this.values.get( 0 );
+    }
+
+    /**
+     * @return the value/first value of this Option or the 
+     * <code>defaultValue</code> if there are no values.
+     */
+    public String getValue( String defaultValue ) {
+        String value = getValue( );
+        return ( value != null ) ? value : defaultValue;
     }
 
     /**
