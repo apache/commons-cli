@@ -50,10 +50,11 @@ options.addOption("t", false, "display current time");</source>
       </subsection>
       <subsection name="Parsing the command line arguments">
         <p>
-          The <code>parse</code> methods of <code>Options</code> are used to 
-          parse the command line arguments.  
+          The <code>parse</code> methods of <code>CommandLineParser</code> are used 
+          to parse the command line arguments.  
         </p>
-        <source>CommandLine cmd = options.parse(args);</source>
+        <source>CommandLineParser parser = new PosixParser();
+CommandLine cmd = parser.parse( options, args);</source>
         <p>
           Now we need to check if the <code>t</code> option is present.  To do
           this we will interrogate the 
