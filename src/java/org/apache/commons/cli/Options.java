@@ -57,6 +57,7 @@ public class Options {
      */
     public Options()
     {
+        // nothing to do
     }
 
     /**

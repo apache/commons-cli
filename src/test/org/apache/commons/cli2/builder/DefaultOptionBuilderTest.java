@@ -36,45 +36,56 @@ public class DefaultOptionBuilderTest extends TestCase {
     /*
      * Class to test for void DefaultOptionBuilder(String, String, boolean)
      */
-    public void testCtor() {
-        {
-            try {
-                DefaultOptionBuilder builder = new DefaultOptionBuilder(null, null,
-                        false);
-                fail("null short prefix is not permitted");
-            }
-            catch(IllegalArgumentException exp) {
-            }
+    public void testNew_NullShortPrefix() {
+        try {
+            new DefaultOptionBuilder(null, null,
+                    false);
+            fail("null short prefix is not permitted");
         }
+        catch(IllegalArgumentException e) {
+            assertEquals("shortPrefix should be at least 1 character long",e.getMessage());
+        }
+    }
 
-        {
-            try {
-                DefaultOptionBuilder builder = new DefaultOptionBuilder("", null,
-                        false);
-                fail("empty short prefix is not permitted");
-            }
-            catch(IllegalArgumentException exp) {
-            }
+    /*
+     * Class to test for void DefaultOptionBuilder(String, String, boolean)
+     */
+    public void testNew_EmptyShortPrefix() {
+        try {
+            new DefaultOptionBuilder("", null,
+                    false);
+            fail("empty short prefix is not permitted");
         }
-        
-        {
-            try {
-                DefaultOptionBuilder builder = new DefaultOptionBuilder("-", null,
-                        false);
-                fail("null long prefix is not permitted");
-            }
-            catch(IllegalArgumentException exp) {
-            }
+        catch(IllegalArgumentException e) {
+            assertEquals("shortPrefix should be at least 1 character long",e.getMessage());
         }
+    }
 
-        {
-            try {
-                DefaultOptionBuilder builder = new DefaultOptionBuilder("-", "",
-                        false);
-                fail("empty long prefix is not permitted");
-            }
-            catch(IllegalArgumentException exp) {
-            }
+    /*
+     * Class to test for void DefaultOptionBuilder(String, String, boolean)
+     */
+    public void testNew_NullLongPrefix() {
+        try {
+            new DefaultOptionBuilder("-", null,
+                    false);
+            fail("null long prefix is not permitted");
+        }
+        catch(IllegalArgumentException e) {
+            assertEquals("longPrefix should be at least 1 character long",e.getMessage());
+        }
+    }
+
+    /*
+     * Class to test for void DefaultOptionBuilder(String, String, boolean)
+     */
+    public void testNew_EmptyLongPrefix() {
+        try {
+            new DefaultOptionBuilder("-", "",
+                    false);
+            fail("empty long prefix is not permitted");
+        }
+        catch(IllegalArgumentException e) {
+            assertEquals("longPrefix should be at least 1 character long",e.getMessage());
         }
     }
 
@@ -83,7 +94,8 @@ public class DefaultOptionBuilderTest extends TestCase {
             this.defaultOptionBuilder.create();
             fail("options must have a name");
         }
-        catch (IllegalStateException exp) {
+        catch (IllegalStateException e) {
+            assertEquals("Options must have at least one name",e.getMessage());
         }
         
         {
@@ -100,9 +112,6 @@ public class DefaultOptionBuilderTest extends TestCase {
             DefaultOptionBuilder builder = new DefaultOptionBuilder("-", "--",
                     true);
             builder.withShortName("mx");
-        }
-        
-        {
         }
     }
 

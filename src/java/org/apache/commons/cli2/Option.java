@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
-import org.apache.commons.cli2.util.HelpFormatter;
-
 /**
  * The super type of all options representing a particular element of the
  * command line interface.

@@ -117,7 +117,7 @@ public class ClassValidatorTest extends TestCase {
         }
     }
 
-    public void testLoadable() throws InvalidArgumentException {
+    public void testLoadable() {
         assertFalse("Validator is loadable", validator.isLoadable());
         validator.setLoadable(true);
         assertTrue("Validator is NOT loadable", validator.isLoadable());
@@ -163,7 +163,7 @@ public class ClassValidatorTest extends TestCase {
         }
     }
 
-    public void testInstantiate() throws InvalidArgumentException {
+    public void testInstantiate() {
         assertFalse("Validator creates instances", validator.isInstance());
         validator.setInstance(true);
         assertTrue(
@@ -185,7 +185,7 @@ public class ClassValidatorTest extends TestCase {
             list.get(0) instanceof java.util.Vector);
     }
 
-    public void testCreateInterfaceInstance() throws InvalidArgumentException {
+    public void testCreateInterfaceInstance() {
         final String className = "java.util.Map";
         final Object[] array = new Object[] { className };
         final List list = Arrays.asList(array);
@@ -205,7 +205,7 @@ public class ClassValidatorTest extends TestCase {
         }
     }
 
-    public void testCreateProtectedInstance() throws InvalidArgumentException {
+    public void testCreateProtectedInstance() {
         final String className = "org.apache.commons.cli2.validation.protect.ProtectedClass";
         final Object[] array = new Object[] { className };
         final List list = Arrays.asList(array);
@@ -229,7 +229,7 @@ public class ClassValidatorTest extends TestCase {
         }
     }
     
-    public void testClassloader() throws InvalidArgumentException {
+    public void testClassloader() {
         assertEquals(
             "Wrong classloader found",
             validator.getClass().getClassLoader(),

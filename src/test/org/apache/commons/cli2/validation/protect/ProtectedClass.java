@@ -17,5 +17,6 @@ package org.apache.commons.cli2.validation.protect;
 
 class ProtectedClass {
     protected ProtectedClass() {
+        // used to test something???
     }
-};
+}

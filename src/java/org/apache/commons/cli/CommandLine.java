@@ -59,6 +59,7 @@ public class CommandLine {
      */
     CommandLine()
     {
+        // nothing to do
     }
 
     /** 
@@ -149,8 +150,6 @@ public class CommandLine {
      */
     public String[] getOptionValues(String opt)
     {
-        List values = new java.util.ArrayList();
-
         opt = Util.stripLeadingHyphens(opt);
 
         String key = opt;

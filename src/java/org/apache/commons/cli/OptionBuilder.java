@@ -59,6 +59,7 @@ public class OptionBuilder {
      */
     private OptionBuilder()
     {
+        // hide the constructor
     }
 
     /**
@@ -82,12 +83,12 @@ public class OptionBuilder {
     /**
      * The next Option created will have the following long option value.
      *
-     * @param longopt the long option value
+     * @param newLongopt the long option value
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder withLongOpt(String longopt)
+    public static OptionBuilder withLongOpt(String newLongopt)
     {
-        instance.longopt = longopt;
+        OptionBuilder.longopt = newLongopt;
 
         return instance;
     }
@@ -99,7 +100,7 @@ public class OptionBuilder {
      */
     public static OptionBuilder hasArg()
     {
-        instance.numberOfArgs = 1;
+        OptionBuilder.numberOfArgs = 1;
 
         return instance;
     }
@@ -113,7 +114,7 @@ public class OptionBuilder {
      */
     public static OptionBuilder hasArg(boolean hasArg)
     {
-        instance.numberOfArgs = (hasArg == true) ? 1 : Option.UNINITIALIZED;
+        OptionBuilder.numberOfArgs = (hasArg == true) ? 1 : Option.UNINITIALIZED;
 
         return instance;
     }
@@ -127,7 +128,7 @@ public class OptionBuilder {
      */
     public static OptionBuilder withArgName(String name)
     {
-        instance.argName = name;
+        OptionBuilder.argName = name;
 
         return instance;
     }
@@ -139,7 +140,7 @@ public class OptionBuilder {
      */
     public static OptionBuilder isRequired()
     {
-        instance.required = true;
+        OptionBuilder.required = true;
 
         return instance;
     }
@@ -164,7 +165,7 @@ public class OptionBuilder {
      */
     public static OptionBuilder withValueSeparator(char sep)
     {
-        instance.valuesep = sep;
+        OptionBuilder.valuesep = sep;
 
         return instance;
     }
@@ -187,7 +188,7 @@ public class OptionBuilder {
      */
     public static OptionBuilder withValueSeparator()
     {
-        instance.valuesep = '=';
+        OptionBuilder.valuesep = '=';
 
         return instance;
     }
@@ -196,12 +197,12 @@ public class OptionBuilder {
      * The next Option created will be required if <code>required</code>
      * is true.
      *
-     * @param required if true then the Option is required
+     * @param newRequired if true then the Option is required
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder isRequired(boolean required)
+    public static OptionBuilder isRequired(boolean newRequired)
     {
-        instance.required = required;
+        OptionBuilder.required = newRequired;
 
         return instance;
     }
@@ -213,7 +214,7 @@ public class OptionBuilder {
      */
     public static OptionBuilder hasArgs()
     {
-        instance.numberOfArgs = Option.UNLIMITED_VALUES;
+        OptionBuilder.numberOfArgs = Option.UNLIMITED_VALUES;
 
         return instance;
     }
@@ -227,7 +228,7 @@ public class OptionBuilder {
      */
     public static OptionBuilder hasArgs(int num)
     {
-        instance.numberOfArgs = num;
+        OptionBuilder.numberOfArgs = num;
 
         return instance;
     }
@@ -239,8 +240,8 @@ public class OptionBuilder {
      */
     public static OptionBuilder hasOptionalArg()
     {
-        instance.numberOfArgs = 1;
-        instance.optionalArg = true;
+        OptionBuilder.numberOfArgs = 1;
+        OptionBuilder.optionalArg = true;
 
         return instance;
     }
@@ -253,8 +254,8 @@ public class OptionBuilder {
      */
     public static OptionBuilder hasOptionalArgs()
     {
-        instance.numberOfArgs = Option.UNLIMITED_VALUES;
-        instance.optionalArg = true;
+        OptionBuilder.numberOfArgs = Option.UNLIMITED_VALUES;
+        OptionBuilder.optionalArg = true;
 
         return instance;
     }
@@ -269,8 +270,8 @@ public class OptionBuilder {
      */
     public static OptionBuilder hasOptionalArgs(int numArgs)
     {
-        instance.numberOfArgs = numArgs;
-        instance.optionalArg = true;
+        OptionBuilder.numberOfArgs = numArgs;
+        OptionBuilder.optionalArg = true;
 
         return instance;
     }
@@ -279,12 +280,12 @@ public class OptionBuilder {
      * The next Option created will have a value that will be an instance 
      * of <code>type</code>.
      *
-     * @param type the type of the Options argument value
+     * @param newType the type of the Options argument value
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder withType(Object type)
+    public static OptionBuilder withType(Object newType)
     {
-        instance.type = type;
+        OptionBuilder.type = newType;
 
         return instance;
     }
@@ -292,12 +293,12 @@ public class OptionBuilder {
     /**
      * The next Option created will have the specified description
      *
-     * @param description a description of the Option's purpose
+     * @param newDescription a description of the Option's purpose
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder withDescription(String description)
+    public static OptionBuilder withDescription(String newDescription)
     {
-        instance.description = description;
+        OptionBuilder.description = newDescription;
 
         return instance;
     }
@@ -363,7 +364,7 @@ public class OptionBuilder {
 
 
         // reset the OptionBuilder properties
-        instance.reset();
+        OptionBuilder.reset();
 
         // return the Option instance
         return option;

@@ -33,16 +33,16 @@ public abstract class WriteableCommandLineTestCase extends CommandLineTestCase {
 	 * @see org.apache.commons.cli2.CommandLineTest#createCommandLine()
 	 */
 	protected final CommandLine createCommandLine() {
-		final WriteableCommandLine writeable = createWriteableCommandLine();
-		writeable.addOption(present);
-		writeable.addProperty("present","present property");
-		writeable.addSwitch(bool,true);
-		writeable.addValue(present,"present value");
-		writeable.addOption(multiple);
-		writeable.addValue(multiple,"value 1");
-		writeable.addValue(multiple,"value 2");
-		writeable.addValue(multiple,"value 3");
-		return writeable;
+		final WriteableCommandLine cl = createWriteableCommandLine();
+		cl.addOption(present);
+		cl.addProperty("present","present property");
+		cl.addSwitch(bool,true);
+		cl.addValue(present,"present value");
+		cl.addOption(multiple);
+		cl.addValue(multiple,"value 1");
+		cl.addValue(multiple,"value 2");
+		cl.addValue(multiple,"value 3");
+		return cl;
 	}
 	
 	/*

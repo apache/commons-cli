@@ -30,7 +30,7 @@ import org.apache.commons.cli2.option.Switch;
 public class Comparators {
 	
 	private Comparators(){
-		;// constructor hiden from potential users
+		// constructor hiden from potential users
 	}
 	
 
@@ -222,13 +222,9 @@ public class Comparators {
                 if (l) {
                     return -1;
                 }
-                else {
-                    return 1;
-                }
+                return 1;
             }
-            else {
-                return 0;
-            }
+            return 0;
         }
     }
 
@@ -261,13 +257,9 @@ public class Comparators {
                 if (l) {
                     return -1;
                 }
-                else {
-                    return 1;
-                }
+                return 1;
             }
-            else {
-                return 0;
-            }
+            return 0;
         }
     }
 
@@ -300,13 +292,9 @@ public class Comparators {
                 if (l) {
                     return -1;
                 }
-                else {
-                    return 1;
-                }
+                return 1;
             }
-            else {
-                return 0;
-            }
+            return 0;
         }
     }
 
@@ -339,13 +327,9 @@ public class Comparators {
                 if (l) {
                     return -1;
                 }
-                else {
-                    return 1;
-                }
+                return 1;
             }
-            else {
-                return 0;
-            }
+            return 0;
         }
     }
 
@@ -396,13 +380,9 @@ public class Comparators {
                 if (l) {
                     return -1;
                 }
-                else {
-                    return 1;
-                }
+                return 1;
             }
-            else {
-                return 0;
-            }
+            return 0;
         }
     }
 
@@ -467,13 +447,9 @@ public class Comparators {
                 if (l) {
                     return -1;
                 }
-                else {
-                    return 1;
-                }
+                return 1;
             }
-            else {
-                return 0;
-            }
+            return 0;
         }
     }
 }

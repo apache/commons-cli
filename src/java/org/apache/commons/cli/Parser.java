@@ -323,24 +323,18 @@ public abstract class Parser implements CommandLineParser {
             if (options.hasOption(str) && str.startsWith("-"))
             {
                 iter.previous();
-
                 break;
             }
 
             // found a value
-            else
+            try
             {
-
-                try
-                {
-                    opt.addValue( Util.stripLeadingAndTrailingQuotes(str) );
-                }
-                catch (RuntimeException exp)
-                {
-                    iter.previous();
-
-                    break;
-                }
+                opt.addValue( Util.stripLeadingAndTrailingQuotes(str) );
+            }
+            catch (RuntimeException exp)
+            {
+                iter.previous();
+                break;
             }
         }
 
@@ -366,9 +360,6 @@ public abstract class Parser implements CommandLineParser {
     private void processOption(String arg, ListIterator iter)
         throws ParseException
     {
-        // get the option represented by arg
-        Option opt = null;
-
         boolean hasOption = options.hasOption(arg);
 
         // if there is no option throw an UnrecognisedOptionException
@@ -377,10 +368,9 @@ public abstract class Parser implements CommandLineParser {
             throw new UnrecognizedOptionException("Unrecognized option: " 
                                                   + arg);
         }
-        else
-        {
-            opt = (Option) options.getOption(arg);
-        }
+        
+        // get the option represented by arg
+        final Option opt = options.getOption(arg);
 
         // if the option is a required option remove the option from
         // the requiredOptions list
@@ -393,7 +383,7 @@ public abstract class Parser implements CommandLineParser {
         // option of the group
         if (options.getOptionGroup(opt) != null)
         {
-            OptionGroup group = (OptionGroup) options.getOptionGroup(opt);
+            OptionGroup group = options.getOptionGroup(opt);
 
             if (group.isRequired())
             {

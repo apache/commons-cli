@@ -138,7 +138,7 @@ public class SwitchTest extends ParentTestCase {
      * 
      * @see org.apache.commons.cli2.OptionTestCase#testValidate()
      */
-    public void testValidate() throws OptionException {
+    public void testValidate() {
         final Parent option = buildDisplaySwitch();
         final WriteableCommandLine commandLine = commandLine(option, list());
 

@@ -147,7 +147,6 @@ public class ArgumentImpl extends OptionImpl implements Argument {
         final Option option)
         throws OptionException {
         int argumentCount = commandLine.getValues(option,Collections.EMPTY_LIST).size();
-        final int initialCount = argumentCount;
         while (arguments.hasNext() && argumentCount < maximum) {
 
             final String allValues =
@@ -346,17 +345,16 @@ public class ArgumentImpl extends OptionImpl implements Argument {
         if (!token.startsWith("\"") || !token.endsWith("\"")) {
             return token;
         }
-        else {
-            if (token.startsWith("\"")) {
-                token = token.substring(1, token.length());
-            }
-
-            if (token.endsWith("\"")) {
-                token = token.substring(0, token.length() - 1);
-            }
-
-            return token;
+        
+        if (token.startsWith("\"")) {
+            token = token.substring(1, token.length());
         }
+
+        if (token.endsWith("\"")) {
+            token = token.substring(0, token.length() - 1);
+        }
+
+        return token;
     }
     
     public boolean isRequired() {

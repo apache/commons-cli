@@ -84,8 +84,7 @@ public class PropertyOptionTest extends OptionTestCase {
         assertEquals(1, commandLine.getProperties().size());
     }
 
-    public void testProcess_UnexpectedOptionException()
-        throws OptionException {
+    public void testProcess_UnexpectedOptionException() {
         final Option option = new PropertyOption();
         final List args = list("--help");
         final WriteableCommandLine commandLine = commandLine(option, args);

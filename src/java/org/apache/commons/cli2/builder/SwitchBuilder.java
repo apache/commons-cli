@@ -183,11 +183,11 @@ public class SwitchBuilder {
     /**
      * Sets the default state for this switch
      * 
-     * @param switchDefault the default state
+     * @param newSwitchDefault the default state
      * @return this SwitchBuilder
      */
-    public final SwitchBuilder withSwitchDefault(final Boolean switchDefault) {
-        this.switchDefault = switchDefault;
+    public final SwitchBuilder withSwitchDefault(final Boolean newSwitchDefault) {
+        this.switchDefault = newSwitchDefault;
         return this;
     }
 }

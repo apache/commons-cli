@@ -24,7 +24,6 @@ import org.apache.commons.cli2.builder.CommandBuilder;
 import org.apache.commons.cli2.builder.DefaultOptionBuilder;
 import org.apache.commons.cli2.builder.GroupBuilder;
 import org.apache.commons.cli2.commandline.Parser;
-import org.apache.commons.cli2.option.Command;
 import junit.framework.TestCase;
 
 public class Bug28005Test extends TestCase {

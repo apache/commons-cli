@@ -119,21 +119,13 @@ public class NestedGroupTest extends CLITestCase {
 
         CommandLine commandLine = parser.parse(args);
 
-        assertTrue("/tmp/filename.txt".equals(
-                (String) commandLine.getValue("-f")));
+        assertTrue("/tmp/filename.txt".equals(commandLine.getValue("-f")));
         assertTrue(commandLine.hasOption("-e"));
         assertTrue(commandLine.hasOption("-b"));
         assertFalse(commandLine.hasOption("-d"));
     }
 
-    public void testNestedGroupHelp()
-        throws OptionException {
-        final String[] args = {
-                "-eb",
-                "--file",
-                "/tmp/filename.txt"
-            };
-
+    public void testNestedGroupHelp() {
         Group[] nestedGroups = {
                 buildActionGroup(),
                 buildAlgorithmGroup(),

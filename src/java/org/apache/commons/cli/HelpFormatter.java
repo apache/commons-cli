@@ -751,10 +751,7 @@ public class HelpFormatter {
 
             return sb;
         }
-        else
-        {
-            sb.append(rtrim(text.substring(0, pos))).append(defaultNewLine);
-        }
+        sb.append(rtrim(text.substring(0, pos))).append(defaultNewLine);
 
         // all following lines must be padded with nextLineTabStop space 
         // characters
@@ -821,20 +818,18 @@ public class HelpFormatter {
         {
             return pos;
         }
-        else
+        
+        // must look for the first whitespace chearacter after startPos 
+        // + width
+        pos = startPos + width;
+
+        while ((pos <= text.length()) && ((c = text.charAt(pos)) != ' ')
+               && (c != '\n') && (c != '\r'))
         {
-            // must look for the first whitespace chearacter after startPos 
-            // + width
-            pos = startPos + width;
-
-            while ((pos <= text.length()) && ((c = text.charAt(pos)) != ' ')
-                   && (c != '\n') && (c != '\r'))
-            {
-                ++pos;
-            }
-
-            return (pos == text.length())        ? (-1) : pos;
+            ++pos;
         }
+
+        return (pos == text.length())        ? (-1) : pos;
     }
 
     /**

@@ -145,9 +145,7 @@ public class DisplaySetting {
         if (that instanceof DisplaySetting) {
             return name.compareTo(that.toString()) == 0;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     public String toString() {

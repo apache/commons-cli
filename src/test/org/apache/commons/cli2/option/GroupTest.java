@@ -220,7 +220,7 @@ public class GroupTest extends GroupTestCase {
         option.validate(commandLine);
     }
 
-    public void testValidate_UnexpectedOption() throws OptionException {
+    public void testValidate_UnexpectedOption() {
         final Group option = buildApacheCommandGroup();
         final WriteableCommandLine commandLine = commandLine(option, list());
 
@@ -236,7 +236,7 @@ public class GroupTest extends GroupTestCase {
         }
     }
 
-    public void testValidate_MissingOption() throws OptionException {
+    public void testValidate_MissingOption() {
         final Group option = buildApacheCommandGroup();
         final WriteableCommandLine commandLine = commandLine(option, list());
 

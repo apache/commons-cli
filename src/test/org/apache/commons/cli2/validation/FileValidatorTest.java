@@ -38,7 +38,7 @@ public class FileValidatorTest extends TestCase {
         assertFalse(i.hasNext());
     }
     
-    public void testValidate_Directory() throws InvalidArgumentException {
+    public void testValidate_Directory() {
         final Object[] array = new Object[] { "src", "project.xml"};
         final List list = Arrays.asList(array);
         final Validator validator = FileValidator.getExistingDirectoryInstance();
@@ -52,7 +52,7 @@ public class FileValidatorTest extends TestCase {
         }
     }
     
-    public void testValidate_File() throws InvalidArgumentException {
+    public void testValidate_File() {
         final Object[] array = new Object[] { "project.xml", "src"};
         final List list = Arrays.asList(array);
         final Validator validator = FileValidator.getExistingFileInstance();
@@ -66,7 +66,7 @@ public class FileValidatorTest extends TestCase {
         }
     }
     
-    public void testValidate_Existing() throws InvalidArgumentException {
+    public void testValidate_Existing() {
         final Object[] array = new Object[] { "project.xml", "veryunlikelyfilename"};
         final List list = Arrays.asList(array);
         final Validator validator = FileValidator.getExistingInstance();

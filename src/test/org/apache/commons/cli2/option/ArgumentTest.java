@@ -185,7 +185,7 @@ public class ArgumentTest extends ArgumentTestCase {
             List defaults = new ArrayList();
             
             try {
-                ArgumentImpl arg = new ArgumentImpl(
+                new ArgumentImpl(
                     null,
                     "the last acceptable date",
                     1,
@@ -210,7 +210,7 @@ public class ArgumentTest extends ArgumentTestCase {
                 defaults.add("1");
                 defaults.add("2");
             
-                ArgumentImpl arg = new ArgumentImpl(
+                new ArgumentImpl(
                     null,
                     "the last acceptable date",
                     1,
@@ -261,7 +261,7 @@ public class ArgumentTest extends ArgumentTestCase {
         assertEquals("rob", commandLine.getValue(option));
     }
 
-    public void testProcessValues_Optional() throws OptionException {
+    public void testProcessValues_Optional() {
         final Argument option = buildTargetsArgument();
         final List args = list();
         final WriteableCommandLine commandLine = commandLine(option, args);
@@ -312,7 +312,7 @@ public class ArgumentTest extends ArgumentTestCase {
             commandLine.getValues(option));
     }
 
-    public void testProcessValues_ContractedTooFew() throws OptionException {
+    public void testProcessValues_ContractedTooFew() {
         final Argument option = buildHostArgument();
         final List args = list("box1");
         final WriteableCommandLine commandLine = commandLine(option, args);
@@ -391,7 +391,7 @@ public class ArgumentTest extends ArgumentTestCase {
         option.validate(commandLine);
     }
 
-    public void testValidate_Minimum() throws OptionException {
+    public void testValidate_Minimum() {
         final Argument option = buildUsernameArgument();
         final WriteableCommandLine commandLine = commandLine(option, list());
 
@@ -404,7 +404,7 @@ public class ArgumentTest extends ArgumentTestCase {
         }
     }
 
-    public void testValidate_Maximum() throws OptionException {
+    public void testValidate_Maximum() {
         final Argument option = buildUsernameArgument();
         final WriteableCommandLine commandLine = commandLine(option, list());
 
@@ -542,7 +542,7 @@ public class ArgumentTest extends ArgumentTestCase {
         assertFalse(iterator.hasNext());
     }
 
-    public void testProcess_ConsumeNothing() throws OptionException {
+    public void testProcess_ConsumeNothing() {
         final Option option = buildPathArgument();
         final List args = list("--");
         final WriteableCommandLine commandLine = commandLine(option, args);

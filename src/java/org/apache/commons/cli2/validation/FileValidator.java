@@ -74,9 +74,8 @@ public class FileValidator implements Validator {
 
                 throw new InvalidArgumentException(name);
             }
-            else {
-                i.set(f);
-            }
+            
+            i.set(f);
         }
     }
 

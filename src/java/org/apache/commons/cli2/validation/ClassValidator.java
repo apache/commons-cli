@@ -91,9 +91,7 @@ public class ClassValidator implements Validator {
                 if (!Character.isJavaIdentifierStart(c)) {
                     return false;
                 }
-                else {
-                    expectingStart = false;
-                }
+                expectingStart = false;
             }
             else {
                 if (c == '.') {

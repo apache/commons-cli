@@ -397,11 +397,11 @@ public class PrecedenceTest extends TestCase {
         assertEquals(new String[] { "-f" }, cl);
     }
 
-    public CommandLine buildCommandLine(final Group group, final String[] args)
+    public CommandLine buildCommandLine(final Group group, final String[] arguments)
         throws OptionException {
         Parser p = new Parser();
         p.setGroup(group);
-        return p.parse(args);
+        return p.parse(arguments);
     }
 
     public void assertEquals(final String options[], final CommandLine line) {

@@ -16,7 +16,6 @@
 package org.apache.commons.cli2.validation;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -25,14 +24,14 @@ import java.util.TreeSet;
 import junit.framework.TestCase;
 
 public class EnumValidatorTest extends TestCase {
-    private final Set enum = new TreeSet(
+    private final Set enumSet = new TreeSet(
             Arrays.asList(
                     new Object[]{"red", "green", "blue"}));
     
     public void testValidate() throws InvalidArgumentException {
         final Object[] array = new Object[] { "red", "green"};
         final List list = Arrays.asList(array);
-        final Validator validator = new EnumValidator(enum);
+        final Validator validator = new EnumValidator(enumSet);
 
         validator.validate(list);
 
@@ -42,10 +41,10 @@ public class EnumValidatorTest extends TestCase {
         assertFalse(i.hasNext());
     }
     
-    public void testNonMember() throws InvalidArgumentException {
+    public void testNonMember() {
         final Object[] array = new Object[] { "red", "pink"};
         final List list = Arrays.asList(array);
-        final Validator validator = new EnumValidator(enum);
+        final Validator validator = new EnumValidator(enumSet);
 
         try{
             validator.validate(list);

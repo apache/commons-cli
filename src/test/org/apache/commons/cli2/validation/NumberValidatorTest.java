@@ -100,7 +100,7 @@ public class NumberValidatorTest extends TestCase {
         assertFalse(i.hasNext());
     }
 
-    public void testValidate_ExcessChars() throws InvalidArgumentException {
+    public void testValidate_ExcessChars() {
         final Object[] array = new Object[] { "10DowningStreet"};
         final List list = Arrays.asList(array);
         final Validator validator = NumberValidator.getIntegerInstance();

@@ -173,11 +173,12 @@ public class PatternOptionBuilder {
             {
                 if (opt != ' ')
                 {
+                    OptionBuilder.hasArg(type != null);
+                    OptionBuilder.isRequired(required);
+                    OptionBuilder.withType(type);
+                    
                     // we have a previous one to deal with
-                    options.addOption(
-                            OptionBuilder.hasArg(type != null)
-                                         .isRequired(required).withType(type)
-                                         .create(opt));
+                    options.addOption(OptionBuilder.create(opt));
                     required = false;
                     type = null;
                     opt = ' ';
@@ -197,10 +198,12 @@ public class PatternOptionBuilder {
 
         if (opt != ' ')
         {
+            OptionBuilder.hasArg(type != null);
+            OptionBuilder.isRequired(required);
+            OptionBuilder.withType(type);
+            
             // we have a final one to deal with
-            options.addOption(
-                    OptionBuilder.hasArg(type != null).isRequired(required)
-                                 .withType(type).create(opt));
+            options.addOption(OptionBuilder.create(opt));
         }
 
         return options;

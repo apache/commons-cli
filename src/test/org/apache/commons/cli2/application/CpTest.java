@@ -334,7 +334,7 @@ public class CpTest extends TestCase {
                 .create();
     }
 
-    public void testNoSource() throws OptionException {
+    public void testNoSource() {
         Parser parser = new Parser();
         parser.setGroup(options);
         try {

@@ -38,7 +38,7 @@ public class UrlValidatorTest extends TestCase {
         assertFalse(i.hasNext());
     }
     
-    public void testBadProtocol() throws InvalidArgumentException, MalformedURLException {
+    public void testBadProtocol() {
         final Object[] array = new Object[] { "http://www.apache.org/", "file:///etc"};
         final List list = Arrays.asList(array);
         final UrlValidator validator = new UrlValidator();

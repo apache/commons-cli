@@ -66,20 +66,16 @@ public class DefaultOptionBuilder {
         final String shortPrefix,
         final String longPrefix,
         final boolean burstEnabled) throws IllegalArgumentException{
+        
         if (shortPrefix == null || shortPrefix.length() == 0) {
             throw new IllegalArgumentException("shortPrefix should be at least 1 character long");
         }
-        else {
-            this.shortPrefix = shortPrefix;
-        }
-
         if (longPrefix == null || longPrefix.length() == 0) {
             throw new IllegalArgumentException("longPrefix should be at least 1 character long");
         }
-        else {
-            this.longPrefix = longPrefix;
-        }
-
+        
+        this.shortPrefix = shortPrefix;
+        this.longPrefix = longPrefix;
         this.burstEnabled = burstEnabled;
         reset();
     }

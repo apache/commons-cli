@@ -239,75 +239,75 @@ public abstract class CommandLineTestCase extends CLITestCase {
 
     public final void testProperties() {
         final Option option = new PropertyOption();
-        final List args = OptionTestCase.list();
-        final WriteableCommandLine commandLine =
+        final List args = CLITestCase.list();
+        final WriteableCommandLine writeable =
             OptionTestCase.commandLine(option, args);
 
-        assertTrue(commandLine.getProperties().isEmpty());
+        assertTrue(writeable.getProperties().isEmpty());
 
-        commandLine.addProperty("myprop", "myval");
-        assertEquals(1, commandLine.getProperties().size());
-        assertEquals("myval", commandLine.getProperty("myprop"));
+        writeable.addProperty("myprop", "myval");
+        assertEquals(1, writeable.getProperties().size());
+        assertEquals("myval", writeable.getProperty("myprop"));
 
-        commandLine.addProperty("myprop", "myval2");
-        assertEquals(1, commandLine.getProperties().size());
-        assertEquals("myval2", commandLine.getProperty("myprop"));
+        writeable.addProperty("myprop", "myval2");
+        assertEquals(1, writeable.getProperties().size());
+        assertEquals("myval2", writeable.getProperty("myprop"));
 
-        commandLine.addProperty("myprop2", "myval3");
-        assertEquals(2, commandLine.getProperties().size());
-        assertEquals("myval3", commandLine.getProperty("myprop2"));
+        writeable.addProperty("myprop2", "myval3");
+        assertEquals(2, writeable.getProperties().size());
+        assertEquals("myval3", writeable.getProperty("myprop2"));
     }
 
     public final void testOptions() {
         final Option option = new PropertyOption();
-        final List args = OptionTestCase.list();
-        final WriteableCommandLine commandLine =
+        final List args = CLITestCase.list();
+        final WriteableCommandLine writeable =
             OptionTestCase.commandLine(option, args);
 
         final Option start = CommandTest.buildStartCommand();
 
-        assertFalse(commandLine.hasOption(start));
-        assertFalse(commandLine.hasOption("start"));
-        assertFalse(commandLine.hasOption("go"));
+        assertFalse(writeable.hasOption(start));
+        assertFalse(writeable.hasOption("start"));
+        assertFalse(writeable.hasOption("go"));
 
-        commandLine.addOption(start);
+        writeable.addOption(start);
 
-        assertTrue(commandLine.hasOption(start));
-        assertTrue(commandLine.hasOption("start"));
-        assertTrue(commandLine.hasOption("go"));
+        assertTrue(writeable.hasOption(start));
+        assertTrue(writeable.hasOption("start"));
+        assertTrue(writeable.hasOption("go"));
     }
 
     public final void testValues() {
         final Option option = new PropertyOption();
-        final List args = OptionTestCase.list();
-        final WriteableCommandLine commandLine =
+        final List args = CLITestCase.list();
+        final WriteableCommandLine writeable =
             OptionTestCase.commandLine(option, args);
 
         final Option start = CommandTest.buildStartCommand();
 
-        assertNull(commandLine.getValue(start));
-        assertTrue(commandLine.getValues(start).isEmpty());
+        assertNull(writeable.getValue(start));
+        assertTrue(writeable.getValues(start).isEmpty());
 
-        commandLine.addOption(start);
+        writeable.addOption(start);
 
-        assertTrue(commandLine.getValues(start).isEmpty());
+        assertTrue(writeable.getValues(start).isEmpty());
 
-        commandLine.addValue(start, "file1");
+        writeable.addValue(start, "file1");
 
-        assertEquals("file1", commandLine.getValue(start));
-        assertEquals("file1", commandLine.getValue("start"));
-        assertEquals("file1", commandLine.getValue("go"));
-        assertEquals(1, commandLine.getValues(start).size());
-        assertEquals(1, commandLine.getValues("start").size());
-        assertEquals(1, commandLine.getValues("go").size());
-        assertTrue(commandLine.getValues(start).contains("file1"));
-        assertTrue(commandLine.getValues("start").contains("file1"));
-        assertTrue(commandLine.getValues("go").contains("file1"));
+        assertEquals("file1", writeable.getValue(start));
+        assertEquals("file1", writeable.getValue("start"));
+        assertEquals("file1", writeable.getValue("go"));
+        assertEquals(1, writeable.getValues(start).size());
+        assertEquals(1, writeable.getValues("start").size());
+        assertEquals(1, writeable.getValues("go").size());
+        assertTrue(writeable.getValues(start).contains("file1"));
+        assertTrue(writeable.getValues("start").contains("file1"));
+        assertTrue(writeable.getValues("go").contains("file1"));
 
-        commandLine.addValue(start, "file2");
+        writeable.addValue(start, "file2");
 
         try {
-            commandLine.getValue(start);
+            writeable.getValue(start);
             fail("Cannot get single value if multiple are present");
         }
         catch (IllegalStateException ise) {
@@ -315,31 +315,31 @@ public abstract class CommandLineTestCase extends CLITestCase {
         }
 
         try {
-            commandLine.getValue("start");
+            writeable.getValue("start");
             fail("Cannot get single value if multiple are present");
         }
         catch (IllegalStateException ise) {
             assertEquals("More than one value was supplied", ise.getMessage());
         }
 
-        commandLine.getValues(start).add("file3");
+        writeable.getValues(start).add("file3");
     }
 
     public final void testSwitches() {
         final Option option = new PropertyOption();
-        final List args = OptionTestCase.list();
-        final WriteableCommandLine commandLine =
+        final List args = CLITestCase.list();
+        final WriteableCommandLine writeable =
             OptionTestCase.commandLine(option, args);
 
         final Option start = CommandTest.buildStartCommand();
 
-        assertNull(commandLine.getSwitch(start));
-        assertNull(commandLine.getSwitch("start"));
-        assertNull(commandLine.getSwitch("go"));
+        assertNull(writeable.getSwitch(start));
+        assertNull(writeable.getSwitch("start"));
+        assertNull(writeable.getSwitch("go"));
 
-        commandLine.addSwitch(start, true);
+        writeable.addSwitch(start, true);
         try {
-            commandLine.addSwitch(start, false);
+            writeable.addSwitch(start, false);
             fail("Switch cannot be changed");
         }
         catch (IllegalStateException ise) {
@@ -349,26 +349,26 @@ public abstract class CommandLineTestCase extends CLITestCase {
 
     public final void testSwitches_True() {
         final Option option = new PropertyOption();
-        final List args = OptionTestCase.list();
-        final WriteableCommandLine commandLine =
+        final List args = CLITestCase.list();
+        final WriteableCommandLine writeable =
             OptionTestCase.commandLine(option, args);
 
         final Option start = CommandTest.buildStartCommand();
 
-        commandLine.addSwitch(start, true);
-        assertSame(Boolean.TRUE, commandLine.getSwitch(start));
+        writeable.addSwitch(start, true);
+        assertSame(Boolean.TRUE, writeable.getSwitch(start));
     }
 
     public final void testSwitches_False() {
         final Option option = new PropertyOption();
-        final List args = OptionTestCase.list();
-        final WriteableCommandLine commandLine =
+        final List args = CLITestCase.list();
+        final WriteableCommandLine writeable =
             OptionTestCase.commandLine(option, args);
 
         final Option start = CommandTest.buildStartCommand();
 
-        commandLine.addSwitch(start, false);
-        assertSame(Boolean.FALSE, commandLine.getSwitch(start));
+        writeable.addSwitch(start, false);
+        assertSame(Boolean.FALSE, writeable.getSwitch(start));
     }
 
 //    public final void testLooksLikeOption() {
@@ -487,13 +487,13 @@ public abstract class CommandLineTestCase extends CLITestCase {
     }
 
     public final void testOptionAsArgument() throws OptionException {
-    	final Option bool = new DefaultOptionBuilder().withShortName("p").create();
+    	final Option p = new DefaultOptionBuilder().withShortName("p").create();
     	final Argument argument = new ArgumentBuilder().create();
     	final Option withArgument = new DefaultOptionBuilder().withShortName("attr").withArgument(argument).create();
 
     	final Group group =
             new GroupBuilder()
-                .withOption(bool)
+                .withOption(p)
                 .withOption(withArgument)
                 .create();
 

@@ -32,8 +32,6 @@ import org.apache.commons.cli2.builder.DefaultOptionBuilder;
  */
 public class DefaultingCommandLineTest extends CommandLineTestCase {
 	
-	private DefaultingCommandLine defaults;
-	
 	private CommandLine first;
 	private CommandLine second;
 	

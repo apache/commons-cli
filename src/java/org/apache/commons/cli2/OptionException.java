@@ -33,7 +33,7 @@ public class OptionException extends Exception {
     public static final Set HELP_SETTINGS = 
         Collections.unmodifiableSet(
             Collections.singleton(
-                DisplaySetting.DISPLAY_PROPERTY_OPTION));;
+                DisplaySetting.DISPLAY_PROPERTY_OPTION));
 
     /** The Option the exception relates to */
     private final Option option;
