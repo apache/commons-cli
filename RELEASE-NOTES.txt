@@ -1,0 +1,26 @@
+$Id: RELEASE-NOTES.txt,v 1.1 2002/11/06 05:09:21 bayard Exp $
+
+			Commons CLI Package
+			   Version 1.0
+			    Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for this version of the Commons
+CLI package. Commons CLI provdes a simple API for working with the command line arguments and options.
+
+This is the first release of the CLI component, therefore all features are new, 
+there are no bug-fixes, nothing is deprecated and there are no changes.
+
+For more information, read the documentation on the project site at 
+http://jakarta.apache.org/commons/cli/
+
+NEW FEATURES:
+
+BUG FIXES:
+
+DEPRECATIONS:
+
+CHANGES: 
+
