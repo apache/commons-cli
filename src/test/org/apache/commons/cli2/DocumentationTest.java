@@ -18,6 +18,8 @@ package org.apache.commons.cli2;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Iterator;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -147,8 +149,8 @@ public class DocumentationTest extends TestCase {
         }
     }
 
-    public void testExampleAnt() throws IOException {
-        // Based on Ant 1.5.3
+    public void testExampleAnt() throws IOException, OptionException {
+        // Apache Ant version 1.6.1 compiled on February 12 2004
 
         final DefaultOptionBuilder obuilder = new DefaultOptionBuilder();
         final ArgumentBuilder abuilder = new ArgumentBuilder();
@@ -157,11 +159,13 @@ public class DocumentationTest extends TestCase {
         Option help =
             obuilder
                 .withShortName("help")
+                .withShortName("h")
                 .withDescription("print this message")
                 .create();
         Option projecthelp =
             obuilder
                 .withShortName("projecthelp")
+                .withShortName("p")
                 .withDescription("print project help information")
                 .create();
         Option version =
@@ -189,18 +193,31 @@ public class DocumentationTest extends TestCase {
         Option debug =
             obuilder
                 .withShortName("debug")
+                .withShortName("d")
                 .withDescription("print debugging information")
                 .create();
         Option emacs =
             obuilder
                 .withShortName("emacs")
+                .withShortName("e")
                 .withDescription("produce logging information without adornments")
+                .create();
+        Option lib =
+            obuilder
+                .withShortName("lib")
+                .withDescription("specifies a path to search for jars and classes")
+                .withArgument(
+                    abuilder
+                        .withName("path")
+                        .withMinimum(1)
+                        .withMaximum(1)
+                        .create())
                 .create();
         Option logfile =
             obuilder
                 .withShortName("logfile")
                 .withShortName("l")
-                .withDescription("produce logging information without adornments")
+                .withDescription("use given file for log")
                 .withArgument(
                     abuilder
                         .withName("file")
@@ -230,11 +247,16 @@ public class DocumentationTest extends TestCase {
                         .withMaximum(1)
                         .create())
                 .create();
+        Option noinput =
+            obuilder
+                .withShortName("noinput")
+                .withDescription("do not allow interactive input")
+                .create();
         Option buildfile =
             obuilder
                 .withShortName("buildfile")
-                .withShortName("b")
                 .withShortName("file")
+                .withShortName("f")
                 .withDescription("use given buildfile")
                 .withArgument(
                     abuilder
@@ -269,6 +291,7 @@ public class DocumentationTest extends TestCase {
         Option find =
             obuilder
                 .withShortName("find")
+                .withShortName("s")
                 .withDescription("search for buildfile towards the root of the filesystem and use it")
                 .withArgument(
                     abuilder
@@ -290,9 +313,11 @@ public class DocumentationTest extends TestCase {
                 .withOption(verbose)
                 .withOption(debug)
                 .withOption(emacs)
+                .withOption(lib)
                 .withOption(logfile)
                 .withOption(logger)
                 .withOption(listener)
+                .withOption(noinput)
                 .withOption(buildfile)
                 .withOption(property)
                 .withOption(propertyfile)
@@ -300,6 +325,33 @@ public class DocumentationTest extends TestCase {
                 .withOption(find)
                 .withOption(targets)
                 .create();
+        
+        /////////////////////////////////////
+        String[] args = new String[]{};
+        
+        Parser parser = new Parser();
+        parser.setGroup(options);
+        CommandLine cl = parser.parse(args);
+        
+        if(cl.hasOption(help)) {
+            //displayHelp();
+            return;
+        }
+        if(cl.hasOption("-version")) {
+            //displayVersion();
+            return;
+        }
+        if(cl.hasOption(logfile)) {
+            String file = (String)cl.getValue(logfile);
+            //setLogFile();
+        }
+        List targetList = cl.getValues(targets);
+        for (Iterator i = targetList.iterator(); i.hasNext();) {
+            String target = (String) i.next();
+            //doTarget(target);
+        }
+        
+        /////////////////////////////////////
 
         HelpFormatter hf = new HelpFormatter();
         hf.setShellCommand("ant");
@@ -309,6 +361,7 @@ public class DocumentationTest extends TestCase {
 
         hf.getLineUsageSettings().add(DisplaySetting.DISPLAY_PROPERTY_OPTION);
         hf.getLineUsageSettings().add(DisplaySetting.DISPLAY_PARENT_ARGUMENT);
+        hf.getLineUsageSettings().add(DisplaySetting.DISPLAY_ARGUMENT_BRACKETED);
 
         hf.getDisplaySettings().remove(DisplaySetting.DISPLAY_GROUP_ARGUMENT);
 

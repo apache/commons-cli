@@ -23,12 +23,277 @@
 
   <body>
     <section name="ant">
-      <p>TODO what is ant</p>
+      <p>
+        This example works through modelling Apache Ant using CLI2, the 
+        example is based on Apache Ant version 1.6.1 compiled on February 12 
+        2004.
+      </p>
+      <p>
+        "Apache Ant is a Java-based build tool. In theory, it is kind of like 
+        Make, but without Make's wrinkles." - For more information please 
+        visit <a href="http://ant.apache.org/">http://ant.apache.org/</a>
+      </p>
       <subsection name="Modelling">
+      <p>
+        To model the ant options we first need to create some Builders so that 
+        each of the option instances can be created:
+      </p>
+<source>final DefaultOptionBuilder obuilder = new DefaultOptionBuilder();
+final ArgumentBuilder abuilder = new ArgumentBuilder();
+final GroupBuilder gbuilder = new GroupBuilder();</source>
+      <p>
+      	For each option we create an Option instance that will model it, built 
+      	using the Builder instances above:
+      </p>
+<source>Option help =
+    obuilder
+        .withShortName("help")
+        .withShortName("h")
+        .withDescription("print this message")
+        .create();
+Option projecthelp =
+    obuilder
+        .withShortName("projecthelp")
+        .withShortName("p")
+        .withDescription("print project help information")
+        .create();
+Option version =
+    obuilder
+        .withShortName("version")
+        .withDescription("print the version information and exit")
+        .create();
+Option diagnostics =
+    obuilder
+        .withShortName("diagnostics")
+        .withDescription("print information that might be helpful to diagnose or report problems.")
+        .create();
+Option quiet =
+    obuilder
+        .withShortName("quiet")
+        .withShortName("q")
+        .withDescription("be extra quiet")
+        .create();
+Option verbose =
+    obuilder
+        .withShortName("verbose")
+        .withShortName("v")
+        .withDescription("be extra verbose")
+        .create();
+Option debug =
+    obuilder
+        .withShortName("debug")
+        .withShortName("d")
+        .withDescription("print debugging information")
+        .create();
+Option emacs =
+    obuilder
+        .withShortName("emacs")
+        .withShortName("e")
+        .withDescription("produce logging information without adornments")
+        .create();
+Option lib =
+    obuilder
+        .withShortName("lib")
+        .withDescription("specifies a path to search for jars and classes")
+        .withArgument(
+            abuilder
+                .withName("path")
+                .withMinimum(1)
+                .withMaximum(1)
+                .create())
+        .create();
+Option logfile =
+    obuilder
+        .withShortName("logfile")
+        .withShortName("l")
+        .withDescription("use given file for log")
+        .withArgument(
+            abuilder
+                .withName("file")
+                .withMinimum(1)
+                .withMaximum(1)
+                .create())
+        .create();
+Option logger =
+    obuilder
+        .withShortName("logger")
+        .withDescription("the class which is to perform logging")
+        .withArgument(
+            abuilder
+                .withName("classname")
+                .withMinimum(1)
+                .withMaximum(1)
+                .create())
+        .create();
+Option listener =
+    obuilder
+        .withShortName("listener")
+        .withDescription("add an instance of class as a project listener")
+        .withArgument(
+            abuilder
+                .withName("classname")
+                .withMinimum(1)
+                .withMaximum(1)
+                .create())
+        .create();
+Option noinput =
+    obuilder
+        .withShortName("noinput")
+        .withDescription("do not allow interactive input")
+        .create();
+Option buildfile =
+    obuilder
+        .withShortName("buildfile")
+        .withShortName("file")
+        .withShortName("f")
+        .withDescription("use given buildfile")
+        .withArgument(
+            abuilder
+                .withName("file")
+                .withMinimum(1)
+                .withMaximum(1)
+                .create())
+        .create();
+Option property = new PropertyOption();
+Option propertyfile =
+    obuilder
+        .withShortName("propertyfile")
+        .withDescription("load all properties from file with -D properties taking precedence")
+        .withArgument(
+            abuilder
+                .withName("name")
+                .withMinimum(1)
+                .withMaximum(1)
+                .create())
+        .create();
+Option inputhandler =
+    obuilder
+        .withShortName("inputhandler")
+        .withDescription("the class which will handle input requests")
+        .withArgument(
+            abuilder
+                .withName("class")
+                .withMinimum(1)
+                .withMaximum(1)
+                .create())
+        .create();
+Option find =
+    obuilder
+        .withShortName("find")
+        .withShortName("s")
+        .withDescription("search for buildfile towards the root of the filesystem and use it")
+        .withArgument(
+            abuilder
+                .withName("file")
+                .withMinimum(1)
+                .withMaximum(1)
+                .create())
+        .create();
+Option targets = abuilder.withName("target").create();</source>
+      <p>
+        We now create a Group instance consisting of all the above options:
+      </p>
+<source>Group options =
+    gbuilder
+        .withName("options")
+        .withOption(help)
+        .withOption(projecthelp)
+        .withOption(version)
+        .withOption(diagnostics)
+        .withOption(quiet)
+        .withOption(verbose)
+        .withOption(debug)
+        .withOption(emacs)
+        .withOption(lib)
+        .withOption(logfile)
+        .withOption(logger)
+        .withOption(listener)
+        .withOption(noinput)
+        .withOption(buildfile)
+        .withOption(property)
+        .withOption(propertyfile)
+        .withOption(inputhandler)
+        .withOption(find)
+        .withOption(targets)
+        .create();</source>
       </subsection>
       <subsection name="Querying">
+      <p>
+        Once the model is built, a CommandLine needs to be parsed:
+      </p>
+<source>Parser parser = new Parser();
+parser.setGroup(options);
+CommandLine cl = parser.parse(args);</source>
+      <p>
+        The CommandLine can be tested for the presence of options using the 
+        hasOption() methods which take either an option instance or a trigger 
+        value to lookup against:
+      </p>
+<source>if(cl.hasOption(help)) {
+    //displayHelp();
+    return;
+}
+if(cl.hasOption("-version")) {
+    //displayVersion();
+    return;
+}</source>
+      <p>
+        For those options that have an argument, the argument needs to be 
+        extracted and processed:
+      </p>
+<source>if(cl.hasOption(logfile)) {
+    String file = (String)cl.getValue(logfile);
+    //setLogFile(file);
+}</source>
+      <p>
+        Each target for ant to process could then be processed in order as 
+        specified:
+      </p>
+<source>List targetList = cl.getValues(targets);
+for (Iterator i = targetList.iterator(); i.hasNext();) {
+    String target = (String) i.next();
+    //doTarget(target);
+}</source>
       </subsection>
       <subsection name="Helping">
+      <p>
+        To generate a help page for ant we first need to create a 
+        HelpFormatter and set some basic properties.  The shell command is 
+        the command that the used would have typed to invoke the application, 
+        and the group is the group of options that compose the model.
+      </p>
+<source>HelpFormatter hf = new HelpFormatter();
+hf.setShellCommand("ant");
+hf.setGroup(options);</source>
+      <p>
+        The first section of help will display the full usage string for the 
+        application, the appearence of this line can be adjusted using the 
+        HelpFormatter's fullUsageSettings property:
+      </p>
+<source>hf.getFullUsageSettings().add(DisplaySetting.DISPLAY_GROUP_NAME);
+hf.getFullUsageSettings().add(DisplaySetting.DISPLAY_GROUP_ARGUMENT);
+hf.getFullUsageSettings().remove(DisplaySetting.DISPLAY_GROUP_EXPANDED);</source>
+      <p>
+        The main body of the help is based on a line or more of information 
+        about each option in the model.  DisplaySettings can be used again to 
+        adjust which items are included in this display and which aren't.  In 
+        this case, we don't want to display any groups as the top one is the 
+        only one present and can be inferred:
+      </p>
+<source>hf.getDisplaySettings().remove(DisplaySetting.DISPLAY_GROUP_ARGUMENT);</source>
+      <p>
+        Each of the options identified by the displaySettings above has some 
+        usage information displayed, usually this will be a minimal set of 
+        DisplaySettings but these can be adjusted to get the desired effect:
+      </p>
+<source>hf.getLineUsageSettings().add(DisplaySetting.DISPLAY_PROPERTY_OPTION);
+hf.getLineUsageSettings().add(DisplaySetting.DISPLAY_PARENT_ARGUMENT);
+hf.getLineUsageSettings().add(DisplaySetting.DISPLAY_ARGUMENT_BRACKETED);</source>
+      <p>
+        Finally, the help can be printed to System.out with a simple call to 
+        <code>print()</code>:
+      </p>
+<source>hf.print();</source>
       </subsection>
     </section>
   </body>
