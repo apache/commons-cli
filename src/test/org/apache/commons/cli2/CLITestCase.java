@@ -24,7 +24,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-public class CLITestCase extends TestCase {
+public abstract class CLITestCase extends TestCase {
 
 	public static List list() {
 	    return Collections.EMPTY_LIST;
