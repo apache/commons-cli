@@ -165,7 +165,7 @@ public class Switch extends ParentImpl {
     public void validate(WriteableCommandLine commandLine)
         throws OptionException {
         if (isRequired() && !commandLine.hasOption(this)) {
-            throw new OptionException(this);
+            throw new OptionException(this,"cli.error.missing.required", getPreferredName());
         }
 
         super.validate(commandLine);
