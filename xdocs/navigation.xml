@@ -8,6 +8,7 @@
       <item name="Introduction"      href="/introduction.html"/>
       <item name="Usage Scenarios"   href="/usage.html"/>
       <item name="Option Properties" href="/properties.html"/>
+      <item name="Download" href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-cli/v1.0/"/>
     </menu>
   </body>
 </project>
