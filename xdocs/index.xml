@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<document>
+
+ <properties>
+  <title></title>
+  <author email="jstrachan@apache.org">James Strachan</author>
+ </properties>
+
+<body>
+
+<section name="CLI : Command Line Interface">
+
+<p>
+   The CLI library provides a simple and easy to use API for working
+   with the command line arguments and options.</p>
+<p>
+   CLI is based on ideas and code from 
+   <ul>
+     <li>werken.opt by Bob Mcwhirter</li>
+     <li>The cli package in Avalon Excalibur by Peter Donald</li>
+     <li>Optz by John Keyes</li>
+   </ul>
+</p>
+
+</section>
+
+</body>
+</document>
