@@ -29,7 +29,7 @@ import java.util.ListIterator;
 public class DateValidator implements Validator {
 
     /** an array of permitted DateFormats */
-    private final DateFormat[] formats;
+    private DateFormat[] formats;
 
     /** minimum Date allowed i.e: a valid date occurs later than this date */
     private Date minimum;
@@ -78,7 +78,7 @@ public class DateValidator implements Validator {
      *            a DateFormat which dates must conform to
      */
     public DateValidator(final DateFormat format) {
-        this.formats = new DateFormat[] { format };
+        setFormat(format);
     }
 
     /**
@@ -88,8 +88,7 @@ public class DateValidator implements Validator {
      *            a List of DateFormats which dates must conform to
      */
     public DateValidator(final List formats) {
-        this.formats =
-            (DateFormat[])formats.toArray(new DateFormat[formats.size()]);
+    	setFormats(formats);
     }
 
     /**
@@ -210,4 +209,44 @@ public class DateValidator implements Validator {
     private boolean isDateEarlier(Date date) {
         return minimum != null && date.getTime() < minimum.getTime();
     }
+    
+    /**
+     * Sets the date format permitted.
+     * 
+     * @param format 
+     *              the format to use
+     */
+    public void setFormat(final DateFormat format) {
+    	formats = new DateFormat[]{format};
+    }
+    
+    /**
+     * Sets the date formats permitted.
+     * 
+     * @param formats 
+     *               the List of DateFormats to use
+     */
+    public void setFormats(final List formats) {
+    	setFormats((DateFormat[])formats.toArray(new DateFormat[formats.size()]));
+    }
+    
+    /**
+     * Sets the date formats permitted.
+     * 
+     * @param formats 
+     *               the array of DateFormats to use
+     */
+    public void setFormats(final DateFormat[] formats) {
+    	this.formats = formats;
+    }
+    
+    /**
+     * Gets the date formats permitted.
+     *
+     * @return the permitted formats
+     */
+    public DateFormat[] getFormats() {
+    	return this.formats;
+    }
+    
 }
