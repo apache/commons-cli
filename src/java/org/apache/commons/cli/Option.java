@@ -116,6 +116,43 @@ public class Option {
     private ArrayList  values       = new ArrayList();
     
 
+    private void validateOption( String opt ) 
+    throws IllegalArgumentException
+    {
+        if( opt == null ) {
+            throw new IllegalArgumentException( "opt is null" );
+        }
+        else if( opt.length() == 1 ) {
+            if ( !isValidOpt( opt.charAt( 0 ) ) ) {
+                throw new IllegalArgumentException( "illegal option value '" 
+                                                    + opt.charAt( 0 ) + "'" );
+            }
+        }
+        else {
+            char[] chars = opt.toCharArray();
+            for( int i = 0; i < chars.length; i++ ) {
+                if( !isValidChar( chars[i] ) ) {
+                    throw new IllegalArgumentException( "opt contains illegal character value '" + chars[i] + "'" );
+                }
+            }
+        }
+    }
+
+    private boolean isValidOpt( char c ) 
+    {
+        if ( ! ( isValidChar( c ) || c == '?' || c == '@') ) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidChar( char c ) 
+    {
+        if ( ! ( Character.isLetter( c ) ) ) {
+            return false;
+        }
+        return true;
+    }
     /**
      * Creates an Option using the specified parameters.
      *
@@ -123,7 +160,9 @@ public class Option {
      * @param hasArg specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      */
-    public Option(String opt, boolean hasArg, String description) {
+    public Option(String opt, boolean hasArg, String description) 
+    throws IllegalArgumentException
+    {
         this(opt, null, hasArg, description, false, false);
     }
     
@@ -135,7 +174,9 @@ public class Option {
      * @param hasArg specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      */
-    public Option(String opt, String longOpt, boolean hasArg, String description) {
+    public Option(String opt, String longOpt, boolean hasArg, String description) 
+    throws IllegalArgumentException
+    {
         this(opt, longOpt, hasArg, description, false, false );
     }
 
@@ -149,7 +190,9 @@ public class Option {
      * @param required specifies whether the option is required or not
      */
     public Option(String opt, String longOpt, boolean hasArg, String description,
-                  boolean required ) {
+                  boolean required ) 
+    throws IllegalArgumentException
+    {
         this(opt, longOpt, hasArg, description, required, false );
     }
 
@@ -165,7 +208,9 @@ public class Option {
      * values
      */
     public Option(String opt, String longOpt, boolean hasArg, String description, 
-                  boolean required, boolean multipleArgs ) {
+                  boolean required, boolean multipleArgs ) 
+    throws IllegalArgumentException
+    {
         this(opt, longOpt, hasArg, description, required, multipleArgs, null );
     }
 
@@ -182,7 +227,11 @@ public class Option {
      * @param type specifies the type of the option
      */
     public Option(String opt, String longOpt, boolean hasArg, String description, 
-                  boolean required, boolean multipleArgs, Object type ) {
+                  boolean required, boolean multipleArgs, Object type ) 
+    throws IllegalArgumentException
+    {
+        validateOption( opt );
+
         this.opt          = opt;
         this.longOpt      = longOpt;
         this.hasArg       = hasArg;
@@ -213,6 +262,10 @@ public class Option {
     public Object getType() {
         return this.type;
     }
+
+    public void setType( Object type ) {
+        this.type = type;
+    }
     
     /** <p>Retrieve the long name of this Option</p>
      *
@@ -220,6 +273,10 @@ public class Option {
      */
     public String getLongOpt() {
         return this.longOpt;
+    }
+
+    public void setLongOpt( String longOpt ) {
+        this.longOpt = longOpt;
     }
     
     /** <p>Query to see if this Option has a long name</p>
@@ -254,12 +311,20 @@ public class Option {
          return this.required;
      }
 
+     public void setRequired( boolean required ) {
+         this.required = required;
+     }
+
      /** <p>Query to see if this Option can take multiple values</p>
       *
       * @return boolean flag indicating if multiple values are allowed
       */
      public boolean hasMultipleArgs() {
          return this.multipleArgs;
+     }
+
+     public void setMultipleArgs( boolean multipleArgs ) {
+         this.multipleArgs = multipleArgs;
      }
 
     /** <p>Dump state, suitable for debugging.</p>
