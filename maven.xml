@@ -1,6 +1,6 @@
 <!--
 Copyright 2002-2004 The Apache Software Foundation.
- 
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,18 +20,18 @@ limitations under the License.
   <!-- ================================================================== -->
   <!-- Required: Look and Feel for documentation within distributions     -->
   <!-- ================================================================== -->
-  <postGoal name="xdoc:copy-resources">  
+  <postGoal name="xdoc:copy-resources">
     <copy todir="${basedir}/target/docs/style/" failonerror="false">
       <fileset dir="${basedir}/../commons-build/xdocs/style">
-      	<include name='**/*'/>
-      	<exclude name='**/CVS/**'/>
+        <include name='**/*'/>
+        <exclude name='**/CVS/**'/>
       </fileset>
     </copy>
   </postGoal>
   <!-- ================================================================== -->
   <!-- END: C O M M O N S - B U I L D                                     -->
   <!-- ================================================================== -->
-  
+
  <postGoal name="xdoc:transform">
    <attainGoal name="pdf:pdf"/>
  </postGoal>
@@ -39,6 +39,14 @@ limitations under the License.
  <preGoal name="pdf:prepare">
    <attainGoal name="svg:init"/>
    <attainGoal name="svg:convert"/>
+ </preGoal>
+
+ <preGoal name="dist:prepare-bin-filesystem">
+   <attainGoal name="ant:generate-build"/>
+ </preGoal>
+
+ <preGoal name="dist:prepare-src-filesystem">
+   <attainGoal name="ant:generate-build"/>
  </preGoal>
 
 </project>
