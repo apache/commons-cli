@@ -18,7 +18,7 @@ package org.apache.commons.cli;
 /** 
  * Allows Options to be created from a single String.
  *
- * @todo These need to break out to OptionType and also 
+ * TODO These need to break out to OptionType and also 
  * to be pluggable.
  *
  * @author Henri Yandell (bayard @ generationjava.com)

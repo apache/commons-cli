@@ -45,8 +45,8 @@ class Util {
     }
 
     /**
-     * <p>Remove the leading and trailing quotes from <code>str</code>,
-     * e.g. if str is '"one two"', then 'one two' is returned.</p>
+     * Remove the leading and trailing quotes from <code>str</code>.
+     * E.g. if str is '"one two"', then 'one two' is returned.
      *
      * @param str The string from which the leading and trailing quotes
      * should be removed.

@@ -451,7 +451,7 @@ class ReverseStringComparator implements Comparator {
 
     /**
      * Gets a singleton instance of a ReverseStringComparator
-     * @return
+     * @return the singleton instance
      */
     public static final Comparator getInstance() {
         return instance;
