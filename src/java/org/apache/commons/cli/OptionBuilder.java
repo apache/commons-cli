@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.11 2002/10/08 21:24:11 jkeyes Exp $
- * $Revision: 1.11 $
- * $Date: 2002/10/08 21:24:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.12 2002/10/15 22:50:45 jkeyes Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/10/15 22:50:45 $
  *
  * ====================================================================
  *
@@ -65,7 +65,7 @@ package org.apache.commons.cli;
  * <p>OptionBuilder allows the user to create Options using descriptive
  * methods.</p>
  * <p>Details on the Builder pattern can be found at 
- * <a href="http://">http://</a>.</p>
+ * <a href="http://c2.com/cgi-bin/wiki?BuilderPattern">http://c2.com/cgi-bin/wiki?BuilderPattern</a>.</p>
  *
  * @author John Keyes ( john at integralsource.com )
  * @since 1.0
@@ -324,7 +324,6 @@ public class OptionBuilder {
      * @return the Option instance
      * @throws IllegalArgumentException if <code>longOpt</code> has
      * not been set.  
-     * @see Option.
      */
     public static Option create() 
     throws IllegalArgumentException
