@@ -15,17 +15,20 @@
    limitations under the License.
 -->
 <project>
-  <extend>../commons-build/project.xml</extend>
   <id>commons-cli</id>
   <name>CLI</name>
   <currentVersion>2.0</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons CLI</shortDescription>
   <description>
-  	Commons CLI provides a simple API for working with the command line arguments and options.
+  	Commons CLI provides a simple API for presenting, proecessing and 
+  	validating a command line interface.
   </description>
   <logo>/images/logo.png</logo>
-
+  
+  <url>http://jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</url>
+  <package>org.apache.commons.${pom.artifactId.substring(8)}</package>
+  
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://www.apache.org</url>
@@ -33,8 +36,31 @@
   </organization>
 
   <gumpRepositoryId>jakarta</gumpRepositoryId>
+  <issueTrackingUrl>http://issues.apache.org/bugzilla/</issueTrackingUrl>
+  <siteAddress>jakarta.apache.org</siteAddress>
+  <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
   
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/${pom.artifactId.substring(8)}</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/${pom.artifactId.substring(8)}/</url>
+  </repository>
   
+  <mailingLists>
+    <mailingList>
+      <name>Commons Dev List</name>
+      <subscribe>commons-dev-subscribe@jakarta.apache.org</subscribe>
+      <unsubscribe>commons-dev-unsubscribe@jakarta.apache.org</unsubscribe>
+      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-dev@jakarta.apache.org</archive>
+    </mailingList>
+    <mailingList>
+      <name>Commons User List</name>
+      <subscribe>commons-user-subscribe@jakarta.apache.org</subscribe>
+      <unsubscribe>commons-user-unsubscribe@jakarta.apache.org</unsubscribe>
+      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-user@jakarta.apache.org</archive>
+    </mailingList>
+  </mailingLists>
+
   <developers>
     <developer>
       <name>James Strachan</name>
@@ -43,7 +69,7 @@
       <organization>SpiritSoft, Inc.</organization>
     </developer>
     <developer>
-      <name>bob mcwhirter</name>
+      <name>Bob McWhirter</name>
       <id>bob</id>
       <email>bob@werken.com</email>
       <organization>Werken</organization>
@@ -106,6 +132,8 @@
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
     <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <integrationUnitTestSourceDirectory/>
+    <aspectSourceDirectory/>
     <resources>
         <resource>
           <directory>src/java/org/apache/commons/cli2</directory>
@@ -142,6 +170,7 @@
     <report>maven-simian-plugin</report>
     <report>maven-faq-plugin</report>
     <report>maven-jcoverage-plugin</report>
-    <report>maven-tasks-plugin</report>
-    <report>maven-findbugs-plugin</report>
-  </reports></project>
+    <!--report>maven-tasks-plugin</report-->
+    <!--report>maven-findbugs-plugin</report-->
+  </reports>
+</project>
