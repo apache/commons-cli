@@ -100,6 +100,7 @@ public class ArgumentBuilder {
         maximum = Integer.MAX_VALUE;
         initialSeparator = ArgumentImpl.DEFAULT_INITIAL_SEPARATOR;
         subsequentSeparator = ArgumentImpl.DEFAULT_SUBSEQUENT_SEPARATOR;
+        validator = null;
         consumeRemaining = "--";
         defaultValues = null;
         id = 0;

@@ -319,6 +319,7 @@ public class ArgumentTest extends ArgumentTestCase {
         final ListIterator iterator = args.listIterator();
         try {
             option.processValues(commandLine, iterator, option);
+            option.validate(commandLine);
             fail("Expected MissingValueException");
         }
         catch (OptionException mve) {
@@ -549,6 +550,7 @@ public class ArgumentTest extends ArgumentTestCase {
 
         try {
             option.process(commandLine, iterator);
+            option.validate(commandLine);
             fail("Missing Value!");
         }
         catch (OptionException mve) {
