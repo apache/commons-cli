@@ -4,8 +4,9 @@
   <title>CLI</title>
 
   <body>
-    <menu name="Examples">
-      <item name="Simple Option"                   href="/usage.html"/>
+    <menu name="User Documentation">
+      <item name="Command Line Processing"  href="/introduction.html"/>
+      <item name="Simple Option"            href="/usage.html"/>
     </menu>
   </body>
 </project>
