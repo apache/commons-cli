@@ -83,4 +83,18 @@ public class EnumValidator implements Validator {
 
         return buff.toString();
     }
+
+    /**
+     * @return Returns the validValues.
+     */
+    public Set getValidValues() {
+        return validValues;
+    }
+
+    /**
+     * @param validValues The validValues to set.
+     */
+    public void setValidValues(Set validValues) {
+        this.validValues = validValues;
+    }
 }
