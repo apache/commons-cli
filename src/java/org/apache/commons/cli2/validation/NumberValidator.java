@@ -55,7 +55,7 @@ public class NumberValidator implements Validator {
         return new NumberValidator(NumberFormat.getNumberInstance());
     }
 
-    private final NumberFormat format;
+    private NumberFormat format;
     private Number minimum = null;
     private Number maximum = null;
 
@@ -128,5 +128,12 @@ public class NumberValidator implements Validator {
      */
     public void setMinimum(Number minimum) {
         this.minimum = minimum;
+    }
+
+    /**
+     * @param format The format to set.
+     */
+    public void setFormat(NumberFormat format) {
+        this.format = format;
     }
 }
