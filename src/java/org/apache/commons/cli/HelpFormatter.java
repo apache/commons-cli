@@ -73,7 +73,7 @@ import java.util.List;
  * A formatter of help messages for the current command line options
  *
  * @author Slawek Zachcial
- * @author John Keyes (jbjk at mac.com)
+ * @author John Keyes (john at integralsource.com)
  **/
 public class HelpFormatter
 {

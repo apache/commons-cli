@@ -45,7 +45,7 @@ public class ParseTest extends TestCase
                        false,
                        "turn [c] on or off");
 
-        _parser = CommandLineParserFactory.newParser();
+        _parser = new PosixParser();
     }
 
     public void tearDown()

@@ -79,7 +79,7 @@ public class ValueTest extends TestCase
 
         try
         {
-            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLineParser parser = new PosixParser();
             _cl = parser.parse(opts,args);
         }
         catch (ParseException e)
@@ -125,7 +125,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("e") );
             assertNull( cmd.getOptionValue("e") );
@@ -142,7 +142,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("e") );
             assertEquals( "everything", cmd.getOptionValue("e") );
@@ -159,7 +159,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("fish") );
             assertNull( cmd.getOptionValue("fish") );
@@ -176,7 +176,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("fish") );
             assertEquals( "face", cmd.getOptionValue("fish") );
@@ -193,7 +193,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("j") );
             assertEquals( "ink", cmd.getOptionValue("j") );
@@ -213,7 +213,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("gravy") );
             assertEquals( "gold", cmd.getOptionValue("gravy") );
@@ -233,7 +233,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("i") );
             assertEquals( "ink", cmd.getOptionValue("i") );
@@ -255,7 +255,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("hide") );
             assertEquals( "house", cmd.getOptionValue("hide") );

@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
  * </ul>
  * </p>
  *
- * @author John Keyes (jbjk at mac.com)
+ * @author John Keyes (john at integralsource.com)
  */
 public class ApplicationTest extends TestCase {
 
@@ -29,13 +29,44 @@ public class ApplicationTest extends TestCase {
     {
         super(name);
     }
+    
+    /**
+     *	
+     */
+    public void testLs() {
+        // create the command line parser
+        CommandLineParser parser = new PosixParser();
+        Options options = new Options();
+        options.addOption( "a", "all", false, "do not hide entries starting with ." );
+        options.addOption( "A", "almost-all", false, "do not list implied . and .." );
+        options.addOption( "b", "escape", false, "print octal escapes for nongraphic characters" );
+        options.addOption( OptionBuilder.withLongOpt( "block-size" )
+                                        .withDescription( "use SIZE-byte blocks" )
+                                        .withValueSeparator( '=' )
+                                        .hasArg()
+                                        .create() );
+        options.addOption( "B", "ignore-backups", false, "do not list implied entried ending with ~");
+        options.addOption( "c", false, "with -lt: sort by, and show, ctime (time of last modification of file status information) with -l:show ctime and sort by name otherwise: sort by ctime" );
+        options.addOption( "C", false, "list entries by columns" );
+
+        String[] args = new String[]{ "--block-size=10" };
+
+        try {
+            CommandLine line = parser.parse( options, args );
+            assertTrue( line.hasOption( "block-size" ) );
+            assertEquals( line.getOptionValue( "block-size" ), "10" );
+        }
+        catch( ParseException exp ) {
+            fail( "Unexpected exception:" + exp.getMessage() );
+        }
+    }
 
     /**
      * Ant test
      */
     public void testAnt() {
         // use the GNU parser
-        CommandLineParser parser = CommandLineParserFactory.newParser( "org.apache.commons.cli.GnuParser" );
+        CommandLineParser parser = new GnuParser( );
         Options options = new Options();
         options.addOption( "help", false, "print this message" );
         options.addOption( "projecthelp", false, "print project help information" );

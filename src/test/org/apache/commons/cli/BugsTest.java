@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.6 2002/09/01 22:54:56 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.7 2002/09/19 22:59:44 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -43,7 +43,7 @@ public class BugsTest extends TestCase
                            .create() );
         String[] args = new String[] { "--verbose" };
 
-        CommandLineParser parser = CommandLineParserFactory.newParser();
+        CommandLineParser parser = new PosixParser();
 
         try {
             CommandLine cmd = parser.parse( options, args );
@@ -67,7 +67,7 @@ public class BugsTest extends TestCase
         String[] args = new String[] { "-DJAVA_HOME=/opt/java" ,
         "-pfile1:file2:file3" };
 
-        CommandLineParser parser = CommandLineParserFactory.newParser();
+        CommandLineParser parser = new PosixParser();
 
         try {
             CommandLine cmd = parser.parse( options, args );
@@ -114,7 +114,7 @@ public class BugsTest extends TestCase
 	options.addOption("m", true, "missing");
         String[] args = new String[] { "-f" , "foo" };
 
-        CommandLineParser parser = CommandLineParserFactory.newParser();
+        CommandLineParser parser = new PosixParser();
 
         try {
             CommandLine cmd = parser.parse( options, args );
@@ -142,7 +142,7 @@ public class BugsTest extends TestCase
                            .create( 'b' ) );
         String[] args = new String[] { "-a", "-bvalue" };
 
-        CommandLineParser parser = CommandLineParserFactory.newParser();
+        CommandLineParser parser = new PosixParser();
 
         try {
             CommandLine cmd = parser.parse( options, args );
@@ -160,7 +160,7 @@ public class BugsTest extends TestCase
                            .create( 'b' ) );
         args = new String[] { "-a", "-b", "value" };
 
-        parser = CommandLineParserFactory.newParser( "org.apache.commons.cli.GnuParser" );
+        parser = new GnuParser();
 
         try {
             CommandLine cmd = parser.parse( options, args );

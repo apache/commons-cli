@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.4 2002/09/01 22:54:56 jkeyes Exp $
- * $Revision: 1.4 $
- * $Date: 2002/09/01 22:54:56 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.5 2002/09/19 22:59:43 jkeyes Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/09/19 22:59:43 $
  *
  * ====================================================================
  *
@@ -70,9 +70,9 @@ import java.util.Map;
 /**
  * <p><code>Parser</code> creates {@link CommandLine}s.</p>
  *
- * @author John Keyes (jbjk at mac.com)
+ * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public abstract class Parser implements CommandLineParser {
 
@@ -274,6 +274,6 @@ public abstract class Parser implements CommandLineParser {
         }
 
         // set the option on the command line
-        cmd.setOpt( opt );
+        cmd.addOption( opt );
     }
 }

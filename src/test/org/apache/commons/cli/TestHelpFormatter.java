@@ -20,7 +20,7 @@ import java.io.StringWriter;
  * Test case for the HelpFormatter class 
  *
  * @author Slawek Zachcial
- * @author John Keyes ( jbjk at mac.com )
+ * @author John Keyes ( john at integralsource.com )
  **/
 public class TestHelpFormatter extends TestCase
 {

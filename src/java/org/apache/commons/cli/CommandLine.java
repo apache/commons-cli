@@ -60,6 +60,7 @@
  */
 package org.apache.commons.cli;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -80,7 +81,7 @@ import java.util.Map;
  *
  * @author bob mcwhirter (bob @ werken.com)
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @author John Keyes (jbjk at mac.com)
+ * @author John Keyes (john at integralsource.com)
  */
 public class CommandLine {
     
@@ -92,6 +93,8 @@ public class CommandLine {
 
     /** Map of unique options for ease to get complete list of options */
     private Map hashcodeMap = new HashMap();
+    private List optionList = new ArrayList();
+    private List keyList    = new ArrayList();
 
     /** the processed options */
     private Option[] optionsArray;
@@ -282,13 +285,16 @@ public class CommandLine {
      *
      * @param opt the processed option
      */
-    void setOpt( Option opt ) {
+    void addOption( Option opt ) {
         hashcodeMap.put( new Integer( opt.hashCode() ), opt );
 
+        optionList.add( opt );
         String key = opt.getOpt();
         if( " ".equals(key) ) {
             key = opt.getLongOpt();
         }
+        keyList.add( key );
+
         if( options.get( key ) != null ) {
             ((java.util.List)options.get( key )).add( opt );
         }
@@ -316,6 +322,16 @@ public class CommandLine {
     public Option[] getOptions( ) {
         Collection processed = hashcodeMap.values();
 
+        // reinitialise array
+        optionsArray = new Option[ processed.size() ];
+
+        // return the array
+        return (Option[]) processed.toArray( optionsArray );
+    }
+
+    public Option[] getOptions2() {
+        System.out.println( "--2--" );
+        Collection processed = optionList;
         // reinitialise array
         optionsArray = new Option[ processed.size() ];
 

@@ -64,7 +64,7 @@ package org.apache.commons.cli;
 /** 
  * <p>Thrown when a required option has not been provided.</p>
  *
- * @author John Keyes ( jbjk at mac.com )
+ * @author John Keyes ( john at integralsource.com )
  * @see ParseException
  */
 public class MissingOptionException extends ParseException {

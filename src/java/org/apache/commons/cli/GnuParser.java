@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.9 2002/08/31 17:53:11 jkeyes Exp $
- * $Revision: 1.9 $
- * $Date: 2002/08/31 17:53:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.10 2002/09/19 22:59:43 jkeyes Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/09/19 22:59:43 $
  *
  * ====================================================================
  *
@@ -69,9 +69,9 @@ import java.util.Iterator;
  * The class GnuParser provides an implementation of the 
  * {@link Parser#flatten(Options,String[],boolean) flatten} method.
  *
- * @author John Keyes (jbjk at mac.com)
+ * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public class GnuParser extends Parser {
 

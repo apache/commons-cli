@@ -45,7 +45,7 @@ extends TestCase
            Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/");
            String[] args = new String[] { "-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://jakarta.apache.org/" };
       
-           CommandLineParser parser = CommandLineParserFactory.newParser();
+           CommandLineParser parser = new PosixParser();
            CommandLine line = parser.parse(options,args);
 
            // tests the char methods of CommandLine that delegate to

@@ -113,7 +113,7 @@ public class ValuesTest extends TestCase
                                        "-kkey2=value2",
                                        "-mkey=value"};
 
-        CommandLineParser parser = CommandLineParserFactory.newParser();
+        CommandLineParser parser = new PosixParser();
 
         try
         {

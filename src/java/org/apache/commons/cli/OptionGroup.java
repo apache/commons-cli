@@ -67,7 +67,7 @@ import java.util.Iterator;
 
 /**
  * A group of mutually exclusive options.
- * @author John Keyes ( jbjk at mac.com )
+ * @author John Keyes ( john at integralsource.com )
  * @version $Revision: 1.2 $
  */
 public class OptionGroup {

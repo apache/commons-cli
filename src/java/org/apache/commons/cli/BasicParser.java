@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/BasicParser.java,v 1.2 2002/08/26 20:15:02 jkeyes Exp $
- * $Revision: 1.2 $
- * $Date: 2002/08/26 20:15:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/BasicParser.java,v 1.3 2002/09/19 22:59:43 jkeyes Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/09/19 22:59:43 $
  *
  * ====================================================================
  *
@@ -64,7 +64,7 @@ package org.apache.commons.cli;
  * The class BasicParser provides a very simple implementation of
  * the {@link Parser#flatten(Options,String[],boolean) flatten} method.
  *
- * @author John Keyes (jbjk at mac.com)
+ * @author John Keyes (john at integralsource.com)
  * @see Parser
  */
 public class BasicParser extends Parser {

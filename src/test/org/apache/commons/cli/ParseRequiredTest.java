@@ -22,7 +22,7 @@ public class ParseRequiredTest extends TestCase
 {
 
     private Options _options = null;
-    private CommandLineParser parser = CommandLineParserFactory.newParser();
+    private CommandLineParser parser = new PosixParser();
 
     public static Test suite() { 
         return new TestSuite(ParseRequiredTest.class); 

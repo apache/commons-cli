@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.10 2002/09/09 19:35:24 jkeyes Exp $
- * $Revision: 1.10 $
- * $Date: 2002/09/09 19:35:24 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.11 2002/09/19 22:59:43 jkeyes Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/09/19 22:59:43 $
  *
  * ====================================================================
  *
@@ -70,9 +70,9 @@ import java.util.Map;
  * The class PosixParser provides an implementation of the 
  * {@link Parser#flatten(Options,String[],boolean) flatten} method.
  *
- * @author John Keyes (jbjk at mac.com)
+ * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public class PosixParser extends Parser {
 

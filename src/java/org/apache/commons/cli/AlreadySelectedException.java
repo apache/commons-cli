@@ -64,7 +64,7 @@ package org.apache.commons.cli;
  * <p>Thrown when more than one option in an option group
  * has been provided.</p>
  *
- * @author John Keyes ( jbjk at mac.com )
+ * @author John Keyes ( john at integralsource.com )
  * @see ParseException
  */
 public class AlreadySelectedException extends ParseException {

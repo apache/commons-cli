@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.9 2002/09/10 21:35:57 jkeyes Exp $
- * $Revision: 1.9 $
- * $Date: 2002/09/10 21:35:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.10 2002/09/19 22:59:43 jkeyes Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/09/19 22:59:43 $
  *
  * ====================================================================
  *
@@ -67,7 +67,7 @@ package org.apache.commons.cli;
  * <p>Details on the Builder pattern can be found at 
  * <a href="http://">http://</a>.</p>
  *
- * @author John Keyes ( jbjk at mac.com )
+ * @author John Keyes ( john at integralsource.com )
  * @since 1.0
  */
 public class OptionBuilder {

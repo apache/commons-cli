@@ -65,7 +65,7 @@ package org.apache.commons.cli;
  * <p>Thrown when an option requiring an argument
  * is not provided with an argument.</p>
  *
- * @author John Keyes (jbjk at mac.com)
+ * @author John Keyes (john at integralsource.com)
  * @see ParseException
  */
 public class MissingArgumentException extends ParseException {
