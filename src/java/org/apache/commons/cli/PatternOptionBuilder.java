@@ -117,7 +117,7 @@ public class PatternOptionBuilder {
     {
         if ((ch != '@') && (ch != ':') && (ch != '%') && (ch != '+')
             && (ch != '#') && (ch != '<') && (ch != '>') && (ch != '*')
-            && (ch != '/'))
+            && (ch != '/') && (ch != '!'))
         {
             return false;
         }
