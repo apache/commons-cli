@@ -5,7 +5,7 @@
   <id>commons-cli</id>
   <name>CLI</name>
 
-  <currentVersion>1.0-dev</currentVersion>
+  <currentVersion>1.0-beta-1</currentVersion>
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons CLI</shortDescription>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
