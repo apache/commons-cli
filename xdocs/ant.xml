@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="jbjk@mac.com">John Keyes</author>
+    <title>Processing Ants' Command Line</title>
+  </properties>
+
+  <body>
+    <section name="Introduction">
+      <p>
+        By default, CLI uses a POSIX style argument parser.  This parser
+        only provides support for single character options.  To provide
+        support for an application like <a href="http://jakarta.apache.org/ant">Ant</a>
+        it is necessary to use the GNU style argument parser.  This provides
+        support for multi character options.  Read on to discover how to
+        configure this parser and also how to process the command line options.
+      </p>
+    </section>
+    <section name="Configuring the GNU Parser">
+      <p>
+        CLI provides support for multiple parsers.  The 
+        <code>org.apache.commons.cli.parser</code> system property is used
+        to determine what parser to use.  To change the parser set the
+        system property to the class name of the required parser.
+      </p>
+      <source>
+// configure CLI to use the GNU Parser
+System.setProperty( "org.apache.commons.cli.parser",
+                    "org.apache.commons.cli.GnuParser" );</source>
+    </section>
+    <section name="Creating the Ant Options">
+      <p>
+        There are three types of Options used in Ant.  They are:
+        <ul>
+          <li>boolean option - the option is either present or not</li>
+          <li>value option - the option is present and requires a value</li>
+          <li>property option - the same style as Java system properties.
+            For example, "-Dproperty=value".</li>
+        </ul>
+      </p>
+    </section>
+  </body>
+</document>

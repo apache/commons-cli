@@ -6,7 +6,12 @@
   <body>
     <menu name="User Documentation">
       <item name="Command Line Processing"  href="/introduction.html"/>
-      <item name="Simple Option"            href="/usage.html"/>
+      <item name="Option">
+        <item name="Properties" href="/properties.html"/>
+        <item name="Construction" href="/creation.html"/>
+        <item name="Simple Example" href="/usage.html"/>
+      </item>
+      <item name="Command Line Parser" href="/parser.html"/>
     </menu>
   </body>
 </project>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="jbjk@mac.com">John Keyes</author>
+    <title>Option</title>
+  </properties>
+
+  <body>
+    <section name="Option Properties">
+      <p>
+        The following are the properties of an <a href="apidocs/org/apache/commons/cli/Option.html">Option</a>.
+      </p>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>Opt</td>
+          <td>java.lang.String</td>
+          <td>the identification string</td>
+        </tr>
+        <tr>
+          <td>LongOpt</td>
+          <td>java.lang.String</td>
+          <td>an alias and more descriptive identification string</td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td>java.lang.String</td>
+          <td>a description of the function of the option</td>
+        </tr>
+        <tr>
+          <td>Required</td>
+          <td>boolean</td>
+          <td>a flag to say whether the option <b>must</b> appear on 
+            the command line.</td>
+        </tr>
+        <tr>
+          <td>MultipleArgs</td>
+          <td>boolean</td>
+          <td>a flag to say whether the option takes multiple argument 
+            values</td>
+        </tr>
+        <tr>
+          <td>Arg</td>
+          <td>boolean</td>
+          <td>a flag to say whether the option takes an argument</td>
+        </tr>
+        <tr>
+          <td>Type</td>
+          <td>java.lang.Object</td>
+          <td>the type of the argument</td>
+        </tr>
+        <tr>
+          <td>Value</td>
+          <td>java.lang.String</td>
+          <td>the value of the option</td>
+        </tr>
+        <tr>
+          <td>Values</td>
+          <td>java.lang.String[]</td>
+          <td>the values of the option</td>
+        </tr>
+      </table>
+    </section>
+  </body>
+</document>

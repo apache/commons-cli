@@ -203,17 +203,19 @@ public class Options {
     }
 
     /**
-     * <p>Adds the option to the necessary member lists</p>
+     * <p>Adds an option instance</p>
      *
      * @param opt the option that is to be added 
      */
-    private void addOption(Option opt)  {
+    public Options addOption(Option opt)  {
         String shortOptStr = "-" + opt.getOpt();
         
+        // add it to the long option list
         if ( opt.hasLongOpt() ) {
             longOpts.put( "--" + opt.getLongOpt(), opt );
         }
         
+        // if the option is required add it to the required list
         if ( opt.isRequired() ) {
             requiredOpts.put( "-" + opt.getOpt(), opt );
         }
@@ -221,6 +223,7 @@ public class Options {
         shortOpts.put( "-" + opt.getOpt(), opt );
         
         options.add( opt );
+        return this;
     }
     
     /** <p>Retrieve a read-only list of options in this set</p>

@@ -22,15 +22,15 @@
       </p>
       <p>
         CLI uses the <a href="apidocs/org/apache/commons/cli/Options.html">
-        <code>Options</code></a> class, as a container for 
+        Options</a> class, as a container for 
         <a href="apidocs/org/apache/commons/cli/Options.html">
-        <code>Option</code></a> instances.  There are two ways to create
+        Option</a> instances.  There are two ways to create
         <code>Option</code>s in CLI.  One of them is via the constuctors,
         the other way is via the factory methods defined in 
         <code>Options</code>.
       </p>
       <p>
-        The <a href="usage.html">Simple Option</a> document provides examples
+        The <a href="usage.html">Simple Example</a> document provides examples
         how to create an <code>Options</code> object.
       </p>
       <p>
@@ -48,11 +48,11 @@
       <p>
         The <code>parse</code> method defined on 
         <a href="apidocs/org/apache/commons/cli/CommandLineParser.html">
-        <code>CommandLineParser</code></a> takes an <code>Options</code>
+        CommandLineParser</a> takes an <code>Options</code>
         instance and a <code>java.util.List</code> of arguments and 
         returns a 
         <a href="apidocs/org/apache/commons/cli/CommandLine.html">
-        <code>CommandLine</code></a>.
+        CommandLine</a>.
       </p>
       <p>
         The result of the parsing stage is a <code>CommandLine</code>
@@ -72,7 +72,7 @@
         to the user code.
       </p>
       <p>
-        The <a href="usage.html">Simple Option</a> document provides examples
+        The <a href="usage.html">Simple Example</a> document provides examples
         how to create an <code>Options</code> object.
       </p>
       <p>
