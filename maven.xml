@@ -32,4 +32,13 @@ limitations under the License.
   <!-- END: C O M M O N S - B U I L D                                     -->
   <!-- ================================================================== -->
   
+ <postGoal name="xdoc:transform">
+   <attainGoal name="pdf:pdf"/>
+ </postGoal>
+
+ <preGoal name="pdf:prepare">
+   <attainGoal name="svg:init"/>
+   <attainGoal name="svg:convert"/>
+ </preGoal>
+
 </project>
