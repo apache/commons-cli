@@ -35,11 +35,11 @@ public class ParseRequiredTest extends TestCase
     public void setUp()
     {
         _options = new Options()
-            .addOption('a',
+            .addOption("a",
                        "enable-a",
                        false,
                        "turn [a] on or off")
-            .addOption('b',
+            .addOption("b",
                        "bfile",
                        true,
                        "set the value of [b]",
@@ -59,9 +59,9 @@ public class ParseRequiredTest extends TestCase
         {
             CommandLine cl = _options.parse(args);
             
-            assertTrue( "Confirm -a is NOT set", !cl.hasOption('a') );
-            assertTrue( "Confirm -b is set", cl.hasOption('b') );
-            assertTrue( "Confirm arg of -b", cl.getOptionValue('b').equals("file") );
+            assertTrue( "Confirm -a is NOT set", !cl.hasOption("a") );
+            assertTrue( "Confirm -b is set", cl.hasOption("b") );
+            assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("file") );
             assertTrue( "Confirm NO of extra args", cl.getArgList().size() == 0);
         }
         catch (ParseException e)
@@ -78,9 +78,9 @@ public class ParseRequiredTest extends TestCase
         {
             CommandLine cl = _options.parse(args);
 
-            assertTrue( "Confirm -a is set", cl.hasOption('a') );
-            assertTrue( "Confirm -b is set", cl.hasOption('b') );
-            assertTrue( "Confirm arg of -b", cl.getOptionValue('b').equals("file") );
+            assertTrue( "Confirm -a is set", cl.hasOption("a") );
+            assertTrue( "Confirm -b is set", cl.hasOption("b") );
+            assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("file") );
             assertTrue( "Confirm NO of extra args", cl.getArgList().size() == 0);
         }
         catch (ParseException e)

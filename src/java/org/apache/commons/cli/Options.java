@@ -67,7 +67,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Iterator;
 import java.util.Collections;
 
@@ -87,7 +86,12 @@ import java.util.Collections;
  * @version $Revision: 1.5 $
  */
 public class Options {
-    
+
+    private String defaultParserImpl = "org.apache.commons.cli.PosixParser";
+    private String parserImpl = defaultParserImpl;
+
+    private CommandLineParser parser;
+
     /** the list of options */
     private List options      = new ArrayList();
 
@@ -106,6 +110,21 @@ public class Options {
     /** <p>Construct a new Options descriptor</p>
      */
     public Options() {        
+        parserImpl = System.getProperty( "org.apache.commons.cli.parser" );
+        try {
+            parser = (CommandLineParser)Class.forName( parserImpl ).newInstance();
+        }
+        catch( Exception exp ) {
+            // could not create according to parserImpl so default to
+            // PosixParser
+            try {
+                parser = (CommandLineParser)Class.forName( defaultParserImpl ).newInstance();
+            }
+            catch( Exception exp2 ) {
+                // this will not happen ?
+            }
+        }
+        System.out.println( parser.getClass().getName() );
     }
 
     /**
@@ -134,7 +153,7 @@ public class Options {
      * @param description Self-documenting description
      * @return the resulting Options instance
      */
-    public Options addOption(char opt, boolean hasArg, String description) {
+    public Options addOption(String opt, boolean hasArg, String description) {
         addOption( opt, null, hasArg, description, false );
         return this;
     }
@@ -148,7 +167,7 @@ public class Options {
      * @param description Self-documenting description
      * @return the resulting Options instance
      */
-    public Options addOption(char opt, String longOpt, boolean hasArg, String description) {
+    public Options addOption(String opt, String longOpt, boolean hasArg, String description) {
         addOption( opt, longOpt, hasArg, description, false );        
         return this;
     }
@@ -163,7 +182,7 @@ public class Options {
      * @param required specifies if this option is required
      * @return the resulting Options instance
      */
-    public Options addOption(char opt, String longOpt, boolean hasArg, String description,
+    public Options addOption(String opt, String longOpt, boolean hasArg, String description,
                              boolean required) {
         addOption( new Option(opt, longOpt, hasArg, description, required) );        
         return this;
@@ -180,13 +199,25 @@ public class Options {
      * @param multipleArgs specifies if this option can accept multiple argument values
      * @return the resulting Options instance
      */
-    public Options addOption(char opt, String longOpt, boolean hasArg, String description,
+    public Options addOption(String opt, String longOpt, boolean hasArg, String description,
                              boolean required, boolean multipleArgs) {
         addOption( new Option(opt, longOpt, hasArg, description, required, multipleArgs) );        
         return this;
     }
 
-    public Options addOption(char opt, String longOpt, boolean hasArg, String description,
+    /** <p>Add an option that contains a short-name and a long-name</p>
+     * <p>It may be specified as requiring an argument.</p>
+     *
+     * @param opt Short single-character name of the option.
+     * @param longOpt Long multi-character name of the option.
+     * @param hasArg flag signally if an argument is required after this option
+     * @param description Self-documenting description
+     * @param required specifies if this option is required
+     * @param multipleArgs specifies if this option can accept multiple argument values
+     * @param type specifies the type for the value of the option
+     * @return the resulting Options instance
+     */
+    public Options addOption(String opt, String longOpt, boolean hasArg, String description,
                              boolean required, boolean multipleArgs, Object type) {
         addOption( new Option(opt, longOpt, hasArg, description, required, multipleArgs, type) );        
         return this;
@@ -362,7 +393,7 @@ public class Options {
         MissingOptionException, AlreadySelectedException {
         CommandLine cl = new CommandLine();
         
-        List args = burst( inArgs, stopAtNonOption );
+        List args = parser.parse( this, inArgs, stopAtNonOption );
         
         ListIterator argIter = args.listIterator();
         String   eachArg = null;
@@ -506,120 +537,11 @@ public class Options {
 
             }
             else {
-                //option.addValue( null );
                 cl.setOpt( option );
             }
         }
     }
 
-    /**
-     * <p>Processes the argument list according to POSIX command line
-     * processing rules.</p>
-     *
-     * @param inArgs the argument list
-     * @param stopAtNonOption stop processing when the first non option
-     * is encountered.
-     * @return the processed list of arguments.
-     */
-    private List burst(List inArgs, boolean stopAtNonOption) {
-        List args = new LinkedList();
-        
-        Iterator argIter = inArgs.iterator();
-        String   eachArg = null;
-        
-        boolean eatTheRest = false;
-        
-        while ( argIter.hasNext() ) {
-            eachArg = (String) argIter.next();
-            
-            if ( eachArg.equals("--") ) {
-                // Look for -- to indicate end-of-options, and
-                // just stuff it, along with everything past it
-                // into the returned list.
-                
-                args.add( eachArg );
-                eatTheRest = true;
-            }
-            else if ( eachArg.startsWith("--") ) {
-                // It's a long-option, so doesn't need any
-                // bursting applied to it.
-                
-                args.add( eachArg );
-            }
-            else if ( eachArg.startsWith("-") ) {
-                // It might be a short arg needing
-                // some bursting
-                
-                if ( eachArg.length() == 1) {
-                    // It's not really an option, so
-                    // just drop it on the list
-                    
-                    if ( stopAtNonOption ) {
-                        eatTheRest = true;
-                    }
-                    else {
-                        args.add( eachArg );
-                    }
-                }
-                else if ( eachArg.length() == 2 ) {
-                    // No bursting required
-                    
-                    args.add( eachArg );
-                }
-                else {
-                    // Needs bursting.  Figure out
-                    // if we have multiple options,
-                    // or maybe an option plus an arg,
-                    // or some combination thereof.
-                    
-                    for ( int i = 1 ; i < eachArg.length() ; ++i ) {
-                        String optStr = "-" + eachArg.charAt(i);
-                        Option opt    = (Option) shortOpts.get( optStr );
-                        
-                        if ( (opt != null) && (opt.hasArg()) ) {
-                            // If the current option has an argument,
-                            // then consider the rest of the eachArg
-                            // to be that argument.
-                            
-                            args.add( optStr );
-                            
-                            if ( (i+1) < eachArg.length() ) {
-                                String optArg = eachArg.substring(i+1);
-                                args.add( optArg );
-                            }                            
-                            break;
-                        }
-                        else {
-                            // No argument, so prepend the single dash,
-                            // and then drop it into the arglist.
-                            
-                            args.add( optStr );
-                        }
-                    }
-                }
-            }
-            else {
-                // It's just a normal non-option arg,
-                // so dump it into the list of returned
-                // values.
-                
-                args.add( eachArg );
-                
-                if ( stopAtNonOption ) {
-                    eatTheRest = true;
-                }
-            }
-            
-            if ( eatTheRest ) {
-                while ( argIter.hasNext() ) {
-                    args.add( argIter.next() );
-                }
-            }
-        }
-        
-        return args;
-    }
-    
     /**
      * <p>Adds the option to the necessary member lists</p>
      *
@@ -654,7 +576,10 @@ public class Options {
      * @param opt short single-character name of the {@link Option}
      * @return the option represented by opt
      */
-    public Option getOption(char opt) {
+    public Option getOption(String opt) {
+        if( opt.startsWith( "--" ) ) {
+            return (Option) longOpts.get( opt );
+        }
         return (Option) shortOpts.get( "-" + opt );
     }
     
@@ -663,9 +588,9 @@ public class Options {
      * @param longOpt long name of the {@link Option}
      * @return the option represented by longOpt
      */
-    public Option getOption(String longOpt) {
+    /*public Option getOption(String longOpt) {
         return (Option) longOpts.get( longOpt );
-    }
+    } */
     
     /** <p>Dump state, suitable for debugging.</p>
      *

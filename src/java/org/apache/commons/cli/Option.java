@@ -92,7 +92,7 @@ import java.util.ArrayList;
 public class Option {
     
     /** opt the single character representation of the option */
-    private Character  opt          = null;
+    private String opt = null;
 
     /** longOpt is the long representation of the option */
     private String     longOpt      = null;
@@ -119,36 +119,36 @@ public class Option {
     /**
      * Creates an Option using the specified parameters.
      *
-     * @param opt character representation of the option
+     * @param opt short representation of the option
      * @param hasArg specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      */
-    public Option(char opt, boolean hasArg, String description) {
+    public Option(String opt, boolean hasArg, String description) {
         this(opt, null, hasArg, description, false, false);
     }
     
     /**
      * Creates an Option using the specified parameters.
      *
-     * @param opt character representation of the option
+     * @param opt short representation of the option
      * @param longOpt the long representation of the option
      * @param hasArg specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      */
-    public Option(char opt, String longOpt, boolean hasArg, String description) {
+    public Option(String opt, String longOpt, boolean hasArg, String description) {
         this(opt, longOpt, hasArg, description, false, false );
     }
 
     /**
      * Creates an Option using the specified parameters.
      *
-     * @param opt character representation of the option
+     * @param opt short representation of the option
      * @param longOpt the long representation of the option
      * @param hasArg specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      * @param required specifies whether the option is required or not
      */
-    public Option(char opt, String longOpt, boolean hasArg, String description,
+    public Option(String opt, String longOpt, boolean hasArg, String description,
                   boolean required ) {
         this(opt, longOpt, hasArg, description, required, false );
     }
@@ -156,7 +156,7 @@ public class Option {
     /**
      * Creates an Option using the specified parameters.
      *
-     * @param opt character representation of the option
+     * @param opt short representation of the option
      * @param longOpt the long representation of the option
      * @param hasArg specifies whether the Option takes an argument or not
      * @param description describes the function of the option
@@ -164,13 +164,26 @@ public class Option {
      * @param multipleArgs specifies whether the option has multiple argument 
      * values
      */
-    public Option(char opt, String longOpt, boolean hasArg, String description, 
+    public Option(String opt, String longOpt, boolean hasArg, String description, 
                   boolean required, boolean multipleArgs ) {
         this(opt, longOpt, hasArg, description, required, multipleArgs, null );
     }
-    public Option(char opt, String longOpt, boolean hasArg, String description, 
+
+    /**
+     * Creates an Option using the specified parameters.
+     *
+     * @param opt short representation of the option
+     * @param longOpt the long representation of the option
+     * @param hasArg specifies whether the Option takes an argument or not
+     * @param description describes the function of the option
+     * @param required specifies whether the option is required or not
+     * @param multipleArgs specifies whether the option has multiple argument 
+     * values
+     * @param type specifies the type of the option
+     */
+    public Option(String opt, String longOpt, boolean hasArg, String description, 
                   boolean required, boolean multipleArgs, Object type ) {
-        this.opt          = new Character( opt );
+        this.opt          = opt;
         this.longOpt      = longOpt;
         this.hasArg       = hasArg;
         this.description  = description;
@@ -182,14 +195,14 @@ public class Option {
     /** <p>Retrieve the single-character name of this Option</p>
      *
      * <p>It is this character which can be used with
-     * {@link CommandLine#hasOption(char opt)} and
-     * {@link CommandLine#getOptionValue(char opt)} to check
+     * {@link CommandLine#hasOption(String opt)} and
+     * {@link CommandLine#getOptionValue(String opt)} to check
      * for existence and argument.<p>
      *
      * @return Single character name of this option
      */
-    public char getOpt() {
-        return this.opt.charValue();
+    public String getOpt() {
+        return this.opt;
     }
 
     public Object getType() {

@@ -199,7 +199,7 @@ public class HelpFormatter
       {
          optBuf = (StringBuffer) i.next();
          opt = optBuf.charAt(optOffset);
-         option = options.getOption(opt);
+         option = options.getOption( "" + opt);
          renderWrappedText(sb, width, nextLineTabStop,
                            optBuf.append(option.getDescription()).toString());
          if ( i.hasNext() )

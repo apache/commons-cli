@@ -39,32 +39,32 @@ public class ValuesTest extends TestCase
     public void setUp()
     {
         Options opts = new Options();
-        opts.addOption('a',
+        opts.addOption("a",
                        false,
                        "toggle -a");
 
-        opts.addOption('b',
+        opts.addOption("b",
                        true,
                        "set -b");
 
-        opts.addOption('c',
+        opts.addOption("c",
                        "c",
                        false,
                        "toggle -c");
 
-        opts.addOption('d',
+        opts.addOption("d",
                        "d",
                        true,
                        "set -d");
         
-        opts.addOption('e',
+        opts.addOption("e",
                        "e",
                        true,
                        "set -e",
                        false,
                        true);
 
-        opts.addOption('f',
+        opts.addOption("f",
                        "f",
                        false,
                        "jk");
@@ -94,31 +94,31 @@ public class ValuesTest extends TestCase
 
     public void testShortArgs()
     {
-        assertTrue( _cl.hasOption('a') );
-        assertTrue( _cl.hasOption('c') );
+        assertTrue( _cl.hasOption("a") );
+        assertTrue( _cl.hasOption("c") );
 
-        assertNull( _cl.getOptionValues('a') );
-        assertNull( _cl.getOptionValues('c') );
+        assertNull( _cl.getOptionValues("a") );
+        assertNull( _cl.getOptionValues("c") );
     }
 
     public void testShortArgsWithValue()
     {
-        assertTrue( _cl.hasOption('b') );
-        assertTrue( _cl.getOptionValue('b').equals("foo"));
-        assertTrue( _cl.getOptionValues('b').length == 1);
+        assertTrue( _cl.hasOption("b") );
+        assertTrue( _cl.getOptionValue("b").equals("foo"));
+        assertTrue( _cl.getOptionValues("b").length == 1);
 
-        assertTrue( _cl.hasOption('d') );
-        assertTrue( _cl.getOptionValue('d').equals("bar"));
-        assertTrue( _cl.getOptionValues('d').length == 1);
+        assertTrue( _cl.hasOption("d") );
+        assertTrue( _cl.getOptionValue("d").equals("bar"));
+        assertTrue( _cl.getOptionValues("d").length == 1);
     }
 
     public void testMultipleArgValues()
     {
-        String[] result = _cl.getOptionValues('e');
+        String[] result = _cl.getOptionValues("e");
         String[] values = new String[] { "one", "two" };
-        assertTrue( _cl.hasOption('e') );
-        assertTrue( _cl.getOptionValues('e').length == 2);
-        assertTrue( java.util.Arrays.equals( values, _cl.getOptionValues('e') ) );
+        assertTrue( _cl.hasOption("e") );
+        assertTrue( _cl.getOptionValues("e").length == 2);
+        assertTrue( java.util.Arrays.equals( values, _cl.getOptionValues("e") ) );
     }
 
     public void testExtraArgs()

@@ -39,20 +39,20 @@ public class ValueTest extends TestCase
     public void setUp()
     {
         Options opts = new Options();
-        opts.addOption('a',
+        opts.addOption("a",
                        false,
                        "toggle -a");
 
-        opts.addOption('b',
+        opts.addOption("b",
                        true,
                        "set -b");
 
-        opts.addOption('c',
+        opts.addOption("c",
                        "c",
                        false,
                        "toggle -c");
 
-        opts.addOption('d',
+        opts.addOption("d",
                        "d",
                        true,
                        "set -d");
@@ -106,27 +106,27 @@ public class ValueTest extends TestCase
 
     public void testShortNoArg()
     {
-        assertTrue( _cl.hasOption('a') );
-        assertNull( _cl.getOptionValue('a') );
+        assertTrue( _cl.hasOption("a") );
+        assertNull( _cl.getOptionValue("a") );
     }
 
     public void testShortWithArg()
     {
-        assertTrue( _cl.hasOption('b') );
-        assertNotNull( _cl.getOptionValue('b') );
-        assertEquals( _cl.getOptionValue('b'), "foo");
+        assertTrue( _cl.hasOption("b") );
+        assertNotNull( _cl.getOptionValue("b") );
+        assertEquals( _cl.getOptionValue("b"), "foo");
     }
 
     public void testLongNoArg()
     {
-        assertTrue( _cl.hasOption('c') );
-        assertNull( _cl.getOptionValue('c') );
+        assertTrue( _cl.hasOption("c") );
+        assertNull( _cl.getOptionValue("c") );
     }
 
     public void testLongWithArg()
     {
-        assertTrue( _cl.hasOption('d') );
-        assertNotNull( _cl.getOptionValue('d') );
-        assertEquals( _cl.getOptionValue('d'), "bar");
+        assertTrue( _cl.hasOption("d") );
+        assertNotNull( _cl.getOptionValue("d") );
+        assertEquals( _cl.getOptionValue("d"), "bar");
     }
 }

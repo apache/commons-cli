@@ -69,8 +69,8 @@ import java.util.HashMap;
 /** <p>Represents list of arguments parsed against
  * a {@link Options} descriptor.<p>
  *
- * <p>It allows querying of a boolean {@link #hasOption(char opt)},
- * in addition to retrieving the {@link #getOptionValue(char opt)}
+ * <p>It allows querying of a boolean {@link #hasOption(String opt)},
+ * in addition to retrieving the {@link #getOptionValue(String opt)}
  * for options requiring arguments.</p>
  *
  * <p>Additionally, any left-over or unrecognized arguments,
@@ -78,6 +78,8 @@ import java.util.HashMap;
  *
  * @author bob mcwhirter (bob @ werken.com)
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @author John Keyes (jbjk at mac.com)
+ *
  * @version $Revision: 1.4 $
  */
 public class CommandLine {
@@ -102,13 +104,13 @@ public class CommandLine {
      * @param opt Short single-character name of the option
      * @return true if set, false if not
      */
-    public boolean hasOption(char opt) {
-        return options.containsKey( new Character(opt) );
+    public boolean hasOption(String opt) {
+        return options.containsKey( opt );
     }
 
-    public Object getOptionObject(char opt) {
-        String[] result = (String[])options.get( new Character(opt) );
-        Object type = types.get( new Character(opt) );
+    public Object getOptionObject(String opt) {
+        String[] result = (String[])options.get( opt );
+        Object type = types.get( opt );
         String res = result == null ? null : result[0];
         if(res == null) {
             return null;
@@ -121,8 +123,8 @@ public class CommandLine {
      * @param opt Short single-character name of the option
      * @return Value of the argument if option is set, and has an argument, else null.
      */
-    public String getOptionValue(char opt) {
-        String[] result = (String[])options.get( new Character(opt) );
+    public String getOptionValue(String opt) {
+        String[] result = (String[])options.get( opt );
         return result == null ? null : result[0];
     }
 
@@ -131,8 +133,8 @@ public class CommandLine {
      * @param opt Single-character name of the option
      * @return An array of values if the option is set, and has an argument, else null.
      */
-    public String[] getOptionValues(char opt) {
-        String[] result = (String[])options.get( new Character(opt) );
+    public String[] getOptionValues(String opt) {
+        String[] result = (String[])options.get( opt );
         return result == null ? null : result;
     }
     
@@ -142,7 +144,7 @@ public class CommandLine {
      * @param defaultValue is the default value to be returned if the option is not specified
      * @return Value of the argument if option is set, and has an argument, else null.
      */
-    public String getOptionValue(char opt, String defaultValue) {
+    public String getOptionValue(String opt, String defaultValue) {
         String answer = getOptionValue(opt);
         return (answer != null) ? answer : defaultValue;
     }
@@ -196,8 +198,8 @@ public class CommandLine {
      *
      * @param opt the processed option
      */
-    void setOpt(char opt) {
-        options.put( new Character(opt), null );
+    void setOpt(String opt) {
+        options.put( opt, null );
     }
     
     /**
@@ -207,8 +209,8 @@ public class CommandLine {
      * @param opt the processed option
      * @param value the value of the option
      */
-    void setOpt(char opt, String value) {
-        options.put( new Character(opt), value );
+    void setOpt(String opt, String value) {
+        options.put( opt, value );
     }
     
     /**
@@ -218,8 +220,7 @@ public class CommandLine {
      * @param opt the processed option
      */
     void setOpt(Option opt) {
-        Character chr = new Character( opt.getOpt() );
-        options.put( chr, opt.getValues() );
-        types.put( chr, opt.getType() );
+        options.put( opt.getOpt(), opt.getValues() );
+        types.put( opt.getOpt(), opt.getType() );
     }
 }

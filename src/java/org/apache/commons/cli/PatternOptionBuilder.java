@@ -144,7 +144,7 @@ public class PatternOptionBuilder {
             if(!isValueCode(ch)) {
                 if(opt != ' ') {
                     // we have a previous one to deal with
-                    options.addOption(opt, null, (type != null), "", required, false, type);
+                    options.addOption("" + opt, null, (type != null), "", required, false, type);
                     required = false;
                     type = null;
                     opt = ' ';
@@ -160,7 +160,7 @@ public class PatternOptionBuilder {
 
         if(opt != ' ') {
             // we have a final one to deal with
-            options.addOption(opt, null, (type != null), "", required, false, type);
+            options.addOption( "" + opt, null, (type != null), "", required, false, type);
         }
 
         return options;

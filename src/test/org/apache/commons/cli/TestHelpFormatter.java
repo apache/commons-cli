@@ -111,7 +111,7 @@ extends TestCase
       Options options = null;
       String expected = null;
 
-      options = new Options().addOption('a', false, "aaaa aaaa aaaa aaaa aaaa");
+      options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa");
       expected = lpad + "-a" + dpad + "aaaa aaaa aaaa aaaa aaaa";
       hf.renderOptions(sb, 60, options, leftPad, descPad);
       assertEquals("simple non-wrapped option", expected, sb.toString());
@@ -125,7 +125,7 @@ extends TestCase
       assertEquals("simple wrapped option", expected, sb.toString());
 
 
-      options = new Options().addOption('a', "aaa", false, "dddd dddd dddd dddd");
+      options = new Options().addOption("a", "aaa", false, "dddd dddd dddd dddd");
       expected = lpad + "-a,--aaa" + dpad + "dddd dddd dddd dddd";
       sb.setLength(0);
       hf.renderOptions(sb, 60, options, leftPad, descPad);
@@ -140,8 +140,8 @@ extends TestCase
       assertEquals("long wrapped option", expected, sb.toString());
 
       options = new Options().
-         addOption('a', "aaa", false, "dddd dddd dddd dddd").
-         addOption('b', false, "feeee eeee eeee eeee");
+         addOption("a", "aaa", false, "dddd dddd dddd dddd").
+         addOption("b", false, "feeee eeee eeee eeee");
       expected =
          lpad + "-a,--aaa" + dpad + "dddd dddd" + hf.defaultNewLine +
          hf.createPadding(nextLineTabStop) + "dddd dddd" + hf.defaultNewLine +

@@ -40,11 +40,11 @@ public class BuildTest extends TestCase
     {
         Options opts = new Options();
         
-        opts.addOption('a',
+        opts.addOption("a",
                        false,
                        "toggle -a");
 
-        opts.addOption('b',
+        opts.addOption("b",
                        true,
                        "toggle -b");
 /*
@@ -68,15 +68,15 @@ public class BuildTest extends TestCase
     public void testDuplicateSimple()
     {
         Options opts = new Options();
-        opts.addOption('a',
+        opts.addOption("a",
                        false,
                        "toggle -a");
 
-        opts.addOption('a',
+        opts.addOption("a",
                        true,
                        "toggle -a*");
         
-        assertEquals( "last one in wins", "toggle -a*", opts.getOption('a').getDescription() );
+        assertEquals( "last one in wins", "toggle -a*", opts.getOption("a").getDescription() );
 /*
         try
         {
@@ -100,12 +100,12 @@ public class BuildTest extends TestCase
     {
         Options opts = new Options();
         
-        opts.addOption('a',
+        opts.addOption("a",
                        "--a",
                        false,
                        "toggle -a");
 
-        opts.addOption('b',
+        opts.addOption("b",
                        "--b",
                        true,
                        "set -b");
@@ -133,16 +133,16 @@ public class BuildTest extends TestCase
     public void testDuplicateLong()
     {
         Options opts = new Options();
-        opts.addOption('a',
+        opts.addOption("a",
                        "--a",
                        false,
                        "toggle -a");
 
-        opts.addOption('a',
+        opts.addOption("a",
                        "--a",
                        false,
                        "toggle -a*");
-        assertEquals( "last one in wins", "toggle -a*", opts.getOption('a').getDescription() );
+        assertEquals( "last one in wins", "toggle -a*", opts.getOption("a").getDescription() );
 /*
         try
         {
