@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.cli2.Argument;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.WriteableCommandLine;
@@ -36,8 +37,8 @@ public class SourceDestArgument extends ArgumentImpl {
         return Math.max(a, Math.max(b, a + b));
     }
 
-    private final ArgumentImpl source;
-    private final ArgumentImpl dest;
+    private final Argument source;
+    private final Argument dest;
 
     /**
      * Creates a SourceDestArgument using defaults where possible.
@@ -46,8 +47,8 @@ public class SourceDestArgument extends ArgumentImpl {
      * @param dest the fixed size Argument
      */
     public SourceDestArgument(
-        final ArgumentImpl source,
-        final ArgumentImpl dest) {
+        final Argument source,
+        final Argument dest) {
         this(
             source,
             dest,
@@ -68,8 +69,8 @@ public class SourceDestArgument extends ArgumentImpl {
      * @param defaultValues the default values for the SourceDestArgument
      */
     public SourceDestArgument(
-        final ArgumentImpl source,
-        final ArgumentImpl dest,
+        final Argument source,
+        final Argument dest,
         final char initialSeparator,
         final char subsequentSeparator,
         final String consumeRemaining,
