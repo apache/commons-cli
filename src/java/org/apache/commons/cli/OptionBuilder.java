@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.7 2002/08/26 20:15:02 jkeyes Exp $
- * $Revision: 1.7 $
- * $Date: 2002/08/26 20:15:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.8 2002/09/09 19:48:13 jkeyes Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/09/09 19:48:13 $
  *
  * ====================================================================
  *
@@ -103,6 +103,10 @@ public class OptionBuilder {
         type = null;
         required = false;
         numberOfArgs = Option.UNINITIALIZED;
+
+        // PMM 9/6/02 - these were missing
+        optionalArg = false;
+        valuesep = (char) 0;
     }
 
     /**
