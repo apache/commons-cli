@@ -70,7 +70,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Collections;
 
-/** <p>Main entry-point into the <code>werken.opt</code> library.</p>
+/** <p>Main entry-point into the library.</p>
  *
  * <p>Options represents a collection of {@link Option} objects, which
  * describe the possible options for a command-line.<p>
