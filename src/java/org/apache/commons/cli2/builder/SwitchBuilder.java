@@ -120,7 +120,9 @@ public class SwitchBuilder {
     }
 
     /**
-     * Use this option name
+     * Use this option name. The first name is used as the preferred
+     * display name for the Command and then later names are used as aliases.
+     * 
      * @param name the name to use
      * @return this builder
      */

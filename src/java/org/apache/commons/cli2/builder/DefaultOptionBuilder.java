@@ -128,7 +128,9 @@ public class DefaultOptionBuilder {
     }
 
     /**
-     * Use this short option name
+     * Use this short option name. The first name is used as the preferred
+     * display name for the Command and then later names are used as aliases.
+     * 
      * @param shortName the name to use
      * @return this builder
      */
@@ -150,7 +152,9 @@ public class DefaultOptionBuilder {
     }
 
     /**
-     * Use this long option name
+     * Use this long option name.  The first name is used as the preferred
+     * display name for the Command and then later names are used as aliases.
+     * 
      * @param longName the name to use
      * @return this builder
      */

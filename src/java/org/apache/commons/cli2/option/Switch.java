@@ -65,6 +65,8 @@ public class Switch extends ParentImpl {
      * @param argument the Argument belonging to this Parent, or null
      * @param children the Group children belonging to this Parent, ot null
      * @param id the unique identifier for this Option
+     * @throws IllegalArgumentException if the preferredName or an alias isn't
+     *     prefixed with enabledPrefix or disabledPrefix 
      */
     public Switch(
         final String enabledPrefix,
@@ -126,6 +128,8 @@ public class Switch extends ParentImpl {
         this.prefixes = Collections.unmodifiableSet(newPrefixes);
         
         this.defaultSwitch = switchDefault;
+        
+        checkPrefixes(newPrefixes);
     }
 
     public void processParent(

@@ -67,7 +67,7 @@ public class DefaultOption extends ParentImpl {
      * @param shortPrefix the prefix used for short options
      * @param longPrefix the prefix used for long options
      * @param burstEnabled should option bursting be enabled
-     * @param preferredName the preferred name for this Option
+     * @param preferredName the preferred name for this Option, this should begin with either shortPrefix or longPrefix
      * @param description a description of this Option
      * @param aliases the alternative names for this Option
      * @param burstAliases the aliases that can be burst
@@ -75,6 +75,8 @@ public class DefaultOption extends ParentImpl {
      * @param argument the Argument belonging to this Parent, or null
      * @param children the Group children belonging to this Parent, ot null
      * @param id the unique identifier for this Option
+     * @throws IllegalArgumentException if the preferredName or an alias isn't
+     *     prefixed with shortPrefix or longPrefix 
      */
     public DefaultOption(
         final String shortPrefix,
@@ -121,6 +123,8 @@ public class DefaultOption extends ParentImpl {
         newPrefixes.add(shortPrefix);
         newPrefixes.add(longPrefix);
         this.prefixes = Collections.unmodifiableSet(newPrefixes);
+        
+        checkPrefixes(newPrefixes);
     }
 
     public boolean canProcess(final String argument) {

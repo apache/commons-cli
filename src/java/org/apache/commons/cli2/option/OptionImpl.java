@@ -15,11 +15,14 @@
  */
 package org.apache.commons.cli2.option;
 
+import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.Set;
 
 import org.apache.commons.cli2.DisplaySetting;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
  * A base implementation of Option providing limited ground work for further
@@ -104,4 +107,39 @@ public abstract class OptionImpl implements Option {
     public void defaults(final WriteableCommandLine commandLine) {
         // nothing to do normally
     }
+    
+    protected void checkPrefixes(final Set prefixes) {
+        
+        // nothing to do if empty prefix list
+        if(prefixes.isEmpty()) {
+            return;
+        }
+        
+        // check preferred name
+        checkPrefix(prefixes, getPreferredName());
+        
+        // check triggers
+        this.getTriggers();
+        for (final Iterator i = getTriggers().iterator(); i.hasNext();) {
+            checkPrefix(prefixes, (String) i.next());
+        }
+    }
+
+    private void checkPrefix(final Set prefixes, final String trigger) {
+        for (final Iterator i = prefixes.iterator(); i.hasNext();) {
+            String prefix = (String) i.next();
+            if(trigger.startsWith(prefix)) {
+                return;
+            }
+        }
+        
+        final ResourceHelper helper = 
+            ResourceHelper.getResourceHelper(OptionImpl.class);
+        final String message = 
+            helper.getMessage("cli.error.trigger.needs.prefix",
+                    trigger,prefixes.toString());
+        throw new IllegalArgumentException(message);
+    }
+    
+    
 }
