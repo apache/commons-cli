@@ -5,3 +5,4 @@ velocity.log
 .project
 
 maven.log
+.classpath
