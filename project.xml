@@ -52,10 +52,10 @@
       <organization>Werken</organization>
     </developer>
     <developer>
-      <name>John Keys</name>
-      <id>johnkeys</id>
-      <email/>
-      <organization/>
+      <name>John Keyes</name>
+      <id>jkeyes</id>
+      <email>jbjk@mac.com</email>
+      <organization>integral Source</organization>
     </developer>
   </developers>
   <dependencies>
