@@ -71,7 +71,7 @@ public class JDependTest extends TestCase {
         }
     }
 
-    public void testNoCyclesPresnet() {
+    public void testNoCyclesPresent() {
         assertEquals("Cycles exist", false, dependancies.containsCycles());
     }
 

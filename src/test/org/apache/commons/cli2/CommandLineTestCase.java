@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.cli2.builder.ArgumentBuilder;
 import org.apache.commons.cli2.builder.DefaultOptionBuilder;
 import org.apache.commons.cli2.builder.GroupBuilder;
 import org.apache.commons.cli2.commandline.Parser;
@@ -483,5 +484,31 @@ public abstract class CommandLineTestCase extends CLITestCase {
         assertEquals(1, cl.getOptionCount("login"));
         assertEquals(3, cl.getOptionCount("-?"));
         assertEquals(1, cl.getOptionCount("+display"));
+    }
+
+    public final void testOptionAsArgument() throws OptionException {
+    	final Option bool = new DefaultOptionBuilder().withShortName("p").create();
+    	final Argument argument = new ArgumentBuilder().create();
+    	final Option withArgument = new DefaultOptionBuilder().withShortName("attr").withArgument(argument).create();
+
+    	final Group group =
+            new GroupBuilder()
+                .withOption(bool)
+                .withOption(withArgument)
+                .create();
+
+        final Parser parser = new Parser();
+        parser.setGroup(group);
+        final CommandLine cl =
+            parser.parse(
+                new String[] {
+                    "-p",
+                    "-attr",
+                    "p" });
+
+        assertEquals(1, cl.getOptionCount("-p"));
+        assertTrue(cl.hasOption("-p"));
+        assertTrue(cl.hasOption("-attr"));
+        assertTrue(cl.getValue("-attr").equals("p"));
     }
 }

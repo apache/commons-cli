@@ -27,7 +27,7 @@ import java.util.Properties;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 public abstract class Parser implements CommandLineParser {
 
@@ -319,7 +319,8 @@ public abstract class Parser implements CommandLineParser {
         {
             String str = (String) iter.next();
 
-            // found an Option
+            // found an Option, not an argument
+            //if (options.hasOption(str) && str.startsWith("-"))
             if (options.hasOption(str))
             {
                 iter.previous();

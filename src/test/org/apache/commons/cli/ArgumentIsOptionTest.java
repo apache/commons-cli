@@ -46,7 +46,7 @@ public class ArgumentIsOptionTest extends TestCase {
         String[] args = new String[] {
                 "-p",
                 "-attr",
-                "value"
+                "p"
             };
 
         try {
@@ -54,7 +54,7 @@ public class ArgumentIsOptionTest extends TestCase {
             assertTrue("Confirm -p is set", cl.hasOption("p"));
             assertTrue("Confirm -attr is set", cl.hasOption("attr"));
             assertTrue("Confirm arg of -attr",
-                cl.getOptionValue("attr").equals("value"));
+                cl.getOptionValue("attr").equals("p"));
             assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
         }
         catch (ParseException e) {
@@ -65,7 +65,7 @@ public class ArgumentIsOptionTest extends TestCase {
     public void testOptionWithArgument() {
         String[] args = new String[] {
                 "-attr",
-                "value"
+                "p"
             };
 
         try {
@@ -73,7 +73,7 @@ public class ArgumentIsOptionTest extends TestCase {
             assertFalse("Confirm -p is set", cl.hasOption("p"));
             assertTrue("Confirm -attr is set", cl.hasOption("attr"));
             assertTrue("Confirm arg of -attr",
-                cl.getOptionValue("attr").equals("value"));
+                cl.getOptionValue("attr").equals("p"));
             assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
         }
         catch (ParseException e) {
