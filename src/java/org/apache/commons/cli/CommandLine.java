@@ -168,12 +168,14 @@ public class CommandLine {
     public String[] getOptionValues( String opt ) {
         List values = new java.util.ArrayList();
 
-        List opts = (List)options.get( opt );
-        Iterator iter = opts.iterator();
+        if( options.containsKey( opt ) ) {
+            List opts = (List)options.get( opt );
+            Iterator iter = opts.iterator();
 
-        while( iter.hasNext() ) {
-            Option optt = (Option)iter.next();
-            values.addAll( optt.getValuesList() );
+            while( iter.hasNext() ) {
+                Option optt = (Option)iter.next();
+                values.addAll( optt.getValuesList() );
+            }
         }
         return (values.size() == 0) ? null : (String[])values.toArray(new String[]{});
     }
