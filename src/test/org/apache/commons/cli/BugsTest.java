@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.3 2002/08/18 15:52:23 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.4 2002/08/18 19:07:42 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -35,6 +35,24 @@ public class BugsTest extends TestCase
 
     public void tearDown()
     {
+    }
+
+    public void test11457() {
+        Options options = new Options();
+        options.addOption( OptionBuilder.withLongOpt( "verbose" )
+                           .create() );
+        String[] args = new String[] { "--verbose" };
+
+        CommandLineParser parser = CommandLineParserFactory.newParser();
+
+        try {
+            CommandLine cmd = parser.parse( options, args );
+            assertTrue( cmd.hasOption( "verbose" ) );
+        }        
+        catch( ParseException exp ) {
+            exp.printStackTrace();
+            fail( "Unexpected Exception: " + exp.getMessage() );
+        }
     }
 
     public void test11458()

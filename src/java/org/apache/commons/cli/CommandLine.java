@@ -267,12 +267,16 @@ public class CommandLine {
     void setOpt( Option opt ) {
         hashcodeMap.put( new Integer( opt.hashCode() ), opt );
 
-        if( options.get( opt.getOpt() ) != null ) {
-            ((java.util.List)options.get( opt.getOpt() )).add( opt );
+        String key = opt.getOpt();
+        if( " ".equals(key) ) {
+            key = opt.getLongOpt();
+        }
+        if( options.get( key ) != null ) {
+            ((java.util.List)options.get( key )).add( opt );
         }
         else {
-            options.put( opt.getOpt(), new java.util.ArrayList() );
-            ((java.util.List)options.get( opt.getOpt() ) ).add( opt );
+            options.put( key, new java.util.ArrayList() );
+            ((java.util.List)options.get( key ) ).add( opt );
         }
     }
 

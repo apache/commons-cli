@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.5 2002/08/15 22:05:18 jkeyes Exp $
- * $Revision: 1.5 $
- * $Date: 2002/08/15 22:05:18 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.6 2002/08/18 19:07:42 jkeyes Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/08/18 19:07:42 $
  *
  * ====================================================================
  *
@@ -299,5 +299,15 @@ public class OptionBuilder {
 
         // return the Option instance
         return option;
+    }
+
+    public static Option create() 
+    throws IllegalArgumentException
+    {
+        if( longopt == null ) {
+            throw new IllegalArgumentException( "must specify longopt" );
+        }
+
+        return create( " " );
     }
 }
