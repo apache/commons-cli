@@ -25,7 +25,7 @@ import java.util.Iterator;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 public class PosixParser extends Parser {
 
@@ -135,7 +135,9 @@ public class PosixParser extends Parser {
                 {
                     processOptionToken(token, stopAtNonOption);
                 }
-
+                else if (options.hasOption(token)) {
+                	tokens.add(token);
+                }
                 // requires bursting
                 else
                 {
