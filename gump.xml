@@ -2,16 +2,16 @@
 
 <module name="commons-cli">
   <description>Commons CLI</description>
-  <url href="http://jakarta.apache.org/commons/index.html">
+  <url href="http://jakarta.apache.org/commons/cli/">
   </url>
-  <cvs module="jakarta-commons" repository="jakarta">
+  <cvs module="jakarta-commons/cli" repository="jakarta">
   </cvs>
   <project name="commons-cli">
-    <ant buildfile="build.xml" target="dist">
+    <maven goal="jar">
       <property name="final.name" value="commons-cli-@@DATE@@">
       </property>
-    </ant>
-    <package>org.apache.commons.*</package>
+    </maven>
+    <package>org.apache.commons.cli</package>
     <depend project="commons-lang">
     </depend>
     <depend project="jakarta-ant">
