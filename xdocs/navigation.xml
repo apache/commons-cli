@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE project [
+<!ENTITY commons-nav SYSTEM "../incl_nav.xml">
+]>
+
 <project name="CLI">
 
   <title>CLI</title>
@@ -10,5 +15,7 @@
       <item name="Option Properties" href="/properties.html"/>
       <item name="Download" href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-cli/v1.0/"/>
     </menu>
+
+    &commons-nav;
   </body>
 </project>
