@@ -277,13 +277,9 @@ public class HelpFormatter
                    buff.append( "--" ).append( option.getLongOpt() );
                }
 
-               if( option.hasArg() ){
-                   buff.append( " " );
-               }
-
                // if the Option has a value
-               if( option.hasArg() ) {
-                   buff.append( option.getArgName() );
+               if( option.hasArg() && option.getArgName() != null ) {
+                   buff.append( " " ).append( option.getArgName() );
                }
 
                // if the Option is not a required option
@@ -389,8 +385,12 @@ public class HelpFormatter
          optBuf.append( dpad );
          
          int nextLineTabStop = max + descPad;
+
+         if( option.getDescription() != null ) {
+             optBuf.append( option.getDescription() );
+         }
          renderWrappedText(sb, width, nextLineTabStop,
-                           optBuf.append(option.getDescription()).toString());
+                           optBuf.toString());
          if ( i.hasNext() )
          {
              sb.append(defaultNewLine);
