@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.5 2002/08/04 23:04:52 jkeyes Exp $
- * $Revision: 1.5 $
- * $Date: 2002/08/04 23:04:52 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.6 2002/08/14 22:27:39 jkeyes Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/08/14 22:27:39 $
  *
  * ====================================================================
  *
@@ -63,6 +63,7 @@ package org.apache.commons.cli;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.Iterator;
 
 /**
@@ -82,7 +83,7 @@ public class PosixParser implements CommandLineParser {
     private CommandLine cmd;
 
     /** required options subset of options */
-    private Collection requiredOptions;
+    private Map requiredOptions;
 
     /**
      * Parse the arguments according to the specified options.
@@ -164,12 +165,15 @@ public class PosixParser implements CommandLineParser {
                     // iterate over each character in the token
                     for ( int i = 1 ; i < token.length() ; ++i ) {
 
+                        String argname = String.valueOf( token.charAt(i) );
                         // retrieve the associated option
-                        Option opt = (Option) options.getOption( 
-                            String.valueOf( token.charAt(i) ) );
+                        boolean hasOption = options.hasOption( argname );
                         
+                        Option opt = null;
+
                         // if there is an associated option
-                        if ( opt != null ) {
+                        if ( hasOption ) {
+                            opt = options.getOption( argname );
 
                             // if the option requires an argument value
                             if ( opt.hasArg() ) {
@@ -181,6 +185,7 @@ public class PosixParser implements CommandLineParser {
                                     throw new MissingArgumentException( "Missing argument value for " + opt.getOpt() );
                                 }
 
+                                /*
                                 String var = token.substring(i+1);
                                 char sep = opt.getValueSeparator();
 
@@ -201,6 +206,8 @@ public class PosixParser implements CommandLineParser {
                                     // add the argument value
                                     opt.addValue( token.substring(i+1) );
                                 }
+                                */
+                                opt.addValue( token.substring(i+1) );
 
                                 // set the option 
                                 cmd.setOpt( opt );
@@ -254,17 +261,22 @@ public class PosixParser implements CommandLineParser {
     throws ParseException
     {
         // get the option represented by arg
-        Option opt = (Option) options.getOption( arg );
+        Option opt = null;//(Option) options.getOption( arg );
+
+        boolean hasOption = options.hasOption( arg );
 
         // if there is no option throw an UnrecognisedOptionException
-        if( opt == null ) {
+        if( !hasOption ) {
             throw new UnrecognizedOptionException("Unrecognized option: " + arg);
+        }
+        else {
+            opt = (Option) options.getOption( arg );
         }
 
         // if the option is a required option remove the option from
         // the requiredOptions list
         if ( opt.isRequired() ) {
-            requiredOptions.remove( opt );
+            requiredOptions.remove( "-" + opt.getOpt() );
         }
 
         // if the option is in an OptionGroup make that option the selected
@@ -307,6 +319,7 @@ public class PosixParser implements CommandLineParser {
             }
             // its a value
             else {
+                /*
                 char sep = opt.getValueSeparator();
                 
                 if( sep > 0 ) {
@@ -328,6 +341,11 @@ public class PosixParser implements CommandLineParser {
                     iter.previous();
                     return;
                 }
+                */
+                if( !opt.addValue( var ) ) {
+                    iter.previous();
+                    break;
+                }
             }
         }
     }
@@ -344,7 +362,7 @@ public class PosixParser implements CommandLineParser {
         // if there are required options that have not been
         // processsed
         if( requiredOptions.size() > 0 ) {
-            Iterator iter = requiredOptions.iterator();
+            Iterator iter = requiredOptions.values().iterator();
             StringBuffer buff = new StringBuffer();
 
             // loop through the required options

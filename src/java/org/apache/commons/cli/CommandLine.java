@@ -89,8 +89,11 @@ public class CommandLine {
     /** the unrecognised options/arguments */
     private List args    = new LinkedList();
 
-    /** the recognised options */
-    private Map  options = new HashMap();
+    /** the processed options */
+    private Map options = new HashMap();
+
+    /** Map of unique options for ease to get complete list of options */
+    private Map hashcodeMap = new HashMap();
 
     /** the processed options */
     private Option[] optionsArray;
@@ -125,7 +128,8 @@ public class CommandLine {
      */
     public Object getOptionObject( String opt ) {
         String res = getOptionValue( opt );
-        Object type = ((Option)options.get( opt )).getType();
+        
+        Object type = ((Option)((List)options.get(opt)).iterator().next()).getType();
         return res == null ? null : TypeHandler.createValue(res, type);
     }
 
@@ -143,7 +147,8 @@ public class CommandLine {
      * @return Value of the argument if option is set, and has an argument, else null.
      */
     public String getOptionValue( String opt ) {
-        return (String)((Option)options.get( opt )).getValue();
+        String[] values = getOptionValues(opt);
+        return (values == null) ? null : values[0];
     }
 
     /** <p>Retrieve the argument, if any,  of an option.</p>
@@ -161,7 +166,16 @@ public class CommandLine {
      * @return An array of values if the option is set, and has an argument, else null.
      */
     public String[] getOptionValues( String opt ) {
-        return (String[])((Option)options.get( opt )).getValues();
+        List values = new java.util.ArrayList();
+
+        List opts = (List)options.get( opt );
+        Iterator iter = opts.iterator();
+
+        while( iter.hasNext() ) {
+            Option optt = (Option)iter.next();
+            values.addAll( optt.getValuesList() );
+        }
+        return (values.size() == 0) ? null : (String[])values.toArray(new String[]{});
     }
 
     /** <p>Retrieves the array of values, if any, of an option.</p>
@@ -212,10 +226,14 @@ public class CommandLine {
         return args;
     }
     
-    /** <p>Dump state, suitable for debugging.</p>
+    /** 
+     * jkeyes
+     * - commented out until it is implemented properly
+     * <p>Dump state, suitable for debugging.</p>
      *
      * @return Stringified form of this object
      */
+    /*
     public String toString() {
         StringBuffer buf = new StringBuffer();
         
@@ -227,7 +245,8 @@ public class CommandLine {
         
         return buf.toString();
     }
-    
+    */
+
     /**
      * <p>Add left-over unrecognized option/argument.</p>
      *
@@ -244,7 +263,15 @@ public class CommandLine {
      * @param opt the processed option
      */
     void setOpt( Option opt ) {
-        options.put( opt.getOpt(), opt );
+        hashcodeMap.put( new Integer( opt.hashCode() ), opt );
+
+        if( options.get( opt.getOpt() ) != null ) {
+            ((java.util.List)options.get( opt.getOpt() )).add( opt );
+        }
+        else {
+            options.put( opt.getOpt(), new java.util.ArrayList() );
+            ((java.util.List)options.get( opt.getOpt() ) ).add( opt );
+        }
     }
 
     /**
@@ -254,7 +281,7 @@ public class CommandLine {
      * members of this {@link CommandLine}
      */
     public Iterator iterator( ) {
-        return options.values().iterator();
+        return hashcodeMap.values().iterator();
     }
 
     /**
@@ -263,7 +290,7 @@ public class CommandLine {
      * @return an array of the processed {@link Option}s.
      */
     public Option[] getOptions( ) {
-        Collection processed = options.values();
+        Collection processed = hashcodeMap.values();
 
         // reinitialise array
         optionsArray = new Option[ processed.size() ];

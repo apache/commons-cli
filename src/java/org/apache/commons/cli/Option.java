@@ -89,7 +89,7 @@ import java.util.ArrayList;
  * @version $Revision: 1.6 $
  */
 
-public class Option {
+public class Option implements Cloneable {
     
     /** opt the single character representation of the option */
     private String opt = null;
@@ -368,9 +368,26 @@ public class Option {
             case UNINITIALIZED:
                 return false;
             case UNLIMITED_VALUES:
+                if( getValueSeparator() > 0 ) {
+                    int index = 0;
+                    while( (index = value.indexOf( getValueSeparator() ) ) != -1 ) {
+                        this.values.add( value.substring( 0, index ) );
+                        value = value.substring( index+1 );
+                    }
+                }
                 this.values.add( value );
                 return true;
             default:
+                if( getValueSeparator() > 0 ) {
+                    int index = 0;
+                    while( (index = value.indexOf( getValueSeparator() ) ) != -1 ) {
+                        if( values.size() > numberOfArgs-1 ) {
+                            return false;
+                        }
+                        this.values.add( value.substring( 0, index ) );
+                        value = value.substring( index+1 );
+                    }
+                }
                 if( values.size() > numberOfArgs-1 ) {
                     return false;
                 }
@@ -412,5 +429,19 @@ public class Option {
      */
     public String[] getValues() {
         return this.values.size()==0 ? null : (String[])this.values.toArray(new String[]{});
+    }
+
+    public java.util.List getValuesList() {
+        return this.values;
+    }
+
+    public Object clone() {
+        Option option = new Option( getOpt(), getDescription() );
+        option.setArgs( getArgs() );
+        option.setRequired( isRequired() );
+        option.setLongOpt( getLongOpt() );
+        option.setType( getType() );
+        option.setValueSeparator( getValueSeparator() );
+        return option;
     }
 }

@@ -113,7 +113,8 @@ public class Options {
         while( options.hasNext() ) {
             Option option = (Option)options.next();
             addOption( option );
-            optionGroups.put( option, group );
+
+            optionGroups.put( option.getOpt(), group );
         }
 
         return this;
@@ -183,8 +184,8 @@ public class Options {
      *
      * @return Collection of required options
      */
-    public Collection getRequiredOptions() {
-        return requiredOpts.values();
+    public Map getRequiredOptions() {
+        return requiredOpts;
     }
     
     /** <p>Retrieve the named {@link Option}</p>
@@ -192,19 +193,39 @@ public class Options {
      * @param opt short single-character name of the {@link Option}
      * @return the option represented by opt
      */
-    public Option getOption(String opt) {
+    public Option getOption( String opt ) {
+
+        Option option = null;
 
         // short option
         if( opt.length() == 1 ) {
-            return (Option) shortOpts.get( "-" + opt );
+            option = (Option)shortOpts.get( "-" + opt );
         }
         // long option
         else if( opt.startsWith( "--" ) ) {
-            return (Option) longOpts.get( opt );
+            option = (Option)longOpts.get( opt );
         }
         // a just-in-case
         else {
-            return (Option) shortOpts.get( opt );
+            option = (Option)shortOpts.get( opt );
+        }
+
+        return (option == null) ? null : (Option)option.clone();
+    }
+
+    boolean hasOption(String opt) {
+
+        // short option
+        if( opt.length() == 1 ) {
+            return shortOpts.containsKey( "-" + opt );
+        }
+        // long option
+        else if( opt.startsWith( "--" ) ) {
+            return longOpts.containsKey( opt );
+        }
+        // a just-in-case
+        else {
+            return shortOpts.containsKey( opt );
         }
     }
 
@@ -216,7 +237,7 @@ public class Options {
      * of an OptionGroup, otherwise return null
      */
     public OptionGroup getOptionGroup( Option opt ) {
-        return (OptionGroup)optionGroups.get( opt );
+        return (OptionGroup)optionGroups.get( opt.getOpt() );
     }
     
     /** <p>Dump state, suitable for debugging.</p>

@@ -50,6 +50,7 @@ public class ApplicationTest extends TestCase {
         options.addOption( "buildfile", true, "use given buildfile" );
         options.addOption( OptionBuilder.withDescription( "use value for given property" )
                                         .hasArgs()
+                                        .withValueSeparator()
                                         .create( 'D' ) );
                            //, null, true, , false, true );
         options.addOption( "find", true, "search for buildfile towards the root of the filesystem and use it" );
@@ -63,8 +64,10 @@ public class ApplicationTest extends TestCase {
 
             // check multiple values
             String[] opts = line.getOptionValues( "D" );
-            assertEquals( opts[0], "property=value" );
-            assertEquals( opts[1], "property1=value1" );
+            assertEquals( "property", opts[0] );
+            assertEquals( "value", opts[1] );
+            assertEquals( "property1", opts[2] );
+            assertEquals( "value1", opts[3] );
 
             // check single value
             assertEquals( line.getOptionValue( "buildfile"), "mybuild.xml" );

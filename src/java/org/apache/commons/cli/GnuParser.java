@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.4 2002/08/04 23:04:52 jkeyes Exp $
- * $Revision: 1.4 $
- * $Date: 2002/08/04 23:04:52 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.5 2002/08/14 22:27:39 jkeyes Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/08/14 22:27:39 $
  *
  * ====================================================================
  *
@@ -64,6 +64,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.Map;
 
 /**
  * GnuParser parses the command line arguments using the GNU style.
@@ -81,7 +82,7 @@ public class GnuParser implements CommandLineParser {
     private CommandLine cmd;
 
     /** required options subset of options */
-    private Collection requiredOptions;
+    private Map requiredOptions;
 
     /**
      * Parse the arguments according to the specified options.
@@ -197,28 +198,9 @@ public class GnuParser implements CommandLineParser {
                 break;
             }
             // its a value
-            else {
-                char sep = opt.getValueSeparator();
-                
-                if( sep > 0 ) {
-                    int findex;
-                    while( ( findex = var.indexOf( sep ) ) != -1 ) {
-                        String val = var.substring( 0, findex );
-                        var = var.substring( findex + 1);
-                        if( !opt.addValue( val ) ) {
-                            iter.previous();
-                            return;
-                        }
-                    }
-                    if( !opt.addValue( var ) ) {
-                        iter.previous();
-                        return;
-                    };
-                }
-                else if( !opt.addValue( var ) ) {
-                    iter.previous();
-                    return;
-                }
+            else if( !opt.addValue( var ) ) {
+                iter.previous();
+                return;
             }
         }
     }
@@ -299,7 +281,7 @@ public class GnuParser implements CommandLineParser {
         // if there are required options that have not been
         // processsed
         if( requiredOptions.size() > 0 ) {
-            Iterator iter = requiredOptions.iterator();
+            Iterator iter = requiredOptions.values().iterator();
             StringBuffer buff = new StringBuffer();
 
             // loop through the required options

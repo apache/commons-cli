@@ -75,7 +75,7 @@ public class OptionGroup {
     private HashMap optionMap = new HashMap();
 
     /** the name of the selected option */
-    private Option selected;
+    private String selected;
 
     /**
      * add <code>opt</code> to this group
@@ -117,8 +117,9 @@ public class OptionGroup {
         // if no option has already been selected or the 
         // same option is being reselected then set the
         // selected member variable
-        if ( this.selected == null || this.selected.equals( opt ) ) {
-            this.selected = opt;
+
+        if ( this.selected == null || this.selected.equals( opt.getOpt() ) ) {
+            this.selected = opt.getOpt();
         }
         else {
             throw new AlreadySelectedException( "an option from this group has " + 
@@ -130,50 +131,9 @@ public class OptionGroup {
     /**
      * @return the selected option name
      */
-    public Option getSelected() {
+    public String getSelected() {
         return selected;
     }
-
-    /**
-     * @return the usage string for this option group
-     */
-    /*
-    public String usageString()
-    {
-        StringBuffer buff = new StringBuffer();
-
-        buff.append( "<\n");
-
-        Iterator oiter = getOptions().iterator();
-
-        while( oiter.hasNext() )
-        {
-            Option option = (Option)oiter.next();
-            Collection names = option.getNames();
-
-            Iterator iter = names.iterator();
-
-            while( iter.hasNext() )
-            {
-                buff.append( option.getPrefix() );
-                buff.append( iter.next() );
-                if( iter.hasNext() )
-                {
-                    buff.append( " | " );
-                }
-            }
-            buff.append( " " );
-            buff.append( option.getDescription( ) );
-            if ( oiter.hasNext() )
-            {
-                buff.append( "\n  or\n" );
-            }
-        }
-        buff.append( "\n>");
-        buff.append( "\n" );
-        return buff.toString();
-    }
-    */
 
     /**
      * <p>Returns the stringified version of this OptionGroup.</p>
