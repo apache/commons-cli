@@ -395,7 +395,7 @@ public class Option implements Cloneable {
       * set.
       */
      public boolean hasArgName() {
-         return (this.argName != null || this.argName.length() > 0 );
+         return (this.argName != null && this.argName.length() > 0 );
      }
 
      /** 
