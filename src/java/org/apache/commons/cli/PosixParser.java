@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.1 2002/06/16 23:00:58 jkeyes Exp $
- * $Revision: 1.1 $
- * $Date: 2002/06/16 23:00:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.2 2002/06/19 21:31:16 jkeyes Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/06/19 21:31:16 $
  *
  * ====================================================================
  *
@@ -145,7 +145,7 @@ public class PosixParser implements CommandLineParser {
                     
                     for ( int i = 1 ; i < eachArg.length() ; ++i ) {
                         String optStr = "-" + eachArg.charAt(i);
-                        Option opt    = (Option) options.getOption( "" + eachArg.charAt(i) );
+                        Option opt    = (Option) options.getOption( String.valueOf( eachArg.charAt(i) ) );
                         
                         if ( (opt != null) && (opt.hasArg()) ) {
                             // If the current option has an argument,
