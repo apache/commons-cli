@@ -178,13 +178,20 @@ public class GroupImpl extends OptionImpl implements Group {
                     // narrow the search
                     final Collection values = optionMap.tailMap(arg).values();
                     
-                    for (Iterator i = values.iterator(); i.hasNext();) {
+                    boolean foundMemberOption = false;
+                    for (Iterator i = values.iterator(); i.hasNext() && !foundMemberOption;) {
                         final Option option = (Option) i.next();
                         
                         if (option.canProcess(arg)) {
+                        	foundMemberOption = true;
                             arguments.previous();
                             option.process(commandLine, arguments);
                         }
+                    }
+                    // back track and abort this group if necessary
+                    if(!foundMemberOption) {
+                    	arguments.previous();
+                    	return;
                     }
                 } // [END argument may be anonymous
                 
