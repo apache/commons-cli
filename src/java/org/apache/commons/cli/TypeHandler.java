@@ -66,7 +66,7 @@ import java.net.URL;
 import java.net.MalformedURLException;
 import java.util.Date;
 
-import org.apache.commons.lang.Numbers;
+import org.apache.commons.lang.NumberUtils;
 
 /**
   * This is a temporary implementation. TypeHandler will handle the 
@@ -175,7 +175,7 @@ public class TypeHandler {
         // Needs to be able to create
         try {
             // do searching for decimal point etc, but atm just make an Integer
-            return Numbers.createNumber(str);
+            return NumberUtils.createNumber(str);
         } catch (NumberFormatException nfe) {
             System.err.println(nfe.getMessage());
             return null;
