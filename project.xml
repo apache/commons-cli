@@ -21,14 +21,14 @@
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons CLI</shortDescription>
   <description>
-  	Commons CLI provides a simple API for presenting, proecessing and 
-  	validating a command line interface.
+    Commons CLI provides a simple API for presenting, proecessing and
+    validating a command line interface.
   </description>
-  <logo>/images/logo.png</logo>
-  
+  <logo>/images/logo.jpg</logo>
+
   <url>http://jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</url>
   <package>org.apache.commons.${pom.artifactId.substring(8)}</package>
-  
+
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://www.apache.org</url>
@@ -40,12 +40,12 @@
   <siteAddress>jakarta.apache.org</siteAddress>
   <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
-  
+
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/${pom.artifactId.substring(8)}</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons/${pom.artifactId.substring(8)}/</url>
   </repository>
-  
+
   <mailingLists>
     <mailingList>
       <name>Commons Dev List</name>
@@ -73,23 +73,38 @@
       <id>bob</id>
       <email>bob@werken.com</email>
       <organization>Werken</organization>
+      <roles>
+        <role>contributed ideas and code from werken.opt</role>
+      </roles>
     </developer>
     <developer>
       <name>John Keyes</name>
       <id>jkeyes</id>
       <email>jbjk@mac.com</email>
       <organization>integral Source</organization>
+      <roles>
+        <role>contributed ideas and code from Optz</role>
+      </roles>
     </developer>
     <developer>
       <name>Rob Oxspring</name>
       <id>roxspring</id>
       <email>roxspring@imapmail.org</email>
-      <organization></organization>
+      <organization>Indigo Stone</organization>
+      <roles>
+        <role>designed CLI2</role>
+      </roles>
     </developer>
   </developers>
 
   <contributors>
-    <!-- Helped in merging Avalon CLI -->
+    <contributor>
+      <name>Peter Donald</name>
+      <id>donaldp</id>
+      <roles>
+        <role>contributed ideas and code from Avalon Excalibur's cli package</role>
+      </roles>
+    </contributor>
     <contributor>
       <name>Berin Loritsch</name>
       <email>bloritsch@apache.org</email>
@@ -98,7 +113,6 @@
         <role>helped in the Avalon CLI merge</role>
       </roles>
     </contributor>
-    <!-- Supplied patch -->
     <contributor>
       <name>Peter Maddocks</name>
       <email>peter_maddocks@hp.com</email>
@@ -110,24 +124,24 @@
   </contributors>
 
   <dependencies>
-    
+
     <dependency>
       <id>commons-lang</id>
       <version>1.0</version>
     </dependency>
-  
+
     <dependency>
       <id>junit</id>
       <version>3.8.1</version>
     </dependency>
-  
+
     <dependency>
       <id>jdepend</id>
       <version>2.5</version>
     </dependency>
-  
+
   </dependencies>
-  
+
   <build>
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
     <sourceDirectory>src/java</sourceDirectory>
@@ -143,7 +157,7 @@
           </includes>
         </resource>
     </resources>
-    
+
     <!-- Unit test classes -->
     <unitTest>
       <includes>
