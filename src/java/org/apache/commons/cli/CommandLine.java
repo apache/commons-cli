@@ -298,10 +298,6 @@ public class CommandLine {
             names.put( opt.getLongOpt(), key );
         }
 
-        if( opt.getValues() != null ) {
-            System.out.println( opt.getKey() + "=" + opt.getValues().length );
-        }
-
         options.put( key, opt );
     }
 
@@ -321,7 +317,7 @@ public class CommandLine {
      * @return an array of the processed {@link Option}s.
      */
     public Option[] getOptions( ) {
-        Collection processed = hashcodeMap.values();
+        Collection processed = options.values();
 
         // reinitialise array
         optionsArray = new Option[ processed.size() ];

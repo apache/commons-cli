@@ -51,6 +51,14 @@ public class OptionGroupTest extends TestCase
         group2.addOption( chapter );
 
         _options.addOptionGroup( group2 );
+
+        Option importOpt = new Option( null, "import", false, "section to process" );
+        Option exportOpt = new Option( null, "export", false, "chapter to process" );
+        OptionGroup group3 = new OptionGroup();
+        group3.addOption( importOpt );
+        group3.addOption( exportOpt );
+        _options.addOptionGroup( group3 );
+
         _options.addOption( "r", "revision", false, "revision number" );
     }
 
@@ -233,6 +241,29 @@ public class OptionGroupTest extends TestCase
             assertTrue( "Confirm -s is set", cl.hasOption("s") );
             assertTrue( "Confirm -c is NOT set", !cl.hasOption("c") );
             assertTrue( "Confirm NO extra args", cl.getArgList().size() == 0);
+        }
+        catch (ParseException e)
+        {
+            fail( e.toString() );
+        }
+    }
+
+    public void testValidLongOnlyOptions()
+    {
+        try
+        {
+            CommandLine cl = parser.parse( _options, new String[]{"--export"});
+            assertTrue( "Confirm --export is set", cl.hasOption("export") );
+        }
+        catch (ParseException e)
+        {
+            fail( e.toString() );
+        }
+                            
+        try
+        {
+            CommandLine cl = parser.parse( _options, new String[]{"--import"});
+            assertTrue( "Confirm --import is set", cl.hasOption("import") );
         }
         catch (ParseException e)
         {

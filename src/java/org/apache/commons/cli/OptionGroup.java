@@ -90,7 +90,7 @@ public class OptionGroup {
     public OptionGroup addOption(Option opt) {
         // key   - option name
         // value - the option
-        optionMap.put( "-" + opt.getOpt(), opt );
+        optionMap.put( opt.getKey(), opt );
         return this;
     }
 
@@ -168,8 +168,14 @@ public class OptionGroup {
         while( iter.hasNext() ) {
             Option option = (Option)iter.next();
 
-            buff.append( "-" );
-            buff.append( option.getOpt() );
+            if( option.getOpt() != null ) {
+                buff.append( "-" );
+                buff.append( option.getOpt() );
+            }
+            else {
+                buff.append( "--" );
+                buff.append( option.getLongOpt() );
+            }
             buff.append( " " );
             buff.append( option.getDescription( ) );
 
