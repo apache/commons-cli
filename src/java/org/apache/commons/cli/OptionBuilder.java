@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.13 2002/11/18 08:41:26 jkeyes Exp $
- * $Revision: 1.13 $
- * $Date: 2002/11/18 08:41:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.14 2002/11/19 22:54:48 jkeyes Exp $
+ * $Revision: 1.14 $
+ * $Date: 2002/11/19 22:54:48 $
  *
  * ====================================================================
  *
@@ -101,7 +101,7 @@ public class OptionBuilder {
      */
     private static void reset() {
         description = null;
-        argName = null;
+        argName = "arg";
         longopt = null;
         type = null;
         required = false;

@@ -95,7 +95,7 @@ public class Option implements Cloneable {
     private boolean hasArg;
 
     /** argName specifies the name of the argument for this option */
-    private String argName;
+    private String argName = "arg";
 
     /** description of the option */
     private String description;
