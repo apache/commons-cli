@@ -290,7 +290,8 @@ public class HelpFormatter {
 
     /**
      * <p>Print the help for <code>options</code> with the specified
-     * command line syntax.</p>
+     * command line syntax.  This method prints help information to
+     * System.out.</p>
      *
      * @param cmdLineSyntax the syntax for this application
      * @param options the Options instance
@@ -302,7 +303,8 @@ public class HelpFormatter {
 
     /**
      * <p>Print the help for <code>options</code> with the specified
-     * command line syntax.</p>
+     * command line syntax.  This method prints help information to 
+     * System.out.</p>
      *
      * @param cmdLineSyntax the syntax for this application
      * @param options the Options instance
@@ -317,7 +319,8 @@ public class HelpFormatter {
 
     /**
      * <p>Print the help for <code>options</code> with the specified
-     * command line syntax.</p>
+     * command line syntax.  This method prints help information to
+     * System.out.</p>
      *
      * @param cmdLineSyntax the syntax for this application
      * @param header the banner to display at the begining of the help
@@ -332,7 +335,8 @@ public class HelpFormatter {
 
     /**
      * <p>Print the help for <code>options</code> with the specified
-     * command line syntax.</p>
+     * command line syntax.  This method prints help information to 
+     * System.out.</p>
      *
      * @param cmdLineSyntax the syntax for this application
      * @param header the banner to display at the begining of the help
@@ -350,7 +354,8 @@ public class HelpFormatter {
 
     /**
      * <p>Print the help for <code>options</code> with the specified
-     * command line syntax.</p>
+     * command line syntax.  This method prints help information to
+     * System.out.</p>
      *
      * @param width the number of characters to be displayed on each line
      * @param cmdLineSyntax the syntax for this application
@@ -366,7 +371,8 @@ public class HelpFormatter {
 
     /**
      * <p>Print the help for <code>options</code> with the specified
-     * command line syntax.</p>
+     * command line syntax.  This method prints help information to
+     * System.out.</p>
      *
      * @param width the number of characters to be displayed on each line
      * @param cmdLineSyntax the syntax for this application
