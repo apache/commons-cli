@@ -27,7 +27,7 @@ import java.util.Properties;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public abstract class Parser implements CommandLineParser {
 
@@ -243,7 +243,7 @@ public abstract class Parser implements CommandLineParser {
                 // get the value from the properties instance
                 String value = properties.getProperty(option);
 
-                if (opt.hasArgs())
+                if (opt.hasArg())
                 {
                     if ((opt.getValues() == null)
                         || (opt.getValues().length == 0))
