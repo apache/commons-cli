@@ -14,6 +14,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.util.Arrays;
 import java.util.Properties;
 
 public class ValueTest extends TestCase
@@ -72,6 +73,9 @@ public class ValueTest extends TestCase
 
         opts.addOption( OptionBuilder.hasOptionalArgs( )
                         .create( 'j' ) );
+
+        opts.addOption( OptionBuilder.hasArgs( ).withValueSeparator( ',' )
+                        .create( 'k' ) );
 
         String[] args = new String[] { "-a",
             "-b", "foo",
@@ -253,11 +257,14 @@ public class ValueTest extends TestCase
 
     public void testLongOptionalNArgValues()
     {
-        String[] args = new String[] { "--hide", "house", "hair", "head"
+        String[] args = new String[] { 
+            "--hide", "house", "hair", "head"
         };
+
+        CommandLineParser parser = new PosixParser();
+
         try
         {
-            CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("hide") );
             assertEquals( "house", cmd.getOptionValue("hide") );
@@ -272,13 +279,15 @@ public class ValueTest extends TestCase
         }
     }
 
-    public void testPropertyValues()
+    public void testPropertyOptionSingularValue()
     {
         Properties properties = new Properties();
         properties.setProperty( "hide", "seek" );
+
+        CommandLineParser parser = new PosixParser();
+        
         try
         {
-            CommandLineParser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts, null, properties);
             assertTrue( cmd.hasOption("hide") );
             assertEquals( "seek", cmd.getOptionValue("hide") );
@@ -288,7 +297,99 @@ public class ValueTest extends TestCase
         {
             fail("Cannot setUp() CommandLine: " + e.toString());
         }
+    }
+
+    public void testPropertyOptionFlags()
+    {
+        Properties properties = new Properties();
+        properties.setProperty( "a", "true" );
+        properties.setProperty( "c", "yes" );
+        properties.setProperty( "e", "1" );
+
+        CommandLineParser parser = new PosixParser();
+        
+        try
+        {
+            CommandLine cmd = parser.parse(opts, null, properties);
+            assertTrue( cmd.hasOption("a") );
+            assertTrue( cmd.hasOption("c") );
+            assertTrue( cmd.hasOption("e") );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+
+        properties = new Properties();
+        properties.setProperty( "a", "false" );
+        properties.setProperty( "c", "no" );
+        properties.setProperty( "e", "0" );
+        try
+        {
+            CommandLine cmd = parser.parse(opts, null, properties);
+            assertTrue( !cmd.hasOption("a") );
+            assertTrue( !cmd.hasOption("c") );
+            assertTrue( !cmd.hasOption("e") );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+
+        properties = new Properties();
+        properties.setProperty( "a", "TRUE" );
+        properties.setProperty( "c", "nO" );
+        properties.setProperty( "e", "TrUe" );
+        try
+        {
+            CommandLine cmd = parser.parse(opts, null, properties);
+            assertTrue( cmd.hasOption("a") );
+            assertTrue( !cmd.hasOption("c") );
+            assertTrue( cmd.hasOption("e") );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+
+        properties = new Properties();
+        properties.setProperty( "a", "just a string" );
+        properties.setProperty( "e", "" );
+        try
+        {
+            CommandLine cmd = parser.parse(opts, null, properties);
+            assertTrue( !cmd.hasOption("a") );
+            assertTrue( !cmd.hasOption("c") );
+            assertTrue( !cmd.hasOption("e") );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+
     } 
+
+    public void testPropertyOptionMultipleValues()
+    {
+        Properties properties = new Properties();
+        properties.setProperty( "k", "one,two" );
+
+        CommandLineParser parser = new PosixParser();
+        
+        String[] values = new String[] {
+            "one", "two"
+        };
+        try
+        {
+            CommandLine cmd = parser.parse(opts, null, properties);
+            assertTrue( cmd.hasOption("k") );
+            assertTrue( Arrays.equals( values, cmd.getOptionValues('k') ) );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+    }
 
     public void testPropertyOverrideValues()
     {
