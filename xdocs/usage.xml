@@ -35,10 +35,10 @@
 Options options = new Options();
 
 // add t option
-options.addOption('t', false, "display current time");</source>
+options.addOption("t", false, "display current time");</source>
         <p>
           The <code>addOption</code> method has three parameters.  The first
-          parameter is a <code>char</code> that represents the option.  The
+          parameter is a <code>java.lang.String</code> that represents the option.  The
           second paramter is a <code>boolean</code> that specifies whether the
           option requires an argument or not.  In the case of a boolean option
           (sometimes referred to as a flag) an argument value is not present so
@@ -59,11 +59,11 @@ CommandLine cmd = options.parse(args);</source>
           this we will interrogate the 
           <a href="apidocs/org/apache/commons/cli/CommandLine.html"><code>CommandLine</code>
           </a> object.  The <code>hasOption</code> method takes a 
-          <code>char</code> parameter and returns true if the option represented 
-          by the <code>char</code> is present, otherwise it returns false.
+          <code>java.lang.String</code> parameter and returns true if the option represented 
+          by the <code>java.lang.String</code> is present, otherwise it returns false.
         </p>
         <source>
-if(cmd.hasOption('t')) {
+if(cmd.hasOption("t")) {
     // print the date and time
 }
 else {
@@ -79,7 +79,7 @@ else {
         </p>
         <source>
 // add c option
-options.addOption('c', true, "country code");</source>
+options.addOption("c", true, "country code");</source>
         <p>
           The second parameter is true this time.  This specifies that the
           <code>c</code> option requires an argument value.  If the required option
@@ -94,7 +94,7 @@ options.addOption('c', true, "country code");</source>
         </p>
         <source>
 // get c option value
-String countryCode = options.getOptionValue('c');
+String countryCode = options.getOptionValue("c");
 
 if(countryCode == null) {
     // print default date
