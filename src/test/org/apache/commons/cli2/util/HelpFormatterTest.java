@@ -24,6 +24,7 @@ import java.util.Iterator;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.cli2.Group;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.builder.DefaultOptionBuilder;
@@ -34,6 +35,7 @@ import org.apache.commons.cli2.option.DefaultOptionTest;
 public class HelpFormatterTest extends TestCase {
     private HelpFormatter helpFormatter;
     private Option verbose;
+    private Group options;
 
     public void setUp() {
         helpFormatter = new HelpFormatter("|*", "*-*", "*|", 80);
@@ -49,23 +51,24 @@ public class HelpFormatterTest extends TestCase {
                 .withDescription("print the version information and exit")
                 .create();
 
-        helpFormatter.setGroup(
-            new GroupBuilder()
-                .withName("options")
-                .withOption(DefaultOptionTest.buildHelpOption())
-                .withOption(ArgumentTest.buildTargetsArgument())
-                .withOption(
-                    new DefaultOptionBuilder()
-                        .withLongName("diagnostics")
-                        .withDescription("print information that might be helpful to diagnose or report problems.")
-                        .create())
-                .withOption(
-                    new DefaultOptionBuilder()
-                        .withLongName("projecthelp")
-                        .withDescription("print project help information")
-                        .create())
-                .withOption(verbose)
-                .create());
+        options = new GroupBuilder()
+            .withName("options")
+            .withOption(DefaultOptionTest.buildHelpOption())
+            .withOption(ArgumentTest.buildTargetsArgument())
+            .withOption(
+                new DefaultOptionBuilder()
+                    .withLongName("diagnostics")
+                    .withDescription("print information that might be helpful to diagnose or report problems.")
+                    .create())
+            .withOption(
+                new DefaultOptionBuilder()
+                    .withLongName("projecthelp")
+                    .withDescription("print project help information")
+                    .create())
+            .withOption(verbose)
+            .create();        
+        
+        helpFormatter.setGroup(options);
     }
 
     public void testPrint() throws IOException {
@@ -188,6 +191,27 @@ public class HelpFormatterTest extends TestCase {
             "+------------------------------------------------------------------------------+",
             reader.readLine());
         assertNull(reader.readLine());
+    }
+
+    public void testPrintHelp_TooNarrow() throws IOException {
+        final StringWriter writer = new StringWriter();
+        helpFormatter = new HelpFormatter("<","=",">",4);
+        helpFormatter.setGroup(options);
+        helpFormatter.setPrintWriter(new PrintWriter(writer));
+        helpFormatter.printHelp();
+        System.out.println(writer);
+        final BufferedReader reader =
+            new BufferedReader(new StringReader(writer.toString()));
+        assertEquals(
+            "<options              = >",
+            reader.readLine());
+        assertEquals(
+            "<  --help (-?,-h)     =D>",
+            reader.readLine());
+        assertEquals(
+            "<                     =i>",
+            reader.readLine());
+        // lots more lines unchecked
     }
 
     public void testPrintException() throws IOException {
@@ -322,6 +346,16 @@ public class HelpFormatterTest extends TestCase {
         assertEquals("", i.next());
         assertFalse(i.hasNext());
     }
+    
+    public void testWrap_Below1Length() {
+        try{
+            HelpFormatter.wrap("Apache Software Foundation",-1);
+            fail("IllegalArgumentException");
+        }
+        catch(IllegalArgumentException e) {
+            assertEquals("width must be positive",e.getMessage());
+        }
+    }
 
     public void testPad() throws IOException {
         final StringWriter writer = new StringWriter();
@@ -338,6 +372,12 @@ public class HelpFormatterTest extends TestCase {
     public void testPad_TooLong() throws IOException {
         final StringWriter writer = new StringWriter();
         HelpFormatter.pad("hello world", 10, writer);
+        assertEquals("hello world", writer.toString());
+    }
+    
+    public void testPad_TooShort() throws IOException {
+        final StringWriter writer = new StringWriter();
+        HelpFormatter.pad("hello world", -5, writer);
         assertEquals("hello world", writer.toString());
     }
 }

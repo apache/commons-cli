@@ -88,6 +88,7 @@ public class HelpFormatter {
         final Set lineUsage = new HashSet();
         lineUsage.add(DisplaySetting.DISPLAY_ALIASES);
         lineUsage.add(DisplaySetting.DISPLAY_GROUP_NAME);
+        lineUsage.add(DisplaySetting.DISPLAY_PARENT_ARGUMENT);
         DEFAULT_LINE_USAGE_SETTINGS = Collections.unmodifiableSet(lineUsage);
 
         final Set displayUsage = new HashSet(DisplaySetting.ALL);
@@ -221,8 +222,8 @@ public class HelpFormatter {
         for (int i = 0; i < usageWidth; i++) {
             blankBuffer.append(' ');
         }
-        final int descriptionWidth =
-            pageWidth - gutterCenter.length() - usageWidth;
+        final int descriptionWidth = Math.max(1,
+            pageWidth - gutterCenter.length() - usageWidth);
         for (final Iterator i = helpLines.iterator(); i.hasNext();) {
             final HelpLine helpLine = (HelpLine)i.next();
             final List descriptionLines =
@@ -347,6 +348,10 @@ public class HelpFormatter {
     }
 
     protected static List wrap(final String text, final int width) {
+        if(width<1){
+            throw new IllegalArgumentException("width must be positive");
+        }
+        
         if (text == null) {
             return Collections.singletonList("");
         }
