@@ -24,11 +24,11 @@ and to build and test the system use:
 
 Maven can be found here :
 
-  http://jakarta.apache.org/turbine/maven/
+  http://maven.apache.org
 
 and to build and test the system use:
 
-  maven java:jar
+  maven jar:jar
 
 The system will build and test itself.
 
