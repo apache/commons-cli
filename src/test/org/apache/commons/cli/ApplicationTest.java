@@ -35,10 +35,7 @@ public class ApplicationTest extends TestCase {
      */
     public void testAnt() {
         // use the GNU parser
-        System.setProperty( "org.apache.commons.cli.parser",
-                            "org.apache.commons.cli.GnuParser");
-
-        CommandLineParser parser = CommandLineParserFactory.newParser();
+        CommandLineParser parser = CommandLineParserFactory.newParser( "org.apache.commons.cli.GnuParser" );
         Options options = new Options();
         options.addOption( "help", false, "print this message" );
         options.addOption( "projecthelp", false, "print project help information" );

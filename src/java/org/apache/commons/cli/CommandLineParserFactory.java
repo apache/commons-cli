@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Attic/CommandLineParserFactory.java,v 1.1 2002/07/04 22:32:12 jkeyes Exp $
- * $Revision: 1.1 $
- * $Date: 2002/07/04 22:32:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Attic/CommandLineParserFactory.java,v 1.2 2002/07/25 21:40:08 jkeyes Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/07/25 21:40:08 $
  *
  * ====================================================================
  *
@@ -76,9 +76,12 @@ public class CommandLineParserFactory {
      * @return the CommandLineParser
      */
     public static CommandLineParser newParser() {
-        String parserImpl = System.getProperty( "org.apache.commons.cli.parser" );
+        return newParser( DEFAULT_PARSER );
+    }
+
+    public static CommandLineParser newParser( String classname ) {
         try {
-            return (CommandLineParser)Class.forName( parserImpl ).newInstance();
+            return (CommandLineParser)Class.forName( classname ).newInstance();
         }
         catch( Exception exp ) {
             // could not create according to parserImpl so default to

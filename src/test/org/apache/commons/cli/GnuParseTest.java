@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: GnuParseTest.java,v 1.1 2002/07/04 22:32:12 jkeyes Exp $
+ * $Id: GnuParseTest.java,v 1.2 2002/07/25 21:40:08 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -30,9 +30,6 @@ public class GnuParseTest extends TestCase
 
     public void setUp()
     {
-        System.setProperty( "org.apache.commons.cli.parser",
-                            "org.apache.commons.cli.GnuParser");
-
         _options = new Options()
             .addOption("a",
                        "enable-a",
@@ -47,7 +44,7 @@ public class GnuParseTest extends TestCase
                        false,
                        "turn [c] on or off");
 
-        _parser = CommandLineParserFactory.newParser();
+        _parser = CommandLineParserFactory.newParser( "org.apache.commons.cli.GnuParser" );
     }
 
     public void tearDown()
