@@ -187,6 +187,15 @@ public class Options {
      * @return read-only Collection of {@link Option} objects in this descriptor
      */
     public Collection getOptions() {
+        return Collections.unmodifiableCollection( helpOptions() );
+    }
+
+    /**
+     * <p>Returns the Options for use by the HelpFormatter.</p>
+     *
+     * @return the List of Options
+     */
+    List helpOptions() {
         List opts = new ArrayList( shortOpts.values() );
 
         // now look through the long opts to see if there are any Long-opt
@@ -200,16 +209,7 @@ public class Options {
                 opts.add(item);
             }
         }
-        return Collections.unmodifiableCollection( opts );
-    }
-
-    /**
-     * <p>Returns the Options for use by the HelpFormatter.</p>
-     *
-     * @return the List of Options
-     */
-    List helpOptions() {
-        return new ArrayList( shortOpts.values() );
+        return new ArrayList( opts );
     }
 
     /** <p>Returns the required options as a 
