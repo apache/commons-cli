@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.12 2002/11/25 23:43:41 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.13 2003/01/13 08:17:26 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -359,6 +359,22 @@ public class BugsTest extends TestCase
         catch( ParseException exp ) {
             fail( "Unexpected exception:" + exp.getMessage() );
         }
+    }
+
+    public void test15046() throws Exception {
+        CommandLineParser parser = new PosixParser();
+        final String[] CLI_ARGS = new String[] {"-z", "c"};
+        Option option = new Option("z", "timezone", true, 
+                                   "affected option");
+        Options cliOptions = new Options();
+        cliOptions.addOption(option);
+        parser.parse(cliOptions, CLI_ARGS);
+		
+        //now add conflicting option
+        cliOptions.addOption("c", "conflict", true, "conflict option");
+        CommandLine line = parser.parse(cliOptions, CLI_ARGS);
+        assertEquals( option.getValue(), "c" );
+        assertTrue( !line.hasOption("c") );
     }
 
 }
