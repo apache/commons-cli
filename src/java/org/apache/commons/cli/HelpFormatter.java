@@ -220,6 +220,8 @@ public class HelpFormatter
     * @param width ??
     * @param appName The application name
     * @param options The command line Options
+    * @see #appendOptionGroup(StringBuffer,OptionGroup)
+    * @see #appendOption(StringBuffer,Option,boolean)
     *
     */
    public void printUsage( PrintWriter pw, int width, String app, Options options ) 
@@ -228,11 +230,11 @@ public class HelpFormatter
        StringBuffer buff = new StringBuffer( defaultSyntaxPrefix ).append( app ).append( " " );
        
        // create a list for processed option groups
-       ArrayList list = new ArrayList();
+       final Collection processedGroups = new ArrayList();
 
        // temp variable
        Option option;
-
+       
        // iterate over the options
        for ( Iterator i = options.getOptions().iterator(); i.hasNext(); )
        {
@@ -242,50 +244,24 @@ public class HelpFormatter
            // check if the option is part of an OptionGroup
            OptionGroup group = options.getOptionGroup( option );
 
-           // if the option is part of a group and the group has not already
-           // been processed
-           if( group != null && !list.contains(group)) {
-
-               // add the group to the processed list
-               list.add( group );
-
-               // get the names of the options from the OptionGroup
-               Collection names = group.getNames();
-
-               buff.append( "[" ); 
-
-               // for each option in the OptionGroup
-               for( Iterator iter = names.iterator(); iter.hasNext(); ) {
-                   buff.append( iter.next() );
-                   if( iter.hasNext() ) {
-                       buff.append( " | " );
-                   }
+           // if the option is part of a group 
+           if( group != null) {
+               // and if the group has not already been processed
+               if( !processedGroups.contains(group) ) {
+                   // add the group to the processed list
+                   processedGroups.add( group );
+                   // add the usage clause
+                   appendOptionGroup( buff, group );
                }
-               buff.append( "]" );
+               // otherwise the option was displayed in the group
+               // previously so ignore it.
            }
            // if the Option is not part of an OptionGroup
            else {
-               // if the Option is not a required option
-               if( !option.isRequired() ) {
-                   buff.append( "[" );
-               }
-               
-               if( !" ".equals( option.getOpt() ) ) {
-                   buff.append( "-" ).append( option.getOpt() );
-               }
-               else {
-                   buff.append( "--" ).append( option.getLongOpt() );
-               }
-
-               // if the Option has a value
-               if( option.hasArg() && option.getArgName() != null ) {
-                   buff.append( " " ).append( option.getArgName() );
-               }
-
-               // if the Option is not a required option
-               if( !option.isRequired() ) {
-                   buff.append( "]" );
-               }
+               appendOption( buff, option, option.isRequired() );
+           }
+           
+           if( i.hasNext() ){
                buff.append( " " );
            }
        }
@@ -294,6 +270,67 @@ public class HelpFormatter
        printWrapped( pw, width, buff.toString().indexOf(' ')+1,
                      buff.toString() );
    }
+   
+   /**
+    * Appends the usage clause for an OptionGroup to a StringBuffer.  
+    * The clause is wrapped in square brackets if the group is required.
+    * The display of the options is handled by appendOption
+    * @param buff the StringBuffer to append to
+    * @param group the group to append
+    * @see #appendOption(StringBuffer,Option,boolean)
+    */
+   private static void appendOptionGroup( final StringBuffer buff, final OptionGroup group )
+   {
+       if( !group.isRequired() ) {
+           buff.append( "[" ); 
+       }
+
+       // for each option in the OptionGroup
+       for( Iterator i = group.getOptions().iterator(); i.hasNext(); ) {
+           // whether the option is required or not is handled at group level
+           appendOption( buff, (Option)i.next(), true);
+           if( i.hasNext() ) {
+               buff.append( " | " );
+           }
+       }
+       
+       if( !group.isRequired() ) {
+           buff.append( "]" ); 
+       }
+   }
+   
+   /**
+    * Appends the usage clause for an Option to a StringBuffer.  
+    * The clause is wrapped in square brackets if the group is required.
+    * The display of the options is handled by appendOption
+    * @param buff the StringBuffer to append to
+    * @param group the group to append
+    * @see #appendOption(StringBuffer,Option,boolean)
+    */
+   private static void appendOption( final StringBuffer buff, final Option option, final boolean required)
+   {
+       if( !required ) {
+           buff.append( "[" );
+       }
+
+       if( option.getOpt() != null ) {
+           buff.append( "-" ).append( option.getOpt() );
+       }
+       else {
+           buff.append( "--" ).append( option.getLongOpt() );
+       }
+
+       // if the Option has a value
+       if( option.hasArg() && option.getArgName() != null ) {
+           buff.append( " <" ).append( option.getArgName() ).append( ">" );
+       }
+
+       // if the Option is not a required option
+       if( !required ) {
+           buff.append( "]" );
+       }
+   }
+       
 
    public void printUsage( PrintWriter pw, int width, String cmdLineSyntax )
    {
@@ -346,7 +383,7 @@ public class HelpFormatter
          option = (Option) i.next();
          optBuf = new StringBuffer(8);
 
-         if (option.getOpt().equals(" "))
+         if ( option.getOpt() == null )
          {
              optBuf.append(lpad).append("   " + defaultLongOptPrefix).append(option.getLongOpt());
          }
@@ -362,7 +399,7 @@ public class HelpFormatter
 
          if( option.hasArg() ) {
              if( option.hasArgName() ) {
-                 optBuf.append(" <").append( option.getArgName() ).append( '>' );
+                 optBuf.append(" <").append( option.getArgName() ).append( ">" );
              }
              else {
                  optBuf.append(' ');
