@@ -46,7 +46,7 @@
         expected.
       </p>
       <p>
-        The rest of the documentation is split into the followin three sections:
+        The rest of the documentation is split into the following three sections:
         <ul>
           <li><a href="manual/index.html">CLI2</a> - a reference manual for version 2</li>
           <li><a href="introduction.html">CLI1</a> - documentation for version 1 </li>
@@ -64,6 +64,40 @@
         </ul>
       </p>
     </section>
+    <section name="Dependancies">
+      <p>
+        The generated list of <a href="dependencies.html">dependencies</a> 
+        lists the libraries needed to compile and test Commons CLI.  To use 
+        the precompiled distribution none of these dependancies are strictly 
+        necessary.  The following is a breakdown of what is required and when:
+      </p>
+      <table>
+        <tr>
+          <th>Library</th><th>Usage</th>
+        </tr>
+        <tr>
+          <td>Java 1.2</td>
+          <td>This is the minimum java level needed to use CLI2</td>
+        </tr>
+        <tr>
+          <td>Java 1.4</td>
+          <td>Needed if the PreferencesCommandLine is needed</td>
+        </tr>
+        <tr>
+          <td>commons-lang</td>
+          <td>Needed if the CLI1 package is being used</td>
+        </tr>
+        <tr>
+          <td>jdepend</td>
+          <td>Needed to build and test CLI2 only</td>
+        </tr>
+        <tr>
+          <td>junit</td>
+          <td>Needed to build and test CLI1 and CLI2</td>
+        </tr>
+      </table>
+    </section>
+    
   </body>
 
 </document>
