@@ -397,67 +397,67 @@ public class CpTest extends TestCase {
             "OPTIONS                                                                         ",
             in.readLine());
         assertEquals(
-            "  -a (--archive)            same as -dpR                                        ",
+            "  -a (--archive)                same as -dpR                                    ",
             in.readLine());
         assertEquals(
-            "  -b (--backup)             make backup before removal                          ",
+            "  -b (--backup)                 make backup before removal                      ",
             in.readLine());
         assertEquals(
-            "  -d (--no-dereference)     preserve links                                      ",
+            "  -d (--no-dereference)         preserve links                                  ",
             in.readLine());
         assertEquals(
-            "  -f (--force)              remove existing destinations, never prompt          ",
+            "  -f (--force)                  remove existing destinations, never prompt      ",
             in.readLine());
         assertEquals(
-            "  -i (--interactive)        prompt before overwrite                             ",
+            "  -i (--interactive)            prompt before overwrite                         ",
             in.readLine());
         assertEquals(
-            "  -l (--link)               link files instead of copying                       ",
+            "  -l (--link)                   link files instead of copying                   ",
             in.readLine());
         assertEquals(
-            "  -p (--preserve)           preserve file attributes if possible                ",
+            "  -p (--preserve)               preserve file attributes if possible            ",
             in.readLine());
         assertEquals(
-            "  -P (--parents)            append source path to DIRECTORY                     ",
+            "  -P (--parents)                append source path to DIRECTORY                 ",
             in.readLine());
         assertEquals(
-            "  -r                        copy recursively, non-directories as files          ",
+            "  -r                            copy recursively, non-directories as files      ",
             in.readLine());
         assertEquals(
-            "  --sparse                  control creation of sparse files                    ",
+            "  --sparse WHEN                 control creation of sparse files                ",
             in.readLine());
         assertEquals(
-            "  -R (--recursive)          copy directories recursively                        ",
+            "  -R (--recursive)              copy directories recursively                    ",
             in.readLine());
         assertEquals(
-            "  -s (--symbolic-link)      make symbolic links instead of copying              ",
+            "  -s (--symbolic-link)          make symbolic links instead of copying          ",
             in.readLine());
         assertEquals(
-            "  -S (--suffix)             override the usual backup suffix                    ",
+            "  -S (--suffix) SUFFIX          override the usual backup suffix                ",
             in.readLine());
         assertEquals(
-            "  -u (--update)             copy only when the SOURCE file is newer than the    ",
+            "  -u (--update)                 copy only when the SOURCE file is newer than    ",
             in.readLine());
         assertEquals(
-            "                            destination file or when the destination file is    ",
+            "                                the destination file or when the destination    ",
             in.readLine());
         assertEquals(
-            "                            missing                                             ",
+            "                                file is missing                                 ",
             in.readLine());
         assertEquals(
-            "  -v (--verbose)            explain what is being done                          ",
+            "  -v (--verbose)                explain what is being done                      ",
             in.readLine());
         assertEquals(
-            "  -V (--version-contol)     explain what is being done                          ",
+            "  -V (--version-contol) WORD    explain what is being done                      ",
             in.readLine());
         assertEquals(
-            "  -x (--one-file-system)    stay on this file system                            ",
+            "  -x (--one-file-system)        stay on this file system                        ",
             in.readLine());
         assertEquals(
-            "  --help                    display this help and exit                          ",
+            "  --help                        display this help and exit                      ",
             in.readLine());
         assertEquals(
-            "  --version                 output version information and exit                 ",
+            "  --version                     output version information and exit             ",
             in.readLine());
         assertEquals(
             "  SOURCE [SOURCE ...]                                                           ",

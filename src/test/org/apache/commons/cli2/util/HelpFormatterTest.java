@@ -199,7 +199,6 @@ public class HelpFormatterTest extends TestCase {
         helpFormatter.setGroup(options);
         helpFormatter.setPrintWriter(new PrintWriter(writer));
         helpFormatter.printHelp();
-        System.out.println(writer);
         final BufferedReader reader =
             new BufferedReader(new StringReader(writer.toString()));
         assertEquals(
