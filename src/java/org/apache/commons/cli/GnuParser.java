@@ -23,7 +23,7 @@ import java.util.ArrayList;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.14 $
+ * @version $Revision$
  */
 public class GnuParser extends Parser {
 

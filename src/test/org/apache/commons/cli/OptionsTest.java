@@ -24,7 +24,7 @@ import junit.framework.TestSuite;
 
 /**
  * @author Rob Oxspring roxspring@apache.org
- * @version $Revision: 1.4 $
+ * @version $Revision$
  */
 public class OptionsTest extends TestCase
 {

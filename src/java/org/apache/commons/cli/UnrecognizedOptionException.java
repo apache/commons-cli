@@ -20,7 +20,7 @@ package org.apache.commons.cli;
  * option was seen.<p>
  *
  * @author bob mcwhiter (bob @ werken.com)
- * @version $Revision: 1.2 $
+ * @version $Revision$
  */
 public class UnrecognizedOptionException
     extends ParseException {

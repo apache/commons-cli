@@ -21,7 +21,7 @@ import junit.framework.TestSuite;
 
 /**
  * @author John Keyes (john at integralsource.com)
- * @version $Revision: 1.1 $
+ * @version $Revision$
  */
 public class OptionGroupTest extends TestCase
 {

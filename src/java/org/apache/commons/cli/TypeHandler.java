@@ -31,7 +31,7 @@ import org.apache.commons.lang.NumberUtils;
   * alreayd. BeanUtils I think.
   *
   * @author Henri Yandell (bayard @ generationjava.com)
-  * @version $Revision: 1.2 $
+  * @version $Revision$
   */
 public class TypeHandler {
 

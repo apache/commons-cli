@@ -22,7 +22,7 @@ import java.util.Iterator;
 /**
  * A group of mutually exclusive options.
  * @author John Keyes ( john at integralsource.com )
- * @version $Revision: 1.2 $
+ * @version $Revision$
  */
 public class OptionGroup {
 

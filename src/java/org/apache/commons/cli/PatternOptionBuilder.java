@@ -42,7 +42,7 @@ package org.apache.commons.cli;
  * </p>
  *
  * @author Henri Yandell (bayard @ generationjava.com)
- * @version $Revision: 1.2 $
+ * @version $Revision$
  */
 public class PatternOptionBuilder {
 

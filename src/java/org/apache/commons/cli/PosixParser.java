@@ -25,7 +25,7 @@ import java.util.Iterator;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.16 $
+ * @version $Revision$
  */
 public class PosixParser extends Parser {
 

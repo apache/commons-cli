@@ -27,7 +27,7 @@ import java.util.Properties;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.18 $
+ * @version $Revision$
  */
 public abstract class Parser implements CommandLineParser {
 
