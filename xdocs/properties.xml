@@ -25,9 +25,9 @@
     <section name="Option Properties">
       <p>
         The following are the properties that each 
-        <a href="apidocs/org/apache/commons/cli/Options.html">Option</a> has.  All of these
+        <a href="apidocs/org/apache/commons/cli/Option.html">Option</a> has.  All of these
         can be set using the accessors or using the methods
-        defined on the
+        defined in the
         <a href="apidocs/org/apache/commons/cli/OptionBuilder.html">OptionBuilder</a>.
       </p>
       <table>

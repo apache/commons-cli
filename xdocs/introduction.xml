@@ -38,9 +38,9 @@
       <p>
         CLI uses the <a href="apidocs/org/apache/commons/cli/Options.html">
         Options</a> class, as a container for 
-        <a href="apidocs/org/apache/commons/cli/Options.html">
+        <a href="apidocs/org/apache/commons/cli/Option.html">
         Option</a> instances.  There are two ways to create
-        <code>Option</code>s in CLI.  One of them is via the constuctors,
+        <code>Option</code>s in CLI.  One of them is via the constructors,
         the other way is via the factory methods defined in 
         <code>Options</code>.
       </p>
@@ -79,17 +79,13 @@
       <p>
         The interrogation stage is where the application querys the
         <code>CommandLine</code> to decide what execution branch to
-        take depending on boolean options and to use the option values
+        take depending on boolean options and uses the option values
         to provide the application data.
       </p>
       <p>
         This stage is implemented in the user code.  The accessor methods 
         on <code>CommandLine</code> provide the interrogation capability
         to the user code.
-      </p>
-      <p>
-        The <a href="usage.html">Usage Scenarios</a> document provides examples
-        how to create an <code>Options</code> object.
       </p>
       <p>
         The result of the interrogation stage is that the user code 
