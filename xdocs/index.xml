@@ -53,6 +53,16 @@
           <li><a href="examples/index.html">Examples</a> - a selection of worked examples demonstrating CLI2 features</li>
         </ul>
       </p>
+      <p>
+        The latest version of this documentation is available on the web:
+        <ul>
+          <li><a href="http://jakarta.apache.org/commons/cli/">http://jakarta.apache.org/commons/cli/</a></li>
+          <li>
+            <a href="http://jakarta.apache.org/commons/cli/commons-cli.pdf">http://jakarta.apache.org/commons/cli/commons-cli.pdf</a> 
+            <a href="http://jakarta.apache.org/commons/cli/commons-cli.pdf"><img border="0" src="images/pdf.gif"/></a> 
+          </li>
+        </ul>
+      </p>
     </section>
   </body>
 
