@@ -79,7 +79,7 @@ public class HelpFormatter
 {
    // --------------------------------------------------------------- Constants
 
-   public static final int DEFAULT_WIDTH              = 80;
+   public static final int DEFAULT_WIDTH              = 74;
    public static final int DEFAULT_LEFT_PAD           = 1;
    public static final int DEFAULT_DESC_PAD           = 3;
    public static final String DEFAULT_SYNTAX_PREFIX   = "usage: ";
@@ -277,10 +277,7 @@ public class HelpFormatter
                    buff.append( "--" ).append( option.getLongOpt() );
                }
 
-               if( option.getValueSeparator() != (char)0 ) {
-                   buff.append( option.getValueSeparator() );
-               }
-               else if( option.hasArg() ){
+               if( option.hasArg() ){
                    buff.append( " " );
                }
 
@@ -347,7 +344,7 @@ public class HelpFormatter
       List prefixList = new ArrayList();
       Option option;
       List optList = options.helpOptions();
-       Collections.sort( optList, new StringBufferComparator() );
+      Collections.sort( optList, new StringBufferComparator() );
       for ( Iterator i = optList.iterator(); i.hasNext(); )
       {
          option = (Option) i.next();
@@ -369,7 +366,7 @@ public class HelpFormatter
 
          if( option.hasArg() ) {
              if( option.hasArgName() ) {
-                 optBuf.append( option.getArgName() );
+                 optBuf.append(" <").append( option.getArgName() ).append( '>' );
              }
              else {
                  optBuf.append(' ');
@@ -378,12 +375,18 @@ public class HelpFormatter
 
          prefixList.add(optBuf);
          max = optBuf.length() > max ? optBuf.length() : max;
+      }
+      int x = 0;
+      for ( Iterator i = optList.iterator(); i.hasNext(); )
+      {
+         option = (Option) i.next();
+         optBuf = new StringBuffer( prefixList.get( x++ ).toString() );
 
          if ( optBuf.length() < max )
          {
-             optBuf.append(createPadding(max-optBuf.length()));
+             optBuf.append(createPadding(max - optBuf.length()));
          }
-         optBuf.append(dpad);
+         optBuf.append( dpad );
          
          int nextLineTabStop = max + descPad;
          renderWrappedText(sb, width, nextLineTabStop,
