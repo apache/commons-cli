@@ -9,6 +9,7 @@
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons CLI</shortDescription>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
+  <logo>/images/1x1.gif</logo>
   
   <description>
   	Commons CLI provides a simple API for working with the command line arguments and options.
