@@ -50,7 +50,7 @@
         The <code>parse</code> method defined on 
         <a href="apidocs/org/apache/commons/cli/CommandLineParser.html">
         CommandLineParser</a> takes an <code>Options</code>
-        instance and a <code>java.util.List</code> of arguments and 
+        instance and a <code>String[]</code> of arguments and 
         returns a 
         <a href="apidocs/org/apache/commons/cli/CommandLine.html">
         CommandLine</a>.
