@@ -314,9 +314,6 @@ public class Option implements Cloneable {
      * an optional argument.
      */
     public void setOptionalArg( boolean optionalArg ) {
-        if( optionalArg ) {
-            this.numberOfArgs = 1;
-        }
         this.optionalArg = optionalArg;
     }
 

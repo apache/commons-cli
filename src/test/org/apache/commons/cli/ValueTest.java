@@ -19,17 +19,11 @@ public class ValueTest extends TestCase
 
     public static Test suite() { 
         return new TestSuite(ValueTest.class); 
-        /*
-        TestSuite suite = new TestSuite();
-
-        suite.addTest( new ValueTest("testLongNoArg") );
-
-        return suite;
-        */
     }
 
     private CommandLine _cl = null;
-
+    private CommandLine _clOptional = null;
+    private Options opts = new Options();
 
     public ValueTest(String name)
     {
@@ -38,7 +32,6 @@ public class ValueTest extends TestCase
 
     public void setUp()
     {
-        Options opts = new Options();
         opts.addOption("a",
                        false,
                        "toggle -a");
@@ -57,10 +50,32 @@ public class ValueTest extends TestCase
                        true,
                        "set -d");
 
+        opts.addOption( OptionBuilder.hasOptionalArg()
+                        .create( 'e') );
+
+        opts.addOption( OptionBuilder.hasOptionalArg()
+                        .withLongOpt( "fish" )
+                        .create( ) );
+
+        opts.addOption( OptionBuilder.hasOptionalArgs()
+                        .withLongOpt( "gravy" )
+                        .create( ) );
+
+        opts.addOption( OptionBuilder.hasOptionalArgs( 2 )
+                        .withLongOpt( "hide" )
+                        .create( ) );
+
+        opts.addOption( OptionBuilder.hasOptionalArgs( 2 )
+                        .create( 'i' ) );
+
+        opts.addOption( OptionBuilder.hasOptionalArgs( )
+                        .create( 'j' ) );
+
         String[] args = new String[] { "-a",
-                                       "-b", "foo",
-                                       "--c",
-                                       "--d", "bar" };
+            "-b", "foo",
+            "--c",
+            "--d", "bar" 
+        };
 
         try
         {
@@ -102,5 +117,156 @@ public class ValueTest extends TestCase
         assertTrue( _cl.hasOption("d") );
         assertNotNull( _cl.getOptionValue("d") );
         assertEquals( _cl.getOptionValue("d"), "bar");
+    }
+
+    public void testShortOptionalArgNoValue()
+    {
+        String[] args = new String[] { "-e"
+        };
+        try
+        {
+            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLine cmd = parser.parse(opts,args);
+            assertTrue( cmd.hasOption("e") );
+            assertNull( cmd.getOptionValue("e") );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+    }
+
+    public void testShortOptionalArgValue()
+    {
+        String[] args = new String[] { "-e", "everything"
+        };
+        try
+        {
+            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLine cmd = parser.parse(opts,args);
+            assertTrue( cmd.hasOption("e") );
+            assertEquals( "everything", cmd.getOptionValue("e") );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+    }
+
+    public void testLongOptionalNoValue()
+    {
+        String[] args = new String[] { "--fish"
+        };
+        try
+        {
+            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLine cmd = parser.parse(opts,args);
+            assertTrue( cmd.hasOption("fish") );
+            assertNull( cmd.getOptionValue("fish") );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+    }
+
+    public void testLongOptionalArgValue()
+    {
+        String[] args = new String[] { "--fish", "face"
+        };
+        try
+        {
+            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLine cmd = parser.parse(opts,args);
+            assertTrue( cmd.hasOption("fish") );
+            assertEquals( "face", cmd.getOptionValue("fish") );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+    }
+
+    public void testShortOptionalArgValues()
+    {
+        String[] args = new String[] { "-j", "ink", "idea"
+        };
+        try
+        {
+            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLine cmd = parser.parse(opts,args);
+            assertTrue( cmd.hasOption("j") );
+            assertEquals( "ink", cmd.getOptionValue("j") );
+            assertEquals( "ink", cmd.getOptionValues("j")[0] );
+            assertEquals( "idea", cmd.getOptionValues("j")[1] );
+            assertEquals( cmd.getArgs().length, 0 );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+    }
+
+    public void testLongOptionalArgValues()
+    {
+        String[] args = new String[] { "--gravy", "gold", "garden"
+        };
+        try
+        {
+            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLine cmd = parser.parse(opts,args);
+            assertTrue( cmd.hasOption("gravy") );
+            assertEquals( "gold", cmd.getOptionValue("gravy") );
+            assertEquals( "gold", cmd.getOptionValues("gravy")[0] );
+            assertEquals( "garden", cmd.getOptionValues("gravy")[1] );
+            assertEquals( cmd.getArgs().length, 0 );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+    }
+
+    public void testShortOptionalNArgValues()
+    {
+        String[] args = new String[] { "-i", "ink", "idea", "isotope", "ice"
+        };
+        try
+        {
+            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLine cmd = parser.parse(opts,args);
+            assertTrue( cmd.hasOption("i") );
+            assertEquals( "ink", cmd.getOptionValue("i") );
+            assertEquals( "ink", cmd.getOptionValues("i")[0] );
+            assertEquals( "idea", cmd.getOptionValues("i")[1] );
+            assertEquals( cmd.getArgs().length, 2 );
+            assertEquals( "isotope", cmd.getArgs()[0] );
+            assertEquals( "ice", cmd.getArgs()[1] );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+    }
+
+    public void testLongOptionalNArgValues()
+    {
+        String[] args = new String[] { "--hide", "house", "hair", "head"
+        };
+        try
+        {
+            CommandLineParser parser = CommandLineParserFactory.newParser();
+            CommandLine cmd = parser.parse(opts,args);
+            assertTrue( cmd.hasOption("hide") );
+            assertEquals( "house", cmd.getOptionValue("hide") );
+            assertEquals( "house", cmd.getOptionValues("hide")[0] );
+            assertEquals( "hair", cmd.getOptionValues("hide")[1] );
+            assertEquals( cmd.getArgs().length, 1 );
+            assertEquals( "head", cmd.getArgs()[0] );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
     }
 }

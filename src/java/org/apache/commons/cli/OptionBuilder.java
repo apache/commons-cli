@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.8 2002/09/09 19:48:13 jkeyes Exp $
- * $Revision: 1.8 $
- * $Date: 2002/09/09 19:48:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.9 2002/09/10 21:35:57 jkeyes Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/09/10 21:35:57 $
  *
  * ====================================================================
  *
@@ -234,6 +234,33 @@ public class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder hasOptionalArg( ) {
+        instance.numberOfArgs = 1;
+        instance.optionalArg = true;
+        return instance;
+    }
+
+    /**
+     * <p>The next Option can have an unlimited number of
+     * optional arguments.</p>
+     *
+     * @return the OptionBuilder instance
+     */
+    public static OptionBuilder hasOptionalArgs( ) {
+        instance.numberOfArgs = Option.UNLIMITED_VALUES;
+        instance.optionalArg = true;
+        return instance;
+    }
+
+    /**
+     * <p>The next Option can have the specified number of 
+     * optional arguments.</p>
+     *
+     * @param numArgs - the maximum number of optional arguments
+     * the next Option created can have.
+     * @return the OptionBuilder instance
+     */
+    public static OptionBuilder hasOptionalArgs( int numArgs ) {
+        instance.numberOfArgs = numArgs;
         instance.optionalArg = true;
         return instance;
     }
@@ -277,6 +304,24 @@ public class OptionBuilder {
     }
 
     /**
+     * <p>Create an Option using the current settings</p>
+     *
+     * @return the Option instance
+     * @throws IllegalArgumentException if <code>longOpt</code> has
+     * not been set.  
+     * @see Option.
+     */
+    public static Option create() 
+    throws IllegalArgumentException
+    {
+        if( longopt == null ) {
+            throw new IllegalArgumentException( "must specify longopt" );
+        }
+
+        return create( " " );
+    }
+
+    /**
      * <p>Create an Option using the current settings and with 
      * the specified Option <code>char</code>.</p>
      *
@@ -304,23 +349,5 @@ public class OptionBuilder {
 
         // return the Option instance
         return option;
-    }
-
-    /**
-     * <p>Create an Option using the current settings</p>
-     *
-     * @return the Option instance
-     * @throws IllegalArgumentException if <code>longOpt</code> has
-     * not been set.  
-     * @see Option.
-     */
-    public static Option create() 
-    throws IllegalArgumentException
-    {
-        if( longopt == null ) {
-            throw new IllegalArgumentException( "must specify longopt" );
-        }
-
-        return create( " " );
     }
 }
