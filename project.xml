@@ -1,27 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright 2001-2004 The Apache Software Foundation
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
 <project>
-  <extend>../commons-build/project.xml</extend>
+  <pomVersion>3</pomVersion>
   <id>commons-cli</id>
   <name>CLI</name>
-
   <currentVersion>1.0</currentVersion>
-
-  <organization>
-    <name>Apache Software Foundation</name>
-    <url>http://www.apache.org</url>
-    <logo>http://jakarta.apache.org/images/jakarta-logo.gif</logo>
-  </organization>
-
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons CLI</shortDescription>
-  <gumpRepositoryId>jakarta</gumpRepositoryId>
+  <description>Commons CLI provides a simple API for working with the command line arguments and options.</description>
   <logo>/images/logo.png</logo>
   
-  <description>
-  	Commons CLI provides a simple API for working with the command line arguments and options.
-  </description>
+  <url>http://jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</url>
+  <package>org.apache.commons.${pom.artifactId.substring(8)}</package>
+
+  <organization>
+    <name>The Apache Software Foundation</name>
+    <url>http://jakarta.apache.org</url>
+    <logo>http://jakarta.apache.org/images/original-jakarta-logo.gif</logo>
+  </organization>
   
+  <licenses>
+	<license>
+    	<name>The Apache Software License, Version 2.0</name>
+    	<url>/LICENSE.txt</url>
+    	<distribution>repo</distribution>
+	</license>
+  </licenses>
+  
+  <gumpRepositoryId>jakarta</gumpRepositoryId>
+  <issueTrackingUrl>http://issues.apache.org/bugzilla/</issueTrackingUrl>
+  <siteAddress>jakarta.apache.org</siteAddress>
+  <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
+  
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/${pom.artifactId.substring(8)}</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/${pom.artifactId.substring(8)}/</url>
+  </repository>
+  
+  <mailingLists>
+    <mailingList>
+      <name>Commons Dev List</name>
+      <subscribe>commons-dev-subscribe@jakarta.apache.org</subscribe>
+      <unsubscribe>commons-dev-unsubscribe@jakarta.apache.org</unsubscribe>
+      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-dev@jakarta.apache.org</archive>
+    </mailingList>
+    <mailingList>
+      <name>Commons User List</name>
+      <subscribe>commons-user-subscribe@jakarta.apache.org</subscribe>
+      <unsubscribe>commons-user-unsubscribe@jakarta.apache.org</unsubscribe>
+      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-user@jakarta.apache.org</archive>
+    </mailingList>
+  </mailingLists>
+
   <developers>
     <developer>
       <name>James Strachan</name>
@@ -82,16 +127,35 @@
     </dependency>
   
   </dependencies>
+
   
-  <build>
-    <!-- Unit test classes -->
-    <unitTest>
-      <includes>
-        <include>**/*Test*.java</include>
-      </includes>
-    </unitTest>
-  </build>
-  
+   <build>
+    	<nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
+    	<sourceDirectory>src/java</sourceDirectory>
+    	<unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    	<integrationUnitTestSourceDirectory/>
+    	<aspectSourceDirectory/>
+
+    	<!-- Unit test classes -->
+    	<unitTest>
+            <directory>${pom.build.unitTestSourceDirectory}</directory>
+            <includes>
+                <include>**/*Test*.java</include>
+            </includes>
+        </unitTest>
+
+    	<!-- Integration unit test classes -->
+    	<integrationUnitTestPatterns></integrationUnitTestPatterns>
+    
+    	<resources>
+      		<includes>
+       			<include>**/*.properties</include>
+      		</includes>
+    	</resources>
+    	<jars/>
+  	</build>
+  	
+  	
     <reports>
   	<report>maven-changelog-plugin</report>
    	<report>maven-changes-plugin</report>
