@@ -78,6 +78,9 @@ public class OptionGroup {
     /** the name of the selected option */
     private String selected;
 
+    /** specified whether this group is required */
+    private boolean required;
+
     /**
      * add <code>opt</code> to this group
      *
@@ -134,6 +137,22 @@ public class OptionGroup {
      */
     public String getSelected() {
         return selected;
+    }
+
+    /**
+     * @param required specifies if this group is required
+     */
+    public void setRequired( boolean required ) {
+        this.required = required;
+    }
+
+    /**
+     * Returns whether this option group is required.
+     *
+     * @returns whether this option group is required
+     */
+    public boolean isRequired() {
+        return this.required;
     }
 
     /**

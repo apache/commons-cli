@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.6 2002/10/08 21:24:11 jkeyes Exp $
- * $Revision: 1.6 $
- * $Date: 2002/10/08 21:24:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.7 2002/10/24 23:17:49 jkeyes Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/10/24 23:17:49 $
  *
  * ====================================================================
  *
@@ -72,7 +72,7 @@ import java.util.Map;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public abstract class Parser implements CommandLineParser {
 
@@ -265,7 +265,11 @@ public abstract class Parser implements CommandLineParser {
         // if the option is in an OptionGroup make that option the selected
         // option of the group
         if ( options.getOptionGroup( opt ) != null ) {
-            ( (OptionGroup)( options.getOptionGroup( opt ) ) ).setSelected( opt );
+            OptionGroup group = ( OptionGroup ) options.getOptionGroup( opt );
+            if( group.isRequired() ) {
+                requiredOptions.remove( group );
+            }
+            group.setSelected( opt );
         }
 
         // if the option takes an argument value
