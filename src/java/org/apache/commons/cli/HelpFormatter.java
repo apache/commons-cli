@@ -338,11 +338,22 @@ public class HelpFormatter
       {
          option = (Option) i.next();
          optBuf = new StringBuffer(8);
-         optBuf.append(lpad).append(defaultOptPrefix).append(option.getOpt());
-         if ( option.hasLongOpt() )
+
+         if (option.getOpt().equals(" "))
          {
-            optBuf.append(',').append(defaultLongOptPrefix).append(option.getLongOpt());
+             optBuf.append(lpad).append("   " + defaultLongOptPrefix).append(option.getLongOpt());
          }
+         else
+         {
+             optBuf.append(lpad).append(defaultOptPrefix).append(option.getOpt());
+             if ( option.hasLongOpt() )
+             {
+                optBuf.append(',').append(defaultLongOptPrefix).append(option.getLongOpt());
+             }
+
+         }
+
+
          if ( option.hasArg() )
          {
             //FIXME - should have a way to specify arg name per option
@@ -374,14 +385,11 @@ public class HelpFormatter
       for ( Iterator i = prefixList.iterator(); i.hasNext(); )
       {
          optBuf = (StringBuffer) i.next();
-         opt = optBuf.toString();
+         opt = optBuf.toString().trim();
          if( opt.indexOf( ',' ) != -1 ) {
-             opt = opt.substring( optOffset, opt.indexOf( ',', optOffset ) );
+             opt = opt.substring(0, opt.indexOf( ',', optOffset ) );
          }
-         else {
-             opt = opt.substring( optOffset, opt.indexOf( ' ', optOffset ) );
-         }
-         option = options.getOption( "-" + opt );
+         option = options.getOption(opt);
 
          renderWrappedText(sb, width, nextLineTabStop,
                            optBuf.append(option.getDescription()).toString());
@@ -509,12 +517,26 @@ public class HelpFormatter
    
    // ----------------------------------------------------------- Inner classes
 
-   private static class StringBufferComparator
-   implements Comparator
-   {
-      public int compare( Object o1, Object o2 )
-      {
-         return ((StringBuffer) o1).toString().compareTo(((StringBuffer) o2).toString());
-      }
-   }
+    private static class StringBufferComparator
+    implements Comparator
+    {
+        public int compare( Object o1, Object o2 )
+        {
+            String str1 = stripPrefix(o1.toString());
+            String str2 = stripPrefix(o2.toString());
+            return (str1.compareTo(str2));
+        }
+
+        private String stripPrefix(String strOption)
+        {
+            // Strip any leading '-' characters
+            int iStartIndex = strOption.lastIndexOf('-');
+            if (iStartIndex == -1)
+            {
+              iStartIndex = 0;
+            }
+            return strOption.substring(iStartIndex);
+
+        }
+    }
 }
