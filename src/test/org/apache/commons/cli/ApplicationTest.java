@@ -50,7 +50,7 @@ public class ApplicationTest extends TestCase {
         options.addOption( "buildfile", true, "use given buildfile" );
         options.addOption( OptionBuilder.withDescription( "use value for given property" )
                                         .hasArg()
-                                        .hasMultipleArgs()
+                                        .hasArgs()
                                         .create( 'D' ) );
                            //, null, true, , false, true );
         options.addOption( "find", true, "search for buildfile towards the root of the filesystem and use it" );

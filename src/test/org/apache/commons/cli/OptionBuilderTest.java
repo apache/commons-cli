@@ -24,7 +24,7 @@ public class OptionBuilderTest extends TestCase {
         Option simple = OptionBuilder.withLongOpt( "simple option")
                                      .hasArg( )
                                      .isRequired( )
-                                     .hasMultipleArgs( )
+                                     .hasArgs( )
                                      .withType( new Float( 10 ) )
                                      .withDescription( "this is a simple option" )
                                      .create( 's' );
@@ -35,14 +35,14 @@ public class OptionBuilderTest extends TestCase {
         assertEquals( simple.getType().getClass(), Float.class );
         assertTrue( simple.hasArg() );
         assertTrue( simple.isRequired() );
-        assertTrue( simple.hasMultipleArgs() );
+        assertTrue( simple.hasArgs() );
     }
 
     public void testTwoCompleteOptions( ) {
         Option simple = OptionBuilder.withLongOpt( "simple option")
                                      .hasArg( )
                                      .isRequired( )
-                                     .hasMultipleArgs( )
+                                     .hasArgs( )
                                      .withType( new Float( 10 ) )
                                      .withDescription( "this is a simple option" )
                                      .create( 's' );
@@ -53,7 +53,7 @@ public class OptionBuilderTest extends TestCase {
         assertEquals( simple.getType().getClass(), Float.class );
         assertTrue( simple.hasArg() );
         assertTrue( simple.isRequired() );
-        assertTrue( simple.hasMultipleArgs() );
+        assertTrue( simple.hasArgs() );
 
         simple = OptionBuilder.withLongOpt( "dimple option")
                               .hasArg( )
@@ -66,7 +66,7 @@ public class OptionBuilderTest extends TestCase {
         assertNull( simple.getType() );
         assertTrue( simple.hasArg() );
         assertTrue( !simple.isRequired() );
-        assertTrue( !simple.hasMultipleArgs() );
+        assertTrue( !simple.hasArgs() );
     }
 
     public void testBaseOptionCharOpt() {
@@ -108,6 +108,13 @@ public class OptionBuilderTest extends TestCase {
         catch( IllegalArgumentException arg ) {
             fail( "IllegalArgumentException caught" );
         }
+    }
+
+    public void testOptionArgNumbers() {
+        Option opt = OptionBuilder.withDescription( "option description" )
+                                  .hasArgs( 2 )
+                                  .create( 'o' );
+        assertEquals( 2, opt.getArgs() );
     }
 
     public void testIllegalOptions() {

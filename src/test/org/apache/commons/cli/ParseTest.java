@@ -31,9 +31,6 @@ public class ParseTest extends TestCase
 
     public void setUp()
     {
-        System.setProperty( "org.apache.commons.cli.parser",
-                            "org.apache.commons.cli.PosixParser");
-
         _options = new Options()
             .addOption("a",
                        "enable-a",

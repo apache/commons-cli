@@ -10,35 +10,30 @@
 
 package org.apache.commons.cli;
 
+import java.util.Arrays;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 public class ValuesTest extends TestCase
 {
+    /** CommandLine instance */
+    private CommandLine _cmdline = null;
 
     public static Test suite() { 
-        return new TestSuite(ValuesTest.class); 
-        /*
-        TestSuite suite = new TestSuite();
-
-        suite.addTest( new ValueTest("testLongNoArg") );
-
-        return suite;
-        */
+        return new TestSuite( ValuesTest.class );
     }
 
-    private CommandLine _cl = null;
-
-
-    public ValuesTest(String name)
+    public ValuesTest( String name )
     {
-        super(name);
+        super( name );
     }
 
     public void setUp()
     {
         Options opts = new Options();
+
         opts.addOption("a",
                        false,
                        "toggle -a");
@@ -58,8 +53,7 @@ public class ValuesTest extends TestCase
                        "set -d");
         
         opts.addOption( OptionBuilder.withLongOpt( "e" )
-                                     .hasArg()
-                                     .hasMultipleArgs()
+                                     .hasArgs()
                                      .withDescription( "set -e ")
                                      .create( 'e' ) );
 
@@ -67,20 +61,37 @@ public class ValuesTest extends TestCase
                        "f",
                        false,
                        "jk");
+        
+        opts.addOption( OptionBuilder.withLongOpt( "g" )
+                        .hasArgs( 2 )
+                        .withDescription( "set -g")
+                        .create( 'g' ) );
 
+        opts.addOption( OptionBuilder.withLongOpt( "h" )
+                        .hasArgs( 2 )
+                        .withDescription( "set -h")
+                        .create( 'h' ) );
+
+        opts.addOption( OptionBuilder.withLongOpt( "i" )
+                        .withDescription( "set -i")
+                        .create( 'i' ) );
+        
         String[] args = new String[] { "-a",
                                        "-b", "foo",
                                        "--c",
                                        "--d", "bar",
                                        "-e", "one", "two",
                                        "-f",
-                                       "arg1", "arg2" };
+                                       "arg1", "arg2",
+                                       "-g", "val1", "val2" , "arg3",
+                                       "-h", "val1", "-i",
+                                       "-h", "val2" };
 
         CommandLineParser parser = CommandLineParserFactory.newParser();
 
         try
         {
-            _cl = parser.parse(opts,args);
+            _cmdline = parser.parse(opts,args);
         }
         catch (ParseException e)
         {
@@ -95,37 +106,56 @@ public class ValuesTest extends TestCase
 
     public void testShortArgs()
     {
-        assertTrue( _cl.hasOption("a") );
-        assertTrue( _cl.hasOption("c") );
+        assertTrue( _cmdline.hasOption("a") );
+        assertTrue( _cmdline.hasOption("c") );
 
-        assertNull( _cl.getOptionValues("a") );
-        assertNull( _cl.getOptionValues("c") );
+        assertNull( _cmdline.getOptionValues("a") );
+        assertNull( _cmdline.getOptionValues("c") );
     }
 
     public void testShortArgsWithValue()
     {
-        assertTrue( _cl.hasOption("b") );
-        assertTrue( _cl.getOptionValue("b").equals("foo"));
-        assertTrue( _cl.getOptionValues("b").length == 1);
+        assertTrue( _cmdline.hasOption("b") );
+        assertTrue( _cmdline.getOptionValue("b").equals("foo"));
+        assertTrue( _cmdline.getOptionValues("b").length == 1);
 
-        assertTrue( _cl.hasOption("d") );
-        assertTrue( _cl.getOptionValue("d").equals("bar"));
-        assertTrue( _cl.getOptionValues("d").length == 1);
+        assertTrue( _cmdline.hasOption("d") );
+        assertTrue( _cmdline.getOptionValue("d").equals("bar"));
+        assertTrue( _cmdline.getOptionValues("d").length == 1);
     }
 
     public void testMultipleArgValues()
     {
-        String[] result = _cl.getOptionValues("e");
+        String[] result = _cmdline.getOptionValues("e");
         String[] values = new String[] { "one", "two" };
-        assertTrue( _cl.hasOption("e") );
-        assertTrue( _cl.getOptionValues("e").length == 2);
-        assertTrue( java.util.Arrays.equals( values, _cl.getOptionValues("e") ) );
+        assertTrue( _cmdline.hasOption("e") );
+        assertTrue( _cmdline.getOptionValues("e").length == 2);
+        assertTrue( Arrays.equals( values, _cmdline.getOptionValues("e") ) );
+    }
+
+    public void testTwoArgValues()
+    {
+        String[] result = _cmdline.getOptionValues("g");
+        String[] values = new String[] { "val1", "val2" };
+        assertTrue( _cmdline.hasOption("g") );
+        assertTrue( _cmdline.getOptionValues("g").length == 2);
+        assertTrue( Arrays.equals( values, _cmdline.getOptionValues("g") ) );
+    }
+
+    public void testComplexValues()
+    {
+        String[] result = _cmdline.getOptionValues("h");
+        String[] values = new String[] { "val1", "val2" };
+        assertTrue( _cmdline.hasOption("i") );
+        assertTrue( _cmdline.hasOption("h") );
+        assertTrue( _cmdline.getOptionValues("h").length == 2);
+        assertTrue( Arrays.equals( values, _cmdline.getOptionValues("h") ) );
     }
 
     public void testExtraArgs()
     {
-        String[] args = new String[] { "arg1", "arg2" };
-        assertTrue( _cl.getArgs().length == 2);
-        assertTrue( java.util.Arrays.equals( args, _cl.getArgs() ) );
+        String[] args = new String[] { "arg1", "arg2", "arg3" };
+        assertTrue( _cmdline.getArgs().length == 3 );
+        assertTrue( Arrays.equals( args, _cmdline.getArgs() ) );
     }
 }

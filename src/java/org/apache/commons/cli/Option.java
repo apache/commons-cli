@@ -106,8 +106,15 @@ public class Option {
     /** required specifies whether this option is required to be present */
     private boolean    required     = false;
 
-    /** multipleArgs specifies whether this option has multiple argument values */
-    private boolean    multipleArgs = false;   
+    /** 
+     * numberOfArgs specifies the number of argument values this option 
+     * can have 
+     */
+    private int    numberOfArgs = UNINITIALIZED;   
+
+    /** number of arguments constants */
+    public final static int UNINITIALIZED = -1;
+    public final static int UNLIMITED_VALUES = -2;
 
     /** the type of this Option */
     private Object     type         = null;   
@@ -115,6 +122,8 @@ public class Option {
     /** ?? **/
     private ArrayList  values       = new ArrayList();
     
+    /** option char (only valid for single character options) */
+    private char id;
 
     private void validateOption( String opt ) 
     throws IllegalArgumentException
@@ -127,6 +136,7 @@ public class Option {
                 throw new IllegalArgumentException( "illegal option value '" 
                                                     + opt.charAt( 0 ) + "'" );
             }
+            id = opt.charAt( 0 );
         }
         else {
             char[] chars = opt.toCharArray();
@@ -153,6 +163,24 @@ public class Option {
         }
         return true;
     }
+
+    public int getId( ) {
+        return id;
+    }
+
+    /**
+     * Creates an Option using the specified parameters.
+     *
+     * @param opt short representation of the option
+     * @param hasArg specifies whether the Option takes an argument or not
+     * @param description describes the function of the option
+     */
+    public Option(String opt, String description) 
+    throws IllegalArgumentException
+    {
+        this(opt, null, false, description);
+    }
+
     /**
      * Creates an Option using the specified parameters.
      *
@@ -181,6 +209,10 @@ public class Option {
 
         this.opt          = opt;
         this.longOpt      = longOpt;
+
+        if( hasArg ) {
+            this.numberOfArgs = 1;
+        }
         this.hasArg       = hasArg;
         this.description  = description;
     }
@@ -236,7 +268,7 @@ public class Option {
      * @return boolean flag indicating if an argument is required
      */
     public boolean hasArg() {
-        return this.hasArg;
+        return this.numberOfArgs > 0 || numberOfArgs == UNLIMITED_VALUES;
     }
     
     /** <p>Retrieve the self-documenting description of this Option</p>
@@ -259,16 +291,28 @@ public class Option {
          this.required = required;
      }
 
-     /** <p>Query to see if this Option can take multiple values</p>
+     /** <p>Query to see if this Option can take many values</p>
       *
       * @return boolean flag indicating if multiple values are allowed
       */
-     public boolean hasMultipleArgs() {
-         return this.multipleArgs;
+     public boolean hasArgs() {
+         return ( this.numberOfArgs > 1 || this.numberOfArgs == UNLIMITED_VALUES );
      }
 
-     public void setMultipleArgs( boolean multipleArgs ) {
-         this.multipleArgs = multipleArgs;
+     /** <p>Sets the number of argument values this Option can take.</p>
+      *
+      * @param num the number of argument values
+      */
+     public void setArgs( int num ) {
+         this.numberOfArgs = num;
+     }
+
+     /** <p>Returns the number of argument values this Option can take.</p>
+      *
+      * @return num the number of argument values
+      */
+     public int getArgs( ) {
+         return this.numberOfArgs;
      }
 
     /** <p>Dump state, suitable for debugging.</p>
@@ -308,8 +352,20 @@ public class Option {
      * 
      * @param value is a/the value of this Option
      */
-    public void addValue( String value ) {
-        this.values.add( value );
+    public boolean addValue( String value ) {
+        switch( numberOfArgs ) {
+            case UNINITIALIZED:
+                return false;
+            case UNLIMITED_VALUES:
+                this.values.add( value );
+                return true;
+            default:
+                if( values.size() > numberOfArgs-1 ) {
+                    return false;
+                }
+                this.values.add( value );
+                return true;
+        }
     }
 
     /**

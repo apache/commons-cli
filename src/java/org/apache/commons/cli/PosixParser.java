@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.3 2002/07/04 22:32:12 jkeyes Exp $
- * $Revision: 1.3 $
- * $Date: 2002/07/04 22:32:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.4 2002/08/03 23:45:09 jkeyes Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/08/03 23:45:09 $
  *
  * ====================================================================
  *
@@ -128,6 +128,7 @@ public class PosixParser implements CommandLineParser {
         
         // process each command line token
         while ( iter.hasNext() ) {
+
             // get the next command line token
             token = (String) iter.next();
             
@@ -183,10 +184,6 @@ public class PosixParser implements CommandLineParser {
                                 // add the argument value
                                 opt.addValue( token.substring(i+1) );
 
-                                // if the option takes multiple values
-                                if  (opt.hasMultipleArgs() ) {
-                                    processMultipleArgs( opt, iter );
-                                }
                                 // set the option 
                                 cmd.setOpt( opt );
 
@@ -260,12 +257,7 @@ public class PosixParser implements CommandLineParser {
 
         // if the option takes an argument value
         if ( opt.hasArg() ) {
-            if  (opt.hasMultipleArgs() ) {
-                processMultipleArgs( opt, iter );
-            }
-            else {
-                opt.addValue( (String)iter.next() );
-            }
+            processArgs( opt, iter );
         }
 
         // set the option on the command line
@@ -279,20 +271,28 @@ public class PosixParser implements CommandLineParser {
      * @param opt the specified option
      * @param iter the iterator over the command line tokens
      */
-    public void processMultipleArgs( Option opt, ListIterator iter ) {
+    public void processArgs( Option opt, ListIterator iter ) 
+    throws ParseException 
+    {
+        if( !iter.hasNext() ) {
+            throw new MissingArgumentException( "no argument for:" + opt.getOpt() );
+        }
         // loop until an option is found
         while( iter.hasNext() ) {
             String var = (String)iter.next();
 
             // its an option
-            if( var.startsWith( "-" ) ) {
+            if( !var.equals( "-" ) && var.startsWith( "-" ) ) {
                 // set the iterator pointer back a position
                 iter.previous();
                 break;
             }
             // its a value
             else {
-                opt.addValue( var );
+                if( !opt.addValue( var ) ) {
+                    iter.previous();
+                    break;
+                }
             }
         }
     }

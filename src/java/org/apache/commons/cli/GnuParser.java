@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.2 2002/07/04 22:32:12 jkeyes Exp $
- * $Revision: 1.2 $
- * $Date: 2002/07/04 22:32:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.3 2002/08/03 23:45:09 jkeyes Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/08/03 23:45:09 $
  *
  * ====================================================================
  *
@@ -126,7 +126,6 @@ public class GnuParser implements CommandLineParser {
 
         while ( iter.hasNext() ) {
             token = (String) iter.next();
-
             if ( token.equals("--") ) {
                 eatTheRest = true;
             }
@@ -181,20 +180,28 @@ public class GnuParser implements CommandLineParser {
      * @param opt the specified option
      * @param iter the iterator over the command line tokens
      */
-    public void processMultipleArgs( Option opt, ListIterator iter ) {
+    public void processArgs( Option opt, ListIterator iter ) 
+    throws ParseException 
+    {
+        if( !iter.hasNext() ) {
+            throw new MissingArgumentException( "no argument for:" + opt.getOpt() );
+        }
         // loop until an option is found
         while( iter.hasNext() ) {
             String var = (String)iter.next();
 
             // its an option
-            if( var.startsWith( "-" ) ) {
+            if( !var.equals( "-" ) && var.startsWith( "-" ) ) {
                 // set the iterator pointer back a position
                 iter.previous();
                 break;
             }
             // its a value
             else {
-                opt.addValue( var );
+                if( !opt.addValue( var ) ) {
+                    iter.previous();
+                    break;
+                }
             }
         }
     }
@@ -216,6 +223,7 @@ public class GnuParser implements CommandLineParser {
         if( specialOption != null && opt == null) {
             opt = specialOption;
             value = arg.substring( 2 );
+            opt.addValue( value );
         }
 
         // if there is no option throw an UnrecognisedOptionException
@@ -236,17 +244,8 @@ public class GnuParser implements CommandLineParser {
         }
 
         // if the option takes an argument value
-        if ( opt.hasArg() ) {
-            try {
-                value = (value != null) ? value : (String)iter.next(); 
-            }
-            catch( java.util.NoSuchElementException exp ) {
-                throw new MissingArgumentException( "no argument for:" + arg );
-            }
-            opt.addValue( value );
-            if  (opt.hasMultipleArgs() ) {
-                processMultipleArgs( opt, iter );
-            }
+        if ( opt.hasArg() ) { 
+            processArgs( opt, iter );
         }
 
         // set the option on the command line

@@ -61,6 +61,7 @@
 
 package org.apache.commons.cli;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -88,8 +89,11 @@ public class CommandLine {
     /** the unrecognised options/arguments */
     private List args    = new LinkedList();
 
-    /** the recognised options/arguments */
+    /** the recognised options */
     private Map  options = new HashMap();
+
+    /** the processed options */
+    private Option[] optionsArray;
 
     /**
      * <p>Creates a command line.</p>
@@ -206,6 +210,21 @@ public class CommandLine {
      */
     public Iterator iterator( ) {
         return options.values().iterator();
+    }
+
+    /**
+     * <p>Returns an array of the processed {@link Option}s.</p>
+     *
+     * @return an array of the processed {@link Option}s.
+     */
+    public Option[] getOptions( ) {
+        Collection processed = options.values();
+
+        // reinitialise array
+        optionsArray = new Option[ processed.size() ];
+
+        // return the array
+        return (Option[]) processed.toArray( optionsArray );
     }
 
 }

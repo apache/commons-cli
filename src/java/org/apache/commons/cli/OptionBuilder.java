@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.2 2002/07/30 23:06:21 jkeyes Exp $
- * $Revision: 1.2 $
- * $Date: 2002/07/30 23:06:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.3 2002/08/03 23:45:09 jkeyes Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/08/03 23:45:09 $
  *
  * ====================================================================
  *
@@ -76,12 +76,10 @@ public class OptionBuilder {
     private static String longopt;
     /** option description */
     private static String description;
-    /** has an argument? */
-    private static boolean arg;
     /** is required? */
     private static boolean required;
-    /** has multiple arguments */
-    private static boolean multipleArgs;
+    /** the number of arguments */
+    private static int numberOfArgs = Option.UNINITIALIZED;
     /** option type */
     private static Object type;
 
@@ -99,9 +97,8 @@ public class OptionBuilder {
         description = null;
         longopt = null;
         type = null;
-        arg = false;
         required = false;
-        multipleArgs = false;
+        numberOfArgs = Option.UNINITIALIZED;
     }
 
     /**
@@ -121,7 +118,7 @@ public class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder hasArg( ) {
-        instance.arg = true;
+        instance.numberOfArgs = 1;
         return instance;
     }
 
@@ -133,7 +130,7 @@ public class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder hasArg( boolean hasArg ) {
-        instance.arg = hasArg;
+        instance.numberOfArgs = ( hasArg == true ) ? 1 : Option.UNINITIALIZED;
         return instance;
     }
 
@@ -160,12 +157,24 @@ public class OptionBuilder {
     }
 
     /**
-     * <p>The next Option created can have multiple argument values.</p>
+     * <p>The next Option created can have unlimited argument values.</p>
      *
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder hasMultipleArgs( ) {
-        instance.multipleArgs = true;
+    public static OptionBuilder hasArgs( ) {
+        instance.numberOfArgs = Option.UNLIMITED_VALUES;
+        return instance;
+    }
+
+    /**
+     * <p>The next Option created can have <code>num</code> 
+     * argument values.</p>
+     *
+     * @param num the number of args that the option can have
+     * @return the OptionBuilder instance
+     */
+    public static OptionBuilder hasArgs( int num ) {
+        instance.numberOfArgs = num;
         return instance;
     }
 
@@ -221,12 +230,12 @@ public class OptionBuilder {
     throws IllegalArgumentException
     {
         // create the option
-        Option option = new Option( opt, arg, description );
+        Option option = new Option( opt, description );
 
         // set the option properties
         option.setLongOpt( longopt );
         option.setRequired( required );
-        option.setMultipleArgs( multipleArgs );
+        option.setArgs( numberOfArgs );
         option.setType( type );
 
         // reset the OptionBuilder properties
