@@ -103,11 +103,20 @@ public class CommandLine {
     
     /** <p>Query to see if an option has been set.</p>
      *
-     * @param opt Short single-character name of the option
+     * @param opt Short name of the option
      * @return true if set, false if not
      */
     public boolean hasOption(String opt) {
         return options.containsKey( opt );
+    }
+
+    /** <p>Query to see if an option has been set.</p>
+     *
+     * @param opt character name of the option
+     * @return true if set, false if not
+     */
+    public boolean hasOption( char opt ) {
+        return hasOption( String.valueOf( opt ) );
     }
 
     /**
@@ -120,6 +129,14 @@ public class CommandLine {
         return res == null ? null : TypeHandler.createValue(res, type);
     }
 
+    /**
+     * @param opt the name of the option
+     * @return the type of opt
+     */
+    public Object getOptionObject( char opt ) {
+        return getOptionObject( String.valueOf( opt ) );
+    }
+
     /** <p>Retrieve the argument, if any,  of an option.</p>
      *
      * @param opt the name of the option
@@ -129,18 +146,36 @@ public class CommandLine {
         return (String)((Option)options.get( opt )).getValue();
     }
 
+    /** <p>Retrieve the argument, if any,  of an option.</p>
+     *
+     * @param opt the character name of the option
+     * @return Value of the argument if option is set, and has an argument, else null.
+     */
+    public String getOptionValue( char opt ) {
+        return getOptionValue( String.valueOf( opt ) );
+    }
+
     /** <p>Retrieves the array of values, if any, of an option.</p>
      *
-     * @param opt Single-character name of the option
+     * @param opt string name of the option
      * @return An array of values if the option is set, and has an argument, else null.
      */
     public String[] getOptionValues( String opt ) {
         return (String[])((Option)options.get( opt )).getValues();
     }
-    
-    /** <p>Retrieve the argument, if any,  of an option.</p>
+
+    /** <p>Retrieves the array of values, if any, of an option.</p>
      *
-     * @param opt Short single-character name of the option
+     * @param opt character name of the option
+     * @return An array of values if the option is set, and has an argument, else null.
+     */
+    public String[] getOptionValues( char opt ) {
+        return getOptionValues( String.valueOf( opt ) );
+    }
+    
+    /** <p>Retrieve the argument, if any, of an option.</p>
+     *
+     * @param opt name of the option
      * @param defaultValue is the default value to be returned if the option is not specified
      * @return Value of the argument if option is set, and has an argument, else null.
      */
@@ -149,6 +184,16 @@ public class CommandLine {
         return ( answer != null ) ? answer : defaultValue;
     }
     
+    /** <p>Retrieve the argument, if any, of an option.</p>
+     *
+     * @param opt character name of the option
+     * @param defaultValue is the default value to be returned if the option is not specified
+     * @return Value of the argument if option is set, and has an argument, else null.
+     */
+    public String getOptionValue( char opt, String defaultValue ) {
+        return getOptionValue( String.valueOf( opt ), defaultValue );
+    }
+
     /** <p>Retrieve any left-over non-recognized options and arguments</p>
      *
      * @return an array of remaining items passed in but not parsed

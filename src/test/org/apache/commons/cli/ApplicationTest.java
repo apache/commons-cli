@@ -49,7 +49,6 @@ public class ApplicationTest extends TestCase {
         options.addOption( "listener", true, "add an instance of a class as a project listener" );
         options.addOption( "buildfile", true, "use given buildfile" );
         options.addOption( OptionBuilder.withDescription( "use value for given property" )
-                                        .hasArg()
                                         .hasArgs()
                                         .create( 'D' ) );
                            //, null, true, , false, true );

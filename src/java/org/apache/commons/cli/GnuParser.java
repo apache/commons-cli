@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.3 2002/08/03 23:45:09 jkeyes Exp $
- * $Revision: 1.3 $
- * $Date: 2002/08/03 23:45:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.4 2002/08/04 23:04:52 jkeyes Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/08/04 23:04:52 $
  *
  * ====================================================================
  *
@@ -198,9 +198,26 @@ public class GnuParser implements CommandLineParser {
             }
             // its a value
             else {
-                if( !opt.addValue( var ) ) {
+                char sep = opt.getValueSeparator();
+                
+                if( sep > 0 ) {
+                    int findex;
+                    while( ( findex = var.indexOf( sep ) ) != -1 ) {
+                        String val = var.substring( 0, findex );
+                        var = var.substring( findex + 1);
+                        if( !opt.addValue( val ) ) {
+                            iter.previous();
+                            return;
+                        }
+                    }
+                    if( !opt.addValue( var ) ) {
+                        iter.previous();
+                        return;
+                    };
+                }
+                else if( !opt.addValue( var ) ) {
                     iter.previous();
-                    break;
+                    return;
                 }
             }
         }
@@ -223,7 +240,25 @@ public class GnuParser implements CommandLineParser {
         if( specialOption != null && opt == null) {
             opt = specialOption;
             value = arg.substring( 2 );
-            opt.addValue( value );
+            char sep = opt.getValueSeparator();
+
+            if( sep > 0 ) {
+                int findex;
+                while( ( findex = value.indexOf( sep ) ) != -1 ) {
+                    String val = value.substring( 0, findex );
+                    value = value.substring( findex + 1);
+                    if( !opt.addValue( val ) ) {
+                        cmd.addArg( val );
+                    }
+                }
+                if( !opt.addValue( value ) ) {
+                    cmd.addArg( value );
+                }
+            }
+            else {
+                // add the argument value
+                opt.addValue( value );
+            }
         }
 
         // if there is no option throw an UnrecognisedOptionException

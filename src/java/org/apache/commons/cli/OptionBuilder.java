@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.3 2002/08/03 23:45:09 jkeyes Exp $
- * $Revision: 1.3 $
- * $Date: 2002/08/03 23:45:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.4 2002/08/04 23:04:52 jkeyes Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/08/04 23:04:52 $
  *
  * ====================================================================
  *
@@ -83,6 +83,8 @@ public class OptionBuilder {
     /** option type */
     private static Object type;
 
+    private static char valuesep;
+
     /** option builder instance */
     private static OptionBuilder instance = new OptionBuilder();
 
@@ -141,6 +143,48 @@ public class OptionBuilder {
      */
     public static OptionBuilder isRequired( ) {
         instance.required = true;
+        return instance;
+    }
+
+    /**
+     * <p>The next Option created uses <code>sep</code> as a means to
+     * separate argument values.</p>
+     *
+     * <b>Example:</b>
+     * <pre>
+     * Option opt = OptionBuilder.withValueSeparator( ':' )
+     *                           .create( 'D' );
+     *
+     * CommandLine line = parser.parse( args );
+     * String propertyName = opt.getValue( 0 );
+     * String propertyValue = opt.getValue( 1 );
+     * </pre>
+     *
+     * @return the OptionBuilder instance
+     */
+    public static OptionBuilder withValueSeparator( char sep ) {
+        instance.valuesep = sep;
+        return instance;
+    }
+
+    /**
+     * <p>The next Option created uses '<code>=</code>' as a means to
+     * separate argument values.</p>
+     *
+     * <b>Example:</b>
+     * <pre>
+     * Option opt = OptionBuilder.withValueSeparator( )
+     *                           .create( 'D' );
+     *
+     * CommandLine line = parser.parse( args );
+     * String propertyName = opt.getValue( 0 );
+     * String propertyValue = opt.getValue( 1 );
+     * </pre>
+     *
+     * @return the OptionBuilder instance
+     */
+    public static OptionBuilder withValueSeparator( ) {
+        instance.valuesep = '=';
         return instance;
     }
 
@@ -237,7 +281,7 @@ public class OptionBuilder {
         option.setRequired( required );
         option.setArgs( numberOfArgs );
         option.setType( type );
-
+        option.setValueSeparator( valuesep );
         // reset the OptionBuilder properties
         instance.reset();
 

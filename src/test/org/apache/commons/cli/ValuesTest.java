@@ -20,6 +20,7 @@ public class ValuesTest extends TestCase
 {
     /** CommandLine instance */
     private CommandLine _cmdline = null;
+    private Option _option = null;
 
     public static Test suite() { 
         return new TestSuite( ValuesTest.class );
@@ -75,6 +76,26 @@ public class ValuesTest extends TestCase
         opts.addOption( OptionBuilder.withLongOpt( "i" )
                         .withDescription( "set -i")
                         .create( 'i' ) );
+
+        opts.addOption( OptionBuilder.withLongOpt( "j" )
+                        .hasArgs( 2 )
+                        .withDescription( "set -j")
+                        .withValueSeparator( '=' )
+                        .create( 'j' ) );
+
+        opts.addOption( OptionBuilder.withLongOpt( "k" )
+                        .hasArgs( )
+                        .withDescription( "set -k")
+                        .withValueSeparator( '=' )
+                        .create( 'k' ) );
+
+        _option = OptionBuilder.withLongOpt( "m" )
+                        .hasArgs( )
+                        .withDescription( "set -m")
+                        .withValueSeparator( )
+                        .create( 'm' );
+
+        opts.addOption( _option );
         
         String[] args = new String[] { "-a",
                                        "-b", "foo",
@@ -85,7 +106,12 @@ public class ValuesTest extends TestCase
                                        "arg1", "arg2",
                                        "-g", "val1", "val2" , "arg3",
                                        "-h", "val1", "-i",
-                                       "-h", "val2" };
+                                       "-h", "val2",
+                                       "-jkey=value",
+                                       "-j", "key=value",
+                                       "-kkey1=value1", 
+                                       "-kkey2=value2",
+                                       "-mkey=value"};
 
         CommandLineParser parser = CommandLineParserFactory.newParser();
 
@@ -154,8 +180,63 @@ public class ValuesTest extends TestCase
 
     public void testExtraArgs()
     {
-        String[] args = new String[] { "arg1", "arg2", "arg3" };
-        assertTrue( _cmdline.getArgs().length == 3 );
+        String[] args = new String[] { "arg1", "arg2", "arg3", "key=value" };
+        assertTrue( _cmdline.getArgs().length == 4 );         
         assertTrue( Arrays.equals( args, _cmdline.getArgs() ) );
+    }
+
+    public void testCharSeparator()
+    {
+        // tests the char methods of CommandLine that delegate to
+        // the String methods
+        String[] values = new String[] { "key", "value" };
+        assertTrue( _cmdline.hasOption( "j" ) );
+        assertTrue( _cmdline.hasOption( 'j' ) );
+        assertTrue( _cmdline.getOptionValues( "j" ).length == 2);
+        assertTrue( _cmdline.getOptionValues( 'j' ).length == 2);
+        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( "j" ) ) );
+        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( 'j' ) ) );
+
+        values = new String[] { "key1", "value1", "key2", "value2" };
+        assertTrue( _cmdline.hasOption( "k" ) );
+        assertTrue( _cmdline.hasOption( 'k' ) );
+        assertTrue( _cmdline.getOptionValues( "k" ).length == 4 );
+        assertTrue( _cmdline.getOptionValues( 'k' ).length == 4 );
+        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( "k" ) ) );
+        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( 'k' ) ) );
+
+        values = new String[] { "key", "value" };
+        assertTrue( _cmdline.hasOption( "m" ) );
+        assertTrue( _cmdline.hasOption( 'm' ) );
+        assertTrue( _cmdline.getOptionValues( "m" ).length == 2);
+        assertTrue( _cmdline.getOptionValues( 'm' ).length == 2);
+        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( "m" ) ) );
+        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( 'm' ) ) );
+    }
+
+    public void testGetValue()
+    {
+        // the 'm' option
+        assertTrue( _option.getValues().length == 2 );
+        assertEquals( _option.getValue(), "key" );
+        assertEquals( _option.getValue( 0 ), "key" );
+        assertEquals( _option.getValue( 1 ), "value" );
+
+        try {
+            assertEquals( _option.getValue( 2 ), "key" );
+            fail( "IndexOutOfBounds not caught" );
+        }
+        catch( IndexOutOfBoundsException exp ) {
+            
+        }
+
+        try {
+            assertEquals( _option.getValue( -1 ), "key" );
+            fail( "IndexOutOfBounds not caught" );
+        }
+        catch( IndexOutOfBoundsException exp ) {
+
+        }
+
     }
 }

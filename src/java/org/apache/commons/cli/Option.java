@@ -307,6 +307,16 @@ public class Option {
          this.numberOfArgs = num;
      }
 
+     private char valuesep;
+
+     public void setValueSeparator( char sep ) {
+         this.valuesep = sep;
+     }
+
+     public char getValueSeparator() {
+         return this.valuesep;
+     }
+
      /** <p>Returns the number of argument values this Option can take.</p>
       *
       * @return num the number of argument values
@@ -353,6 +363,7 @@ public class Option {
      * @param value is a/the value of this Option
      */
     public boolean addValue( String value ) {
+
         switch( numberOfArgs ) {
             case UNINITIALIZED:
                 return false;
@@ -374,6 +385,16 @@ public class Option {
      */
     public String getValue() {
         return this.values.size()==0 ? null : (String)this.values.get( 0 );
+    }
+
+    /**
+     * @return the specified value of this Option or 
+     * null if there are no values.
+     */
+    public String getValue( int index ) 
+    throws IndexOutOfBoundsException
+    {
+        return ( this.values.size()==0 ) ? null : (String)this.values.get( index );
     }
 
     /**
