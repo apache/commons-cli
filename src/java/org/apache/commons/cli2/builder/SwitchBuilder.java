@@ -98,7 +98,7 @@ public class SwitchBuilder {
     /**
      * Resets the builder
      */
-    public void reset() {
+    public SwitchBuilder reset() {
         description = null;
         preferredName = null;
         required = false;
@@ -107,6 +107,7 @@ public class SwitchBuilder {
         children = null;
         id = 0;
         switchDefault = null;
+        return this;
     }
 
     /**

@@ -93,7 +93,7 @@ public class ArgumentBuilder {
      * Resets the ArgumentBuilder to the defaults for a new Argument. The
      * method should be called automatically at the end of a create() call.
      */
-    public final void reset() {
+    public final ArgumentBuilder reset() {
         name = "arg";
         description = null;
         minimum = 0;
@@ -104,6 +104,7 @@ public class ArgumentBuilder {
         consumeRemaining = "--";
         defaultValues = null;
         id = 0;
+        return this;
     }
 
     /**

@@ -91,8 +91,9 @@ public class PatternBuilder {
     /**
      * Resets this builder
      */
-    public void reset() {
+    public PatternBuilder reset() {
         options.clear();
+        return this;
     }
 
     private void createOption(

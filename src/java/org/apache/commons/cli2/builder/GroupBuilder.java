@@ -56,12 +56,13 @@ public class GroupBuilder {
     /**
      * Resets the builder
      */
-    public void reset() {
+    public GroupBuilder reset() {
         name = null;
         description = null;
         options = new ArrayList();
         minimum = 0;
         maximum = Integer.MAX_VALUE;
+        return this;
     }
 
     /**

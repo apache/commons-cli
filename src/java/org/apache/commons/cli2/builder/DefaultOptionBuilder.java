@@ -116,7 +116,7 @@ public class DefaultOptionBuilder {
     /**
      * Resets the builder
      */
-    public void reset() {
+    public DefaultOptionBuilder reset() {
         preferredName = null;
         description = null;
         aliases = new HashSet();
@@ -125,6 +125,7 @@ public class DefaultOptionBuilder {
         argument = null;
         children = null;
         id = 0;
+        return this;
     }
 
     /**

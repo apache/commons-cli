@@ -76,7 +76,7 @@ public class CommandBuilder {
      * Resets the CommandBuilder to the defaults for a new Command. The method
      * should be called automatically at the end of a create() call.
      */
-    public void reset() {
+    public CommandBuilder reset() {
         preferredName = null;
         description = null;
         aliases = new HashSet();
@@ -84,6 +84,7 @@ public class CommandBuilder {
         argument = null;
         children = null;
         id = 0;
+        return this;
     }
 
     /**
