@@ -137,15 +137,6 @@ public class OptionBuilderTest extends TestCase {
             // success
         }
 
-        // null option
-        try {
-            Option opt = OptionBuilder.create( null );
-            fail( "IllegalArgumentException not caught" );
-        }
-        catch( IllegalArgumentException exp ) {
-            // success
-        }
-
         // valid option 
         try {
             Option opt = OptionBuilder.create( "opt" );

@@ -135,7 +135,7 @@ public class CommandLine {
     public Object getOptionObject( String opt ) {
         String res = getOptionValue( opt );
         
-        Object type = ((Option)((List)options.get(opt)).iterator().next()).getType();
+        Object type = ((Option)options.get(opt)).getType();
         return res == null ? null : TypeHandler.createValue(res, type);
     }
 
@@ -182,21 +182,17 @@ public class CommandLine {
     public String[] getOptionValues( String opt ) {
         List values = new java.util.ArrayList();
 
+        opt = Util.stripLeadingHyphens( opt );
+
         String key = opt;
         if( names.containsKey( opt ) ) {
             key = (String)names.get( opt );
         }
 
         if( options.containsKey( key ) ) {
-            List opts = (List)options.get( key );
-            Iterator iter = opts.iterator();
-
-            while( iter.hasNext() ) {
-                Option optt = (Option)iter.next();
-                values.addAll( optt.getValuesList() );
-            }
+            return ((Option)options.get(key)).getValues();
         }
-        return (values.size() == 0) ? null : (String[])values.toArray(new String[]{});
+        return null;
     }
 
     /** 
@@ -294,21 +290,19 @@ public class CommandLine {
     void addOption( Option opt ) {
         hashcodeMap.put( new Integer( opt.hashCode() ), opt );
 
-        String key = opt.getOpt();
-        if( " ".equals(key) ) {
+        String key = opt.getKey();
+        if( key == null ) {
             key = opt.getLongOpt();
         }
         else {
             names.put( opt.getLongOpt(), key );
         }
 
-        if( options.get( key ) != null ) {
-            ((java.util.List)options.get( key )).add( opt );
+        if( opt.getValues() != null ) {
+            System.out.println( opt.getKey() + "=" + opt.getValues().length );
         }
-        else {
-            options.put( key, new java.util.ArrayList() );
-            ((java.util.List)options.get( key ) ).add( opt );
-        }
+
+        options.put( key, opt );
     }
 
     /**

@@ -125,7 +125,7 @@ public class Options {
             option.setRequired( false );
             addOption( option );
 
-            optionGroups.put( option.getOpt(), group );
+            optionGroups.put( option.getKey(), group );
         }
 
         return this;
@@ -165,16 +165,16 @@ public class Options {
      * @return the resulting Options instance
      */
     public Options addOption(Option opt)  {
-        String shortOpt = "-" + opt.getOpt();
+        String shortOpt = opt.getOpt();
         
         // add it to the long option list
         if ( opt.hasLongOpt() ) {
-            longOpts.put( "--" + opt.getLongOpt(), opt );
+            longOpts.put( opt.getLongOpt(), opt );
         }
         
         // if the option is required add it to the required list
         if ( opt.isRequired() ) {
-            requiredOpts.add( shortOpt );
+            requiredOpts.add( opt.getKey() );
         }
 
         shortOpts.put( shortOpt, opt );
@@ -228,22 +228,12 @@ public class Options {
      */
     public Option getOption( String opt ) {
 
-        Option option = null;
+        opt = Util.stripLeadingHyphens( opt );
 
-        // short option
-        if( opt.length() == 1 ) {
-            option = (Option)shortOpts.get( "-" + opt );
+        if( shortOpts.containsKey( opt ) ) {
+            return (Option) shortOpts.get( opt );
         }
-        // long option
-        else if( opt.startsWith( "--" ) ) {
-            option = (Option)longOpts.get( opt );
-        }
-        // a just-in-case
-        else {
-            option = (Option)shortOpts.get( opt );
-        }
-
-        return (option == null) ? null : (Option)option.clone();
+        return (Option) longOpts.get( opt );
     }
 
     /** 
@@ -255,19 +245,8 @@ public class Options {
      * of this {@link Options}
      */
     public boolean hasOption( String opt ) {
-
-        // short option
-        if( opt.length() == 1 ) {
-            return shortOpts.containsKey( "-" + opt );
-        }
-        // long option
-        else if( opt.startsWith( "--" ) ) {
-            return longOpts.containsKey( opt );
-        }
-        // a just-in-case
-        else {
-            return shortOpts.containsKey( opt );
-        }
+        opt = Util.stripLeadingHyphens( opt );
+        return shortOpts.containsKey( opt ) || longOpts.containsKey( opt );
     }
 
     /** <p>Returns the OptionGroup the <code>opt</code>
@@ -278,7 +257,7 @@ public class Options {
      * of an OptionGroup, otherwise return null
      */
     public OptionGroup getOptionGroup( Option opt ) {
-        return (OptionGroup)optionGroups.get( opt.getOpt() );
+        return (OptionGroup)optionGroups.get( opt.getKey() );
     }
     
     /** <p>Dump state, suitable for debugging.</p>

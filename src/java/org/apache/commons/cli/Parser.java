@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.7 2002/10/24 23:17:49 jkeyes Exp $
- * $Revision: 1.7 $
- * $Date: 2002/10/24 23:17:49 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Parser.java,v 1.8 2002/11/18 08:41:26 jkeyes Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/11/18 08:41:26 $
  *
  * ====================================================================
  *
@@ -62,17 +62,19 @@
 package org.apache.commons.cli;
 
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * <p><code>Parser</code> creates {@link CommandLine}s.</p>
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public abstract class Parser implements CommandLineParser {
 
@@ -108,10 +110,31 @@ public abstract class Parser implements CommandLineParser {
      * @throws ParseException if an error occurs when parsing the
      * arguments.
      */
-    public CommandLine parse( Options options, String[] arguments ) 
+    public CommandLine parse( Options options, 
+                              String[] arguments ) 
     throws ParseException 
     {
-        return parse( options, arguments, false );
+        return parse( options, arguments, null, false );
+    }
+
+    /**
+     * Parse the arguments according to the specified options and
+     * properties.
+     *
+     * @param options the specified Options
+     * @param arguments the command line arguments
+     * @param properties command line option name-value pairs
+     * @return the list of atomic option and value tokens
+     *
+     * @throws ParseException if there are any problems encountered
+     * while parsing the command line tokens.
+     */
+    public CommandLine parse( Options options, 
+                              String[] arguments,
+                              Properties properties ) 
+    throws ParseException 
+    {
+        return parse( options, arguments, properties, false );
     }
 
     /**
@@ -124,12 +147,34 @@ public abstract class Parser implements CommandLineParser {
      * interpreting the arguments when a non option has 
      * been encountered and to add them to the CommandLines
      * args list.
+     *
      * @return the <code>CommandLine</code>
      * @throws ParseException if an error occurs when parsing the
      * arguments.
      */
+    public CommandLine parse( Options options, 
+                              String[] arguments,
+                              boolean stopAtNonOption ) 
+    throws ParseException 
+    {
+        return parse( options, arguments, null, stopAtNonOption );
+    }
+
+    /**
+     * Parse the arguments according to the specified options and
+     * properties.
+     *
+     * @param options the specified Options
+     * @param arguments the command line arguments
+     * @param properties command line option name-value pairs
+     * @return the list of atomic option and value tokens
+     *
+     * @throws ParseException if there are any problems encountered
+     * while parsing the command line tokens.
+     */
     public CommandLine parse( Options opts, 
                               String[] arguments, 
+                              Properties properties,
                               boolean stopAtNonOption ) 
     throws ParseException 
     {
@@ -139,6 +184,10 @@ public abstract class Parser implements CommandLineParser {
         cmd = new CommandLine();
 
         boolean eatTheRest = false;
+
+        if( arguments == null ) {
+            arguments = new String[0];
+        }
 
         List tokenList = Arrays.asList( flatten( opts, arguments, stopAtNonOption ) );
         ListIterator iterator = tokenList.listIterator();
@@ -189,8 +238,29 @@ public abstract class Parser implements CommandLineParser {
                 }
             }
         }
+        processProperties( properties );
         checkRequiredOptions();
         return cmd;
+    }
+
+    /**
+     * <p>Sets the values of Options using the values in <code>properties</code>.</p>
+     */
+    private void processProperties( Properties properties ) {
+        if( properties == null ) {
+            return;
+        }
+
+        for( Enumeration e = properties.propertyNames(); e.hasMoreElements(); ) {
+            String option = e.nextElement().toString();
+            if( !cmd.hasOption( option ) ) {
+                Option opt = options.getOption( option );
+                if( opt.getValues() == null || opt.getValues().length == 0 ) {
+                    opt.addValue( properties.getProperty( option ) );
+                }
+                cmd.addOption( opt );
+            }
+        }
     }
 
     /**
@@ -221,22 +291,22 @@ public abstract class Parser implements CommandLineParser {
     {
         // loop until an option is found
         while( iter.hasNext() ) {
-            String var = (String)iter.next();
+            String str = (String)iter.next();
 
             // found an Option
-            if( options.hasOption( var ) ) {
+            if( options.hasOption( str ) ) {
                 iter.previous();
                 break;
             }
             // found a value
-            else if( !opt.addValue( var ) ) {
+            else if( !opt.addValue( str ) ) {
                 iter.previous();
                 break;
             }
         }
 
         if( opt.getValues() == null && !opt.hasOptionalArg() ) {
-            throw new MissingArgumentException( "no argument for:" + opt.getOpt() );
+            throw new MissingArgumentException( "no argument for:" + opt.getKey() );
         }
     }
 
@@ -259,7 +329,7 @@ public abstract class Parser implements CommandLineParser {
         // if the option is a required option remove the option from
         // the requiredOptions list
         if ( opt.isRequired() ) {
-            requiredOptions.remove( "-" + opt.getOpt() );
+            requiredOptions.remove( opt.getKey() );
         }
 
         // if the option is in an OptionGroup make that option the selected

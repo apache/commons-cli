@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/CommandLineParser.java,v 1.5 2002/11/18 08:41:26 jkeyes Exp $
- * $Revision: 1.5 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Util.java,v 1.1 2002/11/18 08:41:26 jkeyes Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/11/18 08:41:26 $
  *
  * ====================================================================
@@ -60,73 +60,20 @@
  */
 package org.apache.commons.cli;
 
-import java.util.Properties;
-
 /**
- * A class that implements the <code>CommandLineParser</code> interface 
- * can parse a String array according to the {@link Options} specified
- * and return a {@link CommandLine}.
+ * Contains useful helper methods for classes within this package.
  *
  * @author John Keyes (john at integralsource.com)
  */
-public interface CommandLineParser {
-    
-    /**
-     * Parse the arguments according to the specified options.
-     *
-     * @param options the specified Options
-     * @param arguments the command line arguments
-     * @return the list of atomic option and value tokens
-     *
-     * @throws ParseException if there are any problems encountered
-     * while parsing the command line tokens.
-     */
-    public CommandLine parse( Options options, String[] arguments )
-    throws ParseException;
+class Util {
 
-    /**
-     * Parse the arguments according to the specified options and
-     * properties.
-     *
-     * @param options the specified Options
-     * @param arguments the command line arguments
-     * @param properties command line option name-value pairs
-     * @return the list of atomic option and value tokens
-     *
-     * @throws ParseException if there are any problems encountered
-     * while parsing the command line tokens.
-     */
-    public CommandLine parse( Options options, String[] arguments, Properties props )
-    throws ParseException;
-
-    /**
-     * Parse the arguments according to the specified options.
-     *
-     * @param options the specified Options
-     * @param arguments the command line arguments
-     * @param stopAtNonOption specifies whether to continue parsing the
-     * arguments if a non option is encountered.
-     *
-     * @return the list of atomic option and value tokens
-     * @throws ParseException if there are any problems encountered
-     * while parsing the command line tokens.
-     */
-    public CommandLine parse( Options options, String[] arguments, boolean stopAtNonOption )
-    throws ParseException;
-
-    /**
-     * Parse the arguments according to the specified options and
-     * properties.
-     *
-     * @param options the specified Options
-     * @param arguments the command line arguments
-     * @param properties command line option name-value pairs
-     * @param stopAtNonOption specifies whether to continue parsing the
-     *
-     * @return the list of atomic option and value tokens
-     * @throws ParseException if there are any problems encountered
-     * while parsing the command line tokens.
-     */
-    public CommandLine parse( Options options, String[] arguments, Properties properties, boolean stopAtNonOption)
-    throws ParseException;
-}
+    static String stripLeadingHyphens( String str ) {
+        if( str.startsWith( "--" ) ) {
+            return str.substring( 2, str.length() );
+        }
+        else if ( str.startsWith( "-" ) ) {
+            return str.substring( 1, str.length() );
+        }
+        return str;
+    }
+            }

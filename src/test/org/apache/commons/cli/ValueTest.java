@@ -14,6 +14,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.util.Properties;
+
 public class ValueTest extends TestCase
 {
 
@@ -269,4 +271,50 @@ public class ValueTest extends TestCase
             fail("Cannot setUp() CommandLine: " + e.toString());
         }
     }
+
+    public void testPropertyValues()
+    {
+        Properties properties = new Properties();
+        properties.setProperty( "hide", "seek" );
+        try
+        {
+            CommandLineParser parser = new PosixParser();
+            CommandLine cmd = parser.parse(opts, null, properties);
+            assertTrue( cmd.hasOption("hide") );
+            assertEquals( "seek", cmd.getOptionValue("hide") );
+            assertTrue( !cmd.hasOption("fake") );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+    } 
+
+    public void testPropertyOverrideValues()
+    {
+        String[] args = new String[] { 
+            "-j",
+            "found",
+            "-i",
+            "ink"
+        };
+
+        Properties properties = new Properties();
+        properties.setProperty( "j", "seek" );
+        try
+        {
+            CommandLineParser parser = new PosixParser();
+            CommandLine cmd = parser.parse(opts, args, properties);
+            assertTrue( cmd.hasOption("j") );
+            assertEquals( "found", cmd.getOptionValue("j") );
+            assertTrue( cmd.hasOption("i") );
+            assertEquals( "ink", cmd.getOptionValue("i") );
+            assertTrue( !cmd.hasOption("fake") );
+        }
+        catch (ParseException e)
+        {
+            fail("Cannot setUp() CommandLine: " + e.toString());
+        }
+    }
+
 }

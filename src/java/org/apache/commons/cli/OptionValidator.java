@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/CommandLineParser.java,v 1.5 2002/11/18 08:41:26 jkeyes Exp $
- * $Revision: 1.5 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionValidator.java,v 1.1 2002/11/18 08:41:26 jkeyes Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/11/18 08:41:26 $
  *
  * ====================================================================
@@ -60,73 +60,71 @@
  */
 package org.apache.commons.cli;
 
-import java.util.Properties;
-
 /**
- * A class that implements the <code>CommandLineParser</code> interface 
- * can parse a String array according to the {@link Options} specified
- * and return a {@link CommandLine}.
+ * Validates an Option string.
  *
- * @author John Keyes (john at integralsource.com)
+ * @author John Keyes ( john at integralsource.com )
  */
-public interface CommandLineParser {
-    
-    /**
-     * Parse the arguments according to the specified options.
-     *
-     * @param options the specified Options
-     * @param arguments the command line arguments
-     * @return the list of atomic option and value tokens
-     *
-     * @throws ParseException if there are any problems encountered
-     * while parsing the command line tokens.
-     */
-    public CommandLine parse( Options options, String[] arguments )
-    throws ParseException;
+public class OptionValidator {
 
     /**
-     * Parse the arguments according to the specified options and
-     * properties.
+     * <p>Validates whether <code>opt</code> is a permissable Option
+     * shortOpt.  The rules that specify if the <code>opt</code>
+     * is valid are:</p>
+     * <ul>
+     *  <li><code>opt</code> is not NULL</li>
+     *  <li>a single character <code>opt</code> that is either
+     *  ' '(special case), '?', '@' or a letter</li>
+     *  <li>a multi character <code>opt</code> that only contains
+     *  letters.</li>
+     * </ul>
      *
-     * @param options the specified Options
-     * @param arguments the command line arguments
-     * @param properties command line option name-value pairs
-     * @return the list of atomic option and value tokens
-     *
-     * @throws ParseException if there are any problems encountered
-     * while parsing the command line tokens.
+     * @param opt The option string to validate
+     * @throws IllegalArgumentException if the Option is not valid.
      */
-    public CommandLine parse( Options options, String[] arguments, Properties props )
-    throws ParseException;
+    static void validateOption( String opt ) 
+    throws IllegalArgumentException
+    {
+        // check that opt is not NULL
+        if( opt == null ) {
+            return;
+        }
+        // handle the single character opt
+        else if( opt.length() == 1 ) {
+            char ch = opt.charAt( 0 );
+            if ( !isValidOpt( ch ) ) {
+                throw new IllegalArgumentException( "illegal option value '" 
+                                                    + ch + "'" );
+            }
+        }
+        // handle the multi character opt
+        else {
+            char[] chars = opt.toCharArray();
+            for( int i = 0; i < chars.length; i++ ) {
+                if( !isValidChar( chars[i] ) ) {
+                    throw new IllegalArgumentException( "opt contains illegal character value '" + chars[i] + "'" );
+                }
+            }
+        }
+    }
 
     /**
-     * Parse the arguments according to the specified options.
+     * <p>Returns whether the specified character is a valid Option.</p>
      *
-     * @param options the specified Options
-     * @param arguments the command line arguments
-     * @param stopAtNonOption specifies whether to continue parsing the
-     * arguments if a non option is encountered.
-     *
-     * @return the list of atomic option and value tokens
-     * @throws ParseException if there are any problems encountered
-     * while parsing the command line tokens.
+     * @param c the option to validate
+     * @return true if <code>c</code> is a letter, ' ', '?' or '@', otherwise false.
      */
-    public CommandLine parse( Options options, String[] arguments, boolean stopAtNonOption )
-    throws ParseException;
+    private static boolean isValidOpt( char c ) {
+        return ( isValidChar( c ) || c == ' ' || c == '?' || c == '@' );
+    }
 
     /**
-     * Parse the arguments according to the specified options and
-     * properties.
+     * <p>Returns whether the specified character is a valid character.</p>
      *
-     * @param options the specified Options
-     * @param arguments the command line arguments
-     * @param properties command line option name-value pairs
-     * @param stopAtNonOption specifies whether to continue parsing the
-     *
-     * @return the list of atomic option and value tokens
-     * @throws ParseException if there are any problems encountered
-     * while parsing the command line tokens.
+     * @param c the character to validate
+     * @return true if <code>c</code> is a letter.
      */
-    public CommandLine parse( Options options, String[] arguments, Properties properties, boolean stopAtNonOption)
-    throws ParseException;
+    private static boolean isValidChar( char c ) {
+        return Character.isJavaIdentifierPart( c );
+    }
 }

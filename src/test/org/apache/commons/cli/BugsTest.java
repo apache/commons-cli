@@ -5,7 +5,7 @@
  * version 1.1, a copy of which has been included with this distribution in
  * the LICENSE file.
  * 
- * $Id: BugsTest.java,v 1.10 2002/10/24 23:17:49 jkeyes Exp $
+ * $Id: BugsTest.java,v 1.11 2002/11/18 08:41:26 jkeyes Exp $
  */
 
 package org.apache.commons.cli;
@@ -331,7 +331,7 @@ public class BugsTest extends TestCase
             CommandLine line = parser.parse( opts, args );
         }
         catch( ParseException exp ) {
-            fail( "Unexpected exception: " + exp.getMessage() );
+            fail( "Unexpected exception: " + exp.getClass().getName() + ":" + exp.getMessage() );
         }
 
         opts.addOption( forward );
@@ -340,7 +340,7 @@ public class BugsTest extends TestCase
             CommandLine line = parser.parse( opts, args );
         }
         catch( ParseException exp ) {
-            fail( "Unexpected exception: " + exp.getMessage() );
+            fail( "Unexpected exception: " + exp.getClass().getName() + ":" + exp.getMessage() );
         }
     }
 }

@@ -58,17 +58,6 @@
  * <http://www.apache.org/>.
  *
  */
-
-/*
- * Copyright (C) The Apache Software Foundation. All rights reserved.
- *
- * This software is published under the terms of the Apache Software License
- * version 1.1, a copy of which has been included with this distribution in
- * the LICENSE file.
- * 
- * $Id: Option.java,v 1.6 2002/06/06 22:50:14 bayard Exp $
- */
-
 package org.apache.commons.cli;
 
 import java.util.ArrayList;
@@ -88,7 +77,6 @@ import java.util.ArrayList;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.6 $
  */
-
 public class Option implements Cloneable {
 
     /** constant that specifies the number of argument values has not been specified */
@@ -97,7 +85,7 @@ public class Option implements Cloneable {
     /** constant that specifies the number of argument values is infinite */
     public final static int UNLIMITED_VALUES = -2;
     
-    /** opt the single character representation of the option */
+    /** opt the name of the option */
     private String opt;
 
     /** longOpt is the long representation of the option */
@@ -130,84 +118,8 @@ public class Option implements Cloneable {
     /** the list of argument values **/
     private ArrayList values = new ArrayList();
     
-    /** option char (only valid for single character options) */
-    private char id;
-
     /** the character that is the value separator */
     private char valuesep;
-
-    /**
-     * <p>Validates whether <code>opt</code> is a permissable Option
-     * shortOpt.  The rules that specify if the <code>opt</code>
-     * is valid are:</p>
-     * <ul>
-     *  <li><code>opt</code> is not NULL</li>
-     *  <li>a single character <code>opt</code> that is either
-     *  ' '(special case), '?', '@' or a letter</li>
-     *  <li>a multi character <code>opt</code> that only contains
-     *  letters.</li>
-     * </ul>
-     *
-     * @param opt The option string to validate
-     * @throws IllegalArgumentException if the Option is not valid.
-     */
-    private void validateOption( String opt ) 
-    throws IllegalArgumentException
-    {
-        // check that opt is not NULL
-        if( opt == null ) {
-            throw new IllegalArgumentException( "opt is null" );
-        }
-        // handle the single character opt
-        else if( opt.length() == 1 ) {
-            char ch = opt.charAt( 0 );
-            if ( !isValidOpt( ch ) ) {
-                throw new IllegalArgumentException( "illegal option value '" 
-                                                    + ch + "'" );
-            }
-            id = ch;
-        }
-        // handle the multi character opt
-        else {
-            char[] chars = opt.toCharArray();
-            for( int i = 0; i < chars.length; i++ ) {
-                if( !isValidChar( chars[i] ) ) {
-                    throw new IllegalArgumentException( "opt contains illegal character value '" + chars[i] + "'" );
-                }
-            }
-        }
-    }
-
-    /**
-     * <p>Returns whether the specified character is a valid Option.</p>
-     *
-     * @param c the option to validate
-     * @return true if <code>c</code> is a letter, ' ', '?' or '@', otherwise false.
-     */
-    private boolean isValidOpt( char c ) {
-        return ( isValidChar( c ) || c == ' ' || c == '?' || c == '@' );
-    }
-
-    /**
-     * <p>Returns whether the specified character is a valid character.</p>
-     *
-     * @param c the character to validate
-     * @return true if <code>c</code> is a letter.
-     */
-    private boolean isValidChar( char c ) {
-        return Character.isJavaIdentifierPart( c );
-    }
-
-    /**
-     * <p>Returns the id of this Option.  This is only set when the
-     * Option shortOpt is a single character.  This is used for switch
-     * statements.</p>
-     *
-     * @return the id of this Option
-     */
-    public int getId( ) {
-        return id;
-    }
 
     /**
      * Creates an Option using the specified parameters.
@@ -247,7 +159,7 @@ public class Option implements Cloneable {
     throws IllegalArgumentException
     {
         // ensure that the option is valid
-        validateOption( opt );
+        OptionValidator.validateOption( opt );
 
         this.opt          = opt;
         this.longOpt      = longOpt;
@@ -261,6 +173,30 @@ public class Option implements Cloneable {
         this.description  = description;
     }
     
+    /**
+     * <p>Returns the id of this Option.  This is only set when the
+     * Option shortOpt is a single character.  This is used for switch
+     * statements.</p>
+     *
+     * @return the id of this Option
+     */
+    public int getId( ) {
+        return getKey().charAt( 0 );
+    }
+
+    /**
+     * <p>Returns the 'unique' Option identifier.</p>
+     * 
+     * @return the 'unique' Option identifier
+     */
+    String getKey() {
+        // if 'opt' is null, then it is a 'long' option
+        if( opt == null ) {
+            return this.longOpt;
+        }
+        return this.opt;
+    }
+
     /** <p>Retrieve the name of this Option.</p>
      *
      * <p>It is this String which can be used with
@@ -444,37 +380,8 @@ public class Option implements Cloneable {
          return this.numberOfArgs;
      }
 
-    /** 
-     * <p>Dump state, suitable for debugging.</p>
-     *
-     * @return Stringified form of this object
-     */
-    public String toString() {
-        StringBuffer buf = new StringBuffer().append("[ option: ");
-        
-        buf.append( this.opt );
-        
-        if ( this.longOpt != null ) {
-            buf.append(" ")
-            .append(this.longOpt);
-        }
-        
-        buf.append(" ");
-        
-        if ( hasArg ) {
-            buf.append( "+ARG" );
-        }
-        
-        buf.append(" :: ")
-        .append( this.description );
-        
-        if ( this.type != null ) {
-            buf.append(" :: ")
-            .append( this.type );
-        }
-
-        buf.append(" ]");
-        return buf.toString();
+    public void clearValues() {
+        this.values.clear();
     }
 
     /**
@@ -572,4 +479,38 @@ public class Option implements Cloneable {
         option.setValueSeparator( getValueSeparator() );
         return option;
     }
+
+    /** 
+     * <p>Dump state, suitable for debugging.</p>
+     *
+     * @return Stringified form of this object
+     */
+    public String toString() {
+        StringBuffer buf = new StringBuffer().append("[ option: ");
+        
+        buf.append( this.opt );
+        
+        if ( this.longOpt != null ) {
+            buf.append(" ")
+            .append(this.longOpt);
+        }
+        
+        buf.append(" ");
+        
+        if ( hasArg ) {
+            buf.append( "+ARG" );
+        }
+        
+        buf.append(" :: ")
+        .append( this.description );
+        
+        if ( this.type != null ) {
+            buf.append(" :: ")
+            .append( this.type );
+        }
+
+        buf.append(" ]");
+        return buf.toString();
+    }
+
 }
