@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.9 2002/08/26 20:15:02 jkeyes Exp $
- * $Revision: 1.9 $
- * $Date: 2002/08/26 20:15:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.10 2002/09/09 19:35:24 jkeyes Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/09/09 19:35:24 $
  *
  * ====================================================================
  *
@@ -72,7 +72,7 @@ import java.util.Map;
  *
  * @author John Keyes (jbjk at mac.com)
  * @see Parser
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public class PosixParser extends Parser {
 
@@ -153,7 +153,14 @@ public class PosixParser extends Parser {
 
             // handle SPECIAL TOKEN
             if( token.startsWith( "--" ) ) {
-                tokens.add( token );
+                if( token.indexOf( '=' ) != -1 ) {
+                    tokens.add( token.substring( 0, token.indexOf( '=' ) ) );
+                    tokens.add( token.substring( token.indexOf( '=' ) + 1,
+                                                 token.length() ) );
+                }
+                else {
+                    tokens.add( token );
+                }	
             }
             // single hyphen
             else if( "-".equals( token ) ) {
