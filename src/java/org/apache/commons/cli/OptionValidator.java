@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionValidator.java,v 1.1 2002/11/18 08:41:26 jkeyes Exp $
- * $Revision: 1.1 $
- * $Date: 2002/11/18 08:41:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionValidator.java,v 1.2 2002/12/09 23:47:25 jkeyes Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/12/09 23:47:25 $
  *
  * ====================================================================
  *
@@ -82,27 +82,39 @@ public class OptionValidator {
      * @param opt The option string to validate
      * @throws IllegalArgumentException if the Option is not valid.
      */
-    static void validateOption( String opt ) 
-    throws IllegalArgumentException
+    static void validateOption(String opt)
+                        throws IllegalArgumentException
     {
         // check that opt is not NULL
-        if( opt == null ) {
+        if (opt == null)
+        {
             return;
         }
+
         // handle the single character opt
-        else if( opt.length() == 1 ) {
-            char ch = opt.charAt( 0 );
-            if ( !isValidOpt( ch ) ) {
-                throw new IllegalArgumentException( "illegal option value '" 
-                                                    + ch + "'" );
+        else if (opt.length() == 1)
+        {
+            char ch = opt.charAt(0);
+
+            if (!isValidOpt(ch))
+            {
+                throw new IllegalArgumentException("illegal option value '" + ch
+                                                   + "'");
             }
         }
+
         // handle the multi character opt
-        else {
+        else
+        {
             char[] chars = opt.toCharArray();
-            for( int i = 0; i < chars.length; i++ ) {
-                if( !isValidChar( chars[i] ) ) {
-                    throw new IllegalArgumentException( "opt contains illegal character value '" + chars[i] + "'" );
+
+            for (int i = 0; i < chars.length; i++)
+            {
+                if (!isValidChar(chars[i]))
+                {
+                    throw new IllegalArgumentException(
+                            "opt contains illegal character value '" + chars[i]
+                            + "'");
                 }
             }
         }
@@ -112,10 +124,12 @@ public class OptionValidator {
      * <p>Returns whether the specified character is a valid Option.</p>
      *
      * @param c the option to validate
-     * @return true if <code>c</code> is a letter, ' ', '?' or '@', otherwise false.
+     * @return true if <code>c</code> is a letter, ' ', '?' or '@', 
+     * otherwise false.
      */
-    private static boolean isValidOpt( char c ) {
-        return ( isValidChar( c ) || c == ' ' || c == '?' || c == '@' );
+    private static boolean isValidOpt(char c)
+    {
+        return (isValidChar(c) || (c == ' ') || (c == '?') || c == '@');
     }
 
     /**
@@ -124,7 +138,8 @@ public class OptionValidator {
      * @param c the character to validate
      * @return true if <code>c</code> is a letter.
      */
-    private static boolean isValidChar( char c ) {
-        return Character.isJavaIdentifierPart( c );
+    private static boolean isValidChar(char c)
+    {
+        return Character.isJavaIdentifierPart(c);
     }
 }

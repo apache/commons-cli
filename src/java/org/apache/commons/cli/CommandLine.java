@@ -60,12 +60,11 @@
  */
 package org.apache.commons.cli;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /** 
@@ -84,15 +83,15 @@ import java.util.Map;
  * @author John Keyes (john at integralsource.com)
  */
 public class CommandLine {
-    
+
     /** the unrecognised options/arguments */
-    private List args    = new LinkedList();
+    private List args = new LinkedList();
 
     /** the processed options */
     private Map options = new HashMap();
 
     /** the option name map */
-    private Map names   = new HashMap();
+    private Map names = new HashMap();
 
     /** Map of unique options for ease to get complete list of options */
     private Map hashcodeMap = new HashMap();
@@ -103,17 +102,19 @@ public class CommandLine {
     /**
      * <p>Creates a command line.</p>
      */
-    CommandLine() {
+    CommandLine()
+    {
     }
-    
+
     /** 
      * <p>Query to see if an option has been set.</p>
      *
      * @param opt Short name of the option
      * @return true if set, false if not
      */
-    public boolean hasOption(String opt) {
-        return options.containsKey( opt );
+    public boolean hasOption(String opt)
+    {
+        return options.containsKey(opt);
     }
 
     /** 
@@ -122,8 +123,9 @@ public class CommandLine {
      * @param opt character name of the option
      * @return true if set, false if not
      */
-    public boolean hasOption( char opt ) {
-        return hasOption( String.valueOf( opt ) );
+    public boolean hasOption(char opt)
+    {
+        return hasOption(String.valueOf(opt));
     }
 
     /**
@@ -132,14 +134,18 @@ public class CommandLine {
      * @param opt the name of the option
      * @return the type of this <code>Option</code>
      */
-    public Object getOptionObject( String opt ) {
-        String res = getOptionValue( opt );
-        
-        if( !options.containsKey( opt ) ) {
+    public Object getOptionObject(String opt)
+    {
+        String res = getOptionValue(opt);
+
+        if (!options.containsKey(opt))
+        {
             return null;
         }
-        Object type = ((Option)options.get(opt)).getType();
-        return res == null ? null : TypeHandler.createValue(res, type);
+
+        Object type = ((Option) options.get(opt)).getType();
+
+        return (res == null)        ? null : TypeHandler.createValue(res, type);
     }
 
     /**
@@ -148,8 +154,9 @@ public class CommandLine {
      * @param opt the name of the option
      * @return the type of opt
      */
-    public Object getOptionObject( char opt ) {
-        return getOptionObject( String.valueOf( opt ) );
+    public Object getOptionObject(char opt)
+    {
+        return getOptionObject(String.valueOf(opt));
     }
 
     /** 
@@ -159,8 +166,10 @@ public class CommandLine {
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String getOptionValue( String opt ) {
+    public String getOptionValue(String opt)
+    {
         String[] values = getOptionValues(opt);
+
         return (values == null) ? null : values[0];
     }
 
@@ -171,8 +180,9 @@ public class CommandLine {
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String getOptionValue( char opt ) {
-        return getOptionValue( String.valueOf( opt ) );
+    public String getOptionValue(char opt)
+    {
+        return getOptionValue(String.valueOf(opt));
     }
 
     /** 
@@ -182,19 +192,24 @@ public class CommandLine {
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String[] getOptionValues( String opt ) {
+    public String[] getOptionValues(String opt)
+    {
         List values = new java.util.ArrayList();
 
-        opt = Util.stripLeadingHyphens( opt );
+        opt = Util.stripLeadingHyphens(opt);
 
         String key = opt;
-        if( names.containsKey( opt ) ) {
-            key = (String)names.get( opt );
+
+        if (names.containsKey(opt))
+        {
+            key = (String) names.get(opt);
         }
 
-        if( options.containsKey( key ) ) {
-            return ((Option)options.get(key)).getValues();
+        if (options.containsKey(key))
+        {
+            return ((Option) options.get(key)).getValues();
         }
+
         return null;
     }
 
@@ -205,33 +220,39 @@ public class CommandLine {
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String[] getOptionValues( char opt ) {
-        return getOptionValues( String.valueOf( opt ) );
+    public String[] getOptionValues(char opt)
+    {
+        return getOptionValues(String.valueOf(opt));
     }
-    
+
     /** 
      * <p>Retrieve the argument, if any, of an option.</p>
      *
      * @param opt name of the option
-     * @param defaultValue is the default value to be returned if the option is not specified
+     * @param defaultValue is the default value to be returned if the option 
+     * is not specified
      * @return Value of the argument if option is set, and has an argument,
      * otherwise <code>defaultValue</code>.
      */
-    public String getOptionValue( String opt, String defaultValue ) {
-        String answer = getOptionValue( opt );
-        return ( answer != null ) ? answer : defaultValue;
+    public String getOptionValue(String opt, String defaultValue)
+    {
+        String answer = getOptionValue(opt);
+
+        return (answer != null) ? answer : defaultValue;
     }
-    
+
     /** 
      * <p>Retrieve the argument, if any, of an option.</p>
      *
      * @param opt character name of the option
-     * @param defaultValue is the default value to be returned if the option is not specified
+     * @param defaultValue is the default value to be returned if the option 
+     * is not specified
      * @return Value of the argument if option is set, and has an argument,
      * otherwise <code>defaultValue</code>.
      */
-    public String getOptionValue( char opt, String defaultValue ) {
-        return getOptionValue( String.valueOf( opt ), defaultValue );
+    public String getOptionValue(char opt, String defaultValue)
+    {
+        return getOptionValue(String.valueOf(opt), defaultValue);
     }
 
     /** 
@@ -239,21 +260,25 @@ public class CommandLine {
      *
      * @return remaining items passed in but not parsed as an array
      */
-    public String[] getArgs() {
-        String[] answer = new String[ args.size() ];
-        args.toArray( answer );
+    public String[] getArgs()
+    {
+        String[] answer = new String[args.size()];
+
+        args.toArray(answer);
+
         return answer;
     }
-    
+
     /** 
      * <p>Retrieve any left-over non-recognized options and arguments</p>
      *
      * @return remaining items passed in but not parsed as a <code>List</code>.
      */
-    public List getArgList() {
+    public List getArgList()
+    {
         return args;
     }
-    
+
     /** 
      * jkeyes
      * - commented out until it is implemented properly
@@ -261,16 +286,17 @@ public class CommandLine {
      *
      * @return Stringified form of this object
      */
+
     /*
     public String toString() {
         StringBuffer buf = new StringBuffer();
-        
-        buf.append( "[ CommandLine: [ options: " );
-        buf.append( options.toString() );
-        buf.append( " ] [ args: ");
-        buf.append( args.toString() );
-        buf.append( " ] ]" );
-        
+            
+        buf.append("[ CommandLine: [ options: ");
+        buf.append(options.toString());
+        buf.append(" ] [ args: ");
+        buf.append(args.toString());
+        buf.append(" ] ]");
+            
         return buf.toString();
     }
     */
@@ -280,28 +306,33 @@ public class CommandLine {
      *
      * @param arg the unrecognised option/argument.
      */
-    void addArg(String arg) {
-        args.add( arg );
+    void addArg(String arg)
+    {
+        args.add(arg);
     }
-        
+
     /**
      * <p>Add an option to the command line.  The values of 
      * the option are stored.</p>
      *
      * @param opt the processed option
      */
-    void addOption( Option opt ) {
-        hashcodeMap.put( new Integer( opt.hashCode() ), opt );
+    void addOption(Option opt)
+    {
+        hashcodeMap.put(new Integer(opt.hashCode()), opt);
 
         String key = opt.getKey();
-        if( key == null ) {
+
+        if (key == null)
+        {
             key = opt.getLongOpt();
         }
-        else {
-            names.put( opt.getLongOpt(), key );
+        else
+        {
+            names.put(opt.getLongOpt(), key);
         }
 
-        options.put( key, opt );
+        options.put(key, opt);
     }
 
     /**
@@ -310,7 +341,8 @@ public class CommandLine {
      * @return an <code>Iterator</code> over the processed {@link Option} 
      * members of this {@link CommandLine}
      */
-    public Iterator iterator( ) {
+    public Iterator iterator()
+    {
         return hashcodeMap.values().iterator();
     }
 
@@ -319,14 +351,15 @@ public class CommandLine {
      *
      * @return an array of the processed {@link Option}s.
      */
-    public Option[] getOptions( ) {
+    public Option[] getOptions()
+    {
         Collection processed = options.values();
 
+
         // reinitialise array
-        optionsArray = new Option[ processed.size() ];
+        optionsArray = new Option[processed.size()];
 
         // return the array
-        return (Option[]) processed.toArray( optionsArray );
+        return (Option[]) processed.toArray(optionsArray);
     }
-
 }

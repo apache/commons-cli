@@ -58,7 +58,6 @@
  * <http://www.apache.org/>.
  *
  */
-
 package org.apache.commons.cli;
 
 import java.util.Collection;
@@ -87,10 +86,12 @@ public class OptionGroup {
      * @param opt the option to add to this group
      * @return this option group with opt added
      */
-    public OptionGroup addOption(Option opt) {
+    public OptionGroup addOption(Option opt)
+    {
         // key   - option name
         // value - the option
-        optionMap.put( opt.getKey(), opt );
+        optionMap.put(opt.getKey(), opt);
+
         return this;
     }
 
@@ -98,7 +99,8 @@ public class OptionGroup {
      * @return the names of the options in this group as a 
      * <code>Collection</code>
      */
-    public Collection getNames() {
+    public Collection getNames()
+    {
         // the key set is the collection of names
         return optionMap.keySet();
     }
@@ -106,7 +108,8 @@ public class OptionGroup {
     /**
      * @return the options in this group as a <code>Collection</code>
      */
-    public Collection getOptions() {
+    public Collection getOptions()
+    {
         // the values are the collection of options
         return optionMap.values();
     }
@@ -117,41 +120,47 @@ public class OptionGroup {
      * @throws AlreadySelectedException if an option from this group has 
      * already been selected.
      */
-    public void setSelected(Option opt) throws AlreadySelectedException {
+    public void setSelected(Option opt)
+                     throws AlreadySelectedException
+    {
         // if no option has already been selected or the 
         // same option is being reselected then set the
         // selected member variable
-
-        if ( this.selected == null || this.selected.equals( opt.getOpt() ) ) {
+        if ((this.selected == null) || this.selected.equals(opt.getOpt()))
+        {
             this.selected = opt.getOpt();
         }
-        else {
-            throw new AlreadySelectedException( "an option from this group has " + 
-                                                "already been selected: '" + 
-                                                selected + "'");
+        else
+        {
+            throw new AlreadySelectedException("an option from this group has "
+                                               + "already been selected: '"
+                                               + selected + "'");
         }
     }
 
     /**
      * @return the selected option name
      */
-    public String getSelected() {
+    public String getSelected()
+    {
         return selected;
     }
 
     /**
      * @param required specifies if this group is required
      */
-    public void setRequired( boolean required ) {
+    public void setRequired(boolean required)
+    {
         this.required = required;
     }
 
     /**
      * Returns whether this option group is required.
      *
-     * @returns whether this option group is required
+     * @return whether this option group is required
      */
-    public boolean isRequired() {
+    public boolean isRequired()
+    {
         return this.required;
     }
 
@@ -159,31 +168,39 @@ public class OptionGroup {
      * <p>Returns the stringified version of this OptionGroup.</p>
      * @return the stringified representation of this group
      */
-    public String toString() {
+    public String toString()
+    {
         StringBuffer buff = new StringBuffer();
 
         Iterator iter = getOptions().iterator();
 
-        buff.append( "[" );
-        while( iter.hasNext() ) {
-            Option option = (Option)iter.next();
+        buff.append("[");
 
-            if( option.getOpt() != null ) {
-                buff.append( "-" );
-                buff.append( option.getOpt() );
-            }
-            else {
-                buff.append( "--" );
-                buff.append( option.getLongOpt() );
-            }
-            buff.append( " " );
-            buff.append( option.getDescription( ) );
+        while (iter.hasNext())
+        {
+            Option option = (Option) iter.next();
 
-            if( iter.hasNext() ) {
-                buff.append( ", " );
+            if (option.getOpt() != null)
+            {
+                buff.append("-");
+                buff.append(option.getOpt());
+            }
+            else
+            {
+                buff.append("--");
+                buff.append(option.getLongOpt());
+            }
+
+            buff.append(" ");
+            buff.append(option.getDescription());
+
+            if (iter.hasNext())
+            {
+                buff.append(", ");
             }
         }
-        buff.append( "]" );
+
+        buff.append("]");
 
         return buff.toString();
     }

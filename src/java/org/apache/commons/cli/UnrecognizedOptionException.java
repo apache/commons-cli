@@ -58,7 +58,6 @@
  * <http://www.apache.org/>.
  *
  */
-
 package org.apache.commons.cli;
 
 /** 
@@ -68,15 +67,17 @@ package org.apache.commons.cli;
  * @author bob mcwhiter (bob @ werken.com)
  * @version $Revision: 1.2 $
  */
-public class UnrecognizedOptionException extends ParseException {
-    
+public class UnrecognizedOptionException
+    extends ParseException {
+
     /** 
      * <p>Construct a new <code>UnrecognizedArgumentException</code> 
      * with the specified detail message.</p>
      *
      * @param message the detail message
      */
-    public UnrecognizedOptionException( String message ) {
-        super( message );
+    public UnrecognizedOptionException(String message)
+    {
+        super(message);
     }
 }

@@ -58,7 +58,6 @@
  * <http://www.apache.org/>.
  *
  */
-
 package org.apache.commons.cli;
 
 /** 
@@ -67,16 +66,16 @@ package org.apache.commons.cli;
  * @author bob mcwhirter (bob @ werken.com)
  * @version $Revision: 1.2 $
  */
-public class ParseException extends Exception 
-{
-    
+public class ParseException extends Exception {
+
     /** 
      * <p>Construct a new <code>ParseException</code> 
      * with the specified detail message.</p>
      *
      * @param message the detail message
      */
-    public ParseException( String message ) {
-        super( message );
+    public ParseException(String message)
+    {
+        super(message);
     }
 }

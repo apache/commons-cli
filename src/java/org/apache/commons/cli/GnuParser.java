@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.10 2002/09/19 22:59:43 jkeyes Exp $
- * $Revision: 1.10 $
- * $Date: 2002/09/19 22:59:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/GnuParser.java,v 1.11 2002/12/09 23:47:24 jkeyes Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/12/09 23:47:24 $
  *
  * ====================================================================
  *
@@ -60,10 +60,7 @@
  */
 package org.apache.commons.cli;
 
-import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * The class GnuParser provides an implementation of the 
@@ -71,7 +68,7 @@ import java.util.Iterator;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public class GnuParser extends Parser {
 
@@ -82,7 +79,8 @@ public class GnuParser extends Parser {
      * <p>Resets the members to their original state i.e. remove
      * all of <code>tokens</code> entries.
      */
-    private void init() {
+    private void init()
+    {
         tokens.clear();
     }
 
@@ -98,90 +96,123 @@ public class GnuParser extends Parser {
      *  </li>
      * </ol>
      * </p>
+     *
+     * @param options The Options to parse the arguments by.
+     * @param arguments The arguments that have to be flattened.
+     * @param stopAtNonOption specifies whether to stop 
+     * flattening when a non option has been encountered
+     * @return a String array of the flattened arguments
      */
-    protected String[] flatten( Options options, 
-                                String[] arguments, 
-                                boolean stopAtNonOption )
+    protected String[] flatten(Options options, String[] arguments, 
+                               boolean stopAtNonOption)
     {
         init();
+
         boolean eatTheRest = false;
         Option currentOption = null;
 
-        for( int i = 0; i < arguments.length; i++ ) {
-            if( "--".equals( arguments[i] ) ) {
+        for (int i = 0; i < arguments.length; i++)
+        {
+            if ("--".equals(arguments[i]))
+            {
                 eatTheRest = true;
-                tokens.add( "--" );
+                tokens.add("--");
             }
-            else if ( "-".equals( arguments[i] ) ) {
-                tokens.add( "-" );
+            else if ("-".equals(arguments[i]))
+            {
+                tokens.add("-");
             }
-            else if( arguments[i].startsWith( "-" ) ) {
-                Option option = options.getOption( arguments[i] );
+            else if (arguments[i].startsWith("-"))
+            {
+                Option option = options.getOption(arguments[i]);
 
                 // this is not an Option
-                if( option == null ) {
+                if (option == null)
+                {
                     // handle special properties Option
-                    Option specialOption = options.getOption( arguments[i].substring(0,2) );
-                    if( specialOption != null ) {
-                        tokens.add( arguments[i].substring(0,2) );
-                        tokens.add( arguments[i].substring(2) );
+                    Option specialOption = 
+                            options.getOption(arguments[i].substring(0, 2));
+
+                    if (specialOption != null)
+                    {
+                        tokens.add(arguments[i].substring(0, 2));
+                        tokens.add(arguments[i].substring(2));
                     }
-                    else if( stopAtNonOption ) {
+                    else if (stopAtNonOption)
+                    {
                         eatTheRest = true;
-                        tokens.add( arguments[i] );
+                        tokens.add(arguments[i]);
                     }
-                    else {
-                        tokens.add( arguments[i] );
+                    else
+                    {
+                        tokens.add(arguments[i]);
                     }
                 }
-                else {
+                else
+                {
                     currentOption = option;
+
                     // special option
-                    Option specialOption = options.getOption( arguments[i].substring(0,2) );
-                    if( specialOption != null && option == null ) {
-                        tokens.add( arguments[i].substring(0,2) );
-                        tokens.add( arguments[i].substring(2) );
+                    Option specialOption = 
+                            options.getOption(arguments[i].substring(0, 2));
+
+                    if ((specialOption != null) && (option == null))
+                    {
+                        tokens.add(arguments[i].substring(0, 2));
+                        tokens.add(arguments[i].substring(2));
                     }
-                    else if( currentOption != null && currentOption.hasArg() ) {
-                        if( currentOption.hasArg() ) {
-                            tokens.add( arguments[i] );
-                            currentOption= null;
+                    else if ((currentOption != null) && currentOption.hasArg())
+                    {
+                        if (currentOption.hasArg())
+                        {
+                            tokens.add(arguments[i]);
+                            currentOption = null;
                         }
-                        else if ( currentOption.hasArgs() ) {
-                            tokens.add( arguments[i] );
+                        else if (currentOption.hasArgs())
+                        {
+                            tokens.add(arguments[i]);
                         }
-                        else if ( stopAtNonOption ) {
+                        else if (stopAtNonOption)
+                        {
                             eatTheRest = true;
-                            tokens.add( "--" );
-                            tokens.add( arguments[i] );
+                            tokens.add("--");
+                            tokens.add(arguments[i]);
                         }
-                        else {
-                            tokens.add( arguments[i] );
+                        else
+                        {
+                            tokens.add(arguments[i]);
                         }
-                    } 
-                    else if (currentOption != null ) {
-                        tokens.add( arguments[i] );
-                    } 
-                    else if ( stopAtNonOption ) {
-                        eatTheRest = true;
-                        tokens.add( "--" );
-                        tokens.add( arguments[i] );
                     }
-                    else {
-                        tokens.add( arguments[i] );
+                    else if (currentOption != null)
+                    {
+                        tokens.add(arguments[i]);
+                    }
+                    else if (stopAtNonOption)
+                    {
+                        eatTheRest = true;
+                        tokens.add("--");
+                        tokens.add(arguments[i]);
+                    }
+                    else
+                    {
+                        tokens.add(arguments[i]);
                     }
                 }
             }
-            else {
-                tokens.add( arguments[i] );
+            else
+            {
+                tokens.add(arguments[i]);
             }
 
-            if( eatTheRest ) {
-                for( i++; i < arguments.length; i++ ) {
-                    tokens.add( arguments[i] );
+            if (eatTheRest)
+            {
+                for (i++; i < arguments.length; i++)
+                {
+                    tokens.add(arguments[i]);
                 }
             }
         }
-        return (String[])tokens.toArray( new String[] {} );
+
+        return (String[]) tokens.toArray(new String[] {  });
     }
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.11 2002/09/19 22:59:43 jkeyes Exp $
- * $Revision: 1.11 $
- * $Date: 2002/09/19 22:59:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/PosixParser.java,v 1.12 2002/12/09 23:47:25 jkeyes Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/12/09 23:47:25 $
  *
  * ====================================================================
  *
@@ -60,11 +60,9 @@
  */
 package org.apache.commons.cli;
 
-import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * The class PosixParser provides an implementation of the 
@@ -72,16 +70,19 @@ import java.util.Map;
  *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public class PosixParser extends Parser {
 
     /** holder for flattened tokens */
     private ArrayList tokens = new ArrayList();
+
     /** specifies if bursting should continue */
     private boolean eatTheRest;
+
     /** holder for the current option */
     private Option currentOption;
+
     /** the command line Options */
     private Options options;
 
@@ -90,7 +91,8 @@ public class PosixParser extends Parser {
      * all of <code>tokens</code> entries, set <code>eatTheRest</code>
      * to false and set <code>currentOption</code> to null.</p>
      */
-    private void init() {
+    private void init()
+    {
         eatTheRest = false;
         tokens.clear();
         currentOption = null;
@@ -121,7 +123,7 @@ public class PosixParser extends Parser {
      *  characters in length and the first character is "<b>-</b>" then
      *  we need to burst the entry to determine its constituents.  For more
      *  information on the bursting algorithm see 
-     *  {@link PosixParser#burstToken( String, boolean) burstToken}.</li>
+     *  {@link PosixParser#burstToken(String, boolean) burstToken}.</li>
      *  <li>if the current <code>arguments</code> entry is not handled 
      *  by any of the previous rules, then the entry is added to the list
      *  of processed tokens.</li>
@@ -134,61 +136,73 @@ public class PosixParser extends Parser {
      * when an non option is found.
      * @return The flattened <code>arguments</code> String array.
      */
-    protected String[] flatten( Options options, 
-                                String[] arguments, 
-                                boolean stopAtNonOption )
+    protected String[] flatten(Options options, String[] arguments, 
+                               boolean stopAtNonOption)
     {
         init();
         this.options = options;
 
         // an iterator for the command line tokens
-        Iterator iter = Arrays.asList( arguments ).iterator();
+        Iterator iter = Arrays.asList(arguments).iterator();
         String token = null;
-        
-        // process each command line token
-        while ( iter.hasNext() ) {
 
+        // process each command line token
+        while (iter.hasNext())
+        {
             // get the next command line token
             token = (String) iter.next();
 
             // handle SPECIAL TOKEN
-            if( token.startsWith( "--" ) ) {
-                if( token.indexOf( '=' ) != -1 ) {
-                    tokens.add( token.substring( 0, token.indexOf( '=' ) ) );
-                    tokens.add( token.substring( token.indexOf( '=' ) + 1,
-                                                 token.length() ) );
+            if (token.startsWith("--"))
+            {
+                if (token.indexOf('=') != -1)
+                {
+                    tokens.add(token.substring(0, token.indexOf('=')));
+                    tokens.add(token.substring(token.indexOf('=') + 1, 
+                                               token.length()));
                 }
-                else {
-                    tokens.add( token );
-                }	
-            }
-            // single hyphen
-            else if( "-".equals( token ) ) {
-                processSingleHyphen( token );
-            }
-            else if( token.startsWith( "-" ) ) {
-                int tokenLength = token.length();
-                if( tokenLength == 2 ) {
-                    processOptionToken( token, stopAtNonOption );
-                }
-                // requires bursting
-                else {
-                    burstToken( token, stopAtNonOption );
-                }
-            }
-            else {
-                if( stopAtNonOption ) {
-                    process( token );
-                }
-                else {
-                    tokens.add( token );
+                else
+                {
+                    tokens.add(token);
                 }
             }
 
-            gobble( iter );
+            // single hyphen
+            else if ("-".equals(token))
+            {
+                processSingleHyphen(token);
+            }
+            else if (token.startsWith("-"))
+            {
+                int tokenLength = token.length();
+
+                if (tokenLength == 2)
+                {
+                    processOptionToken(token, stopAtNonOption);
+                }
+
+                // requires bursting
+                else
+                {
+                    burstToken(token, stopAtNonOption);
+                }
+            }
+            else
+            {
+                if (stopAtNonOption)
+                {
+                    process(token);
+                }
+                else
+                {
+                    tokens.add(token);
+                }
+            }
+
+            gobble(iter);
         }
 
-        return (String[])tokens.toArray( new String[] {} );
+        return (String[]) tokens.toArray(new String[] {  });
     }
 
     /**
@@ -196,10 +210,13 @@ public class PosixParser extends Parser {
      *
      * @param iter An iterator over the remaining tokens
      */
-    private void gobble( Iterator iter ) {
-        if( eatTheRest ) {
-            while( iter.hasNext() ) {
-                tokens.add( iter.next() );
+    private void gobble(Iterator iter)
+    {
+        if (eatTheRest)
+        {
+            while (iter.hasNext())
+            {
+                tokens.add(iter.next());
             }
         }
     }
@@ -217,20 +234,25 @@ public class PosixParser extends Parser {
      *
      * @param value The current token
      */
-    private void process( String value ) {
-        if( currentOption != null && currentOption.hasArg() ) {
-            if( currentOption.hasArg() ) {
-                tokens.add( value );
+    private void process(String value)
+    {
+        if ((currentOption != null) && currentOption.hasArg())
+        {
+            if (currentOption.hasArg())
+            {
+                tokens.add(value);
                 currentOption = null;
             }
-            else if (currentOption.hasArgs() ) {
-                tokens.add( value );
+            else if (currentOption.hasArgs())
+            {
+                tokens.add(value);
             }
         }
-        else {
+        else
+        {
             eatTheRest = true;
-            tokens.add( "--" );
-            tokens.add( value );
+            tokens.add("--");
+            tokens.add(value);
         }
     }
 
@@ -240,8 +262,9 @@ public class PosixParser extends Parser {
      *
      * @param hyphen The hyphen token
      */
-    private void processSingleHyphen( String hyphen ) {
-        tokens.add( hyphen );
+    private void processSingleHyphen(String hyphen)
+    {
+        tokens.add(hyphen);
     }
 
     /**
@@ -256,12 +279,15 @@ public class PosixParser extends Parser {
      * @param stopAtNonOption Specifies whether flattening should halt
      * at the first non option.
      */
-    private void processOptionToken( String token, boolean stopAtNonOption ) {
-        if( this.options.hasOption( token ) ) {
-            currentOption = this.options.getOption( token );
-            tokens.add( token );
+    private void processOptionToken(String token, boolean stopAtNonOption)
+    {
+        if (this.options.hasOption(token))
+        {
+            currentOption = this.options.getOption(token);
+            tokens.add(token);
         }
-        else if( stopAtNonOption ) {
+        else if (stopAtNonOption)
+        {
             eatTheRest = true;
         }
     }
@@ -270,7 +296,7 @@ public class PosixParser extends Parser {
      * <p>Breaks <code>token</code> into its constituent parts
      * using the following algorithm.
      * <ul>
-     *  <li>ignore the first character ("<b>-</b>" )</li>
+     *  <li>ignore the first character ("<b>-</b>")</li>
      *  <li>foreach remaining character check if an {@link Option}
      *  exists with that id.</li>
      *  <li>if an {@link Option} does exist then add that character
@@ -287,27 +313,39 @@ public class PosixParser extends Parser {
      *  character prepended with "<b>-</b>".</li>
      * </ul>
      * </p>
+     *
+     * @param token The current token to be <b>burst</b>
+     * @param stopAtNonOption Specifies whether to stop processing
+     * at the first non-Option encountered.
      */
-    protected void burstToken( String token, boolean stopAtNonOption ) {
+    protected void burstToken(String token, boolean stopAtNonOption)
+    {
         int tokenLength = token.length();
 
-        for( int i = 1; i < tokenLength; i++) {
-            String ch = String.valueOf( token.charAt( i ) );
-            boolean hasOption = options.hasOption( ch );
+        for (int i = 1; i < tokenLength; i++)
+        {
+            String ch = String.valueOf(token.charAt(i));
+            boolean hasOption = options.hasOption(ch);
 
-            if( hasOption ) {
-                tokens.add( "-" + ch );
-                currentOption = options.getOption( ch );
-                if( currentOption.hasArg() && token.length()!=i+1 ) {
-                    tokens.add( token.substring( i+1 ) );
+            if (hasOption)
+            {
+                tokens.add("-" + ch);
+                currentOption = options.getOption(ch);
+
+                if (currentOption.hasArg() && (token.length() != (i + 1)))
+                {
+                    tokens.add(token.substring(i + 1));
+
                     break;
                 }
             }
-            else if( stopAtNonOption ) {
-                process( token.substring( i ) );
+            else if (stopAtNonOption)
+            {
+                process(token.substring(i));
             }
-            else {
-                tokens.add( "-" + ch );
+            else
+            {
+                tokens.add("-" + ch);
             }
         }
     }

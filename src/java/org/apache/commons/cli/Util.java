@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Util.java,v 1.1 2002/11/18 08:41:26 jkeyes Exp $
- * $Revision: 1.1 $
- * $Date: 2002/11/18 08:41:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Util.java,v 1.2 2002/12/09 23:47:25 jkeyes Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/12/09 23:47:25 $
  *
  * ====================================================================
  *
@@ -67,13 +67,26 @@ package org.apache.commons.cli;
  */
 class Util {
 
-    static String stripLeadingHyphens( String str ) {
-        if( str.startsWith( "--" ) ) {
-            return str.substring( 2, str.length() );
+    /**
+     * <p>Remove the hyphens from the begining of <code>str</code> and
+     * return the new String.</p>
+     *
+     * @param str The string from which the hyphens should be removed.
+     *
+     * @return the hyphens from the begining of <code>str</code> and
+     * return the new String.
+     */
+    static String stripLeadingHyphens(String str)
+    {
+        if (str.startsWith("--"))
+        {
+            return str.substring(2, str.length());
         }
-        else if ( str.startsWith( "-" ) ) {
-            return str.substring( 1, str.length() );
+        else if (str.startsWith("-"))
+        {
+            return str.substring(1, str.length());
         }
+
         return str;
     }
-            }
+}

@@ -64,18 +64,18 @@ public class TestHelpFormatter extends TestCase
       String text = "This is a test.";
       String expected;
 
-      expected = "This is a" + hf.defaultNewLine + "test.";
+      expected = "This is a" + hf.getNewLine() + "test.";
       hf.renderWrappedText(sb, 12, 0, text);
       assertEquals("single line text", expected, sb.toString());
 
       sb.setLength(0);
-      expected = "This is a" + hf.defaultNewLine + "    test.";
+      expected = "This is a" + hf.getNewLine() + "    test.";
       hf.renderWrappedText(sb, 12, 4, text);
       assertEquals("single line padded text", expected, sb.toString());
 
       text =
-         "aaaa aaaa aaaa" + hf.defaultNewLine +
-         "aaaaaa" + hf.defaultNewLine +
+         "aaaa aaaa aaaa" + hf.getNewLine() +
+         "aaaaaa" + hf.getNewLine() +
          "aaaaa";
 
       expected = text;
@@ -84,8 +84,8 @@ public class TestHelpFormatter extends TestCase
       assertEquals("multi line text", expected, sb.toString());
 
       expected =
-         "aaaa aaaa aaaa" + hf.defaultNewLine +
-         "    aaaaaa" + hf.defaultNewLine +
+         "aaaa aaaa aaaa" + hf.getNewLine() +
+         "    aaaaaa" + hf.getNewLine() +
          "    aaaaa";
       sb.setLength(0);
       hf.renderWrappedText(sb, 16, 4, text);
@@ -111,7 +111,7 @@ public class TestHelpFormatter extends TestCase
 
        int nextLineTabStop = leftPad+descPad+"-a".length();
        expected =
-           lpad + "-a" + dpad + "aaaa aaaa aaaa" + hf.defaultNewLine +
+           lpad + "-a" + dpad + "aaaa aaaa aaaa" + hf.getNewLine() +
            hf.createPadding(nextLineTabStop) + "aaaa aaaa";
        sb.setLength(0);
        hf.renderOptions(sb, nextLineTabStop+17, options, leftPad, descPad);
@@ -126,7 +126,7 @@ public class TestHelpFormatter extends TestCase
 
        nextLineTabStop = leftPad+descPad+"-a,--aaa".length();
        expected =
-           lpad + "-a,--aaa" + dpad + "dddd dddd" + hf.defaultNewLine +
+           lpad + "-a,--aaa" + dpad + "dddd dddd" + hf.getNewLine() +
            hf.createPadding(nextLineTabStop) + "dddd dddd";
        sb.setLength(0);
        hf.renderOptions(sb, 25, options, leftPad, descPad);
@@ -136,9 +136,9 @@ public class TestHelpFormatter extends TestCase
            addOption("a", "aaa", false, "dddd dddd dddd dddd").
            addOption("b", false, "feeee eeee eeee eeee");
        expected =
-           lpad + "-a,--aaa" + dpad + "dddd dddd" + hf.defaultNewLine +
-           hf.createPadding(nextLineTabStop) + "dddd dddd" + hf.defaultNewLine +
-           lpad + "-b      " + dpad + "feeee eeee" + hf.defaultNewLine +
+           lpad + "-a,--aaa" + dpad + "dddd dddd" + hf.getNewLine() +
+           hf.createPadding(nextLineTabStop) + "dddd dddd" + hf.getNewLine() +
+           lpad + "-b      " + dpad + "feeee eeee" + hf.getNewLine() +
            hf.createPadding(nextLineTabStop) + "eeee eeee";
        sb.setLength(0);
        hf.renderOptions(sb, 25, options, leftPad, descPad);

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/CommandLineParser.java,v 1.5 2002/11/18 08:41:26 jkeyes Exp $
- * $Revision: 1.5 $
- * $Date: 2002/11/18 08:41:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/CommandLineParser.java,v 1.6 2002/12/09 23:47:24 jkeyes Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/12/09 23:47:24 $
  *
  * ====================================================================
  *
@@ -70,7 +70,7 @@ import java.util.Properties;
  * @author John Keyes (john at integralsource.com)
  */
 public interface CommandLineParser {
-    
+
     /**
      * Parse the arguments according to the specified options.
      *
@@ -81,8 +81,8 @@ public interface CommandLineParser {
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    public CommandLine parse( Options options, String[] arguments )
-    throws ParseException;
+    CommandLine parse(Options options, String[] arguments)
+               throws ParseException;
 
     /**
      * Parse the arguments according to the specified options and
@@ -96,8 +96,9 @@ public interface CommandLineParser {
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    public CommandLine parse( Options options, String[] arguments, Properties props )
-    throws ParseException;
+    CommandLine parse(Options options, String[] arguments, 
+                      Properties properties)
+               throws ParseException;
 
     /**
      * Parse the arguments according to the specified options.
@@ -111,8 +112,9 @@ public interface CommandLineParser {
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    public CommandLine parse( Options options, String[] arguments, boolean stopAtNonOption )
-    throws ParseException;
+    CommandLine parse(Options options, String[] arguments, 
+                      boolean stopAtNonOption)
+               throws ParseException;
 
     /**
      * Parse the arguments according to the specified options and
@@ -127,6 +129,7 @@ public interface CommandLineParser {
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    public CommandLine parse( Options options, String[] arguments, Properties properties, boolean stopAtNonOption)
-    throws ParseException;
+    CommandLine parse(Options options, String[] arguments, 
+                      Properties properties, boolean stopAtNonOption)
+               throws ParseException;
 }

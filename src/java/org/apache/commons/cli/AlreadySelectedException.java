@@ -67,7 +67,8 @@ package org.apache.commons.cli;
  * @author John Keyes ( john at integralsource.com )
  * @see ParseException
  */
-public class AlreadySelectedException extends ParseException {
+public class AlreadySelectedException
+    extends ParseException {
 
     /** 
      * <p>Construct a new <code>AlreadySelectedException</code> 
@@ -75,7 +76,8 @@ public class AlreadySelectedException extends ParseException {
      *
      * @param message the detail message
      */
-    public AlreadySelectedException( String message ) {
-        super( message );
+    public AlreadySelectedException(String message)
+    {
+        super(message);
     }
 }

@@ -58,7 +58,6 @@
  * <http://www.apache.org/>.
  *
  */
-
 package org.apache.commons.cli;
 
 /** 
@@ -67,15 +66,17 @@ package org.apache.commons.cli;
  * @author John Keyes ( john at integralsource.com )
  * @see ParseException
  */
-public class MissingOptionException extends ParseException {
-    
+public class MissingOptionException
+    extends ParseException {
+
     /** 
      * <p>Construct a new <code>MissingSelectedException</code> 
      * with the specified detail message.</p>
      *
      * @param message the detail message
      */
-    public MissingOptionException( String message ) {
-        super( message );
+    public MissingOptionException(String message)
+    {
+        super(message);
     }
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/BasicParser.java,v 1.3 2002/09/19 22:59:43 jkeyes Exp $
- * $Revision: 1.3 $
- * $Date: 2002/09/19 22:59:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/BasicParser.java,v 1.4 2002/12/09 23:47:24 jkeyes Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/12/09 23:47:24 $
  *
  * ====================================================================
  *
@@ -82,9 +82,8 @@ public class BasicParser extends Parser {
      * when an non option is found.
      * @return The <code>arguments</code> String array.
      */
-    protected String[] flatten( Options options, 
-                                String[] arguments, 
-                                boolean stopAtNonOption )
+    protected String[] flatten(Options options, String[] arguments, 
+                               boolean stopAtNonOption)
     {
         // just echo the arguments
         return arguments;
