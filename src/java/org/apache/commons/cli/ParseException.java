@@ -61,7 +61,8 @@
 
 package org.apache.commons.cli;
 
-/** <p>Base for Exceptions thrown during parsing of a command-line<p>
+/** 
+ * <p>Base for Exceptions thrown during parsing of a command-line.</p>
  *
  * @author bob mcwhirter (bob @ werken.com)
  * @version $Revision: 1.2 $
@@ -69,11 +70,13 @@ package org.apache.commons.cli;
 public class ParseException extends Exception 
 {
     
-    /** Construct a new Exception with a message
+    /** 
+     * <p>Construct a new <code>ParseException</code> 
+     * with the specified detail message.</p>
      *
-     * @param msg Explanation of the exception
+     * @param message the detail message
      */
-    public ParseException(String msg) {
-        super(msg);
+    public ParseException( String message ) {
+        super( message );
     }
 }

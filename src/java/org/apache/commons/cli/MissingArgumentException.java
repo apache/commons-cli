@@ -61,19 +61,22 @@
 
 package org.apache.commons.cli;
 
-/** <p>Exception thrown when an option requiring an argument
+/** 
+ * <p>Thrown when an option requiring an argument
  * is not provided with an argument.</p>
  *
- * @author bob mcwhirter (bob @ werken.com)
- * @version $Revision: 1.2 $
+ * @author John Keyes (jbjk at mac.com)
+ * @see ParseException
  */
 public class MissingArgumentException extends ParseException {
     
-    /** Construct a new Exception with a message
+    /** 
+     * <p>Construct a new <code>MissingArgumentException</code> 
+     * with the specified detail message.</p>
      *
-     * @param msg Explanation of the exception
+     * @param message the detail message
      */
-    public MissingArgumentException(String msg) {
-        super(msg);
+    public MissingArgumentException( String message ) {
+        super( message );
     }
 }

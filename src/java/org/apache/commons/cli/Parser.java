@@ -88,7 +88,6 @@ public abstract class Parser implements CommandLineParser {
                 buff.append( missing.getDescription() );
             }
 
-            // throw the MissingOptionException
             throw new MissingOptionException( buff.toString() );
         }
     }

@@ -190,7 +190,7 @@ public class Options {
     
     /** <p>Retrieve the named {@link Option}</p>
      *
-     * @param opt short single-character name of the {@link Option}
+     * @param opt short or long name of the {@link Option}
      * @return the option represented by opt
      */
     public Option getOption( String opt ) {
@@ -213,7 +213,15 @@ public class Options {
         return (option == null) ? null : (Option)option.clone();
     }
 
-    boolean hasOption(String opt) {
+    /** 
+     * <p>Returns whether the named {@link Option} is a member
+     * of this {@link Options}</p>
+     *
+     * @param opt short or long name of the {@link Option}
+     * @return true if the named {@link Option} is a member
+     * of this {@link Options}
+     */
+    public boolean hasOption( String opt ) {
 
         // short option
         if( opt.length() == 1 ) {

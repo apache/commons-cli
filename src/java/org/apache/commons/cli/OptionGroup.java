@@ -67,10 +67,11 @@ import java.util.Iterator;
 
 /**
  * A group of mutually exclusive options.
- * @author John Keyes ( john at integralsource.com )
+ * @author John Keyes ( jbjk at mac.com )
  * @version $Revision: 1.2 $
  */
 public class OptionGroup {
+
     /** hold the options */
     private HashMap optionMap = new HashMap();
 

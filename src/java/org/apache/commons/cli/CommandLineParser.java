@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/CommandLineParser.java,v 1.2 2002/07/04 22:32:12 jkeyes Exp $
- * $Revision: 1.2 $
- * $Date: 2002/07/04 22:32:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/CommandLineParser.java,v 1.3 2002/08/26 20:15:02 jkeyes Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/08/26 20:15:02 $
  *
  * ====================================================================
  *
@@ -61,6 +61,10 @@
 package org.apache.commons.cli;
 
 /**
+ * A class that implements the <code>CommandLineParser</code> interface 
+ * can parse a String array according to the {@link Options} specified
+ * and return a {@link CommandLine}.
+ *
  * @author John Keyes (jbjk at mac.com)
  */
 public interface CommandLineParser {

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.6 2002/08/18 19:07:42 jkeyes Exp $
- * $Revision: 1.6 $
- * $Date: 2002/08/18 19:07:42 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/OptionBuilder.java,v 1.7 2002/08/26 20:15:02 jkeyes Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/08/26 20:15:02 $
  *
  * ====================================================================
  *
@@ -82,8 +82,9 @@ public class OptionBuilder {
     private static int numberOfArgs = Option.UNINITIALIZED;
     /** option type */
     private static Object type;
-
+    /** option can have an optional argument value */
     private static boolean optionalArg;
+    /** value separator for argument value */
     private static char valuesep;
 
     /** option builder instance */
@@ -301,6 +302,14 @@ public class OptionBuilder {
         return option;
     }
 
+    /**
+     * <p>Create an Option using the current settings</p>
+     *
+     * @return the Option instance
+     * @throws IllegalArgumentException if <code>longOpt</code> has
+     * not been set.  
+     * @see Option.
+     */
     public static Option create() 
     throws IllegalArgumentException
     {

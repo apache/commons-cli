@@ -58,20 +58,22 @@
  * <http://www.apache.org/>.
  *
  */
-
 package org.apache.commons.cli;
 
-/** <p>Exception thrown when more than one option in an option group
+/** 
+ * <p>Thrown when more than one option in an option group
  * has been provided.</p>
  *
- * @author John Keyes (john @ integralsource.com)
- * @version $Revision: 1.4 $
+ * @author John Keyes ( jbjk at mac.com )
+ * @see ParseException
  */
 public class AlreadySelectedException extends ParseException {
 
-    /** Construct a new Exception with a message
+    /** 
+     * <p>Construct a new <code>AlreadySelectedException</code> 
+     * with the specified detail message.</p>
      *
-     * @param message Explanation of the exception
+     * @param message the detail message
      */
     public AlreadySelectedException( String message ) {
         super( message );

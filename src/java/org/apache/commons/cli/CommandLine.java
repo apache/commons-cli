@@ -58,7 +58,6 @@
  * <http://www.apache.org/>.
  *
  */
-
 package org.apache.commons.cli;
 
 import java.util.Collection;
@@ -68,7 +67,8 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
 
-/** <p>Represents list of arguments parsed against
+/** 
+ * <p>Represents list of arguments parsed against
  * a {@link Options} descriptor.<p>
  *
  * <p>It allows querying of a boolean {@link #hasOption(String opt)},
@@ -81,8 +81,6 @@ import java.util.Map;
  * @author bob mcwhirter (bob @ werken.com)
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author John Keyes (jbjk at mac.com)
- *
- * @version $Revision: 1.4 $
  */
 public class CommandLine {
     
@@ -104,7 +102,8 @@ public class CommandLine {
     CommandLine() {
     }
     
-    /** <p>Query to see if an option has been set.</p>
+    /** 
+     * <p>Query to see if an option has been set.</p>
      *
      * @param opt Short name of the option
      * @return true if set, false if not
@@ -113,7 +112,8 @@ public class CommandLine {
         return options.containsKey( opt );
     }
 
-    /** <p>Query to see if an option has been set.</p>
+    /** 
+     * <p>Query to see if an option has been set.</p>
      *
      * @param opt character name of the option
      * @return true if set, false if not
@@ -123,8 +123,10 @@ public class CommandLine {
     }
 
     /**
+     * <p>Return the <code>Object</code> type of this <code>Option</code>.</p>
+     *
      * @param opt the name of the option
-     * @return the type of opt
+     * @return the type of this <code>Option</code>
      */
     public Object getOptionObject( String opt ) {
         String res = getOptionValue( opt );
@@ -134,6 +136,8 @@ public class CommandLine {
     }
 
     /**
+     * <p>Return the <code>Object</code> type of this <code>Option</code>.</p>
+     *
      * @param opt the name of the option
      * @return the type of opt
      */
@@ -141,29 +145,35 @@ public class CommandLine {
         return getOptionObject( String.valueOf( opt ) );
     }
 
-    /** <p>Retrieve the argument, if any,  of an option.</p>
+    /** 
+     * <p>Retrieve the argument, if any, of this option.</p>
      *
      * @param opt the name of the option
-     * @return Value of the argument if option is set, and has an argument, else null.
+     * @return Value of the argument if option is set, and has an argument,
+     * otherwise null.
      */
     public String getOptionValue( String opt ) {
         String[] values = getOptionValues(opt);
         return (values == null) ? null : values[0];
     }
 
-    /** <p>Retrieve the argument, if any,  of an option.</p>
+    /** 
+     * <p>Retrieve the argument, if any, of this option.</p>
      *
      * @param opt the character name of the option
-     * @return Value of the argument if option is set, and has an argument, else null.
+     * @return Value of the argument if option is set, and has an argument,
+     * otherwise null.
      */
     public String getOptionValue( char opt ) {
         return getOptionValue( String.valueOf( opt ) );
     }
 
-    /** <p>Retrieves the array of values, if any, of an option.</p>
+    /** 
+     * <p>Retrieves the array of values, if any, of an option.</p>
      *
      * @param opt string name of the option
-     * @return An array of values if the option is set, and has an argument, else null.
+     * @return Values of the argument if option is set, and has an argument,
+     * otherwise null.
      */
     public String[] getOptionValues( String opt ) {
         List values = new java.util.ArrayList();
@@ -180,39 +190,46 @@ public class CommandLine {
         return (values.size() == 0) ? null : (String[])values.toArray(new String[]{});
     }
 
-    /** <p>Retrieves the array of values, if any, of an option.</p>
+    /** 
+     * <p>Retrieves the array of values, if any, of an option.</p>
      *
      * @param opt character name of the option
-     * @return An array of values if the option is set, and has an argument, else null.
+     * @return Values of the argument if option is set, and has an argument,
+     * otherwise null.
      */
     public String[] getOptionValues( char opt ) {
         return getOptionValues( String.valueOf( opt ) );
     }
     
-    /** <p>Retrieve the argument, if any, of an option.</p>
+    /** 
+     * <p>Retrieve the argument, if any, of an option.</p>
      *
      * @param opt name of the option
      * @param defaultValue is the default value to be returned if the option is not specified
-     * @return Value of the argument if option is set, and has an argument, else null.
+     * @return Value of the argument if option is set, and has an argument,
+     * otherwise <code>defaultValue</code>.
      */
     public String getOptionValue( String opt, String defaultValue ) {
         String answer = getOptionValue( opt );
         return ( answer != null ) ? answer : defaultValue;
     }
     
-    /** <p>Retrieve the argument, if any, of an option.</p>
+    /** 
+     * <p>Retrieve the argument, if any, of an option.</p>
      *
      * @param opt character name of the option
      * @param defaultValue is the default value to be returned if the option is not specified
-     * @return Value of the argument if option is set, and has an argument, else null.
+     * @return Value of the argument if option is set, and has an argument,
+     * otherwise <code>defaultValue</code>.
      */
     public String getOptionValue( char opt, String defaultValue ) {
         return getOptionValue( String.valueOf( opt ), defaultValue );
     }
 
-    /** <p>Retrieve any left-over non-recognized options and arguments</p>
+    /** 
+     * <p>Retrieve any left-over non-recognized options and arguments</p>
      *
-     * @return an array of remaining items passed in but not parsed
+     * @return remaining items passed in but not parsed as an array
      */
     public String[] getArgs() {
         String[] answer = new String[ args.size() ];
@@ -220,9 +237,10 @@ public class CommandLine {
         return answer;
     }
     
-    /** <p>Retrieve any left-over non-recognized options and arguments</p>
+    /** 
+     * <p>Retrieve any left-over non-recognized options and arguments</p>
      *
-     * @return List of remaining items passed in but not parsed
+     * @return remaining items passed in but not parsed as a <code>List</code>.
      */
     public List getArgList() {
         return args;

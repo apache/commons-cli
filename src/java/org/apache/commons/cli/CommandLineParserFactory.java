@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Attic/CommandLineParserFactory.java,v 1.3 2002/08/24 22:15:31 jkeyes Exp $
- * $Revision: 1.3 $
- * $Date: 2002/08/24 22:15:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//cli/src/java/org/apache/commons/cli/Attic/CommandLineParserFactory.java,v 1.4 2002/08/26 20:15:02 jkeyes Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/08/26 20:15:02 $
  *
  * ====================================================================
  *
@@ -73,13 +73,15 @@ public class CommandLineParserFactory {
     private static String DEFAULT_PARSER = "org.apache.commons.cli.PosixParser";
 
     /**
-     * @return the CommandLineParser
+     * @return the default CommandLineParser
      */
     public static CommandLineParser newParser() {
         return newParser( DEFAULT_PARSER );
     }
 
     /**
+     * @param classname the name of the parser class
+     * 
      * @return the CommandLineParser specified by <code>classname</code>.
      */
     public static CommandLineParser newParser( String classname ) {
