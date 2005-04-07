@@ -32,6 +32,23 @@ limitations under the License.
   <!-- END: C O M M O N S - B U I L D                                     -->
   <!-- ================================================================== -->
 
+  <!-- Ensures that the conf directory and NOTICE.txt are included in the
+       source distro.
+   -->
+  <postGoal name="dist:prepare-src-filesystem">
+    <copy todir="${maven.dist.src.assembly.dir}">
+      <fileset file="${basedir}/NOTICE.txt"/>
+    </copy>
+  </postGoal>
+
+  <!-- Ensures that NOTICE.txt is added to the binary distro -->
+  <preGoal name="dist:build-bin">
+    <copy todir="${maven.dist.bin.assembly.dir}">
+      <fileset file="${basedir}/NOTICE.txt"/>
+    </copy>
+  </preGoal>
+
+
  <postGoal name="xdoc:transform">
    <attainGoal name="pdf:pdf"/>
  </postGoal>
