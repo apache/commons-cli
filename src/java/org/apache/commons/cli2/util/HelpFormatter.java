@@ -143,6 +143,8 @@ public class HelpFormatter {
         final String gutterCenter,
         final String gutterRight,
         final int fullWidth) {
+        
+        // default the left gutter to empty string
         if (gutterLeft == null) {
             this.gutterLeft = "";
         }
@@ -150,6 +152,7 @@ public class HelpFormatter {
             this.gutterLeft = gutterLeft;
         }
 
+        // default the center gutter to empty string
         if (gutterCenter == null) {
             this.gutterCenter = "";
         }
@@ -157,6 +160,7 @@ public class HelpFormatter {
             this.gutterCenter = gutterCenter;
         }
 
+        // default the right gutter to empty string
         if (gutterRight == null) {
             this.gutterRight = "";
         }
@@ -164,7 +168,10 @@ public class HelpFormatter {
             this.gutterRight = gutterRight;
         }
 
+        // calculate the available page width
         this.pageWidth = fullWidth - gutterLeft.length() - gutterRight.length();
+        
+        // check available page width is valid
         if (fullWidth - pageWidth + gutterCenter.length() < 2) {
             throw new IllegalArgumentException(
                 "The gutter strings leave no space for output! "
@@ -210,39 +217,54 @@ public class HelpFormatter {
         else {
             option = group;
         }
-        
+
+        // grab the HelpLines to display
         final List helpLines = option.helpLines(0, displaySettings, comparator);
+        
+        // calculate the maximum width of the usage strings
         int usageWidth = 0;
         for (final Iterator i = helpLines.iterator(); i.hasNext();) {
             final HelpLine helpLine = (HelpLine)i.next();
             final String usage = helpLine.usage(lineUsageSettings, comparator);
             usageWidth = Math.max(usageWidth, usage.length());
         }
+        
+        // build a blank string to pad wrapped descriptions
         final StringBuffer blankBuffer = new StringBuffer();
         for (int i = 0; i < usageWidth; i++) {
             blankBuffer.append(' ');
         }
+        
+        // determine the width available for descriptions
         final int descriptionWidth = Math.max(1,
             pageWidth - gutterCenter.length() - usageWidth);
+        
+        // display each HelpLine
         for (final Iterator i = helpLines.iterator(); i.hasNext();) {
+            
+            // grab the HelpLine
             final HelpLine helpLine = (HelpLine)i.next();
-            final List descriptionLines =
+            
+            // wrap the description
+            final List descList =
                 wrap(helpLine.getDescription(), descriptionWidth);
-            final Iterator j = descriptionLines.iterator();
+            final Iterator descriptionIterator = descList.iterator();
 
+            // display usage + first line of description
             printGutterLeft();
             pad(helpLine.usage(lineUsageSettings, comparator), usageWidth, out);
             out.print(gutterCenter);
-            pad((String)j.next(), descriptionWidth, out);
+            pad((String)descriptionIterator.next(), descriptionWidth, out);
             printGutterRight();
             out.println();
 
-            while (j.hasNext()) {
+            // display padding + remaining lines of description
+            while (descriptionIterator.hasNext()) {
                 printGutterLeft();
                 //pad(helpLine.getUsage(),usageWidth,out);
                 out.print(blankBuffer);
                 out.print(gutterCenter);
-                pad((String)j.next(), descriptionWidth, out);
+                pad((String)descriptionIterator.next(), descriptionWidth, out);
                 printGutterRight();
                 out.println();
             }
@@ -333,7 +355,9 @@ public class HelpFormatter {
         final int width,
         final Writer writer)
         throws IOException {
-        int left;
+        final int left;
+        
+        // write the text and record how many characters written
         if (text == null) {
             left = 0;
         }
@@ -342,16 +366,20 @@ public class HelpFormatter {
             left = text.length();
         }
 
+        // pad remainder with spaces
         for (int i = left; i < width; ++i) {
             writer.write(' ');
         }
     }
 
     protected static List wrap(final String text, final int width) {
+        
+        // check for valid width
         if(width<1){
             throw new IllegalArgumentException("width must be positive");
         }
         
+        // handle degenerate case
         if (text == null) {
             return Collections.singletonList("");
         }
@@ -360,45 +388,73 @@ public class HelpFormatter {
         final char[] chars = text.toCharArray();
         int left = 0;
 
+        // for each character in the string
         while (left < chars.length) {
+            // sync left and right indeces
             int right = left;
+            
+            // move right until we run out of characters, width or find a newline
             while (right < chars.length && chars[right] != '\n' && right<left+width+1) {
                 right++;
             }
+            
+            // if a newline was found
             if (right<chars.length && chars[right] == '\n') {
+                // record the substring
                 final String line = new String(chars, left, right - left);
                 lines.add(line);
+                // move to the end of the substring
                 left = right + 1;
                 if (left == chars.length) {
                     lines.add("");
                 }
+                // restart the loop
                 continue;
             }
-
+            
+            // move to the next ideal wrap point 
             right = left + width - 1;
+            
+            // if we have run out of characters
             if (chars.length <= right) {
+                // record the substring
                 final String line =
                     new String(chars, left, chars.length - left);
                 lines.add(line);
+                
+                // abort the loop
                 break;
             }
+            
+            // back track the substring end until a space is found
             while (right >= left && chars[right] != ' ') {
                 right--;
             }
+
+            // if a space was found
             if (right >= left) {
+                // record the substring to space
                 final String line = new String(chars, left, right - left);
                 lines.add(line);
-                left = right;
+                
+                // absorb all the spaces before next substring
                 while (right < chars.length && chars[right] == ' ') {
                     right++;
                 }
                 left = right;
+                
+                // restart the loop
                 continue;
             }
 
+            // move to the wrap position irrespective of spaces
             right = Math.min(left + width, chars.length);
+            
+            // record the substring
             final String line = new String(chars, left, right - left);
             lines.add(line);
+            
+            // absorb any the spaces before next substring
             while (right < chars.length && chars[right] == ' ') {
                 right++;
             }
