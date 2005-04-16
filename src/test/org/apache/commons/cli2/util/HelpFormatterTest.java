@@ -21,6 +21,7 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Iterator;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -343,6 +344,23 @@ public class HelpFormatterTest extends TestCase {
         assertEquals("", i.next());
         assertEquals("Apache Software Foundation", i.next());
         assertEquals("", i.next());
+        assertFalse(i.hasNext());
+    }
+
+    public void testWrap_NewLine2() {
+        List wrapped = HelpFormatter.wrap("A really quite long general description of the option with specific alternatives documented:\n"+
+                    "  Indented special case\n"+
+                    "  Alternative scenario", 30);
+        
+        final Iterator i =
+            wrapped.iterator();
+        
+        assertEquals("A really quite long general", i.next());
+        assertEquals("description of the option", i.next());
+        assertEquals("with specific alternatives", i.next());
+        assertEquals("documented:", i.next());
+        assertEquals("  Indented special case", i.next());
+        assertEquals("  Alternative scenario", i.next());
         assertFalse(i.hasNext());
     }
     

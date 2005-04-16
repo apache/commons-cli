@@ -362,10 +362,10 @@ public class HelpFormatter {
 
         while (left < chars.length) {
             int right = left;
-            while (right < chars.length && chars[right] != '\n') {
+            while (right < chars.length && chars[right] != '\n' && right<left+width+1) {
                 right++;
             }
-            if (right < chars.length) {
+            if (right<chars.length && chars[right] == '\n') {
                 final String line = new String(chars, left, right - left);
                 lines.add(line);
                 left = right + 1;
