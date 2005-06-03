@@ -1,5 +1,5 @@
 /**
- * Copyright 2003-2004 The Apache Software Foundation
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.WriteableCommandLine;
 import org.apache.commons.cli2.builder.DefaultOptionBuilder;
 import org.apache.commons.cli2.builder.GroupBuilder;
+import org.apache.commons.cli2.commandline.WriteableCommandLineImpl;
 
 /**
  * @author Rob Oxspring
@@ -141,12 +142,12 @@ public class GroupTest extends GroupTestCase {
      */
     public void testCanProcess() {
         final Group option = buildApacheCommandGroup();
-        assertTrue(option.canProcess("start"));
+        assertTrue(option.canProcess(new WriteableCommandLineImpl(option,null), "start"));
     }
 
     public void testCanProcess_BadMatch() {
         final Group option = buildApacheCommandGroup();
-        assertFalse(option.canProcess("begin"));
+        assertFalse(option.canProcess(new WriteableCommandLineImpl(option,null), "begin"));
     }
 
     /*

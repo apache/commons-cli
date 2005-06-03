@@ -1,5 +1,5 @@
 /**
- * Copyright 2003-2004 The Apache Software Foundation
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import org.apache.commons.cli2.HelpLine;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.commandline.WriteableCommandLineImpl;
 
 /**
  * @author Rob Oxspring
@@ -39,22 +40,22 @@ public class PropertyOptionTest extends OptionTestCase {
      */
     public void testCanProcess() {
         final Option option = new PropertyOption();
-        assertTrue(option.canProcess("-Dmyprop=myval"));
+        assertTrue(option.canProcess(new WriteableCommandLineImpl(option,null), "-Dmyprop=myval"));
     }
 
     public void testCanProcess_Null() {
         final Option option = new PropertyOption();
-        assertFalse(option.canProcess((String) null));
+        assertFalse(option.canProcess(new WriteableCommandLineImpl(option,null), (String) null));
     }
 
     public void testCanProcess_TooShort() {
         final Option option = new PropertyOption();
-        assertFalse(option.canProcess("-D"));
+        assertFalse(option.canProcess(new WriteableCommandLineImpl(option,null), "-D"));
     }
 
     public void testCanProcess_BadMatch() {
         final Option option = new PropertyOption();
-        assertFalse(option.canProcess("-dump"));
+        assertFalse(option.canProcess(new WriteableCommandLineImpl(option,null),"-dump"));
     }
 
     /*

@@ -1,5 +1,5 @@
 /**
- * Copyright 2003-2004 The Apache Software Foundation
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ import org.apache.commons.cli2.builder.ArgumentBuilder;
 import org.apache.commons.cli2.builder.CommandBuilder;
 import org.apache.commons.cli2.builder.DefaultOptionBuilder;
 import org.apache.commons.cli2.builder.GroupBuilder;
+import org.apache.commons.cli2.commandline.WriteableCommandLineImpl;
 
 /**
  * @author Rob Oxspring
@@ -135,17 +136,17 @@ public class ParentTest extends ParentTestCase {
 	 */
 	public void testCanProcess() {
 		final Parent option = buildKParent();
-		assertTrue(option.canProcess("-k"));
+		assertTrue(option.canProcess(new WriteableCommandLineImpl(option,null), "-k"));
 	}
 
 	public void testCanProcess_BadMatch() {
 		final Parent option = buildKParent();
-		assertFalse(option.canProcess("-K"));
+		assertFalse(option.canProcess(new WriteableCommandLineImpl(option,null), "-K"));
 	}
 
 	public void testCanProcess_ContractedArgument() {
 		final Parent option = buildLibParent();
-		assertTrue(option.canProcess("--lib=/usr/lib"));
+		assertTrue(option.canProcess(new WriteableCommandLineImpl(option,null), "--lib=/usr/lib"));
 	}
 
 	/* (non-Javadoc)

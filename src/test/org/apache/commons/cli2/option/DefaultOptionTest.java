@@ -1,5 +1,5 @@
 /**
- * Copyright 2003-2004 The Apache Software Foundation
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.Parent;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.commandline.WriteableCommandLineImpl;
 
 /**
  * @author roberto
@@ -106,12 +107,12 @@ public class DefaultOptionTest extends ParentTestCase {
      */
     public void testCanProcess() {
         final DefaultOption option = buildHelpOption();
-        assertTrue(option.canProcess("-?"));
+        assertTrue(option.canProcess(new WriteableCommandLineImpl(option,null), "-?"));
     }
 
     public void testCanProcess_BadMatch() {
         final DefaultOption option = buildHelpOption();
-        assertFalse(option.canProcess("-H"));
+        assertFalse(option.canProcess(new WriteableCommandLineImpl(option,null), "-H"));
     }
 
     /*

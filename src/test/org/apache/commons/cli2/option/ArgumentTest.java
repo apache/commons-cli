@@ -1,5 +1,5 @@
 /**
- * Copyright 2003-2004 The Apache Software Foundation
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import org.apache.commons.cli2.HelpLine;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.commandline.WriteableCommandLineImpl;
 import org.apache.commons.cli2.resource.ResourceHelper;
 import org.apache.commons.cli2.validation.DateValidator;
 import org.apache.commons.cli2.validation.DateValidatorTest;
@@ -334,7 +335,7 @@ public class ArgumentTest extends ArgumentTestCase {
      */
     public void testCanProcess() {
         final Argument option = buildTargetsArgument();
-        assertTrue(option.canProcess("any value"));
+        assertTrue(option.canProcess(new WriteableCommandLineImpl(option,null), "any value"));
     }
 
     /*
@@ -524,7 +525,7 @@ public class ArgumentTest extends ArgumentTestCase {
     public void testCanProcess_ConsumeRemaining() {
         final Option option = buildUsernameArgument();
 
-        assertTrue(option.canProcess("--"));
+        assertTrue(option.canProcess(new WriteableCommandLineImpl(option,null), "--"));
     }
 
     public void testProcess_ConsumeRemaining() throws OptionException {

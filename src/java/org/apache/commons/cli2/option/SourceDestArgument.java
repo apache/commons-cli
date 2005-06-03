@@ -1,5 +1,5 @@
 /**
- * Copyright 2003-2004 The Apache Software Foundation
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -138,7 +138,7 @@ public class SourceDestArgument extends ArgumentImpl {
         dest.validate(commandLine, dest);
     }
 
-    public boolean canProcess(final String arg) {
-        return source.canProcess(arg) || dest.canProcess(arg);
+    public boolean canProcess(final WriteableCommandLine commandLine, final String arg) {
+        return source.canProcess(commandLine, arg) || dest.canProcess(commandLine, arg);
     }
 }

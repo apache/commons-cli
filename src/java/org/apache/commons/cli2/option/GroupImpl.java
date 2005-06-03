@@ -1,5 +1,5 @@
 /**
- * Copyright 2003-2004 The Apache Software Foundation
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,7 +113,7 @@ public class GroupImpl extends OptionImpl implements Group {
         this.prefixes = Collections.unmodifiableSet(newPrefixes);
     }
 
-    public boolean canProcess(String arg) {
+    public boolean canProcess(final WriteableCommandLine commandLine, String arg) {
         if (arg == null) {
             return false;
         }
@@ -131,9 +131,13 @@ public class GroupImpl extends OptionImpl implements Group {
             iter.hasNext();) {
             
             final Option option = (Option) iter.next();
-            if (option.canProcess(arg)) {
+            if (option.canProcess(commandLine, arg)) {
                 return true;
             }
+        }
+        
+        if(commandLine.looksLikeOption(arg)) {
+            return false;
         }
         
         // anonymous argument(s) means we can process it
@@ -182,7 +186,7 @@ public class GroupImpl extends OptionImpl implements Group {
                     for (Iterator i = values.iterator(); i.hasNext() && !foundMemberOption;) {
                         final Option option = (Option) i.next();
                         
-                        if (option.canProcess(arg)) {
+                        if (option.canProcess(commandLine, arg)) {
                         	foundMemberOption = true;
                             arguments.previous();
                             option.process(commandLine, arguments);
@@ -210,7 +214,7 @@ public class GroupImpl extends OptionImpl implements Group {
                     // canProcess will always return true?
                     for (final Iterator i = anonymous.iterator(); i.hasNext();) {
                         final Argument argument = (Argument)i.next();
-                        if (argument.canProcess(arguments)) {
+                        if (argument.canProcess(commandLine, arguments)) {
                             argument.process(commandLine, arguments);
                         }
                     }
