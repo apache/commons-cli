@@ -27,6 +27,7 @@ import org.apache.commons.cli2.builder.ArgumentBuilder;
 import org.apache.commons.cli2.builder.DefaultOptionBuilder;
 import org.apache.commons.cli2.builder.GroupBuilder;
 import org.apache.commons.cli2.commandline.Parser;
+import org.apache.commons.cli2.option.DefaultOption;
 import org.apache.commons.cli2.option.PropertyOption;
 import org.apache.commons.cli2.util.HelpFormatter;
 
@@ -147,6 +148,81 @@ public class DocumentationTest extends TestCase {
                 "Unexpected --bad-option while processing options",
                 uoe.getMessage());
         }
+    }
+    
+    public void testManualIntroduction() {
+        
+        DefaultOptionBuilder oBuilder = new DefaultOptionBuilder();
+        ArgumentBuilder aBuilder = new ArgumentBuilder();
+        GroupBuilder gBuilder = new GroupBuilder();
+        
+        DefaultOption xmlOption = 
+            oBuilder
+                .withLongName("xml")
+                .withDescription("Output using xml format")
+                .create();
+        
+        Argument pathArgument = 
+            aBuilder
+                .withName("path")
+                .withMinimum(1)
+                .withMaximum(1)
+                .create();
+        
+        Group outputChildren = 
+            gBuilder
+                .withOption(xmlOption)
+                .create();
+        
+        Option outputOption = 
+            oBuilder
+                .withLongName("output")
+                .withDescription("Outputs to a file")
+                .withArgument(pathArgument)
+                .withChildren(outputChildren)
+                .create();
+        
+        ///////////////////////////////////////////////////
+        
+        try {
+            Group options = null;
+            HelpFormatter hf = new HelpFormatter();
+            
+            Parser p = new Parser();
+            p.setGroup(options);
+            p.setHelpFormatter(hf);
+            p.setHelpTrigger("--help");
+            CommandLine cl = p.parseAndHelp(new String[]{});
+            if(cl==null) {
+                System.exit(-1);
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        //////////////////////////////////////////////////
+        
+        CommandLine cl = null;
+        
+        // if we have --output option
+        if(cl.hasOption("--output")) {
+            // grab the path
+            String path = (String)cl.getValue("--output");
+            // grab the format
+            boolean xml = cl.hasOption("--xml");
+            // configure the application's output
+            configureOutput(path,xml);
+        }
+        
+        
+                
+        
+    }
+
+    private void configureOutput(String path, boolean xml) {
+        // TODO Auto-generated method stub
+        
     }
 
     public void testExampleAnt() throws IOException, OptionException {
