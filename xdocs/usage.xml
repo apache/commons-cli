@@ -166,7 +166,7 @@ Option emacs = new Option( "emacs",
         <source>Option logfile   = OptionBuilder.withArgName( "file" )
                                 .hasArg()
                                 .withDescription(  "use given file for log" )
-                                .create( "file" );
+                                .create( "logfile" );
 
 Option logger    = OptionBuilder.withArgName( "classname" )
                                 .hasArg()
@@ -189,7 +189,7 @@ Option find      = OptionBuilder.withArgName( "file" )
                                 .hasArg()
                                 .withDescription( "search for buildfile towards the "
                                                   + "root of the filesystem and use it" )
-                                .create( "file" );</source>
+                                .create( "find" );</source>
       </subsection>
       <subsection name="Java Property Option">
         <p>
