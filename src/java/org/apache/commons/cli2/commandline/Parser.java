@@ -17,7 +17,6 @@ package org.apache.commons.cli2.commandline;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -56,7 +55,18 @@ public class Parser {
     public CommandLine parse(final String[] arguments) throws OptionException {
         
         // build a mutable list for the arguments
-        final List argumentList = new LinkedList(Arrays.asList(arguments));
+        final List argumentList = new LinkedList();
+        
+        // copy the arguments into the new list
+        for (int i = 0; i < arguments.length; i++) {
+            final String argument = arguments[i];
+            
+            // ensure non intern'd strings are used 
+            // so that == comparisons work as expected
+            argumentList.add(new String(argument));
+        }
+        
+        // wet up a command line for this group
         final WriteableCommandLine commandLine =
             new WriteableCommandLineImpl(group, new ArrayList());
         
@@ -65,7 +75,21 @@ public class Parser {
         
         // process the options as far as possible
         final ListIterator iterator = argumentList.listIterator();
+        Object previous = null;
         while (group.canProcess(commandLine, iterator)) {
+            
+            // peek at the next item and backtrack
+            final Object next = iterator.next();
+            iterator.previous();
+            
+            // if we have just tried to process this instance
+            if(next==previous) {
+                // abort
+                break;
+            }
+            // remember previous
+            previous = next;
+            
             group.process(commandLine, iterator);
         }
         

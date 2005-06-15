@@ -160,11 +160,24 @@ public class GroupImpl extends OptionImpl implements Group {
         final WriteableCommandLine commandLine,
         final ListIterator arguments)
         throws OptionException {
+        
+        String previous = null;
 
         // [START process each command line token
         while (arguments.hasNext()) {
-       
+            
+            // grab the next argument
             final String arg = (String)arguments.next();
+            
+            // if we have just tried to process this instance
+            if(arg==previous) {
+                // rollback and abort
+                arguments.previous();
+                break;
+            }
+            // remember last processed instance
+            previous = arg;
+            
             final Option opt = (Option)optionMap.get(arg);
 
             // option found
