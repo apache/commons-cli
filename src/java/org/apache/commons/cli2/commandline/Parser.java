@@ -54,26 +54,32 @@ public class Parser {
      *             command line tokens.
      */
     public CommandLine parse(final String[] arguments) throws OptionException {
-
+        
+        // build a mutable list for the arguments
         final List argumentList = new LinkedList(Arrays.asList(arguments));
         final WriteableCommandLine commandLine =
             new WriteableCommandLineImpl(group, new ArrayList());
         
         // pick up any defaults from the model
         group.defaults(commandLine);
-
+        
+        // process the options as far as possible
         final ListIterator iterator = argumentList.listIterator();
         while (group.canProcess(commandLine, iterator)) {
             group.process(commandLine, iterator);
         }
-
+        
+        // if there are more arguments we have a problem
         if (iterator.hasNext()) {
             final String arg = (String)iterator.next();
             throw new OptionException(group, "cli.error.unexpected", arg);
         }
-
-        group.validate(commandLine);
-
+        
+        // no need to validate if the help option is present
+        if (!commandLine.hasOption(helpOption) && !commandLine.hasOption(helpTrigger)) {
+            group.validate(commandLine);
+        }
+        
         return commandLine;
     }
 
