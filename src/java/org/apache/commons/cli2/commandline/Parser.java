@@ -16,7 +16,6 @@
 package org.apache.commons.cli2.commandline;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -68,7 +67,7 @@ public class Parser {
         
         // wet up a command line for this group
         final WriteableCommandLine commandLine =
-            new WriteableCommandLineImpl(group, new ArrayList());
+            new WriteableCommandLineImpl(group, argumentList);
         
         // pick up any defaults from the model
         group.defaults(commandLine);

@@ -204,4 +204,9 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
             defaultSwitches.put(option, defaultSwitch);
         }
     }
+    
+    public List getNormalised() {
+        return Collections.unmodifiableList(normalised);
+    }
+    
 }
