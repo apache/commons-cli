@@ -18,6 +18,7 @@ package org.apache.commons.cli2;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import org.apache.commons.cli2.builder.ArgumentBuilder;
 import org.apache.commons.cli2.builder.DefaultOptionBuilder;
 import org.apache.commons.cli2.builder.GroupBuilder;
 import org.apache.commons.cli2.commandline.Parser;
+import org.apache.commons.cli2.commandline.WriteableCommandLineImpl;
 import org.apache.commons.cli2.option.DefaultOption;
 import org.apache.commons.cli2.option.PropertyOption;
 import org.apache.commons.cli2.util.HelpFormatter;
@@ -185,7 +187,7 @@ public class DocumentationTest extends TestCase {
         ///////////////////////////////////////////////////
         
         try {
-            Group options = null;
+            Group options = outputChildren;
             HelpFormatter hf = new HelpFormatter();
             
             Parser p = new Parser();
@@ -203,7 +205,7 @@ public class DocumentationTest extends TestCase {
         
         //////////////////////////////////////////////////
         
-        CommandLine cl = null;
+        CommandLine cl = new WriteableCommandLineImpl(outputChildren,new ArrayList());
         
         // if we have --output option
         if(cl.hasOption("--output")) {
