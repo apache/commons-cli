@@ -1,5 +1,5 @@
 /**
- * Copyright 2004 The Apache Software Foundation
+ * Copyright 2004-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,6 @@ public class PropertiesCommandLineTest extends CommandLineTestCase {
 	 * @see org.apache.commons.cli2.CommandLineTest#createCommandLine()
 	 */
 	protected CommandLine createCommandLine() {
-		// TODO Auto-generated method stub
 		props = new Properties();
 		props.setProperty("--present","present value");
 		props.setProperty("--alsopresent","");
