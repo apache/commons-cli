@@ -23,9 +23,40 @@
 
   <body>
     <section name="Validators">
+      <p>
+        CLI2 provides a mechanism to validate argument values.  The <code>Validator</code>
+        interface must be implemented to create an argument validator.  This interface has
+        a single method <code>validate(java.util.List values) throws InvalidArgumentException</code>.
+      </p>
+      <p>
+        CLI2 has some standard validators included.  They validate the following:
+      </p>
+      <ul>
+        <li>Java class</li>
+        <li>date</li>
+        <li>enumeration</li>
+        <li>file path</li>
+        <li>number</li>
+        <li>URL</li>
+      </ul>
+      
       <img src="../images/validators.jpg"/>
 
       <subsection name="ClassValidator">
+        <p>
+          The <code>ClassValidator</code> can validate a value using three criteria:
+        </p>
+        <ol>
+          <li>the value adheres to the Java Language Specification rules</li>
+          <li>the class specified by the name is loadable</li>
+          <li>the class specified by the name can be instantiated</li>
+        </ol>
+        <source>// 1.
+ClassValidator validator = new ClassValidator();
+// 2.
+validator.setLoadable(true);
+// 3.
+validator.setLoadable(true);</source>
       </subsection>
       <subsection name="DateValidator">
       </subsection>
