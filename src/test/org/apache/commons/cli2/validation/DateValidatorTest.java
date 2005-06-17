@@ -77,4 +77,35 @@ public class DateValidatorTest extends TestCase {
             }
         }
     }
+
+    public void testMaximumBounds() throws InvalidArgumentException {
+        final DateValidator validator = new DateValidator(formats);
+        final Calendar cal = Calendar.getInstance();
+
+        {
+            final Object[] array = new Object[] { "23/12/03", "2002-10-12" };
+            final List list = Arrays.asList(array);
+            cal.set(2004, 1, 12);
+            final Date max = cal.getTime();
+            validator.setMaximum(max);
+            validator.validate(list);
+        }
+
+        {
+            final Object[] array = new Object[] { "23/12/03", "2004-10-12" };
+            final List list = Arrays.asList(array);
+            cal.set(2004, 1, 12);
+            final Date max = cal.getTime();
+            validator.setMaximum(max);
+
+            try {
+                validator.validate(list);
+                fail("maximum out of bounds exception not caught");
+            }
+            catch (final InvalidArgumentException exp) {
+                assertEquals("Out of range: 2004-10-12", exp.getMessage());
+            }
+        }
+    }
+
 }
