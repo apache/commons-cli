@@ -44,7 +44,7 @@
 
       <subsection name="ClassValidator">
         <p>
-          The <code>ClassValidator</code> can validate a value using three criteria:
+          The <code>ClassValidator</code> validates a value using three criteria:
         </p>
         <ol>
           <li>the value adheres to the Java Language Specification rules</li>
@@ -57,16 +57,145 @@ ClassValidator validator = new ClassValidator();
 validator.setLoadable(true);
 // 3.
 validator.setLoadable(true);</source>
+        <p>
+        TODO: add section about values being replaced with class instances
+        </p>
       </subsection>
+      
       <subsection name="DateValidator">
+        <p>
+          The <code>DateValidator</code> validates values against a 
+          <code>java.text.DateFormat</code>.  There are three helper methods
+          that create built-in validators.
+        </p>
+        <ol>
+          <li><code>getDateInstance</code> returns a validator for the default
+          date format for the default locale.
+          </li>
+          <li><code>getTimeInstance</code> returns a validator for the default
+          time format for the default locale.
+          </li>
+          <li><code>getDateTimeInstance</code> returns a validator for the default
+          date and time format for the default locale.
+          </li>
+        </ol>
+        <p>
+          A <code>DateValidator</code> can also be created by passing your
+          a custom <code>DateFormat</code> into the constructor.
+        </p>
+        <source>DateFormat myFormat = DateFormat.getDateInstance( DateFormat.LONG, Locale.UK );
+DateValidator myValidator = new DateValidator( myFormat );</source>
+        <p>
+          In addition to basic format checking you can also check if the date/time specified
+          is before/after a specific date/time.  The lower bound is set using the 
+          <code>setMinimum( java.util.Date )</code>, and the upper bound is set using
+          the <code>setMaximum( java.util.Date )</code>.
+        </p>
+        <p>
+        TODO: add section about values being replaced with date instances
+        </p>
       </subsection>
+      
       <subsection name="EnumValidator">
+        <p>
+          The <code>EnumValidator</code> validates values against a list of
+          allowed string values.  The values that are allowed are specified in
+          a <code>java.util.Set</code> and passed in to the constructor.
+        </p>
+        <source>Set enumSet = new TreeSet();
+enumSet.add("red");
+enumSet.add("green");
+enumSet.add("blue");
+       
+EnumValidator validator = new EnumValidator( enumSet );</source>
       </subsection>
+      
       <subsection name="FileValidator">
+        <p>
+          The <code>FileValidator</code> validates that values represent
+          existing files.  You can also specify a combination of the 
+          following additional criteria:
+        </p>
+        <ol>
+          <li>value is a file</li>
+          <li>value is a directory</li>
+          <li>the file is writable</li>
+          <li>the file is readable</li>
+          <li>the file is hidden</li>
+        </ol>
+        <p>
+          Each of the criteria listed here are specified using the appropriate
+          setter.
+        </p>
+        <p>
+          There are three helper methods to create validators:
+        </p>
+        <ol>
+          <li><code>getExistingInstance</code> returns a validator that ensures
+          a value represents an existing file.
+          </li>
+          <li><code>getExistingFileInstance</code> returns a validator that ensures
+          a value represents an existing file that is not a directory.
+          </li>
+          <li><code>getExistingDirectoryInstance</code> returns a validator that ensures
+          a value represents an existing file this is a directory.
+          </li>
+        </ol>
+        <source>// validate that the value represents a file that exists
+FileValidator validator = FileValidator.getExistingInstance();
+
+// ensure it's not a hidden file
+validator.setHidden( false );
+
+// ensure it's a writable file
+validator.setWritable( true );</source>
+        
       </subsection>
+      
       <subsection name="NumberValidator">
+        <p>
+          The <code>NumberValidator</code> validates that values adhere to 
+          certain rules like the following:
+        </p>
+        <ol>
+          <li><code>getCurrencyInstance</code> returns a validator for the default
+          currency format for the default locale.
+          </li>
+          <li><code>getPercentInstance</code> returns a validator for the default
+          percent format for the default locale.
+          </li>
+          <li><code>getIntegerInstance</code> returns a validator for the default
+          integer format for the default locale.
+          </li>
+          <li><code>getNumberInstance</code> returns a validator for the default
+          number format for the default locale.
+          </li>
+        </ol>
+        <p>
+          A <code>NumberValidator</code> can also be created by passing your
+          a custom <code>NumberFormat</code> into the constructor.
+        </p>
+        <source>NumberFormat myFormat = NumberFormat.getCurrencyInstance( Locale.UK );
+NumberValidator myValidator = new NumberValidator( myFormat );</source>
+        <p>
+          In addition to basic format checking you can also check if the number specified
+          is less than or greater than a specific number.  The lower bound is set using 
+          the <code>setMinimum( Number )</code>, and the upper bound is set using
+          the <code>setMaximum( Number )</code>.
+        </p>
       </subsection>
+      
       <subsection name="UrlValidator">
+        <p>
+          A <code>UrlValidator</code> validates that values are URLs and if you
+          choose it will also validate the protocol is of the type you have
+          specified.
+        </p>
+        <source>UrlValidator validator = new UrlValidator();
+
+// only accept https URLs
+validator.setProtocol("https");</source>
+        
       </subsection>
 
     </section>
