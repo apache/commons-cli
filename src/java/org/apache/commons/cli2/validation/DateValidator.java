@@ -217,7 +217,7 @@ public class DateValidator implements Validator {
      *              the format to use
      */
     public void setFormat(final DateFormat format) {
-    	formats = new DateFormat[]{format};
+    	setFormats(new DateFormat[]{format});
     }
     
     /**
