@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2003-2004 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +21,21 @@ import java.util.Set;
 
 /**
  * A Validator for a list of known string values.
+ *
+ * The following example shows how to limit the valid values
+ * for the color argument to 'red', 'green', or 'blue'.
+ *
+ * <pre>
+ * Set values = new HashSet();
+ * values.add("red");
+ * values.add("green");
+ * values.add("blue");
+ * ...
+ * ArgumentBuilder builder = new ArgumentBuilder();
+ * Argument color = 
+ *     builder.withName("color");
+ *            .withValidator(new EnumValidator(values));
+ * </pre>
  * 
  * @author John Keyes
  */
@@ -30,10 +45,9 @@ public class EnumValidator implements Validator {
     private Set validValues;
 
     /**
-     * Creates a new StringValidator for the specified values.
+     * Creates a new EnumValidator for the specified values.
      * 
-     * @param values
-     *            the list of permitted values
+     * @param values The list of permitted values
      */
     public EnumValidator(final Set values) {
         this.validValues = values;
@@ -59,7 +73,7 @@ public class EnumValidator implements Validator {
     }
 
     /**
-     * Returns the permitted values in a String
+     * Returns the permitted values in a comma separated String
      * 
      * @return String formatted list of values
      */
@@ -85,14 +99,14 @@ public class EnumValidator implements Validator {
     }
 
     /**
-     * @return Returns the validValues.
+     * @return Returns the Set of valid argument values.
      */
     public Set getValidValues() {
         return validValues;
     }
 
     /**
-     * @param validValues The validValues to set.
+     * @param validValues The Set of valid argument values.
      */
     public void setValidValues(Set validValues) {
         this.validValues = validValues;
