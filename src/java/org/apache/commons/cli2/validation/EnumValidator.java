@@ -99,6 +99,8 @@ public class EnumValidator implements Validator {
     }
 
     /**
+     * Returns the Set of valid argument values.
+     *
      * @return Returns the Set of valid argument values.
      */
     public Set getValidValues() {
@@ -106,6 +108,8 @@ public class EnumValidator implements Validator {
     }
 
     /**
+     * Specifies the Set of valid argument values.
+     *
      * @param validValues The Set of valid argument values.
      */
     public void setValidValues(Set validValues) {

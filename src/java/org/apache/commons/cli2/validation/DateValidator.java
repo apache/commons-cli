@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,36 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * @author John Keyes
+ * A Validator for date and time value(s).
+ *
+ * The following example shows how to validate that
+ * an argument value(s) is a Date of the following 
+ * type: d/M/yy (see {@link java.text.DateFormat}).
+ *
+ * <pre>
+ * DateFormat date = new SimpleDateFormat("d/M/yy");
+ * ...
+ * ArgumentBuilder builder = new ArgumentBuilder();
+ * Argument dateFormat = 
+ *     builder.withName("date");
+ *            .withValidator(new DateValidator(dateFormat));
+ * </pre>
+ *
+ * The following example shows how to validate that
+ * an argument value(s) is a time of the following 
+ * type: HH:mm:ss (see {@link java.text.DateFormat}).
+ *
+ * <pre>
+ * DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+ * ...
+ * ArgumentBuilder builder = new ArgumentBuilder();
+ * Argument time = 
+ *     builder.withName("time");
+ *            .withValidator(new DateValidator(timeFormat));
+ * </pre>
  * 
+ * @author John Keyes
+ *
  * @see java.text.DateFormat
  */
 public class DateValidator implements Validator {
