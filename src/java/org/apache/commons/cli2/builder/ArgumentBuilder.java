@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,8 @@ public class ArgumentBuilder {
      * Creates a new Argument instance using the options specified in this
      * ArgumentBuilder.
      * 
-     * @return A new Argument instance.
+     * @return A new Argument instance using the options specified in this
+     * ArgumentBuilder.
      */
     public final Argument create() {
         final Argument argument =
@@ -91,7 +92,7 @@ public class ArgumentBuilder {
 
     /**
      * Resets the ArgumentBuilder to the defaults for a new Argument. The
-     * method should be called automatically at the end of a create() call.
+     * method is called automatically at the end of a create() call.
      */
     public final ArgumentBuilder reset() {
         name = "arg";
@@ -113,8 +114,7 @@ public class ArgumentBuilder {
      * 
      * @see org.apache.commons.cli2.CommandLine#getValue(String)
      * 
-     * @param newName
-     *            the name of the argument
+     * @param newName the name of the argument
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withName(final String newName) {
@@ -127,8 +127,7 @@ public class ArgumentBuilder {
      * 
      * The description is used when displaying online help.
      * 
-     * @param newDescription
-     *            a description of the argument
+     * @param newDescription a description of the argument
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withDescription(final String newDescription) {
@@ -139,8 +138,7 @@ public class ArgumentBuilder {
     /**
      * Sets the minimum number of values needed for the argument to be valid.
      * 
-     * @param newMinimum
-     *            the number of values needed
+     * @param newMinimum the number of values needed
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withMinimum(final int newMinimum) {
@@ -151,8 +149,7 @@ public class ArgumentBuilder {
     /**
      * Sets the maximum number of values allowed for the argument to be valid.
      * 
-     * @param newMaximum
-     *            the number of values allowed
+     * @param newMaximum the number of values allowed
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withMaximum(final int newMaximum) {
@@ -165,11 +162,12 @@ public class ArgumentBuilder {
      * argument is of the form -libs:dir1,dir2,dir3 the initialSeparator would
      * be ':'.
      * 
-     * @param newInitialSeparator
-     *            the character used to separate the values from the option
+     * @param newInitialSeparator the character used to separate the values 
+     * from the option
      * @return this ArgumentBuilder
      */
-    public final ArgumentBuilder withInitialSeparator(final char newInitialSeparator) {
+    public final ArgumentBuilder withInitialSeparator(
+        final char newInitialSeparator) {
 
         this.initialSeparator = newInitialSeparator;
         return this;
@@ -180,11 +178,12 @@ public class ArgumentBuilder {
      * argument is of the form -libs:dir1,dir2,dir3 the subsequentSeparator
      * would be ','.
      * 
-     * @param newSubsequentSeparator
-     *            the character used to separate the values from each other
+     * @param newSubsequentSeparator the character used to separate the values 
+     * from each other
      * @return this ArgumentBuilder
      */
-    public final ArgumentBuilder withSubsequentSeparator(final char newSubsequentSeparator) {
+    public final ArgumentBuilder withSubsequentSeparator(
+        final char newSubsequentSeparator) {
 
         this.subsequentSeparator = newSubsequentSeparator;
         return this;
@@ -194,8 +193,7 @@ public class ArgumentBuilder {
      * Sets the validator instance used to perform validation on the Argument
      * values.
      * 
-     * @param newValidator
-     *            a Validator instance
+     * @param newValidator a Validator instance
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withValidator(final Validator newValidator) {
@@ -207,8 +205,8 @@ public class ArgumentBuilder {
      * Sets the "consume remaining" option, defaults to "--". Use this if you
      * want to allow values that might be confused with option strings.
      * 
-     * @param newConsumeRemaining
-     *            the string to use for the consume remaining option
+     * @param newConsumeRemaining the string to use for the consume 
+     * remaining option
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withConsumeRemaining(final String newConsumeRemaining) {
@@ -220,9 +218,7 @@ public class ArgumentBuilder {
     /**
      * Sets the default value.
      * 
-     * @param defaultValue
-     *            the default value for the Argument
-     * 
+     * @param defaultValue the default value for the Argument
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withDefault(final Object defaultValue) {
@@ -236,9 +232,7 @@ public class ArgumentBuilder {
     /**
      * Sets the default values.
      * 
-     * @param newDefaultValues
-     *            the default values for the Argument
-     * 
+     * @param newDefaultValues the default values for the Argument
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withDefaults(final List newDefaultValues) {
@@ -249,9 +243,7 @@ public class ArgumentBuilder {
     /**
      * Sets the id
      * 
-     * @param newId
-     *            the id of the Argument
-     * 
+     * @param newId the id of the Argument
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withId(final int newId) {
