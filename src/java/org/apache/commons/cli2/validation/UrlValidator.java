@@ -65,7 +65,7 @@ public class UrlValidator implements Validator {
     /**
      * Validate the list of values against the list of permitted values.
      * If a value is valid, replace the string in the <code>values</code>
-     * {@link java.util.List} with the {@link java.net.URL}.
+     * {@link java.util.List} with the {@link java.net.URL} instance.
      * 
      * @see org.apache.commons.cli2.validation.Validator#validate(java.util.List)
      */
