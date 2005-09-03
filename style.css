@@ -7,7 +7,7 @@ h1 {
     font-size: 12pt;
 }
   
-h2, .TableHeadingColor b, .FrameTitleFont, .FrameHeadingFont {
+h2, h3, .TableHeadingColor b, .FrameTitleFont, .FrameHeadingFont {
     font-size: 10pt;
     font-weight: bold;
 }
