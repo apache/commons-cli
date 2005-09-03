@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 /**
  * A utility class used to provide internationalisation support.
+ *
  * @author John Keyes
  */
 public class ResourceHelper {
@@ -53,8 +54,7 @@ public class ResourceHelper {
     /**
      * Create a new ResourceHelper for the specified class.
      * 
-     * @param clazz
-     *            the Class that requires some resources
+     * @param clazz the Class that requires some resources
      */
     private ResourceHelper(final Class clazz) {
 
@@ -83,44 +83,30 @@ public class ResourceHelper {
     /**
      * Returns the message for the specified key.
      * 
-     * @param key
-     *            the unique identifier of the message
-     * 
+     * @param key the unique identifier of the message
      * @return String the formatted String
      */
     public String getMessage(final String key) {
-        return getMessage(key, new Object[] {
-        });
+        return getMessage(key, new Object[] {});
     }
 
     /**
      * Returns the message for the specified key and argument.
      * 
-     * @param key
-     *            the unique identifier of the message
-     * 
-     * @param value
-     *            the argument value
-     * 
+     * @param key the unique identifier of the message
+     * @param value the argument value
      * @return String the formatted String
      */
     public String getMessage(final String key, final Object value) {
-
         return getMessage(key, new Object[] { value });
     }
 
     /**
      * Returns the message for the specified key and arguments.
      * 
-     * @param key
-     *            the unique identifier of the message
-     * 
-     * @param value1
-     *            an argument value
-     * 
-     * @param value2
-     *            an argument value
-     * 
+     * @param key the unique identifier of the message
+     * @param value1 an argument value
+     * @param value2 an argument value
      * @return String the formatted String
      */
     public String getMessage(
@@ -134,17 +120,10 @@ public class ResourceHelper {
     /**
      * Returns the message for the specified key and arguments.
      * 
-     * @param key
-     *            the unique identifier of the message
-     * 
-     * @param value1
-     *            an argument value
-     * 
-     * @param value2
-     *            an argument value
-     * 
-     * @param value3
-     *            an argument value
+     * @param key the unique identifier of the message
+     * @param value1 an argument value
+     * @param value2 an argument value
+     * @param value3 an argument value
      * 
      * @return String the formatted String
      */
@@ -160,16 +139,11 @@ public class ResourceHelper {
     /**
      * Returns the message for the specified key and arguments.
      * 
-     * @param key
-     *            the unique identifier of the message
-     * 
-     * @param values
-     *            argument values
-     * 
+     * @param key the unique identifier of the message
+     * @param values argument values
      * @return String the formatted String
      */
     public String getMessage(final String key, final Object[] values) {
-
         final String msgFormatStr = bundle.getString(key);
         final MessageFormat msgFormat = new MessageFormat(msgFormatStr);
 
