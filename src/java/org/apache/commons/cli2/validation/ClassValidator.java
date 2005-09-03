@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,11 +29,24 @@ public class ClassValidator implements Validator {
     private static final ResourceHelper resources =
         ResourceHelper.getResourceHelper(ClassValidator.class);
 
+    /** whether the class argument is loadable */
     private boolean loadable;
+    
+    /** whether to create an instance of the class */
     private boolean instance;
 
+    /** the classloader to load classes from */
     private ClassLoader loader;
 
+    /**
+     * Validate each argument value in the specified List against this instances
+     * permitted attributes.
+     * 
+     * If a value is valid then it's <code>String</code> value in the list is
+     * replaced with it's <code>Class</code> value or instance.
+     * 
+     * @see org.apache.commons.cli2.validation.Validator#validate(java.util.List)
+     */
     public void validate(final List values) throws InvalidArgumentException {
 
         for (final ListIterator i = values.listIterator(); i.hasNext();) {
@@ -80,6 +93,80 @@ public class ClassValidator implements Validator {
         }
     }
 
+    /**
+     * Returns whether the argument value must represent a
+     * class that is loadable.
+     *
+     * @return whether the argument value must represent a
+     * class that is loadable.
+     */
+    public boolean isLoadable() {
+        return loadable;
+    }
+
+    /**
+     * Specifies whether the argument value must represent a
+     * class that is loadable.
+     *
+     * @param loadable whether the argument value must 
+     * represent a class that is loadable.
+     */
+    public void setLoadable(boolean loadable) {
+        this.loadable = loadable;
+    }
+
+    /**
+     * Returns the {@link ClassLoader} used to resolve and load
+     * the classes specified by the argument values.
+     *
+     * @return the {@link ClassLoader} used to resolve and load
+     * the classes specified by the argument values.
+     */
+    public ClassLoader getClassLoader() {
+        if (loader == null) {
+            loader = getClass().getClassLoader();
+        }
+        
+        return loader;
+    }
+
+    /**
+     * Specifies the {@link ClassLoader} used to resolve and load
+     * the classes specified by the argument values.
+     *
+     * @param loader the {@link ClassLoader} used to resolve and load
+     * the classes specified by the argument values.
+     */
+    public void setClassLoader(ClassLoader loader) {
+        this.loader = loader;
+    }
+
+    /**
+     * Returns whether the argument value must represent a
+     * class that can be instantiated.
+     *
+     * @return whether the argument value must represent a
+     * class that can be instantiated.
+     */
+    public boolean isInstance() {
+        return instance;
+    }
+
+    /**
+     * Specifies whether the argument value must represent a
+     * class that can be instantiated.
+     *
+     * @param loadable whether the argument value must 
+     * represent a class that can be instantiated.
+     */
+    public void setInstance(boolean instance) {
+        this.instance = instance;
+    }
+
+    /**
+     * Returns whether the specified name is allowed as
+     * a Java class name.
+     */
     protected boolean isPotentialClassName(final String name) {
         final char[] chars = name.toCharArray();
 
@@ -105,50 +192,4 @@ public class ClassValidator implements Validator {
         return !expectingStart;
     }
 
-    /**
-     * @return true iff class must be loadable to be valid
-     */
-    public boolean isLoadable() {
-        return loadable;
-    }
-
-    /**
-     * true iff class must be loadable to be valid
-     * @param loadable new loadable value
-     */
-    public void setLoadable(boolean loadable) {
-        this.loadable = loadable;
-    }
-
-    /**
-     * @return the classloader to resolve classes in
-     */
-    public ClassLoader getClassLoader() {
-        if (loader == null) {
-            loader = getClass().getClassLoader();
-        }
-        
-        return loader;
-    }
-
-    /**
-     * @param loader the classloader to resolve classes in
-     */
-    public void setClassLoader(ClassLoader loader) {
-        this.loader = loader;
-    }
-
-    /**
-     * @return true iff class instance is needed to be valid 
-     */
-    public boolean isInstance() {
-        return instance;
-    }
-
-    /**
-     * @param instance true iff class instance is needed to be valid
-     */
-    public void setInstance(boolean instance) {
-        this.instance = instance;
-    }
 }

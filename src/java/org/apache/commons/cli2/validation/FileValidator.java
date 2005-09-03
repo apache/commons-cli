@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,47 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * A Validator implmentation requiring File values 
+ * The <code>FileValidator</code> validates the string argument
+ * values are files.  If the value is a file, the string value in
+ * the {@link java.util.List} of values is replaced with the
+ * {@link java.io.File} instance.
+ *
+ * The following attributes can also be specified using the 
+ * appropriate settors:
+ * <ul>
+ *  <li>writable</li>
+ *  <li>readable</li>
+ *  <li>hidden</li>
+ *  <li>existing</li>
+ *  <li>is a file</li>
+ *  <li>is a directory</li>
+ * </ul>
+ *
+ * The following example shows how to limit the valid values
+ * for the config attribute to files that are readable, writeable,
+ * and that already existing.
+ *
+ * <pre>
+ * ...
+ * ArgumentBuilder builder = new ArgumentBuilder();
+ * FileValidator validator = FileValidator.getExistingFileInstance();
+ * validator.setReadable(true);
+ * validator.setWritable(true);
+ * 
+ * Argument age = 
+ *     builder.withName("config");
+ *            .withValidator(validator);
+ * </pre>
+ * 
+ * @author Rob Oxspring
+ * @author John Keyes
  */
 public class FileValidator implements Validator {
 
     /**
-     * @return an instance requiring existing entries 
+     * Returns a <code>FileValidator</code> for existing files/directories.
+     *
+     * @return a <code>FileValidator</code> for existing files/directories.
      */
     public static FileValidator getExistingInstance() {
         final FileValidator validator = new FileValidator();
@@ -34,7 +69,9 @@ public class FileValidator implements Validator {
     }
 
     /**
-     * @return an instance requiring existing files
+     * Returns a <code>FileValidator</code> for existing files.
+     *
+     * @return a <code>FileValidator</code> for existing files.
      */
     public static FileValidator getExistingFileInstance() {
         final FileValidator validator = new FileValidator();
@@ -44,7 +81,9 @@ public class FileValidator implements Validator {
     }
 
     /**
-     * @return an instance requiring existing directories
+     * Returns a <code>FileValidator</code> for existing directories.
+     *
+     * @return a <code>FileValidator</code> for existing directories.
      */
     public static FileValidator getExistingDirectoryInstance() {
         final FileValidator validator = new FileValidator();
@@ -53,13 +92,31 @@ public class FileValidator implements Validator {
         return validator;
     }
 
+    /** whether the argument value is readable */
     private boolean readable = false;
+    
+    /** whether the argument value is writable */
     private boolean writable = false;
+    
+    /** whether the argument value exists */
     private boolean existing = false;
+    
+    /** whether the argument value is a directory */
     private boolean directory = false;
+    
+    /** whether the argument value is a file */
     private boolean file = false;
+
+    /** whether the argument value is a hidden file or directory */
     private boolean hidden = false;
 
+    /**
+     * Validate the list of values against the list of permitted values.
+     * If a value is valid, replace the string in the <code>values</code>
+     * {@link java.util.List} with the {@link java.io.File} instance.
+     * 
+     * @see org.apache.commons.cli2.validation.Validator#validate(java.util.List)
+     */
     public void validate(final List values) throws InvalidArgumentException {
         for (final ListIterator i = values.listIterator(); i.hasNext();) {
             final String name = (String)i.next();
@@ -80,84 +137,126 @@ public class FileValidator implements Validator {
     }
 
     /**
-     * @return true iff the file is a directory
+     * Returns whether the argument values must represent directories.
+     *
+     * @return whether the argument values must represent directories.
      */
     public boolean isDirectory() {
         return directory;
     }
 
     /**
-     * @param directory true if the file must be a directory
+     * Specifies whether the argument values must represent directories.
+     *
+     * @param directory specifies whether the argument values must 
+     * represent directories.
      */
     public void setDirectory(boolean directory) {
         this.directory = directory;
     }
 
     /**
-     * @return true iff the file exists
+     * Returns whether the argument values must represent existing 
+     * files/directories.
+     *
+     * @return whether the argument values must represent existing 
+     * files/directories.
      */
     public boolean isExisting() {
         return existing;
     }
 
     /**
-     * @param existing true if the file must exist
+     * Specifies whether the argument values must represent existing 
+     * files/directories.
+     *
+     * @param directory specifies whether the argument values must 
+     * represent existing files/directories.
      */
     public void setExisting(boolean existing) {
         this.existing = existing;
     }
 
     /**
-     * @return true iff the file is a file (not directory)
+     * Returns whether the argument values must represent directories.
+     *
+     * @return whether the argument values must represent directories.
      */
     public boolean isFile() {
         return file;
     }
 
     /**
-     * @param file true if the file must be a file (not directory)
+     * Specifies whether the argument values must represent files.
+     *
+     * @param file specifies whether the argument values must 
+     * represent files.
      */
     public void setFile(boolean file) {
         this.file = file;
     }
 
     /**
-     * @return true iff the file must be hidden
+     * Returns whether the argument values must represent hidden 
+     * files/directories.
+     *
+     * @return whether the argument values must represent hidden 
+     * files/directories.
      */
     public boolean isHidden() {
         return hidden;
     }
 
     /**
-     * @param hidden true if the file must be hidden
+     * Specifies whether the argument values must represent hidden 
+     * files/directories.
+     *
+     * @param file specifies whether the argument values must 
+     * represent hidden files/directories.
      */
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
     }
 
     /**
-     * @return true iff the file must be readable
+     * Returns whether the argument values must represent readable 
+     * files/directories.
+     *
+     * @return whether the argument values must represent readable 
+     * files/directories.
      */
     public boolean isReadable() {
         return readable;
     }
 
     /**
-     * @param readable true if the file must be readable
+     * Specifies whether the argument values must represent readable 
+     * files/directories.
+     *
+     * @param file specifies whether the argument values must 
+     * represent readable files/directories.
      */
     public void setReadable(boolean readable) {
         this.readable = readable;
     }
 
     /**
-     * @return true iff the file must be writable
+     * Returns whether the argument values must represent writable 
+     * files/directories.
+     *
+     * @return whether the argument values must represent writable 
+     * files/directories.
      */
     public boolean isWritable() {
         return writable;
     }
 
     /**
-     * @param writable true if the file must be writable
+     * Specifies whether the argument values must represent writable 
+     * files/directories.
+     *
+     * @param file specifies whether the argument values must 
+     * represent writable files/directories.
      */
     public void setWritable(boolean writable) {
         this.writable = writable;
