@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,25 @@ package org.apache.commons.cli2.validation;
 import java.util.List;
 
 /**
- * Identifies (and maybe converts) the acceptable Argument values 
+ * The validation interface for validating argument values(s).
+ *
+ * A validator can replace the argument string value with a
+ * specific class instance e.g. the {@link UrlValidator} replaces
+ * the string value with a {@link java.net.URL} instance.
+ *
+ * @author Rob Oxspring
+ * @author John Keyes
  */
 public interface Validator {
 
     /**
      * Validate the specified values (List of Strings).
      * 
-     * @param values
-     *            the values to validate
+     * @param values The values to validate.
      * 
-     * @throws InvalidArgumentException
-     *             if any of the specified values are not valid
+     * @throws InvalidArgumentException If any of the 
+     * specified values are not valid.
      */
     void validate(final List values) throws InvalidArgumentException;
+
 }
