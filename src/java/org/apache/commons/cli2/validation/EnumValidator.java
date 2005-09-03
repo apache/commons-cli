@@ -20,7 +20,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * A Validator for a list of known string values.
+ * The <code>EnumValidator</code> validates the string argument
+ * values are valid.
  *
  * The following example shows how to limit the valid values
  * for the color argument to 'red', 'green', or 'blue'.

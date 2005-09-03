@@ -84,7 +84,7 @@ public class NumberValidator implements Validator {
     /**
      * Returns a <code>NumberValidator</code> for a general-purpose 
      * number format for the current default locale.
-     * @returns a <code>NumberValidator</code> for a general-purpose 
+     * @return a <code>NumberValidator</code> for a general-purpose 
      * number format for the current default locale.
      */
     public static NumberValidator getNumberInstance() {

@@ -21,7 +21,24 @@ import java.util.ListIterator;
 import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
- * A validator checking for classnames
+ * The <code>ClassValidator</code> validates the string argument
+ * values are class names.
+ *
+ * The following example shows how to validate the 'logger'
+ * argument value is a class name, that can be instantiated.
+ *
+ * <pre>
+ * ...
+ * ClassValidator validator = new ClassValidator();
+ * validator.setInstance(true);
+ *
+ * ArgumentBuilder builder = new ArgumentBuilder();
+ * Argument logger = 
+ *     builder.withName("logger");
+ *            .withValidator(validator);
+ * </pre>
+ * 
+ * @author John Keyes
  */
 public class ClassValidator implements Validator {
 
@@ -156,7 +173,7 @@ public class ClassValidator implements Validator {
      * Specifies whether the argument value must represent a
      * class that can be instantiated.
      *
-     * @param loadable whether the argument value must 
+     * @param instance whether the argument value must 
      * represent a class that can be instantiated.
      */
     public void setInstance(boolean instance) {

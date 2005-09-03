@@ -28,7 +28,7 @@ import java.util.ListIterator;
  *
  * URLs can also be validated based on their scheme by using 
  * the {@link #setProtocol setProtocol} method, or by using the specified
- * {@link UrlValidator(java.lang.String) constructor}.
+ * {@link #UrlValidator(java.lang.String) constructor}.
  *
  * The following example shows how to limit the valid values
  * for the site argument to 'https' URLs.
@@ -65,7 +65,7 @@ public class UrlValidator implements Validator {
     /**
      * Validate the list of values against the list of permitted values.
      * If a value is valid, replace the string in the <code>values</code>
-     * {@link java.util.List} with the {@link java.net.URL} instance.
+     * {@link java.util.List} with the { java.net.URL} instance.
      * 
      * @see org.apache.commons.cli2.validation.Validator#validate(java.util.List)
      */

@@ -22,7 +22,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * A Validator for date and time value(s).
+ * The <code>DateValidator</code> validates the argument values
+ * are date or time value(s).
  *
  * The following example shows how to validate that
  * an argument value(s) is a Date of the following 

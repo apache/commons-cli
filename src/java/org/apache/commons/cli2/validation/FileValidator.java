@@ -170,7 +170,7 @@ public class FileValidator implements Validator {
      * Specifies whether the argument values must represent existing 
      * files/directories.
      *
-     * @param directory specifies whether the argument values must 
+     * @param existing specifies whether the argument values must 
      * represent existing files/directories.
      */
     public void setExisting(boolean existing) {
@@ -211,7 +211,7 @@ public class FileValidator implements Validator {
      * Specifies whether the argument values must represent hidden 
      * files/directories.
      *
-     * @param file specifies whether the argument values must 
+     * @param hidden specifies whether the argument values must 
      * represent hidden files/directories.
      */
     public void setHidden(boolean hidden) {
@@ -233,7 +233,7 @@ public class FileValidator implements Validator {
      * Specifies whether the argument values must represent readable 
      * files/directories.
      *
-     * @param file specifies whether the argument values must 
+     * @param readable specifies whether the argument values must 
      * represent readable files/directories.
      */
     public void setReadable(boolean readable) {
@@ -255,7 +255,7 @@ public class FileValidator implements Validator {
      * Specifies whether the argument values must represent writable 
      * files/directories.
      *
-     * @param file specifies whether the argument values must 
+     * @param writable specifies whether the argument values must 
      * represent writable files/directories.
      */
     public void setWritable(boolean writable) {

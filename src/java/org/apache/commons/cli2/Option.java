@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -72,7 +72,7 @@ public interface Option {
      * argument. The ListIterator must be restored to the initial state before
      * returning the boolean.
      * 
-     * @see #canProcess(String)
+     * @see #canProcess(WriteableCommandLine,String)
      * @param arguments
      *            the ListIterator over String arguments
      * @return true if the argument can be processed by this Option
@@ -118,7 +118,7 @@ public interface Option {
      * Builds up a list of HelpLineImpl instances to be presented by HelpFormatter.
      * 
      * @see HelpLine
-     * @see HelpFormatter
+     * @see org.apache.commons.cli2.util.HelpFormatter
      * @param depth
      *            the initial indent depth
      * @param helpSettings
@@ -156,7 +156,7 @@ public interface Option {
      * Returns a description of the option. This string is used to build help
      * messages as in the HelpFormatter.
      * 
-     * @see HelpFormatter
+     * @see org.apache.commons.cli2.util.HelpFormatter
      * @return a description of the option.
      */
     String getDescription();

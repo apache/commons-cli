@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -87,7 +87,7 @@ public class ArgumentImpl extends OptionImpl implements Argument {
      *            The object responsible for validating the values
      * @param consumeRemaining
      *            The String used for the "consuming option" group
-     * @param defaultValues
+     * @param valueDefaults
      *            The values to be used if none are specified.
      * @param id
      *            The id of the option, 0 implies automatic assignment.
@@ -124,7 +124,7 @@ public class ArgumentImpl extends OptionImpl implements Argument {
                 resources.getMessage("cli.error.minimum.exceeds.maximum"));
         }
 
-        if (valueDefaults != null) {
+        if (valueDefaults != null && valueDefaults.size() > 0) {
             if (valueDefaults.size() < minimum) {
                 throw new IllegalArgumentException(
                     resources.getMessage("cli.error.too.few.defaults"));

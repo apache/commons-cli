@@ -27,24 +27,37 @@ import org.apache.commons.cli2.option.Command;
  */
 public class CommandBuilder {
 
+    /** the preferred name of the command */
     private String preferredName;
+
+    /** the description of the command */
     private String description;
+
+    /** the aliases of the command */
     private Set aliases;
+
+    /** whether the command is required or not */
     private boolean required;
+
+    /** the argument of the command */
     private Argument argument;
+
+    /** the children of the command */
     private Group children;
+
+    /** the id of the command */
     private int id;
 
     /**
-     * Creates a new CommandBuilder instance
+     * Creates a new <code>CommandBuilder</code> instance.
      */
     public CommandBuilder() {
         reset();
     }
 
     /**
-     * Creates a new Command instance using the properties of the
-     * CommandBuilder.
+     * Creates a new <code>Command</code> instance using the properties of the
+     * <code>CommandBuilder</code>.
      * 
      * @return the new Command instance
      */
@@ -73,8 +86,10 @@ public class CommandBuilder {
     }
 
     /**
-     * Resets the CommandBuilder to the defaults for a new Command. The method
-     * should be called automatically at the end of a create() call.
+     * Resets the CommandBuilder to the defaults for a new Command. 
+     * 
+     * This method is called automatically at the end of the
+     * {@link #create() create} method.
      */
     public CommandBuilder reset() {
         preferredName = null;
@@ -88,12 +103,14 @@ public class CommandBuilder {
     }
 
     /**
-     * Sets the name of the command. The first name is used as the preferred
-     * display name for the Command and then later names are used as aliases.
+     * Specifies the name for the next <code>Command</code> 
+     * that is created.  The first name is used as the preferred
+     * display name for the <code>Command</code> and then 
+     * later names are used as aliases.
      * 
-     * @param name
-     *            a name for the Command
-     * @return this CommandBuilder
+     * @param name the name for the next <code>Command</code>
+     * that is created.
+     * @return this <code>CommandBuilder</code>.
      */
     public CommandBuilder withName(final String name) {
         if (preferredName == null) {
@@ -107,12 +124,13 @@ public class CommandBuilder {
     }
 
     /**
-     * Sets the description of the command. The description is used to produce
-     * online help for the command.
+     * Specifies the description for the next <code>Command</code>
+     * that is created.  This description is used to produce 
+     * help documentation for the <code>Command</code>.
      * 
-     * @param newDescription
-     *            The description of the command
-     * @return this CommandBuilder
+     * @param newDescription the description for the next 
+     * <code>Command</code> that is created.
+     * @return this <code>CommandBuilder</code>.
      */
     public CommandBuilder withDescription(final String newDescription) {
         this.description = newDescription;
@@ -120,9 +138,11 @@ public class CommandBuilder {
     }
 
     /**
-     * Use this optionality
-     * @param newRequired true iff the Option is required
-     * @return this builder
+     * Specifies whether the next <code>Command</code> created is
+     * required or not.
+     * @param newRequired whether the next <code>Command</code> created is
+     * required or not.
+     * @return this <code>CommandBuilder</code>.
      */
     public CommandBuilder withRequired(final boolean newRequired) {
         this.required = newRequired;
@@ -130,11 +150,12 @@ public class CommandBuilder {
     }
 
     /**
-     * Sets the children of the Command.
+     * Specifies the children for the next <code>Command</code> 
+     * that is created.
      * 
-     * @param newChildren
-     *            the child options for the Command
-     * @return this CommandBuilder
+     * @param newChildren the child options for the next <code>Command</code>
+     * that is created.
+     * @return this <code>CommandBuilder</code>.
      */
     public CommandBuilder withChildren(final Group newChildren) {
         this.children = newChildren;
@@ -142,11 +163,12 @@ public class CommandBuilder {
     }
 
     /**
-     * Sets the argument of the Command.
+     * Specifies the argument for the next <code>Command</code> 
+     * that is created.
      * 
-     * @param newArgument
-     *            the argument for the Command
-     * @return this CommandBuilder
+     * @param newArgument the argument for the next <code>Command</code> 
+     * that is created.
+     * @return this <code>CommandBuilder</code>.
      */
     public CommandBuilder withArgument(final Argument newArgument) {
         this.argument = newArgument;
@@ -154,11 +176,10 @@ public class CommandBuilder {
     }
 
     /**
-     * Sets the id
+     * Specifies the id for the next <code>Command</code> that is created.
      * 
-     * @param newId
-     *            the id of the Command
-     * @return this CommandBuilder
+     * @param newId the id for the next <code>Command</code> that is created.
+     * @return this <code>CommandBuilder</code>.
      */
     public final CommandBuilder withId(final int newId) {
         this.id = newId;
