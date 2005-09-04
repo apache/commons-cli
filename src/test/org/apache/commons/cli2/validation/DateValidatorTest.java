@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
+ * JUnit test case for DateValidator.
+ *
  * @author Rob Oxspring
  * @author John Keyes
  */
@@ -123,6 +125,8 @@ public class DateValidatorTest extends TestCase {
             cal.set(2002, 1, 12);
             final Date min = cal.getTime();
             validator.setMinimum(min);
+            assertTrue("maximum bound is set", validator.getMaximum() == null);
+            assertEquals("minimum bound is incorrect", min, validator.getMinimum());
             validator.validate(list);
         }
 
@@ -143,6 +147,11 @@ public class DateValidatorTest extends TestCase {
         }
     }
 
+    public void testFormats() throws InvalidArgumentException {
+        final DateValidator validator = new DateValidator(formats);
+        assertEquals("date formats are incorrect", formats, validator.getFormats());
+    }
+
     public void testMaximumBounds() throws InvalidArgumentException {
         final DateValidator validator = new DateValidator(formats);
         final Calendar cal = Calendar.getInstance();
@@ -153,6 +162,8 @@ public class DateValidatorTest extends TestCase {
             cal.set(2004, 1, 12);
             final Date max = cal.getTime();
             validator.setMaximum(max);
+            assertTrue("minimum bound is set", validator.getMinimum() == null);
+            assertEquals("maximum bound is incorrect", max, validator.getMaximum());
             validator.validate(list);
         }
 

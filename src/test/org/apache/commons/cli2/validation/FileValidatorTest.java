@@ -95,8 +95,8 @@ public class FileValidatorTest extends TestCase {
         assertTrue("is a file validator", validator.isFile());
         assertTrue("is an existing file validator", validator.isExisting());
         assertFalse("is not a hidden file validator", validator.isHidden());
-        assertTrue("is not a readable file validator", validator.isReadable());
-        assertFalse("is a writable file validator", validator.isWritable());
+        assertFalse("is not a readable file validator", validator.isReadable());
+        assertTrue("is a writable file validator", validator.isWritable());
 
         try{
             validator.validate(list);
