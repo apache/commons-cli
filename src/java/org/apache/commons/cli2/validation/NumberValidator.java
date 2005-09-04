@@ -101,18 +101,11 @@ public class NumberValidator implements Validator {
     private Number maximum = null;
 
     /**
-     * Creates a new NumberValidator.
-     */
-    public NumberValidator() {
-        this(NumberFormat.getInstance());
-    }
-
-    /**
      * Creates a new NumberValidator based on the specified NumberFormat
      * @param format the format of numbers to accept
      */
     public NumberValidator(final NumberFormat format) {
-        this.format = format;
+        setFormat(format);
     }
 
     /**
@@ -124,7 +117,7 @@ public class NumberValidator implements Validator {
      */
     public void validate(final List values) throws InvalidArgumentException {
         for (final ListIterator i = values.listIterator(); i.hasNext();) {
-            final String value = (String)i.next();
+            final String value = (String) i.next();
 
             final ParsePosition pp = new ParsePosition(0);
             final Number number = format.parse(value, pp);
@@ -157,7 +150,7 @@ public class NumberValidator implements Validator {
      *
      * @param format the format being used to validate argument values against.
      */
-    public void setFormat(NumberFormat format) {
+    protected void setFormat(NumberFormat format) {
         this.format = format;
     }
     

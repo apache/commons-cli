@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,12 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+/**
+ * JUnit test case for NumberValidator.
+ *
+ * @author Rob Oxspring
+ * @author John Keyes
+ */
 public class NumberValidatorTest extends TestCase {
     
     public void testValidate_Number() throws InvalidArgumentException {
@@ -29,20 +35,22 @@ public class NumberValidatorTest extends TestCase {
         
         final Object[] array = 
             new Object[] { 
-                format.format(1d), 
-                format.format(1.07d), 
-                format.format(-.45d)};
-        
-        final List list = Arrays.asList(array);
-        final Validator validator = NumberValidator.getNumberInstance();
+            format.format(1d), 
+            format.format(1.07d), 
+            format.format(-.45d)};
 
-        validator.validate(list);
+        {
+            final List list = Arrays.asList(array);
+            final Validator validator = NumberValidator.getNumberInstance();
 
-        final Iterator i = list.iterator();
-        assertEquals(1d, ((Number)i.next()).doubleValue(), 0.0001);
-        assertEquals(1.07d, ((Number)i.next()).doubleValue(), 0.0001);
-        assertEquals(-.45d, ((Number)i.next()).doubleValue(), 0.0001);
-        assertFalse(i.hasNext());
+            validator.validate(list);
+
+            final Iterator i = list.iterator();
+            assertEquals(1d, ((Number)i.next()).doubleValue(), 0.0001);
+            assertEquals(1.07d, ((Number)i.next()).doubleValue(), 0.0001);
+            assertEquals(-.45d, ((Number)i.next()).doubleValue(), 0.0001);
+            assertFalse(i.hasNext());
+        }
     }
 
     public void testValidate_Currency() throws InvalidArgumentException {
@@ -53,7 +61,9 @@ public class NumberValidatorTest extends TestCase {
                 format.format(1.07),
                 format.format(-0.45)};
         final List list = Arrays.asList(array);
-        final Validator validator = NumberValidator.getCurrencyInstance();
+        
+        final NumberValidator validator = NumberValidator.getCurrencyInstance();
+        assertEquals("incorrect currency format", format, validator.getFormat());
 
         validator.validate(list);
 
@@ -118,7 +128,12 @@ public class NumberValidatorTest extends TestCase {
         final Object[] array = new Object[] { "1", "107" };
         final List list = Arrays.asList(array);
         final NumberValidator validator = NumberValidator.getIntegerInstance();
-        validator.setMaximum(new Integer(100));
+        Integer max = new Integer(100);
+
+        validator.setMaximum(max);
+
+        assertTrue("no minimum set", validator.getMinimum() == null);
+        assertEquals("incorrect maximum value", max, validator.getMaximum());
 
         try {
             validator.validate(list);
@@ -133,7 +148,11 @@ public class NumberValidatorTest extends TestCase {
         final Object[] array = new Object[] { "107", "1" };
         final List list = Arrays.asList(array);
         final NumberValidator validator = NumberValidator.getIntegerInstance();
-        validator.setMinimum(new Integer(100));
+        Integer min = new Integer(100);
+        validator.setMinimum(min);
+
+        assertTrue("no maximum set", validator.getMaximum() == null);
+        assertEquals("incorrect minimum value", min, validator.getMinimum());
 
         try {
             validator.validate(list);

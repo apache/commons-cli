@@ -51,7 +51,7 @@ public class EnumValidator implements Validator {
      * @param values The list of permitted values
      */
     public EnumValidator(final Set values) {
-        this.validValues = values;
+        setValidValues(values);
     }
 
     /**
@@ -113,7 +113,7 @@ public class EnumValidator implements Validator {
      *
      * @param validValues The Set of valid argument values.
      */
-    public void setValidValues(Set validValues) {
+    protected void setValidValues(Set validValues) {
         this.validValues = validValues;
     }
 }

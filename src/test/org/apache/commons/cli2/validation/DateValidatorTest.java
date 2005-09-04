@@ -149,7 +149,12 @@ public class DateValidatorTest extends TestCase {
 
     public void testFormats() throws InvalidArgumentException {
         final DateValidator validator = new DateValidator(formats);
-        assertEquals("date formats are incorrect", formats, validator.getFormats());
+        assertEquals("date format is incorrect", 
+                     ((SimpleDateFormat)formats.get(0)).toPattern(), 
+                     ((SimpleDateFormat)validator.getFormats()[0]).toPattern());
+        assertEquals("date format is incorrect", 
+                     ((SimpleDateFormat)formats.get(1)).toPattern(), 
+                     ((SimpleDateFormat)validator.getFormats()[1]).toPattern());
     }
 
     public void testMaximumBounds() throws InvalidArgumentException {
