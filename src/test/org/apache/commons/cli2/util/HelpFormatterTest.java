@@ -21,6 +21,7 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -149,6 +150,75 @@ public class HelpFormatterTest extends TestCase {
             reader.readLine());
         assertEquals(
             "|*  --verbose          *-*print the version information and exit              *|",
+            reader.readLine());
+        assertEquals(
+            "|*  target [target ...]*-*The targets ant should build                        *|",
+            reader.readLine());
+        assertEquals(
+            "+------------------------------------------------------------------------------+",
+            reader.readLine());
+        assertEquals(
+            "|*Copyright 2003                                                              *|",
+            reader.readLine());
+        assertEquals(
+            "|*Apache Software Foundation                                                  *|",
+            reader.readLine());
+        assertEquals(
+            "+------------------------------------------------------------------------------+",
+            reader.readLine());
+        assertNull(reader.readLine());
+    }
+
+    public void testComparator() throws IOException {
+        final StringWriter writer = new StringWriter();
+        final PrintWriter pw = new PrintWriter(writer);
+        helpFormatter.setPrintWriter(pw);
+        final Comparator comparator = new OptionComparator();
+        helpFormatter.setComparator(comparator);
+        helpFormatter.print();
+
+        // test comparator
+        assertEquals("invalid comparator", comparator, helpFormatter.getComparator());
+        final BufferedReader reader =
+            new BufferedReader(new StringReader(writer.toString()));
+        assertEquals(
+            "+------------------------------------------------------------------------------+",
+            reader.readLine());
+        assertEquals(
+            "|*Jakarta Commons CLI                                                         *|",
+            reader.readLine());
+        assertEquals(
+            "+------------------------------------------------------------------------------+",
+            reader.readLine());
+        assertEquals(
+            "|*Usage:                                                                      *|",
+            reader.readLine());
+        assertEquals(
+            "|*ant [--verbose --projecthelp --help --diagnostics] [<target1> [<target2>    *|",
+            reader.readLine());
+        assertEquals(
+            "|*...]]                                                                       *|",
+            reader.readLine());
+        assertEquals(
+            "+------------------------------------------------------------------------------+",
+            reader.readLine());
+        assertEquals(
+            "|*options              *-*                                                    *|",
+            reader.readLine());
+        assertEquals(
+            "|*  --verbose          *-*print the version information and exit              *|",
+            reader.readLine());
+        assertEquals(
+            "|*  --projecthelp      *-*print project help information                      *|",
+            reader.readLine());
+        assertEquals(
+            "|*  --help (-?,-h)     *-*Displays the help                                   *|",
+            reader.readLine());
+        assertEquals(
+            "|*  --diagnostics      *-*print information that might be helpful to diagnose *|",
+            reader.readLine());
+        assertEquals(
+            "|*                     *-*or report problems.                                 *|",
             reader.readLine());
         assertEquals(
             "|*  target [target ...]*-*The targets ant should build                        *|",
@@ -528,5 +598,15 @@ public class HelpFormatterTest extends TestCase {
             "  target [target ...]    The targets ant should build                           ",
             reader.readLine());
         assertNull(reader.readLine());
+    }
+}
+
+
+class OptionComparator implements Comparator {
+
+    public int compare(Object o1, Object o2) {
+        Option opt1 = (Option) o1;
+        Option opt2 = (Option) o2;
+        return -opt1.getPreferredName().compareTo(opt2.getPreferredName());
     }
 }
