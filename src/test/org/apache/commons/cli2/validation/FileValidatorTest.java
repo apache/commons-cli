@@ -121,7 +121,7 @@ public class FileValidatorTest extends TestCase {
         // make file hidden on Windows
         attribute("H");
 
-        final Object[] array = new Object[] { ".hidden", "src" };
+        final Object[] array = new Object[] { "src/test/data/.hidden.txt", "src" };
         final List list = Arrays.asList(array);
         final FileValidator validator = FileValidator.getExistingFileInstance();
         validator.setHidden(true);

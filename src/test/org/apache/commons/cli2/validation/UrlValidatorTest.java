@@ -37,19 +37,49 @@ public class UrlValidatorTest extends TestCase {
         assertEquals(new URL("file:///etc"), i.next());
         assertFalse(i.hasNext());
     }
-    
-    public void testBadProtocol() {
-        final Object[] array = new Object[] { "http://www.apache.org/", "file:///etc"};
-        final List list = Arrays.asList(array);
-        final UrlValidator validator = new UrlValidator();
-        validator.setProtocol("http");
 
-        try{
+    public void testMalformedURL() throws InvalidArgumentException, MalformedURLException {
+        final Object[] array = new Object[] { "www.apache.org"};
+        final List list = Arrays.asList(array);
+        final Validator validator = new UrlValidator();
+
+        try {
             validator.validate(list);
-            fail("Expected InvalidArgumentException");
         }
         catch(InvalidArgumentException e){
-            assertEquals("file:///etc",e.getMessage());
+            assertEquals("Cannot understand url: www.apache.org",e.getMessage());
+        }
+        
+    }
+
+    public void testBadProtocol() {
+        {
+            final Object[] array = new Object[] { "http://www.apache.org/", "file:///etc"};
+            final List list = Arrays.asList(array);
+            final UrlValidator validator = new UrlValidator();
+            validator.setProtocol("http");
+    
+            assertEquals("incorrect protocol", "http", validator.getProtocol());
+            try{
+                validator.validate(list);
+                fail("Expected InvalidArgumentException");
+            }
+            catch(InvalidArgumentException e){
+                assertEquals("file:///etc",e.getMessage());
+            }
+        }
+        {
+            final Object[] array = new Object[] { "http://www.apache.org/", "file:///etc"};
+            final List list = Arrays.asList(array);
+            final UrlValidator validator = new UrlValidator("http");
+    
+            try{
+                validator.validate(list);
+                fail("Expected InvalidArgumentException");
+            }
+            catch(InvalidArgumentException e){
+                assertEquals("file:///etc",e.getMessage());
+            }
         }
     }
 }
