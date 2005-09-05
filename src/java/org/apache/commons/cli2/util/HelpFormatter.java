@@ -145,34 +145,20 @@ public class HelpFormatter {
         final int fullWidth) {
         
         // default the left gutter to empty string
-        if (gutterLeft == null) {
-            this.gutterLeft = "";
-        }
-        else {
-            this.gutterLeft = gutterLeft;
-        }
+        this.gutterLeft = (gutterLeft == null) ? DEFAULT_GUTTER_LEFT : gutterLeft;
 
-        // default the center gutter to empty string
-        if (gutterCenter == null) {
-            this.gutterCenter = "";
-        }
-        else {
-            this.gutterCenter = gutterCenter;
-        }
+        // default the center gutter to a single space
+        this.gutterCenter = (gutterCenter == null) ? DEFAULT_GUTTER_CENTER : gutterCenter;
 
         // default the right gutter to empty string
-        if (gutterRight == null) {
-            this.gutterRight = "";
-        }
-        else {
-            this.gutterRight = gutterRight;
-        }
+        this.gutterRight = (gutterRight == null) ? DEFAULT_GUTTER_RIGHT : gutterRight;
 
         // calculate the available page width
-        this.pageWidth = fullWidth - gutterLeft.length() - gutterRight.length();
+        this.pageWidth = fullWidth - this.gutterLeft.length() - this.gutterRight.length();
         
         // check available page width is valid
-        if (fullWidth - pageWidth + gutterCenter.length() < 2) {
+        int availableWidth = fullWidth - pageWidth + this.gutterCenter.length(); 
+        if ( availableWidth < 2 ) {
             throw new IllegalArgumentException(
                 "The gutter strings leave no space for output! "
                     + "Supply shorter gutters or more width.");

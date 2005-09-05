@@ -20,11 +20,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.cli2.DisplaySetting;
 import org.apache.commons.cli2.Group;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.OptionException;
@@ -74,10 +78,36 @@ public class HelpFormatterTest extends TestCase {
 
     public void testPrint() throws IOException {
         final StringWriter writer = new StringWriter();
-        helpFormatter.setPrintWriter(new PrintWriter(writer));
+        final PrintWriter pw = new PrintWriter(writer);
+        helpFormatter.setPrintWriter(pw);
         helpFormatter.print();
 
-        //System.out.println(writer.toString());
+        // test group
+        assertEquals("incorrect group", this.options, helpFormatter.getGroup());
+
+        // test pagewidth
+        assertEquals("incorrect page width", 76, helpFormatter.getPageWidth());
+
+        // test pw
+        assertEquals("incorrect print writer", pw, helpFormatter.getPrintWriter());
+
+        // test divider
+        assertEquals("incorrect divider", 
+                "+------------------------------------------------------------------------------+",
+                helpFormatter.getDivider());
+
+        // test header
+        assertEquals("incorrect header", "Jakarta Commons CLI", helpFormatter.getHeader());
+
+        // test footer
+        assertEquals("incorrect footer", "Copyright 2003\nApache Software Foundation",
+                helpFormatter.getFooter());
+
+        // test gutters
+        assertEquals("incorrect left gutter", "|*", helpFormatter.getGutterLeft());
+        assertEquals("incorrect right gutter", "*|", helpFormatter.getGutterRight());
+        assertEquals("incorrect center gutter", "*-*", helpFormatter.getGutterCenter());
+
 
         final BufferedReader reader =
             new BufferedReader(new StringReader(writer.toString()));
@@ -396,5 +426,107 @@ public class HelpFormatterTest extends TestCase {
         final StringWriter writer = new StringWriter();
         HelpFormatter.pad("hello world", -5, writer);
         assertEquals("hello world", writer.toString());
+    }
+    
+    public void testGutters() throws IOException {
+        helpFormatter = new HelpFormatter(null, null, null, 80);
+        helpFormatter.setShellCommand("ant");
+        final Set lusage = new HashSet();
+        lusage.add(DisplaySetting.DISPLAY_ALIASES);
+        lusage.add(DisplaySetting.DISPLAY_GROUP_NAME);
+        helpFormatter.setLineUsageSettings(lusage);
+        
+        // test line usage
+        assertEquals("incorrect line usage", lusage, helpFormatter.getLineUsageSettings());
+
+        final Set fusage = new HashSet();
+        fusage.add(DisplaySetting.DISPLAY_PARENT_CHILDREN);
+        fusage.add(DisplaySetting.DISPLAY_GROUP_ARGUMENT);
+        fusage.add(DisplaySetting.DISPLAY_GROUP_OUTER);
+        fusage.add(DisplaySetting.DISPLAY_GROUP_EXPANDED);
+        fusage.add(DisplaySetting.DISPLAY_ARGUMENT_BRACKETED);
+        fusage.add(DisplaySetting.DISPLAY_ARGUMENT_NUMBERED);
+        fusage.add(DisplaySetting.DISPLAY_SWITCH_ENABLED);
+        fusage.add(DisplaySetting.DISPLAY_SWITCH_DISABLED);
+        fusage.add(DisplaySetting.DISPLAY_PROPERTY_OPTION);
+        fusage.add(DisplaySetting.DISPLAY_PARENT_CHILDREN);
+        fusage.add(DisplaySetting.DISPLAY_PARENT_ARGUMENT);
+        fusage.add(DisplaySetting.DISPLAY_OPTIONAL);
+        helpFormatter.setFullUsageSettings(fusage);
+
+        // test line usage
+        assertEquals("incorrect full usage", fusage, helpFormatter.getFullUsageSettings());
+
+        final Set dsettings = new HashSet();
+        dsettings.add(DisplaySetting.DISPLAY_GROUP_NAME);
+        dsettings.add(DisplaySetting.DISPLAY_GROUP_EXPANDED);
+        dsettings.add(DisplaySetting.DISPLAY_GROUP_ARGUMENT);
+        
+        helpFormatter.setDisplaySettings(dsettings);
+
+        verbose =
+            new DefaultOptionBuilder()
+                .withLongName("verbose")
+                .withDescription("print the version information and exit")
+                .create();
+
+        options = new GroupBuilder()
+            .withName("options")
+            .withOption(DefaultOptionTest.buildHelpOption())
+            .withOption(ArgumentTest.buildTargetsArgument())
+            .withOption(
+                new DefaultOptionBuilder()
+                    .withLongName("diagnostics")
+                    .withDescription("print information that might be helpful to diagnose or report problems.")
+                    .create())
+            .withOption(
+                new DefaultOptionBuilder()
+                    .withLongName("projecthelp")
+                    .withDescription("print project help information")
+                    .create())
+            .withOption(verbose)
+            .create();        
+        
+        helpFormatter.setGroup(options);
+
+        // test default gutters
+        assertEquals("incorrect left gutter", HelpFormatter.DEFAULT_GUTTER_LEFT, helpFormatter.getGutterLeft());
+        assertEquals("incorrect right gutter", HelpFormatter.DEFAULT_GUTTER_RIGHT, helpFormatter.getGutterRight());
+        assertEquals("incorrect center gutter", HelpFormatter.DEFAULT_GUTTER_CENTER, helpFormatter.getGutterCenter());
+    
+        final StringWriter writer = new StringWriter();
+        helpFormatter.setPrintWriter(new PrintWriter(writer));
+        helpFormatter.print();
+
+        final BufferedReader reader =
+            new BufferedReader(new StringReader(writer.toString()));
+        assertEquals(
+            "Usage:                                                                          ",
+            reader.readLine());
+        assertEquals(
+            "ant [--help --diagnostics --projecthelp --verbose] [<target1> [<target2> ...]]  ",
+            reader.readLine());
+        assertEquals(
+            "options                                                                         ",
+            reader.readLine());
+        assertEquals(
+            "  --help (-?,-h)         Displays the help                                      ",
+            reader.readLine());
+        assertEquals(
+            "  --diagnostics          print information that might be helpful to diagnose or ",
+            reader.readLine());
+        assertEquals(
+            "                         report problems.                                       ",
+            reader.readLine());
+        assertEquals(
+            "  --projecthelp          print project help information                         ",
+            reader.readLine());
+        assertEquals(
+            "  --verbose              print the version information and exit                 ",
+            reader.readLine());
+        assertEquals(
+            "  target [target ...]    The targets ant should build                           ",
+            reader.readLine());
+        assertNull(reader.readLine());
     }
 }
