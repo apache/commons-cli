@@ -16,6 +16,8 @@
 package org.apache.commons.cli2.validation;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -64,6 +66,10 @@ public class FileValidatorTest extends TestCase {
     }
 
     public void testValidate_ReadableFile() {
+    	// make file readonly
+    	File file = new File("src/test/data/readable.txt");
+    	file.setReadOnly();
+
         final Object[] array = new Object[] { "src/test/data/readable.txt", "src/test/data/notreadable.txt"};
         final List list = Arrays.asList(array);
         final FileValidator validator = FileValidator.getExistingFileInstance();
@@ -86,7 +92,11 @@ public class FileValidatorTest extends TestCase {
     }
 
     public void testValidate_WritableFile() {
-        final Object[] array = new Object[] { "src/test/data/writable.txt", "src/test/data/readable.txt"};
+    	// make file readonly
+    	File file = new File("src/test/data/readable.txt");
+    	file.setReadOnly();
+
+    	final Object[] array = new Object[] { "src/test/data/writable.txt", "src/test/data/readable.txt"};
         final List list = Arrays.asList(array);
         final FileValidator validator = FileValidator.getExistingFileInstance();
         validator.setWritable(true);
@@ -108,23 +118,43 @@ public class FileValidatorTest extends TestCase {
     }
 
     public void testValidate_HiddenFile() throws InvalidArgumentException {
-        final Object[] array = new Object[] { "src/test/data/hidden.txt", "src"};
-        final List list = Arrays.asList(array);
-        final FileValidator validator = FileValidator.getExistingFileInstance();
-        validator.setHidden(true);
+    	// make file hidden on Windows
+    	attribute("H");
+    	
+		final Object[] array = new Object[] { ".hidden", "src"};
+		final List list = Arrays.asList(array);
+		final FileValidator validator = FileValidator.getExistingFileInstance();
+		validator.setHidden(true);
+		
+		assertFalse("is not a directory validator", validator.isDirectory());
+		assertTrue("is a file validator", validator.isFile());
+		assertTrue("is an existing file validator", validator.isExisting());
+		assertTrue("is a hidden file validator", validator.isHidden());
+	
+		try{
+			validator.validate(list);
+			fail("InvalidArgumentException");
+		}
+		catch(InvalidArgumentException e){
+			assertEquals("src",e.getMessage());
+		}
+    }
 
-        assertFalse("is not a directory validator", validator.isDirectory());
-        assertTrue("is a file validator", validator.isFile());
-        assertTrue("is an existing file validator", validator.isExisting());
-        assertTrue("is a hidden file validator", validator.isHidden());
+    private void attribute(String attr) {
+		final String os = System.getProperty("os.name").toLowerCase();
 
-        try{
-            validator.validate(list);
-            fail("InvalidArgumentException");
-        }
-        catch(InvalidArgumentException e){
-            assertEquals("src",e.getMessage());
-        }
+		// if the test is run on windows, run the attrib program
+		// to set the hidden attribute
+		if (os.indexOf("windows") != -1) {
+			// windows
+			try {
+				Process proc = Runtime.getRuntime().exec("attrib.exe +" + attr + " src/test/data/.hidden.txt", null, new File("."));
+			} 
+			catch (IOException e) {
+					System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
+		} 
     }
 
     public void testValidate_Existing() {
