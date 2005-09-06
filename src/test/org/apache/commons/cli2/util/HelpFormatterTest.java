@@ -1,5 +1,5 @@
 /**
- * Copyright 2003-2004 The Apache Software Foundation
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,6 +82,9 @@ public class HelpFormatterTest extends TestCase {
         final PrintWriter pw = new PrintWriter(writer);
         helpFormatter.setPrintWriter(pw);
         helpFormatter.print();
+
+        // test shell
+        assertEquals("incorrect shell command", "ant", helpFormatter.getShellCommand());
 
         // test group
         assertEquals("incorrect group", this.options, helpFormatter.getGroup());
