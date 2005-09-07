@@ -86,12 +86,9 @@ public class Command extends ParentImpl {
         this.preferredName = preferredName;
 
         // gracefully and defensively handle aliases
-        if (aliases == null) {
-            this.aliases = Collections.EMPTY_SET;
-        }
-        else {
-            this.aliases = Collections.unmodifiableSet(new HashSet(aliases));
-        }
+        this.aliases = (aliases == null) 
+            ? Collections.EMPTY_SET 
+            : Collections.unmodifiableSet(new HashSet(aliases));
 
         // populate the triggers Set
         final Set newTriggers = new HashSet();

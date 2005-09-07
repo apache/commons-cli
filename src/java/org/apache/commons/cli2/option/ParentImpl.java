@@ -114,12 +114,9 @@ public abstract class ParentImpl extends OptionImpl implements Parent {
      * @see org.apache.commons.cli2.Option#prefixes()
      */
     public Set getPrefixes() {
-        if (children == null) {
-            return Collections.EMPTY_SET;
-        }
-        else {
-            return children.getPrefixes();
-        }
+        return (children == null)
+            ? Collections.EMPTY_SET
+            : children.getPrefixes();
     }
 
     /*

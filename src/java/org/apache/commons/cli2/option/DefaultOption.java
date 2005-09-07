@@ -98,20 +98,13 @@ public class DefaultOption extends ParentImpl {
         this.burstLength = shortPrefix.length() + 1;
 
         this.preferredName = preferredName;
-        if (aliases == null) {
-            this.aliases = Collections.EMPTY_SET;
-        }
-        else {
-            this.aliases = Collections.unmodifiableSet(new HashSet(aliases));
-        }
+        this.aliases = (aliases == null) 
+            ? Collections.EMPTY_SET
+            : Collections.unmodifiableSet(new HashSet(aliases));
 
-        if (burstAliases == null) {
-            this.burstAliases = Collections.EMPTY_SET;
-        }
-        else {
-            this.burstAliases =
-                Collections.unmodifiableSet(new HashSet(burstAliases));
-        }
+        this.burstAliases = (burstAliases == null)
+            ? Collections.EMPTY_SET
+            : Collections.unmodifiableSet(new HashSet(burstAliases));
 
         final Set newTriggers = new HashSet();
         newTriggers.add(preferredName);
