@@ -89,15 +89,15 @@ public class Switch
         }
 
         if (disabledPrefix == null) {
-            throw new IllegalArgumentException(ResourceConstants.SWITCH_NO_DISABLED_PREFIX);
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.SWITCH_NO_DISABLED_PREFIX));
         }
 
         if (enabledPrefix.startsWith(disabledPrefix)) {
-            throw new IllegalArgumentException(ResourceConstants.SWITCH_ENABLED_STARTS_WITH_DISABLED);
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.SWITCH_ENABLED_STARTS_WITH_DISABLED));
         }
 
         if (disabledPrefix.startsWith(enabledPrefix)) {
-            throw new IllegalArgumentException(ResourceConstants.SWITCH_DISABLED_STARTWS_WITH_ENABLED);
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.SWITCH_DISABLED_STARTWS_WITH_ENABLED));
         }
 
         this.enabledPrefix = enabledPrefix;
@@ -105,7 +105,7 @@ public class Switch
         this.preferredName = preferredName;
 
         if ((preferredName == null) || (preferredName.length() < 1)) {
-            throw new IllegalArgumentException(ResourceConstants.SWITCH_PREFERRED_NAME_TOO_SHORT);
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.SWITCH_PREFERRED_NAME_TOO_SHORT));
         }
 
         final Set newTriggers = new HashSet();
