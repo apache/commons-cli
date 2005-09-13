@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,7 +40,7 @@ import org.apache.commons.cli2.validation.DateValidatorTest;
  */
 public class ArgumentTest extends ArgumentTestCase {
 
-    private ResourceHelper resources = ResourceHelper.getResourceHelper(ArgumentTest.class);
+    private ResourceHelper resources = ResourceHelper.getResourceHelper();
     
     public static Argument buildUsernameArgument() {
         return new ArgumentImpl(
@@ -163,7 +163,7 @@ public class ArgumentTest extends ArgumentTestCase {
                         0);
             } catch (IllegalArgumentException e) {
                 assertEquals(
-                        resources.getMessage("cli.error.minimum.exceeds.maximum"),
+                        resources.getMessage("Argument.minimum.exceeds.maximum"),
                         e.getMessage());
             }
         }
@@ -200,7 +200,7 @@ public class ArgumentTest extends ArgumentTestCase {
             }
             catch(IllegalArgumentException exp) {
                 assertEquals(
-                        resources.getMessage("cli.error.too.few.defaults"),
+                        resources.getMessage("Argument.too.few.defaults"),
                         exp.getMessage());
             }
         }
@@ -225,7 +225,7 @@ public class ArgumentTest extends ArgumentTestCase {
             }
             catch(IllegalArgumentException exp) {
                 assertEquals(
-                    resources.getMessage("cli.error.too.many.defaults"),
+                    resources.getMessage("Argument.too.many.defaults"),
                     exp.getMessage());
             }
         }

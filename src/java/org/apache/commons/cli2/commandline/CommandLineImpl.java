@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,22 +21,24 @@ import java.util.List;
 
 import org.apache.commons.cli2.CommandLine;
 import org.apache.commons.cli2.Option;
+import org.apache.commons.cli2.resource.ResourceConstants;
+import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
  * Instances of CommandLine represent a command line that has been processed
  * according to the definition supplied to the parser.
  */
 public abstract class CommandLineImpl implements CommandLine {
-
     public final boolean hasOption(final String trigger) {
         return hasOption(getOption(trigger));
     }
 
     public final List getValues(final String trigger) {
-        return getValues(getOption(trigger),Collections.EMPTY_LIST);
+        return getValues(getOption(trigger), Collections.EMPTY_LIST);
     }
 
-    public final List getValues(final String trigger, final List defaultValues) {
+    public final List getValues(final String trigger,
+                                final List defaultValues) {
         return getValues(getOption(trigger), defaultValues);
     }
 
@@ -45,10 +47,11 @@ public abstract class CommandLineImpl implements CommandLine {
     }
 
     public final Object getValue(final String trigger) {
-        return getValue(getOption(trigger),null);
+        return getValue(getOption(trigger), null);
     }
 
-    public final Object getValue(final String trigger, final Object defaultValue) {
+    public final Object getValue(final String trigger,
+                                 final Object defaultValue) {
         return getValue(getOption(trigger), defaultValue);
     }
 
@@ -56,18 +59,18 @@ public abstract class CommandLineImpl implements CommandLine {
         return getValue(option, null);
     }
 
-    public final Object getValue(final Option option, final Object defaultValue) {
-
+    public final Object getValue(final Option option,
+                                 final Object defaultValue) {
         final List values;
+
         if (defaultValue == null) {
             values = getValues(option);
-        }
-        else {
+        } else {
             values = getValues(option, Collections.singletonList(defaultValue));
         }
 
         if (values.size() > 1) {
-            throw new IllegalStateException("More than one value was supplied");
+            throw new IllegalStateException(ResourceHelper.getResourceHelper().getMessage(ResourceConstants.ARGUMENT_TOO_MANY_VALUES));
         }
 
         if (values.isEmpty()) {
@@ -81,9 +84,8 @@ public abstract class CommandLineImpl implements CommandLine {
         return getSwitch(getOption(trigger), null);
     }
 
-    public final Boolean getSwitch(
-        final String trigger,
-        final Boolean defaultValue) {
+    public final Boolean getSwitch(final String trigger,
+                                   final Boolean defaultValue) {
         return getSwitch(getOption(trigger), defaultValue);
     }
 
@@ -92,7 +94,7 @@ public abstract class CommandLineImpl implements CommandLine {
     }
 
     public final String getProperty(final String property) {
-        return getProperty(property,null);
+        return getProperty(property, null);
     }
 
     public final int getOptionCount(final String trigger) {
@@ -105,6 +107,7 @@ public abstract class CommandLineImpl implements CommandLine {
         }
 
         int count = 0;
+
         for (Iterator i = getOptions().iterator(); i.hasNext();) {
             if (option.equals(i.next())) {
                 ++count;

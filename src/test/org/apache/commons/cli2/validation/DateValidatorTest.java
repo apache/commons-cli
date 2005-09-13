@@ -17,6 +17,7 @@ package org.apache.commons.cli2.validation;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,19 +28,24 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.commons.cli2.resource.ResourceConstants;
+import org.apache.commons.cli2.resource.ResourceHelper;
+
 /**
  * JUnit test case for DateValidator.
  *
  * @author Rob Oxspring
  * @author John Keyes
  */
-public class DateValidatorTest extends TestCase {
+public class DateValidatorTest
+    extends TestCase {
+    private static final ResourceHelper resources = ResourceHelper.getResourceHelper();
     public static final DateFormat D_M_YY = new SimpleDateFormat("d/M/yy");
-    public static final DateFormat YYYY_MM_YY =
-        new SimpleDateFormat("yyyy-MM-dd");
+    public static final DateFormat YYYY_MM_YY = new SimpleDateFormat("yyyy-MM-dd");
     private List formats = Arrays.asList(new Object[] { D_M_YY, YYYY_MM_YY });
 
-    public void testSingleFormatValidate() throws InvalidArgumentException {
+    public void testSingleFormatValidate()
+        throws InvalidArgumentException {
         final Object[] array = new Object[] { "23/12/03" };
         final List list = Arrays.asList(array);
         final Validator validator = new DateValidator(D_M_YY);
@@ -47,11 +53,12 @@ public class DateValidatorTest extends TestCase {
         validator.validate(list);
 
         final Iterator i = list.iterator();
-        assertEquals("2003-12-23", YYYY_MM_YY.format((Date)i.next()));
+        assertEquals("2003-12-23", YYYY_MM_YY.format((Date) i.next()));
         assertFalse(i.hasNext());
     }
 
-    public void testDefaultDateFormatValidate() throws InvalidArgumentException {
+    public void testDefaultDateFormatValidate()
+        throws InvalidArgumentException {
         final Object[] array = new Object[] { "23-Dec-2003" };
         final List list = Arrays.asList(array);
         final Validator validator = DateValidator.getDateInstance();
@@ -59,11 +66,12 @@ public class DateValidatorTest extends TestCase {
         validator.validate(list);
 
         final Iterator i = list.iterator();
-        assertEquals("2003-12-23", YYYY_MM_YY.format((Date)i.next()));
+        assertEquals("2003-12-23", YYYY_MM_YY.format((Date) i.next()));
         assertFalse(i.hasNext());
     }
 
-    public void testDefaultTimeFormatValidate() throws InvalidArgumentException {
+    public void testDefaultTimeFormatValidate()
+        throws InvalidArgumentException {
         final Object[] array = new Object[] { "18:00:00" };
         final List list = Arrays.asList(array);
         final Validator validator = DateValidator.getTimeInstance();
@@ -76,7 +84,8 @@ public class DateValidatorTest extends TestCase {
         assertFalse(i.hasNext());
     }
 
-    public void testDefaultDateTimeFormatValidate() throws InvalidArgumentException {
+    public void testDefaultDateTimeFormatValidate()
+        throws InvalidArgumentException {
         final Object[] array = new Object[] { "23-Jan-2003 18:00:00" };
         final List list = Arrays.asList(array);
         final Validator validator = DateValidator.getDateTimeInstance();
@@ -89,7 +98,8 @@ public class DateValidatorTest extends TestCase {
         assertFalse(i.hasNext());
     }
 
-    public void testDefaultValidator() throws InvalidArgumentException {
+    public void testDefaultValidator()
+        throws InvalidArgumentException {
         final Object[] array = new Object[] { "23/01/03 18:00" };
         final List list = Arrays.asList(array);
         final Validator validator = new DateValidator();
@@ -102,7 +112,8 @@ public class DateValidatorTest extends TestCase {
         assertFalse(i.hasNext());
     }
 
-    public void testValidate() throws InvalidArgumentException {
+    public void testValidate()
+        throws InvalidArgumentException {
         final Object[] array = new Object[] { "23/12/03", "2002-10-12" };
         final List list = Arrays.asList(array);
         final Validator validator = new DateValidator(formats);
@@ -110,12 +121,13 @@ public class DateValidatorTest extends TestCase {
         validator.validate(list);
 
         final Iterator i = list.iterator();
-        assertEquals("2003-12-23", YYYY_MM_YY.format((Date)i.next()));
-        assertEquals("2002-10-12", YYYY_MM_YY.format((Date)i.next()));
+        assertEquals("2003-12-23", YYYY_MM_YY.format((Date) i.next()));
+        assertEquals("2002-10-12", YYYY_MM_YY.format((Date) i.next()));
         assertFalse(i.hasNext());
     }
 
-    public void testMinimumBounds() throws InvalidArgumentException {
+    public void testMinimumBounds()
+        throws InvalidArgumentException {
         final DateValidator validator = new DateValidator(formats);
         final Calendar cal = Calendar.getInstance();
 
@@ -123,6 +135,7 @@ public class DateValidatorTest extends TestCase {
             final Object[] array = new Object[] { "23/12/03", "2002-10-12" };
             final List list = Arrays.asList(array);
             cal.set(2002, 1, 12);
+
             final Date min = cal.getTime();
             validator.setMinimum(min);
             assertTrue("maximum bound is set", validator.getMaximum() == null);
@@ -134,30 +147,31 @@ public class DateValidatorTest extends TestCase {
             final Object[] array = new Object[] { "23/12/03", "2002-10-12" };
             final List list = Arrays.asList(array);
             cal.set(2003, 1, 12);
+
             final Date min = cal.getTime();
             validator.setMinimum(min);
 
             try {
                 validator.validate(list);
                 fail("minimum out of bounds exception not caught");
-            }
-            catch (final InvalidArgumentException exp) {
-                assertEquals("Out of range: 2002-10-12", exp.getMessage());
+            } catch (final InvalidArgumentException exp) {
+                assertEquals(resources.getMessage(ResourceConstants.DATEVALIDATOR_DATE_OUTOFRANGE,
+                                                  new Object[] { "2002-10-12" }), exp.getMessage());
             }
         }
     }
 
-    public void testFormats() throws InvalidArgumentException {
+    public void testFormats()
+        throws InvalidArgumentException {
         final DateValidator validator = new DateValidator(formats);
-        assertEquals("date format is incorrect", 
-                     ((SimpleDateFormat)formats.get(0)).toPattern(), 
-                     ((SimpleDateFormat)validator.getFormats()[0]).toPattern());
-        assertEquals("date format is incorrect", 
-                     ((SimpleDateFormat)formats.get(1)).toPattern(), 
-                     ((SimpleDateFormat)validator.getFormats()[1]).toPattern());
+        assertEquals("date format is incorrect", ((SimpleDateFormat) formats.get(0)).toPattern(),
+                     ((SimpleDateFormat) validator.getFormats()[0]).toPattern());
+        assertEquals("date format is incorrect", ((SimpleDateFormat) formats.get(1)).toPattern(),
+                     ((SimpleDateFormat) validator.getFormats()[1]).toPattern());
     }
 
-    public void testMaximumBounds() throws InvalidArgumentException {
+    public void testMaximumBounds()
+        throws InvalidArgumentException {
         final DateValidator validator = new DateValidator(formats);
         final Calendar cal = Calendar.getInstance();
 
@@ -165,6 +179,7 @@ public class DateValidatorTest extends TestCase {
             final Object[] array = new Object[] { "23/12/03", "2002-10-12" };
             final List list = Arrays.asList(array);
             cal.set(2004, 1, 12);
+
             final Date max = cal.getTime();
             validator.setMaximum(max);
             assertTrue("minimum bound is set", validator.getMinimum() == null);
@@ -176,15 +191,16 @@ public class DateValidatorTest extends TestCase {
             final Object[] array = new Object[] { "23/12/03", "2004-10-12" };
             final List list = Arrays.asList(array);
             cal.set(2004, 1, 12);
+
             final Date max = cal.getTime();
             validator.setMaximum(max);
 
             try {
                 validator.validate(list);
                 fail("maximum out of bounds exception not caught");
-            }
-            catch (final InvalidArgumentException exp) {
-                assertEquals("Out of range: 2004-10-12", exp.getMessage());
+            } catch (final InvalidArgumentException exp) {
+                assertEquals(resources.getMessage(ResourceConstants.DATEVALIDATOR_DATE_OUTOFRANGE,
+                        new Object[] { "2004-10-12" }), exp.getMessage());
             }
         }
     }
@@ -192,6 +208,7 @@ public class DateValidatorTest extends TestCase {
     public static Test suite() {
         Test result = new TestSuite(DateValidatorTest.class); // default behavior
         result = new TimeZoneTestSuite("EST", result); // ensure it runs in EST timezone
+
         return result;
     }
 }

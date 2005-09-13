@@ -1,5 +1,5 @@
-/**
- * Copyright 2004 The Apache Software Foundation
+/*
+ * Copyright 2004-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,13 +27,15 @@ import java.util.Set;
 import org.apache.commons.cli2.Argument;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.resource.ResourceConstants;
+import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
  * A WriteableCommandLine implementation allowing Options to write their
  * processed information to a CommandLine.
  */
-public class WriteableCommandLineImpl extends CommandLineImpl implements WriteableCommandLine {
-
+public class WriteableCommandLineImpl
+    extends CommandLineImpl implements WriteableCommandLine {
     private final Properties properties = new Properties();
     private final List options = new ArrayList();
     private final Map nameToOption = new HashMap();
@@ -51,7 +53,8 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
      * @param rootOption the CommandLine's root Option
      * @param arguments the arguments this CommandLine represents
      */
-    public WriteableCommandLineImpl(final Option rootOption, final List arguments) {
+    public WriteableCommandLineImpl(final Option rootOption,
+                                    final List arguments) {
         this.prefixes = rootOption.getPrefixes();
         this.normalised = arguments;
     }
@@ -59,55 +62,62 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
     public void addOption(Option option) {
         options.add(option);
         nameToOption.put(option.getPreferredName(), option);
+
         for (Iterator i = option.getTriggers().iterator(); i.hasNext();) {
             nameToOption.put(i.next(), option);
         }
     }
 
-    public void addValue(final Option option, final Object value) {
+    public void addValue(final Option option,
+                         final Object value) {
         if (option instanceof Argument) {
             addOption(option);
         }
-        List valueList = (List)values.get(option);
+
+        List valueList = (List) values.get(option);
+
         if (valueList == null) {
             valueList = new ArrayList();
             values.put(option, valueList);
         }
+
         valueList.add(value);
     }
 
-    public void addSwitch(final Option option, final boolean value) {
+    public void addSwitch(final Option option,
+                          final boolean value) {
         addOption(option);
+
         if (switches.containsKey(option)) {
-            throw new IllegalStateException("Switch already set");
-        }
-        else {
+            throw new IllegalStateException(ResourceHelper.getResourceHelper().getMessage(ResourceConstants.SWITCH_ALREADY_SET));
+        } else {
             switches.put(option, value ? Boolean.TRUE : Boolean.FALSE);
         }
     }
 
     public boolean hasOption(final Option option) {
         final boolean present = options.contains(option);
+
         return present;
     }
-    
+
     public Option getOption(final String trigger) {
-        return (Option)nameToOption.get(trigger);
+        return (Option) nameToOption.get(trigger);
     }
 
-    public List getValues(final Option option, final List defaultValues) {
-
+    public List getValues(final Option option,
+                          final List defaultValues) {
         // First grab the command line values
-        List valueList = (List)values.get(option);
+        List valueList = (List) values.get(option);
 
         // Secondly try the defaults supplied to the method
-        if (valueList == null || valueList.isEmpty()) {
+        if ((valueList == null) || valueList.isEmpty()) {
             valueList = defaultValues;
         }
 
         // Thirdly try the option's default values
-        if (valueList == null || valueList.isEmpty()) {
-            valueList = (List)this.defaultValues.get(option);
+        if ((valueList == null) || valueList.isEmpty()) {
+            valueList = (List) this.defaultValues.get(option);
         }
 
         // Finally use an empty list
@@ -117,10 +127,11 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
 
         return valueList;
     }
-    
-    public Boolean getSwitch(final Option option, final Boolean defaultValue) {
+
+    public Boolean getSwitch(final Option option,
+                             final Boolean defaultValue) {
         // First grab the command line values
-        Boolean bool = (Boolean)switches.get(option);
+        Boolean bool = (Boolean) switches.get(option);
 
         // Secondly try the defaults supplied to the method
         if (bool == null) {
@@ -129,27 +140,30 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
 
         // Thirdly try the option's default values
         if (bool == null) {
-            bool = (Boolean)this.defaultSwitches.get(option);
+            bool = (Boolean) this.defaultSwitches.get(option);
         }
 
         return bool;
     }
 
-    public void addProperty(final String property, final String value) {
+    public void addProperty(final String property,
+                            final String value) {
         properties.setProperty(property, value);
     }
-    
-    public String getProperty(final String property, final String defaultValue) {
-        return properties.getProperty(property,defaultValue);
+
+    public String getProperty(final String property,
+                              final String defaultValue) {
+        return properties.getProperty(property, defaultValue);
     }
 
     public Set getProperties() {
         return Collections.unmodifiableSet(properties.keySet());
     }
-    
+
     public boolean looksLikeOption(final String trigger) {
         for (final Iterator i = prefixes.iterator(); i.hasNext();) {
-            final String prefix = (String)i.next();
+            final String prefix = (String) i.next();
+
             if (trigger.startsWith(prefix)) {
                 return true;
             }
@@ -162,15 +176,15 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
         final StringBuffer buffer = new StringBuffer();
 
         // need to add group header
-
         for (final Iterator i = normalised.iterator(); i.hasNext();) {
-            final String arg = (String)i.next();
+            final String arg = (String) i.next();
+
             if (arg.indexOf(' ') >= 0) {
                 buffer.append("\"").append(arg).append("\"");
-            }
-            else {
+            } else {
                 buffer.append(arg);
             }
+
             if (i.hasNext()) {
                 buffer.append(' ');
             }
@@ -178,7 +192,7 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
 
         return buffer.toString();
     }
-    
+
     public List getOptions() {
         return Collections.unmodifiableList(options);
     }
@@ -187,26 +201,25 @@ public class WriteableCommandLineImpl extends CommandLineImpl implements Writeab
         return Collections.unmodifiableSet(nameToOption.keySet());
     }
 
-    public void setDefaultValues(final Option option, final List defaults) {
-        if (defaults==null) {
+    public void setDefaultValues(final Option option,
+                                 final List defaults) {
+        if (defaults == null) {
             defaultValues.remove(option);
-        }
-        else {
+        } else {
             defaultValues.put(option, defaults);
         }
     }
 
-    public void setDefaultSwitch(final Option option, final Boolean defaultSwitch) {
-        if (defaultSwitch==null) {
+    public void setDefaultSwitch(final Option option,
+                                 final Boolean defaultSwitch) {
+        if (defaultSwitch == null) {
             defaultSwitches.remove(defaultSwitch);
-        }
-        else {
+        } else {
             defaultSwitches.put(option, defaultSwitch);
         }
     }
-    
+
     public List getNormalised() {
         return Collections.unmodifiableList(normalised);
     }
-    
 }

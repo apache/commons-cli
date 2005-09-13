@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,41 +29,39 @@ import org.apache.commons.cli2.DisplaySetting;
 import org.apache.commons.cli2.Group;
 import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.resource.ResourceConstants;
 
 /**
  * A Parent implementation representing normal options.
  */
-public class DefaultOption extends ParentImpl {
-
+public class DefaultOption
+    extends ParentImpl {
     /**
      * The default token used to prefix a short option
      */
     public static final String DEFAULT_SHORT_PREFIX = "-";
-    
+
     /**
      * The default token used to prefix a long option
      */
     public static final String DEFAULT_LONG_PREFIX = "--";
-    
+
     /**
      * The default value for the burstEnabled constructor parameter
      */
     public static final boolean DEFAULT_BURST_ENABLED = true;
-
     private final String preferredName;
     private final Set aliases;
     private final Set burstAliases;
     private final Set triggers;
     private final Set prefixes;
-
     private final String shortPrefix;
     private final boolean burstEnabled;
-
     private final int burstLength;
 
     /**
      * Creates a new DefaultOption
-     * 
+     *
      * @param shortPrefix the prefix used for short options
      * @param longPrefix the prefix used for long options
      * @param burstEnabled should option bursting be enabled
@@ -76,20 +74,19 @@ public class DefaultOption extends ParentImpl {
      * @param children the Group children belonging to this Parent, ot null
      * @param id the unique identifier for this Option
      * @throws IllegalArgumentException if the preferredName or an alias isn't
-     *     prefixed with shortPrefix or longPrefix 
+     *     prefixed with shortPrefix or longPrefix
      */
-    public DefaultOption(
-        final String shortPrefix,
-        final String longPrefix,
-        final boolean burstEnabled,
-        final String preferredName,
-        final String description,
-        final Set aliases,
-        final Set burstAliases,
-        final boolean required,
-        final Argument argument,
-        final Group children,
-        final int id) {
+    public DefaultOption(final String shortPrefix,
+                         final String longPrefix,
+                         final boolean burstEnabled,
+                         final String preferredName,
+                         final String description,
+                         final Set aliases,
+                         final Set burstAliases,
+                         final boolean required,
+                         final Argument argument,
+                         final Group children,
+                         final int id) {
         super(argument, children, description, id, required);
 
         this.shortPrefix = shortPrefix;
@@ -98,13 +95,13 @@ public class DefaultOption extends ParentImpl {
         this.burstLength = shortPrefix.length() + 1;
 
         this.preferredName = preferredName;
-        this.aliases = (aliases == null) 
-            ? Collections.EMPTY_SET
-            : Collections.unmodifiableSet(new HashSet(aliases));
+        this.aliases =
+            (aliases == null) ? Collections.EMPTY_SET
+                              : Collections.unmodifiableSet(new HashSet(aliases));
 
-        this.burstAliases = (burstAliases == null)
-            ? Collections.EMPTY_SET
-            : Collections.unmodifiableSet(new HashSet(burstAliases));
+        this.burstAliases =
+            (burstAliases == null) ? Collections.EMPTY_SET
+                                   : Collections.unmodifiableSet(new HashSet(burstAliases));
 
         final Set newTriggers = new HashSet();
         newTriggers.add(preferredName);
@@ -116,29 +113,27 @@ public class DefaultOption extends ParentImpl {
         newPrefixes.add(shortPrefix);
         newPrefixes.add(longPrefix);
         this.prefixes = Collections.unmodifiableSet(newPrefixes);
-        
+
         checkPrefixes(newPrefixes);
     }
 
-    public boolean canProcess(final WriteableCommandLine commandLine, final String argument) {
-        return argument != null
-            && (super.canProcess(commandLine, argument)
-                || (argument.length() >= burstLength
-                    && burstAliases.contains(argument.substring(0, burstLength))));
+    public boolean canProcess(final WriteableCommandLine commandLine,
+                              final String argument) {
+        return (argument != null) &&
+               (super.canProcess(commandLine, argument) ||
+               ((argument.length() >= burstLength) &&
+               burstAliases.contains(argument.substring(0, burstLength))));
     }
 
-    public void processParent(
-        WriteableCommandLine commandLine,
-        ListIterator arguments)
+    public void processParent(WriteableCommandLine commandLine,
+                              ListIterator arguments)
         throws OptionException {
-
-        final String argument = (String)arguments.next();
+        final String argument = (String) arguments.next();
 
         if (triggers.contains(argument)) {
             commandLine.addOption(this);
             arguments.set(preferredName);
-        }
-        else if (burstEnabled && argument.length() >= burstLength) {
+        } else if (burstEnabled && (argument.length() >= burstLength)) {
             final String burst = argument.substring(0, burstLength);
 
             if (burstAliases.contains(burst)) {
@@ -148,21 +143,17 @@ public class DefaultOption extends ParentImpl {
                 arguments.set(preferredName);
 
                 if (getArgument() == null) {
-                    arguments.add(
-                        shortPrefix + argument.substring(burstLength));
-                }
-                else {
+                    arguments.add(shortPrefix + argument.substring(burstLength));
+                } else {
                     arguments.add(argument.substring(burstLength));
                 }
 
                 arguments.previous();
+            } else {
+                throw new OptionException(this, ResourceConstants.CANNOT_BURST, argument);
             }
-            else {
-                throw new OptionException(this, "cli.error.burst", argument);
-            }
-        }
-        else {
-            throw new OptionException(this, "cli.error.unexpected", argument);
+        } else {
+            throw new OptionException(this, ResourceConstants.UNEXPECTED_TOKEN, argument);
         }
     }
 
@@ -177,26 +168,25 @@ public class DefaultOption extends ParentImpl {
     public void validate(WriteableCommandLine commandLine)
         throws OptionException {
         if (isRequired() && !commandLine.hasOption(this)) {
-            throw new OptionException(this,"cli.error.missing.required", getPreferredName());
+            throw new OptionException(this, ResourceConstants.OPTION_MISSING_REQUIRED,
+                                      getPreferredName());
         }
 
         super.validate(commandLine);
     }
 
-    public void appendUsage(
-        final StringBuffer buffer,
-        final Set helpSettings,
-        final Comparator comp) {
-
+    public void appendUsage(final StringBuffer buffer,
+                            final Set helpSettings,
+                            final Comparator comp) {
         // do we display optionality
         final boolean optional =
             !isRequired() && helpSettings.contains(DisplaySetting.DISPLAY_OPTIONAL);
-        final boolean displayAliases =
-            helpSettings.contains(DisplaySetting.DISPLAY_ALIASES);
+        final boolean displayAliases = helpSettings.contains(DisplaySetting.DISPLAY_ALIASES);
 
         if (optional) {
             buffer.append('[');
         }
+
         buffer.append(preferredName);
 
         if (displayAliases && !aliases.isEmpty()) {
@@ -206,12 +196,14 @@ public class DefaultOption extends ParentImpl {
             Collections.sort(list);
 
             for (final Iterator i = list.iterator(); i.hasNext();) {
-                final String alias = (String)i.next();
+                final String alias = (String) i.next();
                 buffer.append(alias);
+
                 if (i.hasNext()) {
                     buffer.append(',');
                 }
             }
+
             buffer.append(')');
         }
 

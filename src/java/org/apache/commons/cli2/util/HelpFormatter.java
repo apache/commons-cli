@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package org.apache.commons.cli2.util;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,12 +32,13 @@ import org.apache.commons.cli2.Group;
 import org.apache.commons.cli2.HelpLine;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.OptionException;
+import org.apache.commons.cli2.resource.ResourceConstants;
+import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
  * Presents on screen help based on the application's Options
  */
 public class HelpFormatter {
-
     /**
      * The default screen width
      */
@@ -46,12 +48,12 @@ public class HelpFormatter {
      * The default screen furniture left of screen
      */
     public static final String DEFAULT_GUTTER_LEFT = "";
-    
+
     /**
      * The default screen furniture right of screen
      */
     public static final String DEFAULT_GUTTER_CENTER = "    ";
-    
+
     /**
      * The default screen furniture between columns
      */
@@ -60,22 +62,22 @@ public class HelpFormatter {
     /**
      * The default DisplaySettings used to select the elements to display in the
      * displayed line of full usage information.
-     * 
+     *
      * @see DisplaySetting
      */
     public static final Set DEFAULT_FULL_USAGE_SETTINGS;
-    
+
     /**
-     * The default DisplaySettings used to select the elements of usage per help 
+     * The default DisplaySettings used to select the elements of usage per help
      * line in the main body of help
-     * 
+     *
      * @see DisplaySetting
      */
     public static final Set DEFAULT_LINE_USAGE_SETTINGS;
-    
+
     /**
      * The default DisplaySettings used to select the help lines in the main
-     * body of help 
+     * body of help
      */
     public static final Set DEFAULT_DISPLAY_USAGE_SETTINGS;
 
@@ -93,8 +95,7 @@ public class HelpFormatter {
 
         final Set displayUsage = new HashSet(DisplaySetting.ALL);
         displayUsage.remove(DisplaySetting.DISPLAY_PARENT_ARGUMENT);
-        DEFAULT_DISPLAY_USAGE_SETTINGS =
-            Collections.unmodifiableSet(displayUsage);
+        DEFAULT_DISPLAY_USAGE_SETTINGS = Collections.unmodifiableSet(displayUsage);
     }
 
     private Set fullUsageSettings = new HashSet(DEFAULT_FULL_USAGE_SETTINGS);
@@ -103,32 +104,23 @@ public class HelpFormatter {
     private OptionException exception = null;
     private Group group;
     private Comparator comparator = null;
-
     private String divider = null;
-
     private String header = null;
     private String footer = null;
-
     private String shellCommand = "";
-
     private PrintWriter out = new PrintWriter(System.out);
-    //or should this default to .err?
 
+    //or should this default to .err?
     private final String gutterLeft;
     private final String gutterCenter;
     private final String gutterRight;
-
     private final int pageWidth;
 
     /**
      * Creates a new HelpFormatter using the defaults
      */
     public HelpFormatter() {
-        this(
-            DEFAULT_GUTTER_LEFT,
-            DEFAULT_GUTTER_CENTER,
-            DEFAULT_GUTTER_RIGHT,
-            DEFAULT_FULL_WIDTH);
+        this(DEFAULT_GUTTER_LEFT, DEFAULT_GUTTER_CENTER, DEFAULT_GUTTER_RIGHT, DEFAULT_FULL_WIDTH);
     }
 
     /**
@@ -138,12 +130,10 @@ public class HelpFormatter {
      * @param gutterRight the string marking right of screen
      * @param fullWidth the width of the screen
      */
-    public HelpFormatter(
-        final String gutterLeft,
-        final String gutterCenter,
-        final String gutterRight,
-        final int fullWidth) {
-        
+    public HelpFormatter(final String gutterLeft,
+                         final String gutterCenter,
+                         final String gutterRight,
+                         final int fullWidth) {
         // default the left gutter to empty string
         this.gutterLeft = (gutterLeft == null) ? DEFAULT_GUTTER_LEFT : gutterLeft;
 
@@ -155,21 +145,21 @@ public class HelpFormatter {
 
         // calculate the available page width
         this.pageWidth = fullWidth - this.gutterLeft.length() - this.gutterRight.length();
-        
+
         // check available page width is valid
-        int availableWidth = fullWidth - pageWidth + this.gutterCenter.length(); 
-        if ( availableWidth < 2 ) {
-            throw new IllegalArgumentException(
-                "The gutter strings leave no space for output! "
-                    + "Supply shorter gutters or more width.");
+        int availableWidth = fullWidth - pageWidth + this.gutterCenter.length();
+
+        if (availableWidth < 2) {
+            throw new IllegalArgumentException(ResourceHelper.getResourceHelper().getMessage(ResourceConstants.HELPFORMATTER_GUTTER_TOO_LONG));
         }
     }
-    
+
     /**
      * Prints the Option help.
      * @throws IOException if an error occurs
      */
-    public void print() throws IOException {
+    public void print()
+        throws IOException {
         printHeader();
         printException();
         printUsage();
@@ -179,10 +169,11 @@ public class HelpFormatter {
     }
 
     /**
-     * Prints any error message. 
+     * Prints any error message.
      * @throws IOException if an error occurs
      */
-    public void printException() throws IOException {
+    public void printException()
+        throws IOException {
         if (exception != null) {
             printDivider();
             printWrapped(exception.getMessage());
@@ -190,80 +181,84 @@ public class HelpFormatter {
     }
 
     /**
-     * Prints detailed help per option. 
+     * Prints detailed help per option.
      * @throws IOException if an error occurs
      */
-    public void printHelp() throws IOException {
+    public void printHelp()
+        throws IOException {
         printDivider();
 
         final Option option;
-        if (exception != null && exception.getOption() != null) {
+
+        if ((exception != null) && (exception.getOption() != null)) {
             option = exception.getOption();
-        }
-        else {
+        } else {
             option = group;
         }
 
         // grab the HelpLines to display
         final List helpLines = option.helpLines(0, displaySettings, comparator);
-        
+
         // calculate the maximum width of the usage strings
         int usageWidth = 0;
+
         for (final Iterator i = helpLines.iterator(); i.hasNext();) {
-            final HelpLine helpLine = (HelpLine)i.next();
+            final HelpLine helpLine = (HelpLine) i.next();
             final String usage = helpLine.usage(lineUsageSettings, comparator);
             usageWidth = Math.max(usageWidth, usage.length());
         }
-        
+
         // build a blank string to pad wrapped descriptions
         final StringBuffer blankBuffer = new StringBuffer();
+
         for (int i = 0; i < usageWidth; i++) {
             blankBuffer.append(' ');
         }
-        
+
         // determine the width available for descriptions
-        final int descriptionWidth = Math.max(1,
-            pageWidth - gutterCenter.length() - usageWidth);
-        
+        final int descriptionWidth = Math.max(1, pageWidth - gutterCenter.length() - usageWidth);
+
         // display each HelpLine
         for (final Iterator i = helpLines.iterator(); i.hasNext();) {
-            
             // grab the HelpLine
-            final HelpLine helpLine = (HelpLine)i.next();
-            
+            final HelpLine helpLine = (HelpLine) i.next();
+
             // wrap the description
-            final List descList =
-                wrap(helpLine.getDescription(), descriptionWidth);
+            final List descList = wrap(helpLine.getDescription(), descriptionWidth);
             final Iterator descriptionIterator = descList.iterator();
 
             // display usage + first line of description
             printGutterLeft();
             pad(helpLine.usage(lineUsageSettings, comparator), usageWidth, out);
             out.print(gutterCenter);
-            pad((String)descriptionIterator.next(), descriptionWidth, out);
+            pad((String) descriptionIterator.next(), descriptionWidth, out);
             printGutterRight();
             out.println();
 
             // display padding + remaining lines of description
             while (descriptionIterator.hasNext()) {
                 printGutterLeft();
+
                 //pad(helpLine.getUsage(),usageWidth,out);
                 out.print(blankBuffer);
                 out.print(gutterCenter);
-                pad((String)descriptionIterator.next(), descriptionWidth, out);
+                pad((String) descriptionIterator.next(), descriptionWidth, out);
                 printGutterRight();
                 out.println();
             }
         }
+
         printDivider();
     }
 
     /**
-     * Prints a single line of usage information (wrapping if necessary) 
+     * Prints a single line of usage information (wrapping if necessary)
      * @throws IOException if an error occurs
      */
-    public void printUsage() throws IOException {
+    public void printUsage()
+        throws IOException {
         printDivider();
+
         final StringBuffer buffer = new StringBuffer("Usage:\n");
         buffer.append(shellCommand).append(' ');
         group.appendUsage(buffer, fullUsageSettings, comparator, " ");
@@ -271,10 +266,11 @@ public class HelpFormatter {
     }
 
     /**
-     * Prints a header string if necessary 
+     * Prints a header string if necessary
      * @throws IOException if an error occurs
      */
-    public void printHeader() throws IOException {
+    public void printHeader()
+        throws IOException {
         if (header != null) {
             printDivider();
             printWrapped(header);
@@ -282,10 +278,11 @@ public class HelpFormatter {
     }
 
     /**
-     * Prints a footer string if necessary 
+     * Prints a footer string if necessary
      * @throws IOException if an error occurs
      */
-    public void printFooter() throws IOException {
+    public void printFooter()
+        throws IOException {
         if (footer != null) {
             printWrapped(footer);
             printDivider();
@@ -294,23 +291,21 @@ public class HelpFormatter {
 
     /**
      * Prints a string wrapped if necessary
-     * @param text the string to wrap 
+     * @param text the string to wrap
      * @throws IOException if an error occurs
      */
     protected void printWrapped(final String text)
         throws IOException {
-        for (final Iterator i = wrap(text, pageWidth).iterator();
-            i.hasNext();
-            ) {
+        for (final Iterator i = wrap(text, pageWidth).iterator(); i.hasNext();) {
             printGutterLeft();
-            pad((String)i.next(), pageWidth, out);
+            pad((String) i.next(), pageWidth, out);
             printGutterRight();
             out.println();
         }
     }
 
     /**
-     * Prints the left gutter string 
+     * Prints the left gutter string
      */
     public void printGutterLeft() {
         if (gutterLeft != null) {
@@ -319,7 +314,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Prints the right gutter string 
+     * Prints the right gutter string
      */
     public void printGutterRight() {
         if (gutterRight != null) {
@@ -336,18 +331,16 @@ public class HelpFormatter {
         }
     }
 
-    protected static void pad(
-        final String text,
-        final int width,
-        final Writer writer)
+    protected static void pad(final String text,
+                              final int width,
+                              final Writer writer)
         throws IOException {
         final int left;
-        
+
         // write the text and record how many characters written
         if (text == null) {
             left = 0;
-        }
-        else {
+        } else {
             writer.write(text);
             left = text.length();
         }
@@ -358,13 +351,16 @@ public class HelpFormatter {
         }
     }
 
-    protected static List wrap(final String text, final int width) {
-        
+    protected static List wrap(final String text,
+                               final int width) {
         // check for valid width
-        if(width<1){
-            throw new IllegalArgumentException("width must be positive");
+        if (width < 1) {
+            throw new IllegalArgumentException(ResourceHelper.getResourceHelper().getMessage(ResourceConstants.HELPFORMATTER_WIDTH_TOO_NARROW,
+                                                                                             new Object[] {
+                                                                                                 new Integer(width)
+                                                                                             }));
         }
-        
+
         // handle degenerate case
         if (text == null) {
             return Collections.singletonList("");
@@ -378,42 +374,45 @@ public class HelpFormatter {
         while (left < chars.length) {
             // sync left and right indeces
             int right = left;
-            
+
             // move right until we run out of characters, width or find a newline
-            while (right < chars.length && chars[right] != '\n' && right<left+width+1) {
+            while ((right < chars.length) && (chars[right] != '\n') &&
+                       (right < (left + width + 1))) {
                 right++;
             }
-            
+
             // if a newline was found
-            if (right<chars.length && chars[right] == '\n') {
+            if ((right < chars.length) && (chars[right] == '\n')) {
                 // record the substring
                 final String line = new String(chars, left, right - left);
                 lines.add(line);
+
                 // move to the end of the substring
                 left = right + 1;
+
                 if (left == chars.length) {
                     lines.add("");
                 }
+
                 // restart the loop
                 continue;
             }
-            
+
             // move to the next ideal wrap point 
-            right = left + width - 1;
-            
+            right = (left + width) - 1;
+
             // if we have run out of characters
             if (chars.length <= right) {
                 // record the substring
-                final String line =
-                    new String(chars, left, chars.length - left);
+                final String line = new String(chars, left, chars.length - left);
                 lines.add(line);
-                
+
                 // abort the loop
                 break;
             }
-            
+
             // back track the substring end until a space is found
-            while (right >= left && chars[right] != ' ') {
+            while ((right >= left) && (chars[right] != ' ')) {
                 right--;
             }
 
@@ -422,28 +421,30 @@ public class HelpFormatter {
                 // record the substring to space
                 final String line = new String(chars, left, right - left);
                 lines.add(line);
-                
+
                 // absorb all the spaces before next substring
-                while (right < chars.length && chars[right] == ' ') {
+                while ((right < chars.length) && (chars[right] == ' ')) {
                     right++;
                 }
+
                 left = right;
-                
+
                 // restart the loop
                 continue;
             }
 
             // move to the wrap position irrespective of spaces
             right = Math.min(left + width, chars.length);
-            
+
             // record the substring
             final String line = new String(chars, left, right - left);
             lines.add(line);
-            
+
             // absorb any the spaces before next substring
-            while (right < chars.length && chars[right] == ' ') {
+            while ((right < chars.length) && (chars[right] == ' ')) {
                 right++;
             }
+
             left = right;
         }
 
@@ -457,11 +458,11 @@ public class HelpFormatter {
     public void setComparator(Comparator comparator) {
         this.comparator = comparator;
     }
-    
+
     /**
      * The DisplaySettings used to select the help lines in the main body of
      * help
-     * 
+     *
      * @param displaySettings the settings to use
      * @see DisplaySetting
      */
@@ -476,7 +477,7 @@ public class HelpFormatter {
     public void setDivider(String divider) {
         this.divider = divider;
     }
-    
+
     /**
      * Sets the exception to document
      * @param exception the exception that occured
@@ -495,7 +496,7 @@ public class HelpFormatter {
 
     /**
      * The DisplaySettings used to select the elements to display in the
-     * displayed line of full usage information. 
+     * displayed line of full usage information.
      * @see DisplaySetting
      * @param fullUsageSettings
      */
@@ -520,7 +521,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Sets the DisplaySettings used to select elements in the per helpline 
+     * Sets the DisplaySettings used to select elements in the per helpline
      * usage strings.
      * @see DisplaySetting
      * @param lineUsageSettings the DisplaySettings to use
@@ -629,7 +630,7 @@ public class HelpFormatter {
     }
 
     /**
-     * @return the command used to execute the application  
+     * @return the command used to execute the application
      */
     public String getShellCommand() {
         return shellCommand;

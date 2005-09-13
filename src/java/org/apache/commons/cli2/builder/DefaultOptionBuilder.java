@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,21 +21,20 @@ import java.util.Set;
 import org.apache.commons.cli2.Argument;
 import org.apache.commons.cli2.Group;
 import org.apache.commons.cli2.option.DefaultOption;
+import org.apache.commons.cli2.resource.ResourceConstants;
+import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
  * Builds DefaultOption instances.
  */
 public class DefaultOptionBuilder {
-
     private final String shortPrefix;
     private final String longPrefix;
     private final boolean burstEnabled;
-
     private String preferredName;
     private Set aliases;
     private Set burstAliases;
     private boolean required;
-
     private String description;
     private Argument argument;
     private Group children;
@@ -48,10 +47,8 @@ public class DefaultOptionBuilder {
      * @see DefaultOption#DEFAULT_BURST_ENABLED
      */
     public DefaultOptionBuilder() {
-        this(
-            DefaultOption.DEFAULT_SHORT_PREFIX,
-            DefaultOption.DEFAULT_LONG_PREFIX,
-            DefaultOption.DEFAULT_BURST_ENABLED);
+        this(DefaultOption.DEFAULT_SHORT_PREFIX, DefaultOption.DEFAULT_LONG_PREFIX,
+             DefaultOption.DEFAULT_BURST_ENABLED);
     }
 
     /**
@@ -59,21 +56,21 @@ public class DefaultOptionBuilder {
      * @param shortPrefix the prefix to use for short options
      * @param longPrefix the prefix to use for long options
      * @param burstEnabled whether to allow gnu style bursting
-     * @throws IllegalArgumentException if either prefix is less than on 
+     * @throws IllegalArgumentException if either prefix is less than on
      *                                  character long
      */
-    public DefaultOptionBuilder(
-        final String shortPrefix,
-        final String longPrefix,
-        final boolean burstEnabled) throws IllegalArgumentException{
-        
-        if (shortPrefix == null || shortPrefix.length() == 0) {
-            throw new IllegalArgumentException("shortPrefix should be at least 1 character long");
+    public DefaultOptionBuilder(final String shortPrefix,
+                                final String longPrefix,
+                                final boolean burstEnabled)
+        throws IllegalArgumentException {
+        if ((shortPrefix == null) || (shortPrefix.length() == 0)) {
+            throw new IllegalArgumentException(ResourceHelper.getResourceHelper().getMessage(ResourceConstants.OPTION_ILLEGAL_SHORT_PREFIX));
         }
-        if (longPrefix == null || longPrefix.length() == 0) {
-            throw new IllegalArgumentException("longPrefix should be at least 1 character long");
+
+        if ((longPrefix == null) || (longPrefix.length() == 0)) {
+            throw new IllegalArgumentException(ResourceHelper.getResourceHelper().getMessage(ResourceConstants.OPTION_ILLEGAL_LONG_PREFIX));
         }
-        
+
         this.shortPrefix = shortPrefix;
         this.longPrefix = longPrefix;
         this.burstEnabled = burstEnabled;
@@ -85,30 +82,21 @@ public class DefaultOptionBuilder {
      * @return the new instance
      * @throws IllegalStateException if no names have been supplied
      */
-    public DefaultOption create() throws IllegalStateException {
+    public DefaultOption create()
+        throws IllegalStateException {
         if (preferredName == null) {
-            throw new IllegalStateException("Options must have at least one name");
+            throw new IllegalStateException(ResourceHelper.getResourceHelper().getMessage(ResourceConstants.OPTION_NO_NAME));
         }
 
         final DefaultOption option =
-            new DefaultOption(
-                shortPrefix,
-                longPrefix,
-                burstEnabled,
-                preferredName,
-                description,
-                aliases,
-                burstAliases,
-                required,
-                argument,
-                children,
-                id);
+            new DefaultOption(shortPrefix, longPrefix, burstEnabled, preferredName, description,
+                              aliases, burstAliases, required, argument, children, id);
 
         reset();
 
         return option;
     }
-    
+
     /**
      * Resets the builder
      */
@@ -121,13 +109,14 @@ public class DefaultOptionBuilder {
         argument = null;
         children = null;
         id = 0;
+
         return this;
     }
 
     /**
      * Use this short option name. The first name is used as the preferred
      * display name for the Command and then later names are used as aliases.
-     * 
+     *
      * @param shortName the name to use
      * @return this builder
      */
@@ -136,12 +125,11 @@ public class DefaultOptionBuilder {
 
         if (preferredName == null) {
             preferredName = name;
-        }
-        else {
+        } else {
             aliases.add(name);
         }
 
-        if (burstEnabled && name.length() == shortPrefix.length() + 1) {
+        if (burstEnabled && (name.length() == (shortPrefix.length() + 1))) {
             burstAliases.add(name);
         }
 
@@ -151,18 +139,19 @@ public class DefaultOptionBuilder {
     /**
      * Use this long option name.  The first name is used as the preferred
      * display name for the Command and then later names are used as aliases.
-     * 
+     *
      * @param longName the name to use
      * @return this builder
      */
     public DefaultOptionBuilder withLongName(final String longName) {
         final String name = longPrefix + longName;
+
         if (preferredName == null) {
             preferredName = name;
-        }
-        else {
+        } else {
             aliases.add(name);
         }
+
         return this;
     }
 
@@ -173,6 +162,7 @@ public class DefaultOptionBuilder {
      */
     public DefaultOptionBuilder withDescription(final String newDescription) {
         this.description = newDescription;
+
         return this;
     }
 
@@ -183,6 +173,7 @@ public class DefaultOptionBuilder {
      */
     public DefaultOptionBuilder withRequired(final boolean newRequired) {
         this.required = newRequired;
+
         return this;
     }
 
@@ -193,6 +184,7 @@ public class DefaultOptionBuilder {
      */
     public DefaultOptionBuilder withChildren(final Group newChildren) {
         this.children = newChildren;
+
         return this;
     }
 
@@ -203,18 +195,20 @@ public class DefaultOptionBuilder {
      */
     public DefaultOptionBuilder withArgument(final Argument newArgument) {
         this.argument = newArgument;
+
         return this;
     }
 
     /**
      * Sets the id
-     * 
+     *
      * @param newId
      *            the id of the DefaultOption
      * @return this DefaultOptionBuilder
      */
     public final DefaultOptionBuilder withId(final int newId) {
         this.id = newId;
+
         return this;
     }
 }

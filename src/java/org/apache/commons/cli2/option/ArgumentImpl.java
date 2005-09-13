@@ -28,6 +28,7 @@ import org.apache.commons.cli2.HelpLine;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.resource.ResourceConstants;
 import org.apache.commons.cli2.resource.ResourceHelper;
 import org.apache.commons.cli2.validation.InvalidArgumentException;
 import org.apache.commons.cli2.validation.Validator;
@@ -35,8 +36,25 @@ import org.apache.commons.cli2.validation.Validator;
 /**
  * An implementation of an Argument.
  */
-public class ArgumentImpl extends OptionImpl implements Argument {
+public class ArgumentImpl
+    extends OptionImpl implements Argument {
+    private static final char NUL = '\0';
 
+    /**
+     * The default value for the initial separator char.
+     */
+    public static final char DEFAULT_INITIAL_SEPARATOR = NUL;
+
+    /**
+     * The default value for the subsequent separator char.
+     */
+    public static final char DEFAULT_SUBSEQUENT_SEPARATOR = NUL;
+
+    /**
+     * The default token to indicate that remaining arguments should be consumed
+     * as values.
+     */
+    public static final String DEFAULT_CONSUME_REMAINING = "--";
     private final String name;
     private final String description;
     private final int minimum;
@@ -47,30 +65,11 @@ public class ArgumentImpl extends OptionImpl implements Argument {
     private final Validator validator;
     private final String consumeRemaining;
     private final List defaultValues;
-    private final ResourceHelper resources 
-        = ResourceHelper.getResourceHelper(ArgumentImpl.class);
-
-    private static final char NUL = '\0';
-    
-    /**
-     * The default value for the initial separator char.
-     */
-    public static final char DEFAULT_INITIAL_SEPARATOR = NUL;
-    
-    /**
-     * The default value for the subsequent separator char.
-     */
-    public static final char DEFAULT_SUBSEQUENT_SEPARATOR = NUL;
-    
-    /**
-     * The default token to indicate that remaining arguments should be consumed
-     * as values.
-     */
-    public static final String DEFAULT_CONSUME_REMAINING = "--";
+    private final ResourceHelper resources = ResourceHelper.getResourceHelper();
 
     /**
      * Creates a new Argument instance.
-     * 
+     *
      * @param name
      *            The name of the argument
      * @param description
@@ -91,22 +90,20 @@ public class ArgumentImpl extends OptionImpl implements Argument {
      *            The values to be used if none are specified.
      * @param id
      *            The id of the option, 0 implies automatic assignment.
-     * 
+     *
      * @see OptionImpl#OptionImpl(int,boolean)
      */
-    public ArgumentImpl(
-        final String name,
-        final String description,
-        final int minimum,
-        final int maximum,
-        final char initialSeparator,
-        final char subsequentSeparator,
-        final Validator validator,
-        final String consumeRemaining,
-        final List valueDefaults,
-        final int id) {
-        
-        super(id,false);
+    public ArgumentImpl(final String name,
+                        final String description,
+                        final int minimum,
+                        final int maximum,
+                        final char initialSeparator,
+                        final char subsequentSeparator,
+                        final Validator validator,
+                        final String consumeRemaining,
+                        final List valueDefaults,
+                        final int id) {
+        super(id, false);
 
         this.name = (name == null) ? "arg" : name;
         this.description = description;
@@ -120,19 +117,16 @@ public class ArgumentImpl extends OptionImpl implements Argument {
         this.defaultValues = valueDefaults;
 
         if (minimum > maximum) {
-            throw new IllegalArgumentException(
-                resources.getMessage("cli.error.minimum.exceeds.maximum"));
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_MIN_EXCEEDS_MAX));
         }
 
-        if (valueDefaults != null && valueDefaults.size() > 0) {
+        if ((valueDefaults != null) && (valueDefaults.size() > 0)) {
             if (valueDefaults.size() < minimum) {
-                throw new IllegalArgumentException(
-                    resources.getMessage("cli.error.too.few.defaults"));
+                throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_TOO_FEW_DEFAULTS));
             }
 
             if (valueDefaults.size() > maximum) {
-                throw new IllegalArgumentException(
-                    resources.getMessage("cli.error.too.many.defaults"));
+                throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_TOO_MANY_DEFAULTS));
             }
         }
     }
@@ -141,20 +135,18 @@ public class ArgumentImpl extends OptionImpl implements Argument {
         return name;
     }
 
-    public void processValues(
-        final WriteableCommandLine commandLine,
-        final ListIterator arguments,
-        final Option option)
+    public void processValues(final WriteableCommandLine commandLine,
+                              final ListIterator arguments,
+                              final Option option)
         throws OptionException {
-        int argumentCount = commandLine.getValues(option,Collections.EMPTY_LIST).size();
-        while (arguments.hasNext() && argumentCount < maximum) {
+        int argumentCount = commandLine.getValues(option, Collections.EMPTY_LIST).size();
 
-            final String allValues =
-                stripBoundaryQuotes((String)arguments.next());
-            
+        while (arguments.hasNext() && (argumentCount < maximum)) {
+            final String allValues = stripBoundaryQuotes((String) arguments.next());
+
             // should we ignore things that look like options?
             if (allValues.equals(consumeRemaining)) {
-                while (arguments.hasNext() && argumentCount < maximum) {
+                while (arguments.hasNext() && (argumentCount < maximum)) {
                     ++argumentCount;
                     commandLine.addValue(option, arguments.next());
                 }
@@ -162,29 +154,27 @@ public class ArgumentImpl extends OptionImpl implements Argument {
             // does it look like an option?
             else if (commandLine.looksLikeOption(allValues)) {
                 arguments.previous();
+
                 break;
             }
             // should we split the string up?
             else if (subsequentSplit) {
                 final StringTokenizer values =
-                    new StringTokenizer(
-                        allValues,
-                        String.valueOf(subsequentSepatator));
+                    new StringTokenizer(allValues, String.valueOf(subsequentSepatator));
 
                 arguments.remove();
 
-                while (values.hasMoreTokens() && argumentCount < maximum) {
+                while (values.hasMoreTokens() && (argumentCount < maximum)) {
                     ++argumentCount;
+
                     final String token = values.nextToken();
                     commandLine.addValue(option, token);
                     arguments.add(token);
                 }
 
                 if (values.hasMoreTokens()) {
-                    throw new OptionException(
-                        option,
-                        "cli.error.unexpected.value",
-                        values.nextToken());
+                    throw new OptionException(option, ResourceConstants.ARGUMENT_UNEXPECTED_VALUE,
+                                              values.nextToken());
                 }
             }
             // it must be a value as it is
@@ -195,7 +185,8 @@ public class ArgumentImpl extends OptionImpl implements Argument {
         }
     }
 
-    public boolean canProcess(final WriteableCommandLine commandLine, final String arg) {
+    public boolean canProcess(final WriteableCommandLine commandLine,
+                              final String arg) {
         return true;
     }
 
@@ -203,7 +194,8 @@ public class ArgumentImpl extends OptionImpl implements Argument {
         return Collections.EMPTY_SET;
     }
 
-    public void process(WriteableCommandLine commandLine, ListIterator args)
+    public void process(WriteableCommandLine commandLine,
+                        ListIterator args)
         throws OptionException {
         processValues(commandLine, args, this);
     }
@@ -211,7 +203,7 @@ public class ArgumentImpl extends OptionImpl implements Argument {
     public char getInitialSeparator() {
         return this.initialSeparator;
     }
-    
+
     public Set getTriggers() {
         return Collections.EMPTY_SET;
     }
@@ -221,92 +213,89 @@ public class ArgumentImpl extends OptionImpl implements Argument {
         validate(commandLine, this);
     }
 
-    public void validate(
-        final WriteableCommandLine commandLine,
-        final Option option)
+    public void validate(final WriteableCommandLine commandLine,
+                         final Option option)
         throws OptionException {
-
         final List values = commandLine.getValues(option);
 
         if (values.size() < minimum) {
-            throw new OptionException(option, "cli.error.missing.values");
+            throw new OptionException(option, ResourceConstants.ARGUMENT_MISSING_VALUES);
         }
 
         if (values.size() > maximum) {
-            throw new OptionException(
-                option,
-                "cli.error.unexpected.value",
-                (String)values.get(maximum));
+            throw new OptionException(option, ResourceConstants.ARGUMENT_UNEXPECTED_VALUE,
+                                      (String) values.get(maximum));
         }
 
         if (validator != null) {
             try {
                 validator.validate(values);
-            }
-            catch (InvalidArgumentException ive) {
-                throw new OptionException(
-                        option, 
-                        "cli.error.unexpected.value", 
-                        ive.getMessage());
+            } catch (InvalidArgumentException ive) {
+                throw new OptionException(option, ResourceConstants.ARGUMENT_UNEXPECTED_VALUE,
+                                          ive.getMessage());
             }
         }
     }
 
-    public void appendUsage(
-        final StringBuffer buffer,
-        final Set helpSettings,
-        final Comparator comp) {
-
+    public void appendUsage(final StringBuffer buffer,
+                            final Set helpSettings,
+                            final Comparator comp) {
         // do we display the outer optionality
-        final boolean optional =
-            helpSettings.contains(DisplaySetting.DISPLAY_OPTIONAL);
+        final boolean optional = helpSettings.contains(DisplaySetting.DISPLAY_OPTIONAL);
 
         // allow numbering if multiple args
         final boolean numbered =
-            maximum > 1
-                && helpSettings.contains(DisplaySetting.DISPLAY_ARGUMENT_NUMBERED);
+            (maximum > 1) && helpSettings.contains(DisplaySetting.DISPLAY_ARGUMENT_NUMBERED);
 
-        final boolean bracketed =
-            helpSettings.contains(DisplaySetting.DISPLAY_ARGUMENT_BRACKETED);
+        final boolean bracketed = helpSettings.contains(DisplaySetting.DISPLAY_ARGUMENT_BRACKETED);
 
         // if infinite args are allowed then crop the list
-        final int max = maximum == Integer.MAX_VALUE ? 2 : maximum;
+        final int max = (maximum == Integer.MAX_VALUE) ? 2 : maximum;
 
         int i = 0;
+
         // for each argument
         while (i < max) {
             // if we're past the first add a space
             if (i > 0) {
                 buffer.append(' ');
             }
+
             // if the next arg is optional
-            if (i >= minimum && (optional || i > 0)) {
+            if ((i >= minimum) && (optional || (i > 0))) {
                 buffer.append('[');
             }
+
             if (bracketed) {
                 buffer.append('<');
             }
+
             // add name
             buffer.append(name);
             ++i;
+
             // if numbering
             if (numbered) {
                 buffer.append(i);
             }
+
             if (bracketed) {
                 buffer.append('>');
             }
         }
+
         // if infinite args are allowed
         if (maximum == Integer.MAX_VALUE) {
             // append elipsis
             buffer.append(" ...");
         }
+
         // for each argument
         while (i > 0) {
             --i;
+
             // if the next arg is optional
-            if (i >= minimum && (optional || i > 0)) {
+            if ((i >= minimum) && (optional || (i > 0))) {
                 buffer.append(']');
             }
         }
@@ -316,11 +305,11 @@ public class ArgumentImpl extends OptionImpl implements Argument {
         return description;
     }
 
-    public List helpLines(
-        final int depth,
-        final Set helpSettings,
-        final Comparator comp) {
+    public List helpLines(final int depth,
+                          final Set helpSettings,
+                          final Comparator comp) {
         final HelpLine helpLine = new HelpLineImpl(this, depth);
+
         return Collections.singletonList(helpLine);
     }
 
@@ -335,17 +324,17 @@ public class ArgumentImpl extends OptionImpl implements Argument {
     /**
      * If there are any leading or trailing quotes remove them from the
      * specified token.
-     * 
+     *
      * @param token
      *            the token to strip leading and trailing quotes
-     * 
+     *
      * @return String the possibly modified token
      */
     public String stripBoundaryQuotes(String token) {
         if (!token.startsWith("\"") || !token.endsWith("\"")) {
             return token;
         }
-        
+
         if (token.startsWith("\"")) {
             token = token.substring(1, token.length());
         }
@@ -356,17 +345,18 @@ public class ArgumentImpl extends OptionImpl implements Argument {
 
         return token;
     }
-    
+
     public boolean isRequired() {
-        return getMinimum()>0;
+        return getMinimum() > 0;
     }
-    
+
     public void defaults(final WriteableCommandLine commandLine) {
         super.defaults(commandLine);
-        defaultValues(commandLine,this);
+        defaultValues(commandLine, this);
     }
-    
-    public void defaultValues(final WriteableCommandLine commandLine, final Option option) {
+
+    public void defaultValues(final WriteableCommandLine commandLine,
+                              final Option option) {
         commandLine.setDefaultValues(option, defaultValues);
     }
 }

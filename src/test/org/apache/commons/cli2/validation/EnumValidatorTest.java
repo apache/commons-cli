@@ -1,5 +1,5 @@
-/**
- * Copyright 2004 The Apache Software Foundation
+/*
+ * Copyright 2004-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,20 @@ import java.util.TreeSet;
 
 import junit.framework.TestCase;
 
-public class EnumValidatorTest extends TestCase {
-    private final Set enumSet = new TreeSet(
-            Arrays.asList(
-                    new Object[]{"red", "green", "blue"}));
+import org.apache.commons.cli2.resource.ResourceConstants;
+import org.apache.commons.cli2.resource.ResourceHelper;
 
-    public void testValidate() throws InvalidArgumentException {
-        final Object[] array = new Object[] { "red", "green"};
+public class EnumValidatorTest
+    extends TestCase {
+    private final static ResourceHelper resources = ResourceHelper.getResourceHelper();
+    private final Set enumSet = new TreeSet(Arrays.asList(new Object[] { "red", "green", "blue" }));
+
+    public void testValidate()
+        throws InvalidArgumentException {
+        final Object[] array = new Object[] { "red", "green" };
+
         {
-            final List list = Arrays.asList(array);        
+            final List list = Arrays.asList(array);
             final EnumValidator validator = new EnumValidator(enumSet);
             assertEquals("valid values are incorrect", enumSet, validator.getValidValues());
             validator.validate(list);
@@ -44,16 +49,17 @@ public class EnumValidatorTest extends TestCase {
     }
 
     public void testNonMember() {
-        final Object[] array = new Object[] { "red", "pink"};
+        final Object[] array = new Object[] { "red", "pink" };
         final List list = Arrays.asList(array);
-        final Validator validator = new EnumValidator(enumSet);
+        final EnumValidator validator = new EnumValidator(enumSet);
 
-        try{
+        try {
             validator.validate(list);
             fail("InvalidArgumentException");
-        }
-        catch(InvalidArgumentException e){
-            assertEquals("'pink' is not allowed.  Permitted values are:['blue', 'green', 'red']",e.getMessage());
+        } catch (InvalidArgumentException e) {
+            assertEquals(resources.getMessage(ResourceConstants.ENUM_ILLEGAL_VALUE,
+                                              new Object[] { "pink", validator.getValuesAsString() }),
+                         e.getMessage());
         }
     }
 }

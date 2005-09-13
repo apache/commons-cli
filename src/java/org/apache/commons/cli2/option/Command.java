@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,15 +29,17 @@ import org.apache.commons.cli2.DisplaySetting;
 import org.apache.commons.cli2.Group;
 import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.resource.ResourceConstants;
+import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
  * Represents a cvs "update" style command line option.
- * 
+ *
  * Like all Parents, Commands can have child options and can be part of
  * Arguments
  */
-public class Command extends ParentImpl {
-
+public class Command
+    extends ParentImpl {
     /** The display name for the command */
     private final String preferredName;
 
@@ -49,7 +51,7 @@ public class Command extends ParentImpl {
 
     /**
      * Creates a new Command instance.
-     * 
+     *
      * @param preferredName
      *            The name normally used to refer to the Command
      * @param description
@@ -64,31 +66,29 @@ public class Command extends ParentImpl {
      *            The Group of child options for this Command
      * @param id
      *            A unique id for the Command
-     * 
+     *
      * @see ParentImpl#ParentImpl(Argument, Group, String, int, boolean)
      */
-    public Command(
-        final String preferredName,
-        final String description,
-        final Set aliases,
-        final boolean required,
-        final Argument argument,
-        final Group children,
-        final int id) {
-
+    public Command(final String preferredName,
+                   final String description,
+                   final Set aliases,
+                   final boolean required,
+                   final Argument argument,
+                   final Group children,
+                   final int id) {
         super(argument, children, description, id, required);
 
         // check the preferred name is valid
-        if (preferredName == null || preferredName.length() < 1) {
-            throw new IllegalArgumentException("preferredName must be at least 1 character");
+        if ((preferredName == null) || (preferredName.length() < 1)) {
+            throw new IllegalArgumentException(ResourceHelper.getResourceHelper().getMessage(ResourceConstants.COMMAND_PREFERRED_NAME_TOO_SHORT));
         }
 
         this.preferredName = preferredName;
 
         // gracefully and defensively handle aliases
-        this.aliases = (aliases == null) 
-            ? Collections.EMPTY_SET 
-            : Collections.unmodifiableSet(new HashSet(aliases));
+        this.aliases =
+            (aliases == null) ? Collections.EMPTY_SET
+                              : Collections.unmodifiableSet(new HashSet(aliases));
 
         // populate the triggers Set
         final Set newTriggers = new HashSet();
@@ -97,25 +97,21 @@ public class Command extends ParentImpl {
         this.triggers = Collections.unmodifiableSet(newTriggers);
     }
 
-    public void processParent(
-        final WriteableCommandLine commandLine,
-        final ListIterator arguments)
+    public void processParent(final WriteableCommandLine commandLine,
+                              final ListIterator arguments)
         throws OptionException {
-
         // grab the argument to process
-        final String arg = (String)arguments.next();
+        final String arg = (String) arguments.next();
 
         // if we can process it
         if (canProcess(commandLine, arg)) {
-
             // then note the option
             commandLine.addOption(this);
 
             // normalise the argument list
             arguments.set(preferredName);
-        }
-        else {
-            throw new OptionException(this, "cli.error.unexpected", arg);
+        } else {
+            throw new OptionException(this, ResourceConstants.UNEXPECTED_TOKEN, arg);
         }
     }
 
@@ -126,26 +122,25 @@ public class Command extends ParentImpl {
     public void validate(WriteableCommandLine commandLine)
         throws OptionException {
         if (isRequired() && !commandLine.hasOption(this)) {
-            throw new OptionException(this,"cli.error.missing.required", getPreferredName());
+            throw new OptionException(this, ResourceConstants.OPTION_MISSING_REQUIRED,
+                                      getPreferredName());
         }
 
         super.validate(commandLine);
     }
 
-    public void appendUsage(
-        final StringBuffer buffer,
-        final Set helpSettings,
-        final Comparator comp) {
-
+    public void appendUsage(final StringBuffer buffer,
+                            final Set helpSettings,
+                            final Comparator comp) {
         // do we display optionality
         final boolean optional =
             !isRequired() && helpSettings.contains(DisplaySetting.DISPLAY_OPTIONAL);
-        final boolean displayAliases =
-            helpSettings.contains(DisplaySetting.DISPLAY_ALIASES);
+        final boolean displayAliases = helpSettings.contains(DisplaySetting.DISPLAY_ALIASES);
 
         if (optional) {
             buffer.append('[');
         }
+
         buffer.append(preferredName);
 
         if (displayAliases && !aliases.isEmpty()) {
@@ -155,12 +150,14 @@ public class Command extends ParentImpl {
             Collections.sort(list);
 
             for (final Iterator i = list.iterator(); i.hasNext();) {
-                final String alias = (String)i.next();
+                final String alias = (String) i.next();
                 buffer.append(alias);
+
                 if (i.hasNext()) {
                     buffer.append(',');
                 }
             }
+
             buffer.append(')');
         }
 

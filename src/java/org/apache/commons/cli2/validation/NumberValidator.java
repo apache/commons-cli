@@ -17,8 +17,12 @@ package org.apache.commons.cli2.validation;
 
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+
 import java.util.List;
 import java.util.ListIterator;
+
+import org.apache.commons.cli2.resource.ResourceConstants;
+import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
  * The <code>NumberValidator</code> validates the string argument
@@ -26,8 +30,8 @@ import java.util.ListIterator;
  * the {@link java.util.List} of values is replaced with the
  * {@link java.lang.Number} instance.
  *
- * A maximum and minimum value can also be specified using 
- * the {@link #setMaximum setMaximum}, and the 
+ * A maximum and minimum value can also be specified using
+ * the {@link #setMaximum setMaximum}, and the
  * {@link #setMinimum setMinimum} methods.
  *
  * The following example shows how to limit the valid values
@@ -38,65 +42,22 @@ import java.util.ListIterator;
  * ArgumentBuilder builder = new ArgumentBuilder();
  * NumberValidator validator = NumberValidator.getIntegerInstance();
  * validator.setMaximum(new Integer(100));
- * 
- * Argument age = 
+ *
+ * Argument age =
  *     builder.withName("age");
  *            .withValidator(validator);
  * </pre>
- * 
+ *
  * @author Rob Oxspring
  * @author John Keyes
  */
 public class NumberValidator implements Validator {
-
-    /**
-     * Returns a <code>NumberValidator</code> for a currency format 
-     * for the current default locale.
-     * @return a <code>NumberValidator</code> for a currency format 
-     * for the current default locale.
-     */
-    public static NumberValidator getCurrencyInstance() {
-        return new NumberValidator(NumberFormat.getCurrencyInstance());
-    }
-
-    /**
-     * Returns a <code>NumberValidator</code> for an integer number format 
-     * for the current default locale.
-     * @return a <code>NumberValidator</code> for an integer number format 
-     * for the current default locale.
-     */
-    public static NumberValidator getIntegerInstance() {
-        final NumberFormat format = NumberFormat.getNumberInstance();
-        format.setParseIntegerOnly(true);
-        return new NumberValidator(format);
-    }
-
-    /**
-     * Returns a <code>NumberValidator</code> for a percentage format 
-     * for the current default locale.
-     * @return a <code>NumberValidator</code> for a percentage format 
-     * for the current default locale.
-     */
-    public static NumberValidator getPercentInstance() {
-        return new NumberValidator(NumberFormat.getPercentInstance());
-    }
-
-    /**
-     * Returns a <code>NumberValidator</code> for a general-purpose 
-     * number format for the current default locale.
-     * @return a <code>NumberValidator</code> for a general-purpose 
-     * number format for the current default locale.
-     */
-    public static NumberValidator getNumberInstance() {
-        return new NumberValidator(NumberFormat.getNumberInstance());
-    }
-
     /** the <code>NumberFormat</code> being used. */
     private NumberFormat format;
 
     /** the lower bound for argument values. */
     private Number minimum = null;
-    
+
     /** the upper bound for argument values */
     private Number maximum = null;
 
@@ -109,27 +70,73 @@ public class NumberValidator implements Validator {
     }
 
     /**
+     * Returns a <code>NumberValidator</code> for a currency format
+     * for the current default locale.
+     * @return a <code>NumberValidator</code> for a currency format
+     * for the current default locale.
+     */
+    public static NumberValidator getCurrencyInstance() {
+        return new NumberValidator(NumberFormat.getCurrencyInstance());
+    }
+
+    /**
+     * Returns a <code>NumberValidator</code> for an integer number format
+     * for the current default locale.
+     * @return a <code>NumberValidator</code> for an integer number format
+     * for the current default locale.
+     */
+    public static NumberValidator getIntegerInstance() {
+        final NumberFormat format = NumberFormat.getNumberInstance();
+        format.setParseIntegerOnly(true);
+
+        return new NumberValidator(format);
+    }
+
+    /**
+     * Returns a <code>NumberValidator</code> for a percentage format
+     * for the current default locale.
+     * @return a <code>NumberValidator</code> for a percentage format
+     * for the current default locale.
+     */
+    public static NumberValidator getPercentInstance() {
+        return new NumberValidator(NumberFormat.getPercentInstance());
+    }
+
+    /**
+     * Returns a <code>NumberValidator</code> for a general-purpose
+     * number format for the current default locale.
+     * @return a <code>NumberValidator</code> for a general-purpose
+     * number format for the current default locale.
+     */
+    public static NumberValidator getNumberInstance() {
+        return new NumberValidator(NumberFormat.getNumberInstance());
+    }
+
+    /**
      * Validate the list of values against the list of permitted values.
      * If a value is valid, replace the string in the <code>values</code>
      * {@link java.util.List} with the {@link java.lang.Number} instance.
-     * 
+     *
      * @see org.apache.commons.cli2.validation.Validator#validate(java.util.List)
      */
-    public void validate(final List values) throws InvalidArgumentException {
+    public void validate(final List values)
+        throws InvalidArgumentException {
         for (final ListIterator i = values.listIterator(); i.hasNext();) {
             final String value = (String) i.next();
 
             final ParsePosition pp = new ParsePosition(0);
             final Number number = format.parse(value, pp);
+
             if (pp.getIndex() < value.length()) {
                 throw new InvalidArgumentException(value);
             }
 
-            if ((minimum != null
-                && number.doubleValue() < minimum.doubleValue())
-                || (maximum != null
-                    && number.doubleValue() > maximum.doubleValue())) {
-                throw new InvalidArgumentException("Out of range: " + value);
+            if (((minimum != null) && (number.doubleValue() < minimum.doubleValue())) ||
+                    ((maximum != null) && (number.doubleValue() > maximum.doubleValue()))) {
+                throw new InvalidArgumentException(ResourceHelper.getResourceHelper().getMessage(ResourceConstants.NUMBERVALIDATOR_NUMBER_OUTOFRANGE,
+                                                                                                 new Object[] {
+                                                                                                     value
+                                                                                                 }));
             }
 
             i.set(number);
@@ -153,7 +160,7 @@ public class NumberValidator implements Validator {
     protected void setFormat(NumberFormat format) {
         this.format = format;
     }
-    
+
     /**
      * Return the maximum value allowed for an argument value.
      *

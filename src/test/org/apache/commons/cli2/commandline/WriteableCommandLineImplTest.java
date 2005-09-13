@@ -1,5 +1,5 @@
-/**
- * Copyright 2004 The Apache Software Foundation
+/*
+ * Copyright 2004-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +20,16 @@ import java.util.ArrayList;
 import org.apache.commons.cli2.WriteableCommandLine;
 import org.apache.commons.cli2.WriteableCommandLineTestCase;
 
-public class WriteableCommandLineImplTest extends WriteableCommandLineTestCase {
+public class WriteableCommandLineImplTest
+    extends WriteableCommandLineTestCase {
+    /* (non-Javadoc)
+     * @see org.apache.commons.cli2.WriteableCommandLineTest#createWriteableCommandLine()
+     */
+    protected WriteableCommandLine createWriteableCommandLine() {
+        return new WriteableCommandLineImpl(root, new ArrayList());
+    }
 
-	/* (non-Javadoc)
-	 * @see org.apache.commons.cli2.WriteableCommandLineTest#createWriteableCommandLine()
-	 */
-	protected WriteableCommandLine createWriteableCommandLine() {
-		return new WriteableCommandLineImpl(root,new ArrayList());
-	}
-	
-	public void testToMakeEclipseSpotTheTestCase(){
-		// nothing to test
-	}
+    public void testToMakeEclipseSpotTheTestCase() {
+        // nothing to test
+    }
 }

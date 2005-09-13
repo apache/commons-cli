@@ -1,5 +1,5 @@
-/**
- * Copyright 2004 The Apache Software Foundation
+/*
+ * Copyright 2004-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,6 @@ import org.apache.commons.cli2.CommandLineTestCase;
 
 /**
  * @author Rob Oxspring
- *
- * To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class PreferencesCommandLineTest extends CommandLineTestCase {
 	

@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import org.apache.commons.cli2.resource.ResourceHelper;
 public class ClassValidatorTest extends TestCase {
 
     private final static ResourceHelper resources =
-        ResourceHelper.getResourceHelper(ClassValidatorTest.class);
+        ResourceHelper.getResourceHelper();
 
     private ClassValidator validator;
 
@@ -57,7 +57,7 @@ public class ClassValidatorTest extends TestCase {
         } catch (InvalidArgumentException ive) {
             assertEquals(
                 resources.getMessage(
-                    "ClassValidator.error.bad.classname",
+                    "ClassValidator.bad.classname",
                     className),
                 ive.getMessage());
         }
@@ -75,7 +75,7 @@ public class ClassValidatorTest extends TestCase {
         } catch (InvalidArgumentException ive) {
             assertEquals(
                 resources.getMessage(
-                    "ClassValidator.error.bad.classname",
+                    "ClassValidator.bad.classname",
                     className),
                 ive.getMessage());
         }
@@ -93,7 +93,7 @@ public class ClassValidatorTest extends TestCase {
         } catch (InvalidArgumentException ive) {
             assertEquals(
                 resources.getMessage(
-                    "ClassValidator.error.bad.classname",
+                    "ClassValidator.bad.classname",
                     className),
                 ive.getMessage());
         }
@@ -111,7 +111,7 @@ public class ClassValidatorTest extends TestCase {
         } catch (InvalidArgumentException ive) {
             assertEquals(
                 resources.getMessage(
-                    "ClassValidator.error.bad.classname",
+                    "ClassValidator.bad.classname",
                     className),
                 ive.getMessage());
         }
@@ -157,7 +157,7 @@ public class ClassValidatorTest extends TestCase {
         } catch (InvalidArgumentException ive) {
             assertEquals(
                 resources.getMessage(
-                    "ClassValidator.error.class.notfound",
+                    "ClassValidator.class.notfound",
                     className),
                 ive.getMessage());
         }
@@ -199,7 +199,7 @@ public class ClassValidatorTest extends TestCase {
         catch (final InvalidArgumentException ive) {
             assertEquals(
                     resources.getMessage(
-                            "ClassValidator.error.class.create",
+                            "ClassValidator.class.create",
                             className),
                             ive.getMessage());
         }
@@ -219,7 +219,7 @@ public class ClassValidatorTest extends TestCase {
         catch (final InvalidArgumentException ive) {
             assertEquals(
                     resources.getMessage(
-                            "ClassValidator.error.class.access",
+                            "ClassValidator.class.access",
                             className,
                             "Class org.apache.commons.cli2.validation.ClassValidator " +
                             "can not access a member of class " +

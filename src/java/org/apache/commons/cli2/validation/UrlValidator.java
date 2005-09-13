@@ -17,8 +17,12 @@ package org.apache.commons.cli2.validation;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.List;
 import java.util.ListIterator;
+
+import org.apache.commons.cli2.resource.ResourceConstants;
+import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
  * The <code>UrlValidator</code> validates the string argument
@@ -26,7 +30,7 @@ import java.util.ListIterator;
  * the {@link java.util.List} of values is replaced with the
  * {@link java.net.URL} instance.
  *
- * URLs can also be validated based on their scheme by using 
+ * URLs can also be validated based on their scheme by using
  * the {@link #setProtocol setProtocol} method, or by using the specified
  * {@link #UrlValidator(java.lang.String) constructor}.
  *
@@ -36,16 +40,15 @@ import java.util.ListIterator;
  * <pre>
  * ...
  * ArgumentBuilder builder = new ArgumentBuilder();
- * Argument site = 
+ * Argument site =
  *     builder.withName("site");
  *            .withValidator(new URLValidator("https"));
  * </pre>
- * 
+ *
  * @author Rob Oxspring
  * @author John Keyes
  */
 public class UrlValidator implements Validator {
-
     /** allowed protocol */
     private String protocol = null;
 
@@ -66,24 +69,27 @@ public class UrlValidator implements Validator {
      * Validate the list of values against the list of permitted values.
      * If a value is valid, replace the string in the <code>values</code>
      * {@link java.util.List} with the { java.net.URL} instance.
-     * 
+     *
      * @see org.apache.commons.cli2.validation.Validator#validate(java.util.List)
      */
-    public void validate(final List values) throws InvalidArgumentException {
+    public void validate(final List values)
+        throws InvalidArgumentException {
         for (final ListIterator i = values.listIterator(); i.hasNext();) {
-            final String name = (String)i.next();
+            final String name = (String) i.next();
+
             try {
                 final URL url = new URL(name);
 
-                if (protocol != null && !protocol.equals(url.getProtocol())) {
+                if ((protocol != null) && !protocol.equals(url.getProtocol())) {
                     throw new InvalidArgumentException(name);
                 }
 
                 i.set(url);
-            }
-            catch (final MalformedURLException mue) {
-                throw new InvalidArgumentException(
-                    "Cannot understand url: " + name);
+            } catch (final MalformedURLException mue) {
+                throw new InvalidArgumentException(ResourceHelper.getResourceHelper().getMessage(ResourceConstants.URLVALIDATOR_MALFORMED_URL,
+                                                                                                 new Object[] {
+                                                                                                     name
+                                                                                                 }));
             }
         }
     }
@@ -105,5 +111,4 @@ public class UrlValidator implements Validator {
     public void setProtocol(String protocol) {
         this.protocol = protocol;
     }
-
 }

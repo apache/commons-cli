@@ -18,6 +18,7 @@ package org.apache.commons.cli2.validation;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.apache.commons.cli2.resource.ResourceConstants;
 import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
@@ -33,22 +34,20 @@ import org.apache.commons.cli2.resource.ResourceHelper;
  * validator.setInstance(true);
  *
  * ArgumentBuilder builder = new ArgumentBuilder();
- * Argument logger = 
+ * Argument logger =
  *     builder.withName("logger");
  *            .withValidator(validator);
  * </pre>
- * 
+ *
  * @author John Keyes
  */
 public class ClassValidator implements Validator {
-
     /** i18n */
-    private static final ResourceHelper resources =
-        ResourceHelper.getResourceHelper(ClassValidator.class);
+    private static final ResourceHelper resources = ResourceHelper.getResourceHelper();
 
     /** whether the class argument is loadable */
     private boolean loadable;
-    
+
     /** whether to create an instance of the class */
     private boolean instance;
 
@@ -58,53 +57,42 @@ public class ClassValidator implements Validator {
     /**
      * Validate each argument value in the specified List against this instances
      * permitted attributes.
-     * 
+     *
      * If a value is valid then it's <code>String</code> value in the list is
      * replaced with it's <code>Class</code> value or instance.
-     * 
+     *
      * @see org.apache.commons.cli2.validation.Validator#validate(java.util.List)
      */
-    public void validate(final List values) throws InvalidArgumentException {
-
+    public void validate(final List values)
+        throws InvalidArgumentException {
         for (final ListIterator i = values.listIterator(); i.hasNext();) {
-            final String name = (String)i.next();
+            final String name = (String) i.next();
 
             if (!isPotentialClassName(name)) {
-                throw new InvalidArgumentException(
-                    resources.getMessage(
-                        "ClassValidator.error.bad.classname",
-                        name));
+                throw new InvalidArgumentException(resources.getMessage(ResourceConstants.CLASSVALIDATOR_BAD_CLASSNAME,
+                                                                        name));
             }
 
             if (loadable || instance) {
                 final ClassLoader theLoader = getClassLoader();
+
                 try {
                     final Class clazz = theLoader.loadClass(name);
+
                     if (instance) {
                         i.set(clazz.newInstance());
-                    }
-                    else {
+                    } else {
                         i.set(clazz);
                     }
-                }
-                catch (final ClassNotFoundException exp) {
-                    throw new InvalidArgumentException(
-                        resources.getMessage(
-                            "ClassValidator.error.class.notfound",
-                            name));
-                }
-                catch (final IllegalAccessException exp) {
-                    throw new InvalidArgumentException(
-                        resources.getMessage(
-                            "ClassValidator.error.class.access",
-                            name,
-                            exp.getMessage()));
-                }
-                catch (final InstantiationException exp) {
-                    throw new InvalidArgumentException(
-                        resources.getMessage(
-                            "ClassValidator.error.class.create",
-                            name));
+                } catch (final ClassNotFoundException exp) {
+                    throw new InvalidArgumentException(resources.getMessage(ResourceConstants.CLASSVALIDATOR_CLASS_NOTFOUND,
+                                                                            name));
+                } catch (final IllegalAccessException exp) {
+                    throw new InvalidArgumentException(resources.getMessage(ResourceConstants.CLASSVALIDATOR_CLASS_ACCESS,
+                                                                            name, exp.getMessage()));
+                } catch (final InstantiationException exp) {
+                    throw new InvalidArgumentException(resources.getMessage(ResourceConstants.CLASSVALIDATOR_CLASS_CREATE,
+                                                                            name));
                 }
             }
         }
@@ -125,7 +113,7 @@ public class ClassValidator implements Validator {
      * Specifies whether the argument value must represent a
      * class that is loadable.
      *
-     * @param loadable whether the argument value must 
+     * @param loadable whether the argument value must
      * represent a class that is loadable.
      */
     public void setLoadable(boolean loadable) {
@@ -143,7 +131,7 @@ public class ClassValidator implements Validator {
         if (loader == null) {
             loader = getClass().getClassLoader();
         }
-        
+
         return loader;
     }
 
@@ -173,7 +161,7 @@ public class ClassValidator implements Validator {
      * Specifies whether the argument value must represent a
      * class that can be instantiated.
      *
-     * @param instance whether the argument value must 
+     * @param instance whether the argument value must
      * represent a class that can be instantiated.
      */
     public void setInstance(boolean instance) {
@@ -191,22 +179,22 @@ public class ClassValidator implements Validator {
 
         for (int i = 0; i < chars.length; ++i) {
             final char c = chars[i];
+
             if (expectingStart) {
                 if (!Character.isJavaIdentifierStart(c)) {
                     return false;
                 }
+
                 expectingStart = false;
-            }
-            else {
+            } else {
                 if (c == '.') {
                     expectingStart = true;
-                }
-                else if (!Character.isJavaIdentifierPart(c)) {
+                } else if (!Character.isJavaIdentifierPart(c)) {
                     return false;
                 }
             }
         }
+
         return !expectingStart;
     }
-
 }

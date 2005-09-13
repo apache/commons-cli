@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,12 +35,13 @@ import org.apache.commons.cli2.HelpLine;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.resource.ResourceConstants;
 
 /**
  * An implementation of Group
  */
-public class GroupImpl extends OptionImpl implements Group {
-
+public class GroupImpl
+    extends OptionImpl implements Group {
     private final String name;
     private final String description;
     private final List options;
@@ -52,21 +53,19 @@ public class GroupImpl extends OptionImpl implements Group {
 
     /**
      * Creates a new GroupImpl using the specified parameters.
-     * 
+     *
      * @param options the Options and Arguments that make up the Group
      * @param name the name of this Group, or null
      * @param description a description of this Group
      * @param minimum the minimum number of Options for a valid CommandLine
      * @param maximum the maximum number of Options for a valid CommandLine
      */
-    public GroupImpl(
-        final List options,
-        final String name,
-        final String description,
-        final int minimum,
-        final int maximum) 
-    {
-        super(0,false);
+    public GroupImpl(final List options,
+                     final String name,
+                     final String description,
+                     final int minimum,
+                     final int maximum) {
+        super(0, false);
 
         this.name = name;
         this.description = description;
@@ -79,26 +78,23 @@ public class GroupImpl extends OptionImpl implements Group {
 
         // anonymous Argument temporary storage
         final List newAnonymous = new ArrayList();
-        
+
         // map (key=trigger & value=Option) temporary storage
-        final SortedMap newOptionMap =
-            new TreeMap(ReverseStringComparator.getInstance());
+        final SortedMap newOptionMap = new TreeMap(ReverseStringComparator.getInstance());
 
         // prefixes temporary storage
         final Set newPrefixes = new HashSet();
-        
+
         // process the options
         for (final Iterator i = options.iterator(); i.hasNext();) {
-            
             final Option option = (Option) i.next();
 
             if (option instanceof Argument) {
                 i.remove();
                 newAnonymous.add(option);
-            } 
-            else {
+            } else {
                 final Set triggers = option.getTriggers();
-                
+
                 for (Iterator j = triggers.iterator(); j.hasNext();) {
                     newOptionMap.put(j.next(), option);
                 }
@@ -107,13 +103,14 @@ public class GroupImpl extends OptionImpl implements Group {
                 newPrefixes.addAll(option.getPrefixes());
             }
         }
-        
+
         this.anonymous = Collections.unmodifiableList(newAnonymous);
         this.optionMap = Collections.unmodifiableSortedMap(newOptionMap);
         this.prefixes = Collections.unmodifiableSet(newPrefixes);
     }
 
-    public boolean canProcess(final WriteableCommandLine commandLine, String arg) {
+    public boolean canProcess(final WriteableCommandLine commandLine,
+                              String arg) {
         if (arg == null) {
             return false;
         }
@@ -125,21 +122,20 @@ public class GroupImpl extends OptionImpl implements Group {
 
         // filter
         final Map tailMap = optionMap.tailMap(arg);
-        
+
         // check if bursting is required
-        for (final Iterator iter = tailMap.values().iterator();
-            iter.hasNext();) {
-            
+        for (final Iterator iter = tailMap.values().iterator(); iter.hasNext();) {
             final Option option = (Option) iter.next();
+
             if (option.canProcess(commandLine, arg)) {
                 return true;
             }
         }
-        
-        if(commandLine.looksLikeOption(arg)) {
+
+        if (commandLine.looksLikeOption(arg)) {
             return false;
         }
-        
+
         // anonymous argument(s) means we can process it
         if (anonymous.size() > 0) {
             return true;
@@ -156,29 +152,28 @@ public class GroupImpl extends OptionImpl implements Group {
         return optionMap.keySet();
     }
 
-    public void process(
-        final WriteableCommandLine commandLine,
-        final ListIterator arguments)
+    public void process(final WriteableCommandLine commandLine,
+                        final ListIterator arguments)
         throws OptionException {
-        
         String previous = null;
 
         // [START process each command line token
         while (arguments.hasNext()) {
-            
             // grab the next argument
-            final String arg = (String)arguments.next();
-            
+            final String arg = (String) arguments.next();
+
             // if we have just tried to process this instance
-            if(arg==previous) {
+            if (arg == previous) {
                 // rollback and abort
                 arguments.previous();
+
                 break;
             }
+
             // remember last processed instance
             previous = arg;
-            
-            final Option opt = (Option)optionMap.get(arg);
+
+            final Option opt = (Option) optionMap.get(arg);
 
             // option found
             if (opt != null) {
@@ -188,30 +183,31 @@ public class GroupImpl extends OptionImpl implements Group {
             // [START option NOT found
             else {
                 // it might be an anonymous argument continue search
-                
                 // [START argument may be anonymous
                 if (commandLine.looksLikeOption(arg)) {
-                    
                     // narrow the search
                     final Collection values = optionMap.tailMap(arg).values();
-                    
+
                     boolean foundMemberOption = false;
+
                     for (Iterator i = values.iterator(); i.hasNext() && !foundMemberOption;) {
                         final Option option = (Option) i.next();
-                        
+
                         if (option.canProcess(commandLine, arg)) {
-                        	foundMemberOption = true;
+                            foundMemberOption = true;
                             arguments.previous();
                             option.process(commandLine, arguments);
                         }
                     }
+
                     // back track and abort this group if necessary
-                    if(!foundMemberOption) {
-                    	arguments.previous();
-                    	return;
+                    if (!foundMemberOption) {
+                        arguments.previous();
+
+                        return;
                     }
                 } // [END argument may be anonymous
-                
+
                 // [START argument is NOT anonymous
                 else {
                     // move iterator back, current value not used
@@ -219,14 +215,15 @@ public class GroupImpl extends OptionImpl implements Group {
 
                     // if there are no anonymous arguments then this group can't
                     // process the argument
-                    if(anonymous.isEmpty()){
+                    if (anonymous.isEmpty()) {
                         break;
                     }
 
                     // TODO: why do we iterate over all anonymous arguments?
                     // canProcess will always return true?
                     for (final Iterator i = anonymous.iterator(); i.hasNext();) {
-                        final Argument argument = (Argument)i.next();
+                        final Argument argument = (Argument) i.next();
+
                         if (argument.canProcess(commandLine, arguments)) {
                             argument.process(commandLine, arguments);
                         }
@@ -238,48 +235,50 @@ public class GroupImpl extends OptionImpl implements Group {
 
     public void validate(final WriteableCommandLine commandLine)
         throws OptionException {
-
         // number of options found
         int present = 0;
-        
+
         // reference to first unexpected option
         Option unexpected = null;
-        
+
         for (final Iterator i = options.iterator(); i.hasNext();) {
             final Option option = (Option) i.next();
+
             // if the child option is required then validate it
-            if(option.isRequired()){
+            if (option.isRequired()) {
                 option.validate(commandLine);
             }
-            if(option instanceof Group){
-            	option.validate(commandLine);
+
+            if (option instanceof Group) {
+                option.validate(commandLine);
             }
+
             // if the child option is present then validate it
             if (commandLine.hasOption(option)) {
                 if (++present > maximum) {
                     unexpected = option;
+
                     break;
                 }
+
                 option.validate(commandLine);
             }
         }
 
         // too many options
         if (unexpected != null) {
-            throw new OptionException(
-                this,
-                "cli.error.unexpected",
-                unexpected.getPreferredName());
+            throw new OptionException(this, ResourceConstants.UNEXPECTED_TOKEN,
+                                      unexpected.getPreferredName());
         }
-        
+
         // too few option
         if (present < minimum) {
-            throw new OptionException(this, "cli.error.missing.option");
+            throw new OptionException(this, ResourceConstants.MISSING_OPTION);
         }
 
         // validate each anonymous argument
         for (final Iterator i = anonymous.iterator(); i.hasNext();) {
-            final Option option = (Option)i.next();
+            final Option option = (Option) i.next();
             option.validate(commandLine);
         }
     }
@@ -292,39 +291,31 @@ public class GroupImpl extends OptionImpl implements Group {
         return description;
     }
 
-    public void appendUsage(
-        final StringBuffer buffer,
-        final Set helpSettings,
-        final Comparator comp) {
+    public void appendUsage(final StringBuffer buffer,
+                            final Set helpSettings,
+                            final Comparator comp) {
         appendUsage(buffer, helpSettings, comp, "|");
     }
 
-    public void appendUsage(
-        final StringBuffer buffer,
-        final Set helpSettings,
-        final Comparator comp,
-        final String separator) {
-
+    public void appendUsage(final StringBuffer buffer,
+                            final Set helpSettings,
+                            final Comparator comp,
+                            final String separator) {
         final Set helpSettingsCopy = new HashSet(helpSettings);
 
         final boolean optional =
-            minimum == 0
-                && helpSettingsCopy.contains(DisplaySetting.DISPLAY_OPTIONAL);
+            (minimum == 0) && helpSettingsCopy.contains(DisplaySetting.DISPLAY_OPTIONAL);
 
         final boolean expanded =
-            name == null
-                || helpSettingsCopy.contains(DisplaySetting.DISPLAY_GROUP_EXPANDED);
+            (name == null) || helpSettingsCopy.contains(DisplaySetting.DISPLAY_GROUP_EXPANDED);
 
         final boolean named =
-            !expanded
-                || (name != null
-                    && helpSettingsCopy.contains(DisplaySetting.DISPLAY_GROUP_NAME));
+            !expanded ||
+            ((name != null) && helpSettingsCopy.contains(DisplaySetting.DISPLAY_GROUP_NAME));
 
-        final boolean arguments =
-            helpSettingsCopy.contains(DisplaySetting.DISPLAY_GROUP_ARGUMENT);
+        final boolean arguments = helpSettingsCopy.contains(DisplaySetting.DISPLAY_GROUP_ARGUMENT);
 
-        final boolean outer =
-            helpSettingsCopy.contains(DisplaySetting.DISPLAY_GROUP_OUTER);
+        final boolean outer = helpSettingsCopy.contains(DisplaySetting.DISPLAY_GROUP_OUTER);
 
         helpSettingsCopy.remove(DisplaySetting.DISPLAY_GROUP_OUTER);
 
@@ -337,27 +328,28 @@ public class GroupImpl extends OptionImpl implements Group {
         if (named) {
             buffer.append(name);
         }
+
         if (both) {
             buffer.append(" (");
         }
+
         if (expanded) {
             final Set childSettings;
-            if (!helpSettingsCopy
-                .contains(DisplaySetting.DISPLAY_GROUP_EXPANDED)) {
+
+            if (!helpSettingsCopy.contains(DisplaySetting.DISPLAY_GROUP_EXPANDED)) {
                 childSettings = DisplaySetting.NONE;
-            }
-            else {
+            } else {
                 childSettings = new HashSet(helpSettingsCopy);
                 childSettings.remove(DisplaySetting.DISPLAY_OPTIONAL);
             }
 
             // grab a list of the group's options.
             final List list;
+
             if (comp == null) {
                 // default to using the initial order
                 list = options;
-            }
-            else {
+            } else {
                 // sort options if comparator is supplied
                 list = new ArrayList(options);
                 Collections.sort(list, comp);
@@ -365,7 +357,7 @@ public class GroupImpl extends OptionImpl implements Group {
 
             // for each option.
             for (final Iterator i = list.iterator(); i.hasNext();) {
-                final Option option = (Option)i.next();
+                final Option option = (Option) i.next();
 
                 // append usage information
                 option.appendUsage(buffer, childSettings, comp);
@@ -376,43 +368,47 @@ public class GroupImpl extends OptionImpl implements Group {
                 }
             }
         }
+
         if (both) {
             buffer.append(')');
         }
+
         if (optional && outer) {
             buffer.append(']');
         }
+
         if (arguments) {
             for (final Iterator i = anonymous.iterator(); i.hasNext();) {
                 buffer.append(' ');
-                final Option option = (Option)i.next();
+
+                final Option option = (Option) i.next();
                 option.appendUsage(buffer, helpSettingsCopy, comp);
             }
         }
+
         if (optional && !outer) {
             buffer.append(']');
-
         }
     }
 
-    public List helpLines(
-        final int depth,
-        final Set helpSettings,
-        final Comparator comp) {
+    public List helpLines(final int depth,
+                          final Set helpSettings,
+                          final Comparator comp) {
         final List helpLines = new ArrayList();
+
         if (helpSettings.contains(DisplaySetting.DISPLAY_GROUP_NAME)) {
             final HelpLine helpLine = new HelpLineImpl(this, depth);
             helpLines.add(helpLine);
         }
-        if (helpSettings.contains(DisplaySetting.DISPLAY_GROUP_EXPANDED)) {
 
+        if (helpSettings.contains(DisplaySetting.DISPLAY_GROUP_EXPANDED)) {
             // grab a list of the group's options.
             final List list;
+
             if (comp == null) {
                 // default to using the initial order
                 list = options;
-            }
-            else {
+            } else {
                 // sort options if comparator is supplied
                 list = new ArrayList(options);
                 Collections.sort(list, comp);
@@ -420,71 +416,73 @@ public class GroupImpl extends OptionImpl implements Group {
 
             // for each option
             for (final Iterator i = list.iterator(); i.hasNext();) {
-                final Option option = (Option)i.next();
-                helpLines.addAll(
-                    option.helpLines(depth + 1, helpSettings, comp));
+                final Option option = (Option) i.next();
+                helpLines.addAll(option.helpLines(depth + 1, helpSettings, comp));
             }
         }
+
         if (helpSettings.contains(DisplaySetting.DISPLAY_GROUP_ARGUMENT)) {
             for (final Iterator i = anonymous.iterator(); i.hasNext();) {
-                final Option option = (Option)i.next();
-                helpLines.addAll(
-                    option.helpLines(depth + 1, helpSettings, comp));
+                final Option option = (Option) i.next();
+                helpLines.addAll(option.helpLines(depth + 1, helpSettings, comp));
             }
         }
+
         return helpLines;
     }
-    
+
     /**
      * Gets the member Options of thie Group.
      * Note this does not include any Arguments
      * @return only the non Argument Options of the Group
      */
-    public List getOptions(){
-    	return options;
+    public List getOptions() {
+        return options;
     }
-    
+
     /**
      * Gets the anonymous Arguments of this Group.
      * @return the Argument options of this Group
      */
-    public List getAnonymous(){
-    	return anonymous;
+    public List getAnonymous() {
+        return anonymous;
     }
-	
-	public Option findOption(final String trigger) {
-		final Iterator i = getOptions().iterator();
-		while(i.hasNext()){
-			final Option option = (Option)i.next();
-			final Option found = option.findOption(trigger);
-			if(found!=null){
-				return found;
-			}
-		}
-		
-		return null;
-	}
-	
-	public int getMinimum() {
-		return minimum;
-	}
-	
-	public int getMaximum() {
-		return maximum;
-	}
+
+    public Option findOption(final String trigger) {
+        final Iterator i = getOptions().iterator();
+
+        while (i.hasNext()) {
+            final Option option = (Option) i.next();
+            final Option found = option.findOption(trigger);
+
+            if (found != null) {
+                return found;
+            }
+        }
+
+        return null;
+    }
+
+    public int getMinimum() {
+        return minimum;
+    }
+
+    public int getMaximum() {
+        return maximum;
+    }
 
     public boolean isRequired() {
-        return getMinimum()>0;
+        return getMinimum() > 0;
     }
-    
+
     public void defaults(final WriteableCommandLine commandLine) {
         super.defaults(commandLine);
-        
+
         for (final Iterator i = options.iterator(); i.hasNext();) {
             final Option option = (Option) i.next();
             option.defaults(commandLine);
         }
-        
+
         for (final Iterator i = anonymous.iterator(); i.hasNext();) {
             final Option option = (Option) i.next();
             option.defaults(commandLine);
@@ -492,8 +490,13 @@ public class GroupImpl extends OptionImpl implements Group {
     }
 }
 
+
 class ReverseStringComparator implements Comparator {
     private static final Comparator instance = new ReverseStringComparator();
+
+    private ReverseStringComparator() {
+        // just making sure nobody else creates one
+    }
 
     /**
      * Gets a singleton instance of a ReverseStringComparator
@@ -503,13 +506,10 @@ class ReverseStringComparator implements Comparator {
         return instance;
     }
 
-    private ReverseStringComparator() {
-        // just making sure nobody else creates one
-    }
-
-    public int compare(final Object o1, final Object o2) {
-        final String s1 = (String)o1;
-        final String s2 = (String)o2;
+    public int compare(final Object o1,
+                       final Object o2) {
+        final String s1 = (String) o1;
+        final String s2 = (String) o2;
 
         return -s1.compareTo(s2);
     }

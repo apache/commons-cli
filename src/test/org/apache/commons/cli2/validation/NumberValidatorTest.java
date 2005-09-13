@@ -16,11 +16,15 @@
 package org.apache.commons.cli2.validation;
 
 import java.text.NumberFormat;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestCase;
+
+import org.apache.commons.cli2.resource.ResourceConstants;
+import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
  * JUnit test case for NumberValidator.
@@ -28,16 +32,16 @@ import junit.framework.TestCase;
  * @author Rob Oxspring
  * @author John Keyes
  */
-public class NumberValidatorTest extends TestCase {
-    
-    public void testValidate_Number() throws InvalidArgumentException {
+public class NumberValidatorTest
+    extends TestCase {
+    private static final ResourceHelper resources = ResourceHelper.getResourceHelper();
+
+    public void testValidate_Number()
+        throws InvalidArgumentException {
         final NumberFormat format = NumberFormat.getNumberInstance();
-        
-        final Object[] array = 
-            new Object[] { 
-            format.format(1d), 
-            format.format(1.07d), 
-            format.format(-.45d)};
+
+        final Object[] array =
+            new Object[] { format.format(1d), format.format(1.07d), format.format(-.45d) };
 
         {
             final List list = Arrays.asList(array);
@@ -46,57 +50,56 @@ public class NumberValidatorTest extends TestCase {
             validator.validate(list);
 
             final Iterator i = list.iterator();
-            assertEquals(1d, ((Number)i.next()).doubleValue(), 0.0001);
-            assertEquals(1.07d, ((Number)i.next()).doubleValue(), 0.0001);
-            assertEquals(-.45d, ((Number)i.next()).doubleValue(), 0.0001);
+            assertEquals(1d, ((Number) i.next()).doubleValue(), 0.0001);
+            assertEquals(1.07d, ((Number) i.next()).doubleValue(), 0.0001);
+            assertEquals(-.45d, ((Number) i.next()).doubleValue(), 0.0001);
             assertFalse(i.hasNext());
         }
     }
 
-    public void testValidate_Currency() throws InvalidArgumentException {
+    public void testValidate_Currency()
+        throws InvalidArgumentException {
         NumberFormat format = NumberFormat.getCurrencyInstance();
         final Object[] array =
-            new Object[] {
-                format.format(1d),
-                format.format(1.07),
-                format.format(-0.45)};
+            new Object[] { format.format(1d), format.format(1.07), format.format(-0.45) };
         final List list = Arrays.asList(array);
-        
+
         final NumberValidator validator = NumberValidator.getCurrencyInstance();
         assertEquals("incorrect currency format", format, validator.getFormat());
 
         validator.validate(list);
 
         final Iterator i = list.iterator();
-        assertEquals(1d, ((Number)i.next()).doubleValue(), 0.0001);
-        assertEquals(1.07d, ((Number)i.next()).doubleValue(), 0.0001);
-        assertEquals(-.45d, ((Number)i.next()).doubleValue(), 0.0001);
+        assertEquals(1d, ((Number) i.next()).doubleValue(), 0.0001);
+        assertEquals(1.07d, ((Number) i.next()).doubleValue(), 0.0001);
+        assertEquals(-.45d, ((Number) i.next()).doubleValue(), 0.0001);
         assertFalse(i.hasNext());
     }
 
-    public void testValidate_Percent() throws InvalidArgumentException {
+    public void testValidate_Percent()
+        throws InvalidArgumentException {
         final NumberFormat format = NumberFormat.getPercentInstance();
-        
-        final Object[] array 
-            = new Object[] { 
-                format.format(.01), 
-                format.format(1.07),
-                format.format(-.45),
-                format.format(0.001) };
+
+        final Object[] array =
+            new Object[] {
+                             format.format(.01), format.format(1.07), format.format(-.45),
+                             format.format(0.001)
+            };
         final List list = Arrays.asList(array);
         final Validator validator = NumberValidator.getPercentInstance();
 
         validator.validate(list);
 
         final Iterator i = list.iterator();
-        assertEquals(0.01d, ((Number)i.next()).doubleValue(), 0.0001);
-        assertEquals(1.07d, ((Number)i.next()).doubleValue(), 0.0001);
-        assertEquals(-.45d, ((Number)i.next()).doubleValue(), 0.0001);
-        assertEquals(0.00001d, ((Number)i.next()).doubleValue(), 0.0001);
+        assertEquals(0.01d, ((Number) i.next()).doubleValue(), 0.0001);
+        assertEquals(1.07d, ((Number) i.next()).doubleValue(), 0.0001);
+        assertEquals(-.45d, ((Number) i.next()).doubleValue(), 0.0001);
+        assertEquals(0.00001d, ((Number) i.next()).doubleValue(), 0.0001);
         assertFalse(i.hasNext());
     }
 
-    public void testValidate_Integer() throws InvalidArgumentException {
+    public void testValidate_Integer()
+        throws InvalidArgumentException {
         final Object[] array = new Object[] { "1", "107", "-45" };
         final List list = Arrays.asList(array);
         final Validator validator = NumberValidator.getIntegerInstance();
@@ -104,23 +107,22 @@ public class NumberValidatorTest extends TestCase {
         validator.validate(list);
 
         final Iterator i = list.iterator();
-        assertEquals(1d, ((Number)i.next()).doubleValue(), 0.0001);
-        assertEquals(107d, ((Number)i.next()).doubleValue(), 0.0001);
-        assertEquals(-45d, ((Number)i.next()).doubleValue(), 0.0001);
+        assertEquals(1d, ((Number) i.next()).doubleValue(), 0.0001);
+        assertEquals(107d, ((Number) i.next()).doubleValue(), 0.0001);
+        assertEquals(-45d, ((Number) i.next()).doubleValue(), 0.0001);
         assertFalse(i.hasNext());
     }
 
     public void testValidate_ExcessChars() {
-        final Object[] array = new Object[] { "10DowningStreet"};
+        final Object[] array = new Object[] { "10DowningStreet" };
         final List list = Arrays.asList(array);
         final Validator validator = NumberValidator.getIntegerInstance();
 
-        try{
+        try {
             validator.validate(list);
             fail("InvalidArgumentException");
-        }
-        catch(InvalidArgumentException e){
-            assertEquals("10DowningStreet",e.getMessage());
+        } catch (InvalidArgumentException e) {
+            assertEquals("10DowningStreet", e.getMessage());
         }
     }
 
@@ -138,9 +140,9 @@ public class NumberValidatorTest extends TestCase {
         try {
             validator.validate(list);
             fail("107 too big");
-        }
-        catch (InvalidArgumentException ive) {
-            assertEquals("Out of range: 107", ive.getMessage());
+        } catch (InvalidArgumentException ive) {
+            assertEquals(resources.getMessage(ResourceConstants.NUMBERVALIDATOR_NUMBER_OUTOFRANGE,
+                                              "107"), ive.getMessage());
         }
     }
 
@@ -157,9 +159,9 @@ public class NumberValidatorTest extends TestCase {
         try {
             validator.validate(list);
             fail("1 too small");
-        }
-        catch (InvalidArgumentException ive) {
-            assertEquals("Out of range: 1", ive.getMessage());
+        } catch (InvalidArgumentException ive) {
+            assertEquals(resources.getMessage(ResourceConstants.NUMBERVALIDATOR_NUMBER_OUTOFRANGE,
+                                              "1"), ive.getMessage());
         }
     }
 }
