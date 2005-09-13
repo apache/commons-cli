@@ -54,4 +54,14 @@ public abstract class ResourceConstants {
     public static final String HELPFORMATTER_GUTTER_TOO_LONG = "HelpFormatter.gutter.too.long";
     public static final String HELPFORMATTER_WIDTH_TOO_NARROW = "HelpFormatter.width.too.narrow";
     public static final String ENUM_ILLEGAL_VALUE = "Enum.illegal.value";
+    public static final String ARGUMENT_BUILDER_NULL_CONSUME_REMAINING = "ArgumentBuilder.null.consume.remaining";
+    public static final String ARGUMENT_BUILDER_EMPTY_CONSUME_REMAINING = "ArgumentBuilder.empty.consume.remaining";
+    public static final String ARGUMENT_BUILDER_NULL_DEFAULT = "ArgumentBuilder.null.default";
+    public static final String ARGUMENT_BUILDER_NULL_DEFAULTS = "ArgumentBuilder.null.defaults";
+    public static final String ARGUMENT_BUILDER_NEGATIVE_MAXIMUM = "ArgumentBuilder.negative.maximum";
+    public static final String ARGUMENT_BUILDER_NEGATIVE_MINIMUM = "ArgumentBuilder.negative.minimum";
+    public static final String ARGUMENT_BUILDER_NULL_NAME = "ArgumentBuilder.null.name";
+    public static final String ARGUMENT_BUILDER_EMPTY_NAME = "ArgumentBuilder.empty.name";
+    public static final String ARGUMENT_BUILDER_NULL_VALIDATOR = "ArgumentBuilder.null.validator";
+
 }

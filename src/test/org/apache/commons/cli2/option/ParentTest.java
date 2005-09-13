@@ -391,6 +391,25 @@ public class ParentTest
         assertFalse(i.hasNext());
     }
 
+    public void testNullPreferredName() {
+        try {
+        	new CommandBuilder().create();
+        } catch (IllegalStateException exp) {
+        	assertEquals(ResourceHelper.getResourceHelper().getMessage(ResourceConstants.OPTION_NO_NAME), exp.getMessage());
+        }
+    }
+
+    public void testRequired() {
+    	Command cmd = new CommandBuilder().withRequired(true).withName("blah").create();
+    	assertTrue("cmd is not required", cmd.isRequired());
+    	assertEquals("id is incorrect", 0, cmd.getId());
+    }
+
+    public void testID() {
+    	Command cmd = new CommandBuilder().withId('c').withName("blah").create();
+    	assertEquals("id is incorrect", 'c', cmd.getId());
+    }
+
     public void testGetId() {
         assertEquals('h', DefaultOptionTest.buildHelpOption().getId());
         assertEquals('X', DefaultOptionTest.buildXOption().getId());

@@ -62,7 +62,7 @@ public class ArgumentImpl
     private final int minimum;
     private final int maximum;
     private final char initialSeparator;
-    private final char subsequentSepatator;
+    private final char subsequentSeparator;
     private final boolean subsequentSplit;
     private final Validator validator;
     private final String consumeRemaining;
@@ -112,7 +112,7 @@ public class ArgumentImpl
         this.minimum = minimum;
         this.maximum = maximum;
         this.initialSeparator = initialSeparator;
-        this.subsequentSepatator = subsequentSeparator;
+        this.subsequentSeparator = subsequentSeparator;
         this.subsequentSplit = subsequentSeparator != NUL;
         this.validator = validator;
         this.consumeRemaining = consumeRemaining;
@@ -162,7 +162,7 @@ public class ArgumentImpl
             // should we split the string up?
             else if (subsequentSplit) {
                 final StringTokenizer values =
-                    new StringTokenizer(allValues, String.valueOf(subsequentSepatator));
+                    new StringTokenizer(allValues, String.valueOf(subsequentSeparator));
 
                 arguments.remove();
 
@@ -206,10 +206,26 @@ public class ArgumentImpl
         return this.initialSeparator;
     }
 
+    public char getSubsequentSeparator() {
+        return this.subsequentSeparator;
+    }
+
     public Set getTriggers() {
         return Collections.EMPTY_SET;
     }
 
+    public String getConsumeRemaining() {
+    	return this.consumeRemaining;
+    }
+    
+    public List getDefaultValues() {
+    	return this.defaultValues;
+    }
+    
+    public Validator getValidator() {
+    	return this.validator;
+    }
+    
     public void validate(final WriteableCommandLine commandLine)
         throws OptionException {
         validate(commandLine, this);
