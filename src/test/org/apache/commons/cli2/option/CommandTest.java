@@ -27,54 +27,38 @@ import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.Parent;
 import org.apache.commons.cli2.WriteableCommandLine;
 import org.apache.commons.cli2.commandline.WriteableCommandLineImpl;
+import org.apache.commons.cli2.resource.ResourceConstants;
+import org.apache.commons.cli2.resource.ResourceHelper;
 
 /**
  * @author Rob Oxspring
- * 
+ *
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public class CommandTest extends ParentTestCase {
-
+public class CommandTest
+    extends ParentTestCase {
     public static Command buildStartCommand() {
-        return new Command(
-            "start",
-            "Begins the process",
-            Collections.singleton("go"),
-            false,
-            null,
-            null,
-            0);
+        return new Command("start", "Begins the process", Collections.singleton("go"), false, null,
+                           null, 0);
     }
 
     public static Command buildCommitCommand() {
-        return new Command(
-            "commit",
-            "Commit the changes to the database",
-            null,
-            true,
-            null,
-            null,
-            0);
+        return new Command("commit", "Commit the changes to the database", null, true, null, null, 0);
     }
 
     public static Command buildLoginCommand() {
-        return new Command(
-            "login",
-            "Initiates a session for the user",
-            null,
-            false,
-            ArgumentTest.buildUsernameArgument(),
-            null,
-            0);
+        return new Command("login", "Initiates a session for the user", null, false,
+                           ArgumentTest.buildUsernameArgument(), null, 0);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.ParentTestCase#testProcessParent()
      */
-    public void testProcessParent() throws OptionException {
+    public void testProcessParent()
+        throws OptionException {
         final Command option = buildStartCommand();
         final List args = list("go");
         final WriteableCommandLine commandLine = commandLine(option, args);
@@ -88,7 +72,8 @@ public class CommandTest extends ParentTestCase {
         assertTrue(commandLine.getValues(option).isEmpty());
     }
 
-    public void testProcessParent_Spare() throws OptionException {
+    public void testProcessParent_Spare()
+        throws OptionException {
         final Command option = buildLoginCommand();
         final List args = list("login", "rob");
         final WriteableCommandLine commandLine = commandLine(option, args);
@@ -104,27 +89,27 @@ public class CommandTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testCanProcess()
      */
     public void testCanProcess() {
         final Command option = buildStartCommand();
-        assertTrue(option.canProcess(new WriteableCommandLineImpl(option,null), "start"));
+        assertTrue(option.canProcess(new WriteableCommandLineImpl(option, null), "start"));
     }
 
     public void testCanProcess_BadMatch() {
         final Command option = buildStartCommand();
-        assertFalse(option.canProcess(new WriteableCommandLineImpl(option,null), "stop"));
+        assertFalse(option.canProcess(new WriteableCommandLineImpl(option, null), "stop"));
     }
 
     public void testCanProcess_Alias() {
         final Command option = buildStartCommand();
-        assertTrue(option.canProcess(new WriteableCommandLineImpl(option,null), "go"));
+        assertTrue(option.canProcess(new WriteableCommandLineImpl(option, null), "go"));
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testPrefixes()
      */
     public void testPrefixes() {
@@ -134,10 +119,11 @@ public class CommandTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testProcess()
      */
-    public void testProcess() throws OptionException {
+    public void testProcess()
+        throws OptionException {
         final Command option = buildLoginCommand();
         final List args = list("login", "rob");
         final WriteableCommandLine commandLine = commandLine(option, args);
@@ -152,7 +138,7 @@ public class CommandTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testTriggers()
      */
     public void testTriggers() {
@@ -163,7 +149,7 @@ public class CommandTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testValidate()
      */
     public void testValidate() {
@@ -173,15 +159,14 @@ public class CommandTest extends ParentTestCase {
         try {
             option.validate(commandLine);
             fail("Missing an option");
-        }
-        catch (OptionException moe) {
+        } catch (OptionException moe) {
             assertSame(option, moe.getOption());
         }
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testAppendUsage()
      */
     public void testAppendUsage() {
@@ -190,6 +175,26 @@ public class CommandTest extends ParentTestCase {
         option.appendUsage(buffer, DisplaySetting.ALL, null);
 
         assertEquals("[start (go)]", buffer.toString());
+    }
+
+    public void testNullPreferredName() {
+        try {
+            new Command(null, "", Collections.singleton("go"), false, null, null, 0);
+        } catch (IllegalArgumentException exp) {
+            assertEquals("wrong exception name",
+                         ResourceHelper.getResourceHelper().getMessage(ResourceConstants.COMMAND_PREFERRED_NAME_TOO_SHORT),
+                         exp.getMessage());
+        }
+    }
+
+    public void testEmotyPreferredName() {
+        try {
+            new Command("", "", Collections.singleton("go"), false, null, null, 0);
+        } catch (IllegalArgumentException exp) {
+            assertEquals("wrong exception name",
+                         ResourceHelper.getResourceHelper().getMessage(ResourceConstants.COMMAND_PREFERRED_NAME_TOO_SHORT),
+                         exp.getMessage());
+        }
     }
 
     public void testAppendUsage_NoOptional() {
@@ -214,7 +219,7 @@ public class CommandTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testGetPreferredName()
      */
     public void testGetPreferredName() {
@@ -224,22 +229,20 @@ public class CommandTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testGetDescription()
      */
     public void testGetDescription() {
         final Option option = buildLoginCommand();
-        assertEquals(
-            "Initiates a session for the user",
-            option.getDescription());
+        assertEquals("Initiates a session for the user", option.getDescription());
     }
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testHelpLines()
      */
     public void testHelpLines() {
         // TODO Auto-generated method stub
-
     }
 }

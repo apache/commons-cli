@@ -110,7 +110,7 @@ public class GroupImpl
     }
 
     public boolean canProcess(final WriteableCommandLine commandLine,
-                              String arg) {
+                              final String arg) {
         if (arg == null) {
             return false;
         }

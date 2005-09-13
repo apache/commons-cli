@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.ParsePosition;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -72,6 +73,9 @@ public class DateValidator implements Validator {
     /** maximum Date allowed i.e: a valid date occurs earlier than this date */
     private Date maximum;
 
+    /** leniant parsing */
+    private boolean isLenient;
+
     /**
      * Creates a Validator for the default date/time format
      */
@@ -96,6 +100,10 @@ public class DateValidator implements Validator {
      *            a List of DateFormats which dates must conform to
      */
     public DateValidator(final List formats) {
+        for (Iterator iter = formats.iterator(); iter.hasNext();) {
+            DateFormat format = (DateFormat) iter.next();
+        }
+
         setFormats(formats);
     }
 
@@ -150,10 +158,6 @@ public class DateValidator implements Validator {
             for (int f = 0; (f < this.formats.length) && (date == null); ++f) {
                 // reset the parse position
                 pp.setIndex(0);
-
-                // TODO: should we call setLenient(false) on
-                //       each DateFormat or allow the user
-                //       to specify the parsing used
                 date = this.formats[f].parse(value, pp);
 
                 // if the wrong number of characters have been parsed
@@ -176,6 +180,18 @@ public class DateValidator implements Validator {
             // replace the value in the list with the actual Date
             i.set(date);
         }
+    }
+
+    public void setLeniant(final boolean lenient) {
+        for (int i = 0; i < this.formats.length; i++) {
+            this.formats[i].setLenient(lenient);
+        }
+
+        this.isLenient = lenient;
+    }
+
+    public boolean isLeniant() {
+        return this.isLenient;
     }
 
     /**
@@ -272,6 +288,7 @@ public class DateValidator implements Validator {
      */
     public void setFormats(final DateFormat[] formats) {
         this.formats = formats;
+        setLeniant(this.isLenient);
     }
 
     /**

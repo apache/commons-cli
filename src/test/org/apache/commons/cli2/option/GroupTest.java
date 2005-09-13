@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,30 +35,17 @@ import org.apache.commons.cli2.commandline.WriteableCommandLineImpl;
 /**
  * @author Rob Oxspring
  */
-public class GroupTest extends GroupTestCase {
-
+public class GroupTest
+    extends GroupTestCase {
     public static final Command COMMAND_START =
         new Command("start", "Starts the server", null, false, null, null, 0);
     public static final Command COMMAND_STOP =
         new Command("stop", "Stops the server", null, false, null, null, 0);
     public static final Command COMMAND_RESTART =
-        new Command(
-            "restart",
-            "Stops and starts the server",
-            null,
-            false,
-            null,
-            null,
-            0);
+        new Command("restart", "Stops and starts the server", null, false, null, null, 0);
     public static final Command COMMAND_GRACEFUL =
-        new Command(
-            "graceful",
-            "Restarts the server without interruption",
-            null,
-            false,
-            null,
-            null,
-            0);
+        new Command("graceful", "Restarts the server without interruption", null, false, null,
+                    null, 0);
 
     public static Group buildApacheCommandGroup() {
         final List options = new ArrayList();
@@ -66,44 +53,34 @@ public class GroupTest extends GroupTestCase {
         options.add(COMMAND_RESTART);
         options.add(COMMAND_START);
         options.add(COMMAND_STOP);
-        return new GroupImpl(
-            options,
-            "httpd-cmds",
-            "The command to pass to the server",
-            1,
-            1);
+
+        return new GroupImpl(options, "httpd-cmds", "The command to pass to the server", 1, 1);
     }
 
     public static Group buildApachectlGroup() {
         final List options = new ArrayList();
         options.add(DefaultOptionTest.buildHelpOption());
         options.add(ParentTest.buildKParent());
-        return new GroupImpl(
-            options,
-            "apachectl",
-            "Controls the apache http deamon",
-            0,
-            Integer.MAX_VALUE);
+
+        return new GroupImpl(options, "apachectl", "Controls the apache http deamon", 0,
+                             Integer.MAX_VALUE);
     }
 
     public static Group buildAntGroup() {
         final List options = new ArrayList();
         options.add(DefaultOptionTest.buildHelpOption());
         options.add(ArgumentTest.buildTargetsArgument());
-        return new GroupImpl(
-            options,
-            "ant",
-            "The options for ant",
-            0,
-            Integer.MAX_VALUE);
+
+        return new GroupImpl(options, "ant", "The options for ant", 0, Integer.MAX_VALUE);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.GroupTestCase#testProcessAnonymousArguments()
      */
-    public void testProcessAnonymousArguments() throws OptionException {
+    public void testProcessAnonymousArguments()
+        throws OptionException {
         final Group option = buildAntGroup();
         final List args = list("compile,test", "dist");
         final ListIterator iterator = args.listIterator();
@@ -118,10 +95,11 @@ public class GroupTest extends GroupTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.GroupTestCase#testProcessOptions()
      */
-    public void testProcessOptions() throws OptionException {
+    public void testProcessOptions()
+        throws OptionException {
         final Group option = buildApachectlGroup();
         final List args = list("-?", "-k");
         final ListIterator iterator = args.listIterator();
@@ -137,22 +115,27 @@ public class GroupTest extends GroupTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testCanProcess()
      */
     public void testCanProcess() {
         final Group option = buildApacheCommandGroup();
-        assertTrue(option.canProcess(new WriteableCommandLineImpl(option,null), "start"));
+        assertTrue(option.canProcess(new WriteableCommandLineImpl(option, null), "start"));
     }
 
     public void testCanProcess_BadMatch() {
         final Group option = buildApacheCommandGroup();
-        assertFalse(option.canProcess(new WriteableCommandLineImpl(option,null), "begin"));
+        assertFalse(option.canProcess(new WriteableCommandLineImpl(option, null), "begin"));
+    }
+
+    public void testCanProcess_NullMatch() {
+        final Group option = buildApacheCommandGroup();
+        assertFalse(option.canProcess(new WriteableCommandLineImpl(option, null), (String) null));
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testPrefixes()
      */
     public void testPrefixes() {
@@ -162,10 +145,11 @@ public class GroupTest extends GroupTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testProcess()
      */
-    public void testProcess() throws OptionException {
+    public void testProcess()
+        throws OptionException {
         final Group option = buildAntGroup();
         final List args = list("--help", "compile,test", "dist");
         final ListIterator iterator = args.listIterator();
@@ -174,12 +158,11 @@ public class GroupTest extends GroupTestCase {
 
         assertFalse(iterator.hasNext());
         assertTrue(commandLine.hasOption("-?"));
-        assertListContentsEqual(
-            list("compile", "test", "dist"),
-            commandLine.getValues("target"));
+        assertListContentsEqual(list("compile", "test", "dist"), commandLine.getValues("target"));
     }
 
-    public void testProcess_Nested() throws OptionException {
+    public void testProcess_Nested()
+        throws OptionException {
         final Group option = buildApachectlGroup();
         final List args = list("-h", "-k", "graceful");
         final ListIterator iterator = args.listIterator();
@@ -197,22 +180,21 @@ public class GroupTest extends GroupTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testTriggers()
      */
     public void testTriggers() {
         final Group option = buildApachectlGroup();
-        assertContentsEqual(
-            list("--help", "-?", "-h", "-k"),
-            option.getTriggers());
+        assertContentsEqual(list("--help", "-?", "-h", "-k"), option.getTriggers());
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testValidate()
      */
-    public void testValidate() throws OptionException {
+    public void testValidate()
+        throws OptionException {
         final Group option = buildApacheCommandGroup();
         final WriteableCommandLine commandLine = commandLine(option, list());
 
@@ -231,8 +213,7 @@ public class GroupTest extends GroupTestCase {
         try {
             option.validate(commandLine);
             fail("Too many options");
-        }
-        catch (OptionException uoe) {
+        } catch (OptionException uoe) {
             assertEquals(option, uoe.getOption());
         }
     }
@@ -244,63 +225,60 @@ public class GroupTest extends GroupTestCase {
         try {
             option.validate(commandLine);
             fail("Missing an option");
-        }
-        catch (OptionException moe) {
+        } catch (OptionException moe) {
             assertEquals(option, moe.getOption());
         }
     }
-    
-    public void testValidate_RequiredChild() throws OptionException {
-        final Option required = new DefaultOptionBuilder().withLongName("required").withRequired(true).create();
-        final Option optional = new DefaultOptionBuilder().withLongName("optional").withRequired(false).create();
-        final Group group = new GroupBuilder()
-            .withOption(required)
-            .withOption(optional)
-            .withMinimum(1)
-            .create();
+
+    public void testValidate_RequiredChild()
+        throws OptionException {
+        final Option required =
+            new DefaultOptionBuilder().withLongName("required").withRequired(true).create();
+        final Option optional =
+            new DefaultOptionBuilder().withLongName("optional").withRequired(false).create();
+        final Group group =
+            new GroupBuilder().withOption(required).withOption(optional).withMinimum(1).create();
 
         WriteableCommandLine commandLine;
-        
+
         commandLine = commandLine(group, list());
+
         try {
             group.validate(commandLine);
             fail("Missing option 'required'");
-        }
-        catch (OptionException moe) {
+        } catch (OptionException moe) {
             assertEquals(required, moe.getOption());
         }
-        
+
         commandLine = commandLine(group, list());
         commandLine.addOption(optional);
+
         try {
             group.validate(commandLine);
             fail("Missing option 'required'");
-        }
-        catch (OptionException moe) {
+        } catch (OptionException moe) {
             assertEquals(required, moe.getOption());
         }
-        
+
         commandLine = commandLine(group, list());
         commandLine.addOption(required);
         group.validate(commandLine);
-        
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testAppendUsage()
      */
     public void testAppendUsage() {
         final Option option = buildApacheCommandGroup();
         final StringBuffer buffer = new StringBuffer();
         final Set settings = new HashSet(DisplaySetting.ALL);
+
         //settings.remove(DisplaySetting.DISPLAY_ARGUMENT_NUMBERED);
         option.appendUsage(buffer, settings, null);
 
-        assertEquals(
-            "httpd-cmds (graceful|restart|start|stop)",
-            buffer.toString());
+        assertEquals("httpd-cmds (graceful|restart|start|stop)", buffer.toString());
     }
 
     public void testAppendUsage_NoOptional() {
@@ -310,9 +288,7 @@ public class GroupTest extends GroupTestCase {
         settings.remove(DisplaySetting.DISPLAY_OPTIONAL);
         option.appendUsage(buffer, settings, null);
 
-        assertEquals(
-            "httpd-cmds (graceful|restart|start|stop)",
-            buffer.toString());
+        assertEquals("httpd-cmds (graceful|restart|start|stop)", buffer.toString());
     }
 
     public void testAppendUsage_NoExpand() {
@@ -353,14 +329,12 @@ public class GroupTest extends GroupTestCase {
         settings.remove(DisplaySetting.DISPLAY_GROUP_OUTER);
         option.appendUsage(buffer, settings, null);
 
-        assertEquals(
-            "[ant (--help (-?,-h)) [<target1> [<target2> ...]]]",
-            buffer.toString());
+        assertEquals("[ant (--help (-?,-h)) [<target1> [<target2> ...]]]", buffer.toString());
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testGetPreferredName()
      */
     public void testGetPreferredName() {
@@ -370,19 +344,17 @@ public class GroupTest extends GroupTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testGetDescription()
      */
     public void testGetDescription() {
         final Option option = buildApachectlGroup();
-        assertEquals(
-            "Controls the apache http deamon",
-            option.getDescription());
+        assertEquals("Controls the apache http deamon", option.getDescription());
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testHelpLines()
      */
     public void testHelpLines() {
@@ -390,23 +362,23 @@ public class GroupTest extends GroupTestCase {
         final List lines = option.helpLines(0, DisplaySetting.ALL, null);
         final Iterator i = lines.iterator();
 
-        final HelpLine line1 = (HelpLine)i.next();
+        final HelpLine line1 = (HelpLine) i.next();
         assertEquals(0, line1.getIndent());
         assertEquals(option, line1.getOption());
 
-        final HelpLine line2 = (HelpLine)i.next();
+        final HelpLine line2 = (HelpLine) i.next();
         assertEquals(1, line2.getIndent());
         assertEquals(COMMAND_GRACEFUL, line2.getOption());
 
-        final HelpLine line3 = (HelpLine)i.next();
+        final HelpLine line3 = (HelpLine) i.next();
         assertEquals(1, line3.getIndent());
         assertEquals(COMMAND_RESTART, line3.getOption());
 
-        final HelpLine line4 = (HelpLine)i.next();
+        final HelpLine line4 = (HelpLine) i.next();
         assertEquals(1, line4.getIndent());
         assertEquals(COMMAND_START, line4.getOption());
 
-        final HelpLine line5 = (HelpLine)i.next();
+        final HelpLine line5 = (HelpLine) i.next();
         assertEquals(1, line5.getIndent());
         assertEquals(COMMAND_STOP, line5.getOption());
 
@@ -415,17 +387,18 @@ public class GroupTest extends GroupTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testHelpLines()
      */
     public void testHelpLines_NoExpanded() {
         final Option option = buildApacheCommandGroup();
         final Set settings = new HashSet(DisplaySetting.ALL);
         settings.remove(DisplaySetting.DISPLAY_GROUP_EXPANDED);
+
         final List lines = option.helpLines(0, settings, null);
         final Iterator i = lines.iterator();
 
-        final HelpLine line1 = (HelpLine)i.next();
+        final HelpLine line1 = (HelpLine) i.next();
         assertEquals(0, line1.getIndent());
         assertEquals(option, line1.getOption());
 
@@ -434,29 +407,30 @@ public class GroupTest extends GroupTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testHelpLines()
      */
     public void testHelpLines_NoName() {
         final Option option = buildApacheCommandGroup();
         final Set settings = new HashSet(DisplaySetting.ALL);
         settings.remove(DisplaySetting.DISPLAY_GROUP_NAME);
+
         final List lines = option.helpLines(0, settings, null);
         final Iterator i = lines.iterator();
 
-        final HelpLine line2 = (HelpLine)i.next();
+        final HelpLine line2 = (HelpLine) i.next();
         assertEquals(1, line2.getIndent());
         assertEquals(COMMAND_GRACEFUL, line2.getOption());
 
-        final HelpLine line3 = (HelpLine)i.next();
+        final HelpLine line3 = (HelpLine) i.next();
         assertEquals(1, line3.getIndent());
         assertEquals(COMMAND_RESTART, line3.getOption());
 
-        final HelpLine line4 = (HelpLine)i.next();
+        final HelpLine line4 = (HelpLine) i.next();
         assertEquals(1, line4.getIndent());
         assertEquals(COMMAND_START, line4.getOption());
 
-        final HelpLine line5 = (HelpLine)i.next();
+        final HelpLine line5 = (HelpLine) i.next();
         assertEquals(1, line5.getIndent());
         assertEquals(COMMAND_STOP, line5.getOption());
 

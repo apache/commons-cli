@@ -200,7 +200,7 @@ public class DateValidatorTest
                 fail("maximum out of bounds exception not caught");
             } catch (final InvalidArgumentException exp) {
                 assertEquals(resources.getMessage(ResourceConstants.DATEVALIDATOR_DATE_OUTOFRANGE,
-                        new Object[] { "2004-10-12" }), exp.getMessage());
+                                                  new Object[] { "2004-10-12" }), exp.getMessage());
             }
         }
     }

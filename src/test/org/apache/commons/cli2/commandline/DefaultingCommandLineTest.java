@@ -26,9 +26,6 @@ import org.apache.commons.cli2.builder.DefaultOptionBuilder;
 
 /**
  * @author Rob Oxspring
- *
- * To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class DefaultingCommandLineTest
     extends CommandLineTestCase {

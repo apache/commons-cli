@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,23 +34,19 @@ import org.apache.commons.cli2.WriteableCommandLine;
  * A base implementation of Parent providing limited ground work for further
  * Parent implementations.
  */
-public abstract class ParentImpl extends OptionImpl implements Parent {
-
+public abstract class ParentImpl
+    extends OptionImpl implements Parent {
     private static final char NUL = '\0';
-    
     private final Group children;
-
     private final Argument argument;
-
     private final String description;
 
-    protected ParentImpl(
-        final Argument argument,
-        final Group children,
-        final String description,
-        final int id,
-        final boolean required) {
-        super(id,required);
+    protected ParentImpl(final Argument argument,
+                         final Group children,
+                         final String description,
+                         final int id,
+                         final boolean required) {
+        super(id, required);
         this.children = children;
         this.argument = argument;
         this.description = description;
@@ -58,15 +54,13 @@ public abstract class ParentImpl extends OptionImpl implements Parent {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.Option#process(org.apache.commons.cli2.CommandLine,
      *      java.util.ListIterator)
      */
-    public void process(
-        final WriteableCommandLine commandLine,
-        final ListIterator arguments)
+    public void process(final WriteableCommandLine commandLine,
+                        final ListIterator arguments)
         throws OptionException {
-
         if (argument != null) {
             handleInitialSeparator(arguments, argument.getInitialSeparator());
         }
@@ -77,51 +71,49 @@ public abstract class ParentImpl extends OptionImpl implements Parent {
             argument.processValues(commandLine, arguments, this);
         }
 
-        if (children != null && children.canProcess(commandLine, arguments)) {
+        if ((children != null) && children.canProcess(commandLine, arguments)) {
             children.process(commandLine, arguments);
         }
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.Option#canProcess(java.lang.String)
      */
-    public boolean canProcess(final WriteableCommandLine commandLine, final String arg) {
-
+    public boolean canProcess(final WriteableCommandLine commandLine,
+                              final String arg) {
         final Set triggers = getTriggers();
-        
+
         if (argument != null) {
             final char separator = argument.getInitialSeparator();
-            
+
             // if there is a valid separator character
             if (separator != NUL) {
                 final int initialIndex = arg.indexOf(separator);
-                
+
                 // if there is a separator present
                 if (initialIndex > 0) {
                     return triggers.contains(arg.substring(0, initialIndex));
                 }
             }
         }
-        
+
         return triggers.contains(arg);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.Option#prefixes()
      */
     public Set getPrefixes() {
-        return (children == null)
-            ? Collections.EMPTY_SET
-            : children.getPrefixes();
+        return (children == null) ? Collections.EMPTY_SET : children.getPrefixes();
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.Option#validate(org.apache.commons.cli2.CommandLine)
      */
     public void validate(WriteableCommandLine commandLine)
@@ -139,21 +131,19 @@ public abstract class ParentImpl extends OptionImpl implements Parent {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.Option#appendUsage(java.lang.StringBuffer,
      *      java.util.Set, java.util.Comparator)
      */
-    public void appendUsage(
-        final StringBuffer buffer,
-        final Set helpSettings,
-        final Comparator comp) {
-
+    public void appendUsage(final StringBuffer buffer,
+                            final Set helpSettings,
+                            final Comparator comp) {
         final boolean displayArgument =
-            this.argument != null
-                && helpSettings.contains(DisplaySetting.DISPLAY_PARENT_ARGUMENT);
+            (this.argument != null) &&
+            helpSettings.contains(DisplaySetting.DISPLAY_PARENT_ARGUMENT);
         final boolean displayChildren =
-            this.children != null
-                && helpSettings.contains(DisplaySetting.DISPLAY_PARENT_CHILDREN);
+            (this.children != null) &&
+            helpSettings.contains(DisplaySetting.DISPLAY_PARENT_CHILDREN);
 
         if (displayArgument) {
             buffer.append(' ');
@@ -175,24 +165,21 @@ public abstract class ParentImpl extends OptionImpl implements Parent {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.Option#helpLines(int, java.util.Set,
      *      java.util.Comparator)
      */
-    public List helpLines(
-        final int depth,
-        final Set helpSettings,
-        final Comparator comp) {
+    public List helpLines(final int depth,
+                          final Set helpSettings,
+                          final Comparator comp) {
         final List helpLines = new ArrayList();
         helpLines.add(new HelpLineImpl(this, depth));
 
-        if (helpSettings.contains(DisplaySetting.DISPLAY_PARENT_ARGUMENT)
-            && argument != null) {
+        if (helpSettings.contains(DisplaySetting.DISPLAY_PARENT_ARGUMENT) && (argument != null)) {
             helpLines.addAll(argument.helpLines(depth + 1, helpSettings, comp));
         }
 
-        if (helpSettings.contains(DisplaySetting.DISPLAY_PARENT_CHILDREN)
-            && children != null) {
+        if (helpSettings.contains(DisplaySetting.DISPLAY_PARENT_CHILDREN) && (children != null)) {
             helpLines.addAll(children.helpLines(depth + 1, helpSettings, comp));
         }
 
@@ -218,46 +205,45 @@ public abstract class ParentImpl extends OptionImpl implements Parent {
      * @param arguments the current position in the arguments iterator
      * @param separator the separator char to split on
      */
-    private void handleInitialSeparator(
-        final ListIterator arguments, 
-        final char separator) {
-        
+    private void handleInitialSeparator(final ListIterator arguments,
+                                        final char separator) {
         // next token
-        final String newArgument = (String)arguments.next();
-        
+        final String newArgument = (String) arguments.next();
+
         // split the token
         final int initialIndex = newArgument.indexOf(separator);
-        
+
         if (initialIndex > 0) {
             arguments.remove();
             arguments.add(newArgument.substring(0, initialIndex));
             arguments.add(newArgument.substring(initialIndex + 1));
             arguments.previous();
         }
-        arguments.previous();        
+
+        arguments.previous();
     }
-    
-	/*
-	 * @see org.apache.commons.cli2.Option#findOption(java.lang.String)
-	 */
-	public Option findOption(final String trigger) {
-		final Option found = super.findOption(trigger);
-		if(found==null && children!=null){
-			return children.findOption(trigger);
-		}
-		else{
-			return found;
-		}
-	}
-    
+
+    /*
+     * @see org.apache.commons.cli2.Option#findOption(java.lang.String)
+     */
+    public Option findOption(final String trigger) {
+        final Option found = super.findOption(trigger);
+
+        if ((found == null) && (children != null)) {
+            return children.findOption(trigger);
+        } else {
+            return found;
+        }
+    }
+
     public void defaults(final WriteableCommandLine commandLine) {
         super.defaults(commandLine);
-        
-        if(argument!=null) {
-            argument.defaultValues(commandLine,this);
+
+        if (argument != null) {
+            argument.defaultValues(commandLine, this);
         }
-        
-        if(children!=null) {
+
+        if (children != null) {
             children.defaults(commandLine);
         }
     }

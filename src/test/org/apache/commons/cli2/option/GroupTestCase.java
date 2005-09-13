@@ -1,5 +1,5 @@
-/**
- * Copyright 2003-2004 The Apache Software Foundation
+/*
+ * Copyright 2003-2005 The Apache Software Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,11 @@ import org.apache.commons.cli2.OptionException;
 
 /**
  * @author Rob Oxspring
- * 
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public abstract class GroupTestCase extends OptionTestCase {
-    public abstract void testProcessOptions() throws OptionException;
+public abstract class GroupTestCase
+    extends OptionTestCase {
+    public abstract void testProcessOptions()
+        throws OptionException;
 
     public abstract void testProcessAnonymousArguments()
         throws OptionException;
