@@ -102,7 +102,7 @@ public class PrecedenceTest extends TestCase {
         assertEquals(new String[] { "-f", "-i", "-l", "-e" }, cl);
     }
 
-    public void XtestSimpleVsArgument() throws OptionException {
+    public void testSimpleVsArgument() throws OptionException {
         final DefaultOptionBuilder oBuilder = new DefaultOptionBuilder();
         final GroupBuilder gBuilder = new GroupBuilder();
         final ArgumentBuilder aBuilder = new ArgumentBuilder();
@@ -121,7 +121,7 @@ public class PrecedenceTest extends TestCase {
         assertEquals(new String[] { "-f" }, cl);
     }
 
-    public void XtestSimpleVsBurst() throws OptionException {
+    public void testSimpleVsBurst() throws OptionException {
         final DefaultOptionBuilder oBuilder = new DefaultOptionBuilder();
         final GroupBuilder gBuilder = new GroupBuilder();
         final Group options =
@@ -137,7 +137,7 @@ public class PrecedenceTest extends TestCase {
         assertEquals(new String[] { "-f", "-i", "-l", "-e" }, cl);
     }
 
-    public void XtestSimpleVsChildren() throws OptionException {
+    public void testSimpleVsChildren() throws OptionException {
         final DefaultOptionBuilder oBuilder = new DefaultOptionBuilder();
         final GroupBuilder gBuilder = new GroupBuilder();
 
@@ -248,7 +248,7 @@ public class PrecedenceTest extends TestCase {
             cl);
     }
 
-    public void XtestSimpleVsArgumentVsBurst() throws OptionException {
+    public void testSimpleVsArgumentVsBurst() throws OptionException {
         final DefaultOptionBuilder oBuilder = new DefaultOptionBuilder();
         final GroupBuilder gBuilder = new GroupBuilder();
         final ArgumentBuilder aBuilder = new ArgumentBuilder();
@@ -270,7 +270,7 @@ public class PrecedenceTest extends TestCase {
         assertEquals(new String[] { "-f" }, cl);
     }
 
-    public void XtestSimpleVsArgumentVsChildren() throws OptionException {
+    public void testSimpleVsArgumentVsChildren() throws OptionException {
         final DefaultOptionBuilder oBuilder = new DefaultOptionBuilder();
         final GroupBuilder gBuilder = new GroupBuilder();
         final ArgumentBuilder aBuilder = new ArgumentBuilder();
@@ -300,7 +300,7 @@ public class PrecedenceTest extends TestCase {
         assertEquals(new String[] { "-f" }, cl);
     }
 
-    public void XtestSimpleVsBurstVsChildren() throws OptionException {
+    public void testSimpleVsBurstVsChildren() throws OptionException {
         final DefaultOptionBuilder oBuilder = new DefaultOptionBuilder();
         final GroupBuilder gBuilder = new GroupBuilder();
 
@@ -363,7 +363,7 @@ public class PrecedenceTest extends TestCase {
         assertEquals(new String[] { "-f" }, cl);
     }
 
-    public void XtestSimpleVsArgumentVsBurstVsChildren()
+    public void testSimpleVsArgumentVsBurstVsChildren()
         throws OptionException {
         final DefaultOptionBuilder oBuilder = new DefaultOptionBuilder();
         final GroupBuilder gBuilder = new GroupBuilder();
@@ -408,9 +408,8 @@ public class PrecedenceTest extends TestCase {
         final List expected = Arrays.asList(options);
         final Set actual = line.getOptionTriggers();
 
-        //System.out.println(getName() + ": " + actual);
-
         assertTrue(expected.containsAll(actual));
         assertTrue(actual.containsAll(expected));
     }
+
 }

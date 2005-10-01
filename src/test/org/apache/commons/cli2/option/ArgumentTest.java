@@ -591,10 +591,14 @@ public class ArgumentTest
 
         bounds.process(commandLine, iterator);
 
+        // test with values
         List values = new ArrayList();
         values.add("50");
         values.add("100");
         assertEquals(values, commandLine.getValues(bounds, values));
+
+        // test without values
+        assertEquals(Collections.EMPTY_LIST, commandLine.getValues(bounds, null));
     }
 
     public void testProcess_StripBoundaryQuotes()

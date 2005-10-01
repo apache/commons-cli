@@ -16,7 +16,9 @@
 package org.apache.commons.cli2.commandline;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.commons.cli2.CommandLine;
 import org.apache.commons.cli2.CommandLineTestCase;
@@ -124,5 +126,25 @@ public class DefaultingCommandLineTest
         assertSame(second, i.next());
         assertSame(first, i.next());
         assertFalse(i.hasNext());
+    }
+    
+    public void testTriggers() {
+        final DefaultingCommandLine defaults = new DefaultingCommandLine();
+        defaults.appendCommandLine(first);
+        defaults.appendCommandLine(second);
+
+        Set set = defaults.getOptionTriggers();
+        Iterator iter = set.iterator();
+        assertEquals("wrong # of triggers", 3, set.size());
+        assertTrue("cannot find trigger", set.contains("--insecond"));
+        assertTrue("cannot find trigger", set.contains("--inboth"));
+        assertTrue("cannot find trigger", set.contains("--infirst"));
+    }
+
+    public void testDefaults() {
+        final DefaultingCommandLine defaults = new DefaultingCommandLine();
+        
+        assertEquals("wrong # of defaults", 0, defaults.getValues("--insecond").size());
+        assertEquals("wrong Set of defaults", Collections.EMPTY_LIST, defaults.getValues("--insecond", null));
     }
 }
