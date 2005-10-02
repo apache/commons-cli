@@ -38,6 +38,8 @@ public class ResourceHelper {
     /** resource bundle */
     private ResourceBundle bundle;
 
+    private String prop;
+    
     /**
      * Create a new ResourceHelper for the specified class.
      *
@@ -50,14 +52,20 @@ public class ResourceHelper {
             bundleName = DEFAULT_BUNDLE;
         }
 
+        this.prop = bundleName;
+        
         int firstUnderscore = bundleName.indexOf('_');
         int secondUnderscore = bundleName.indexOf('_', firstUnderscore + 1);
 
+        Locale locale;
+        if (firstUnderscore != -1) { 
         String language = bundleName.substring(firstUnderscore + 1, secondUnderscore);
         String country = bundleName.substring(secondUnderscore + 1);
-
-        Locale locale = new Locale(language, country);
-
+        	locale = new Locale(language, country);
+        }
+        else {
+        	locale = Locale.getDefault();
+        }
         // initialize the bundle
         try {
             bundle = ResourceBundle.getBundle(bundleName, locale);
@@ -66,13 +74,18 @@ public class ResourceHelper {
         }
     }
 
+    public String getBundleName() {
+    	return this.prop;
+    }
+    
     /**
      * Gets the ResourceHelper appropriate to the specified class.
      * @param clazz the class to get resources for
      * @return a ResourceHelper
      */
     public static ResourceHelper getResourceHelper() {
-        if (helper == null) {
+        String bundleName = System.getProperty(PROP_LOCALE);
+        if (helper == null || !helper.getBundleName().equals(bundleName)) {
             helper = new ResourceHelper();
         }
 
