@@ -126,19 +126,22 @@
 
     <!-- used in PatternOptionBuilder -->
     <dependency>
-      <id>commons-lang</id>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
       <version>2.1</version>
     </dependency>
 
     <!-- used for unit tests -->
     <dependency>
-      <id>junit</id>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
       <version>3.8.1</version>
     </dependency>
 
     <!-- used for unit tests -->
     <dependency>
-      <id>jdepend</id>
+      <groupId>jdepend</groupId>
+      <artifactId>jdepend</artifactId>
       <version>2.5</version>
     </dependency>
 
