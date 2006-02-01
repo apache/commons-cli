@@ -77,7 +77,7 @@ public class ResourceHelper {
     }
     
     /**
-     * Gets the ResourceHelper appropiate to the current locale.
+     * Gets the ResourceHelper appropriate to the current locale.
      * @return a ResourceHelper
      */
     public static ResourceHelper getResourceHelper() {
