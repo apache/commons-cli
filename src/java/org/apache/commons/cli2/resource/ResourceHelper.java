@@ -41,9 +41,7 @@ public class ResourceHelper {
     private String prop;
     
     /**
-     * Create a new ResourceHelper for the specified class.
-     *
-     * @param clazz the Class that requires some resources
+     * Create a new ResourceHelper for the current locale.
      */
     private ResourceHelper() {
         String bundleName = System.getProperty(PROP_LOCALE);
@@ -79,8 +77,7 @@ public class ResourceHelper {
     }
     
     /**
-     * Gets the ResourceHelper appropriate to the specified class.
-     * @param clazz the class to get resources for
+     * Gets the ResourceHelper appropriate to the current locale.
      * @return a ResourceHelper
      */
     public static ResourceHelper getResourceHelper() {
