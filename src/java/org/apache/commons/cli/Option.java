@@ -271,6 +271,16 @@ public class Option implements Cloneable {
         return this.description;
     }
 
+   /** 
+     * Sets the self-documenting description of this Option
+     *
+     * @param description The description of this option
+     */
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
     /** 
      * Query to see if this Option requires an argument
      *
