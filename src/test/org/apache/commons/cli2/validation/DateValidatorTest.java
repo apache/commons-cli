@@ -17,7 +17,6 @@ package org.apache.commons.cli2.validation;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -102,7 +101,7 @@ public class DateValidatorTest
         throws InvalidArgumentException {
         final Object[] array = new Object[] { "23/01/03 18:00" };
         final List list = Arrays.asList(array);
-        final Validator validator = new DateValidator();
+        final Validator validator = new DateValidator(new SimpleDateFormat("dd/MM/yy HH:mm"));
 
         validator.validate(list);
 
