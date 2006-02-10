@@ -182,7 +182,12 @@ public class DateValidator implements Validator {
         }
     }
 
-    public void setLeniant(final boolean lenient) {
+    /**
+     * Sets whether this validator uses lenient parsing.
+     *
+     * @param lenient whether this validator uses lenient parsing
+     */
+    public void setLenient(final boolean lenient) {
         for (int i = 0; i < this.formats.length; i++) {
             this.formats[i].setLenient(lenient);
         }
@@ -190,7 +195,12 @@ public class DateValidator implements Validator {
         this.isLenient = lenient;
     }
 
-    public boolean isLeniant() {
+    /**
+     * Returns whether this validator uses lenient parsing.
+     *
+     * @return whether this validator uses lenient parsing
+     */
+    public boolean isLenient() {
         return this.isLenient;
     }
 
@@ -288,7 +298,7 @@ public class DateValidator implements Validator {
      */
     public void setFormats(final DateFormat[] formats) {
         this.formats = formats;
-        setLeniant(this.isLenient);
+        setLenient(this.isLenient);
     }
 
     /**
