@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$
  */
-public class Option implements Cloneable {
+public class Option {
 
     /** constant that specifies the number of argument values has 
         not been specified */
@@ -550,23 +550,6 @@ public class Option implements Cloneable {
     public java.util.List getValuesList()
     {
         return this.values;
-    }
-
-    /**
-     * @return a copy of this Option
-     */
-    public Object clone()
-    {
-        Option option = new Option(getOpt(), getDescription());
-
-        option.setArgs(getArgs());
-        option.setOptionalArg(hasOptionalArg());
-        option.setRequired(isRequired());
-        option.setLongOpt(getLongOpt());
-        option.setType(getType());
-        option.setValueSeparator(getValueSeparator());
-
-        return option;
     }
 
     /** 
