@@ -414,28 +414,28 @@ public class HelpFormatterTest
     public void testPad()
         throws IOException {
         final StringWriter writer = new StringWriter();
-        HelpFormatter.pad("hello", 10, writer);
+        HelpFormatter.pad("hello", 10, new PrintWriter(writer));
         assertEquals("hello     ", writer.toString());
     }
 
     public void testPad_Null()
         throws IOException {
         final StringWriter writer = new StringWriter();
-        HelpFormatter.pad(null, 10, writer);
+        HelpFormatter.pad(null, 10, new PrintWriter(writer));
         assertEquals("          ", writer.toString());
     }
 
     public void testPad_TooLong()
         throws IOException {
         final StringWriter writer = new StringWriter();
-        HelpFormatter.pad("hello world", 10, writer);
+        HelpFormatter.pad("hello world", 10, new PrintWriter(writer));
         assertEquals("hello world", writer.toString());
     }
 
     public void testPad_TooShort()
         throws IOException {
         final StringWriter writer = new StringWriter();
-        HelpFormatter.pad("hello world", -5, writer);
+        HelpFormatter.pad("hello world", -5, new PrintWriter(writer));
         assertEquals("hello world", writer.toString());
     }
 

@@ -15,9 +15,7 @@
  */
 package org.apache.commons.cli2.util;
 
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -156,10 +154,8 @@ public class HelpFormatter {
 
     /**
      * Prints the Option help.
-     * @throws IOException if an error occurs
      */
-    public void print()
-        throws IOException {
+    public void print() {
         printHeader();
         printException();
         printUsage();
@@ -170,10 +166,8 @@ public class HelpFormatter {
 
     /**
      * Prints any error message.
-     * @throws IOException if an error occurs
      */
-    public void printException()
-        throws IOException {
+    public void printException() {
         if (exception != null) {
             printDivider();
             printWrapped(exception.getMessage());
@@ -182,10 +176,8 @@ public class HelpFormatter {
 
     /**
      * Prints detailed help per option.
-     * @throws IOException if an error occurs
      */
-    public void printHelp()
-        throws IOException {
+    public void printHelp() {
         printDivider();
 
         final Option option;
@@ -253,10 +245,8 @@ public class HelpFormatter {
 
     /**
      * Prints a single line of usage information (wrapping if necessary)
-     * @throws IOException if an error occurs
      */
-    public void printUsage()
-        throws IOException {
+    public void printUsage() {
         printDivider();
 
         final StringBuffer buffer = new StringBuffer("Usage:\n");
@@ -267,10 +257,8 @@ public class HelpFormatter {
 
     /**
      * Prints a header string if necessary
-     * @throws IOException if an error occurs
      */
-    public void printHeader()
-        throws IOException {
+    public void printHeader() {
         if (header != null) {
             printDivider();
             printWrapped(header);
@@ -279,10 +267,8 @@ public class HelpFormatter {
 
     /**
      * Prints a footer string if necessary
-     * @throws IOException if an error occurs
      */
-    public void printFooter()
-        throws IOException {
+    public void printFooter() {
         if (footer != null) {
             printWrapped(footer);
             printDivider();
@@ -292,10 +278,8 @@ public class HelpFormatter {
     /**
      * Prints a string wrapped if necessary
      * @param text the string to wrap
-     * @throws IOException if an error occurs
      */
-    protected void printWrapped(final String text)
-        throws IOException {
+    protected void printWrapped(final String text) {
         for (final Iterator i = wrap(text, pageWidth).iterator(); i.hasNext();) {
             printGutterLeft();
             pad((String) i.next(), pageWidth, out);
@@ -333,8 +317,7 @@ public class HelpFormatter {
 
     protected static void pad(final String text,
                               final int width,
-                              final Writer writer)
-        throws IOException {
+                              final PrintWriter writer) {
         final int left;
 
         // write the text and record how many characters written
