@@ -35,9 +35,6 @@ import org.apache.commons.cli2.util.HelpFormatter;
 
 /**
  * @author Rob
- * 
- * To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Generation - Code and Comments
  */
 public class DocumentationTest extends TestCase {
 
