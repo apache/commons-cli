@@ -60,7 +60,7 @@ public class DateValidatorTest
         throws InvalidArgumentException {
         final Object[] array = new Object[] { "23-Dec-2003" };
         final List list = Arrays.asList(array);
-        final Validator validator = DateValidator.getDateInstance();
+        final Validator validator = new DateValidator( new SimpleDateFormat("dd-MMM-yyyy") );
 
         validator.validate(list);
 
@@ -73,7 +73,7 @@ public class DateValidatorTest
         throws InvalidArgumentException {
         final Object[] array = new Object[] { "18:00:00" };
         final List list = Arrays.asList(array);
-        final Validator validator = DateValidator.getTimeInstance();
+        final Validator validator = new DateValidator( new SimpleDateFormat("HH:mm:ss") );
 
         validator.validate(list);
 
@@ -87,7 +87,7 @@ public class DateValidatorTest
         throws InvalidArgumentException {
         final Object[] array = new Object[] { "23-Jan-2003 18:00:00" };
         final List list = Arrays.asList(array);
-        final Validator validator = DateValidator.getDateTimeInstance();
+        final Validator validator = new DateValidator( new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss") );
 
         validator.validate(list);
 
