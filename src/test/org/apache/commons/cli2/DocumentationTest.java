@@ -183,26 +183,21 @@ public class DocumentationTest extends TestCase {
         
         ///////////////////////////////////////////////////
         
-        try {
-            Group options = outputChildren;
-            HelpFormatter hf = new HelpFormatter();
-            
-            Parser p = new Parser();
-            p.setGroup(options);
-            p.setHelpFormatter(hf);
-            p.setHelpTrigger("--help");
-            CommandLine cl = p.parseAndHelp(new String[]{});
-            if(cl==null) {
-                System.exit(-1);
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        Group options = outputChildren;
+        HelpFormatter hf = new HelpFormatter();
+
+        Parser p = new Parser();
+        p.setGroup(options);
+        p.setHelpFormatter(hf);
+        p.setHelpTrigger("--help");
+        CommandLine cl = p.parseAndHelp(new String[]{});
+        if(cl==null) {
+            System.exit(-1);
         }
         
         //////////////////////////////////////////////////
         
-        CommandLine cl = new WriteableCommandLineImpl(outputChildren,new ArrayList());
+        cl = new WriteableCommandLineImpl(outputChildren,new ArrayList());
         
         // if we have --output option
         if(cl.hasOption("--output")) {

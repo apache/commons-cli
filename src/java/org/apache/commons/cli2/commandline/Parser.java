@@ -117,8 +117,7 @@ public class Parser {
      * @return a valid CommandLine or null if the parse was unsuccessful
      * @throws IOException if an error occurs while formatting help
      */
-    public CommandLine parseAndHelp(final String[] arguments)
-        throws IOException {
+    public CommandLine parseAndHelp(final String[] arguments) {
         helpFormatter.setGroup(group);
 
         try {
