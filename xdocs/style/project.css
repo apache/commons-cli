@@ -1,5 +1,1 @@
-#banner, #banner td { 
- background: #fff;
- color: #000;
-}
-
+@import url("http://jakarta.apache.org/style/jakarta-maven.css");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
- Copyright 2002-2004 The Apache Software Foundation
+ Copyright 2002-2006 The Apache Software Foundation
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,19 +14,33 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+<!DOCTYPE org.apache.commons.menus SYSTEM 'http://jakarta.apache.org/commons/build/maven-build.dtd'>
+<project name="Commons CLI">
 
-<!DOCTYPE org.apache.commons.menus SYSTEM '../../commons-build/menus/menus.dtd'>
-
-<project name="CLI">
-
-  <title>CLI</title>
+  <title>Commons CLI</title>
 
   <body>
     <links>
-      <item name="Jakarta Commons"
-            href="http://jakarta.apache.org/commons/"/>
+      <item name="Jakarta Commons" href="http://jakarta.apache.org/commons/"/>
     </links>
 
+    <menu name="Commons CLI">
+      <item name="Overview" href="/index.html"/>
+      <item name="Download" href="http://jakarta.apache.org/site/downloads/downloads_commons-cli.cgi"/>
+      <item name="Javadoc (1.0 release)" href="api-release/index.html"/>
+    </menu>
+
+    <menu name="User guide">
+      <item name="Getting started"   href="/introduction.html"/>
+      <item name="Usage scenarios"   href="/usage.html"/>
+      <item name="Option properties" href="/properties.html"/>
+    </menu>
+<!--
+    <menu name="CLI1">
+      <item name="Overview"          href="/introduction.html"/>
+      <item name="Usage scenarios"   href="/usage.html"/>
+      <item name="Option properties" href="/properties.html"/>
+    </menu>
     <menu name="CLI2">
       <item name="Overview"          href="/manual/index.html"/>
       <item name="Options"           href="/manual/options.html"/>
@@ -35,13 +49,6 @@
       <item name="Validators"        href="/manual/validators.html"/>
       <item name="Utilities"         href="/manual/utilities.html"/>
     </menu>
-
-    <menu name="CLI1">
-      <item name="Overview"          href="/introduction.html"/>
-      <item name="Usage Scenarios"   href="/usage.html"/>
-      <item name="Option Properties" href="/properties.html"/>
-    </menu>
-
     <menu name="Examples">
       <item name="Overview"          href="/examples/index.html"/>
       <item name="ant"               href="/examples/ant.html"/>
@@ -49,8 +56,18 @@
       <item name="cvs"               href="/examples/cvs.html"/>
       <item name="cp"                href="/examples/cp.html"/>
     </menu>
+-->
+    <menu name="Development">
+      <item name="Building" href="/building.html"/>
+      <item name="Mailing lists" href="/mail-lists.html"/>
+      <item name="Team" href="/team-list.html"/>
+      <!--item name="Tasks" href="/tasks.html"/-->
+      <!--item name="Proposal" href="/proposal.html"/-->
+      <item name="SVN repository" href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/cli/trunk/"/>
+      <item name="Javadoc (SVN latest)" href="apidocs/index.html"/>
+    </menu>
 
-    &common-menus;
+    &commons;
 
   </body>
 </project>

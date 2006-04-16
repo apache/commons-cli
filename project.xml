@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-   Copyright 2001-2004 The Apache Software Foundation
+   Copyright 2001-2006 The Apache Software Foundation
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -25,26 +25,34 @@
     Commons CLI provides a simple API for presenting, proecessing and
     validating a command line interface.
   </description>
-  <logo>/images/logo.jpg</logo>
+  <logo>/images/logo.png</logo>
 
-  <url>http://jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</url>
+  <url>http://jakarta.apache.org/commons/cli/</url>
   <package>org.apache.commons</package>
 
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://www.apache.org</url>
-    <logo>http://jakarta.apache.org/images/jakarta-logo.gif</logo>
+    <logo>http://jakarta.apache.org/images/original-jakarta-logo.gif</logo>
   </organization>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>/LICENSE.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <gumpRepositoryId>jakarta</gumpRepositoryId>
   <issueTrackingUrl>http://issues.apache.org/bugzilla/</issueTrackingUrl>
-  <siteAddress>jakarta.apache.org</siteAddress>
-  <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
+  <siteAddress>people.apache.org</siteAddress>
+  <siteDirectory>/www/jakarta.apache.org/commons/cli/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/cli/</distributionDirectory>
 
   <repository>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/${pom.artifactId.substring(8)}/trunk</connection>
-    <url>http://svn.apache.org/repos/asf/jakarta/commons/proper/${pom.artifactId.substring(8)}/trunk</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/cli/trunk</connection>
+    <url>http://svn.apache.org/repos/asf/jakarta/commons/proper/cli/trunk</url>
   </repository>
 
   <mailingLists>
@@ -136,6 +144,12 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
+      <properties>
+       <scope>test</scope>
+       <comment>
+        Required only for testing.
+       </comment>
+      </properties>
     </dependency>
 
     <!-- used for unit tests -->
@@ -143,6 +157,12 @@
       <groupId>jdepend</groupId>
       <artifactId>jdepend</artifactId>
       <version>2.5</version>
+      <properties>
+       <scope>test</scope>
+       <comment>
+        Required only for testing.
+       </comment>
+      </properties>
     </dependency>
 
   </dependencies>
@@ -173,12 +193,12 @@
   </build>
 
   <reports>
+    <!--report>maven-developer-activity-plugin</report-->
+    <!--report>maven-file-activity-plugin</report-->
+    <!--report>maven-changelog-plugin</report-->
+    <!--report>maven-changes-plugin</report-->
     <report>maven-jdepend-plugin</report>
     <report>maven-checkstyle-plugin</report>
-    <report>maven-changelog-plugin</report>
-    <report>maven-changes-plugin</report>
-    <report>maven-developer-activity-plugin</report>
-    <report>maven-file-activity-plugin</report>
     <report>maven-javadoc-plugin</report>
     <report>maven-jdepend-plugin</report>
     <report>maven-junit-report-plugin</report>
@@ -186,9 +206,9 @@
     <report>maven-license-plugin</report>
     <report>maven-tasklist-plugin</report>
     <report>maven-pmd-plugin</report>
-    <report>maven-simian-plugin</report>
+    <!--report>maven-simian-plugin</report>
     <report>maven-faq-plugin</report>
-    <report>maven-jcoverage-plugin</report>
+    <report>maven-jcoverage-plugin</report-->
     <!--report>maven-tasks-plugin</report-->
     <!--report>maven-findbugs-plugin</report-->
   </reports>

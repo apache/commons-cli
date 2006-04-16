@@ -17,17 +17,67 @@
 <document>
 
  <properties>
-    <title>Introduction</title>
+    <title>Home</title>
     <author email="commons-dev@jakarta.apache.org">commons-dev</author>
  </properties>
 
   <body>
-    <section name="Jakarta Commons CLI">
-      <p>
-        The Jakarta Commons CLI library provides an API for processing command
-        line interfaces.
-      </p>
-      <p>
+<!-- ================================================== -->
+<section name="Commons CLI">
+<p>
+The Jakarta Commons CLI library provides an API for processing command line interfaces.
+It was formed by the merger of ideas and code from three different libraries -
+Werken, Avalon and Optz. 
+</p>
+</section>
+<!-- ================================================== -->
+<section name="Documentation">
+<p>
+A full <a href="introduction.html">User's Guide</a> is available
+as are various <a href="maven-reports.html">project reports</a>.
+</p>
+<p>
+The JavaDoc API documents are available online:
+</p>
+<ul>
+<li>The <a href="api-release/index.html">current release 1.0</a></li>
+<!--li>The <a href="api-n/index.html">previous version n</a></li-->
+<li>The <a href="apidocs/index.html">latest SVN</a></li>
+</ul>
+<p>
+The <a href="cvs-usage.html">subversion repository</a> can be
+<a href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/cli/trunk/">browsed</a>.
+</p>
+</section>
+<!-- ================================================== -->
+<section name="Releases">
+<p>
+The latest version is v1.0. - 
+<a href="http://jakarta.apache.org/site/downloads/downloads_commons-cli.cgi">Download now!</a><br />
+The <a href="release_1_0.html">release notes</a> are also available.
+</p>
+<p>
+For previous releases, see the <a href="http://archive.apache.org/dist/jakarta/commons/cli/">Apache Archive</a>
+</p>
+</section>
+<!-- ================================================== -->
+<section name="Support">
+<p>
+The <a href="mail-lists.html">commons mailing lists</a> act as the main support forum.
+The user list is suitable for most library usage queries.
+The dev list is intended for the development discussion.
+Please remember that the lists are shared between all commons components,
+so prefix your email by [cli].
+</p>
+<p>
+Issues may be reported via <a href="issue-tracking.html">ASF Bugzilla</a>.
+Please remember that Bugzilla is shared between all commons components,
+so prefix your issue by [cli].
+</p>
+</section>
+<!-- ================================================== -->
+
+<!--      <p>
         CLI1 was formed by the merger of ideas and code from three different
         libraries and allows most simple interfaces to be modelled.  CLI1
         became increasingly difficult to maintain and develop further and so
@@ -97,7 +147,7 @@
         </tr>
       </table>
     </section>
-    
+-->
   </body>
 
 </document>
