@@ -15,7 +15,7 @@
    limitations under the License.
 -->
 <project>
-  <groupId>commons-cli</groupId>
+  <groupId>org.apache.commons</groupId>
   <artifactId>commons-cli</artifactId>
   <name>CLI</name>
   <currentVersion>2.0-SNAPSHOT</currentVersion>
