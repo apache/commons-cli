@@ -279,13 +279,15 @@ public class HelpFormatter {
      * Prints a string wrapped if necessary
      * @param text the string to wrap
      */
-    protected void printWrapped(final String text) {
+    public void printWrapped(final String text) {
         for (final Iterator i = wrap(text, pageWidth).iterator(); i.hasNext();) {
             printGutterLeft();
             pad((String) i.next(), pageWidth, out);
             printGutterRight();
             out.println();
         }
+
+        out.flush();
     }
 
     /**
