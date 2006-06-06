@@ -160,6 +160,12 @@
         </pathelement>
       </classpath>
     </javac>
+    <copy todir="${testclassesdir}/org/apache/commons/cli2">
+      <fileset dir="${basedir}/src/test/org/apache/commons/cli2">
+        <include name="**/*.properties">
+        </include>
+      </fileset>
+    </copy>
   </target>
   <target name="javadoc" description="o Generate javadoc" depends="get-deps">
     <mkdir dir="${javadocdir}">
