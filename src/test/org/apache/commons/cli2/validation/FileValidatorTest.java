@@ -150,6 +150,10 @@ public class FileValidatorTest extends TestCase {
                 Process proc = Runtime.getRuntime().exec(
                         "attrib.exe +" + attr + " src/test/data/.hidden.txt",
                         null, new File("."));
+                proc.waitFor();
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
