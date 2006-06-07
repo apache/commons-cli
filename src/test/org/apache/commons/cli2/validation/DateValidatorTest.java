@@ -40,8 +40,8 @@ public class DateValidatorTest
     extends TestCase {
     private static final ResourceHelper resources = ResourceHelper.getResourceHelper();
     public static final DateFormat D_M_YY = new SimpleDateFormat("d/M/yy");
-    public static final DateFormat YYYY_MM_YY = new SimpleDateFormat("yyyy-MM-dd");
-    private List formats = Arrays.asList(new Object[] { D_M_YY, YYYY_MM_YY });
+    public static final DateFormat YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd");
+    private List formats = Arrays.asList(new Object[] { D_M_YY, YYYY_MM_DD });
 
     public void testSingleFormatValidate()
         throws InvalidArgumentException {
@@ -52,7 +52,7 @@ public class DateValidatorTest
         validator.validate(list);
 
         final Iterator i = list.iterator();
-        assertEquals("2003-12-23", YYYY_MM_YY.format((Date) i.next()));
+        assertEquals("2003-12-23", YYYY_MM_DD.format((Date) i.next()));
         assertFalse(i.hasNext());
     }
 
@@ -65,7 +65,7 @@ public class DateValidatorTest
         validator.validate(list);
 
         final Iterator i = list.iterator();
-        // CLI-40: For some reason, the YYYY_MM_YY object gets quite 
+        // CLI-40: For some reason, the YYYY_MM_DD object gets quite 
         // confused here and returns 2003-12-22. If we make a new one 
         // there is no problem.
         assertEquals("2003-12-23", new SimpleDateFormat("yyyy-MM-dd").format((Date) i.next()));
@@ -123,8 +123,8 @@ public class DateValidatorTest
         validator.validate(list);
 
         final Iterator i = list.iterator();
-        assertEquals("2003-12-23", YYYY_MM_YY.format((Date) i.next()));
-        assertEquals("2002-10-12", YYYY_MM_YY.format((Date) i.next()));
+        assertEquals("2003-12-23", YYYY_MM_DD.format((Date) i.next()));
+        assertEquals("2002-10-12", YYYY_MM_DD.format((Date) i.next()));
         assertFalse(i.hasNext());
     }
 

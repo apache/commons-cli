@@ -63,7 +63,7 @@ public class ArgumentTest
 
     public static Argument buildDateLimitArgument() {
         return new ArgumentImpl("limit", "the last acceptable date", 0, 1, '=', '\0',
-                                new DateValidator(DateValidatorTest.YYYY_MM_YY), null, null, 0);
+                                new DateValidator(DateValidatorTest.YYYY_MM_DD), null, null, 0);
     }
 
     public static Argument buildTargetsArgument() {
@@ -91,7 +91,7 @@ public class ArgumentTest
     public void testNew() {
         try {
             new ArgumentImpl("limit", "the last acceptable date", 10, 5, '=', '\0',
-                             new DateValidator(DateValidatorTest.YYYY_MM_YY), null, null, 0);
+                             new DateValidator(DateValidatorTest.YYYY_MM_DD), null, null, 0);
         } catch (IllegalArgumentException e) {
             assertEquals(resources.getMessage("Argument.minimum.exceeds.maximum"), e.getMessage());
         }
@@ -99,7 +99,7 @@ public class ArgumentTest
         {
             ArgumentImpl arg =
                 new ArgumentImpl(null, "the last acceptable date", 5, 5, '=', '\0',
-                                 new DateValidator(DateValidatorTest.YYYY_MM_YY), null, null, 0);
+                                 new DateValidator(DateValidatorTest.YYYY_MM_DD), null, null, 0);
             assertEquals("wrong arg name", "arg", arg.getPreferredName());
         }
 
@@ -108,7 +108,7 @@ public class ArgumentTest
 
             try {
                 new ArgumentImpl(null, "the last acceptable date", 1, 1, '=', '\0',
-                                 new DateValidator(DateValidatorTest.YYYY_MM_YY), null, defaults, 0);
+                                 new DateValidator(DateValidatorTest.YYYY_MM_DD), null, defaults, 0);
             } catch (IllegalArgumentException exp) {
                 assertEquals(resources.getMessage("Argument.too.few.defaults"), exp.getMessage());
             }
@@ -120,7 +120,7 @@ public class ArgumentTest
             defaults.add("2");
 
             new ArgumentImpl(null, "the last acceptable date", 1, 1, '=', '\0',
-                             new DateValidator(DateValidatorTest.YYYY_MM_YY), null, defaults, 0);
+                             new DateValidator(DateValidatorTest.YYYY_MM_DD), null, defaults, 0);
         } catch (IllegalArgumentException exp) {
             assertEquals(resources.getMessage("Argument.too.many.defaults"), exp.getMessage());
         }
@@ -367,7 +367,7 @@ public class ArgumentTest
 
         option.validate(commandLine, option);
         assertContentsEqual(Arrays.asList(new Object[] {
-                                              DateValidatorTest.YYYY_MM_YY.parse("2004-01-01")
+                                              DateValidatorTest.YYYY_MM_DD.parse("2004-01-01")
                                           }), commandLine.getValues(option));
     }
 
