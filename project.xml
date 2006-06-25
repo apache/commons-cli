@@ -22,7 +22,7 @@
   <inceptionYear>2002</inceptionYear>
   <shortDescription>Commons CLI</shortDescription>
   <description>
-    Commons CLI provides a simple API for presenting, proecessing and
+    Commons CLI provides a simple API for presenting, processing and
     validating a command line interface.
   </description>
   <logo>/images/logo.png</logo>
