@@ -31,12 +31,6 @@ limitations under the License.
     </copy>
   </preGoal>
 
-  <postGoal name="test:test-resources">
-    <echo>Moving test bundle.</echo>        
-    <copy file="src/test/org/apache/commons/cli2/resource/TestBundle.properties"
-            tofile="target/test-classes/org/apache/commons/cli2/resource/TestBundle.properties"/>      
-  </postGoal>
-
  <preGoal name="dist:prepare-bin-filesystem">
    <attainGoal name="ant:generate-build"/>
  </preGoal>

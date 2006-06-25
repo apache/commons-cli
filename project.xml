@@ -18,12 +18,13 @@
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-cli</artifactId>
   <name>CLI</name>
-  <currentVersion>2.0-SNAPSHOT</currentVersion>
+  <currentVersion>avalon-implementation-SNAPSHOT</currentVersion>
   <inceptionYear>2002</inceptionYear>
-  <shortDescription>Commons CLI</shortDescription>
+  <shortDescription>Commons CLI - Avalon Implementation</shortDescription>
   <description>
-    Commons CLI provides a simple API for presenting, proecessing and
-    validating a command line interface.
+    Commons CLI provides a simple API for presenting, processing and
+    validating a command line interface. This is an implementation from 
+    Avalon's code base.
   </description>
   <logo>/images/logo.png</logo>
 
