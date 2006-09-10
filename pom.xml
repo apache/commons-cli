@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons</artifactId>
+    <version>1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.commons</groupId>
+  <artifactId>commons-cli</artifactId>
+  <version>2.0-SNAPSHOT</version>
+  <name>CLI</name>
+
+  <inceptionYear>2002</inceptionYear>
+  <description>
+    Commons CLI provides a simple API for presenting, processing and
+    validating a command line interface.
+  </description>
+
+  <url>http://jakarta.apache.org/commons/cli/</url>
+
+  <organization>
+    <name>Apache Software Foundation</name>
+    <url>http://www.apache.org</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>/LICENSE.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <issueManagement>
+    <system>jira</system>
+    <url>http://issues.apache.org/jira/browse/CLI</url>
+  </issueManagement>
+
+  <scm>
+    <connection>scm:svn:scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/cli/trunk</connection>
+    <developerConnection>scm:svn:scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/cli/trunk</developerConnection>
+    <url>http://svn.apache.org/viewvc/jakarta/commons/proper/cli/trunk</url>
+  </scm>
+
+  <developers>
+    <developer>
+      <name>James Strachan</name>
+      <id>jstrachan</id>
+      <email>jstrachan@apache.org</email>
+      <organization>SpiritSoft, Inc.</organization>
+    </developer>
+    <developer>
+      <name>Bob McWhirter</name>
+      <id>bob</id>
+      <email>bob@werken.com</email>
+      <organization>Werken</organization>
+      <roles>
+        <role>contributed ideas and code from werken.opt</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>John Keyes</name>
+      <id>jkeyes</id>
+      <email>jbjk@mac.com</email>
+      <organization>integral Source</organization>
+      <roles>
+        <role>contributed ideas and code from Optz</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Rob Oxspring</name>
+      <id>roxspring</id>
+      <email>roxspring@imapmail.org</email>
+      <organization>Indigo Stone</organization>
+      <roles>
+        <role>designed CLI2</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <contributors>
+    <contributor>
+      <name>Peter Donald</name>
+      <roles>
+        <role>contributed ideas and code from Avalon Excalibur's cli package</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Berin Loritsch</name>
+      <email>bloritsch@apache.org</email>
+      <roles>
+        <role>helped in the Avalon CLI merge</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Peter Maddocks</name>
+      <email>peter_maddocks@hp.com</email>
+      <organization>Hewlett-Packard</organization>
+      <roles>
+        <role>supplied patch</role>
+      </roles>
+    </contributor>
+  </contributors>
+
+  <dependencies>
+
+    <!-- used in PatternOptionBuilder -->
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.1</version>
+    </dependency>
+
+    <!-- used for unit tests -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- used for unit tests -->
+    <dependency>
+      <groupId>jdepend</groupId>
+      <artifactId>jdepend</artifactId>
+      <version>2.5</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <testSourceDirectory>src/test</testSourceDirectory>
+    <resources>
+        <resource>
+          <directory>src/java/org/apache/commons/cli2</directory>
+          <targetPath>org/apache/commons/cli2</targetPath>
+          <includes>
+            <include>**/*.properties</include>
+          </includes>
+        </resource>
+    </resources>
+    <testResources>
+        <testResource>
+          <directory>src/test/org/apache/commons/cli2/resource</directory>
+          <targetPath>org/apache/commons/cli2/resource</targetPath>
+          <includes>
+            <include>**/*.properties</include>
+          </includes>
+        </testResource>
+    </testResources>
+  </build>
+
+</project>
