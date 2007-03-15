@@ -17,6 +17,7 @@
 package org.apache.commons.cli2.validation;
 
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -59,7 +60,8 @@ public class DateValidatorTest
 
     public void testDefaultDateFormatValidate()
         throws InvalidArgumentException {
-        final Object[] array = new Object[] { "23-Dec-2003" };
+        DateFormatSymbols symbols =  new DateFormatSymbols();
+        final Object[] array = new Object[] { "23-" + symbols.getShortMonths()[11] + "-2003" };
         final List list = Arrays.asList(array);
         final Validator validator = new DateValidator( new SimpleDateFormat("dd-MMM-yyyy") );
 
@@ -89,7 +91,8 @@ public class DateValidatorTest
 
     public void testDefaultDateTimeFormatValidate()
         throws InvalidArgumentException {
-        final Object[] array = new Object[] { "23-Jan-2003 18:00:00" };
+        DateFormatSymbols symbols =  new DateFormatSymbols();
+        final Object[] array = new Object[] { "23-" + symbols.getShortMonths()[0] + "-2003 18:00:00" };
         final List list = Arrays.asList(array);
         final Validator validator = new DateValidator( new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss") );
 
