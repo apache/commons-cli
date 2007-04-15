@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-parent</artifactId>
+    <version>1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>commons-cli-avalon</groupId>
+  <artifactId>commons-cli-avalon</artifactId>
+  <version>2.0-SNAPSHOT</version>
+  <name>CLI-Avalon</name>
+
+  <inceptionYear>2002</inceptionYear>
+  <description>
+    Commons CLI (Avalon) provides a simple API for processing and
+    validating a command line interface.
+  </description>
+
+  <url>http://jakarta.apache.org/commons/cli/</url>
+
+  <issueManagement>
+    <system>jira</system>
+    <url>http://issues.apache.org/jira/browse/CLI</url>
+  </issueManagement>
+
+  <scm>
+              <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/cli/branches/avalon-implementation</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/cli/branches/avalon-implementation</developerConnection>
+                                <url>http://svn.apache.org/viewvc/jakarta/commons/proper/cli/branches/avalon-implementation</url>
+  </scm>
+
+
+  <dependencies>
+
+    <!-- used for unit tests -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- used for unit tests -->
+    <dependency>
+      <groupId>jdepend</groupId>
+      <artifactId>jdepend</artifactId>
+      <version>2.5</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <testSourceDirectory>src/test</testSourceDirectory>
+    <resources>
+        <resource>
+          <directory>src/java/org/apache/commons/cli/avalon</directory>
+          <targetPath>org/apache/commons/cli/avalon</targetPath>
+          <includes>
+            <include>**/*.properties</include>
+          </includes>
+        </resource>
+        <resource>
+          <directory>.</directory>
+          <targetPath>META-INF</targetPath>
+          <includes>
+            <include>NOTICE.txt</include>
+            <include>LICENSE.txt</include>
+          </includes>
+        </resource>
+    </resources>
+  </build>
+
+</project>
