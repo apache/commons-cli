@@ -1,11 +1,6 @@
-Implementation-Title: Jakarta Commons CLI2
+Implementation-Title: Jakarta Commons Avalon CLI
 
-Name: org/apache/commons/cli/
-Specification-Title: Jakarta Commons CLI
-Specification-Vendor: Apache Software Foundation
-Specification-Version: 1.0
-
-Name: org/apache/commons/cli2/
-Specification-Title: Jakarta Commons CLI2
+Name: org/apache/commons/cli/avalon
+Specification-Title: Jakarta Commons Avalon CLI
 Specification-Vendor: Apache Software Foundation
 Specification-Version: 2.0
