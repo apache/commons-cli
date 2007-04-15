@@ -1,19 +1,21 @@
-/* 
- * Copyright 2002-2005 The Apache Software Foundation
- * Licensed  under the  Apache License,  Version 2.0  (the "License");
- * you may not use  this file  except in  compliance with the License.
- * You may obtain a copy of the License at 
- * 
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
- * distributed  under the  License is distributed on an "AS IS" BASIS,
- * WITHOUT  WARRANTIES OR CONDITIONS  OF ANY KIND, either  express  or
- * implied.
- * 
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
+
 package org.apache.commons.cli.avalon;
 //Renamed from org.apache.avalon.excalibur.cli
 
@@ -32,7 +34,6 @@ import java.util.Vector;
  * Note that CLArgs uses a backing hashtable for the options index and so duplicate
  * arguments are only returned by getArguments().
  *
- * @version $Revision: 1.2 $ $Date: 2005/03/18 15:26:55 $
  * @see ParserControl
  * @see CLOption
  * @see CLOptionDescriptor
@@ -330,7 +331,7 @@ public final class CLArgsParser
 
             if( Character.isLetter( (char)id ) )
             {
-                sb.append( '-' );
+                sb.append( '-' ); // $NON-NLS-1$
                 sb.append( (char)id );
                 hasCharOption = true;
             }
@@ -340,9 +341,9 @@ public final class CLArgsParser
             {
                 if( hasCharOption )
                 {
-                    sb.append( '/' );
+                    sb.append( '/' ); // $NON-NLS-1$
                 }
-                sb.append( "--" );
+                sb.append( "--" ); // $NON-NLS-1$
                 sb.append( longOption );
             }
 
@@ -478,7 +479,7 @@ public final class CLArgsParser
             {
                 if( 1 == m_option.getArgumentCount() )
                 {
-                    m_option.addArgument( "" );
+                    m_option.addArgument( "" ); // $NON-NLS-1$
                     m_options.addElement( m_option );
                 }
                 else
@@ -501,11 +502,11 @@ public final class CLArgsParser
     {
         if( m_isLong )
         {
-            return "--" + descriptor.getName();
+            return "--" + descriptor.getName(); // $NON-NLS-1$
         }
         else
         {
-            return "-" + (char)descriptor.getId();
+            return "-" + (char)descriptor.getId(); // $NON-NLS-1$
         }
     }
 
@@ -625,7 +626,7 @@ public final class CLArgsParser
         m_ch = getChar();
         final CLOptionDescriptor descriptor = getDescriptorFor( m_ch );
         m_isLong = false;
-        parseOption( descriptor, "-" + m_ch );
+        parseOption( descriptor, "-" + m_ch ); // $NON-NLS-1$
 
         if( STATE_NORMAL == m_state )
         {
@@ -638,7 +639,7 @@ public final class CLArgsParser
     {
         if( STATE_REQUIRE_ARG == m_state )
         {
-            if( '=' == m_ch || 0 == m_ch )
+            if( '=' == m_ch || 0 == m_ch ) // $NON-NLS-1$
             {
                 getChar();
             }
@@ -651,7 +652,7 @@ public final class CLArgsParser
         }
         else if( STATE_OPTIONAL_ARG == m_state )
         {
-            if( '-' == m_ch || 0 == m_ch )
+            if( '-' == m_ch || 0 == m_ch ) // $NON-NLS-1$
             {
                 getChar(); //consume stray character
                 addOption( m_option );
@@ -659,7 +660,7 @@ public final class CLArgsParser
                 return;
             }
 
-            if( '=' == m_ch )
+            if( '=' == m_ch ) // $NON-NLS-1$
             {
                 getChar();
             }
@@ -700,9 +701,9 @@ public final class CLArgsParser
                     m_option.addArgument( token.getValue() );
                 }
                 // Are we about to start a new option?
-                if (0 == m_ch && '-' == peekAtChar()){
+                if (0 == m_ch && '-' == peekAtChar()){ // $NON-NLS-1$
                     // Yes, so the second argument is missing
-                    m_option.addArgument( "" );
+                    m_option.addArgument( "" ); // $NON-NLS-1$
                     m_options.addElement( m_option );
                     m_state = STATE_NORMAL; 
                 }
@@ -736,7 +737,7 @@ public final class CLArgsParser
     private final void parseNormal()
             throws ParseException
     {
-        if( '-' != m_ch )
+        if( '-' != m_ch ) // $NON-NLS-1$
         {
             //Parse the arguments that are not options
             final String argument = nextToken( NULL_SEPARATORS ).getValue();
@@ -756,7 +757,7 @@ public final class CLArgsParser
                 m_ch = peekAtChar();
 
                 //if it is a short option then parse it else ...
-                if( '-' != m_ch )
+                if( '-' != m_ch ) // $NON-NLS-1$
                 {
                     parseShortOption();
                 }
@@ -777,7 +778,7 @@ public final class CLArgsParser
                         final String optionName = nextToken( ARG_SEPARATORS ).getValue();
                         final CLOptionDescriptor descriptor = getDescriptorFor( optionName );
                         m_isLong = true;
-                        parseOption( descriptor, "--" + optionName );
+                        parseOption( descriptor, "--" + optionName ); // $NON-NLS-1$
                     }
                 }
             }
