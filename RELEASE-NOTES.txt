@@ -1,17 +1,16 @@
 $Id$
 
-			Commons CLI Package
-			   Version 1.0
+			Commons CLI Avalon Package
+			   Version 2.0
 			    Release Notes
 
 
 INTRODUCTION:
 
 This document contains the release notes for this version of the Commons
-CLI package. Commons CLI provides a simple API for working with the command line arguments and options.
-
-This is the first release of the CLI component, therefore all features are new, 
-there are no bug-fixes, nothing is deprecated and there are no changes.
+CLI Avalon package.
+ 
+Commons CLI Avalon provides a simple API for working with the command line arguments and options.
 
 For more information, read the documentation on the project site at 
 http://jakarta.apache.org/commons/cli/
