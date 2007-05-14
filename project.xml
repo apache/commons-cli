@@ -132,7 +132,7 @@
 
   <dependencies>
 
-    <!-- used in PatternOptionBuilder -->
+    <!-- used in TypeHandler -->
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
@@ -144,19 +144,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
-      <properties>
-       <scope>test</scope>
-       <comment>
-        Required only for testing.
-       </comment>
-      </properties>
-    </dependency>
-
-    <!-- used for unit tests -->
-    <dependency>
-      <groupId>jdepend</groupId>
-      <artifactId>jdepend</artifactId>
-      <version>2.5</version>
       <properties>
        <scope>test</scope>
        <comment>
