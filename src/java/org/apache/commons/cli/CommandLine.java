@@ -16,11 +16,11 @@
 package org.apache.commons.cli;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 /** 
  * <p>Represents list of arguments parsed against
@@ -43,16 +43,10 @@ public class CommandLine {
     private List args = new LinkedList();
 
     /** the processed options */
-    private Map options = new HashMap();
-
-    /** the option name map */
-    private Map names = new HashMap();
+    private Set options = new HashSet();
 
     /** Map of unique options for ease to get complete list of options */
-    private Map hashcodeMap = new HashMap();
-
-    /** the processed options */
-    private Option[] optionsArray;
+//    private Set allOptions = new HashSet();
 
     /**
      * Creates a command line.
@@ -70,7 +64,7 @@ public class CommandLine {
      */
     public boolean hasOption(String opt)
     {
-        return options.containsKey(opt);
+        return options.contains( resolveOption(opt));
     }
 
     /** 
@@ -94,12 +88,13 @@ public class CommandLine {
     {
         String res = getOptionValue(opt);
 
-        if (!options.containsKey(opt))
+        Option option = resolveOption(opt);
+        if (option == null)
         {
             return null;
         }
 
-        Object type = ((Option) options.get(opt)).getType();
+        Object type = option.getType();
 
         return (res == null)        ? null : TypeHandler.createValue(res, type);
     }
@@ -150,20 +145,37 @@ public class CommandLine {
      */
     public String[] getOptionValues(String opt)
     {
+        Option key = resolveOption( opt );
+
+        if (options.contains(key))
+        {
+            return key.getValues();
+        }
+
+        return null;
+        }
+
+    /**
+     * <p>Retrieves the option object given the long or short option as a String</p>
+     * @param opt short or long name of the option
+     * @return Canonicalized option
+     */
+    private Option resolveOption( String opt )
+    {
         opt = Util.stripLeadingHyphens(opt);
-
-        String key = opt;
-
-        if (names.containsKey(opt))
+        for ( Iterator it = options.iterator(); it.hasNext(); )
         {
-            key = (String) names.get(opt);
+            Option option = (Option) it.next();
+            if (opt.equals(option.getOpt()))
+            {
+                return option;
+            }
+            if (opt.equals( option.getLongOpt()))
+            {
+                return option;
         }
 
-        if (options.containsKey(key))
-        {
-            return ((Option) options.get(key)).getValues();
         }
-
         return null;
     }
 
@@ -273,20 +285,7 @@ public class CommandLine {
      */
     void addOption(Option opt)
     {
-        hashcodeMap.put(new Integer(opt.hashCode()), opt);
-
-        String key = opt.getKey();
-
-        if (key == null)
-        {
-            key = opt.getLongOpt();
-        }
-        else
-        {
-            names.put(opt.getLongOpt(), key);
-        }
-
-        options.put(key, opt);
+        options.add(opt);
     }
 
     /**
@@ -297,7 +296,7 @@ public class CommandLine {
      */
     public Iterator iterator()
     {
-        return hashcodeMap.values().iterator();
+        return options.iterator();
     }
 
     /**
@@ -307,11 +306,10 @@ public class CommandLine {
      */
     public Option[] getOptions()
     {
-        Collection processed = options.values();
-
+        Collection processed = options;
 
         // reinitialise array
-        optionsArray = new Option[processed.size()];
+        Option[] optionsArray = new Option[processed.size()];
 
         // return the array
         return (Option[]) processed.toArray(optionsArray);

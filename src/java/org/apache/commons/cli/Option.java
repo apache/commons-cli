@@ -596,4 +596,39 @@ public class Option {
     {
         return this.values.size() == 0;
     }
+
+    public boolean equals( Object o )
+    {
+        if ( this == o )
+        {
+            return true;
+        }
+        if ( o == null || getClass() != o.getClass() )
+        {
+            return false;
+        }
+
+        Option option = (Option) o;
+
+
+        if ( opt != null ? !opt.equals( option.opt ) : option.opt != null )
+        {
+            return false;
+        }
+        if ( longOpt != null ? !longOpt.equals( option.longOpt ) : option.longOpt != null )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public int hashCode()
+    {
+        int result;
+        result = ( opt != null ? opt.hashCode() : 0 );
+        result = 31 * result + ( longOpt != null ? longOpt.hashCode() : 0 );
+        return result;
+    }
+
 }
