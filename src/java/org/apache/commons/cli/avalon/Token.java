@@ -65,7 +65,7 @@ class Token
     {
         final StringBuffer sb = new StringBuffer();
         sb.append( m_type );
-        sb.append( ":" );
+        sb.append( ":" ); // $NON-NLS-1$
         sb.append( m_value );
         return sb.toString();
     }
