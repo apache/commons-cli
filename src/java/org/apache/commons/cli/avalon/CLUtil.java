@@ -46,12 +46,15 @@ public final class CLUtil
             final String name = options[i].getName();
             String description = options[i].getDescription();
             int flags = options[i].getFlags();
+            boolean argumentOptional = 
+                    ((flags & CLOptionDescriptor.ARGUMENT_OPTIONAL) == 
+                              CLOptionDescriptor.ARGUMENT_OPTIONAL);
             boolean argumentRequired =
                     ((flags & CLOptionDescriptor.ARGUMENT_REQUIRED) ==
-                    CLOptionDescriptor.ARGUMENT_REQUIRED);
+                              CLOptionDescriptor.ARGUMENT_REQUIRED);
             boolean twoArgumentsRequired =
                     ((flags & CLOptionDescriptor.ARGUMENTS_REQUIRED_2) ==
-                    CLOptionDescriptor.ARGUMENTS_REQUIRED_2);
+                              CLOptionDescriptor.ARGUMENTS_REQUIRED_2);
             boolean needComma = false;
             if( twoArgumentsRequired )
             {
@@ -78,6 +81,10 @@ public final class CLUtil
                 sb.append( name );
             }
 
+            if (argumentOptional)
+            {
+                sb.append(" [[=]<argument>]");
+            }
             if( argumentRequired )
             {
                 sb.append( " <argument>" );
