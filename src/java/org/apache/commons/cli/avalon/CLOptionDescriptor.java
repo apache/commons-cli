@@ -59,9 +59,15 @@ public final class CLOptionDescriptor
             final int id,
             final String description )
     {
-        this( name, flags, id, description,
-                ((flags & CLOptionDescriptor.DUPLICATES_ALLOWED) > 0)
-                ? new int[0] : new int[]{id} );
+
+        checkFlags(flags);
+
+        m_id = id;
+        m_name = name;
+        m_flags = flags;
+        m_description = description;
+        m_incompatible = ((flags & DUPLICATES_ALLOWED) > 0)
+                         ? new int[0] : new int[] { id };
     }
 
     /**
@@ -71,21 +77,30 @@ public final class CLOptionDescriptor
      * @param flags the flags
      * @param id the id/character option
      * @param description description of option usage
-     * @param incompatible an array listing the ids of all incompatible options
-     * @deprecated use the version with the array of CLOptionDescriptor's
+     * @param incompatible an array listing the descriptors of all incompatible options
      */
     public CLOptionDescriptor( final String name,
             final int flags,
             final int id,
             final String description,
-            final int[] incompatible )
+            final CLOptionDescriptor[] incompatible )
     {
+
+        checkFlags(flags);
+        
         m_id = id;
         m_name = name;
         m_flags = flags;
         m_description = description;
-        m_incompatible = incompatible;
 
+        m_incompatible = new int[incompatible.length];
+        for (int i = 0; i < incompatible.length; i++) {
+            m_incompatible[i] = incompatible[i].getId();
+        }
+    }
+
+    // helper method - check for invalid flag combinations
+    private void checkFlags(final int flags) {
         int modeCount = 0;
         if( (ARGUMENT_REQUIRED & flags) == ARGUMENT_REQUIRED )
         {
@@ -113,32 +128,6 @@ public final class CLOptionDescriptor
         {
             final String message = "Multiple modes specified for option " + this;
             throw new IllegalStateException( message );
-        }
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param name the name/long option
-     * @param flags the flags
-     * @param id the id/character option
-     * @param description description of option usage
-     */
-    public CLOptionDescriptor( final String name,
-            final int flags,
-            final int id,
-            final String description,
-            final CLOptionDescriptor[] incompatible )
-    {
-        m_id = id;
-        m_name = name;
-        m_flags = flags;
-        m_description = description;
-
-        m_incompatible = new int[incompatible.length];
-        for( int i = 0; i < incompatible.length; i++ )
-        {
-            m_incompatible[i] = incompatible[i].getId();
         }
     }
 
