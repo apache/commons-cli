@@ -143,15 +143,6 @@ public final class CLOptionDescriptor
     }
 
     /**
-     * @deprecated Use the correctly spelled {@link #getIncompatible} instead.
-     * @return the array of incompatible option ids
-     */
-    protected final int[] getIncompatble()
-    {
-        return getIncompatible();
-    }
-
-    /**
      * Get the array of incompatible option ids.
      *
      * @return the array of incompatible option ids
