@@ -450,11 +450,6 @@ public final class CLArgsParser
                 //should never get to here when stringIndex != 0
                 addOption( new CLOption( m_args[m_argIndex++] ) );
             }
-            else if( STATE_OPTIONAL_ARG == m_state && m_isLong && m_ch != 0)
-            {
-                m_state = STATE_NORMAL;
-                addOption( m_option );
-            }
             else
             {
                 parseArguments();
@@ -560,12 +555,15 @@ public final class CLArgsParser
         return m_args[m_argIndex].charAt( m_stringIndex++ );
     }
 
+    private char m_tokesep; // Keep track of token separator
+
     private final Token nextToken( final char[] separators )
     {
         m_ch = getChar();
 
         if( isSeparator( m_ch, separators ) )
         {
+            m_tokesep = m_ch;
             m_ch = getChar();
             return new Token( TOKEN_SEPARATOR, null );
         }
@@ -579,6 +577,7 @@ public final class CLArgsParser
         }
         while( !isSeparator( m_ch, separators ) );
 
+        m_tokesep = m_ch;
         return new Token( TOKEN_STRING, sb.toString() );
     }
 
@@ -658,6 +657,13 @@ public final class CLArgsParser
                 addOption( m_option );
                 m_state = STATE_NORMAL;
                 return;
+            }
+
+            if (m_isLong && '=' != m_tokesep) // Long optional arg must have = as separator
+            {
+                addOption(m_option);
+                m_state = STATE_NORMAL;
+                return;                
             }
 
             if( '=' == m_ch ) // $NON-NLS-1$
