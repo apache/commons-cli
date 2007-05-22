@@ -99,7 +99,7 @@ public class PosixParser extends Parser {
 
         // an iterator for the command line tokens
         Iterator iter = Arrays.asList(arguments).iterator();
-        String token = null;
+        String token;
 
         // process each command line token
         while (iter.hasNext())
@@ -302,7 +302,8 @@ public class PosixParser extends Parser {
             }
             else
             {
-                tokens.add("-" + ch);
+                tokens.add(token);
+                break;
             }
         }
     }
