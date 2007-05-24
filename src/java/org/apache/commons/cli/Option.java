@@ -631,4 +631,15 @@ public class Option {
         return result;
     }
 
+    /**
+     * <p>Clear the Option values. After a 
+     * parse is complete, these are left with data in them 
+     * and they need clearing if another parse is done. </p>
+     *
+     * See: <a href="https://issues.apache.org/jira/browse/CLI-71">CLI-71</a>
+     */
+    void clearValues() {
+        this.values.clear();
+    }
+
 }
