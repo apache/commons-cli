@@ -29,6 +29,7 @@ package org.apache.commons.cli;
  * <tr><td>d+</td><td>-d [classname] (creates object via empty contructor)</td></tr>
  * <tr><td>e%</td><td>-e [number] (creates Number instance)</td></tr>
  * <tr><td>f/</td><td>-f [url]</td></tr>
+ * <tr><td>g:</td><td>-g [string]</td></tr>
  * </table>
  *
  * <p>
