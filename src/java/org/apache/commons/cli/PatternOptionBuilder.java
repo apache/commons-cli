@@ -27,7 +27,7 @@ package org.apache.commons.cli;
  * <tr><td>b@</td><td>-b [classname]</td></tr>
  * <tr><td>c&gt;</td><td>-c [filename]</td></tr>
  * <tr><td>d+</td><td>-d [classname] (creates object via empty contructor)</td></tr>
- * <tr><td>e%</td><td>-e [number] (creates Number instance)</td></tr>
+ * <tr><td>e%</td><td>-e [number] (creates Double/Long instance depeding on existing of a '.')</td></tr>
  * <tr><td>f/</td><td>-f [url]</td></tr>
  * <tr><td>g:</td><td>-g [string]</td></tr>
  * </table>

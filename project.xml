@@ -132,13 +132,6 @@
 
   <dependencies>
 
-    <!-- used in TypeHandler -->
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.1</version>
-    </dependency>
-
     <!-- used for unit tests -->
     <dependency>
       <groupId>junit</groupId>

@@ -22,8 +22,6 @@ import java.net.URL;
 
 import java.util.Date;
 
-import org.apache.commons.lang.math.NumberUtils;
-
 /**
   * This is a temporary implementation. TypeHandler will handle the 
   * pluggableness of OptionTypes and it will direct all of these types 
@@ -149,7 +147,8 @@ public class TypeHandler {
     }
 
     /**
-     * <p>Create a number from a String.</p>
+     * <p>Create a number from a String. If a . is present, it creates a 
+     *    Double, otherwise a Long. </p>
      *
      * @param str the value
      * @return the number represented by <code>str</code>, if <code>str</code>
@@ -157,18 +156,26 @@ public class TypeHandler {
      */
     public static Number createNumber(String str)
     {
-        // Needs to be able to create
         try
         {
-            // do searching for decimal point etc, but atm just make an Integer
-            return NumberUtils.createNumber(str);
+            if( str != null )
+            {
+                if( str.indexOf('.') != -1 )
+                {
+                    return Double.valueOf(str);
+                }
+                else
+                {
+                    return Long.valueOf(str);
+                }
+            }
         }
         catch (NumberFormatException nfe)
         {
             System.err.println(nfe.getMessage());
-
-            return null;
         }
+
+        return null;
     }
 
     /**
