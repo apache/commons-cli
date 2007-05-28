@@ -26,20 +26,10 @@ import junit.framework.TestSuite;
 public class PatternOptionBuilderTest
 extends TestCase
 {
-    public static void main( String[] args )
-   {
-      String[] testName = { PatternOptionBuilderTest.class.getName() };
-      junit.textui.TestRunner.main(testName);
-   }
 
    public static TestSuite suite()
    {
       return new TestSuite(PatternOptionBuilderTest.class);
-   }
-
-   public PatternOptionBuilderTest( String s )
-   {
-      super( s );
    }
 
    public void testSimplePattern()
@@ -51,26 +41,27 @@ extends TestCase
            CommandLineParser parser = new PosixParser();
            CommandLine line = parser.parse(options,args);
 
-           // tests the char methods of CommandLine that delegate to
-           // the String methods
            assertEquals("flag a", "foo", line.getOptionValue("a"));
-           assertEquals("flag a", "foo", line.getOptionValue('a'));
            assertEquals("string flag a", "foo", line.getOptionObject("a"));
-           assertEquals("string flag a", "foo", line.getOptionObject('a'));
            assertEquals("object flag b", new java.util.Vector(), line.getOptionObject("b"));
-           assertEquals("object flag b", new java.util.Vector(), line.getOptionObject('b'));
-           assertEquals("boolean true flag c", true, line.hasOption("c"));
-           assertEquals("boolean true flag c", true, line.hasOption('c'));
-           assertEquals("boolean false flag d", false, line.hasOption("d"));
-           assertEquals("boolean false flag d", false, line.hasOption('d'));
+           assertTrue("boolean true flag c", line.hasOption("c"));
+           assertFalse("boolean false flag d", line.hasOption("d"));
            assertEquals("file flag e", new java.io.File("build.xml"), line.getOptionObject("e"));
-           assertEquals("file flag e", new java.io.File("build.xml"), line.getOptionObject('e'));
            assertEquals("class flag f", java.util.Calendar.class, line.getOptionObject("f"));
-           assertEquals("class flag f", java.util.Calendar.class, line.getOptionObject('f'));
            assertEquals("number flag n", new Double(4.5), line.getOptionObject("n"));
-           assertEquals("number flag n", new Double(4.5), line.getOptionObject('n'));
            assertEquals("url flag t", new java.net.URL("http://jakarta.apache.org/"), line.getOptionObject("t"));
+
+           // tests the char methods of CommandLine that delegate to the String methods
+           assertEquals("flag a", "foo", line.getOptionValue('a'));
+           assertEquals("string flag a", "foo", line.getOptionObject('a'));
+           assertEquals("object flag b", new java.util.Vector(), line.getOptionObject('b'));
+           assertTrue("boolean true flag c", line.hasOption('c'));
+           assertFalse("boolean false flag d", line.hasOption('d'));
+           assertEquals("file flag e", new java.io.File("build.xml"), line.getOptionObject('e'));
+           assertEquals("class flag f", java.util.Calendar.class, line.getOptionObject('f'));
+           assertEquals("number flag n", new Double(4.5), line.getOptionObject('n'));
            assertEquals("url flag t", new java.net.URL("http://jakarta.apache.org/"), line.getOptionObject('t'));
+
            /// DATES NOT SUPPORTED YET.
            //      assertEquals("number flag t", new java.util.Date(1023400137276L), line.getOptionObject('z'));
            //     input is:  "Thu Jun 06 17:48:57 EDT 2002"
