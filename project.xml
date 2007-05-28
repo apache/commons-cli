@@ -162,23 +162,20 @@
   </build>
 
   <reports>
-    <!--report>maven-developer-activity-plugin</report-->
-    <!--report>maven-file-activity-plugin</report-->
-    <!--report>maven-changelog-plugin</report-->
-    <!--report>maven-changes-plugin</report-->
-    <report>maven-jdepend-plugin</report>
-    <report>maven-checkstyle-plugin</report>
+    <report>maven-changes-plugin</report>
+
+    <!-- Pointless given tht the code is most definitely not 'sun' style -->
+    <!--report>maven-checkstyle-plugin</report-->  
+
     <report>maven-javadoc-plugin</report>
-    <report>maven-jdepend-plugin</report>
     <report>maven-junit-report-plugin</report>
     <report>maven-jxr-plugin</report>
     <report>maven-license-plugin</report>
-    <report>maven-tasklist-plugin</report>
     <report>maven-pmd-plugin</report>
-    <!--report>maven-simian-plugin</report>
-    <report>maven-faq-plugin</report>
-    <report>maven-jcoverage-plugin</report-->
-    <!--report>maven-tasks-plugin</report-->
-    <!--report>maven-findbugs-plugin</report-->
+    <!--
+    <report>maven-simian-plugin</report>
+    <report>maven-jcoverage-plugin</report>
+    <report>maven-findbugs-plugin</report>
+    -->
   </reports>
 </project>
