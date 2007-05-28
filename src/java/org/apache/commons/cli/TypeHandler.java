@@ -208,14 +208,7 @@ public class TypeHandler {
      */
     public static Date createDate(String str)
     {
-        Date date = null;
-
-        if (date == null)
-        {
-            System.err.println("Unable to parse: " + str);
-        }
-
-        return date;
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**

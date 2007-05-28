@@ -160,7 +160,7 @@ public class PosixParser extends Parser {
             gobble(iter);
         }
 
-        return (String[]) tokens.toArray(new String[] {  });
+        return (String[]) tokens.toArray(new String[tokens.size()]);
     }
 
     /**

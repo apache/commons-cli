@@ -541,7 +541,7 @@ public class Option {
     public String[] getValues()
     {
         return hasNoValues()
-               ? null : (String[]) this.values.toArray(new String[] {  });
+               ? null : (String[]) this.values.toArray(new String[this.values.size()]);
     }
 
     /**

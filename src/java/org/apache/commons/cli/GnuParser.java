@@ -106,6 +106,10 @@ public class GnuParser extends Parser {
                 }
                 else
                 {
+                    // WARNING: Findbugs reports major problems with the following code. 
+                    //          As option cannot be null, currentOption cannot and 
+                    //          much of the code below is never going to be run.
+
                     currentOption = option;
 
                     // special option
@@ -169,6 +173,6 @@ public class GnuParser extends Parser {
             }
         }
 
-        return (String[]) tokens.toArray(new String[] {  });
+        return (String[]) tokens.toArray(new String[tokens.size()]);
     }
 }
