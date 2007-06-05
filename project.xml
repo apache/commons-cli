@@ -114,6 +114,12 @@
       </roles>
     </contributor>
     <contributor>
+      <name>Brian Egge</name>
+      <roles>
+        <role>made the 1.1 release happen</role>
+      </roles>
+    </contributor>
+    <contributor>
       <name>Berin Loritsch</name>
       <email>bloritsch@apache.org</email>
       <roles>
