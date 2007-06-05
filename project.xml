@@ -134,6 +134,12 @@
         <role>supplied patch</role>
       </roles>
     </contributor>
+    <contributor>
+      <name>Andrew Shirley</name>
+      <roles>
+        <role>lots of fixes for 1.1 and 2.0</role>
+      </roles>
+    </contributor>
   </contributors>
 
   <dependencies>
