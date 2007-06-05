@@ -295,7 +295,10 @@ public abstract class Parser implements CommandLineParser {
         if (requiredOptions.size() > 0)
         {
             Iterator iter = requiredOptions.iterator();
-            StringBuffer buff = new StringBuffer();
+            StringBuffer buff = new StringBuffer("Missing required option");
+            buff.append(requiredOptions.size() == 1 ? "" : "s");
+            buff.append(": ");
+
 
             // loop through the required options
             while (iter.hasNext())

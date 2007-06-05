@@ -94,7 +94,28 @@ public class OptionsTest extends TestCase
         assertTrue("Everything in help should be in all",allOptions.containsAll(helpOptions));        
     }
 
+    public void testMissingOptionException() throws ParseException {
+        Options options = new Options();
+        options.addOption(OptionBuilder.isRequired().create("f"));
+        try {
+            new PosixParser().parse(options, new String[0]);
+            fail("Expected MissingOptionException to be thrown");
+        } catch (MissingOptionException e) {
+            assertEquals("Missing required option: f", e.getMessage());
+        }
+    }
 
+    public void testMissingOptionsException() throws ParseException {
+        Options options = new Options();
+        options.addOption(OptionBuilder.isRequired().create("f"));
+        options.addOption(OptionBuilder.isRequired().create("x"));
+        try {
+            new PosixParser().parse(options, new String[0]);
+            fail("Expected MissingOptionException to be thrown");
+        } catch (MissingOptionException e) {
+            assertEquals("Missing required options: fx", e.getMessage());
+        }
+    }
 
 }
 
