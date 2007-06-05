@@ -40,7 +40,7 @@ as are various <a href="maven-reports.html">project reports</a>.
 The JavaDoc API documents are available online:
 </p>
 <ul>
-<li>The <a href="api-release/index.html">current release 1.0</a></li>
+<li>The <a href="api-release/index.html">current release 1.1</a></li>
 <!--li>The <a href="api-n/index.html">previous version n</a></li-->
 <li>The <a href="apidocs/index.html">latest SVN</a></li>
 </ul>
@@ -52,9 +52,9 @@ The <a href="cvs-usage.html">subversion repository</a> can be
 <!-- ================================================== -->
 <section name="Releases">
 <p>
-The latest version is v1.0. - 
+The latest version is v1.1. - 
 <a href="http://jakarta.apache.org/site/downloads/downloads_commons-cli.cgi">Download now!</a><br />
-The <a href="release_1_0.html">release notes</a> are also available.
+The <a href="changes-report.html#1_1">release notes</a> are also available.
 </p>
 <p>
 For previous releases, see the <a href="http://archive.apache.org/dist/jakarta/commons/cli/">Apache Archive</a>
@@ -73,79 +73,7 @@ so prefix your email by [cli].
 Issues may be reported via the <a href="issue-tracking.html">ASF JIRA</a>.
 </p>
 </section>
-<!-- ================================================== -->
 
-<!--      <p>
-        CLI1 was formed by the merger of ideas and code from three different
-        libraries and allows most simple interfaces to be modelled.  CLI1
-        became increasingly difficult to maintain and develop further and so
-        CLI2 has been developed with the goals of clearer responsibilities and
-        being more flexible.  The intention is that CLI2 should be able to
-        model a far greater selection of interfaces and do so more completely,
-        validating as much as possible.
-      </p>
-      <p>
-        The redesigned CLI2 is rooted in the <code>org.apache.commons.cli2</code>
-        package and the distribution retains the <code>org.apache.commons.cli</code>
-        package so that the upgrade doesn't break old code.  The CLI1 package
-        should be regarded as deprecated to encourage the transition to the
-        more flexible CLI2 framework but minor bug fixes and patches may be
-        accepted to ensure that CLI1 based applications continue to function as
-        expected.
-      </p>
-      <p>
-        The rest of the documentation is split into the following three sections:
-        <ul>
-          <li><a href="manual/index.html">CLI2</a> - a reference manual for version 2</li>
-          <li><a href="introduction.html">CLI1</a> - documentation for version 1 </li>
-          <li><a href="examples/index.html">Examples</a> - a selection of worked examples demonstrating CLI2 features</li>
-        </ul>
-      </p>
-      <p>
-        The latest version of this documentation is available on the web:
-        <ul>
-          <li><a href="http://jakarta.apache.org/commons/cli/">http://jakarta.apache.org/commons/cli/</a></li>
-          <li>
-            <a href="http://jakarta.apache.org/commons/cli/commons-cli.pdf">http://jakarta.apache.org/commons/cli/commons-cli.pdf</a> 
-            <a href="http://jakarta.apache.org/commons/cli/commons-cli.pdf"><img border="0" src="images/pdf.gif"/></a> 
-          </li>
-        </ul>
-      </p>
-    </section>
-    <section name="Dependancies">
-      <p>
-        The generated list of <a href="dependencies.html">dependencies</a> 
-        lists the libraries needed to compile and test Commons CLI.  To use 
-        the precompiled distribution none of these dependancies are strictly 
-        necessary.  The following is a breakdown of what is required and when:
-      </p>
-      <table>
-        <tr>
-          <th>Library</th><th>Usage</th>
-        </tr>
-        <tr>
-          <td>Java 1.2</td>
-          <td>This is the minimum java level needed to use CLI2</td>
-        </tr>
-        <tr>
-          <td>Java 1.4</td>
-          <td>Needed if the PreferencesCommandLine is needed</td>
-        </tr>
-        <tr>
-          <td>commons-lang</td>
-          <td>Needed if the CLI1 package is being used</td>
-        </tr>
-        <tr>
-          <td>jdepend</td>
-          <td>Needed to build and test CLI2 only</td>
-        </tr>
-        <tr>
-          <td>junit</td>
-          <td>Needed to build and test CLI1 and CLI2</td>
-        </tr>
-      </table>
-    </section>
--->
   </body>
 
 </document>
