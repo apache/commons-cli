@@ -24,7 +24,7 @@ limitations under the License.
 <!-- ================================================== -->
 <section name="Issue tracking">
 <p>
-  Commons CLI uses <a href="http://issues.apache.org/jira/">ASF JIRA</a> for tracking issues.
+  Commons CLI uses the <a href="http://issues.apache.org/jira/">ASF JIRA</a> for tracking issues.
   To use JIRA you may need to <a href="https://issues.apache.org/jira/secure/Signup!default.jspa">create an account</a>.
 </p>
 <p>
