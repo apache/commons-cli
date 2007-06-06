@@ -29,23 +29,23 @@ import junit.framework.TestSuite;
  * @author John Keyes ( john at integralsource.com )
  * @author brianegge
  **/
-public class TestHelpFormatter extends TestCase
+public class HelpFormatterTest extends TestCase
 {
 
    private static final String EOL = System.getProperty("line.separator");
 
    public static void main( String[] args )
    {
-      String[] testName = { TestHelpFormatter.class.getName() };
+      String[] testName = { HelpFormatterTest.class.getName() };
       junit.textui.TestRunner.main(testName);
    }
 
    public static TestSuite suite()
    {
-      return new TestSuite(TestHelpFormatter.class);
+      return new TestSuite(HelpFormatterTest.class);
    }
 
-   public TestHelpFormatter( String s )
+   public HelpFormatterTest( String s )
    {
       super( s );
    }
