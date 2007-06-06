@@ -466,8 +466,8 @@ public class BugsTest extends TestCase
         StringWriter out = new StringWriter();
         formatter.printHelp(new PrintWriter(out),80,"commandline","header",mOptions,2,2,"footer",true);
         assertEquals(
-                "usage: commandline [--config <arg>] [-r <arg>] [-a <arg>] [-h] [-t] [-n] [-l"+EOL+
-                "       <arg>] [-s <arg>] [-v]"+EOL+
+                "usage: commandline [-a <arg>] [--config <arg>] [-h] [-l <arg>] [-n] [-r <arg>]" + EOL +
+                "       [-s <arg>] [-t] [-v]" + EOL +
                 "header"+EOL+
                 "  -a,--age <arg>      Age (in days) of cache item before being recomputed"+EOL+
                 "     --config <arg>   Use the specified configuration file"+EOL+
@@ -527,7 +527,7 @@ public class BugsTest extends TestCase
         StringWriter out = new StringWriter();
         formatter.printHelp(new PrintWriter(out),80, "foobar", "", options, 2, 2, "", true);
         assertEquals(
-                "usage: foobar [-a] [-c] [--bbb]"+SEP+
+                "usage: foobar [-a] [--bbb] [-c]"+SEP+
                 "  -a,--aaa  aaaaaaa"+SEP+
                 "     --bbb  bbbbbbb"+SEP+
                 "  -c        ccccccc"+SEP

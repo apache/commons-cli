@@ -442,8 +442,10 @@ public class HelpFormatter {
         // temp variable
         Option option;
 
+        List optList = new ArrayList(options.getOptions());
+        Collections.sort(optList, new OptionComparator());
         // iterate over the options
-        for (Iterator i = options.getOptions().iterator(); i.hasNext();)
+        for (Iterator i = optList.iterator(); i.hasNext();)
         {
             // get the next Option
             option = (Option) i.next();
@@ -503,8 +505,10 @@ public class HelpFormatter {
             buff.append("[");
         }
 
+        List optList = new ArrayList(group.getOptions());
+        Collections.sort(optList, new OptionComparator());
         // for each option in the OptionGroup
-        for (Iterator i = group.getOptions().iterator(); i.hasNext();)
+        for (Iterator i = optList.iterator(); i.hasNext();)
         {
             // whether the option is required or not is handled at group level
             appendOption(buff, (Option) i.next(), true);

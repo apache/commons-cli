@@ -27,9 +27,13 @@ import junit.framework.TestSuite;
  *
  * @author Slawek Zachcial
  * @author John Keyes ( john at integralsource.com )
+ * @author brianegge
  **/
 public class TestHelpFormatter extends TestCase
 {
+
+   private static final String EOL = System.getProperty("line.separator");
+
    public static void main( String[] args )
    {
       String[] testName = { TestHelpFormatter.class.getName() };
@@ -174,4 +178,23 @@ public class TestHelpFormatter extends TestCase
        assertEquals("simple auto usage", expected, out.toString().trim());
        out.reset();
    }
+
+    // This test ensures the options are properly sorted
+    // See https://issues.apache.org/jira/browse/CLI-131
+    public void testPrintUsage() {
+        Option optionA = new Option("a", "first");
+        Option optionB = new Option("b", "second");
+        Option optionC = new Option("c", "third");
+        Options opts = new Options();
+        opts.addOption(optionA);
+        opts.addOption(optionB);
+        opts.addOption(optionC);
+        HelpFormatter helpFormatter = new HelpFormatter();
+        ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
+        PrintWriter printWriter = new PrintWriter(bytesOut);
+        helpFormatter.printUsage(printWriter, 80, "app", opts);
+        printWriter.close();
+        assertEquals("usage: app [-a] [-b] [-c]" + EOL, bytesOut.toString());
+    }
+
 }
