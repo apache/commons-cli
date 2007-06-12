@@ -1,7 +1,7 @@
 $Id$
 
 			Commons CLI Package
-			   Version 1.0
+			   Version 1.1
 			    Release Notes
 
 
@@ -10,13 +10,14 @@ INTRODUCTION:
 This document contains the release notes for this version of the Commons
 CLI package. Commons CLI provides a simple API for working with the command line arguments and options.
 
-This is the first release of the CLI component, therefore all features are new, 
-there are no bug-fixes, nothing is deprecated and there are no changes.
+This is a bugfix release of CLI. 
 
 For more information, read the documentation on the project site at 
 http://jakarta.apache.org/commons/cli/
 
 NEW FEATURES:
+
+  CLI-78 - Setting description of a Option. 
 
 BUG FIXES:
 
@@ -24,3 +25,25 @@ DEPRECATIONS:
 
 CHANGES: 
 
+  CLI-2   - Wrong usage summary. 
+  CLI-5   - Dependecy on commons-lang-2.0 but commons-lang-1.0 is obtained. 
+  CLI-8   - Line separator as first char for helpformatter (footer) throws exception. 
+  CLI-13  - CommandLine.getOptionValue() behaves contrary to docs. 
+  CLI-21  - clone method in Option should use super.clone(). 
+  CLI-23  - Passing properties in Parser does not work for options with a single argument. 
+  CLI-26  - Only long options without short option seems to be noticed. 
+  CLI-28  - Infinite Loop in Command-Line processing. 
+  CLI-29  - Options should not be able to be added more than once. 
+  CLI-35  - HelpFormatter doesn't sort options properly. 
+  CLI-38  - HelpFormatter doesn't function correctly for options with only LongOpt. 
+  CLI-44  - Document enhancement. 
+  CLI-45  - Documentation errors. 
+  CLI-51  - Parameter value "-something" misinterpreted as a parameter. 
+  CLI-56  - clone() method doesn't fully clone contents. 
+  CLI-59  - No Javadoc for HelpFormatter!. 
+  CLI-65  - Parser breaks up command line parms into single characters. 
+  CLI-67  - Missing arguments in HelpFormatter.renderOptions(..). 
+  CLI-69  - Error parsing option arguments. 
+  CLI-71  - A weakness of parser. 
+  CLI-129 - CLI_1_BRANCH build.xml doesn't work. 
+  CLI-130 - Remove the Commons Lang dependency. 

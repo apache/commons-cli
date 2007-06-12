@@ -14,21 +14,25 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project default="jar:jar">
+<project default="jar:jar"
+  xmlns:j="jelly:core">
 
-  <!-- Ensures that the conf directory and NOTICE.txt are included in the
+  <!-- Ensures that the release notes and NOTICE.txt are included in the
        source distro.
    -->
   <postGoal name="dist:prepare-src-filesystem">
+    <j:set var="maven.dist.src.assembly.dir" value="${pom.getPluginContext('maven-dist-plugin').getVariable('maven.dist.src.assembly.dir')}" />
     <copy todir="${maven.dist.src.assembly.dir}">
       <fileset file="${basedir}/NOTICE.txt"/>
+      <fileset file="${basedir}/RELEASE-NOTES.txt"/>
     </copy>
   </postGoal>
 
-  <!-- Ensures that NOTICE.txt is added to the binary distro -->
+  <!-- Ensures that release notes NOTICE.txt is added to the binary distro -->
   <preGoal name="dist:build-bin">
     <copy todir="${maven.dist.bin.assembly.dir}">
       <fileset file="${basedir}/NOTICE.txt"/>
+      <fileset file="${basedir}/RELEASE-NOTES.txt"/>
     </copy>
   </preGoal>
 
