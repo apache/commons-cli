@@ -1,6 +1,4 @@
 Implementation-Title: Jakarta Commons CLI
-
-Name: org/apache/commons/cli/
 Specification-Title: Jakarta Commons CLI
 Specification-Vendor: Apache Software Foundation
-Specification-Version: 1.0
+Specification-Version: 1.1
