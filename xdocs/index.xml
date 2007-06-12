@@ -29,8 +29,19 @@
 <section name="Commons CLI">
 <p>
 The Jakarta Commons CLI library provides an API for processing command line interfaces.
-It was formed by the merger of ideas and code from three different libraries -
-Werken, Avalon and Optz. 
+</p>
+</section>
+<!-- ================================================== -->
+<section name="1.x vs 2.x?">
+<p>
+Commons CLI 1.0 was formed from the merger of ideas and code from three different libraries -
+Werken, Avalon and Optz. In dealing with the bugs and the feature requests a freshly designed and not backwards compatible 
+CLI 2.0 was created, but never finished or released. Since then a CLI 1.1 bugfix release has been made.
+</p>
+<p>
+There are currently no plans to continue the 1.x line beyond bugfixes. The 2.x design is generally preferred and is in use, 
+however there is no current activity to make a 2.0 release. To this end, the 1.1 release is recommended to most users 
+while the 2.x line is recommended for anyone interested in helping to get this better API released. 
 </p>
 </section>
 <!-- ================================================== -->

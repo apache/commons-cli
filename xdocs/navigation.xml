@@ -27,44 +27,26 @@
 
     <menu name="Commons CLI">
       <item name="Overview" href="/index.html"/>
-      <item name="Download" href="http://jakarta.apache.org/site/downloads/downloads_commons-cli.cgi"/>
-      <item name="Javadoc (1.0 release)" href="api-release/index.html"/>
+      <item name="Download (1.1)" href="http://jakarta.apache.org/site/downloads/downloads_commons-cli.cgi"/>
+      <item name="SVN repository" href="http://svn.apache.org/viewvc/jakarta/commons/proper/cli/trunk/"/>
+      <item name="Mailing lists" href="/mail-lists.html"/>
     </menu>
 
-    <menu name="User guide">
-      <item name="Getting started"   href="/introduction.html"/>
+    <menu name="CLI1 user guide">
+      <item name="Getting started"          href="/introduction.html"/>
       <item name="Usage scenarios"   href="/usage.html"/>
       <item name="Option properties" href="/properties.html"/>
+      <item name="Javadoc (1.1)" href="api-release/index.html"/>
     </menu>
-<!--
-    <menu name="CLI1">
-      <item name="Overview"          href="/introduction.html"/>
-      <item name="Usage scenarios"   href="/usage.html"/>
-      <item name="Option properties" href="/properties.html"/>
-    </menu>
-    <menu name="CLI2">
+
+    <menu name="CLI2-dev user guide">
       <item name="Overview"          href="/manual/index.html"/>
+      <item name="Examples"          href="/examples/index.html"/>
       <item name="Options"           href="/manual/options.html"/>
-      <item name="Builders"          href="/manual/builders.html"/>
-      <item name="CommandLines"      href="/manual/commandlines.html"/>
+      <!--item name="Builders"          href="/manual/builders.html"/-->
+      <!--item name="CommandLines"      href="/manual/commandlines.html"/-->
       <item name="Validators"        href="/manual/validators.html"/>
-      <item name="Utilities"         href="/manual/utilities.html"/>
-    </menu>
-    <menu name="Examples">
-      <item name="Overview"          href="/examples/index.html"/>
-      <item name="ant"               href="/examples/ant.html"/>
-      <item name="ls"                href="/examples/ls.html"/>
-      <item name="cvs"               href="/examples/cvs.html"/>
-      <item name="cp"                href="/examples/cp.html"/>
-    </menu>
--->
-    <menu name="Development">
-      <item name="Building" href="/building.html"/>
-      <item name="Mailing lists" href="/mail-lists.html"/>
-      <item name="Team" href="/team-list.html"/>
-      <!--item name="Tasks" href="/tasks.html"/-->
-      <!--item name="Proposal" href="/proposal.html"/-->
-      <item name="SVN repository" href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/cli/trunk/"/>
+      <!--item name="Utilities"         href="/manual/utilities.html"/-->
       <item name="Javadoc (SVN latest)" href="apidocs/index.html"/>
     </menu>
 
