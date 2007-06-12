@@ -16,8 +16,6 @@
  */
 package org.apache.commons.cli2.commandline;
 
-import java.io.IOException;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;

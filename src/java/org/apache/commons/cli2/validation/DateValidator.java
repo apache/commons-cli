@@ -101,10 +101,6 @@ public class DateValidator implements Validator {
      *            a List of DateFormats which dates must conform to
      */
     public DateValidator(final List formats) {
-        for (Iterator iter = formats.iterator(); iter.hasNext();) {
-            DateFormat format = (DateFormat) iter.next();
-        }
-
         setFormats(formats);
     }
 
