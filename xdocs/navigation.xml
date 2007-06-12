@@ -36,6 +36,7 @@
       <item name="Getting started"          href="/introduction.html"/>
       <item name="Usage scenarios"   href="/usage.html"/>
       <item name="Option properties" href="/properties.html"/>
+      <item name="Upgrading to 1.1" href="/upgrading-1.0-to-1.1.html"/>
       <item name="Javadoc (1.1)" href="api-release/index.html"/>
     </menu>
 
