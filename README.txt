@@ -12,7 +12,7 @@ for you):
 
   http://www.junit.org/
 
-There are two ways to build CLI, either with ant or maven.
+There are two ways to build CLI, either with Ant or Maven 1.
 
 Ant can be found here :
 
@@ -22,18 +22,17 @@ and to build and test the system use:
 
   ant dist
 
-Maven can be found here :
+Maven 1 can be found here :
 
   http://maven.apache.org
 
 and to build and test the system use:
 
-  maven jar:jar
+  maven clean jar
 
 The system will build and test itself.
 
-For complete documentation and to create a local copy of the
-CLI project website, type:
+For complete documentation type:
 
   maven site
 
