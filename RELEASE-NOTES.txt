@@ -10,7 +10,18 @@ INTRODUCTION:
 This document contains the release notes for this version of the Commons
 CLI package. Commons CLI provides a simple API for working with the command line arguments and options.
 
-This is a bugfix release of CLI. 
+This is a bugfix release of CLI. Some parts are not backwards compatible:
+
+* The CommandLineParser interface has two additional methods. If you were extending this, 
+  then you will need to add methods to your classes. If you were extending the abstract 
+  Parser class, then you should be okay. 
+* The HelpFormatter class had publicly accessible fields. These are now accessed via 
+  get/set methods.
+* Two of HelpFormatter's methods no longer throw IllegalArgumentException.
+* The Option class is no longer cloneable, and no longer has an addValue(String) method.
+
+The best way to test any of the above is to recompile your code against CLI 1.1. All 
+should result in compile time errors.
 
 For more information, read the documentation on the project site at 
 http://jakarta.apache.org/commons/cli/
