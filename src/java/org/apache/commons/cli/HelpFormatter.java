@@ -64,6 +64,7 @@ public class HelpFormatter {
      * number of characters per line
      *
      * @deprecated Scope will be made private for next major version
+     * - use get/setWidth methods instead.
      */
     public int defaultWidth = DEFAULT_WIDTH;
 
@@ -71,6 +72,7 @@ public class HelpFormatter {
      * amount of padding to the left of each line
      *
      * @deprecated Scope will be made private for next major version
+     * - use get/setLeftPadding methods instead.
      */
     public int defaultLeftPad = DEFAULT_LEFT_PAD;
 
@@ -79,6 +81,7 @@ public class HelpFormatter {
      * to each description line
      *
      * @deprecated Scope will be made private for next major version
+     * - use get/setDescPadding methods instead.
      */
     public int defaultDescPad = DEFAULT_DESC_PAD;
 
@@ -86,6 +89,7 @@ public class HelpFormatter {
      * the string to display at the begining of the usage statement
      *
      * @deprecated Scope will be made private for next major version
+     * - use get/setSyntaxPrefix methods instead.
      */
     public String defaultSyntaxPrefix = DEFAULT_SYNTAX_PREFIX;
 
@@ -93,6 +97,7 @@ public class HelpFormatter {
      * the new line string
      *
      * @deprecated Scope will be made private for next major version
+     * - use get/setNewLine methods instead.
      */
     public String defaultNewLine = System.getProperty("line.separator");
 
@@ -100,6 +105,7 @@ public class HelpFormatter {
      * the shortOpt prefix
      *
      * @deprecated Scope will be made private for next major version
+     * - use get/setOptPrefix methods instead.
      */
     public String defaultOptPrefix = DEFAULT_OPT_PREFIX;
 
@@ -107,6 +113,7 @@ public class HelpFormatter {
      * the long Opt prefix
      *
      * @deprecated Scope will be made private for next major version
+     * - use get/setLongOptPrefix methods instead.
      */
     public String defaultLongOptPrefix = DEFAULT_LONG_OPT_PREFIX;
 
@@ -114,6 +121,7 @@ public class HelpFormatter {
      * the name of the argument
      *
      * @deprecated Scope will be made private for next major version
+     * - use get/setArgName methods instead.
      */
     public String defaultArgName = DEFAULT_ARG_NAME;
 
