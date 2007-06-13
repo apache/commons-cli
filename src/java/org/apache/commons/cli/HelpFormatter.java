@@ -40,7 +40,10 @@ public class HelpFormatter {
     /** default padding to the left of each line */
     public static final int DEFAULT_LEFT_PAD = 1;
 
-    /** ?? */
+    /**
+     * the number of characters of padding to be prefixed
+     * to each description line
+     */
     public static final int DEFAULT_DESC_PAD = 3;
 
     /** the string to display at the begining of the usage statement */
@@ -57,29 +60,62 @@ public class HelpFormatter {
 
     // -------------------------------------------------------------- Attributes
 
-    /** number of characters per line */
-    private int defaultWidth = DEFAULT_WIDTH;
+    /**
+     * number of characters per line
+     *
+     * @deprecated Scope will be made private for next major version
+     */
+    public int defaultWidth = DEFAULT_WIDTH;
 
-    /** amount of padding to the left of each line */
-    private int defaultLeftPad = DEFAULT_LEFT_PAD;
+    /**
+     * amount of padding to the left of each line
+     *
+     * @deprecated Scope will be made private for next major version
+     */
+    public int defaultLeftPad = DEFAULT_LEFT_PAD;
 
-    /** ?? */
-    private int defaultDescPad = DEFAULT_DESC_PAD;
+    /**
+     * the number of characters of padding to be prefixed
+     * to each description line
+     *
+     * @deprecated Scope will be made private for next major version
+     */
+    public int defaultDescPad = DEFAULT_DESC_PAD;
 
-    /** the string to display at the begining of the usage statement */
-    private String defaultSyntaxPrefix = DEFAULT_SYNTAX_PREFIX;
+    /**
+     * the string to display at the begining of the usage statement
+     *
+     * @deprecated Scope will be made private for next major version
+     */
+    public String defaultSyntaxPrefix = DEFAULT_SYNTAX_PREFIX;
 
-    /** the new line character/string ?? */
-    private String defaultNewLine = System.getProperty("line.separator");
+    /**
+     * the new line string
+     *
+     * @deprecated Scope will be made private for next major version
+     */
+    public String defaultNewLine = System.getProperty("line.separator");
 
-    /** the shortOpt prefix */
-    private String defaultOptPrefix = DEFAULT_OPT_PREFIX;
+    /**
+     * the shortOpt prefix
+     *
+     * @deprecated Scope will be made private for next major version
+     */
+    public String defaultOptPrefix = DEFAULT_OPT_PREFIX;
 
-    /** the long Opt prefix */
-    private String defaultLongOptPrefix = DEFAULT_LONG_OPT_PREFIX;
+    /**
+     * the long Opt prefix
+     *
+     * @deprecated Scope will be made private for next major version
+     */
+    public String defaultLongOptPrefix = DEFAULT_LONG_OPT_PREFIX;
 
-    /** the name of the argument */
-    private String defaultArgName = DEFAULT_ARG_NAME;
+    /**
+     * the name of the argument
+     *
+     * @deprecated Scope will be made private for next major version
+     */
+    public String defaultArgName = DEFAULT_ARG_NAME;
 
     /**
      * Sets the 'width'.
