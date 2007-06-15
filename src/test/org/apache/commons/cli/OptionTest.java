@@ -31,5 +31,42 @@ public class OptionTest extends TestCase {
        option.clearValues();
        assertEquals(0, option.getValuesList().size());
    }
-    
+
+    // See http://issues.apache.org/jira/browse/CLI-21
+    public void testClone() throws CloneNotSupportedException {
+        Option a = new Option("a", true, "");
+        Option b = (Option) a.clone();
+        assertEquals(a, b);
+        assertNotSame(a, b);
+        a.setDescription("a");
+        assertEquals("", b.getDescription());
+        b.setArgs(2);
+        b.addValue("b1");
+        b.addValue("b2");
+        assertEquals(1, a.getArgs());
+        assertEquals(0, a.getValuesList().size());
+        assertEquals(2, b.getValues().length);
+    }
+
+    private static class DefaultOption extends Option {
+
+        private final String defaultValue;
+
+        public DefaultOption(String opt, String description, String defaultValue) throws IllegalArgumentException {
+            super(opt, true, description);
+            this.defaultValue = defaultValue;
+        }
+
+        public String getValue() {
+            return super.getValue() != null ? super.getValue() : defaultValue;
+        }
+    }
+
+    public void testSubclass() throws CloneNotSupportedException {
+        Option option = new DefaultOption("f", "file", "myfile.txt");
+        Option clone = (Option) option.clone();
+        assertEquals("myfile.txt", clone.getValue());
+        assertEquals(DefaultOption.class, clone.getClass());
+    }
+
 }

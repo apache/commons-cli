@@ -33,7 +33,7 @@ import java.util.ArrayList;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$
  */
-public class Option {
+public class Option implements Cloneable {
 
     /** constant that specifies the number of argument values has 
         not been specified */
@@ -630,6 +630,12 @@ public class Option {
         result = ( opt != null ? opt.hashCode() : 0 );
         result = 31 * result + ( longOpt != null ? longOpt.hashCode() : 0 );
         return result;
+    }
+
+    protected Object clone() throws CloneNotSupportedException {
+        Option option = (Option) super.clone();
+        option.values = new ArrayList(values);
+        return option;
     }
 
     /**
