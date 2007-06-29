@@ -632,10 +632,14 @@ public class Option implements Cloneable {
         return result;
     }
 
-    protected Object clone() throws CloneNotSupportedException {
-        Option option = (Option) super.clone();
-        option.values = new ArrayList(values);
-        return option;
+    public Object clone() {
+        try {
+            Option option = (Option) super.clone();
+            option.values = new ArrayList(values);
+            return option;
+        } catch(CloneNotSupportedException cnse) {
+            throw new RuntimeException("A CloneNotSupportedException was thrown: " + cnse.getMessage());
+        }
     }
 
     /**
