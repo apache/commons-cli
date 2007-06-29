@@ -24,7 +24,7 @@ public class ParseTest extends TestCase
 {
 
     private Options _options = null;
-    private CommandLineParser _parser = null;
+    private Parser _parser = null;
 
     public static Test suite() { 
         return new TestSuite(ParseTest.class); 

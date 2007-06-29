@@ -68,9 +68,13 @@ public interface CommandLineParser {
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
+    /* To maintain binary compatibility, this is commented out. 
+       It is still in the abstract Parser class, so most users will 
+       still reap the benefit. 
     CommandLine parse(Options options, String[] arguments, 
                       boolean stopAtNonOption)
                throws ParseException;
+     */
 
     /**
      * Parse the arguments according to the specified options and
@@ -85,7 +89,11 @@ public interface CommandLineParser {
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
+    /* To maintain binary compatibility, this is commented out. 
+       It is still in the abstract Parser class, so most users will 
+       still reap the benefit. 
     CommandLine parse(Options options, String[] arguments, 
                       Properties properties, boolean stopAtNonOption)
                throws ParseException;
+     */
 }
