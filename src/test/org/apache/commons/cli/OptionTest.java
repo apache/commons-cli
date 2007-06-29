@@ -23,8 +23,18 @@ import junit.framework.TestCase;
  */
 public class OptionTest extends TestCase {
 
+   private static class TestOption extends Option {
+        public TestOption(String opt, boolean hasArg, String description) throws IllegalArgumentException {
+            super(opt, hasArg, description);
+        }
+        public boolean addValue(String value) {
+            addValueForProcessing(value);
+            return true;
+        }
+   }
+
    public void testClear() {
-       Option option = new Option("x", true, "");
+       TestOption option = new TestOption("x", true, "");
        assertEquals(0, option.getValuesList().size());
        option.addValue("a");
        assertEquals(1, option.getValuesList().size());
@@ -34,8 +44,8 @@ public class OptionTest extends TestCase {
 
     // See http://issues.apache.org/jira/browse/CLI-21
     public void testClone() throws CloneNotSupportedException {
-        Option a = new Option("a", true, "");
-        Option b = (Option) a.clone();
+        TestOption a = new TestOption("a", true, "");
+        TestOption b = (TestOption) a.clone();
         assertEquals(a, b);
         assertNotSame(a, b);
         a.setDescription("a");

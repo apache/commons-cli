@@ -258,7 +258,7 @@ public abstract class Parser implements CommandLineParser {
                     {
                         try
                         {
-                            opt.addValue(value);
+                            opt.addValueForProcessing(value);
                         }
                         catch (RuntimeException exp)
                         {
@@ -340,7 +340,7 @@ public abstract class Parser implements CommandLineParser {
             // found a value
             try
             {
-                opt.addValue( Util.stripLeadingAndTrailingQuotes(str) );
+                opt.addValueForProcessing( Util.stripLeadingAndTrailingQuotes(str) );
             }
             catch (RuntimeException exp)
             {

@@ -401,7 +401,7 @@ public class Option implements Cloneable {
      * 
      * @param value is a/the value of this Option
      */
-    void addValue(String value)
+    void addValueForProcessing(String value)
     {
         switch (numberOfArgs)
         {
@@ -647,6 +647,13 @@ public class Option implements Cloneable {
      */
     void clearValues() {
         this.values.clear();
+    }
+
+    public boolean addValue(Object object) {
+        throw new UnsupportedOperationException(
+           "The addValue method is not intended for client use. " + 
+           "Subclasses should use the addValueForProcessing method instead. "
+           );
     }
 
 }
