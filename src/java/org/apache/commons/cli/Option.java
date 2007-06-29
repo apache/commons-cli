@@ -632,6 +632,16 @@ public class Option implements Cloneable {
         return result;
     }
 
+    /**
+     * A rather odd clone method - due to incorrect code in 1.0 it is public 
+     * and in 1.1 rather than throwing a CloneNotSupportedException it throws 
+     * a RuntimeException so as to maintain backwards compat at the API level. 
+     *
+     * After calling this method, it is very likely you will want to call 
+     * clearValues(). 
+     *
+     * @throws RuntimeException
+     */
     public Object clone() {
         try {
             Option option = (Option) super.clone();
@@ -653,6 +663,12 @@ public class Option implements Cloneable {
         this.values.clear();
     }
 
+    /**
+     * This method is not intended to be used. It was a piece of internal 
+     * API that was made public in 1.0. It currently throws an UnsupportedOperationException. 
+     * @deprecated
+     * @throws UnsupportedOperationException
+     */
     public boolean addValue(String value) {
         throw new UnsupportedOperationException(
            "The addValue method is not intended for client use. " + 
