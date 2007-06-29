@@ -91,7 +91,7 @@ public class ValueTest extends TestCase
 
         try
         {
-            CommandLineParser parser = new PosixParser();
+            Parser parser = new PosixParser();
             _cl = parser.parse(opts,args);
         }
         catch (ParseException e)
@@ -137,7 +137,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = new PosixParser();
+            Parser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("e") );
             assertNull( cmd.getOptionValue("e") );
@@ -154,7 +154,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = new PosixParser();
+            Parser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("e") );
             assertEquals( "everything", cmd.getOptionValue("e") );
@@ -171,7 +171,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = new PosixParser();
+            Parser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("fish") );
             assertNull( cmd.getOptionValue("fish") );
@@ -188,7 +188,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = new PosixParser();
+            Parser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("fish") );
             assertEquals( "face", cmd.getOptionValue("fish") );
@@ -205,7 +205,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = new PosixParser();
+            Parser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("j") );
             assertEquals( "ink", cmd.getOptionValue("j") );
@@ -225,7 +225,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = new PosixParser();
+            Parser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("gravy") );
             assertEquals( "gold", cmd.getOptionValue("gravy") );
@@ -245,7 +245,7 @@ public class ValueTest extends TestCase
         };
         try
         {
-            CommandLineParser parser = new PosixParser();
+            Parser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts,args);
             assertTrue( cmd.hasOption("i") );
             assertEquals( "ink", cmd.getOptionValue("i") );
@@ -267,7 +267,7 @@ public class ValueTest extends TestCase
             "--hide", "house", "hair", "head"
         };
 
-        CommandLineParser parser = new PosixParser();
+        Parser parser = new PosixParser();
 
         try
         {
@@ -290,7 +290,7 @@ public class ValueTest extends TestCase
         Properties properties = new Properties();
         properties.setProperty( "hide", "seek" );
 
-        CommandLineParser parser = new PosixParser();
+        Parser parser = new PosixParser();
         
         try
         {
@@ -312,7 +312,7 @@ public class ValueTest extends TestCase
         properties.setProperty( "c", "yes" );
         properties.setProperty( "e", "1" );
 
-        CommandLineParser parser = new PosixParser();
+        Parser parser = new PosixParser();
         
         try
         {
@@ -380,7 +380,7 @@ public class ValueTest extends TestCase
         Properties properties = new Properties();
         properties.setProperty( "k", "one,two" );
 
-        CommandLineParser parser = new PosixParser();
+        Parser parser = new PosixParser();
         
         String[] values = new String[] {
             "one", "two"
@@ -410,7 +410,7 @@ public class ValueTest extends TestCase
         properties.setProperty( "j", "seek" );
         try
         {
-            CommandLineParser parser = new PosixParser();
+            Parser parser = new PosixParser();
             CommandLine cmd = parser.parse(opts, args, properties);
             assertTrue( cmd.hasOption("j") );
             assertEquals( "found", cmd.getOptionValue("j") );
