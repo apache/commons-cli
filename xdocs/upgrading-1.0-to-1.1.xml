@@ -23,20 +23,21 @@ limitations under the License.
 <body>
 <!-- ================================================== -->
 <section name="Upgrading from 1.0 to 1.1">
-  <p>CLI 1.1 is a bugfix release of CLI. The following changes were not backward compatible: </p>
+  <p>CLI 1.1 is a bugfix release of CLI. The following changes notable API changes were made: </p>
 
   <ul>
-    <li>The CommandLineParser interface has two additional methods. If you were extending this,
-        then you will need to add methods to your classes. If you were extending the abstract
-        Parser class, then you should be okay. </li>
-    <li>The HelpFormatter class had publicly accessible fields. These are now accessed via
-        get/set methods. </li>
-    <li>Two of HelpFormatter's methods no longer throw IllegalArgumentException. </li>
-    <li>The Option class is no longer cloneable, and no longer has an addValue(String) method. </li>
+    <li>The Parser abstract class has two additional parse methods that take a Properties parameter. </li>
+    <li>The HelpFormatter class had publicly accessible fields. These should now be accessed via
+        get/set methods and the public fields are deprecated. </li>
+    <li>The Option class addValue(String) method now throws UnsupportedOperationException. </li>
+    <li>OptionValidator is a newly added class. </li>
+    <li>Option's now have equals(Object) and hashCode() methods. </li>
+    <li>The Option class also received two new methods, setDescription(String) and hasValueSeparator();boolean. </li>
   </ul>
 
-  <p>The best way to test any of the above is to recompile your code against CLI 1.1. All of the above 
-      should result in compile time errors. </p>
+  <p>The jar should be API backwards compatible, though if you were calling addValue(String) then you won't be happy. Please 
+     let us know your use case if that is so. </p>
+
 </section>
 <section name="Bugs fixed in 1.1">
   <p>The list of bugs fixed in 1.1 may be seen via the 

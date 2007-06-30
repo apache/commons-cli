@@ -47,6 +47,11 @@
       <action type="fix" issue="CLI-35">HelpFormatter doesn't sort options properly. </action>
       <action type="fix" issue="CLI-130">Remove the Commons Lang dependency. </action>
       <action type="add" issue="CLI-78">Setting description of a Option. </action>
+      <action type="fix" issue="CLI-131">Options class returns options in random order. </action>
+      <action type="fix" issue="CLI-132">MissingOptionException should contain a useful error message. </action>
+      <action type="fix" issue="CLI-133">NullPointerException in Util.stripLeadingHyphens when passed a null argument. </action>
+      <action type="fix" issue="CLI-134">1.1 is not backwards compatible because it adds methods to the CommandLineParser interface. </action>
+      <action type="fix" issue="CLI-135">Backwards compatibility between 1.1 and 1.0 broken due to Option.addValue removal. </action>
 
     </release>   
 
