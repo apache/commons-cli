@@ -24,29 +24,29 @@
     <release version="1.1" date="2007-?-?"
       description="This is a maintenance release containing bug fixes. ">
 
-      <action type="fix" issue="CLI-51">Parameter value "-something" misinterpreted as a parameter. </action>
-      <action type="fix" issue="CLI-129">CLI_1_BRANCH build.xml doesn't work. </action>
-      <action type="fix" issue="CLI-59">No Javadoc for HelpFormatter!. </action>
-      <action type="fix" issue="CLI-29">Options should not be able to be added more than once. </action>
-      <action type="fix" issue="CLI-28">Infinite Loop in Command-Line processing. </action>
-      <action type="fix" issue="CLI-45">Documentation errors. </action>
-      <action type="fix" issue="CLI-71">A weakness of parser. </action>
-      <action type="fix" issue="CLI-13">CommandLine.getOptionValue() behaves contrary to docs. </action>
-      <action type="fix" issue="CLI-5">Dependecy on commons-lang-2.0 but commons-lang-1.0 is obtained. </action>
-      <action type="fix" issue="CLI-44">Document enhancement. </action>
-      <action type="fix" issue="CLI-69">Error parsing option arguments. </action>
-      <action type="fix" issue="CLI-38">HelpFormatter doesn't function correctly for options with only LongOpt. </action>
-      <action type="fix" issue="CLI-8">Line separator as first char for helpformatter (footer) throws exception. </action>
-      <action type="fix" issue="CLI-67">Missing arguments in HelpFormatter.renderOptions(..). </action>
-      <action type="fix" issue="CLI-26">Only long options without short option seems to be noticed. </action>
-      <action type="fix" issue="CLI-65">Parser breaks up command line parms into single characters. </action>
-      <action type="fix" issue="CLI-23">Passing properties in Parser does not work for options with a single argument. </action>
       <action type="fix" issue="CLI-2">Wrong usage summary. </action>
+      <action type="fix" issue="CLI-5">Dependecy on commons-lang-2.0 but commons-lang-1.0 is obtained. </action>
+      <action type="fix" issue="CLI-8">Line separator as first char for helpformatter (footer) throws exception. </action>
+      <action type="fix" issue="CLI-13">CommandLine.getOptionValue() behaves contrary to docs. </action>
       <action type="fix" issue="CLI-21">clone method in Option should use super.clone(). </action>
-      <action type="fix" issue="CLI-56">clone() method doesn't fully clone contents. </action>
+      <action type="fix" issue="CLI-23">Passing properties in Parser does not work for options with a single argument. </action>
+      <action type="fix" issue="CLI-26">Only long options without short option seems to be noticed. </action>
+      <action type="fix" issue="CLI-28">Infinite Loop in Command-Line processing. </action>
+      <action type="fix" issue="CLI-29">Options should not be able to be added more than once. </action>
       <action type="fix" issue="CLI-35">HelpFormatter doesn't sort options properly. </action>
-      <action type="fix" issue="CLI-130">Remove the Commons Lang dependency. </action>
+      <action type="fix" issue="CLI-38">HelpFormatter doesn't function correctly for options with only LongOpt. </action>
+      <action type="fix" issue="CLI-44">Document enhancement. </action>
+      <action type="fix" issue="CLI-45">Documentation errors. </action>
+      <action type="fix" issue="CLI-51">Parameter value "-something" misinterpreted as a parameter. </action>
+      <action type="fix" issue="CLI-56">clone() method doesn't fully clone contents. </action>
+      <action type="fix" issue="CLI-59">No Javadoc for HelpFormatter!. </action>
+      <action type="fix" issue="CLI-65">Parser breaks up command line parms into single characters. </action>
+      <action type="fix" issue="CLI-67">Missing arguments in HelpFormatter.renderOptions(..). </action>
+      <action type="fix" issue="CLI-69">Error parsing option arguments. </action>
+      <action type="fix" issue="CLI-71">A weakness of parser. </action>
       <action type="add" issue="CLI-78">Setting description of a Option. </action>
+      <action type="fix" issue="CLI-129">CLI_1_BRANCH build.xml doesn't work. </action>
+      <action type="fix" issue="CLI-130">Remove the Commons Lang dependency. </action>
       <action type="fix" issue="CLI-131">Options class returns options in random order. </action>
       <action type="fix" issue="CLI-132">MissingOptionException should contain a useful error message. </action>
       <action type="fix" issue="CLI-133">NullPointerException in Util.stripLeadingHyphens when passed a null argument. </action>
