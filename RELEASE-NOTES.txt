@@ -7,24 +7,20 @@ $Id$
 
 INTRODUCTION:
 
-This document contains the release notes for this version of the Commons
-CLI package. Commons CLI provides a simple API for working with the command line arguments and options.
+This document contains the release notes for this version of the Commons CLI package. Commons CLI provides a simple API for working with the command line arguments and options.
 
-This is a bugfix release of CLI. Some parts are not backwards compatible:
+CLI 1.1 is a bugfix release of CLI. The following changes notable API changes were made: 
 
-* The CommandLineParser interface has two additional methods. If you were extending this, 
-  then you will need to add methods to your classes. If you were extending the abstract 
-  Parser class, then you should be okay. 
-* The HelpFormatter class had publicly accessible fields. These are now accessed via 
-  get/set methods.
-* Two of HelpFormatter's methods no longer throw IllegalArgumentException.
-* The Option class is no longer cloneable, and no longer has an addValue(String) method.
+ * The Parser abstract class has two additional parse methods that take a Properties parameter. 
+ * The HelpFormatter class had publicly accessible fields. These should now be accessed via get/set methods and the public fields are deprecated. 
+ * The Option class addValue(String) method now throws UnsupportedOperationException. 
+ * OptionValidator is a newly added class. 
+ * Option's now have equals(Object) and hashCode() methods. 
+ * The Option class also received two new methods, setDescription(String) and hasValueSeparator();boolean. 
 
-The best way to test any of the above is to recompile your code against CLI 1.1. All 
-should result in compile time errors.
+The jar should be API backwards compatible, though if you were calling addValue(String) then you won't be happy. Please let us know your use case if that is so. 
 
-For more information, read the documentation on the project site at 
-http://jakarta.apache.org/commons/cli/
+For more information, read the documentation on the project site at http://jakarta.apache.org/commons/cli/
 
 NEW FEATURES:
 
