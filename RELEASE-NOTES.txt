@@ -54,3 +54,8 @@ CHANGES:
   CLI-71  - A weakness of parser. 
   CLI-129 - CLI_1_BRANCH build.xml doesn't work. 
   CLI-130 - Remove the Commons Lang dependency. 
+  CLI-131 - Options class returns options in random order. 
+  CLI-132 - MissingOptionException should contain a useful error message. 
+  CLI-133 - NullPointerException in Util.stripLeadingHyphens when passed a null argument. 
+  CLI-134 - 1.1 is not backwards compatible because it adds methods to the CommandLineParser interface. 
+  CLI-135 - Backwards compatibility between 1.1 and 1.0 broken due to Option.addValue removal. 
