@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>1</version>
+    <version>3</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>commons-cli</groupId>
@@ -44,8 +44,8 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/cli/trunk</connection>
-    <developerConnection>scm:svn:scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/cli/trunk</developerConnection>
+    <connection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/cli/trunk</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/cli/trunk</developerConnection>
     <url>http://svn.apache.org/viewvc/jakarta/commons/proper/cli/trunk</url>
   </scm>
 
