@@ -30,7 +30,7 @@
     </jar>
     <javadoc module="jakarta-commons" nested="target/docs/apidocs">
     </javadoc>
-    <nag to="commons-dev@jakarta.apache.org" from="commons-cli development &lt;commons-dev@jakarta.apache.org&gt;">
+    <nag to="dev@commons.apache.org" from="commons-cli development &lt;dev@commons.apache.org&gt;">
     </nag>
   </project>
 </module>

@@ -18,7 +18,7 @@
 <document>
 
   <properties>
-    <author email="commons-dev@jakarta.apache.org">commons-dev</author>
+    <author email="dev@commons.apache.org">commons-dev</author>
     <title>Examples</title>
   </properties>
 
@@ -36,7 +36,7 @@
         great detail.  If more information is required then the reader is 
         encouraged to review the API documentation and look at the unit tests 
         for inspiration.  Failing that, further advice and discussion can be 
-        found on the <code>commons-user@jakarta.apache.org</code> mailing list.
+        found on the <code>user@commons.apache.org</code> mailing list.
       </p>
     </section>
 
