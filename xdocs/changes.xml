@@ -21,7 +21,7 @@
     <title>Commons CLI Release Notes</title>
   </properties>
   <body>
-    <release version="1.1" date="2007-?-?"
+    <release version="1.1" date="2007-07-08"
       description="This is a maintenance release containing bug fixes. ">
 
       <action type="fix" issue="CLI-2">Wrong usage summary. </action>
