@@ -44,7 +44,7 @@ import org.apache.commons.cli2.util.HelpFormatter;
  * tested e.g. -a and -d are the same Option type.</p>
  * 
  * <p>The following is the man output for 'cp'. See
- * http://www.rt.com/man/cp.1.html.</p>
+ * <a href="http://www.rt.com/man/cp.1.html">http://www.rt.com/man/cp.1.html</a>.</p>
  * 
  * <pre>
  *  CP(1) FSF CP(1)
