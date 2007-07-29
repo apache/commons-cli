@@ -118,10 +118,10 @@ Issues may be reported via the <a href="issue-tracking.html">ASF JIRA</a>.
       <p>
         The latest version of this documentation is available on the web:
         <ul>
-          <li><a href="http://jakarta.apache.org/commons/cli/">http://jakarta.apache.org/commons/cli/</a></li>
+          <li><a href="http://commons.apache.org/cli/">http://commons.apache.org/cli/</a></li>
           <li>
-            <a href="http://jakarta.apache.org/commons/cli/commons-cli.pdf">http://jakarta.apache.org/commons/cli/commons-cli.pdf</a> 
-            <a href="http://jakarta.apache.org/commons/cli/commons-cli.pdf"><img border="0" src="images/pdf.gif"/></a> 
+            <a href="http://commons.apache.org/cli/commons-cli.pdf">http://commons.apache.org/cli/commons-cli.pdf</a> 
+            <a href="http://commons.apache.org/cli/commons-cli.pdf"><img border="0" src="images/pdf.gif"/></a> 
           </li>
         </ul>
       </p>

@@ -2,7 +2,7 @@
 
 <module name="commons-cli">
   <description>Commons CLI</description>
-  <url href="http://jakarta.apache.org/commons/cli/">
+  <url href="http://commons.apache.org/cli/">
   </url>
   <cvs module="jakarta-commons/cli" repository="jakarta">
   </cvs>
