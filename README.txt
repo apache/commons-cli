@@ -16,7 +16,7 @@ There are two ways to build CLI, either with ant or maven.
 
 Ant can be found here :
 
-  http://jakarta.apache.org/ant
+  http://ant.apache.org/
 
 and to build and test the system use:
 
@@ -24,7 +24,7 @@ and to build and test the system use:
 
 Maven can be found here :
 
-  http://maven.apache.org
+  http://maven.apache.org/
 
 and to build and test the system use:
 

@@ -16,8 +16,8 @@
   </description>
     <repository>
       <SVNRepository>
-        <browse rdf:resource="http://svn.apache.org/repos/asf/jakarta/commons/proper/cli/trunk"/>
-        <location rdf:resource="http://svn.apache.org/repos/asf/jakarta/commons/proper/cli"/>
+        <browse rdf:resource="http://svn.apache.org/repos/asf/commons/proper/cli/trunk"/>
+        <location rdf:resource="http://svn.apache.org/repos/asf/commons/proper/cli"/>
       </SVNRepository>
     </repository>
     <release>
