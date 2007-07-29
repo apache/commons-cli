@@ -28,7 +28,7 @@
 <!-- ================================================== -->
 <section name="Commons CLI">
 <p>
-The Jakarta Commons CLI library provides an API for processing command line interfaces.
+The Apache Commons CLI library provides an API for processing command line interfaces.
 </p>
 </section>
 <!-- ================================================== -->

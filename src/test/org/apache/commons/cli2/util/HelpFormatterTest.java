@@ -54,7 +54,7 @@ public class HelpFormatterTest
     public void setUp() {
         helpFormatter = new HelpFormatter("|*", "*-*", "*|", 80);
         helpFormatter.setDivider("+------------------------------------------------------------------------------+");
-        helpFormatter.setHeader("Jakarta Commons CLI");
+        helpFormatter.setHeader("Apache Commons CLI");
         helpFormatter.setFooter("Copyright 2003\nApache Software Foundation");
         helpFormatter.setShellCommand("ant");
 
@@ -102,7 +102,7 @@ public class HelpFormatterTest
                      helpFormatter.getDivider());
 
         // test header
-        assertEquals("incorrect header", "Jakarta Commons CLI", helpFormatter.getHeader());
+        assertEquals("incorrect header", "Apache Commons CLI", helpFormatter.getHeader());
 
         // test footer
         assertEquals("incorrect footer", "Copyright 2003\nApache Software Foundation",
@@ -116,7 +116,7 @@ public class HelpFormatterTest
         final BufferedReader reader = new BufferedReader(new StringReader(writer.toString()));
         assertEquals("+------------------------------------------------------------------------------+",
                      reader.readLine());
-        assertEquals("|*Jakarta Commons CLI                                                         *|",
+        assertEquals("|*Apache Commons CLI                                                          *|",
                      reader.readLine());
         assertEquals("+------------------------------------------------------------------------------+",
                      reader.readLine());
@@ -169,7 +169,7 @@ public class HelpFormatterTest
         final BufferedReader reader = new BufferedReader(new StringReader(writer.toString()));
         assertEquals("+------------------------------------------------------------------------------+",
                      reader.readLine());
-        assertEquals("|*Jakarta Commons CLI                                                         *|",
+        assertEquals("|*Apache Commons CLI                                                          *|",
                      reader.readLine());
         assertEquals("+------------------------------------------------------------------------------+",
                      reader.readLine());
@@ -311,7 +311,7 @@ public class HelpFormatterTest
         final BufferedReader reader = new BufferedReader(new StringReader(writer.toString()));
         assertEquals("+------------------------------------------------------------------------------+",
                      reader.readLine());
-        assertEquals("|*Jakarta Commons CLI                                                         *|",
+        assertEquals("|*Apache Commons CLI                                                          *|",
                      reader.readLine());
         assertNull(reader.readLine());
     }

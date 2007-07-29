@@ -1,7 +1,7 @@
-Jakarta Commons CLI
+Apache Commons CLI
 ===================
 
-Welcome to the CLI component of the Jakarta Commons project.
+Welcome to the CLI component of the Apache Commons project.
 
 The information in this file is relevant if you have
 downloaded a CLI source distribution.
