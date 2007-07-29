@@ -38,7 +38,7 @@ import org.apache.commons.cli2.validation.EnumValidator;
  * tested e.g. -a and -d are the same Option type.</p>
  * 
  * <p>The following is the man output for 'ls'. See
- * http://www.rt.com/man/ls.1.html.</p>
+ * <a href="http://www.rt.com/man/ls.1.html">http://www.rt.com/man/ls.1.html</a>.</p>
  * 
  * <pre>
  *  LS(1) FSF LS(1)
