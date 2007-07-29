@@ -39,9 +39,9 @@
         to define the interface to the application.
       </p>
       <p>
-        CLI uses the <a href="apidocs/org/apache/commons/cli/Options.html">
+        CLI uses the <a href="api-1.1/org/apache/commons/cli/Options.html">
         Options</a> class, as a container for 
-        <a href="apidocs/org/apache/commons/cli/Option.html">
+        <a href="api-1.1/org/apache/commons/cli/Option.html">
         Option</a> instances.  There are two ways to create
         <code>Option</code>s in CLI.  One of them is via the constructors,
         the other way is via the factory methods defined in 
@@ -66,11 +66,11 @@
       </p>
       <p>
         The <code>parse</code> method defined on 
-        <a href="apidocs/org/apache/commons/cli/CommandLineParser.html">
+        <a href="api-1.1/org/apache/commons/cli/CommandLineParser.html">
         CommandLineParser</a> takes an <code>Options</code>
         instance and a <code>String[]</code> of arguments and 
         returns a 
-        <a href="apidocs/org/apache/commons/cli/CommandLine.html">
+        <a href="api-1.1/org/apache/commons/cli/CommandLine.html">
         CommandLine</a>.
       </p>
       <p>
