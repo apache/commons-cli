@@ -117,8 +117,7 @@ Option outputOption =
                     to the user in a manner typical of command line applications.  The 
                     HelpFormatter is designed with flexibility in mind so it should be possible to 
                     control exactly which structures are described to the user and what level of 
-                    detail to use.  The HelpFormatter is discussed in detail in the 
-                    <a href="utilities.html#HelpFormatter">Utilities</a> section of the manual.
+                    detail to use.  
                 </p>
                 <p>
                     Any errors that occur while parsing result in an OptionException being thrown 
@@ -183,9 +182,7 @@ if(cl.hasOption("--output")) {
                     provided that can wrap a Properties or Preferences instance as a CommandLine.
                     These can then be combined with the DefaultingCommandLine and the parsed 
                     CommandLine to provide a variety of different defaulting and overriding 
-                    scenarios.  The CommandLine interface and implementations are discussed 
-                    further in the <a href="commandlines.html">CommandLines</a> section of the 
-                    manual.
+                    scenarios.  
                 </p>
             </subsection>
         </section>

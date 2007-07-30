@@ -41,8 +41,6 @@
         <li>URL</li>
       </ul>
       
-      <img src="../images/validators.jpg"/>
-
       <subsection name="ClassValidator">
         <p>
           The <code>ClassValidator</code> validates a value using three criteria:

@@ -24,7 +24,6 @@
 
   <body>
     <section name="Options">
-      <img src="../images/options.jpg"/>
       <subsection name="Option">
       <p>
         In CLI2 every element of the command line interface is modelled as an 
