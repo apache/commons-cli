@@ -44,11 +44,14 @@
       <item name="Overview"          href="/manual/index.html"/>
       <item name="Examples"          href="/examples/index.html"/>
       <item name="Options"           href="/manual/options.html"/>
-      <!--item name="Builders"          href="/manual/builders.html"/-->
-      <!--item name="CommandLines"      href="/manual/commandlines.html"/-->
       <item name="Validators"        href="/manual/validators.html"/>
-      <!--item name="Utilities"         href="/manual/utilities.html"/-->
       <item name="Javadoc (SVN latest)" href="apidocs/index.html"/>
+
+      <!-- TODO:
+      <item name="Builders"          href="/manual/builders.html"/>
+      <item name="CommandLines"      href="/manual/commandlines.html"/>
+      <item name="Utilities"         href="/manual/utilities.html"/>
+      -->
     </menu>
 
     &commons;
