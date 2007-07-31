@@ -27,7 +27,7 @@
 
     <menu name="Commons CLI">
       <item name="Overview" href="/index.html"/>
-      <item name="Download (1.1)" href="http://jakarta.apache.org/site/downloads/downloads_commons-cli.cgi"/>
+      <item name="Download (1.1)" href="http://commons.apache.org/downloads/download_cli.cgi"/>
       <item name="SVN repository" href="http://svn.apache.org/viewvc/commons/proper/cli/trunk/"/>
       <item name="Mailing lists" href="/mail-lists.html"/>
     </menu>
