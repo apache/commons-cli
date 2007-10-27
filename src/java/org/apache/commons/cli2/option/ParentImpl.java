@@ -217,7 +217,13 @@ public abstract class ParentImpl
         if (initialIndex > 0) {
             arguments.remove();
             arguments.add(newArgument.substring(0, initialIndex));
-            arguments.add(newArgument.substring(initialIndex + 1));
+            String value = newArgument.substring(initialIndex + 1);
+            // The value obviously isn't an option, so we need to quote it if looks like an option.
+            // The quotes will be removed later
+            if (value.startsWith("-")) {
+                value = '"' + value + '"';
+            }
+            arguments.add(value);
             arguments.previous();
         }
 

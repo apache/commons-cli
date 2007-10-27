@@ -143,17 +143,18 @@ public class ArgumentImpl
         int argumentCount = commandLine.getValues(option, Collections.EMPTY_LIST).size();
 
         while (arguments.hasNext() && (argumentCount < maximum)) {
-            final String allValues = stripBoundaryQuotes((String) arguments.next());
+            final String allValuesQuoted = (String) arguments.next();
+            final String allValues = stripBoundaryQuotes(allValuesQuoted);
 
             // should we ignore things that look like options?
-            if (allValues.equals(consumeRemaining)) {
+            if (allValuesQuoted.equals(consumeRemaining)) {
                 while (arguments.hasNext() && (argumentCount < maximum)) {
                     ++argumentCount;
                     commandLine.addValue(option, arguments.next());
                 }
             }
             // does it look like an option?
-            else if (commandLine.looksLikeOption(allValues)) {
+            else if (commandLine.looksLikeOption(allValuesQuoted)) {
                 arguments.previous();
 
                 break;
