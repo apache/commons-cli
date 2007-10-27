@@ -20,11 +20,11 @@ import org.apache.commons.cli.*;
 import junit.framework.TestCase;
 
 /**
- * http://issues.apache.org/jira/browse/CLI-138
+ * http://issues.apache.org/jira/browse/CLI-148
  *
  * @author brianegge
  */
-public class BugCLI138Test  extends TestCase {
+public class BugCLI148Test  extends TestCase {
 
     public void testWorkaround1() throws Exception
     {
