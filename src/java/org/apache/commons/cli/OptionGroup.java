@@ -16,6 +16,7 @@
  */
 package org.apache.commons.cli;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -25,8 +26,10 @@ import java.util.Iterator;
  * @author John Keyes ( john at integralsource.com )
  * @version $Revision$
  */
-public class OptionGroup {
+public class OptionGroup implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     /** hold the options */
     private HashMap optionMap = new HashMap();
 

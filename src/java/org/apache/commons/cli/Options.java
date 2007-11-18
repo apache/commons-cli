@@ -16,6 +16,7 @@
  */
 package org.apache.commons.cli;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,8 +41,10 @@ import java.util.Map;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$
  */
-public class Options {
+public class Options implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     /** a map of the options with the character key */
     private Map shortOpts = new HashMap();
 

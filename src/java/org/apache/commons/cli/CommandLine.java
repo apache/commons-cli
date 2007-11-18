@@ -16,6 +16,7 @@
  */
 package org.apache.commons.cli;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -38,7 +39,9 @@ import java.util.HashSet;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author John Keyes (john at integralsource.com)
  */
-public class CommandLine {
+public class CommandLine implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** the unrecognised options/arguments */
     private List args = new LinkedList();
