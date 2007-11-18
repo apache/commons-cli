@@ -16,6 +16,7 @@
  */
 package org.apache.commons.cli;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /** <p>Describes a single command-line option.  It maintains
@@ -33,7 +34,9 @@ import java.util.ArrayList;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$
  */
-public class Option implements Cloneable {
+public class Option implements Cloneable, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** constant that specifies the number of argument values has 
         not been specified */
@@ -47,9 +50,6 @@ public class Option implements Cloneable {
 
     /** longOpt is the long representation of the option */
     private String longOpt;
-
-    /** hasArg specifies whether this option has an associated argument */
-    private boolean hasArg;
 
     /** argName specifies the name of the argument for this option */
     private String argName = "arg";
@@ -136,7 +136,6 @@ public class Option implements Cloneable {
             this.numberOfArgs = 1;
         }
 
-        this.hasArg = hasArg;
         this.description = description;
     }
 
@@ -571,9 +570,11 @@ public class Option implements Cloneable {
 
         buf.append(" ");
 
-        if (hasArg)
+        if (hasArgs())
         {
-            buf.append("+ARG");
+            buf.append("[ARG...]");
+        } else if (hasArg()) {
+            buf.append(" [ARG]");
         }
 
         buf.append(" :: ").append(this.description);
