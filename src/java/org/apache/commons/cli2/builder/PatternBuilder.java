@@ -16,8 +16,8 @@
  */
 package org.apache.commons.cli2.builder;
 
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.apache.commons.cli2.Argument;
@@ -64,7 +64,7 @@ public class PatternBuilder {
         this.abuilder = abuilder;
     }
 
-    private final Set options = new HashSet();
+    private final Set options = new LinkedHashSet();
 
     /**
      * Creates a new Option instance.
