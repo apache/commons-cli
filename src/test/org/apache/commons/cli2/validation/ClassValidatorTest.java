@@ -192,7 +192,7 @@ public class ClassValidatorTest extends TestCase {
         final List list = Arrays.asList(array);
 
         validator.setInstance(true);
-        
+
         try {
             validator.validate(list);
             fail("It's not possible to create a '" + className + "'");
@@ -212,7 +212,7 @@ public class ClassValidatorTest extends TestCase {
         final List list = Arrays.asList(array);
 
         validator.setInstance(true);
-        
+
         try {
             validator.validate(list);
             fail("It's not possible to create a '" + className + "'");
@@ -229,7 +229,7 @@ public class ClassValidatorTest extends TestCase {
                             ive.getMessage());
         }
     }
-    
+
     public void testClassloader() {
         assertEquals(
             "Wrong classloader found",

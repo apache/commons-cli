@@ -35,17 +35,17 @@ public class HelpLineImpl implements HelpLine {
 
     /** The help settings used to obtain the previous usage */
     private transient Set cachedHelpSettings;
-    
+
     /** The comparator used to obtain the previous usage */
     private transient Comparator cachedComparator;
-    
+
     /** The previously obtained usage */
     private transient String cachedUsage;
-    
+
     /**
      * Creates a new HelpLineImpl to represent a particular Option in the online
      * help.
-     * 
+     *
      * @param option
      *            Option that the HelpLineImpl describes
      * @param indent
@@ -76,12 +76,12 @@ public class HelpLineImpl implements HelpLine {
     public Option getOption() {
         return option;
     }
-    
+
     /**
-     * Builds a usage string for the option using the specified settings and 
+     * Builds a usage string for the option using the specified settings and
      * comparator.
-     * 
-     *  
+     *
+     *
      * @param helpSettings the settings to apply
      * @param comparator a comparator to sort options when applicable
      * @return the usage string
@@ -90,18 +90,18 @@ public class HelpLineImpl implements HelpLine {
         if (cachedUsage == null
             || cachedHelpSettings != helpSettings
             || cachedComparator != comparator) {
-            
+
             // cache the arguments to avoid redoing work
             cachedHelpSettings = helpSettings;
             cachedComparator = comparator;
-            
+
             // build the new buffer
             final StringBuffer buffer = new StringBuffer();
             for (int i = 0; i < indent; ++i) {
                 buffer.append("  ");
             }
             option.appendUsage(buffer, helpSettings, comparator);
-            
+
             // cache the usage string
             cachedUsage = buffer.toString();
         }

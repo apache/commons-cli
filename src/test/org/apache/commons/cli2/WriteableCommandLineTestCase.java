@@ -22,11 +22,11 @@ import org.apache.commons.cli2.option.ArgumentTest;
  * @author Rob Oxspring
  */
 public abstract class WriteableCommandLineTestCase extends CommandLineTestCase {
-	
+
 	private WriteableCommandLine writeable;
-	
+
 	protected abstract WriteableCommandLine createWriteableCommandLine();
-	
+
 	/* (non-Javadoc)
 	 * @see org.apache.commons.cli2.CommandLineTest#createCommandLine()
 	 */
@@ -42,7 +42,7 @@ public abstract class WriteableCommandLineTestCase extends CommandLineTestCase {
 		cl.addValue(multiple,"value 3");
 		return cl;
 	}
-	
+
 	/*
 	 * @see CommandLineTest#setUp()
 	 */
@@ -60,17 +60,17 @@ public abstract class WriteableCommandLineTestCase extends CommandLineTestCase {
 		assertTrue(writeable.getValues(present).isEmpty());
 		writeable.addValue(present,"value");
 		assertContentsEqual(list("value"),writeable.getValues(present));
-		
+
 		// most options shouldn't appear due to adding values
 		assertFalse(writeable.hasOption(present));
-		
+
 		final Argument arg = ArgumentTest.buildHostArgument();
-		
+
 		assertFalse(writeable.hasOption(arg));
 		assertTrue(writeable.getValues(arg).isEmpty());
 		writeable.addValue(arg,"value");
 		assertContentsEqual(list("value"),writeable.getValues(arg));
-		
+
 		// Arguments should force the option present
 		assertTrue(writeable.hasOption(arg));
 	}

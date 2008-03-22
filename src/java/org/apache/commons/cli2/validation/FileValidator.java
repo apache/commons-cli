@@ -26,7 +26,7 @@ import java.util.ListIterator;
  * the {@link java.util.List} of values is replaced with the
  * {@link java.io.File} instance.
  *
- * The following attributes can also be specified using the 
+ * The following attributes can also be specified using the
  * appropriate settors:
  * <ul>
  *  <li>writable</li>
@@ -47,12 +47,12 @@ import java.util.ListIterator;
  * FileValidator validator = FileValidator.getExistingFileInstance();
  * validator.setReadable(true);
  * validator.setWritable(true);
- * 
- * Argument age = 
+ *
+ * Argument age =
  *     builder.withName("config");
  *            .withValidator(validator);
  * </pre>
- * 
+ *
  * @author Rob Oxspring
  * @author John Keyes
  */
@@ -95,16 +95,16 @@ public class FileValidator implements Validator {
 
     /** whether the argument value is readable */
     private boolean readable = false;
-    
+
     /** whether the argument value is writable */
     private boolean writable = false;
-    
+
     /** whether the argument value exists */
     private boolean existing = false;
-    
+
     /** whether the argument value is a directory */
     private boolean directory = false;
-    
+
     /** whether the argument value is a file */
     private boolean file = false;
 
@@ -115,7 +115,7 @@ public class FileValidator implements Validator {
      * Validate the list of values against the list of permitted values.
      * If a value is valid, replace the string in the <code>values</code>
      * {@link java.util.List} with the {@link java.io.File} instance.
-     * 
+     *
      * @see org.apache.commons.cli2.validation.Validator#validate(java.util.List)
      */
     public void validate(final List values) throws InvalidArgumentException {
@@ -132,7 +132,7 @@ public class FileValidator implements Validator {
 
                 throw new InvalidArgumentException(name);
             }
-            
+
             i.set(f);
         }
     }
@@ -149,7 +149,7 @@ public class FileValidator implements Validator {
     /**
      * Specifies whether the argument values must represent directories.
      *
-     * @param directory specifies whether the argument values must 
+     * @param directory specifies whether the argument values must
      * represent directories.
      */
     public void setDirectory(boolean directory) {
@@ -157,10 +157,10 @@ public class FileValidator implements Validator {
     }
 
     /**
-     * Returns whether the argument values must represent existing 
+     * Returns whether the argument values must represent existing
      * files/directories.
      *
-     * @return whether the argument values must represent existing 
+     * @return whether the argument values must represent existing
      * files/directories.
      */
     public boolean isExisting() {
@@ -168,10 +168,10 @@ public class FileValidator implements Validator {
     }
 
     /**
-     * Specifies whether the argument values must represent existing 
+     * Specifies whether the argument values must represent existing
      * files/directories.
      *
-     * @param existing specifies whether the argument values must 
+     * @param existing specifies whether the argument values must
      * represent existing files/directories.
      */
     public void setExisting(boolean existing) {
@@ -190,7 +190,7 @@ public class FileValidator implements Validator {
     /**
      * Specifies whether the argument values must represent files.
      *
-     * @param file specifies whether the argument values must 
+     * @param file specifies whether the argument values must
      * represent files.
      */
     public void setFile(boolean file) {
@@ -198,10 +198,10 @@ public class FileValidator implements Validator {
     }
 
     /**
-     * Returns whether the argument values must represent hidden 
+     * Returns whether the argument values must represent hidden
      * files/directories.
      *
-     * @return whether the argument values must represent hidden 
+     * @return whether the argument values must represent hidden
      * files/directories.
      */
     public boolean isHidden() {
@@ -209,10 +209,10 @@ public class FileValidator implements Validator {
     }
 
     /**
-     * Specifies whether the argument values must represent hidden 
+     * Specifies whether the argument values must represent hidden
      * files/directories.
      *
-     * @param hidden specifies whether the argument values must 
+     * @param hidden specifies whether the argument values must
      * represent hidden files/directories.
      */
     public void setHidden(boolean hidden) {
@@ -220,10 +220,10 @@ public class FileValidator implements Validator {
     }
 
     /**
-     * Returns whether the argument values must represent readable 
+     * Returns whether the argument values must represent readable
      * files/directories.
      *
-     * @return whether the argument values must represent readable 
+     * @return whether the argument values must represent readable
      * files/directories.
      */
     public boolean isReadable() {
@@ -231,10 +231,10 @@ public class FileValidator implements Validator {
     }
 
     /**
-     * Specifies whether the argument values must represent readable 
+     * Specifies whether the argument values must represent readable
      * files/directories.
      *
-     * @param readable specifies whether the argument values must 
+     * @param readable specifies whether the argument values must
      * represent readable files/directories.
      */
     public void setReadable(boolean readable) {
@@ -242,10 +242,10 @@ public class FileValidator implements Validator {
     }
 
     /**
-     * Returns whether the argument values must represent writable 
+     * Returns whether the argument values must represent writable
      * files/directories.
      *
-     * @return whether the argument values must represent writable 
+     * @return whether the argument values must represent writable
      * files/directories.
      */
     public boolean isWritable() {
@@ -253,10 +253,10 @@ public class FileValidator implements Validator {
     }
 
     /**
-     * Specifies whether the argument values must represent writable 
+     * Specifies whether the argument values must represent writable
      * files/directories.
      *
-     * @param writable specifies whether the argument values must 
+     * @param writable specifies whether the argument values must
      * represent writable files/directories.
      */
     public void setWritable(boolean writable) {

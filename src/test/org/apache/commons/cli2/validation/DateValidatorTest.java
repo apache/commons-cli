@@ -68,8 +68,8 @@ public class DateValidatorTest
         validator.validate(list);
 
         final Iterator i = list.iterator();
-        // CLI-40: For some reason, the YYYY_MM_DD object gets quite 
-        // confused here and returns 2003-12-22. If we make a new one 
+        // CLI-40: For some reason, the YYYY_MM_DD object gets quite
+        // confused here and returns 2003-12-22. If we make a new one
         // there is no problem.
         assertEquals("2003-12-23", new SimpleDateFormat("yyyy-MM-dd").format((Date) i.next()));
         assertFalse(i.hasNext());

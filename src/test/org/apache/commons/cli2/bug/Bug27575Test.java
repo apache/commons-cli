@@ -31,7 +31,7 @@ public class Bug27575Test extends TestCase {
 		builder.withPattern("hc!<");
 		Option option = builder.create();
 		assertTrue(option instanceof GroupImpl);
-		
+
 		GroupImpl group = (GroupImpl)option;
 		Iterator i = group.getOptions().iterator();
 		assertEquals("[-h]",i.next().toString());

@@ -27,102 +27,102 @@ import java.util.Set;
  * will be passed to a method that will lookup the presence of the values.
  */
 public class DisplaySetting {
-	
+
     private static final Set all = new HashSet();
 
     /**
      * A Set guarenteed to contain all possible DisplaySetting values
      */
     public static final Set ALL = Collections.unmodifiableSet(all);
-    
+
     /**
      * A Set guarenteed to contain no DisplaySetting values
      */
     public static final Set NONE = Collections.EMPTY_SET;
-    
+
     /**
      * Indicates that aliases should be included
      */
     public static final DisplaySetting DISPLAY_ALIASES =
         new DisplaySetting("DISPLAY_ALIASES");
-    
+
     /**
      * Indicates that optionality should be included
      */
     public static final DisplaySetting DISPLAY_OPTIONAL =
         new DisplaySetting("DISPLAY_OPTIONAL");
-    
+
     /**
      * Indicates that property options should be included
      */
     public static final DisplaySetting DISPLAY_PROPERTY_OPTION =
         new DisplaySetting("DISPLAY_PROPERTY_OPTION");
-    
+
     /**
      * Indicates that switches should be included enabled
      */
     public static final DisplaySetting DISPLAY_SWITCH_ENABLED =
         new DisplaySetting("DISPLAY_SWITCH_ENABLED");
-    
+
     /**
      * Indicates that switches should be included disabled
      */
     public static final DisplaySetting DISPLAY_SWITCH_DISABLED =
         new DisplaySetting("DISPLAY_SWITCH_DISABLED");
-    
+
     /**
      * Indicates that group names should be included
      */
     public static final DisplaySetting DISPLAY_GROUP_NAME =
         new DisplaySetting("DISPLAY_GROUP_NAME");
-    
+
     /**
      * Indicates that groups should be included expanded
      */
     public static final DisplaySetting DISPLAY_GROUP_EXPANDED =
         new DisplaySetting("DISPLAY_GROUP_EXPANDED");
-    
+
     /**
      * Indicates that group arguments should be included
      */
     public static final DisplaySetting DISPLAY_GROUP_ARGUMENT =
         new DisplaySetting("DISPLAY_GROUP_ARGUMENT");
-    
+
     /**
      * Indicates that group outer brackets should be included
      */
     public static final DisplaySetting DISPLAY_GROUP_OUTER =
         new DisplaySetting("DISPLAY_GROUP_OUTER");
-    
+
     /**
      * Indicates that arguments should be included numbered
      */
     public static final DisplaySetting DISPLAY_ARGUMENT_NUMBERED =
         new DisplaySetting("DISPLAY_ARGUMENT_NUMBERED");
-    
+
     /**
      * Indicates that arguments should be included bracketed
      */
     public static final DisplaySetting DISPLAY_ARGUMENT_BRACKETED =
         new DisplaySetting("DISPLAY_ARGUMENT_BRACKETED");
-    
+
     /**
      * Indicates that arguments of Parents should be included
      */
     public static final DisplaySetting DISPLAY_PARENT_ARGUMENT =
         new DisplaySetting("DISPLAY_PARENT_ARGUMENT");
-    
+
     /**
      * Indicates that children of Parents should be included
      */
     public static final DisplaySetting DISPLAY_PARENT_CHILDREN =
         new DisplaySetting("DISPLAY_PARENT_CHILDREN");
-    
+
     /**
      * The name of the setting
      */
     private final String name;
-    
+
     /**
      * The hashCode of the setting
      */

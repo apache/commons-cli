@@ -384,7 +384,7 @@ public class HelpFormatter {
                 continue;
             }
 
-            // move to the next ideal wrap point 
+            // move to the next ideal wrap point
             right = (left + width) - 1;
 
             // if we have run out of characters

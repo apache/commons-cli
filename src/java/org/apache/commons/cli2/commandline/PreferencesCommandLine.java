@@ -44,30 +44,30 @@ import org.apache.commons.cli2.Option;
  *
  * @see java.util.prefs.Preferences
  * @see org.apache.commons.cli2.commandline.DefaultingCommandLine
- * @see org.apache.commons.cli2.Option#getPreferredName() 
+ * @see org.apache.commons.cli2.Option#getPreferredName()
  */
 public class PreferencesCommandLine extends CommandLineImpl {
-	
+
 	private static final char NUL = '\0';
 	private final Preferences preferences;
 	private final Option root;
 	private final char separator;
-	
+
 	/**
      * Creates a new PreferencesCommandLine using the specified root Option and
      * Preferences node.  Argument values will be separated using the char 0.
-     * 
+     *
 	 * @param root the CommandLine's root Option
 	 * @param preferences the Preferences node to get values from
 	 */
 	public PreferencesCommandLine(final Option root, final Preferences preferences){
 		this(root,preferences,NUL);
 	}
-	
+
     /**
      * Creates a new PreferencesCommandLine using the specified root Option,
      * Preferences node and value separator.
-     * 
+     *
      * @param root the CommandLine's root Option
      * @param preferences the Preferences node to get values from
      * @param separator the character to split argument values
@@ -77,7 +77,7 @@ public class PreferencesCommandLine extends CommandLineImpl {
 		this.preferences = preferences;
 		this.separator = separator;
 	}
-	
+
 	public boolean hasOption(Option option) {
 		if(option==null){
 			return false;
@@ -97,18 +97,18 @@ public class PreferencesCommandLine extends CommandLineImpl {
 
 	public List getValues(final Option option, final List defaultValues) {
 		final String value = preferences.get(option.getPreferredName(),null);
-		
+
 		if(value==null){
 			return defaultValues;
 		}
 		else if(separator>NUL){
 			final List values = new ArrayList();
 			final StringTokenizer tokens = new StringTokenizer(value,String.valueOf(separator));
-			
+
 			while(tokens.hasMoreTokens()){
 				values.add(tokens.nextToken());
 			}
-			
+
 			return values;
 		}
 		else{
@@ -128,7 +128,7 @@ public class PreferencesCommandLine extends CommandLineImpl {
 			return defaultValue;
 		}
 	}
-	
+
 	public String getProperty(final String property, final String defaultValue) {
 		return preferences.get(property, defaultValue);
 	}

@@ -29,15 +29,15 @@ import org.apache.commons.cli2.option.Switch;
  * A collection of Comparators suitable for use with Option instances.
  */
 public class Comparators {
-	
+
 	private Comparators(){
 		// constructor hiden from potential users
 	}
-	
+
 
     /**
      * Chains comparators together.
-     * 
+     *
      * @see #chain(Comparator[])
      * @param c0
      *            a comparator
@@ -51,7 +51,7 @@ public class Comparators {
 
     /**
      * Chains comparators together.
-     * 
+     *
      * @see #chain(Comparator[])
      * @param c0
      *            a comparator
@@ -70,7 +70,7 @@ public class Comparators {
 
     /**
      * Chains comparators together.
-     * 
+     *
      * @see #chain(Comparator[])
      * @param c0
      *            a comparator
@@ -92,7 +92,7 @@ public class Comparators {
 
     /**
      * Chains comparators together.
-     * 
+     *
      * @see #chain(Comparator[])
      * @param c0
      *            a comparator
@@ -117,7 +117,7 @@ public class Comparators {
 
     /**
      * Chains comparators together.
-     * 
+     *
      * @see #chain(Comparator[])
      * @param comparators
      *            a List of comparators to chain together
@@ -133,7 +133,7 @@ public class Comparators {
      * Chains an array of comparators together. Each Comparator will be called
      * in turn until one of them return a non-zero value, this value will be
      * returned.
-     * 
+     *
      * @param comparators
      *            the array of comparators
      * @return a chained comparator
@@ -169,7 +169,7 @@ public class Comparators {
 
     /**
      * Reverses a comparator's logic.
-     * 
+     *
      * @param wrapped
      *            the Comparator to reverse the logic of
      * @return a comparator with reverse logic
@@ -196,7 +196,7 @@ public class Comparators {
 
     /**
      * Forces Group instances to appear at the beginning of lists
-     * 
+     *
      * @see Group
      * @return a new comparator
      */
@@ -206,7 +206,7 @@ public class Comparators {
 
     /**
      * Forces Group instances to appear at the end of lists
-     * 
+     *
      * @see Group
      * @return a new comparator
      */
@@ -231,7 +231,7 @@ public class Comparators {
 
     /**
      * Forces Switch instances to appear at the beginning of lists
-     * 
+     *
      * @see Switch
      * @return a new comparator
      */
@@ -241,7 +241,7 @@ public class Comparators {
 
     /**
      * Forces Switch instances to appear at the end of lists
-     * 
+     *
      * @see Switch
      * @return a new comparator
      */
@@ -266,7 +266,7 @@ public class Comparators {
 
     /**
      * Forces Command instances to appear at the beginning of lists
-     * 
+     *
      * @see Command
      * @return a new comparator
      */
@@ -276,7 +276,7 @@ public class Comparators {
 
     /**
      * Forces Command instances to appear at the end of lists
-     * 
+     *
      * @see Command
      * @return a new comparator
      */
@@ -301,7 +301,7 @@ public class Comparators {
 
     /**
      * Forces DefaultOption instances to appear at the beginning of lists
-     * 
+     *
      * @see DefaultOption
      * @return a new comparator
      */
@@ -311,7 +311,7 @@ public class Comparators {
 
     /**
      * Forces DefaultOption instances to appear at the end of lists
-     * 
+     *
      * @see DefaultOption
      * @return a new comparator
      */
@@ -337,7 +337,7 @@ public class Comparators {
     /**
      * Forces Comparators with a particular trigger to appear at the beginning
      * of lists
-     * 
+     *
      * @param name
      *            the trigger name to select
      * @see Option#getTriggers()
@@ -350,7 +350,7 @@ public class Comparators {
     /**
      * Forces Comparators with a particular trigger to appear at the end of
      * lists
-     * 
+     *
      * @param name
      *            the trigger name to select
      * @see Option#getTriggers()
@@ -362,7 +362,7 @@ public class Comparators {
 
     private static class Named implements Comparator {
         private final String name;
-        
+
         /**
          * Creates a Comparator that sorts a particular name high in order
          * @param name the trigger name to select
@@ -389,7 +389,7 @@ public class Comparators {
 
     /**
      * Orders Options by preferredName
-     * 
+     *
      * @see Option#getPreferredName()
      * @return a new comparator
      */
@@ -399,7 +399,7 @@ public class Comparators {
 
     /**
      * Orders Options by preferredName, reversed
-     * 
+     *
      * @see Option#getPreferredName()
      * @return a new comparator
      */
@@ -418,29 +418,29 @@ public class Comparators {
 
     /**
      * Orders Options grouping required Options first
-     * 
+     *
      * @see Option#isRequired()
      * @return a new comparator
      */
     public static Comparator requiredFirst() {
         return new Required();
     }
-    
+
     /**
      * Orders Options grouping required Options last
-     * 
+     *
      * @see Option#isRequired()
      * @return a new comparator
      */
     public static Comparator requiredLast() {
         return reverse(requiredFirst());
     }
-    
+
     private static class Required implements Comparator {
         public int compare(final Object oleft, final Object oright) {
             final Option left = (Option)oleft;
             final Option right = (Option)oright;
-            
+
             final boolean l = left.isRequired();
             final boolean r = right.isRequired();
 

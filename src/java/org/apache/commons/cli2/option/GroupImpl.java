@@ -73,7 +73,7 @@ public class GroupImpl
         this.minimum = minimum;
         this.maximum = maximum;
 
-        // store a copy of the options to be used by the 
+        // store a copy of the options to be used by the
         // help methods
         this.options = Collections.unmodifiableList(options);
 

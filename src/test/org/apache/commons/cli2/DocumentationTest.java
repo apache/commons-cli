@@ -47,7 +47,7 @@ public class DocumentationTest extends TestCase {
         /*
          * --version -? -h --help -log file -s|-q|-v|-d Bursting File/Num/Date
          * validation Switches Commands Auto help Auto exception help
-         *  
+         *
          */
         DefaultOptionBuilder obuilder = new DefaultOptionBuilder();
         Option version =
@@ -149,41 +149,41 @@ public class DocumentationTest extends TestCase {
                 uoe.getMessage());
         }
     }
-    
+
     public void testManualIntroduction() {
-        
+
         DefaultOptionBuilder oBuilder = new DefaultOptionBuilder();
         ArgumentBuilder aBuilder = new ArgumentBuilder();
         GroupBuilder gBuilder = new GroupBuilder();
-        
-        DefaultOption xmlOption = 
+
+        DefaultOption xmlOption =
             oBuilder
                 .withLongName("xml")
                 .withDescription("Output using xml format")
                 .create();
-        
-        Argument pathArgument = 
+
+        Argument pathArgument =
             aBuilder
                 .withName("path")
                 .withMinimum(1)
                 .withMaximum(1)
                 .create();
-        
-        Group outputChildren = 
+
+        Group outputChildren =
             gBuilder
                 .withOption(xmlOption)
                 .create();
-        
-        Option outputOption = 
+
+        Option outputOption =
             oBuilder
                 .withLongName("output")
                 .withDescription("Outputs to a file")
                 .withArgument(pathArgument)
                 .withChildren(outputChildren)
                 .create();
-        
+
         ///////////////////////////////////////////////////
-        
+
         Group options = outputChildren;
         HelpFormatter hf = new HelpFormatter();
 
@@ -195,11 +195,11 @@ public class DocumentationTest extends TestCase {
         if(cl==null) {
             System.exit(-1);
         }
-        
+
         //////////////////////////////////////////////////
-        
+
         cl = new WriteableCommandLineImpl(outputChildren,new ArrayList());
-        
+
         // if we have --output option
         if(cl.hasOption("--output")) {
             // grab the path
@@ -209,15 +209,15 @@ public class DocumentationTest extends TestCase {
             // configure the application's output
             configureOutput(path,xml);
         }
-        
-        
-                
-        
+
+
+
+
     }
 
     private void configureOutput(String path, boolean xml) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void testExampleAnt() throws IOException, OptionException {
@@ -396,14 +396,14 @@ public class DocumentationTest extends TestCase {
                 .withOption(find)
                 .withOption(targets)
                 .create();
-        
+
         /////////////////////////////////////
         String[] args = new String[]{};
-        
+
         Parser parser = new Parser();
         parser.setGroup(options);
         CommandLine cl = parser.parse(args);
-        
+
         if(cl.hasOption(help)) {
             //displayHelp();
             return;
@@ -421,7 +421,7 @@ public class DocumentationTest extends TestCase {
             String target = (String) i.next();
             //doTarget(target);
         }
-        
+
         /////////////////////////////////////
 
         HelpFormatter hf = new HelpFormatter();

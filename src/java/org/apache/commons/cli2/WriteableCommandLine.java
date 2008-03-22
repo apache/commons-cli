@@ -22,13 +22,13 @@ import java.util.List;
  * A CommandLine that detected values and options can be written to.
  */
 public interface WriteableCommandLine extends CommandLine {
-    
+
     /**
      * Adds an Option to the CommandLine
      * @param option the Option to add
      */
     void addOption(final Option option);
-    
+
     /**
      * Adds a value to an Option in the CommandLine.
      * @param option the Option to add to
@@ -42,7 +42,7 @@ public interface WriteableCommandLine extends CommandLine {
      * @param defaultValues the defaults for the option
      */
     void setDefaultValues(final Option option, final List defaultValues);
-    
+
     /**
      * Adds a switch value to an Option in the CommandLine.
      * @param option the Option to add to
@@ -50,25 +50,25 @@ public interface WriteableCommandLine extends CommandLine {
      * @throws IllegalStateException if the switch has already been added
      */
     void addSwitch(final Option option, final boolean value) throws IllegalStateException;
-    
+
     /**
      * Sets the default state for a Switch in the CommandLine.
      * @param option the Option to add to
      * @param defaultSwitch the defaults state for ths switch
      */
     void setDefaultSwitch(final Option option, final Boolean defaultSwitch);
-    
+
     /**
      * Adds a property value to a name in the CommandLine.
      * Replaces any existing value for the property.
-     * 
+     *
      * @param property the name of the property
      * @param value the value of the property
      */
     void addProperty(final String property, final String value);
-    
+
     /**
-     * Detects whether the argument looks like an Option trigger 
+     * Detects whether the argument looks like an Option trigger
      * @param argument the argument to test
      * @return true if the argument looks like an Option trigger
      */

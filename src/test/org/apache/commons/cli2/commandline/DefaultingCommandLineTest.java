@@ -128,7 +128,7 @@ public class DefaultingCommandLineTest
         assertSame(first, i.next());
         assertFalse(i.hasNext());
     }
-    
+
     public void testTriggers() {
         final DefaultingCommandLine defaults = new DefaultingCommandLine();
         defaults.appendCommandLine(first);
@@ -144,7 +144,7 @@ public class DefaultingCommandLineTest
 
     public void testDefaults() {
         final DefaultingCommandLine defaults = new DefaultingCommandLine();
-        
+
         assertEquals("wrong # of defaults", 0, defaults.getValues("--insecond").size());
         assertEquals("wrong Set of defaults", Collections.EMPTY_LIST, defaults.getValues("--insecond", null));
     }

@@ -217,15 +217,15 @@ public class ArgumentImpl
     public String getConsumeRemaining() {
     	return this.consumeRemaining;
     }
-    
+
     public List getDefaultValues() {
     	return this.defaultValues;
     }
-    
+
     public Validator getValidator() {
     	return this.validator;
     }
-    
+
     public void validate(final WriteableCommandLine commandLine)
         throws OptionException {
         validate(commandLine, this);

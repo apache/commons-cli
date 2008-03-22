@@ -42,7 +42,7 @@ public interface HelpLine {
     /**
      * Builds a usage string for the option using the specified settings and
      * comparator.
-     * 
+     *
      * @param helpSettings
      *            the settings to apply
      * @param comparator

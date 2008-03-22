@@ -36,92 +36,92 @@ import org.apache.commons.cli2.validation.EnumValidator;
 /**
  * <p>Test the <code>ls</code> command. Duplicated Option types are not
  * tested e.g. -a and -d are the same Option type.</p>
- * 
+ *
  * <p>The following is the man output for 'ls'. See
  * <a href="http://www.rt.com/man/ls.1.html">http://www.rt.com/man/ls.1.html</a>.</p>
- * 
+ *
  * <pre>
  *  LS(1) FSF LS(1)
- * 
+ *
  *  NAME ls - list directory contents
- * 
+ *
  *  SYNOPSIS ls [OPTION]... [FILE]...
- * 
+ *
  *  DESCRIPTION List information about the FILEs (the current directory by default). Sort entries alphabetically if none of -cftuSUX nor --sort.
- * 
+ *
  *  -a, --all do not hide entries starting with .
- * 
+ *
  *  -A, --almost-all do not list implied . and ..
- * 
+ *
  *  -b, --escape print octal escapes for nongraphic characters
- * 
+ *
  *  --block-size=SIZE use SIZE-byte blocks
- * 
+ *
  *  -B, --ignore-backups do not list implied entries ending with ~ -c sort by change time; with -l: show ctime -C list entries by columns
- * 
+ *
  *  --color[=WHEN] control whether color is used to distinguish file types. WHEN may be `never', `always', or `auto'
- * 
+ *
  *  -d, --directory list directory entries instead of contents
- * 
+ *
  *  -D, --dired generate output designed for Emacs' dired mode -f do not sort, enable -aU, disable -lst
- * 
+ *
  *  -F, --classify append indicator (one of /=@|*) to entries
- * 
+ *
  *  --format=WORD across -x, commas -m, horizontal -x, long -l, sin- gle-column -1, verbose -l, vertical -C
- * 
+ *
  *  --full-time list both full date and full time -g (ignored)
- * 
+ *
  *  -G, --no-group inhibit display of group information
- * 
+ *
  *  -h, --human-readable print sizes in human readable format (e.g., 1K 234M 2G)
- * 
+ *
  *  -H, --si likewise, but use powers of 1000 not 1024
- * 
+ *
  *  --indicator-style=WORD append indicator with style WORD to entry names: none (default), classify (-F), file-type (-p)
- * 
+ *
  *  -i, --inode print index number of each file
- * 
+ *
  *  -I, --ignore=PATTERN do not list implied entries matching shell PATTERN
- * 
+ *
  *  -k, --kilobytes like --block-size=1024 -l use a long listing format
- * 
+ *
  *  -L, --dereference list entries pointed to by symbolic links -m fill width with a comma separated list of entries
- * 
+ *
  *  -n, --numeric-uid-gid list numeric UIDs and GIDs instead of names
- * 
+ *
  *  -N, --literal print raw entry names (don't treat e.g. control characters specially) -o use long listing format without group info
- * 
+ *
  *  -p, --file-type append indicator (one of /=@|) to entries
- * 
+ *
  *  -q, --hide-control-chars print ? instead of non graphic characters
- * 
+ *
  *  --show-control-chars show non graphic characters as-is (default)
- * 
+ *
  *  -Q, --quote-name enclose entry names in double quotes
- * 
+ *
  *  --quoting-style=WORD use quoting style WORD for entry names: literal, shell, shell-always, c, escape
- * 
+ *
  *  -r, --reverse reverse order while sorting
- * 
+ *
  *  -R, --recursive list subdirectories recursively
- * 
+ *
  *  -s, --size print size of each file, in blocks -S sort by file size
- * 
+ *
  *  --sort=WORD extension -X, none -U, size -S, time -t, version -v status -c, time -t, atime -u, access -u, use -u
- * 
+ *
  *  --time=WORD show time as WORD instead of modification time: atime, access, use, ctime or status; use specified time as sort key if --sort=time -t sort by modification time
- * 
+ *
  *  -T, --tabsize=COLS assume tab stops at each COLS instead of 8 -u sort by last access time; with -l: show atime -U do not sort; list entries in directory order -v sort by version
- * 
+ *
  *  -w, --width=COLS assume screen width instead of current value -x list entries by lines instead of by columns -X sort alphabetically by entry extension -1 list one file per line
- * 
+ *
  *  --help display this help and exit
- * 
+ *
  *  --version output version information and exit
- * 
+ *
  *  By default, color is not used to distinguish types of files. That is equivalent to using --color=none. Using the --color option without the optional WHEN argument is equivalent to using --color=always. With --color=auto, color codes are output only if standard output is con- nected to a terminal (tty).
  * </pre>
- * 
+ *
  * @author Rob Oxspring
  * @author John Keyes
  */
@@ -145,7 +145,7 @@ public class LsTest extends TestCase {
 
     /**
      * Required ctor.
-     * 
+     *
      * @param name
      *            the name of the TestCase
      */

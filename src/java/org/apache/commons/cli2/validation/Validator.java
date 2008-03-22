@@ -32,10 +32,10 @@ public interface Validator {
 
     /**
      * Validate the specified values (List of Strings).
-     * 
+     *
      * @param values The values to validate.
-     * 
-     * @throws InvalidArgumentException If any of the 
+     *
+     * @throws InvalidArgumentException If any of the
      * specified values are not valid.
      */
     void validate(final List values) throws InvalidArgumentException;

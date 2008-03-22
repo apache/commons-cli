@@ -40,15 +40,15 @@ import org.apache.commons.cli2.Option;
  *
  * @see java.util.Properties
  * @see org.apache.commons.cli2.commandline.DefaultingCommandLine
- * @see org.apache.commons.cli2.Option#getPreferredName() 
+ * @see org.apache.commons.cli2.Option#getPreferredName()
  */
 public class PropertiesCommandLine extends CommandLineImpl {
-	
+
 	private static final char NUL = '\0';
 	private final Properties properties;
 	private final Option root;
 	private final char separator;
-	
+
     /**
      * Creates a new PropertiesCommandLine using the specified root Option,
      * Properties instance.  The character 0 is used as the value separator.
@@ -59,7 +59,7 @@ public class PropertiesCommandLine extends CommandLineImpl {
 	public PropertiesCommandLine(final Option root, final Properties properties){
 		this(root,properties,NUL);
 	}
-	
+
     /**
      * Creates a new PropertiesCommandLine using the specified root Option,
      * Properties instance and value separator.
@@ -73,7 +73,7 @@ public class PropertiesCommandLine extends CommandLineImpl {
 		this.properties = properties;
 		this.separator = separator;
 	}
-	
+
 
 	public boolean hasOption(Option option) {
 		if(option==null){
@@ -90,18 +90,18 @@ public class PropertiesCommandLine extends CommandLineImpl {
 
 	public List getValues(final Option option, final List defaultValues) {
 		final String value = properties.getProperty(option.getPreferredName());
-		
+
 		if(value==null){
 			return defaultValues;
 		}
 		else if(separator>NUL){
 			final List values = new ArrayList();
 			final StringTokenizer tokens = new StringTokenizer(value,String.valueOf(separator));
-			
+
 			while(tokens.hasMoreTokens()){
 				values.add(tokens.nextToken());
 			}
-			
+
 			return values;
 		}
 		else{
@@ -121,7 +121,7 @@ public class PropertiesCommandLine extends CommandLineImpl {
 			return defaultValue;
 		}
 	}
-	
+
 	public String getProperty(final String property, final String defaultValue) {
 		return properties.getProperty(property,defaultValue);
 	}

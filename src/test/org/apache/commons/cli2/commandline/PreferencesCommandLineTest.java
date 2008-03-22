@@ -27,7 +27,7 @@ import org.apache.commons.cli2.CommandLineTestCase;
  * @author Rob Oxspring
  */
 public class PreferencesCommandLineTest extends CommandLineTestCase {
-	
+
 	/* (non-Javadoc)
 	 * @see org.apache.commons.cli2.CommandLineTest#createCommandLine()
 	 */
@@ -38,9 +38,9 @@ public class PreferencesCommandLineTest extends CommandLineTestCase {
 		props.put("--alsopresent","");
 		props.put("--multiple","value 1|value 2|value 3");
 		props.put("--bool","true");
-		
+
 		props.put("present","present property");
-		
+
 		return new PreferencesCommandLine(root,props,'|');
 	}
 
@@ -51,16 +51,16 @@ public class PreferencesCommandLineTest extends CommandLineTestCase {
 		props.put("--alsopresent","");
 		props.put("--multiple","value 1|value 2|value 3");
 		props.put("--bool","false");
-		
+
 		props.put("present","present property");
-		
+
 		return new PreferencesCommandLine(root,props);
 	}
-	
+
     public void testPropertyValues() {
         // nothing to test
     	CommandLine cmdline = createCommandLine();
-    	
+
     	assertEquals("wrong value", "present value", cmdline.getValue("--present"));
     	assertEquals("wrong value", "present value", cmdline.getValue("--alsopresent"));
     	assertEquals("wrong # of values", 3, cmdline.getValues("--multiple").size());
@@ -68,18 +68,18 @@ public class PreferencesCommandLineTest extends CommandLineTestCase {
     	assertEquals("wrong value 2", "value 2", cmdline.getValues("--multiple").get(1));
     	assertEquals("wrong value 3", "value 3", cmdline.getValues("--multiple").get(2));
     }
-    
+
     public void testNoSeparator() {
         // nothing to test
     	CommandLine cmdline = createCommandLineNoSep();
-    	
+
     	assertEquals("wrong value", "present value", cmdline.getValue("--present"));
     	assertEquals("wrong value", "present value", cmdline.getValue("--alsopresent"));
     	assertEquals("wrong # of values", 1, cmdline.getValues("--multiple").size());
     	assertEquals("wrong value", "value 1|value 2|value 3", cmdline.getValue("--multiple"));
     	assertFalse("expected a false", cmdline.getSwitch("--bool").booleanValue());
     }
-    
+
     public void testNullOption() {
         // nothing to test
     	CommandLine cmdline = createCommandLine();
@@ -99,7 +99,7 @@ public class PreferencesCommandLineTest extends CommandLineTestCase {
         assertTrue("cannot find trigger", triggers.contains("--present"));
         assertTrue("cannot find trigger", triggers.contains("--multiple"));
         assertTrue("cannot find trigger", triggers.contains("--alsopresent"));
-    	
+
     	assertFalse("should not find null option", cmdline.hasOption((String) null));
     	assertTrue("expected a true", cmdline.getSwitch("--bool").booleanValue());
     }

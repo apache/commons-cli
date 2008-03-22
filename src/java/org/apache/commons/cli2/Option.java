@@ -29,12 +29,12 @@ public interface Option {
 
     /**
      * Processes String arguments into a CommandLine.
-     * 
+     *
      * The iterator will initially point at the first argument to be processed
      * and at the end of the method should point to the first argument not
      * processed. This method MUST process at least one argument from the
      * ListIterator.
-     * 
+     *
      * @param commandLine
      *            The CommandLine object to store results in
      * @param args
@@ -46,13 +46,13 @@ public interface Option {
         final WriteableCommandLine commandLine,
         final ListIterator args)
         throws OptionException;
-    
+
     /**
      * Adds defaults to a CommandLine.
-     * 
-     * Any defaults for this option are applied as well as the defaults for 
+     *
+     * Any defaults for this option are applied as well as the defaults for
      * any contained options
-     * 
+     *
      * @param commandLine
      *            The CommandLine object to store defaults in
      */
@@ -61,7 +61,7 @@ public interface Option {
     /**
      * Indicates whether this Option will be able to process the particular
      * argument.
-     * 
+     *
      * @param argument
      *            The argument to be tested
      * @return true if the argument can be processed by this Option
@@ -72,7 +72,7 @@ public interface Option {
      * Indicates whether this Option will be able to process the particular
      * argument. The ListIterator must be restored to the initial state before
      * returning the boolean.
-     * 
+     *
      * @see #canProcess(WriteableCommandLine,String)
      * @param arguments
      *            the ListIterator over String arguments
@@ -84,9 +84,9 @@ public interface Option {
      * Identifies the argument prefixes that should trigger this option. This
      * is used to decide which of many Options should be tried when processing
      * a given argument string.
-     * 
+     *
      * The returned Set must not be null.
-     * 
+     *
      * @return The set of triggers for this Option
      */
     Set getTriggers();
@@ -96,9 +96,9 @@ public interface Option {
      * is used to identify whether a given string looks like an option or an
      * argument value. Typically an option would return the set [--,-] while
      * switches might offer [-,+].
-     * 
+     *
      * The returned Set must not be null.
-     * 
+     *
      * @return The set of prefixes for this Option
      */
     Set getPrefixes();
@@ -106,7 +106,7 @@ public interface Option {
     /**
      * Checks that the supplied CommandLine is valid with respect to this
      * option.
-     * 
+     *
      * @param commandLine
      *            The CommandLine to check.
      * @throws OptionException
@@ -117,7 +117,7 @@ public interface Option {
 
     /**
      * Builds up a list of HelpLineImpl instances to be presented by HelpFormatter.
-     * 
+     *
      * @see HelpLine
      * @see org.apache.commons.cli2.util.HelpFormatter
      * @param depth
@@ -135,7 +135,7 @@ public interface Option {
 
     /**
      * Appends usage information to the specified StringBuffer
-     * 
+     *
      * @param buffer the buffer to append to
      * @param helpSettings a set of display settings @see DisplaySetting
      * @param comp a comparator used to sort the Options
@@ -148,7 +148,7 @@ public interface Option {
     /**
      * The preferred name of an option is used for generating help and usage
      * information.
-     * 
+     *
      * @return The preferred name of the option
      */
     String getPreferredName();
@@ -156,16 +156,16 @@ public interface Option {
     /**
      * Returns a description of the option. This string is used to build help
      * messages as in the HelpFormatter.
-     * 
+     *
      * @see org.apache.commons.cli2.util.HelpFormatter
      * @return a description of the option.
      */
     String getDescription();
 
     /**
-     * Returns the id of the option.  This can be used in a loop and switch 
+     * Returns the id of the option.  This can be used in a loop and switch
      * construct:
-     * 
+     *
      * <code>
      * for(Option o : cmd.getOptions()){
      *     switch(o.getId()){
@@ -173,10 +173,10 @@ public interface Option {
      *             ...
      *     }
      * }
-     * </code> 
-     * 
+     * </code>
+     *
      * The returned value is not guarenteed to be unique.
-     * 
+     *
      * @return the id of the option.
      */
     int getId();

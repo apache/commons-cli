@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 
 /**
  * JUnit test case for the FileValidator.
- * 
+ *
  * @author Rob Oxspring
  * @author John Keyes
  */

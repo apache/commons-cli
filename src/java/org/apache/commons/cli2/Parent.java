@@ -19,7 +19,7 @@ package org.apache.commons.cli2;
 import java.util.ListIterator;
 
 /**
- * An Option that can have an argument and/or group of child Options in the form 
+ * An Option that can have an argument and/or group of child Options in the form
  * "-f &lt;arg&gt; [-a|-b|-c]".
  */
 public interface Parent extends Option {
@@ -28,7 +28,7 @@ public interface Parent extends Option {
      * Processes the parent part of the Option.  The combination of parent,
      * argument and children is handled by the process method.
      * @see Option#process(WriteableCommandLine, ListIterator)
-     * 
+     *
      * @param commandLine the CommandLine to write results to
      * @param args a ListIterator over argument strings positioned at the next
      *             argument to process

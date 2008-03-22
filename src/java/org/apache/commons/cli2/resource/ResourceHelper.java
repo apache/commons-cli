@@ -40,7 +40,7 @@ public class ResourceHelper {
     private ResourceBundle bundle;
 
     private String prop;
-    
+
     /**
      * Create a new ResourceHelper for the current locale.
      */
@@ -52,12 +52,12 @@ public class ResourceHelper {
         }
 
         this.prop = bundleName;
-        
+
         int firstUnderscore = bundleName.indexOf('_');
         int secondUnderscore = bundleName.indexOf('_', firstUnderscore + 1);
 
         Locale locale;
-        if (firstUnderscore != -1) { 
+        if (firstUnderscore != -1) {
         String language = bundleName.substring(firstUnderscore + 1, secondUnderscore);
         String country = bundleName.substring(secondUnderscore + 1);
         	locale = new Locale(language, country);
@@ -76,7 +76,7 @@ public class ResourceHelper {
     public String getBundleName() {
     	return this.prop;
     }
-    
+
     /**
      * Gets the ResourceHelper appropriate to the current locale.
      * @return a ResourceHelper

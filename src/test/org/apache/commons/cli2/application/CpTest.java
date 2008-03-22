@@ -42,68 +42,68 @@ import org.apache.commons.cli2.util.HelpFormatter;
 /**
  * <p>Test the <code>cp</code> command. Duplicated Option types are not
  * tested e.g. -a and -d are the same Option type.</p>
- * 
+ *
  * <p>The following is the man output for 'cp'. See
  * <a href="http://www.rt.com/man/cp.1.html">http://www.rt.com/man/cp.1.html</a>.</p>
- * 
+ *
  * <pre>
  *  CP(1) FSF CP(1)
- * 
+ *
  *  NAME cp - copy files and directories
- * 
+ *
  *  SYNOPSIS cp [OPTION]... SOURCE DEST cp [OPTION]... SOURCE... DIRECTORY
- * 
+ *
  *  DESCRIPTION Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.
- * 
+ *
  *  -a, --archive same as -dpR
- * 
+ *
  *  -b, --backup make backup before removal
- * 
+ *
  *  -d, --no-dereference preserve links
- * 
+ *
  *  -f, --force remove existing destinations, never prompt
- * 
+ *
  *  -i, --interactive prompt before overwrite
- * 
+ *
  *  -l, --link link files instead of copying
- * 
+ *
  *  -p, --preserve preserve file attributes if possible
- * 
+ *
  *  -P, --parents append source path to DIRECTORY
  * -r copy recursively, non-directories as files
- * 
+ *
  *  --sparse=WHEN control creation of sparse files
- * 
+ *
  *  -R, --recursive copy directories recursively
- * 
+ *
  *  -s, --symbolic-link make symbolic links instead of copying
- * 
+ *
  *  -S, --suffix=SUFFIX override the usual backup suffix
- * 
+ *
  *  -u, --update copy only when the SOURCE file is newer than the destination file or when the destination file is missing
- * 
+ *
  *  -v, --verbose explain what is being done
- * 
+ *
  *  -V, --version-control=WORD override the usual version control
- * 
+ *
  *  -x, --one-file-system stay on this file system
- * 
+ *
  *  --help display this help and exit
- * 
+ *
  *  --version output version information and exit
- * 
+ *
  *  By default, sparse SOURCE files are detected by a crude heuristic and the corresponding DEST file is made sparse as well. That is the behavior selected by --sparse=auto. Specify --sparse=always to create a sparse DEST file when- ever the SOURCE file contains a long enough sequence of zero bytes. Use --sparse=never to inhibit creation of sparse files.
- * 
+ *
  *  The backup suffix is ~, unless set with SIMPLE_BACKUP_SUF- FIX. The version control may be set with VERSION_CONTROL, values are:
  * t, numbered make numbered backups
- * 
+ *
  *  nil, existing numbered if numbered backups exist, simple other- wise
- * 
+ *
  *  never, simple always make simple backups
- * 
+ *
  *  As a special case, cp makes a backup of SOURCE when the force and backup options are given and SOURCE and DEST are the same name for an existing, regular file. * </pre>
  * </pre>
- * 
+ *
  * @author Rob Oxspring
  * @author John Keyes
  */

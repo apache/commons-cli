@@ -26,11 +26,11 @@ public interface Group extends Option {
 
     /**
      * Appends usage information to the specified StringBuffer
-     * 
+     *
      * @param buffer the buffer to append to
      * @param helpSettings a set of display settings @see DisplaySetting
      * @param comp a comparator used to sort the Options
-     * @param separator the String used to separate member Options 
+     * @param separator the String used to separate member Options
      */
     void appendUsage(
         final StringBuffer buffer,
@@ -44,7 +44,7 @@ public interface Group extends Option {
      *
      * @see #getMinimum()
      * @see #getMaximum()
-     * @return true iff the CommandLine will be invalid without at least one 
+     * @return true iff the CommandLine will be invalid without at least one
      *         member option
      */
     boolean isRequired();

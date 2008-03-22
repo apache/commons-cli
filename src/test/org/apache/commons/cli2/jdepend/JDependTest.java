@@ -81,10 +81,10 @@ public class JDependTest extends TestCase {
         final Collection dependsUpon = cli2Packages(apiPackage.getEfferents());
 
         assertEquals("Api should depend on one package", 1, dependsUpon.size());
-        
+
         JavaPackage pkg = (JavaPackage) dependsUpon.iterator().next();
         assertEquals(
-                "Wrong package name", 
+                "Wrong package name",
                 "org.apache.commons.cli2.resource",
                 pkg.getName());
     }

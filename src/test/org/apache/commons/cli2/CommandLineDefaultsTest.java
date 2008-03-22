@@ -28,21 +28,21 @@ import org.apache.commons.cli2.commandline.WriteableCommandLineImpl;
 
 /**
  * Tests the interaction of command line values and defaults supplied in different ways.
- * 
+ *
  * Tests marked _Parsed involve values parsed from a command line.
- * 
+ *
  * Tests marked _Method involve defaults supplied in the query method.
- * 
+ *
  * Tests marked _Option involce defaults specified in the model.
- * 
+ *
  * @author Rob Oxspring
  */
 public class CommandLineDefaultsTest extends TestCase {
-    
+
     /*
-     * utils to grab the default from the method 
+     * utils to grab the default from the method
      */
-    
+
     private Object methodSwitch(WriteableCommandLine cl, Option o, Boolean bool) {
         return cl.getSwitch(o, bool);
     }
@@ -68,9 +68,9 @@ public class CommandLineDefaultsTest extends TestCase {
     }
 
     /*
-     * utils to grab the default from the option model 
+     * utils to grab the default from the option model
      */
-    
+
     private Option optionSwitch(Boolean bool) {
         return new SwitchBuilder().withName("switch").withSwitchDefault(bool)
                 .create();
@@ -98,9 +98,9 @@ public class CommandLineDefaultsTest extends TestCase {
     }
 
     /*
-     * utils to grab the input from the command line 
+     * utils to grab the input from the command line
      */
-    
+
     private WriteableCommandLine parsedSwitch(Option o, Boolean bool) {
         final List args;
         if (bool == null) {
@@ -139,7 +139,7 @@ public class CommandLineDefaultsTest extends TestCase {
         cl.addValue(o, "parsed");
         return cl;
     }
-    
+
     /*
      * tests
      */

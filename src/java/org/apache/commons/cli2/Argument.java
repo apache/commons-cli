@@ -27,11 +27,11 @@ public interface Argument extends Option {
     /**
      * Returns the initial separator character or
      * '\0' if no character has been set.
-     * 
+     *
      * @return char the initial separator character
      */
     char getInitialSeparator();
-    
+
     /**
      * Processes the "README" style element of the argument.
      *
@@ -50,10 +50,10 @@ public interface Argument extends Option {
         final ListIterator args,
         final Option option)
             throws OptionException;
-    
+
     /**
      * Adds defaults to a CommandLine.
-     * 
+     *
      * @param commandLine
      *            The CommandLine object to store defaults in.
      * @param option
@@ -86,7 +86,7 @@ public interface Argument extends Option {
      *
      * @see #getMinimum()
      * @see #getMaximum()
-     * @return true iff the CommandLine will be invalid without at least one 
+     * @return true iff the CommandLine will be invalid without at least one
      *         value
      */
     boolean isRequired();

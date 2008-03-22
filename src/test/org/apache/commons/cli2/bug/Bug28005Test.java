@@ -33,42 +33,42 @@ public class Bug28005Test extends TestCase {
         final ArgumentBuilder argumentBuilder = new ArgumentBuilder();
         final GroupBuilder groupBuilder = new GroupBuilder();
         final CommandBuilder commandBuilder = new CommandBuilder();
-        
-        final Option inputFormatOption = 
+
+        final Option inputFormatOption =
             optionBuilder
                 .withLongName("input-format")
                 //.withArgument(argumentBuilder.create())
                 .create();
-                
-        final Argument argument = 
+
+        final Argument argument =
             argumentBuilder
                 .withName("file")
                 .create();
-                
-        final Group children = 
+
+        final Group children =
             groupBuilder
                 .withName("options")
                 .withOption(inputFormatOption)
                 .create();
-                
-        final Option command = 
+
+        final Option command =
             commandBuilder
                 .withName("convert")
                 .withChildren(children)
                 .withArgument(argument)
                 .create();
-                
-        final Group root = 
+
+        final Group root =
             groupBuilder
                 .withName("commands")
                 .withOption(command)
                 .create();
-                
+
         final Parser parser = new Parser();
         parser.setGroup(root);
         final String[] args = new String[]{"convert", "test.txt",
                 "--input-format", "a"};
-                
+
         try {
             parser.parse(args);
             fail("a isn't valid!!");

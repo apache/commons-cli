@@ -30,7 +30,7 @@ import org.apache.commons.cli2.commandline.WriteableCommandLineImpl;
 
 /**
  * @author roberto
- * 
+ *
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
@@ -69,7 +69,7 @@ public class DefaultOptionTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.ParentTestCase#testProcessParent()
      */
     public void testProcessParent() throws OptionException {
@@ -103,7 +103,7 @@ public class DefaultOptionTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testCanProcess()
      */
     public void testCanProcess() {
@@ -118,7 +118,7 @@ public class DefaultOptionTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testPrefixes()
      */
     public void testPrefixes() {
@@ -128,7 +128,7 @@ public class DefaultOptionTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testProcess()
      */
     public void testProcess() {
@@ -138,7 +138,7 @@ public class DefaultOptionTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testTriggers()
      */
     public void testTriggers() {
@@ -148,7 +148,7 @@ public class DefaultOptionTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testValidate()
      */
     public void testValidate() {
@@ -166,7 +166,7 @@ public class DefaultOptionTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testAppendUsage()
      */
     public void testAppendUsage() {
@@ -199,7 +199,7 @@ public class DefaultOptionTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testGetPreferredName()
      */
     public void testGetPreferredName() {
@@ -209,7 +209,7 @@ public class DefaultOptionTest extends ParentTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testGetDescription()
      */
     public void testGetDescription() {
@@ -218,7 +218,7 @@ public class DefaultOptionTest extends ParentTestCase {
     }
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testHelpLines()
      */
     public void testHelpLines() {

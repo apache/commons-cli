@@ -29,18 +29,18 @@ import junit.framework.TestCase;
  * @author roxspring
  */
 public class Bug32533Test extends TestCase {
-    
+
     public void testBlah() throws OptionException {
-        
+
         Option a1 = new DefaultOptionBuilder().withLongName("a1").create();
         Option b1 = new DefaultOptionBuilder().withLongName("b1").create();
         Option c1 = new DefaultOptionBuilder().withLongName("c1").create();
-        
+
         Group b = new GroupBuilder().withOption(b1).create();
         Group c = new GroupBuilder().withOption(c1).create();
         Group a = new GroupBuilder().withOption(a1).withOption(b).withOption(c).create();
-        
-        Parser parser = new Parser();  
+
+        Parser parser = new Parser();
         parser.setGroup(a);
         parser.parse(new String[]{"--a1","--b1"});
     }

@@ -36,7 +36,7 @@ public class PropertyOptionTest extends OptionTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testCanProcess()
      */
     public void testCanProcess() {
@@ -61,7 +61,7 @@ public class PropertyOptionTest extends OptionTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testPrefixes()
      */
     public void testPrefixes() {
@@ -71,7 +71,7 @@ public class PropertyOptionTest extends OptionTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testProcess()
      */
     public void testProcess() throws OptionException {
@@ -129,7 +129,7 @@ public class PropertyOptionTest extends OptionTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testTriggers()
      */
     public void testTriggers() {
@@ -140,7 +140,7 @@ public class PropertyOptionTest extends OptionTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testValidate()
      */
     public void testValidate() throws OptionException {
@@ -156,7 +156,7 @@ public class PropertyOptionTest extends OptionTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testAppendUsage()
      */
     public void testAppendUsage() {
@@ -179,7 +179,7 @@ public class PropertyOptionTest extends OptionTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testGetPreferredName()
      */
     public void testGetPreferredName() {
@@ -189,7 +189,7 @@ public class PropertyOptionTest extends OptionTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testGetDescription()
      */
     public void testGetDescription() {
@@ -201,7 +201,7 @@ public class PropertyOptionTest extends OptionTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testHelpLines()
      */
     public void testHelpLines() {
@@ -218,7 +218,7 @@ public class PropertyOptionTest extends OptionTestCase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.apache.commons.cli2.OptionTestCase#testHelpLines()
      */
     public void testHelpLines_NoDisplay() {

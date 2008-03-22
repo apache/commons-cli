@@ -60,18 +60,18 @@ public abstract class CLITestCase extends TestCase {
 	}
 
 	public static void assertListContentsEqual(final List expected, final List found) {
-	
+
 	    final Iterator e = expected.iterator();
 	    final Iterator f = found.iterator();
-	
+
 	    while (e.hasNext() && f.hasNext()) {
 	        assertEquals(e.next(), f.next());
 	    }
-	
+
 	    if (e.hasNext()) {
 	        fail("Expected more elements");
 	    }
-	
+
 	    if (f.hasNext()) {
 	        fail("Found more elements");
 	    }

@@ -201,15 +201,15 @@ public class ComparatorsTest extends TestCase {
             CLITestCase.list(o1, o2),
             list);
     }
-    
+
     public void testChained() {
         final Option o1 = CommandTest.buildCommitCommand();
         final Option o2 = SwitchTest.buildDisplaySwitch();
         final Option o3 = DefaultOptionTest.buildHelpOption();
         final List list = CLITestCase.list(o1, o2, o3);
-        
+
         Collections.sort(
-            list, 
+            list,
             Comparators.chain(
                 Comparators.namedFirst("--help"),
                 Comparators.commandFirst()));

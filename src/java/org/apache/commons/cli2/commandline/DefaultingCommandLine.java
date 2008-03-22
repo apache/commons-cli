@@ -30,10 +30,10 @@ import org.apache.commons.cli2.Option;
  * Manages a queue of default CommandLines. This CommandLine implementation is
  * backed by a queue of CommandLine instances which are queried in turn until a
  * suitable result is found.
- * 
+ *
  * CommandLine instances can either be added to the back of the queue or can be
  * pushed in at a specific position.
- * 
+ *
  * @see #appendCommandLine(CommandLine)
  * @see #insertCommandLine(int, CommandLine)
  */
@@ -48,17 +48,17 @@ public class DefaultingCommandLine extends CommandLineImpl {
      * Adds a CommandLine instance to the back of the queue. The supplied
      * CommandLine will be used as defaults when all other CommandLines produce
      * no result
-     * 
+     *
      * @param commandLine
      *            the default values to use if all CommandLines
      */
     public void appendCommandLine(final CommandLine commandLine) {
         commandLines.add(commandLine);
     }
-    
+
     /**
      * Adds a CommandLine instance to a specified position in the queue.
-     * 
+     *
      * @param index ths position at which to insert
      * @param commandLine the CommandLine to insert
      */
@@ -67,10 +67,10 @@ public class DefaultingCommandLine extends CommandLineImpl {
         final CommandLine commandLine) {
         commandLines.add(index, commandLine);
     }
-    
+
     /**
      * Builds an iterator over the build in CommandLines.
-     * 
+     *
      * @return an unmodifiable iterator
      */
     public Iterator commandLines(){

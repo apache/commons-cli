@@ -32,7 +32,7 @@ public class ArgumentBuilder {
 
 	/** i18n */
 	private final static ResourceHelper resources = ResourceHelper.getResourceHelper();
-	
+
     /** name of the argument. Used for display and lookups in CommandLine */
     private String name;
 
@@ -73,7 +73,7 @@ public class ArgumentBuilder {
     /**
      * Creates a new Argument instance using the options specified in this
      * ArgumentBuilder.
-     * 
+     *
      * @return A new Argument instance using the options specified in this
      * ArgumentBuilder.
      */
@@ -117,9 +117,9 @@ public class ArgumentBuilder {
     /**
      * Sets the name of the argument. The name is used when displaying usage
      * information and to allow lookups in the CommandLine object.
-     * 
+     *
      * @see org.apache.commons.cli2.CommandLine#getValue(String)
-     * 
+     *
      * @param newName the name of the argument
      * @return this ArgumentBuilder
      */
@@ -136,9 +136,9 @@ public class ArgumentBuilder {
 
     /**
      * Sets the description of the argument.
-     * 
+     *
      * The description is used when displaying online help.
-     * 
+     *
      * @param newDescription a description of the argument
      * @return this ArgumentBuilder
      */
@@ -149,7 +149,7 @@ public class ArgumentBuilder {
 
     /**
      * Sets the minimum number of values needed for the argument to be valid.
-     * 
+     *
      * @param newMinimum the number of values needed
      * @return this ArgumentBuilder
      */
@@ -163,7 +163,7 @@ public class ArgumentBuilder {
 
     /**
      * Sets the maximum number of values allowed for the argument to be valid.
-     * 
+     *
      * @param newMaximum the number of values allowed
      * @return this ArgumentBuilder
      */
@@ -179,8 +179,8 @@ public class ArgumentBuilder {
      * Sets the character used to separate the values from the option. When an
      * argument is of the form -libs:dir1,dir2,dir3 the initialSeparator would
      * be ':'.
-     * 
-     * @param newInitialSeparator the character used to separate the values 
+     *
+     * @param newInitialSeparator the character used to separate the values
      * from the option
      * @return this ArgumentBuilder
      */
@@ -195,8 +195,8 @@ public class ArgumentBuilder {
      * Sets the character used to separate the values from each other. When an
      * argument is of the form -libs:dir1,dir2,dir3 the subsequentSeparator
      * would be ','.
-     * 
-     * @param newSubsequentSeparator the character used to separate the values 
+     *
+     * @param newSubsequentSeparator the character used to separate the values
      * from each other
      * @return this ArgumentBuilder
      */
@@ -210,7 +210,7 @@ public class ArgumentBuilder {
     /**
      * Sets the validator instance used to perform validation on the Argument
      * values.
-     * 
+     *
      * @param newValidator a Validator instance
      * @return this ArgumentBuilder
      */
@@ -225,15 +225,15 @@ public class ArgumentBuilder {
     /**
      * Sets the "consume remaining" option, defaults to "--". Use this if you
      * want to allow values that might be confused with option strings.
-     * 
-     * @param newConsumeRemaining the string to use for the consume 
+     *
+     * @param newConsumeRemaining the string to use for the consume
      * remaining option
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withConsumeRemaining(final String newConsumeRemaining) {
     	if (newConsumeRemaining == null) {
     		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_CONSUME_REMAINING));
-    	} 
+    	}
     	if ( "".equals(newConsumeRemaining)) {
     		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_EMPTY_CONSUME_REMAINING));
     	}
@@ -243,7 +243,7 @@ public class ArgumentBuilder {
 
     /**
      * Sets the default value.
-     * 
+     *
      * @param defaultValue the default value for the Argument
      * @return this ArgumentBuilder
      */
@@ -251,7 +251,7 @@ public class ArgumentBuilder {
     	if (defaultValue == null) {
     		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_DEFAULT));
     	}
-    	
+
         if (this.defaultValues == null) {
             this.defaultValues = new ArrayList(1);
         }
@@ -261,7 +261,7 @@ public class ArgumentBuilder {
 
     /**
      * Sets the default values.
-     * 
+     *
      * @param newDefaultValues the default values for the Argument
      * @return this ArgumentBuilder
      */
@@ -275,7 +275,7 @@ public class ArgumentBuilder {
 
     /**
      * Sets the id
-     * 
+     *
      * @param newId the id of the Argument
      * @return this ArgumentBuilder
      */

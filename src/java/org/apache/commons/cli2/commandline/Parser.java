@@ -61,7 +61,7 @@ public class Parser {
         for (int i = 0; i < arguments.length; i++) {
             final String argument = arguments[i];
 
-            // ensure non intern'd strings are used 
+            // ensure non intern'd strings are used
             // so that == comparisons work as expected
             argumentList.add(new String(argument));
         }
