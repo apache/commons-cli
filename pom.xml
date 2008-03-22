@@ -131,7 +131,7 @@
 
   <properties>
     <commons.componentid>cli</commons.componentid>
-    <commons.osgibundle>org.apache.commons.cli2</commons.osgibundle>
+    <commons.osgi.symbolicName>org.apache.commons.cli2</commons.osgi.symbolicName>
     <commons.release.version>1.1</commons.release.version>
     <commons.binary.suffix></commons.binary.suffix>
     <commons.jira.id>CLI</commons.jira.id>
