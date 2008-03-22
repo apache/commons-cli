@@ -214,7 +214,7 @@ public class WriteableCommandLineImpl
     public void setDefaultSwitch(final Option option,
                                  final Boolean defaultSwitch) {
         if (defaultSwitch == null) {
-            defaultSwitches.remove(defaultSwitch);
+            defaultSwitches.remove(option);
         } else {
             defaultSwitches.put(option, defaultSwitch);
         }
