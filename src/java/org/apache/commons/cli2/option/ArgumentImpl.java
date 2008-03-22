@@ -215,15 +215,15 @@ public class ArgumentImpl
     }
 
     public String getConsumeRemaining() {
-    	return this.consumeRemaining;
+        return this.consumeRemaining;
     }
 
     public List getDefaultValues() {
-    	return this.defaultValues;
+        return this.defaultValues;
     }
 
     public Validator getValidator() {
-    	return this.validator;
+        return this.validator;
     }
 
     public void validate(final WriteableCommandLine commandLine)

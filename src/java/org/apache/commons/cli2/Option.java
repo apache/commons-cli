@@ -181,13 +181,13 @@ public interface Option {
      */
     int getId();
 
-	/**
-	 * Recursively searches for an option with the supplied trigger.
-	 *
-	 * @param trigger the trigger to search for.
-	 * @return the matching option or null.
-	 */
-	Option findOption(final String trigger);
+    /**
+     * Recursively searches for an option with the supplied trigger.
+     *
+     * @param trigger the trigger to search for.
+     * @return the matching option or null.
+     */
+    Option findOption(final String trigger);
 
     /**
      * Indicates whether this option is required to be present.

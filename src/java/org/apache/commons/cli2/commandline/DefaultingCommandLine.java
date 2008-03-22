@@ -74,7 +74,7 @@ public class DefaultingCommandLine extends CommandLineImpl {
      * @return an unmodifiable iterator
      */
     public Iterator commandLines(){
-    	return Collections.unmodifiableList(commandLines).iterator();
+        return Collections.unmodifiableList(commandLines).iterator();
     }
 
     public Option getOption(String trigger) {
@@ -132,10 +132,10 @@ public class DefaultingCommandLine extends CommandLineImpl {
             }
         }
         if(defaultValues==null){
-        	return Collections.EMPTY_LIST;
+            return Collections.EMPTY_LIST;
         }
         else{
-        	return defaultValues;
+            return defaultValues;
         }
     }
 

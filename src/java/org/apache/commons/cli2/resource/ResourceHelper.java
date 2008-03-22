@@ -58,12 +58,12 @@ public class ResourceHelper {
 
         Locale locale;
         if (firstUnderscore != -1) {
-        String language = bundleName.substring(firstUnderscore + 1, secondUnderscore);
-        String country = bundleName.substring(secondUnderscore + 1);
-        	locale = new Locale(language, country);
+            String language = bundleName.substring(firstUnderscore + 1, secondUnderscore);
+            String country = bundleName.substring(secondUnderscore + 1);
+            locale = new Locale(language, country);
         }
         else {
-        	locale = Locale.getDefault();
+            locale = Locale.getDefault();
         }
         // initialize the bundle
         try {
@@ -74,7 +74,7 @@ public class ResourceHelper {
     }
 
     public String getBundleName() {
-    	return this.prop;
+        return this.prop;
     }
 
     /**

@@ -30,9 +30,9 @@ import org.apache.commons.cli2.option.Switch;
  */
 public class Comparators {
 
-	private Comparators(){
-		// constructor hiden from potential users
-	}
+    private Comparators(){
+        // constructor hiden from potential users
+    }
 
 
     /**

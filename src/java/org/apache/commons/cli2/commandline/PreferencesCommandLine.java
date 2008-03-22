@@ -48,21 +48,21 @@ import org.apache.commons.cli2.Option;
  */
 public class PreferencesCommandLine extends CommandLineImpl {
 
-	private static final char NUL = '\0';
-	private final Preferences preferences;
-	private final Option root;
-	private final char separator;
+    private static final char NUL = '\0';
+    private final Preferences preferences;
+    private final Option root;
+    private final char separator;
 
-	/**
+    /**
      * Creates a new PreferencesCommandLine using the specified root Option and
      * Preferences node.  Argument values will be separated using the char 0.
      *
-	 * @param root the CommandLine's root Option
-	 * @param preferences the Preferences node to get values from
-	 */
-	public PreferencesCommandLine(final Option root, final Preferences preferences){
-		this(root,preferences,NUL);
-	}
+     * @param root the CommandLine's root Option
+     * @param preferences the Preferences node to get values from
+     */
+    public PreferencesCommandLine(final Option root, final Preferences preferences){
+        this(root,preferences,NUL);
+    }
 
     /**
      * Creates a new PreferencesCommandLine using the specified root Option,
@@ -72,99 +72,99 @@ public class PreferencesCommandLine extends CommandLineImpl {
      * @param preferences the Preferences node to get values from
      * @param separator the character to split argument values
      */
-	public PreferencesCommandLine(final Option root, final Preferences preferences, final char separator){
-		this.root = root;
-		this.preferences = preferences;
-		this.separator = separator;
-	}
+    public PreferencesCommandLine(final Option root, final Preferences preferences, final char separator){
+        this.root = root;
+        this.preferences = preferences;
+        this.separator = separator;
+    }
 
-	public boolean hasOption(Option option) {
-		if(option==null){
-			return false;
-		}
-		else{
-			try {
-				return Arrays.asList(preferences.keys()).contains(option.getPreferredName());
-			} catch (BackingStoreException e) {
-				return false;
-			}
-		}
-	}
+    public boolean hasOption(Option option) {
+        if(option==null){
+            return false;
+        }
+        else{
+            try {
+                return Arrays.asList(preferences.keys()).contains(option.getPreferredName());
+            } catch (BackingStoreException e) {
+                return false;
+            }
+        }
+    }
 
-	public Option getOption(String trigger) {
-		return root.findOption(trigger);
-	}
+    public Option getOption(String trigger) {
+        return root.findOption(trigger);
+    }
 
-	public List getValues(final Option option, final List defaultValues) {
-		final String value = preferences.get(option.getPreferredName(),null);
+    public List getValues(final Option option, final List defaultValues) {
+        final String value = preferences.get(option.getPreferredName(),null);
 
-		if(value==null){
-			return defaultValues;
-		}
-		else if(separator>NUL){
-			final List values = new ArrayList();
-			final StringTokenizer tokens = new StringTokenizer(value,String.valueOf(separator));
+        if(value==null){
+            return defaultValues;
+        }
+        else if(separator>NUL){
+            final List values = new ArrayList();
+            final StringTokenizer tokens = new StringTokenizer(value,String.valueOf(separator));
 
-			while(tokens.hasMoreTokens()){
-				values.add(tokens.nextToken());
-			}
+            while(tokens.hasMoreTokens()){
+                values.add(tokens.nextToken());
+            }
 
-			return values;
-		}
-		else{
-			return Collections.singletonList(value);
-		}
-	}
+            return values;
+        }
+        else{
+            return Collections.singletonList(value);
+        }
+    }
 
-	public Boolean getSwitch(final Option option, final Boolean defaultValue) {
-		final String value = preferences.get(option.getPreferredName(),null);
-		if("true".equals(value)){
-			return Boolean.TRUE;
-		}
-		else if("false".equals(value)){
-			return Boolean.FALSE;
-		}
-		else{
-			return defaultValue;
-		}
-	}
+    public Boolean getSwitch(final Option option, final Boolean defaultValue) {
+        final String value = preferences.get(option.getPreferredName(),null);
+        if("true".equals(value)){
+            return Boolean.TRUE;
+        }
+        else if("false".equals(value)){
+            return Boolean.FALSE;
+        }
+        else{
+            return defaultValue;
+        }
+    }
 
-	public String getProperty(final String property, final String defaultValue) {
-		return preferences.get(property, defaultValue);
-	}
+    public String getProperty(final String property, final String defaultValue) {
+        return preferences.get(property, defaultValue);
+    }
 
-	public Set getProperties() {
-		try {
-			return new HashSet(Arrays.asList(preferences.keys()));
-		} catch (BackingStoreException e) {
-			return Collections.EMPTY_SET;
-		}
-	}
+    public Set getProperties() {
+        try {
+            return new HashSet(Arrays.asList(preferences.keys()));
+        } catch (BackingStoreException e) {
+            return Collections.EMPTY_SET;
+        }
+    }
 
-	public List getOptions() {
-		try {
-			final List options = new ArrayList();
-			final Iterator keys = Arrays.asList(preferences.keys()).iterator();
-			while (keys.hasNext()) {
-				final String trigger = (String) keys.next();
-				final Option option = root.findOption(trigger);
-				if (option != null) {
-					options.add(option);
-				}
-			}
-			return Collections.unmodifiableList(options);
-		} catch (BackingStoreException e) {
-			return Collections.EMPTY_LIST;
-		}
-	}
+    public List getOptions() {
+        try {
+            final List options = new ArrayList();
+            final Iterator keys = Arrays.asList(preferences.keys()).iterator();
+            while (keys.hasNext()) {
+                final String trigger = (String) keys.next();
+                final Option option = root.findOption(trigger);
+                if (option != null) {
+                    options.add(option);
+                }
+            }
+            return Collections.unmodifiableList(options);
+        } catch (BackingStoreException e) {
+            return Collections.EMPTY_LIST;
+        }
+    }
 
-	public Set getOptionTriggers() {
-		final Set triggers = new HashSet();
-		final Iterator options = getOptions().iterator();
-		while(options.hasNext()){
-			final Option option = (Option)options.next();
-			triggers.addAll(option.getTriggers());
-		}
-		return Collections.unmodifiableSet(triggers);
-	}
+    public Set getOptionTriggers() {
+        final Set triggers = new HashSet();
+        final Iterator options = getOptions().iterator();
+        while(options.hasNext()){
+            final Option option = (Option)options.next();
+            triggers.addAll(option.getTriggers());
+        }
+        return Collections.unmodifiableSet(triggers);
+    }
 }

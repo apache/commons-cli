@@ -30,8 +30,8 @@ import org.apache.commons.cli2.validation.Validator;
  */
 public class ArgumentBuilder {
 
-	/** i18n */
-	private final static ResourceHelper resources = ResourceHelper.getResourceHelper();
+    /** i18n */
+    private final static ResourceHelper resources = ResourceHelper.getResourceHelper();
 
     /** name of the argument. Used for display and lookups in CommandLine */
     private String name;
@@ -124,12 +124,12 @@ public class ArgumentBuilder {
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withName(final String newName) {
-    	if (newName == null) {
-    		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_NAME));
-    	}
-    	if ("".equals(newName)) {
-    		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_EMPTY_NAME));
-    	}
+        if (newName == null) {
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_NAME));
+        }
+        if ("".equals(newName)) {
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_EMPTY_NAME));
+        }
         this.name = newName;
         return this;
     }
@@ -154,9 +154,9 @@ public class ArgumentBuilder {
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withMinimum(final int newMinimum) {
-    	if (newMinimum < 0) {
-    		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NEGATIVE_MINIMUM));
-    	}
+        if (newMinimum < 0) {
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NEGATIVE_MINIMUM));
+        }
         this.minimum = newMinimum;
         return this;
     }
@@ -168,9 +168,9 @@ public class ArgumentBuilder {
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withMaximum(final int newMaximum) {
-    	if (newMaximum < 0) {
-    		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NEGATIVE_MAXIMUM));
-    	}
+        if (newMaximum < 0) {
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NEGATIVE_MAXIMUM));
+        }
         this.maximum = newMaximum;
         return this;
     }
@@ -215,9 +215,9 @@ public class ArgumentBuilder {
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withValidator(final Validator newValidator) {
-    	if (newValidator == null) {
-    		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_VALIDATOR));
-    	}
+        if (newValidator == null) {
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_VALIDATOR));
+        }
         this.validator = newValidator;
         return this;
     }
@@ -231,12 +231,12 @@ public class ArgumentBuilder {
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withConsumeRemaining(final String newConsumeRemaining) {
-    	if (newConsumeRemaining == null) {
-    		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_CONSUME_REMAINING));
-    	}
-    	if ( "".equals(newConsumeRemaining)) {
-    		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_EMPTY_CONSUME_REMAINING));
-    	}
+        if (newConsumeRemaining == null) {
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_CONSUME_REMAINING));
+        }
+        if ( "".equals(newConsumeRemaining)) {
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_EMPTY_CONSUME_REMAINING));
+        }
         this.consumeRemaining = newConsumeRemaining;
         return this;
     }
@@ -248,9 +248,9 @@ public class ArgumentBuilder {
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withDefault(final Object defaultValue) {
-    	if (defaultValue == null) {
-    		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_DEFAULT));
-    	}
+        if (defaultValue == null) {
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_DEFAULT));
+        }
 
         if (this.defaultValues == null) {
             this.defaultValues = new ArrayList(1);
@@ -266,9 +266,9 @@ public class ArgumentBuilder {
      * @return this ArgumentBuilder
      */
     public final ArgumentBuilder withDefaults(final List newDefaultValues) {
-    	if (newDefaultValues == null) {
-    		throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_DEFAULTS));
-    	}
+        if (newDefaultValues == null) {
+            throw new IllegalArgumentException(resources.getMessage(ResourceConstants.ARGUMENT_BUILDER_NULL_DEFAULTS));
+        }
         this.defaultValues = newDefaultValues;
         return this;
     }
