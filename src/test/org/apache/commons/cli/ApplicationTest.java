@@ -90,7 +90,6 @@ public class ApplicationTest extends TestCase {
         options.addOption( "quiet", false, "be extra quiet" );
         options.addOption( "verbose", false, "be extra verbose" );
         options.addOption( "debug", false, "print debug information" );
-        options.addOption( "version", false, "produce logging information without adornments" );
         options.addOption( "logfile", true, "use given file for log" );
         options.addOption( "logger", true, "the class which is to perform the logging" );
         options.addOption( "listener", true, "add an instance of a class as a project listener" );
