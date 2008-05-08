@@ -113,7 +113,7 @@ public class OptionsTest extends TestCase
             new PosixParser().parse(options, new String[0]);
             fail("Expected MissingOptionException to be thrown");
         } catch (MissingOptionException e) {
-            assertEquals("Missing required options: fx", e.getMessage());
+            assertEquals("Missing required options: f, x", e.getMessage());
         }
     }
 
