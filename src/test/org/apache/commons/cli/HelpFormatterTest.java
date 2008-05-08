@@ -83,6 +83,18 @@ public class HelpFormatterTest extends TestCase
       hf.renderWrappedText(sb, 12, 4, text);
       assertEquals("single line padded text", expected, sb.toString());
 
+      text = "  -p,--period <PERIOD>  PERIOD is time duration of form " +
+          "DATE[-DATE] where DATE has form YYYY[MM[DD]]";
+
+      sb.setLength(0);
+      expected = "  -p,--period <PERIOD>  PERIOD is time duration of" +
+                 hf.getNewLine() +
+                 "                        form DATE[-DATE] where DATE" +
+                 hf.getNewLine() +
+                 "                        has form YYYY[MM[DD]]";
+      hf.renderWrappedText(sb, 53, 24, text);
+      assertEquals("single line padded text 2", expected, sb.toString());
+
       text =
          "aaaa aaaa aaaa" + hf.getNewLine() +
          "aaaaaa" + hf.getNewLine() +
