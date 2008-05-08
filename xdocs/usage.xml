@@ -260,12 +260,12 @@ options.addOption( property );</source>
         <p>
           To see if an option has been passed the <code>hasOption</code>
           method is used.  The argument value can be retrieved using
-          the <code>getValue</code> method.
+          the <code>getOptionValue</code> method.
         </p>
         <source>// has the buildfile argument been passed?
 if( line.hasOption( "buildfile" ) ) {
     // initialise the member variable
-    this.buildfile = line.getValue( "buildfile" );
+    this.buildfile = line.getOptionValue( "buildfile" );
 }</source>
       </subsection>
       <subsection name="Usage/Help">
