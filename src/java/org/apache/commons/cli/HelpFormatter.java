@@ -126,6 +126,13 @@ public class HelpFormatter {
     public String defaultArgName = DEFAULT_ARG_NAME;
 
     /**
+     * Comparator used to sort the options when they output in help text
+     * 
+     * Defaults to case-insensitive alphabetical sorting by option key
+     */
+    protected Comparator optionComparator = new OptionComparator();
+
+    /**
      * Sets the 'width'.
      *
      * @param width the new value of 'width'
@@ -283,6 +290,33 @@ public class HelpFormatter {
     public String getArgName()
     {
         return this.defaultArgName;
+    }
+
+    /**
+     * Comparator used to sort the options when they output in help text
+     * 
+     * Defaults to case-insensitive alphabetical sorting by option key
+     */
+    public Comparator getOptionComparator() 
+    {
+        return this.optionComparator;
+    }
+
+    /**
+     * Set the comparator used to sort the options when they output in help text
+     * 
+     * Passing in a null parameter will set the ordering to the default mode
+     */
+    public void setOptionComparator(Comparator comparator) 
+    {
+        if ( comparator == null ) 
+        {
+            this.optionComparator = new OptionComparator();
+        } 
+        else 
+        {
+            this.optionComparator = comparator;
+        }
     }
 
 
@@ -487,7 +521,7 @@ public class HelpFormatter {
         Option option;
 
         List optList = new ArrayList(options.getOptions());
-        Collections.sort(optList, new OptionComparator());
+        Collections.sort(optList, getOptionComparator() );
         // iterate over the options
         for (Iterator i = optList.iterator(); i.hasNext();)
         {
@@ -541,7 +575,7 @@ public class HelpFormatter {
      * @param group the group to append
      * @see #appendOption(StringBuffer,Option,boolean)
      */
-    private static void appendOptionGroup(final StringBuffer buff, 
+    private void appendOptionGroup(final StringBuffer buff, 
                                           final OptionGroup group)
     {
         if (!group.isRequired())
@@ -550,7 +584,7 @@ public class HelpFormatter {
         }
 
         List optList = new ArrayList(group.getOptions());
-        Collections.sort(optList, new OptionComparator());
+        Collections.sort(optList, getOptionComparator() );
         // for each option in the OptionGroup
         for (Iterator i = optList.iterator(); i.hasNext();)
         {
@@ -706,7 +740,7 @@ public class HelpFormatter {
         Option option;
         List optList = options.helpOptions();
 
-        Collections.sort(optList, new OptionComparator());
+        Collections.sort(optList, getOptionComparator() );
 
         for (Iterator i = optList.iterator(); i.hasNext();)
         {

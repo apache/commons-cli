@@ -19,6 +19,8 @@ package org.apache.commons.cli;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 
+import java.util.Comparator;
+
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -207,6 +209,32 @@ public class HelpFormatterTest extends TestCase
         helpFormatter.printUsage(printWriter, 80, "app", opts);
         printWriter.close();
         assertEquals("usage: app [-a] [-b] [-c]" + EOL, bytesOut.toString());
+    }
+
+    // uses the test for CLI-131 to implement CLI-155
+    public void testPrintSortedUsage() {
+        Option optionA = new Option("a", "first");
+        Option optionB = new Option("b", "second");
+        Option optionC = new Option("c", "third");
+        Options opts = new Options();
+        opts.addOption(optionA);
+        opts.addOption(optionB);
+        opts.addOption(optionC);
+        HelpFormatter helpFormatter = new HelpFormatter();
+        helpFormatter.setOptionComparator(
+            new Comparator() { 
+                public int compare(Object o1, Object o2) {
+                    // reverses the fuctionality of the default comparator
+                    Option opt1 = (Option)o1;
+                    Option opt2 = (Option)o2;
+                    return opt2.getKey().compareToIgnoreCase(opt1.getKey());
+                }
+            } );
+        ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
+        PrintWriter printWriter = new PrintWriter(bytesOut);
+        helpFormatter.printUsage(printWriter, 80, "app", opts);
+        printWriter.close();
+        assertEquals("usage: app [-c] [-b] [-a]" + EOL, bytesOut.toString());
     }
 
 }
