@@ -16,6 +16,7 @@
  */
 package org.apache.commons.cli;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -43,7 +44,7 @@ public abstract class Parser implements CommandLineParser {
 
     protected void setOptions(final Options options) {
         this.options = options;
-        this.requiredOptions = options.getRequiredOptions();
+        this.requiredOptions = new ArrayList(options.getRequiredOptions());
     }
 
     protected Options getOptions() {
