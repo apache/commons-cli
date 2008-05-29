@@ -23,6 +23,9 @@
   <body>
 
     <release version="1.2" date="in SVN" description="This is a maintenance release containing bug fixes.">
+      <action type="fix" dev="ebourg" issue="CLI-156">
+        Required options are properly checked if an Options instance is used twice to parse a command line.
+      </action>
       <action type="update" dev="bayard" issue="CLI-155">
         The ordering of options can be defined in help messages.
       </action>
