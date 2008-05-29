@@ -14,11 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * @author John Keyes (john at integralsource.com)
@@ -26,18 +25,8 @@ import junit.framework.TestSuite;
  */
 public class ParseRequiredTest extends TestCase
 {
-
     private Options _options = null;
     private CommandLineParser parser = new PosixParser();
-
-    public static Test suite() { 
-        return new TestSuite(ParseRequiredTest.class); 
-    }
-
-    public ParseRequiredTest(String name)
-    {
-        super(name);
-    }
 
     public void setUp()
     {
@@ -51,11 +40,6 @@ public class ParseRequiredTest extends TestCase
                                      .isRequired()
                                      .withDescription( "set the value of [b]" )
                                      .create( 'b' ) );
-    }
-
-    public void tearDown()
-    {
-
     }
 
     public void testWithRequiredOption()

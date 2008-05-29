@@ -14,38 +14,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli.bug;
 
-import junit.framework.TestCase;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.PosixParser;
+
+import junit.framework.TestCase;
 
 /**
  * @author brianegge
  */
-public class BugCLI51Test
-    extends TestCase
+public class BugCLI51Test extends TestCase
 {
     public void test() throws Exception
     {
         Options options = buildCommandLineOptions();
         CommandLineParser parser = new PosixParser();
-        String[] args = new String[] {"-t", "-something" };
-        CommandLine commandLine;
-        commandLine = parser.parse( options, args );
-        assertEquals("-something", commandLine.getOptionValue( 't'));
+        String[] args = new String[]{"-t", "-something"};
+
+        CommandLine commandLine = parser.parse(options, args);
+        assertEquals("-something", commandLine.getOptionValue('t'));
     }
 
     private Options buildCommandLineOptions()
     {
-        Option opt = OptionBuilder.withArgName( "t").hasArg().create('t');
+        Option opt = OptionBuilder.withArgName("t").hasArg().create('t');
         Options options = new Options();
-        options.addOption( opt);
+        options.addOption(opt);
         return options;
     }
 }

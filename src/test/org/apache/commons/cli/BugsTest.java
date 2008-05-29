@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import java.io.ByteArrayOutputStream;
@@ -22,33 +23,10 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Properties;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 public class BugsTest extends TestCase
 {
-    /** CommandLine instance */
-    private CommandLine _cmdline = null;
-    private Option _option = null;
-
-    public static Test suite() { 
-        return new TestSuite( BugsTest.class );
-    }
-
-    public BugsTest( String name )
-    {
-        super( name );
-    }
-
-    public void setUp()
-    {
-    }
-
-    public void tearDown()
-    {
-    }
-
     public void test11457() {
         Options options = new Options();
         options.addOption( OptionBuilder.withLongOpt( "verbose" )

@@ -16,23 +16,12 @@
  */
 package org.apache.commons.cli;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 public class GnuParseTest extends TestCase
 {
     private Options _options = null;
     private Parser _parser = null;
-
-    public static Test suite() { 
-        return new TestSuite( GnuParseTest.class ); 
-    }
-
-    public GnuParseTest( String name )
-    {
-        super( name );
-    }
 
     public void setUp()
     {
@@ -51,11 +40,6 @@ public class GnuParseTest extends TestCase
                        "turn [c] on or off");
 
         _parser = new GnuParser( );
-    }
-
-    public void tearDown()
-    {
-
     }
 
     public void testSimpleShort()
@@ -129,14 +113,13 @@ public class GnuParseTest extends TestCase
 
     public void testMissingArg()
     {
-
         String[] args = new String[] { "-b" };
 
         boolean caught = false;
 
         try
         {
-            CommandLine cl = _parser.parse(_options, args);
+            _parser.parse(_options, args);
         }
         catch (MissingArgumentException e)
         {

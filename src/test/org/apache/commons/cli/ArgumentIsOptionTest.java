@@ -14,33 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 
 public class ArgumentIsOptionTest extends TestCase {
     private Options options = null;
     private CommandLineParser parser = null;
-
-    public ArgumentIsOptionTest(String name) {
-        super(name);
-    }
-
-    public static Test suite() {
-        return new TestSuite(ArgumentIsOptionTest.class);
-    }
 
     public void setUp() {
         options = new Options().addOption("p", false, "Option p").addOption("attr",
                 true, "Option accepts argument");
 
         parser = new PosixParser();
-    }
-
-    public void tearDown() {
     }
 
     public void testOptionAndOptionWithArgument() {

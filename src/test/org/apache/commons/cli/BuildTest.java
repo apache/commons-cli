@@ -14,34 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 public class BuildTest extends TestCase
 {
-
-    public static Test suite() { 
-        return new TestSuite(BuildTest.class); 
-    }
-
-    public BuildTest(String name)
-    {
-        super(name);
-    }
-
-    public void setUp()
-    {
-
-    }
-
-    public void tearDown()
-    {
-
-    }
-
     public void testSimple()
     {
         Options opts = new Options();

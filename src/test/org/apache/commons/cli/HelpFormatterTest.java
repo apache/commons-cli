@@ -14,15 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
-
 import java.util.Comparator;
 
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /** 
  * Test case for the HelpFormatter class 
@@ -33,7 +32,6 @@ import junit.framework.TestSuite;
  **/
 public class HelpFormatterTest extends TestCase
 {
-
    private static final String EOL = System.getProperty("line.separator");
 
    public static void main( String[] args )
@@ -42,18 +40,7 @@ public class HelpFormatterTest extends TestCase
       junit.textui.TestRunner.main(testName);
    }
 
-   public static TestSuite suite()
-   {
-      return new TestSuite(HelpFormatterTest.class);
-   }
-
-   public HelpFormatterTest( String s )
-   {
-      super( s );
-   }
-
-   public void testFindWrapPos()
-      throws Exception
+   public void testFindWrapPos() throws Exception
    {
       HelpFormatter hf = new HelpFormatter();
 
@@ -67,8 +54,7 @@ public class HelpFormatterTest extends TestCase
       assertEquals("wrap position 3", 4, hf.findWrapPos(text, 3, 0));
    }
 
-   public void testPrintWrapped()
-      throws Exception
+   public void testPrintWrapped() throws Exception
    {
       StringBuffer sb = new StringBuffer();
       HelpFormatter hf = new HelpFormatter();
@@ -116,8 +102,7 @@ public class HelpFormatterTest extends TestCase
       assertEquals("multi-line padded text", expected, sb.toString());
    }
 
-   public void testPrintOptions()
-   throws Exception
+   public void testPrintOptions() throws Exception
    {
        StringBuffer sb = new StringBuffer();
        HelpFormatter hf = new HelpFormatter();
@@ -169,8 +154,7 @@ public class HelpFormatterTest extends TestCase
        assertEquals("multiple wrapped options", expected, sb.toString());
    }
 
-   public void testAutomaticUsage()
-   throws Exception
+   public void testAutomaticUsage() throws Exception
    {
        HelpFormatter hf = new HelpFormatter();
        Options options = null;

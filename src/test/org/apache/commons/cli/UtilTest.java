@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import junit.framework.TestCase;
@@ -22,6 +23,7 @@ import junit.framework.TestCase;
  * @author brianegge
  */
 public class UtilTest extends TestCase {
+
     public void testStripLeadingHyphens() {
         assertEquals("f", Util.stripLeadingHyphens("-f"));
         assertEquals("foo", Util.stripLeadingHyphens("--foo"));

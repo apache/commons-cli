@@ -14,32 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 
 /**
- * <p>
  * This is a collection of tests that test real world
  * applications command lines focusing on options with
  * long and short names.
- * </p>
  */
 public class LongOptionWithShort extends TestCase {
-    public LongOptionWithShort(String name) {
-        super(name);
-    }
 
-    public static Test suite() {
-        return new TestSuite(LongOptionWithShort.class);
-    }
-
-    /**
-     *
-     */
     public void testLongOptionWithShort() {
         Option help = new Option("h", "help", false, "print this message");
         Option version = new Option("v", "version", false,

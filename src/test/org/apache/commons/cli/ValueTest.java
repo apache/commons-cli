@@ -14,30 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.cli;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+package org.apache.commons.cli;
 
 import java.util.Arrays;
 import java.util.Properties;
 
+import junit.framework.TestCase;
+
 public class ValueTest extends TestCase
 {
-
-    public static Test suite() { 
-        return new TestSuite(ValueTest.class); 
-    }
-
     private CommandLine _cl = null;
-    private CommandLine _clOptional = null;
     private Options opts = new Options();
-
-    public ValueTest(String name)
-    {
-        super(name);
-    }
 
     public void setUp()
     {
@@ -98,11 +86,6 @@ public class ValueTest extends TestCase
         {
             fail("Cannot setUp() CommandLine: " + e.toString());
         }
-    }
-
-    public void tearDown()
-    {
-
     }
 
     public void testShortNoArg()

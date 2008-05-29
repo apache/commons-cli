@@ -14,11 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+
 package org.apache.commons.cli.bug;
 
-import junit.framework.TestCase;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.MissingArgumentException;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.PosixParser;
 
-import org.apache.commons.cli.*;
+import junit.framework.TestCase;
 
 public class BugCLI71Test extends TestCase {
 

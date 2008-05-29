@@ -14,11 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * @author John Keyes (john at integralsource.com)
@@ -26,20 +25,8 @@ import junit.framework.TestSuite;
  */
 public class OptionGroupTest extends TestCase
 {
-
     private Options _options = null;
     private CommandLineParser parser = new PosixParser();
-
-
-    public static Test suite() 
-    { 
-        return new TestSuite ( OptionGroupTest.class ); 
-    }
-
-    public OptionGroupTest( String name )
-    {
-        super( name );
-    }
 
     public void setUp()
     {
@@ -66,10 +53,6 @@ public class OptionGroupTest extends TestCase
         _options.addOptionGroup( group3 );
 
         _options.addOption( "r", "revision", false, "revision number" );
-    }
-
-    public void tearDown()
-    {
     }
 
     public void testSingleOptionFromGroup()
@@ -204,7 +187,7 @@ public class OptionGroupTest extends TestCase
 
         try
         {
-            CommandLine cl = parser.parse( _options, args);
+            parser.parse( _options, args);
             fail( "two arguments from group not allowed" );
         }
         catch (ParseException e)
@@ -222,7 +205,7 @@ public class OptionGroupTest extends TestCase
 
         try
         {
-            CommandLine cl = parser.parse( _options, args);
+            parser.parse(_options, args);
             fail( "two arguments from group not allowed" );
         }
         catch (ParseException e)
@@ -276,6 +259,5 @@ public class OptionGroupTest extends TestCase
             fail( e.toString() );
         }
     }
-
 
 }

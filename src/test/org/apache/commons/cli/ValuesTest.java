@@ -14,28 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import java.util.Arrays;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 public class ValuesTest extends TestCase
 {
     /** CommandLine instance */
     private CommandLine _cmdline = null;
     private Option _option = null;
-
-    public static Test suite() { 
-        return new TestSuite( ValuesTest.class );
-    }
-
-    public ValuesTest( String name )
-    {
-        super( name );
-    }
 
     public void setUp()
     {
@@ -129,11 +119,6 @@ public class ValuesTest extends TestCase
         {
             fail("Cannot setUp() CommandLine: " + e.toString());
         }
-    }
-
-    public void tearDown()
-    {
-
     }
 
     public void testShortArgs()

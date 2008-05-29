@@ -14,11 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * <p>
@@ -37,15 +36,6 @@ import junit.framework.TestSuite;
  */
 public class ApplicationTest extends TestCase {
 
-    public static Test suite() { 
-        return new TestSuite(ApplicationTest.class); 
-    }
-
-    public ApplicationTest(String name)
-    {
-        super(name);
-    }
-    
     /**
      *	
      */

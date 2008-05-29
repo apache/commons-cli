@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli.bug;
 
-import junit.framework.TestCase;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
@@ -24,14 +24,14 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
+import junit.framework.TestCase;
+
 /**
  * @author brianegge
  */
-public class BugCLI13Test
-    extends TestCase
+public class BugCLI13Test extends TestCase
 {
-    public void testCLI13()
-        throws ParseException
+    public void testCLI13() throws ParseException
     {
         final String debugOpt = "debug";
         Option debug = OptionBuilder

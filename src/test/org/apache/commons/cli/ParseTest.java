@@ -14,26 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 public class ParseTest extends TestCase
 {
-
     private Options _options = null;
     private Parser _parser = null;
-
-    public static Test suite() { 
-        return new TestSuite(ParseTest.class); 
-    }
-
-    public ParseTest(String name)
-    {
-        super(name);
-    }
 
     public void setUp()
     {
@@ -52,11 +41,6 @@ public class ParseTest extends TestCase
                        "turn [c] on or off");
 
         _parser = new PosixParser();
-    }
-
-    public void tearDown()
-    {
-
     }
 
     public void testSimpleShort()
