@@ -150,7 +150,6 @@
         </includes>
       </resource>
     </resources>
-<!--
     <plugins>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -163,7 +162,6 @@
         </configuration>
       </plugin>
     </plugins>
--->
   </build>
 
   <reporting>
