@@ -43,71 +43,50 @@ public class ParseTest extends TestCase
         _parser = new PosixParser();
     }
 
-    public void testSimpleShort()
+    public void testSimpleShort() throws Exception
     {
         String[] args = new String[] { "-a",
                                        "-b", "toast",
                                        "foo", "bar" };
 
-        try
-        {
-            CommandLine cl = _parser.parse(_options, args);
-            
-            assertTrue( "Confirm -a is set", cl.hasOption("a") );
-            assertTrue( "Confirm -b is set", cl.hasOption("b") );
-            assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
-            assertTrue( "Confirm size of extra args", cl.getArgList().size() == 2);
-        }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
+        CommandLine cl = _parser.parse(_options, args);
+
+        assertTrue( "Confirm -a is set", cl.hasOption("a") );
+        assertTrue( "Confirm -b is set", cl.hasOption("b") );
+        assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
+        assertTrue( "Confirm size of extra args", cl.getArgList().size() == 2);
     }
 
-    public void testSimpleLong()
+    public void testSimpleLong() throws Exception
     {
         String[] args = new String[] { "--enable-a",
                                        "--bfile", "toast",
                                        "foo", "bar" };
 
-        try
-        {
-            CommandLine cl = _parser.parse(_options, args);
-            
-            assertTrue( "Confirm -a is set", cl.hasOption("a") );
-            assertTrue( "Confirm -b is set", cl.hasOption("b") );
-            assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
-            assertTrue( "Confirm arg of --bfile", cl.getOptionValue( "bfile" ).equals( "toast" ) );
-            assertTrue( "Confirm size of extra args", cl.getArgList().size() == 2);
-        } 
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
+        CommandLine cl = _parser.parse(_options, args);
+
+        assertTrue( "Confirm -a is set", cl.hasOption("a") );
+        assertTrue( "Confirm -b is set", cl.hasOption("b") );
+        assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
+        assertTrue( "Confirm arg of --bfile", cl.getOptionValue( "bfile" ).equals( "toast" ) );
+        assertTrue( "Confirm size of extra args", cl.getArgList().size() == 2);
     }
 
-    public void testComplexShort()
+    public void testComplexShort() throws Exception
     {
         String[] args = new String[] { "-acbtoast",
                                        "foo", "bar" };
 
-        try
-        {
-            CommandLine cl = _parser.parse(_options, args);
-            
-            assertTrue( "Confirm -a is set", cl.hasOption("a") );
-            assertTrue( "Confirm -b is set", cl.hasOption("b") );
-            assertTrue( "Confirm -c is set", cl.hasOption("c") );
-            assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
-            assertTrue( "Confirm size of extra args", cl.getArgList().size() == 2);
-        }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
+        CommandLine cl = _parser.parse(_options, args);
+
+        assertTrue( "Confirm -a is set", cl.hasOption("a") );
+        assertTrue( "Confirm -b is set", cl.hasOption("b") );
+        assertTrue( "Confirm -c is set", cl.hasOption("c") );
+        assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
+        assertTrue( "Confirm size of extra args", cl.getArgList().size() == 2);
     }
 
-    public void testExtraOption()
+    public void testExtraOption() throws Exception
     {
         String[] args = new String[] { "-adbtoast",
                                        "foo", "bar" };
@@ -127,14 +106,11 @@ public class ParseTest extends TestCase
         {
             caught = true;
         }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
+
         assertTrue( "Confirm UnrecognizedOptionException caught", caught );
     }
 
-    public void testMissingArg()
+    public void testMissingArg() throws Exception
     {
 
         String[] args = new String[] { "-acb" };
@@ -143,133 +119,92 @@ public class ParseTest extends TestCase
 
         try
         {
-            CommandLine cl = _parser.parse(_options, args);
+            _parser.parse(_options, args);
         }
         catch (MissingArgumentException e)
         {
             caught = true;
         }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
 
         assertTrue( "Confirm MissingArgumentException caught", caught );
     }
 
-    public void testStop()
+    public void testStop() throws Exception
     {
         String[] args = new String[] { "-c",
                                        "foober",
                                        "-btoast" };
 
-        try
-        {
-            CommandLine cl = _parser.parse(_options, args, true);
-            assertTrue( "Confirm -c is set", cl.hasOption("c") );
-            assertTrue( "Confirm  2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
-        }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
+        CommandLine cl = _parser.parse(_options, args, true);
+        assertTrue( "Confirm -c is set", cl.hasOption("c") );
+        assertTrue( "Confirm  2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
     }
 
-    public void testMultiple()
+    public void testMultiple() throws Exception
     {
         String[] args = new String[] { "-c",
                                        "foobar",
                                        "-btoast" };
 
-        try
-        {
-            CommandLine cl = _parser.parse(_options, args, true);
-            assertTrue( "Confirm -c is set", cl.hasOption("c") );
-            assertTrue( "Confirm  2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
+        CommandLine cl = _parser.parse(_options, args, true);
+        assertTrue( "Confirm -c is set", cl.hasOption("c") );
+        assertTrue( "Confirm  2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
 
-            cl = _parser.parse(_options, cl.getArgs() );
+        cl = _parser.parse(_options, cl.getArgs() );
 
-            assertTrue( "Confirm -c is not set", ! cl.hasOption("c") );
-            assertTrue( "Confirm -b is set", cl.hasOption("b") );
-            assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
-            assertTrue( "Confirm  1 extra arg: " + cl.getArgList().size(), cl.getArgList().size() == 1);
-            assertTrue( "Confirm  value of extra arg: " + cl.getArgList().get(0), cl.getArgList().get(0).equals("foobar") );
-        }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
+        assertTrue( "Confirm -c is not set", ! cl.hasOption("c") );
+        assertTrue( "Confirm -b is set", cl.hasOption("b") );
+        assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
+        assertTrue( "Confirm  1 extra arg: " + cl.getArgList().size(), cl.getArgList().size() == 1);
+        assertTrue( "Confirm  value of extra arg: " + cl.getArgList().get(0), cl.getArgList().get(0).equals("foobar") );
     }
 
-    public void testMultipleWithLong()
+    public void testMultipleWithLong() throws Exception
     {
         String[] args = new String[] { "--copt",
                                        "foobar",
                                        "--bfile", "toast" };
 
-        try
-        {
-            CommandLine cl = _parser.parse(_options,args,
-                                            true);
-            assertTrue( "Confirm -c is set", cl.hasOption("c") );
-            assertTrue( "Confirm  3 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 3);
+        CommandLine cl = _parser.parse(_options,args,
+                                        true);
+        assertTrue( "Confirm -c is set", cl.hasOption("c") );
+        assertTrue( "Confirm  3 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 3);
 
-            cl = _parser.parse(_options, cl.getArgs() );
+        cl = _parser.parse(_options, cl.getArgs() );
 
-            assertTrue( "Confirm -c is not set", ! cl.hasOption("c") );
-            assertTrue( "Confirm -b is set", cl.hasOption("b") );
-            assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
-            assertTrue( "Confirm  1 extra arg: " + cl.getArgList().size(), cl.getArgList().size() == 1);
-            assertTrue( "Confirm  value of extra arg: " + cl.getArgList().get(0), cl.getArgList().get(0).equals("foobar") );
-        }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
+        assertTrue( "Confirm -c is not set", ! cl.hasOption("c") );
+        assertTrue( "Confirm -b is set", cl.hasOption("b") );
+        assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
+        assertTrue( "Confirm  1 extra arg: " + cl.getArgList().size(), cl.getArgList().size() == 1);
+        assertTrue( "Confirm  value of extra arg: " + cl.getArgList().get(0), cl.getArgList().get(0).equals("foobar") );
     }
 
-    public void testDoubleDash()
+    public void testDoubleDash() throws Exception
     {
         String[] args = new String[] { "--copt",
                                        "--",
                                        "-b", "toast" };
 
-        try
-        {
-            CommandLine cl = _parser.parse(_options, args);
+        CommandLine cl = _parser.parse(_options, args);
 
-            assertTrue( "Confirm -c is set", cl.hasOption("c") );
-            assertTrue( "Confirm -b is not set", ! cl.hasOption("b") );
-            assertTrue( "Confirm 2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
-
-        }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
+        assertTrue( "Confirm -c is set", cl.hasOption("c") );
+        assertTrue( "Confirm -b is not set", ! cl.hasOption("b") );
+        assertTrue( "Confirm 2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
     }
 
-    public void testSingleDash()
+    public void testSingleDash() throws Exception
     {
         String[] args = new String[] { "--copt",
                                        "-b", "-",
                                        "-a",
                                        "-" };
 
-        try
-        {
-            CommandLine cl = _parser.parse(_options, args);
+        CommandLine cl = _parser.parse(_options, args);
 
-            assertTrue( "Confirm -a is set", cl.hasOption("a") );
-            assertTrue( "Confirm -b is set", cl.hasOption("b") );
-            assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("-") );
-            assertTrue( "Confirm 1 extra arg: " + cl.getArgList().size(), cl.getArgList().size() == 1);
-            assertTrue( "Confirm value of extra arg: " + cl.getArgList().get(0), cl.getArgList().get(0).equals("-") );
-        }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
-        
+        assertTrue( "Confirm -a is set", cl.hasOption("a") );
+        assertTrue( "Confirm -b is set", cl.hasOption("b") );
+        assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("-") );
+        assertTrue( "Confirm 1 extra arg: " + cl.getArgList().size(), cl.getArgList().size() == 1);
+        assertTrue( "Confirm value of extra arg: " + cl.getArgList().get(0), cl.getArgList().get(0).equals("-") );
     }
 }

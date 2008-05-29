@@ -88,30 +88,19 @@ public class OptionBuilderTest extends TestCase {
         assertTrue( !base.hasArg() );
     }
 
-    public void testSpecialOptChars() {
-
+    public void testSpecialOptChars() throws Exception
+    {
         // '?'
-        try {
-            Option opt = OptionBuilder.withDescription( "help options" )
-                                      .create( '?' );
-            assertEquals( "?", opt.getOpt() );
-        }
-        catch( IllegalArgumentException arg ) {
-            fail( "IllegalArgumentException caught" );
-        }
+        Option opt1 = OptionBuilder.withDescription("help options").create('?');
+        assertEquals("?", opt1.getOpt());
 
         // '@'
-        try {
-            Option opt = OptionBuilder.withDescription( "read from stdin" )
-                                      .create( '@' );
-            assertEquals( "@", opt.getOpt() );
-        }
-        catch( IllegalArgumentException arg ) {
-            fail( "IllegalArgumentException caught" );
-        }
+        Option opt2 = OptionBuilder.withDescription("read from stdin").create('@');
+        assertEquals("@", opt2.getOpt());
     }
 
-    public void testOptionArgNumbers() {
+    public void testOptionArgNumbers()
+    {
         Option opt = OptionBuilder.withDescription( "option description" )
                                   .hasArgs( 2 )
                                   .create( 'o' );
@@ -121,8 +110,7 @@ public class OptionBuilderTest extends TestCase {
     public void testIllegalOptions() {
         // bad single character option
         try {
-            Option opt = OptionBuilder.withDescription( "option description" )
-                                      .create( '"' );
+            OptionBuilder.withDescription( "option description" ).create( '"' );
             fail( "IllegalArgumentException not caught" );
         }
         catch( IllegalArgumentException exp ) {

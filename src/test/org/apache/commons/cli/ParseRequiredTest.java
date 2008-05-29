@@ -42,42 +42,28 @@ public class ParseRequiredTest extends TestCase
                                      .create( 'b' ) );
     }
 
-    public void testWithRequiredOption()
+    public void testWithRequiredOption() throws Exception
     {
         String[] args = new String[] {  "-b", "file" };
 
-        try
-        {
-            CommandLine cl = parser.parse(_options,args);
-            
-            assertTrue( "Confirm -a is NOT set", !cl.hasOption("a") );
-            assertTrue( "Confirm -b is set", cl.hasOption("b") );
-            assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("file") );
-            assertTrue( "Confirm NO of extra args", cl.getArgList().size() == 0);
-        }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
+        CommandLine cl = parser.parse(_options,args);
+
+        assertTrue( "Confirm -a is NOT set", !cl.hasOption("a") );
+        assertTrue( "Confirm -b is set", cl.hasOption("b") );
+        assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("file") );
+        assertTrue( "Confirm NO of extra args", cl.getArgList().size() == 0);
     }
 
-    public void testOptionAndRequiredOption()
+    public void testOptionAndRequiredOption() throws Exception
     {
         String[] args = new String[] {  "-a", "-b", "file" };
 
-        try
-        {
-            CommandLine cl = parser.parse(_options,args);
+        CommandLine cl = parser.parse(_options,args);
 
-            assertTrue( "Confirm -a is set", cl.hasOption("a") );
-            assertTrue( "Confirm -b is set", cl.hasOption("b") );
-            assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("file") );
-            assertTrue( "Confirm NO of extra args", cl.getArgList().size() == 0);
-        }
-        catch (ParseException e)
-        {
-            fail( e.toString() );
-        }
+        assertTrue( "Confirm -a is set", cl.hasOption("a") );
+        assertTrue( "Confirm -b is set", cl.hasOption("b") );
+        assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("file") );
+        assertTrue( "Confirm NO of extra args", cl.getArgList().size() == 0);
     }
 
     public void testMissingRequiredOption()

@@ -21,31 +21,27 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.Properties;
 
 import junit.framework.TestCase;
 
 public class BugsTest extends TestCase
 {
-    public void test11457() {
+    public void test11457() throws Exception
+    {
         Options options = new Options();
-        options.addOption( OptionBuilder.withLongOpt( "verbose" )
-                           .create() );
-        String[] args = new String[] { "--verbose" };
+        options.addOption(OptionBuilder.withLongOpt("verbose")
+                .create());
+        String[] args = new String[]{"--verbose"};
 
         CommandLineParser parser = new PosixParser();
 
-        try {
-            CommandLine cmd = parser.parse( options, args );
-            assertTrue( cmd.hasOption( "verbose" ) );
-        }        
-        catch( ParseException exp ) {
-            exp.printStackTrace();
-            fail( "Unexpected Exception: " + exp.getMessage() );
-        }
+        CommandLine cmd = parser.parse(options, args);
+        assertTrue(cmd.hasOption("verbose"));
     }
 
-    public void test11458()
+    public void test11458() throws Exception
     {
         Options options = new Options();
         options.addOption( OptionBuilder.withValueSeparator( '=' )
@@ -54,75 +50,60 @@ public class BugsTest extends TestCase
         options.addOption( OptionBuilder.withValueSeparator( ':' )
                            .hasArgs()
                            .create( 'p' ) );
-        String[] args = new String[] { "-DJAVA_HOME=/opt/java" ,
-        "-pfile1:file2:file3" };
+        String[] args = new String[] { "-DJAVA_HOME=/opt/java" , "-pfile1:file2:file3" };
 
         CommandLineParser parser = new PosixParser();
 
-        try {
-            CommandLine cmd = parser.parse( options, args );
+        CommandLine cmd = parser.parse(options, args);
 
-            String[] values = cmd.getOptionValues( 'D' );
+        String[] values = cmd.getOptionValues('D');
 
-            assertEquals( values[0], "JAVA_HOME" );
-            assertEquals( values[1], "/opt/java" );
+        assertEquals(values[0], "JAVA_HOME");
+        assertEquals(values[1], "/opt/java");
 
-            values = cmd.getOptionValues( 'p' );
+        values = cmd.getOptionValues('p');
 
-            assertEquals( values[0], "file1" );
-            assertEquals( values[1], "file2" );
-            assertEquals( values[2], "file3" );
+        assertEquals(values[0], "file1");
+        assertEquals(values[1], "file2");
+        assertEquals(values[2], "file3");
 
-            java.util.Iterator iter = cmd.iterator();
-            while( iter.hasNext() ) {
-                Option opt = (Option)iter.next();
-                switch( opt.getId() ) {
-                    case 'D':
-                        assertEquals( opt.getValue( 0 ), "JAVA_HOME" );
-                        assertEquals( opt.getValue( 1 ), "/opt/java" );
-                        break;
-                    case 'p':
-                        assertEquals( opt.getValue( 0 ), "file1" );
-                        assertEquals( opt.getValue( 1 ), "file2" );
-                        assertEquals( opt.getValue( 2 ), "file3" );
-                        break;
-                    default:
-                        fail( "-D option not found" );
-                }
+        Iterator iter = cmd.iterator();
+        while (iter.hasNext())
+        {
+            Option opt = (Option) iter.next();
+            switch (opt.getId())
+            {
+                case 'D':
+                    assertEquals(opt.getValue(0), "JAVA_HOME");
+                    assertEquals(opt.getValue(1), "/opt/java");
+                    break;
+                case 'p':
+                    assertEquals(opt.getValue(0), "file1");
+                    assertEquals(opt.getValue(1), "file2");
+                    assertEquals(opt.getValue(2), "file3");
+                    break;
+                default:
+                    fail("-D option not found");
             }
-        }
-        catch( ParseException exp ) {
-            fail( "Unexpected Exception:\nMessage:" + exp.getMessage() 
-                  + "Type: " + exp.getClass().getName() );
         }
     }
 
-    public void test11680()
+    public void test11680() throws Exception
     {
         Options options = new Options();
         options.addOption("f", true, "foobar");
-	options.addOption("m", true, "missing");
-        String[] args = new String[] { "-f" , "foo" };
+        options.addOption("m", true, "missing");
+        String[] args = new String[]{"-f", "foo"};
 
         CommandLineParser parser = new PosixParser();
 
-        try {
-            CommandLine cmd = parser.parse( options, args );
+        CommandLine cmd = parser.parse(options, args);
 
-            try {
-                cmd.getOptionValue( "f", "default f");
-                cmd.getOptionValue( "m", "default m");
-            }
-            catch( NullPointerException exp ) {
-                fail( "NullPointer caught: " + exp.getMessage() );
-            }
-        }
-        catch( ParseException exp ) {
-            fail( "Unexpected Exception: " + exp.getMessage() );
-        }
+        cmd.getOptionValue("f", "default f");
+        cmd.getOptionValue("m", "default m");
     }
 
-    public void test11456()
+    public void test11456() throws Exception
     {
         // Posix 
         Options options = new Options();
@@ -134,13 +115,8 @@ public class BugsTest extends TestCase
 
         CommandLineParser parser = new PosixParser();
 
-        try {
-            CommandLine cmd = parser.parse( options, args );
-            assertEquals( cmd.getOptionValue( 'b' ), "value" );
-        }
-        catch( ParseException exp ) {
-            fail( "Unexpected Exception: " + exp.getMessage() );
-        }
+        CommandLine cmd = parser.parse( options, args );
+        assertEquals( cmd.getOptionValue( 'b' ), "value" );
 
         // GNU
         options = new Options();
@@ -152,17 +128,12 @@ public class BugsTest extends TestCase
 
         parser = new GnuParser();
 
-        try {
-            CommandLine cmd = parser.parse( options, args );
-            assertEquals( cmd.getOptionValue( 'b' ), "value" );
-        }
-        catch( ParseException exp ) {
-            fail( "Unexpected Exception: " + exp.getMessage() );
-        }
-
+        cmd = parser.parse( options, args );
+        assertEquals( cmd.getOptionValue( 'b' ), "value" );
     }
 
-    public void test12210() {
+    public void test12210() throws Exception
+    {
         // create the main options object which will handle the first parameter
         Options mainOptions = new Options();
         // There can be 2 main exclusive options:  -exec|-rep
@@ -180,13 +151,13 @@ public class BugsTest extends TestCase
 
         // for the exec option, there are 2 options...
         Options execOptions = new Options();
-        execOptions.addOption("exec_opt1",false," desc");
-        execOptions.addOption("exec_opt2",false," desc");
+        execOptions.addOption("exec_opt1", false, " desc");
+        execOptions.addOption("exec_opt2", false, " desc");
 
         // similarly, for rep there are 2 options...
         Options repOptions = new Options();
-        repOptions.addOption("repopto",false,"desc");
-        repOptions.addOption("repoptt",false,"desc");
+        repOptions.addOption("repopto", false, "desc");
+        repOptions.addOption("repoptt", false, "desc");
 
         // create the parser
         GnuParser parser = new GnuParser();
@@ -196,31 +167,29 @@ public class BugsTest extends TestCase
         // first parse the main options to see what the user has specified
         // We set stopAtNonOption to true so it does not touch the remaining
         // options
-        try {
-            CommandLine cmd = parser.parse(mainOptions,argv,true);
-            // get the remaining options...
-            argv = cmd.getArgs();
+        CommandLine cmd = parser.parse(mainOptions,argv,true);
+        // get the remaining options...
+        argv = cmd.getArgs();
 
-            if(cmd.hasOption("exec")){
-                cmd = parser.parse(execOptions,argv,false);
-                // process the exec_op1 and exec_opt2...
-                assertTrue( cmd.hasOption("exec_opt1") );
-                assertTrue( cmd.hasOption("exec_opt2") );
-            }
-            else if(cmd.hasOption("rep")){
-                cmd = parser.parse(repOptions,argv,false);
-                // process the rep_op1 and rep_opt2...
-            }
-            else {
-                fail( "exec option not found" );
-            }
+        if(cmd.hasOption("exec"))
+        {
+            cmd = parser.parse(execOptions,argv,false);
+            // process the exec_op1 and exec_opt2...
+            assertTrue( cmd.hasOption("exec_opt1") );
+            assertTrue( cmd.hasOption("exec_opt2") );
         }
-        catch( ParseException exp ) {
-            fail( "Unexpected exception: " + exp.getMessage() );
+        else if(cmd.hasOption("rep"))
+        {
+            cmd = parser.parse(repOptions,argv,false);
+            // process the rep_op1 and rep_opt2...
+        }
+        else {
+            fail( "exec option not found" );
         }
     }
 
-    public void test13425() {
+    public void test13425() throws Exception
+    {
         Options options = new Options();
         Option oldpass = OptionBuilder.withLongOpt( "old-password" )
             .withDescription( "Use this option to specify the old password" )
@@ -242,18 +211,21 @@ public class BugsTest extends TestCase
 
         Parser parser = new PosixParser();
 
-        try {
-            CommandLine line = parser.parse( options, args );
+        try
+        {
+            parser.parse( options, args );
         }
         // catch the exception and leave the method
-        catch( Exception exp ) {
+        catch( Exception exp )
+        {
             assertTrue( exp != null );
             return;
         }
         fail( "MissingArgumentException not caught." );
     }
 
-    public void test13666() {
+    public void test13666() throws Exception
+    {
         Options options = new Options();
         Option dir = OptionBuilder.withDescription( "dir" )
                                        .hasArg()
@@ -262,7 +234,8 @@ public class BugsTest extends TestCase
         
         
         final PrintStream oldSystemOut = System.out;
-        try{
+        try
+        {
             final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             final PrintStream print = new PrintStream(bytes);
             
@@ -272,21 +245,20 @@ public class BugsTest extends TestCase
             bytes.reset();
             
             System.setOut(new PrintStream(bytes));
-            try {
-                HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp( "dir", options );
-            }
-            catch( Exception exp ) {
-                fail( "Unexpected Exception: " + exp.getMessage() );
-            }
+
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp( "dir", options );
+
             assertEquals("usage: dir"+eol+" -d <arg>   dir"+eol,bytes.toString());
         }
-        finally {
+        finally
+        {
             System.setOut(oldSystemOut);
         }
     }
 
-    public void test13935() {
+    public void test13935() throws Exception
+    {
         OptionGroup directions = new OptionGroup();
 
         Option left = new Option( "l", "left", false, "go left" );
@@ -335,20 +307,24 @@ public class BugsTest extends TestCase
         exception = false;
 
         args = new String[] { "-s", "-l" };
-        try {
-            CommandLine line = parser.parse( opts, args );
+        try
+        {
+            parser.parse(opts, args);
         }
-        catch( ParseException exp ) {
-            fail( "Unexpected exception: " + exp.getClass().getName() + ":" + exp.getMessage() );
+        catch (ParseException exp)
+        {
+            fail("Unexpected exception: " + exp.getClass().getName() + ":" + exp.getMessage());
         }
 
         opts.addOption( forward );
         args = new String[] { "-s", "-l", "-f" };
-        try {
-            CommandLine line = parser.parse( opts, args );
+        try
+        {
+            parser.parse(opts, args);
         }
-        catch( ParseException exp ) {
-            fail( "Unexpected exception: " + exp.getClass().getName() + ":" + exp.getMessage() );
+        catch (ParseException exp)
+        {
+            fail("Unexpected exception: " + exp.getClass().getName() + ":" + exp.getMessage());
         }
     }
 

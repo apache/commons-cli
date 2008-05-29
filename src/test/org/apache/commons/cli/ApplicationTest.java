@@ -36,10 +36,7 @@ import junit.framework.TestCase;
  */
 public class ApplicationTest extends TestCase {
 
-    /**
-     *	
-     */
-    public void testLs() {
+    public void testLs() throws Exception {
         // create the command line parser
         CommandLineParser parser = new PosixParser();
         Options options = new Options();
@@ -57,20 +54,15 @@ public class ApplicationTest extends TestCase {
 
         String[] args = new String[]{ "--block-size=10" };
 
-        try {
-            CommandLine line = parser.parse( options, args );
-            assertTrue( line.hasOption( "block-size" ) );
-            assertEquals( line.getOptionValue( "block-size" ), "10" );
-        }
-        catch( ParseException exp ) {
-            fail( "Unexpected exception:" + exp.getMessage() );
-        }
+        CommandLine line = parser.parse( options, args );
+        assertTrue( line.hasOption( "block-size" ) );
+        assertEquals( line.getOptionValue( "block-size" ), "10" );
     }
 
     /**
      * Ant test
      */
-    public void testAnt() {
+    public void testAnt() throws Exception {
         // use the GNU parser
         CommandLineParser parser = new GnuParser( );
         Options options = new Options();
@@ -95,26 +87,20 @@ public class ApplicationTest extends TestCase {
             "-Dproperty=value", "-Dproperty1=value1",
             "-projecthelp" };
 
-        try {
-            CommandLine line = parser.parse( options, args );
+        CommandLine line = parser.parse( options, args );
 
-            // check multiple values
-            String[] opts = line.getOptionValues( "D" );
-            assertEquals( "property", opts[0] );
-            assertEquals( "value", opts[1] );
-            assertEquals( "property1", opts[2] );
-            assertEquals( "value1", opts[3] );
+        // check multiple values
+        String[] opts = line.getOptionValues( "D" );
+        assertEquals( "property", opts[0] );
+        assertEquals( "value", opts[1] );
+        assertEquals( "property1", opts[2] );
+        assertEquals( "value1", opts[3] );
 
-            // check single value
-            assertEquals( line.getOptionValue( "buildfile"), "mybuild.xml" );
+        // check single value
+        assertEquals( line.getOptionValue( "buildfile"), "mybuild.xml" );
 
-            // check option
-            assertTrue( line.hasOption( "projecthelp") );
-        }
-        catch( ParseException exp ) {
-            fail( "Unexpected exception:" + exp.getMessage() );
-        }
-
+        // check option
+        assertTrue( line.hasOption( "projecthelp") );
     }
 
 }
