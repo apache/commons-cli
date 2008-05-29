@@ -21,8 +21,29 @@
     <title>Commons CLI Release Notes</title>
   </properties>
   <body>
-    <release version="1.1" date="2007-07-08"
-      description="This is a maintenance release containing bug fixes. ">
+
+    <release version="1.2" date="in SVN" description="This is a maintenance release containing bug fixes.">
+      <action type="update" dev="bayard" issue="CLI-155">
+        The ordering of options can be defined in help messages.
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-151" due-to="Dan Armbrust">
+        The line wrapping in HelpFormatter now works properly.
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-149">
+        The message of MissingOptionException has been improved.
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-141" due-to="Henning Schmiedehausen, Bjorn Townsend">
+        Option.toString() now reports arguments properly. 
+      </action>
+      <action type="update" dev="bayard" issue="CLI-142" due-to="Henning Schmiedehausen">
+        The Parser class has been changed to be more easily extendable.
+      </action>
+      <action type="update" dev="bayard" issue="CLI-140">
+        The following classes are now serializable: Option, OptionGroup, CommandLine and Options.
+      </action>
+    </release>
+
+    <release version="1.1" date="2007-07-08" description="This is a maintenance release containing bug fixes.">
 
       <action type="fix" issue="CLI-2">Wrong usage summary. </action>
       <action type="fix" issue="CLI-5">Dependecy on commons-lang-2.0 but commons-lang-1.0 is obtained. </action>
