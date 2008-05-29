@@ -24,16 +24,13 @@ import junit.framework.TestCase;
  * applications command lines focusing on options with
  * long and short names.
  */
-public class LongOptionWithShort extends TestCase {
+public class PosixParserTest extends TestCase {
 
-    public void testLongOptionWithShort() {
+    public void testLongOptionWithShort() throws Exception {
         Option help = new Option("h", "help", false, "print this message");
-        Option version = new Option("v", "version", false,
-                "print version information");
-        Option newRun = new Option("n", "new", false,
-                "Create NLT cache entries only for new items");
-        Option trackerRun = new Option("t", "tracker", false,
-                "Create NLT cache entries only for tracker items");
+        Option version = new Option("v", "version", false, "print version information");
+        Option newRun = new Option("n", "new", false, "Create NLT cache entries only for new items");
+        Option trackerRun = new Option("t", "tracker", false, "Create NLT cache entries only for tracker items");
 
         Option timeLimit = OptionBuilder.withLongOpt("limit").hasArg()
                                         .withValueSeparator()
@@ -84,17 +81,12 @@ public class LongOptionWithShort extends TestCase {
                 "filename"
             };
 
-        try {
-            CommandLine line = parser.parse(options, args);
-            assertTrue(line.hasOption("v"));
-            assertEquals(line.getOptionValue("l"), "10");
-            assertEquals(line.getOptionValue("limit"), "10");
-            assertEquals(line.getOptionValue("a"), "5");
-            assertEquals(line.getOptionValue("age"), "5");
-            assertEquals(line.getOptionValue("file"), "filename");
-        }
-        catch (ParseException exp) {
-            fail("Unexpected exception:" + exp.getMessage());
-        }
+        CommandLine line = parser.parse(options, args);
+        assertTrue(line.hasOption("v"));
+        assertEquals(line.getOptionValue("l"), "10");
+        assertEquals(line.getOptionValue("limit"), "10");
+        assertEquals(line.getOptionValue("a"), "5");
+        assertEquals(line.getOptionValue("age"), "5");
+        assertEquals(line.getOptionValue("file"), "filename");
     }
 }
