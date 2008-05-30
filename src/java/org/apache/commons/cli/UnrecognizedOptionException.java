@@ -14,21 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-/** 
- * <p>Exception thrown during parsing signalling an unrecognized
- * option was seen.<p>
+/**
+ * Exception thrown during parsing signalling an unrecognized
+ * option was seen.
  *
  * @author bob mcwhiter (bob @ werken.com)
  * @version $Revision$
  */
-public class UnrecognizedOptionException
-    extends ParseException {
-
-    /** 
-     * <p>Construct a new <code>UnrecognizedArgumentException</code> 
-     * with the specified detail message.</p>
+public class UnrecognizedOptionException extends ParseException
+{
+    /**
+     * Construct a new <code>UnrecognizedArgumentException</code>
+     * with the specified detail message.
      *
      * @param message the detail message
      */

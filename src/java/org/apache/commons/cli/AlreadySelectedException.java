@@ -14,21 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-/** 
- * <p>Thrown when more than one option in an option group
- * has been provided.</p>
+/**
+ * Thrown when more than one option in an option group
+ * has been provided.
  *
  * @author John Keyes ( john at integralsource.com )
  * @see ParseException
  */
-public class AlreadySelectedException
-    extends ParseException {
-
-    /** 
-     * <p>Construct a new <code>AlreadySelectedException</code> 
-     * with the specified detail message.</p>
+public class AlreadySelectedException extends ParseException
+{
+    /**
+     * Construct a new <code>AlreadySelectedException</code>
+     * with the specified detail message.
      *
      * @param message the detail message
      */

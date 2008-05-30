@@ -14,21 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-/** 
- * <p>Thrown when an option requiring an argument
- * is not provided with an argument.</p>
+/**
+ * Thrown when an option requiring an argument
+ * is not provided with an argument.
  *
  * @author John Keyes (john at integralsource.com)
  * @see ParseException
  */
-public class MissingArgumentException
-    extends ParseException {
-
-    /** 
-     * <p>Construct a new <code>MissingArgumentException</code> 
-     * with the specified detail message.</p>
+public class MissingArgumentException extends ParseException
+{
+    /**
+     * Construct a new <code>MissingArgumentException</code>
+     * with the specified detail message.
      *
      * @param message the detail message
      */

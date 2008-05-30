@@ -14,19 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-/** 
- * <p>Base for Exceptions thrown during parsing of a command-line.</p>
+/**
+ * Base for Exceptions thrown during parsing of a command-line.
  *
  * @author bob mcwhirter (bob @ werken.com)
  * @version $Revision$
  */
-public class ParseException extends Exception {
-
-    /** 
-     * <p>Construct a new <code>ParseException</code> 
-     * with the specified detail message.</p>
+public class ParseException extends Exception
+{
+    /**
+     * Construct a new <code>ParseException</code>
+     * with the specified detail message.
      *
      * @param message the detail message
      */

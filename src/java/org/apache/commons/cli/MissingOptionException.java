@@ -14,20 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-/** 
- * <p>Thrown when a required option has not been provided.</p>
+/**
+ * Thrown when a required option has not been provided.
  *
  * @author John Keyes ( john at integralsource.com )
  * @see ParseException
  */
-public class MissingOptionException
-    extends ParseException {
-
-    /** 
-     * <p>Construct a new <code>MissingSelectedException</code> 
-     * with the specified detail message.</p>
+public class MissingOptionException extends ParseException
+{
+    /**
+     * Construct a new <code>MissingSelectedException</code>
+     * with the specified detail message.
      *
      * @param message the detail message
      */
