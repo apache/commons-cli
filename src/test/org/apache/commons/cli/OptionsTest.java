@@ -28,8 +28,47 @@ import junit.framework.TestCase;
  */
 public class OptionsTest extends TestCase
 {
-    public void testHelpOptions(){
-        
+    public void testSimple()
+    {
+        Options opts = new Options();
+
+        opts.addOption("a", false, "toggle -a");
+        opts.addOption("b", true, "toggle -b");
+
+        assertTrue(opts.hasOption("a"));
+        assertTrue(opts.hasOption("b"));
+    }
+
+    public void testDuplicateSimple()
+    {
+        Options opts = new Options();
+        opts.addOption("a", false, "toggle -a");
+        opts.addOption("a", true, "toggle -a*");
+
+        assertEquals("last one in wins", "toggle -a*", opts.getOption("a").getDescription());
+    }
+
+    public void testLong()
+    {
+        Options opts = new Options();
+
+        opts.addOption("a", "--a", false, "toggle -a");
+        opts.addOption("b", "--b", true, "set -b");
+
+        assertTrue(opts.hasOption("a"));
+        assertTrue(opts.hasOption("b"));
+    }
+
+    public void testDuplicateLong()
+    {
+        Options opts = new Options();
+        opts.addOption("a", "--a", false, "toggle -a");
+        opts.addOption("a", "--a", false, "toggle -a*");
+        assertEquals("last one in wins", "toggle -a*", opts.getOption("a").getDescription());
+    }
+
+    public void testHelpOptions()
+    {
         Option longOnly1 = OptionBuilder.withLongOpt("long-only1").create();
         Option longOnly2 = OptionBuilder.withLongOpt("long-only2").create();
         Option shortOnly1 = OptionBuilder.create("1");
@@ -59,30 +98,39 @@ public class OptionsTest extends TestCase
         assertTrue("Everything in help should be in all", allOptions.containsAll(helpOptions));        
     }
 
-    public void testMissingOptionException() throws ParseException {
+    public void testMissingOptionException() throws ParseException
+    {
         Options options = new Options();
         options.addOption(OptionBuilder.isRequired().create("f"));
-        try {
+        try
+        {
             new PosixParser().parse(options, new String[0]);
             fail("Expected MissingOptionException to be thrown");
-        } catch (MissingOptionException e) {
+        }
+        catch (MissingOptionException e)
+        {
             assertEquals("Missing required option: f", e.getMessage());
         }
     }
 
-    public void testMissingOptionsException() throws ParseException {
+    public void testMissingOptionsException() throws ParseException
+    {
         Options options = new Options();
         options.addOption(OptionBuilder.isRequired().create("f"));
         options.addOption(OptionBuilder.isRequired().create("x"));
-        try {
+        try
+        {
             new PosixParser().parse(options, new String[0]);
             fail("Expected MissingOptionException to be thrown");
-        } catch (MissingOptionException e) {
+        }
+        catch (MissingOptionException e)
+        {
             assertEquals("Missing required options: f, x", e.getMessage());
         }
     }
 
-    public void testToString() {
+    public void testToString()
+    {
         Options options = new Options();
         options.addOption("f", "foo", true, "Foo");
         options.addOption("b", "bar", false, "Bar");
