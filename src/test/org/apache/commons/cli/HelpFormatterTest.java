@@ -180,7 +180,8 @@ public class HelpFormatterTest extends TestCase
 
     // This test ensures the options are properly sorted
     // See https://issues.apache.org/jira/browse/CLI-131
-    public void testPrintUsage() {
+    public void testPrintUsage()
+    {
         Option optionA = new Option("a", "first");
         Option optionB = new Option("b", "second");
         Option optionC = new Option("c", "third");
@@ -197,29 +198,45 @@ public class HelpFormatterTest extends TestCase
     }
 
     // uses the test for CLI-131 to implement CLI-155
-    public void testPrintSortedUsage() {
-        Option optionA = new Option("a", "first");
-        Option optionB = new Option("b", "second");
-        Option optionC = new Option("c", "third");
+    public void testPrintSortedUsage()
+    {
         Options opts = new Options();
-        opts.addOption(optionA);
-        opts.addOption(optionB);
-        opts.addOption(optionC);
+        opts.addOption(new Option("a", "first"));
+        opts.addOption(new Option("b", "second"));
+        opts.addOption(new Option("c", "third"));
+
         HelpFormatter helpFormatter = new HelpFormatter();
-        helpFormatter.setOptionComparator(
-            new Comparator() { 
-                public int compare(Object o1, Object o2) {
-                    // reverses the fuctionality of the default comparator
-                    Option opt1 = (Option)o1;
-                    Option opt2 = (Option)o2;
-                    return opt2.getKey().compareToIgnoreCase(opt1.getKey());
-                }
-            } );
-        ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
-        PrintWriter printWriter = new PrintWriter(bytesOut);
-        helpFormatter.printUsage(printWriter, 80, "app", opts);
-        printWriter.close();
-        assertEquals("usage: app [-c] [-b] [-a]" + EOL, bytesOut.toString());
+        helpFormatter.setOptionComparator(new Comparator()
+        {
+            public int compare(Object o1, Object o2)
+            {
+                // reverses the fuctionality of the default comparator
+                Option opt1 = (Option) o1;
+                Option opt2 = (Option) o2;
+                return opt2.getKey().compareToIgnoreCase(opt1.getKey());
+            }
+        });
+
+        StringWriter out = new StringWriter();
+        helpFormatter.printUsage(new PrintWriter(out), 80, "app", opts);
+
+        assertEquals("usage: app [-c] [-b] [-a]" + EOL, out.toString());
+    }
+
+    public void testPrintSortedUsageWithNullComparator()
+    {
+        Options opts = new Options();
+        opts.addOption(new Option("a", "first"));
+        opts.addOption(new Option("b", "second"));
+        opts.addOption(new Option("c", "third"));
+
+        HelpFormatter helpFormatter = new HelpFormatter();
+        helpFormatter.setOptionComparator(null);
+
+        StringWriter out = new StringWriter();
+        helpFormatter.printUsage(new PrintWriter(out), 80, "app", opts);
+
+        assertEquals("usage: app [-a] [-b] [-c]" + EOL, out.toString());
     }
 
     public void testPrintOptionGroupUsage()
