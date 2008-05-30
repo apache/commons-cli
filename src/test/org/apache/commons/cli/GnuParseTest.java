@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import junit.framework.TestCase;
@@ -191,5 +192,17 @@ public class GnuParseTest extends TestCase
         assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("-") );
         assertTrue( "Confirm 1 extra arg: " + cl.getArgList().size(), cl.getArgList().size() == 1);
         assertTrue( "Confirm value of extra arg: " + cl.getArgList().get(0), cl.getArgList().get(0).equals("-") );
+    }
+
+    public void testNegativeArgument() throws Exception
+    {
+        String[] args = new String[] { "-a", "-1"} ;
+
+        Options options = new Options();
+        options.addOption(OptionBuilder.hasArg().create("a"));
+
+        Parser parser = new GnuParser();
+        CommandLine cl = parser.parse(options, args);
+        assertEquals("-1", cl.getOptionValue("a"));
     }
 }
