@@ -14,9 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The class GnuParser provides an implementation of the 
@@ -27,18 +29,6 @@ import java.util.ArrayList;
  * @version $Revision$
  */
 public class GnuParser extends Parser {
-
-    /** holder for flattened tokens */
-    private ArrayList tokens = new ArrayList();
-
-    /**
-     * <p>Resets the members to their original state i.e. remove
-     * all of <code>tokens</code> entries.
-     */
-    private void init()
-    {
-        tokens.clear();
-    }
 
     /**
      * <p>This flatten method does so using the following rules:
@@ -62,7 +52,7 @@ public class GnuParser extends Parser {
     protected String[] flatten(Options options, String[] arguments, 
                                boolean stopAtNonOption)
     {
-        init();
+        List tokens = new ArrayList();
 
         boolean eatTheRest = false;
         Option currentOption = null;
