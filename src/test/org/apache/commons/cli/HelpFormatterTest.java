@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Comparator;
 
 import junit.framework.TestCase;
@@ -219,6 +220,41 @@ public class HelpFormatterTest extends TestCase
         helpFormatter.printUsage(printWriter, 80, "app", opts);
         printWriter.close();
         assertEquals("usage: app [-c] [-b] [-a]" + EOL, bytesOut.toString());
+    }
+
+    public void testPrintOptionGroupUsage() {
+        OptionGroup group = new OptionGroup();
+        group.addOption(OptionBuilder.create("a"));
+        group.addOption(OptionBuilder.create("b"));
+        group.addOption(OptionBuilder.create("c"));
+
+        Options options = new Options();
+        options.addOptionGroup(group);
+
+        StringWriter out = new StringWriter();
+
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printUsage(new PrintWriter(out), 80, "app", options);
+
+        assertEquals("usage: app [-a | -b | -c]" + EOL, out.toString());
+    }
+
+    public void testPrintRequiredOptionGroupUsage() {
+        OptionGroup group = new OptionGroup();
+        group.addOption(OptionBuilder.create("a"));
+        group.addOption(OptionBuilder.create("b"));
+        group.addOption(OptionBuilder.create("c"));
+        group.setRequired(true);
+
+        Options options = new Options();
+        options.addOptionGroup(group);
+
+        StringWriter out = new StringWriter();
+
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printUsage(new PrintWriter(out), 80, "app", options);
+
+        assertEquals("usage: app -a | -b | -c" + EOL, out.toString());
     }
 
 }
