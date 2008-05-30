@@ -25,39 +25,22 @@ public class ValuesTest extends TestCase
 {
     /** CommandLine instance */
     private CommandLine _cmdline = null;
-    private Option _option = null;
 
-    public void setUp()
+    public void setUp() throws Exception
     {
         Options opts = new Options();
 
-        opts.addOption("a",
-                       false,
-                       "toggle -a");
-
-        opts.addOption("b",
-                       true,
-                       "set -b");
-
-        opts.addOption("c",
-                       "c",
-                       false,
-                       "toggle -c");
-
-        opts.addOption("d",
-                       "d",
-                       true,
-                       "set -d");
+        opts.addOption("a", false, "toggle -a");
+        opts.addOption("b", true, "set -b");
+        opts.addOption("c", "c", false, "toggle -c");
+        opts.addOption("d", "d", true, "set -d");
         
         opts.addOption( OptionBuilder.withLongOpt( "e" )
                                      .hasArgs()
                                      .withDescription( "set -e ")
                                      .create( 'e' ) );
 
-        opts.addOption("f",
-                       "f",
-                       false,
-                       "jk");
+        opts.addOption("f", "f", false, "jk");
         
         opts.addOption( OptionBuilder.withLongOpt( "g" )
                         .hasArgs( 2 )
@@ -85,14 +68,12 @@ public class ValuesTest extends TestCase
                         .withValueSeparator( '=' )
                         .create( 'k' ) );
 
-        _option = OptionBuilder.withLongOpt( "m" )
+        opts.addOption( OptionBuilder.withLongOpt( "m" )
                         .hasArgs( )
                         .withDescription( "set -m")
                         .withValueSeparator( )
-                        .create( 'm' );
+                        .create( 'm' ) );
 
-        opts.addOption( _option );
-        
         String[] args = new String[] { "-a",
                                        "-b", "foo",
                                        "--c",
@@ -111,14 +92,7 @@ public class ValuesTest extends TestCase
 
         CommandLineParser parser = new PosixParser();
 
-        try
-        {
-            _cmdline = parser.parse(opts,args);
-        }
-        catch (ParseException e)
-        {
-            fail("Cannot setUp() CommandLine: " + e.toString());
-        }
+        _cmdline = parser.parse(opts,args);
     }
 
     public void testShortArgs()

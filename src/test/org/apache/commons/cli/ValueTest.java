@@ -27,49 +27,20 @@ public class ValueTest extends TestCase
     private CommandLine _cl = null;
     private Options opts = new Options();
 
-    public void setUp()
+    public void setUp() throws Exception
     {
-        opts.addOption("a",
-                       false,
-                       "toggle -a");
+        opts.addOption("a", false, "toggle -a");
+        opts.addOption("b", true, "set -b");
+        opts.addOption("c", "c", false, "toggle -c");
+        opts.addOption("d", "d", true, "set -d");
 
-        opts.addOption("b",
-                       true,
-                       "set -b");
-
-        opts.addOption("c",
-                       "c",
-                       false,
-                       "toggle -c");
-
-        opts.addOption("d",
-                       "d",
-                       true,
-                       "set -d");
-
-        opts.addOption( OptionBuilder.hasOptionalArg()
-                        .create( 'e') );
-
-        opts.addOption( OptionBuilder.hasOptionalArg()
-                        .withLongOpt( "fish" )
-                        .create( ) );
-
-        opts.addOption( OptionBuilder.hasOptionalArgs()
-                        .withLongOpt( "gravy" )
-                        .create( ) );
-
-        opts.addOption( OptionBuilder.hasOptionalArgs( 2 )
-                        .withLongOpt( "hide" )
-                        .create( ) );
-
-        opts.addOption( OptionBuilder.hasOptionalArgs( 2 )
-                        .create( 'i' ) );
-
-        opts.addOption( OptionBuilder.hasOptionalArgs( )
-                        .create( 'j' ) );
-
-        opts.addOption( OptionBuilder.hasArgs( ).withValueSeparator( ',' )
-                        .create( 'k' ) );
+        opts.addOption(OptionBuilder.hasOptionalArg().create('e'));
+        opts.addOption(OptionBuilder.hasOptionalArg().withLongOpt("fish").create());
+        opts.addOption(OptionBuilder.hasOptionalArgs().withLongOpt("gravy").create());
+        opts.addOption(OptionBuilder.hasOptionalArgs(2).withLongOpt("hide").create());
+        opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
+        opts.addOption(OptionBuilder.hasOptionalArgs().create('j'));
+        opts.addOption(OptionBuilder.hasArgs().withValueSeparator(',').create('k'));
 
         String[] args = new String[] { "-a",
             "-b", "foo",
@@ -77,15 +48,8 @@ public class ValueTest extends TestCase
             "--d", "bar" 
         };
 
-        try
-        {
-            Parser parser = new PosixParser();
-            _cl = parser.parse(opts,args);
-        }
-        catch (ParseException e)
-        {
-            fail("Cannot setUp() CommandLine: " + e.toString());
-        }
+        Parser parser = new PosixParser();
+        _cl = parser.parse(opts,args);
     }
 
     public void testShortNoArg()
