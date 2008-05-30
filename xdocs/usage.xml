@@ -200,7 +200,7 @@ Option find      = OptionBuilder.withArgName( "file" )
           using the OptionBuilder.
         </p>
         <source>Option property  = OptionBuilder.withArgName( "property=value" )
-                                .hasArg()
+                                .hasArgs()
                                 .withValueSeparator()
                                 .withDescription( "use value for given property" )
                                 .create( "D" );</source>
