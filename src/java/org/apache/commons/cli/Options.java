@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import java.io.Serializable;
@@ -98,10 +99,12 @@ public class Options implements Serializable {
     
     /**
      * Lists the OptionGroups that are members of this Options instance.
+     * 
      * @return a Collection of OptionGroup instances.
      */
-    Collection getOptionGroups(){
-    	return new HashSet(optionGroups.values());
+    Collection getOptionGroups()
+    {
+        return new HashSet(optionGroups.values());
     }
 
     /** 
@@ -185,30 +188,13 @@ public class Options implements Serializable {
      */
     List helpOptions()
     {
-        List opts = new ArrayList(shortOpts.values());
-
-        // now look through the long opts to see if there are any Long-opt
-        // only options
-        Iterator iter = longOpts.values().iterator();
-
-        while (iter.hasNext())
-        {
-            Object item = iter.next();
-
-            if (!opts.contains(item))
-            {
-                opts.add(item);
-            }
-        }
-
-        return new ArrayList(opts);
+        return new ArrayList(shortOpts.values());
     }
 
     /** 
-     * Returns the required options as a
-     * <code>java.util.Collection</code>.
+     * Returns the required options.
      *
-     * @return Collection of required options
+     * @return List of required options
      */
     public List getRequiredOptions()
     {
@@ -216,7 +202,8 @@ public class Options implements Serializable {
     }
 
     /** 
-     * Retrieve the named {@link Option}
+     * Retrieve the {@link Option} matching the long or short name specified.
+     * The leading hyphens in the name are ignored (up to 2).
      *
      * @param opt short or long name of the {@link Option}
      * @return the option represented by opt
