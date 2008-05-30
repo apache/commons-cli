@@ -135,4 +135,16 @@ public class OptionBuilderTest extends TestCase {
             fail( "IllegalArgumentException caught" );
         }
     }
+
+    public void testCreateIncompleteOption() {
+        try
+        {
+            OptionBuilder.hasArg().create();
+            fail("Incomplete option should be rejected");
+        }
+        catch (IllegalArgumentException e)
+        {
+            // expected
+        }
+    }
 }
