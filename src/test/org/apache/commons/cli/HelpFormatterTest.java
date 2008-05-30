@@ -155,6 +155,31 @@ public class HelpFormatterTest extends TestCase
        assertEquals("multiple wrapped options", expected, sb.toString());
    }
 
+    public void testPrintHelpWithEmptySyntax()
+    {
+        HelpFormatter formatter = new HelpFormatter();
+        try
+        {
+            formatter.printHelp(null, new Options());
+            fail("null command line syntax should be rejected");
+        }
+        catch (IllegalArgumentException e)
+        {
+            // expected
+        }
+
+        try
+        {
+            formatter.printHelp("", new Options());
+            fail("empty command line syntax should be rejected");
+        }
+        catch (IllegalArgumentException e)
+        {
+            // expected
+        }
+    }
+
+
    public void testAutomaticUsage() throws Exception
    {
        HelpFormatter hf = new HelpFormatter();
@@ -295,13 +320,7 @@ public class HelpFormatterTest extends TestCase
 
     public void testRtrim()
     {
-        HelpFormatter formatter = new HelpFormatter()
-        {
-            public String rtrim(String s)
-            {
-                return super.rtrim(s);
-            }
-        };
+        HelpFormatter formatter = new HelpFormatter();
 
         assertEquals(null, formatter.rtrim(null));
         assertEquals("", formatter.rtrim(""));
