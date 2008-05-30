@@ -49,109 +49,57 @@ public class GnuParser extends Parser {
      * flattening when a non option has been encountered
      * @return a String array of the flattened arguments
      */
-    protected String[] flatten(Options options, String[] arguments, 
-                               boolean stopAtNonOption)
+    protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption)
     {
         List tokens = new ArrayList();
 
         boolean eatTheRest = false;
-        Option currentOption = null;
 
         for (int i = 0; i < arguments.length; i++)
         {
-            if ("--".equals(arguments[i]))
+            String arg = arguments[i];
+
+            if ("--".equals(arg))
             {
                 eatTheRest = true;
                 tokens.add("--");
             }
-            else if ("-".equals(arguments[i]))
+            else if ("-".equals(arg))
             {
                 tokens.add("-");
             }
-            else if (arguments[i].startsWith("-"))
+            else if (arg.startsWith("-"))
             {
-                Option option = options.getOption(arguments[i]);
+                Option option = options.getOption(arg);
+
+                String head = arg.substring(0, 2); // "--" if --foo, "-f" if -foo
+                String tail = arg.substring(2);    // "foo" if -foo, "oo" if -foo
 
                 // this is not an Option
                 if (option == null)
                 {
-                    // handle special properties Option
-                    Option specialOption = 
-                            options.getOption(arguments[i].substring(0, 2));
+                    // handle special properties Option (-Dproperty=value for example)
+                    Option specialOption = options.getOption(head);
 
                     if (specialOption != null)
                     {
-                        tokens.add(arguments[i].substring(0, 2));
-                        tokens.add(arguments[i].substring(2));
-                    }
-                    else if (stopAtNonOption)
-                    {
-                        eatTheRest = true;
-                        tokens.add(arguments[i]);
+                        tokens.add(head); // -D
+                        tokens.add(tail); // property=value
                     }
                     else
                     {
-                        tokens.add(arguments[i]);
+                        eatTheRest = stopAtNonOption;
+                        tokens.add(arg);
                     }
                 }
                 else
                 {
-                    // WARNING: Findbugs reports major problems with the following code. 
-                    //          As option cannot be null, currentOption cannot and 
-                    //          much of the code below is never going to be run.
-
-                    currentOption = option;
-
-                    // special option
-                    Option specialOption = 
-                            options.getOption(arguments[i].substring(0, 2));
-
-                    if ((specialOption != null) && (option == null))
-                    {
-                        tokens.add(arguments[i].substring(0, 2));
-                        tokens.add(arguments[i].substring(2));
-                    }
-                    else if ((currentOption != null) && currentOption.hasArg())
-                    {
-                        if (currentOption.hasArg())
-                        {
-                            tokens.add(arguments[i]);
-                            currentOption = null;
-                        }
-                        else if (currentOption.hasArgs())
-                        {
-                            tokens.add(arguments[i]);
-                        }
-                        else if (stopAtNonOption)
-                        {
-                            eatTheRest = true;
-                            tokens.add("--");
-                            tokens.add(arguments[i]);
-                        }
-                        else
-                        {
-                            tokens.add(arguments[i]);
-                        }
-                    }
-                    else if (currentOption != null)
-                    {
-                        tokens.add(arguments[i]);
-                    }
-                    else if (stopAtNonOption)
-                    {
-                        eatTheRest = true;
-                        tokens.add("--");
-                        tokens.add(arguments[i]);
-                    }
-                    else
-                    {
-                        tokens.add(arguments[i]);
-                    }
+                    tokens.add(arg);
                 }
             }
             else
             {
-                tokens.add(arguments[i]);
+                tokens.add(arg);
             }
 
             if (eatTheRest)
