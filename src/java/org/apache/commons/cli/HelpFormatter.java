@@ -629,7 +629,7 @@ public class HelpFormatter {
         }
 
         // if the Option has a value
-        if (option.hasArg() && (option.getArgName() != null))
+        if (option.hasArg() && option.hasArgName())
         {
             buff.append(" <").append(option.getArgName()).append(">");
         }
