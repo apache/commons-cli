@@ -222,7 +222,8 @@ public class HelpFormatterTest extends TestCase
         assertEquals("usage: app [-c] [-b] [-a]" + EOL, bytesOut.toString());
     }
 
-    public void testPrintOptionGroupUsage() {
+    public void testPrintOptionGroupUsage()
+    {
         OptionGroup group = new OptionGroup();
         group.addOption(OptionBuilder.create("a"));
         group.addOption(OptionBuilder.create("b"));
@@ -239,7 +240,8 @@ public class HelpFormatterTest extends TestCase
         assertEquals("usage: app [-a | -b | -c]" + EOL, out.toString());
     }
 
-    public void testPrintRequiredOptionGroupUsage() {
+    public void testPrintRequiredOptionGroupUsage()
+    {
         OptionGroup group = new OptionGroup();
         group.addOption(OptionBuilder.create("a"));
         group.addOption(OptionBuilder.create("b"));
@@ -257,7 +259,8 @@ public class HelpFormatterTest extends TestCase
         assertEquals("usage: app -a | -b | -c" + EOL, out.toString());
     }
 
-    public void testPrintOptionWithEmptyArgNameUsage() {
+    public void testPrintOptionWithEmptyArgNameUsage()
+    {
         Option option = new Option("f", true, null);
         option.setArgName("");
         option.setRequired(true);
@@ -271,6 +274,21 @@ public class HelpFormatterTest extends TestCase
         formatter.printUsage(new PrintWriter(out), 80, "app", options);
 
         assertEquals("usage: app -f" + EOL, out.toString());
+    }
+
+    public void testRtrim()
+    {
+        HelpFormatter formatter = new HelpFormatter()
+        {
+            public String rtrim(String s)
+            {
+                return super.rtrim(s);
+            }
+        };
+
+        assertEquals(null, formatter.rtrim(null));
+        assertEquals("", formatter.rtrim(""));
+        assertEquals("  foo", formatter.rtrim("  foo  "));
     }
 
 }
