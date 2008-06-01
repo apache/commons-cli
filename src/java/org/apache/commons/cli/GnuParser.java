@@ -70,31 +70,31 @@ public class GnuParser extends Parser {
             }
             else if (arg.startsWith("-"))
             {
-                Option option = options.getOption(arg);
+                String opt = Util.stripLeadingHyphens(arg);
 
-                String head = arg.substring(0, 2); // "--" if --foo, "-f" if -foo
-                String tail = arg.substring(2);    // "foo" if -foo, "oo" if -foo
-
-                // this is not an Option
-                if (option == null)
+                if (options.hasOption(opt))
                 {
-                    // handle special properties Option (-Dproperty=value for example)
-                    Option specialOption = options.getOption(head);
-
-                    if (specialOption != null)
+                    tokens.add(arg);
+                }
+                else
+                {
+                    if (opt.indexOf('=') != -1 && options.hasOption(opt.substring(0, opt.indexOf('='))))
                     {
-                        tokens.add(head); // -D
-                        tokens.add(tail); // property=value
+                        // the format is --foo=value or -foo=value
+                        tokens.add(arg.substring(0, arg.indexOf('='))); // --foo
+                        tokens.add(arg.substring(arg.indexOf('=') + 1)); // value
+                    }
+                    else if (options.hasOption(arg.substring(0, 2)))
+                    {
+                        // the format is a special properties option (-Dproperty=value)
+                        tokens.add(arg.substring(0, 2)); // -D
+                        tokens.add(arg.substring(2)); // property=value
                     }
                     else
                     {
                         eatTheRest = stopAtNonOption;
                         tokens.add(arg);
                     }
-                }
-                else
-                {
-                    tokens.add(arg);
                 }
             }
             else
