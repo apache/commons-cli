@@ -140,7 +140,8 @@ public class ArgumentImpl
                               final ListIterator arguments,
                               final Option option)
         throws OptionException {
-        int argumentCount = commandLine.getValues(option, Collections.EMPTY_LIST).size();
+        // count of arguments processed for this option.
+        int argumentCount = 0;
 
         while (arguments.hasNext() && (argumentCount < maximum)) {
             final String allValuesQuoted = (String) arguments.next();

@@ -23,6 +23,7 @@ import junit.framework.TestCase;
 import org.apache.commons.cli2.Argument;
 import org.apache.commons.cli2.Group;
 import org.apache.commons.cli2.OptionException;
+import org.apache.commons.cli2.resource.ResourceConstants;
 import org.apache.commons.cli2.builder.ArgumentBuilder;
 import org.apache.commons.cli2.builder.DefaultOptionBuilder;
 import org.apache.commons.cli2.builder.GroupBuilder;
@@ -31,7 +32,7 @@ import org.apache.commons.cli2.option.SourceDestArgument;
 
 /**
  * The first is a loop in Parser.parse() if I set a non-declared option. This 
- * code goes into a loop in Parser.java method parse this “while” loop runs 
+ * code goes into a loop in Parser.java method parse this 'while' loop runs 
  * endless
  * 
  * @author Steve Alberty
@@ -73,7 +74,7 @@ public class BugLoopingOptionLookAlikeTest extends TestCase {
             parser.parse(new String[] { "testfile.txt", "testfile.txt", "testfile.txt", "testfile.txt" });
             fail("OptionException");
         } catch (OptionException e) {
-            assertEquals("Unexpected testfile.txt while processing ", e.getMessage());
+            assertEquals(ResourceConstants.ARGUMENT_UNEXPECTED_VALUE, e.getMessageKey());
         }
     }    
 }
