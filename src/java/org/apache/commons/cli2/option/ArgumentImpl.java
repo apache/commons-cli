@@ -141,7 +141,7 @@ public class ArgumentImpl
                               final Option option)
         throws OptionException {
         // count of arguments processed for this option.
-        int argumentCount = 0;
+        int argumentCount = commandLine.getUndefaultedValues(option).size();
 
         while (arguments.hasNext() && (argumentCount < maximum)) {
             final String allValuesQuoted = (String) arguments.next();

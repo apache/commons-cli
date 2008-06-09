@@ -37,6 +37,16 @@ public interface WriteableCommandLine extends CommandLine {
     void addValue(final Option option, final Object value);
 
     /**
+     * Retrieves the Argument values specified on the command line for the
+     * specified Option, this doesn't return any values supplied
+     * programmatically as defaults.
+     *
+     * @param option the Option associated with the values
+     * @return a list of values or an empty List if none are found
+     */
+    List getUndefaultedValues(final Option option);
+
+    /**
      * Sets the default values for an Option in the CommandLine
      * @param option the Option to add to
      * @param defaultValues the defaults for the option

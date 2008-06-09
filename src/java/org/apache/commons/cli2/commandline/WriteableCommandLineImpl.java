@@ -129,6 +129,18 @@ public class WriteableCommandLineImpl
         return valueList;
     }
 
+    public List getUndefaultedValues(Option option) {
+      // First grab the command line values
+      List valueList = (List) values.get(option);
+
+      // Finally use an empty list
+      if (valueList == null) {
+        valueList = Collections.EMPTY_LIST;
+      }
+
+      return valueList;
+    }
+
     public Boolean getSwitch(final Option option,
                              final Boolean defaultValue) {
         // First grab the command line values

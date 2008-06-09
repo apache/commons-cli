@@ -43,9 +43,6 @@ public class OptionException
     /** The message explaining the Exception */
     private final String message;
 
-    /** The id of the message */
-    private final String messageKey;
-
     /**
      * Creates a new OptionException.
      *
@@ -76,7 +73,6 @@ public class OptionException
                            final String messageKey,
                            final String value) {
         this.option = option;
-        this.messageKey = messageKey;
 
         if (messageKey != null) {
             final StringBuffer buffer = new StringBuffer();
@@ -109,7 +105,4 @@ public class OptionException
         return message;
     }
 
-    public String getMessageKey() {
-        return messageKey;
-    }
 }
