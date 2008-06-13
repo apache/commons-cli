@@ -268,5 +268,8 @@ public class GnuParserTest extends TestCase
         assertEquals("value 2", "1.5", values.get(1));
         assertEquals("value 3", "target", values.get(2));
         assertEquals("value 4", "1.5", values.get(3));
+        List argsleft = cl.getArgList();
+        assertEquals("Should be 1 arg left",1,argsleft.size());
+        assertEquals("Expecting foo","foo",argsleft.get(0));
     }
 }
