@@ -204,6 +204,10 @@ Option find      = OptionBuilder.withArgName( "file" )
                                 .withValueSeparator()
                                 .withDescription( "use value for given property" )
                                 .create( "D" );</source>
+
+          The map of properties specified by this option can later be retrieved by
+          calling <code>getOptionProperties("D")</code> on the <code>CommandLine</code>.
+
       </subsection>
       <subsection name="Create the Options">
         <p>
