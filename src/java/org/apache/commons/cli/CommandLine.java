@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 
 /** 
  * <p>Represents list of arguments parsed against
@@ -226,6 +227,45 @@ public class CommandLine implements Serializable {
     public String getOptionValue(char opt, String defaultValue)
     {
         return getOptionValue(String.valueOf(opt), defaultValue);
+    }
+
+    /**
+     * Retrieve the map of values associated to the option. This is convenient
+     * for options specifying Java properties like <tt>-Dparam1=value1
+     * -Dparam2=value2</tt>. The first argument of the option is the key, and
+     * the 2nd argument is the value. If the option has only one argument
+     * (<tt>-Dfoo</tt>) it is considered as a boolean flag and the value is
+     * <tt>"true"</tt>.
+     *
+     * @param opt name of the option
+     * @return The Properties mapped by the option, never <tt>null</tt>
+     *         even if the option doesn't exists
+     */
+    public Properties getOptionProperties(String opt)
+    {
+        Properties props = new Properties();
+
+        for (Iterator it = options.iterator(); it.hasNext();)
+        {
+            Option option = (Option) it.next();
+
+            if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt()))
+            {
+                List values = option.getValuesList();
+                if (values.size() >= 2)
+                {
+                    // use the first 2 arguments as the key/value pair
+                    props.put(values.get(0), values.get(1));
+                }
+                else if (values.size() == 1)
+                {
+                    // no explicit value, handle it as a boolean
+                    props.put(values.get(0), "true");
+                }                
+            }
+        }
+
+        return props;
     }
 
     /** 
