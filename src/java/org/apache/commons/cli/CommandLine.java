@@ -17,12 +17,11 @@
 package org.apache.commons.cli;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
 
 /** 
  * <p>Represents list of arguments parsed against
@@ -47,7 +46,7 @@ public class CommandLine implements Serializable {
     private List args = new LinkedList();
 
     /** the processed options */
-    private Set options = new HashSet();
+    private List options = new ArrayList();
 
     /** Map of unique options for ease to get complete list of options */
 //    private Set allOptions = new HashSet();
@@ -149,15 +148,19 @@ public class CommandLine implements Serializable {
      */
     public String[] getOptionValues(String opt)
     {
-        Option key = resolveOption( opt );
+        List values = new ArrayList();
 
-        if (options.contains(key))
+        for ( Iterator it = options.iterator(); it.hasNext(); )
         {
-            return key.getValues();
+            Option option = (Option) it.next();
+            if (opt.equals(option.getOpt()) || opt.equals( option.getLongOpt()))
+            {
+                values.addAll(option.getValuesList());
+            }
         }
 
-        return null;
-        }
+        return values.isEmpty() ? null : (String[]) values.toArray(new String[values.size()]);
+    }
 
     /**
      * <p>Retrieves the option object given the long or short option as a String</p>

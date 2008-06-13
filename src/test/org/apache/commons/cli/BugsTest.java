@@ -22,6 +22,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import junit.framework.TestCase;
@@ -31,8 +32,7 @@ public class BugsTest extends TestCase
     public void test11457() throws Exception
     {
         Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("verbose")
-                .create());
+        options.addOption(OptionBuilder.withLongOpt("verbose").create());
         String[] args = new String[]{"--verbose"};
 
         CommandLineParser parser = new PosixParser();
@@ -44,12 +44,8 @@ public class BugsTest extends TestCase
     public void test11458() throws Exception
     {
         Options options = new Options();
-        options.addOption( OptionBuilder.withValueSeparator( '=' )
-                           .hasArgs()
-                           .create( 'D' ) );
-        options.addOption( OptionBuilder.withValueSeparator( ':' )
-                           .hasArgs()
-                           .create( 'p' ) );
+        options.addOption( OptionBuilder.withValueSeparator( '=' ).hasArgs().create( 'D' ) );
+        options.addOption( OptionBuilder.withValueSeparator( ':' ).hasArgs().create( 'p' ) );
         String[] args = new String[] { "-DJAVA_HOME=/opt/java" , "-pfile1:file2:file3" };
 
         CommandLineParser parser = new PosixParser();
@@ -107,10 +103,8 @@ public class BugsTest extends TestCase
     {
         // Posix 
         Options options = new Options();
-        options.addOption( OptionBuilder.hasOptionalArg()
-                           .create( 'a' ) );
-        options.addOption( OptionBuilder.hasArg()
-                           .create( 'b' ) );
+        options.addOption( OptionBuilder.hasOptionalArg().create( 'a' ) );
+        options.addOption( OptionBuilder.hasArg().create( 'b' ) );
         String[] args = new String[] { "-a", "-bvalue" };
 
         CommandLineParser parser = new PosixParser();
@@ -120,10 +114,8 @@ public class BugsTest extends TestCase
 
         // GNU
         options = new Options();
-        options.addOption( OptionBuilder.hasOptionalArg()
-                           .create( 'a' ) );
-        options.addOption( OptionBuilder.hasArg()
-                           .create( 'b' ) );
+        options.addOption( OptionBuilder.hasOptionalArg().create( 'a' ) );
+        options.addOption( OptionBuilder.hasArg().create( 'b' ) );
         args = new String[] { "-a", "-b", "value" };
 
         parser = new GnuParser();
@@ -227,11 +219,8 @@ public class BugsTest extends TestCase
     public void test13666() throws Exception
     {
         Options options = new Options();
-        Option dir = OptionBuilder.withDescription( "dir" )
-                                       .hasArg()
-                                       .create( 'd' );
+        Option dir = OptionBuilder.withDescription( "dir" ).hasArg().create( 'd' );
         options.addOption( dir );
-        
         
         final PrintStream oldSystemOut = System.out;
         try
@@ -279,29 +268,35 @@ public class BugsTest extends TestCase
         boolean exception = false;
 
         String[] args = new String[] {  };
-        try {
-            CommandLine line = parser.parse( opts, args );
+        try
+        {
+            CommandLine line = parser.parse(opts, args);
         }
-        catch( ParseException exp ) {
+        catch (ParseException exp)
+        {
             exception = true;
         }
 
-        if( !exception ) {
-            fail( "Expected exception not caught.");
+        if (!exception)
+        {
+            fail("Expected exception not caught.");
         }
 
         exception = false;
 
         args = new String[] { "-s" };
-        try {
-            CommandLine line = parser.parse( opts, args );
+        try
+        {
+            CommandLine line = parser.parse(opts, args);
         }
-        catch( ParseException exp ) {
+        catch (ParseException exp)
+        {
             exception = true;
         }
 
-        if( !exception ) {
-            fail( "Expected exception not caught.");
+        if (!exception)
+        {
+            fail("Expected exception not caught.");
         }
 
         exception = false;
@@ -328,7 +323,8 @@ public class BugsTest extends TestCase
         }
     }
 
-    public void test14786() throws Exception {
+    public void test14786() throws Exception
+    {
         Option o = OptionBuilder.isRequired().withDescription("test").create("test");
         Options opts = new Options();
         opts.addOption(o);
@@ -342,23 +338,25 @@ public class BugsTest extends TestCase
         assertTrue( line.hasOption( "test" ) );
     }
 
-    public void test15046() throws Exception {
+    public void test15046() throws Exception
+    {
         CommandLineParser parser = new PosixParser();
-        final String[] CLI_ARGS = new String[] {"-z", "c"};
-        Option option = new Option("z", "timezone", true, 
-                                   "affected option");
-        Options cliOptions = new Options();
-        cliOptions.addOption(option);
-        parser.parse(cliOptions, CLI_ARGS);
-		
+        String[] CLI_ARGS = new String[] {"-z", "c"};
+
+        Options options = new Options();
+        options.addOption(new Option("z", "timezone", true, "affected option"));
+
+        parser.parse(options, CLI_ARGS);
+        
         //now add conflicting option
-        cliOptions.addOption("c", "conflict", true, "conflict option");
-        CommandLine line = parser.parse(cliOptions, CLI_ARGS);
-        assertEquals( option.getValue(), "c" );
+        options.addOption("c", "conflict", true, "conflict option");
+        CommandLine line = parser.parse(options, CLI_ARGS);
+        assertEquals( line.getOptionValue('z'), "c" );
         assertTrue( !line.hasOption("c") );
     }
 
-    public void test15648() throws Exception {
+    public void test15648() throws Exception
+    {
         CommandLineParser parser = new PosixParser();
         final String[] args = new String[] { "-m", "\"Two Words\"" };
         Option m = OptionBuilder.hasArgs().create("m");
@@ -368,7 +366,8 @@ public class BugsTest extends TestCase
         assertEquals( "Two Words", line.getOptionValue( "m" ) );
     }
 
-    public void test27635() {
+    public void test27635()
+    {
         Option help = new Option("h", "help", false, "print this message");
         Option version = new Option("v", "version", false, "print version information");
         Option newRun = new Option("n", "new", false, "Create NLT cache entries only for new items");
@@ -436,7 +435,8 @@ public class BugsTest extends TestCase
                 ,out.toString());
     }
     
-    public void test31148() throws ParseException {
+    public void test31148() throws ParseException
+    {
         Option multiArgOption = new Option("o","option with multiple args");
         multiArgOption.setArgs(1);
         
@@ -453,7 +453,8 @@ public class BugsTest extends TestCase
         assertEquals("ovalue",cl.getOptionValue('o'));
     }
     
-    public void test21215() {
+    public void test21215()
+    {
         Options options = new Options();
         HelpFormatter formatter = new HelpFormatter();
         String SEP = System.getProperty("line.separator");
@@ -470,7 +471,8 @@ public class BugsTest extends TestCase
                 ,out.toString());
     }
     
-    public void test19383() {
+    public void test19383()
+    {
         Options options = new Options();
         options.addOption(new Option("a","aaa",false,"aaaaaaa"));
         options.addOption(new Option(null,"bbb",false,"bbbbbbb"));

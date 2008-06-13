@@ -396,7 +396,7 @@ public abstract class Parser implements CommandLineParser {
         }
         
         // get the option represented by arg
-        final Option opt = getOptions().getOption(arg);
+        Option opt = (Option) getOptions().getOption(arg).clone();
 
         // if the option is a required option remove the option from
         // the requiredOptions list
