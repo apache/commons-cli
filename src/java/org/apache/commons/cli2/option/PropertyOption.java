@@ -100,7 +100,7 @@ public class PropertyOption
             value = arg.substring(equalsIndex + 1);
         }
 
-        commandLine.addProperty(property, value);
+        commandLine.addProperty(this, property, value);
     }
 
     public Set getTriggers() {

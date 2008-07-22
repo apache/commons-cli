@@ -35,7 +35,7 @@ public class BugCLI12Test extends TestCase {
   public void testBug() {
     Argument arg = new ArgumentBuilder().withName("file").create();
 
-    Option option = new PropertyOption();
+    PropertyOption option = new PropertyOption();
 
     Group group = new GroupBuilder().withOption(option).withOption(arg).create();
 
@@ -47,8 +47,8 @@ public class BugCLI12Test extends TestCase {
       assertTrue("Couldn't parse valid commandLine", false);
     }
 
-    assertEquals( "myval1", cl.getProperty("myprop1"));
-    assertEquals( "myval2", cl.getProperty("myprop2"));
+    assertEquals( "myval1", cl.getProperty(option, "myprop1"));
+    assertEquals( "myval2", cl.getProperty(option, "myprop2"));
 
     String extraArgs = (String) cl.getValue(arg);
     assertEquals( "myfile", extraArgs);

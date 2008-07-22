@@ -25,6 +25,7 @@ import java.util.Set;
 
 import org.apache.commons.cli2.CommandLine;
 import org.apache.commons.cli2.Option;
+import org.apache.commons.cli2.option.PropertyOption;
 
 /**
  * Manages a queue of default CommandLines. This CommandLine implementation is
@@ -150,10 +151,14 @@ public class DefaultingCommandLine extends CommandLineImpl {
         return defaultValue;
     }
 
-    public String getProperty(String property, String defaultValue) {
+    public String getProperty(final String property) {
+        return getProperty(new PropertyOption(), property);
+    }
+
+    public String getProperty(final Option option, String property, String defaultValue) {
         for (final Iterator i = commandLines.iterator(); i.hasNext();) {
             final CommandLine commandLine = (CommandLine)i.next();
-            final String actual = commandLine.getProperty(property);
+            final String actual = commandLine.getProperty(option, property);
             if (actual != null) {
                 return actual;
             }
@@ -161,12 +166,16 @@ public class DefaultingCommandLine extends CommandLineImpl {
         return defaultValue;
     }
 
-    public Set getProperties() {
+    public Set getProperties(final Option option) {
         final Set all = new HashSet();
         for (final Iterator i = commandLines.iterator(); i.hasNext();) {
             final CommandLine commandLine = (CommandLine)i.next();
-            all.addAll(commandLine.getProperties());
+            all.addAll(commandLine.getProperties(option));
         }
         return Collections.unmodifiableSet(all);
+    }
+
+    public Set getProperties() {
+        return getProperties(new PropertyOption());
     }
 }

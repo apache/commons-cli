@@ -234,8 +234,8 @@ public abstract class CommandLineTestCase
      * Class to test for String getProperty(String, String)
      */
     public final void testGetPropertyStringString() {
-        assertEquals("present property", commandLine.getProperty("present", "default property"));
-        assertEquals("default property", commandLine.getProperty("missing", "default property"));
+        assertEquals("present property", commandLine.getProperty(new PropertyOption(), "present", "default property"));
+        assertEquals("default property", commandLine.getProperty(new PropertyOption(), "missing", "default property"));
     }
 
     public final void testGetProperties() {
@@ -272,23 +272,23 @@ public abstract class CommandLineTestCase
 
     // OLD TESTS FOLLOW
     public final void testProperties() {
-        final Option option = new PropertyOption();
+        final PropertyOption option = new PropertyOption();
         final List args = CLITestCase.list();
         final WriteableCommandLine writeable = OptionTestCase.commandLine(option, args);
 
-        assertTrue(writeable.getProperties().isEmpty());
+        assertTrue(writeable.getProperties(option).isEmpty());
 
-        writeable.addProperty("myprop", "myval");
-        assertEquals(1, writeable.getProperties().size());
-        assertEquals("myval", writeable.getProperty("myprop"));
+        writeable.addProperty(option, "myprop", "myval");
+        assertEquals(1, writeable.getProperties(option).size());
+        assertEquals("myval", writeable.getProperty(option, "myprop"));
 
-        writeable.addProperty("myprop", "myval2");
-        assertEquals(1, writeable.getProperties().size());
-        assertEquals("myval2", writeable.getProperty("myprop"));
+        writeable.addProperty(option, "myprop", "myval2");
+        assertEquals(1, writeable.getProperties(option).size());
+        assertEquals("myval2", writeable.getProperty(option, "myprop"));
 
-        writeable.addProperty("myprop2", "myval3");
-        assertEquals(2, writeable.getProperties().size());
-        assertEquals("myval3", writeable.getProperty("myprop2"));
+        writeable.addProperty(option, "myprop2", "myval3");
+        assertEquals(2, writeable.getProperties(option).size());
+        assertEquals("myval3", writeable.getProperty(option, "myprop2"));
     }
 
     public final void testOptions() {

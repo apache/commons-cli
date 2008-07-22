@@ -17,6 +17,7 @@
 package org.apache.commons.cli2;
 
 import org.apache.commons.cli2.option.ArgumentTest;
+import org.apache.commons.cli2.option.PropertyOption;
 
 /**
  * @author Rob Oxspring
@@ -33,7 +34,7 @@ public abstract class WriteableCommandLineTestCase extends CommandLineTestCase {
 	protected final CommandLine createCommandLine() {
 		final WriteableCommandLine cl = createWriteableCommandLine();
 		cl.addOption(present);
-		cl.addProperty("present","present property");
+		cl.addProperty(new PropertyOption(), "present","present property");
 		cl.addSwitch(bool,true);
 		cl.addValue(present,"present value");
 		cl.addOption(multiple);
@@ -82,9 +83,9 @@ public abstract class WriteableCommandLineTestCase extends CommandLineTestCase {
 		assertTrue(writeable.hasOption(present));
 	}
 	public final void testAddProperty() {
-		assertNull(writeable.getProperty("present"));
-		writeable.addProperty("present","present value");
-		assertEquals("present value",writeable.getProperty("present"));
+		assertNull(writeable.getProperty(new PropertyOption(), "present"));
+		writeable.addProperty(new PropertyOption(), "present","present value");
+		assertEquals("present value",writeable.getProperty(new PropertyOption(), "present"));
 	}
 	public final void testLooksLikeOption() {
 		//TODO Implement looksLikeOption().

@@ -75,15 +75,15 @@ public class PropertyOptionTest extends OptionTestCase {
      * @see org.apache.commons.cli2.OptionTestCase#testProcess()
      */
     public void testProcess() throws OptionException {
-        final Option option = new PropertyOption();
+        final PropertyOption option = new PropertyOption();
         final List args = list("-Dmyprop=myvalue");
         final WriteableCommandLine commandLine = commandLine(option, args);
         final ListIterator iterator = args.listIterator();
 
         option.process(commandLine, iterator);
-        assertEquals("myvalue", commandLine.getProperty("myprop"));
+        assertEquals("myvalue", commandLine.getProperty(option, "myprop"));
         assertFalse(iterator.hasNext());
-        assertEquals(1, commandLine.getProperties().size());
+        assertEquals(1, commandLine.getProperties(option).size());
     }
 
     public void testProcess_UnexpectedOptionException() {
@@ -105,26 +105,26 @@ public class PropertyOptionTest extends OptionTestCase {
     }
 
     public void testProcess_BadPropertyException() throws OptionException {
-        final Option option = new PropertyOption();
+        final PropertyOption option = new PropertyOption();
         final List args = list("-Dmyprop");
         final WriteableCommandLine commandLine = commandLine(option, args);
         final ListIterator iterator = args.listIterator();
 
         option.process(commandLine, iterator);
 
-        assertEquals("true", commandLine.getProperty("myprop"));
+        assertEquals("true", commandLine.getProperty(option, "myprop"));
     }
 
     public void testProcess_SetToEmpty() throws OptionException {
-        final Option option = new PropertyOption();
+        final PropertyOption option = new PropertyOption();
         final List args = list("-Dmyprop=");
         final WriteableCommandLine commandLine = commandLine(option, args);
         final ListIterator iterator = args.listIterator();
 
         option.process(commandLine, iterator);
-        assertEquals("", commandLine.getProperty("myprop"));
+        assertEquals("", commandLine.getProperty(option, "myprop"));
         assertFalse(iterator.hasNext());
-        assertEquals(1, commandLine.getProperties().size());
+        assertEquals(1, commandLine.getProperties(option).size());
     }
 
     /*

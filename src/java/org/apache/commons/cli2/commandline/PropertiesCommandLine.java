@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.commons.cli2.Option;
+import org.apache.commons.cli2.option.PropertyOption;
 
 /**
  * A CommandLine implementation using a java Properties instance, useful for
@@ -122,12 +123,20 @@ public class PropertiesCommandLine extends CommandLineImpl {
         }
     }
 
-    public String getProperty(final String property, final String defaultValue) {
+    public String getProperty(final String property) {
+        return getProperty(new PropertyOption(), property);
+    }
+
+    public String getProperty(final Option option, final String property, final String defaultValue) {
         return properties.getProperty(property,defaultValue);
     }
 
-    public Set getProperties() {
+	public Set getProperties(final Option option) {
         return properties.keySet();
+    }
+
+    public Set getProperties() {
+        return getProperties(new PropertyOption());
     }
 
     public List getOptions() {

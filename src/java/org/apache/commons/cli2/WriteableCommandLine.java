@@ -72,6 +72,16 @@ public interface WriteableCommandLine extends CommandLine {
      * Adds a property value to a name in the CommandLine.
      * Replaces any existing value for the property.
      *
+     * @param option the Option to add to
+     * @param property the name of the property
+     * @param value the value of the property
+     */
+    void addProperty(final Option option, final String property, final String value);
+
+    /**
+     * Adds a property value to the default property set.
+     * Replaces any existing value for the property.
+     *
      * @param property the name of the property
      * @param value the value of the property
      */

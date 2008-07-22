@@ -28,6 +28,7 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import org.apache.commons.cli2.Option;
+import org.apache.commons.cli2.option.PropertyOption;
 
 /**
  * A CommandLine implementation using the Preferences API, useful when
@@ -129,16 +130,24 @@ public class PreferencesCommandLine extends CommandLineImpl {
         }
     }
 
-    public String getProperty(final String property, final String defaultValue) {
+    public String getProperty(final String property) {
+        return getProperty(new PropertyOption(), property);
+    }
+
+    public String getProperty(final Option option, final String property, final String defaultValue) {
         return preferences.get(property, defaultValue);
     }
 
-    public Set getProperties() {
+	public Set getProperties(final Option option) {
         try {
             return new HashSet(Arrays.asList(preferences.keys()));
         } catch (BackingStoreException e) {
             return Collections.EMPTY_SET;
         }
+    }
+
+    public Set getProperties() {
+        return getProperties(new PropertyOption());
     }
 
     public List getOptions() {

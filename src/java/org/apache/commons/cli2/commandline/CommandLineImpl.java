@@ -94,8 +94,8 @@ public abstract class CommandLineImpl implements CommandLine {
         return getSwitch(option, null);
     }
 
-    public final String getProperty(final String property) {
-        return getProperty(property, null);
+    public final String getProperty(final Option option, final String property) {
+        return getProperty(option, property, null);
     }
 
     public final int getOptionCount(final String trigger) {

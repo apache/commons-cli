@@ -28,6 +28,7 @@ import java.util.Set;
 import org.apache.commons.cli2.Argument;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.option.PropertyOption;
 import org.apache.commons.cli2.resource.ResourceConstants;
 import org.apache.commons.cli2.resource.ResourceHelper;
 
@@ -37,7 +38,8 @@ import org.apache.commons.cli2.resource.ResourceHelper;
  */
 public class WriteableCommandLineImpl
     extends CommandLineImpl implements WriteableCommandLine {
-    private final Properties properties = new Properties();
+    private final Map optionToProperties = new HashMap();
+//    private final Properties properties = new Properties();
     private final List options = new ArrayList();
     private final Map nameToOption = new HashMap();
     private final Map values = new HashMap();
@@ -159,18 +161,45 @@ public class WriteableCommandLineImpl
         return bool;
     }
 
-    public void addProperty(final String property,
+    public String getProperty(final String property) {
+        return getProperty(new PropertyOption(), property);
+    }
+
+    public void addProperty(final Option option,
+                            final String property,
                             final String value) {
+        Properties properties = (Properties) optionToProperties.get(option);
+        if (properties == null) {
+            properties = new Properties();
+            optionToProperties.put(option, properties);
+        }
         properties.setProperty(property, value);
     }
 
-    public String getProperty(final String property,
+    public void addProperty(final String property, final String value) {
+        addProperty(new PropertyOption(), property, value);
+    }
+
+    public String getProperty(final Option option,
+                              final String property,
                               final String defaultValue) {
+        Properties properties = (Properties) optionToProperties.get(option);
+        if (properties == null) {
+            return defaultValue;
+        }
         return properties.getProperty(property, defaultValue);
     }
 
-    public Set getProperties() {
+    public Set getProperties(final Option option) {
+        Properties properties = (Properties) optionToProperties.get(option);
+        if (properties == null) {
+            return Collections.EMPTY_SET;
+        }
         return Collections.unmodifiableSet(properties.keySet());
+    }
+
+    public Set getProperties() {
+        return getProperties(new PropertyOption());
     }
 
     public boolean looksLikeOption(final String trigger) {

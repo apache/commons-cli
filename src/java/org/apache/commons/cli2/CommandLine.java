@@ -158,7 +158,7 @@ public interface CommandLine {
 
 
     /**
-     * Retrieves the value associated with the specified property
+     * Retrieves the value associated with the specified property for the default property set
      *
      * @param property the property name to lookup
      * @return the value of the property or null
@@ -168,14 +168,32 @@ public interface CommandLine {
     /**
      * Retrieves the value associated with the specified property
      *
+     * @param option the option i.e., -D
+     * @param property the property name to lookup
+     * @return the value of the property or null
+     */
+    String getProperty(final Option option, final String property);
+
+    /**
+     * Retrieves the value associated with the specified property
+     *
+     * @param option the option i.e., -D
      * @param property the property name to lookup
      * @param defaultValue the value to use if no other is found
      * @return the value of the property or defaultValue
      */
-    String getProperty(final String property, final String defaultValue);
+    String getProperty(final Option option, final String property, final String defaultValue);
 
     /**
-     * Retrieves the set of all property names associated with this CommandLine
+     * Retrieves the set of all property names associated with this option
+     *
+     * @param option the option i.e., -D
+     * @return a none null set of property names
+     */
+    Set getProperties(final Option option);
+
+    /**
+     * Retrieves the set of all property names associated with the default property option
      *
      * @return a none null set of property names
      */

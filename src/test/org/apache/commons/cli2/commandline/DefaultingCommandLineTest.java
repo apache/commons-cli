@@ -25,6 +25,7 @@ import org.apache.commons.cli2.CommandLine;
 import org.apache.commons.cli2.CommandLineTestCase;
 import org.apache.commons.cli2.Option;
 import org.apache.commons.cli2.WriteableCommandLine;
+import org.apache.commons.cli2.option.PropertyOption;
 import org.apache.commons.cli2.builder.DefaultOptionBuilder;
 
 /**
@@ -44,7 +45,7 @@ public class DefaultingCommandLineTest
     protected final CommandLine createCommandLine() {
         final WriteableCommandLine writeable = new WriteableCommandLineImpl(root, new ArrayList());
         writeable.addOption(present);
-        writeable.addProperty("present", "present property");
+        writeable.addProperty(new PropertyOption(), "present", "present property");
         writeable.addSwitch(bool, true);
         writeable.addValue(present, "present value");
         writeable.addOption(multiple);
