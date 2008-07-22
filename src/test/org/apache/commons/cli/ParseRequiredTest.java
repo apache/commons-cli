@@ -78,6 +78,7 @@ public class ParseRequiredTest extends TestCase
         catch (MissingOptionException e)
         {
             assertEquals( "Incorrect exception message", "Missing required option: b", e.getMessage() );
+            assertTrue(e.getMissingOptions().contains("b"));
         }
         catch (ParseException e)
         {
@@ -103,6 +104,8 @@ public class ParseRequiredTest extends TestCase
         catch (MissingOptionException e)
         {
             assertEquals( "Incorrect exception message", "Missing required options: b, c", e.getMessage() );
+            assertTrue(e.getMissingOptions().contains("b"));
+            assertTrue(e.getMissingOptions().contains("c"));
         }
         catch (ParseException e)
         {

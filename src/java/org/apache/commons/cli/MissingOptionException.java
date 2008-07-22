@@ -17,6 +17,9 @@
 
 package org.apache.commons.cli;
 
+import java.util.List;
+import java.util.Iterator;
+
 /**
  * Thrown when a required option has not been provided.
  *
@@ -25,6 +28,9 @@ package org.apache.commons.cli;
  */
 public class MissingOptionException extends ParseException
 {
+    /** The list of missing options */
+    private List missingOptions;
+
     /**
      * Construct a new <code>MissingSelectedException</code>
      * with the specified detail message.
@@ -34,5 +40,53 @@ public class MissingOptionException extends ParseException
     public MissingOptionException(String message)
     {
         super(message);
+    }
+
+    /**
+     * Constructs a new <code>MissingSelectedException</code> with the
+     * specified list of missing options.
+     *
+     * @param missingOptions the list of missing options
+     * @since 1.2
+     */
+    public MissingOptionException(List missingOptions)
+    {
+        this(createMessage(missingOptions));
+        this.missingOptions = missingOptions;
+    }
+
+    /**
+     * Return the list of options (as strings) missing in the command line parsed.
+     *
+     * @since 1.2
+     */
+    public List getMissingOptions()
+    {
+        return missingOptions;
+    }
+
+    /**
+     * Build the exception message from the specified list of options.
+     *
+     * @param missingOptions
+     * @since 1.2
+     */
+    private static String createMessage(List missingOptions)
+    {
+        StringBuffer buff = new StringBuffer("Missing required option");
+        buff.append(missingOptions.size() == 1 ? "" : "s");
+        buff.append(": ");
+
+        Iterator it = missingOptions.iterator();
+        while (it.hasNext())
+        {
+            buff.append(it.next());
+            if (it.hasNext())
+            {
+                buff.append(", ");
+            }
+        }
+
+        return buff.toString();
     }
 }

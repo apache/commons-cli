@@ -295,33 +295,18 @@ public abstract class Parser implements CommandLineParser {
     }
 
     /**
-     * <p>Throws a {@link MissingOptionException} if all of the
-     * required options are no present.</p>
+     * Throws a {@link MissingOptionException} if all of the required options
+     * are not present.
      *
      * @throws MissingOptionException if any of the required Options
      * are not present.
      */
-    protected void checkRequiredOptions()
-        throws MissingOptionException
+    protected void checkRequiredOptions() throws MissingOptionException
     {
-        // if there are required options that have not been
-        // processsed
-        if (getRequiredOptions().size() > 0)
+        // if there are required options that have not been processsed
+        if (!getRequiredOptions().isEmpty())
         {
-            Iterator iter = getRequiredOptions().iterator();
-            StringBuffer buff = new StringBuffer("Missing required option");
-            buff.append(getRequiredOptions().size() == 1 ? "" : "s");
-            buff.append(": ");
-
-
-            // loop through the required options
-            while (iter.hasNext())
-            {
-                buff.append(iter.next());
-                buff.append(", ");
-            }
-
-            throw new MissingOptionException(buff.substring(0, buff.length() - 2));
+            throw new MissingOptionException(getRequiredOptions());
         }
     }
 
