@@ -240,6 +240,7 @@ public class CommandLine implements Serializable {
      * @param opt name of the option
      * @return The Properties mapped by the option, never <tt>null</tt>
      *         even if the option doesn't exists
+     * @since 1.2
      */
     public Properties getOptionProperties(String opt)
     {
