@@ -122,6 +122,7 @@ public class PosixParserTest extends TestCase
         catch (MissingArgumentException e)
         {
             caught = true;
+            assertEquals("option missing an argument", "b", e.getOption().getOpt());
         }
 
         assertTrue( "Confirm MissingArgumentException caught", caught );

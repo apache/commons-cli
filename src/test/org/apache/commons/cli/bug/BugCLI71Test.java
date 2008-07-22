@@ -67,8 +67,8 @@ public class BugCLI71Test extends TestCase {
         try {
             CommandLine line = parser.parse( options, args);
             fail("MissingArgumentException expected");
-        } catch(MissingArgumentException mae) {
-            // expected
+        } catch(MissingArgumentException e) {
+            assertEquals("option missing an argument", "k", e.getOption().getOpt());
         }
     }
 

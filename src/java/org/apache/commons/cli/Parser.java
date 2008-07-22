@@ -355,8 +355,7 @@ public abstract class Parser implements CommandLineParser {
 
         if ((opt.getValues() == null) && !opt.hasOptionalArg())
         {
-            throw new MissingArgumentException("Missing argument for option:"
-                                               + opt.getKey());
+            throw new MissingArgumentException(opt);
         }
     }
 

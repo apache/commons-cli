@@ -26,6 +26,9 @@ package org.apache.commons.cli;
  */
 public class MissingArgumentException extends ParseException
 {
+    /** The option requiring additional arguments */
+    private Option option;
+
     /**
      * Construct a new <code>MissingArgumentException</code>
      * with the specified detail message.
@@ -35,5 +38,29 @@ public class MissingArgumentException extends ParseException
     public MissingArgumentException(String message)
     {
         super(message);
+    }
+
+    /**
+     * Construct a new <code>MissingArgumentException</code>
+     * with the specified detail message.
+     *
+     * @param option the option requiring an argument
+     * @since 1.2
+     */
+    public MissingArgumentException(Option option)
+    {
+        this("Missing argument for option: " + option.getKey());
+        this.option = option;
+    }
+
+    /**
+     * Return the option requiring an argument that wasn't provided
+     * on the command line.
+     *
+     * @since 1.2
+     */
+    public Option getOption()
+    {
+        return option;
     }
 }
