@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 /**
@@ -22,7 +23,7 @@ package org.apache.commons.cli;
  * @author John Keyes ( john at integralsource.com )
  * @since 1.1
  */
-public class OptionValidator {
+class OptionValidator {
 
     /**
      * <p>Validates whether <code>opt</code> is a permissable Option
@@ -39,8 +40,7 @@ public class OptionValidator {
      * @param opt The option string to validate
      * @throws IllegalArgumentException if the Option is not valid.
      */
-    static void validateOption(String opt)
-                        throws IllegalArgumentException
+    static void validateOption(String opt) throws IllegalArgumentException
     {
         // check that opt is not NULL
         if (opt == null)
@@ -55,8 +55,7 @@ public class OptionValidator {
 
             if (!isValidOpt(ch))
             {
-                throw new IllegalArgumentException("illegal option value '" + ch
-                                                   + "'");
+                throw new IllegalArgumentException("illegal option value '" + ch + "'");
             }
         }
 
@@ -69,9 +68,7 @@ public class OptionValidator {
             {
                 if (!isValidChar(chars[i]))
                 {
-                    throw new IllegalArgumentException(
-                            "opt contains illegal character value '" + chars[i]
-                            + "'");
+                    throw new IllegalArgumentException("opt contains illegal character value '" + chars[i] + "'");
                 }
             }
         }
