@@ -83,6 +83,16 @@
         <role>designed CLI2</role>
       </roles>
     </developer>
+    <developer>
+      <name>Oliver Heger</name>
+      <id>oheger</id>
+      <email>oheger@apache.org</email>
+      <organization>Agfa HealthCare</organization>
+      <timezone>+1</timezone>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
   </developers>
 
   <contributors>
