@@ -97,6 +97,8 @@ public abstract class Parser implements CommandLineParser {
      *
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
+     *
+     * @since 1.1
      */
     public CommandLine parse(Options options, String[] arguments, 
                              Properties properties)
@@ -141,6 +143,8 @@ public abstract class Parser implements CommandLineParser {
      *
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
+     *
+     * @since 1.1
      */
     public CommandLine parse(Options options, String[] arguments, 
                              Properties properties, boolean stopAtNonOption)

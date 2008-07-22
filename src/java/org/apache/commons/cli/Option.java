@@ -120,7 +120,7 @@ public class Option implements Cloneable, Serializable {
      * @throws IllegalArgumentException if there are any non valid
      * Option characters in <code>opt</code>.
      */
-    public Option(String opt, String longOpt, boolean hasArg, 
+    public Option(String opt, String longOpt, boolean hasArg,
                   String description)
            throws IllegalArgumentException
     {
@@ -271,10 +271,11 @@ public class Option implements Cloneable, Serializable {
         return this.description;
     }
 
-   /** 
+    /**
      * Sets the self-documenting description of this Option
      *
      * @param description The description of this option
+     * @since 1.1
      */
     public void setDescription(String description)
     {
@@ -340,7 +341,7 @@ public class Option implements Cloneable, Serializable {
      */
     public boolean hasArgs()
     {
-        return (this.numberOfArgs > 1) 
+        return (this.numberOfArgs > 1)
                 || (this.numberOfArgs == UNLIMITED_VALUES);
     }
 
@@ -379,6 +380,7 @@ public class Option implements Cloneable, Serializable {
      * Return whether this Option has specified a value separator.
      * 
      * @return whether this Option has specified a value separator.
+     * @since 1.1
      */
     public boolean hasValueSeparator()
     {

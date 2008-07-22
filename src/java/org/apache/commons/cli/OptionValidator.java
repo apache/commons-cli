@@ -20,6 +20,7 @@ package org.apache.commons.cli;
  * Validates an Option string.
  *
  * @author John Keyes ( john at integralsource.com )
+ * @since 1.1
  */
 public class OptionValidator {
 
