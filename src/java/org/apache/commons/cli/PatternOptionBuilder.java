@@ -14,7 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URL;
+import java.util.Date;
 
 /** 
  * <p>
@@ -49,36 +55,35 @@ package org.apache.commons.cli;
 public class PatternOptionBuilder {
 
     /** String class */
-    public static final Class STRING_VALUE = java.lang.String.class;
+    public static final Class STRING_VALUE = String.class;
 
     /** Object class */
-    public static final Class OBJECT_VALUE = java.lang.Object.class;
+    public static final Class OBJECT_VALUE = Object.class;
 
     /** Number class */
-    public static final Class NUMBER_VALUE = java.lang.Number.class;
+    public static final Class NUMBER_VALUE = Number.class;
 
     /** Date class */
-    public static final Class DATE_VALUE = java.util.Date.class;
+    public static final Class DATE_VALUE = Date.class;
 
     /** Class class */
-    public static final Class CLASS_VALUE = java.lang.Class.class;
+    public static final Class CLASS_VALUE = Class.class;
 
     /// can we do this one?? 
     // is meant to check that the file exists, else it errors.
     // ie) it's for reading not writing.
 
     /** FileInputStream class */
-    public static final Class EXISTING_FILE_VALUE = 
-            java.io.FileInputStream.class;
+    public static final Class EXISTING_FILE_VALUE = FileInputStream.class;
 
     /** File class */
-    public static final Class FILE_VALUE = java.io.File.class;
+    public static final Class FILE_VALUE = File.class;
 
     /** File array class */
-    public static final Class FILES_VALUE = java.io.File[].class;
+    public static final Class FILES_VALUE = File[].class;
 
     /** URL class */
-    public static final Class URL_VALUE = java.net.URL.class;
+    public static final Class URL_VALUE = URL.class;
 
     /**
      * <p>Retrieve the class that <code>ch</code> represents.</p>
