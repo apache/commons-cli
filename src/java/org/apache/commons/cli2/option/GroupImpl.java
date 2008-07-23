@@ -245,14 +245,8 @@ public class GroupImpl
         for (final Iterator i = options.iterator(); i.hasNext();) {
             final Option option = (Option) i.next();
 
-            // if the child option is required then validate it
-            if (option.isRequired()) {
-                option.validate(commandLine);
-            }
-
-            if (option instanceof Group) {
-                option.validate(commandLine);
-            }
+            // needs validation?
+            boolean validate = option.isRequired() || option instanceof Group;
 
             // if the child option is present then validate it
             if (commandLine.hasOption(option)) {
@@ -261,7 +255,10 @@ public class GroupImpl
 
                     break;
                 }
+                validate = true;
+            }
 
+            if (validate) {
                 option.validate(commandLine);
             }
         }
