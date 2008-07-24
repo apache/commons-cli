@@ -194,4 +194,25 @@ public interface Option {
      * @return true iff the CommandLine will be invalid without this Option
      */
     boolean isRequired();
+
+    /**
+     * Returns the parent of this option. Options can be organized in a
+     * hierarchical manner if they are added to groups. This method can be used
+     * for obtaining the parent option of this option. The result may be
+     * <b>null</b> if this option does not have a parent.
+     *
+     * @return the parent of this option
+     */
+    Option getParent();
+
+    /**
+     * Sets the parent of this option. This method is called when the option is
+     * added to a group. Storing the parent of an option makes it possible to
+     * keep track of hierarchical relations between options. For instance, if an
+     * option is identified while parsing a command line, the group this option
+     * belongs to can also be added to the command line.
+     *
+     * @param parent the parent option
+     */
+    void setParent(Option parent);
 }

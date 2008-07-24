@@ -89,6 +89,7 @@ public class GroupImpl
         // process the options
         for (final Iterator i = options.iterator(); i.hasNext();) {
             final Option option = (Option) i.next();
+            option.setParent(this);
 
             if (option instanceof Argument) {
                 i.remove();

@@ -33,6 +33,7 @@ import org.apache.commons.cli2.resource.ResourceHelper;
 public abstract class OptionImpl implements Option {
     private final int id;
     private final boolean required;
+    private Option parent;
 
     /**
      * Creates an OptionImpl with the specified id
@@ -95,7 +96,9 @@ public abstract class OptionImpl implements Option {
 
     public int hashCode() {
         int hashCode = getId();
-        hashCode = (hashCode * 37) + getPreferredName().hashCode();
+        if (getPreferredName() != null) {
+            hashCode = (hashCode * 37) + getPreferredName().hashCode();
+        }
 
         if (getDescription() != null) {
             hashCode = (hashCode * 37) + getDescription().hashCode();
@@ -121,6 +124,14 @@ public abstract class OptionImpl implements Option {
 
     public void defaults(final WriteableCommandLine commandLine) {
         // nothing to do normally
+    }
+
+    public Option getParent() {
+        return parent;
+    }
+
+    public void setParent(Option parent) {
+        this.parent = parent;
     }
 
     protected void checkPrefixes(final Set prefixes) {

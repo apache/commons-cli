@@ -433,6 +433,7 @@ public abstract class CommandLineTestCase
         final Iterator i = cl.getOptions().iterator();
 
         assertSame(login, i.next());
+        assertSame(group, i.next());
         assertSame(help, i.next());
         assertSame(targets, i.next());
         assertSame(targets, i.next());
