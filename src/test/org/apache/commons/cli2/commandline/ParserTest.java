@@ -82,6 +82,17 @@ public class ParserTest extends TestCase {
         }
     }
 
+    public void testParse_WithUnexpectedShortOption() {
+        try {
+            parser.parse(new String[]{"-vx"});
+            fail("OptionException");
+        }
+        catch(OptionException e) {
+            assertEquals(options,e.getOption());
+            assertEquals("Unexpected -x while processing --help|--verbose",e.getMessage());
+        }
+    }
+
     public void testParseAndHelp_Successful() throws IOException {
         final CommandLine cl = parser.parseAndHelp(new String[]{"-v"});
         
