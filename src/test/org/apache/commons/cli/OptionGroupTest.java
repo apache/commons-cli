@@ -139,7 +139,7 @@ public class OptionGroupTest extends TestCase
         assertTrue( "Confirm TWO extra args", cl.getArgList().size() == 2);
     }
 
-    public void testTwoOptionsFromGroup()
+    public void testTwoOptionsFromGroup() throws Exception
     {
         String[] args = new String[] { "-f", "-d" };
 
@@ -148,16 +148,15 @@ public class OptionGroupTest extends TestCase
             parser.parse( _options, args);
             fail( "two arguments from group not allowed" );
         }
-        catch (ParseException e)
+        catch (AlreadySelectedException e)
         {
-            if( !( e instanceof AlreadySelectedException ) )
-            {
-                fail( "incorrect exception caught:" + e.getMessage() );
-            }
+            assertNotNull("null option group", e.getOptionGroup());
+            assertEquals("selected option", "f", e.getOptionGroup().getSelected());
+            assertEquals("option", "d", e.getOption().getOpt());
         }
     }
 
-    public void testTwoLongOptionsFromGroup()
+    public void testTwoLongOptionsFromGroup() throws Exception
     {
         String[] args = new String[] { "--file", "--directory" };
 
@@ -166,12 +165,11 @@ public class OptionGroupTest extends TestCase
             parser.parse(_options, args);
             fail( "two arguments from group not allowed" );
         }
-        catch (ParseException e)
+        catch (AlreadySelectedException e)
         {
-            if( !( e instanceof AlreadySelectedException ) )
-            {
-                fail( "incorrect exception caught:" + e.getMessage() );
-            }
+            assertNotNull("null option group", e.getOptionGroup());
+            assertEquals("selected option", "f", e.getOptionGroup().getSelected());
+            assertEquals("option", "d", e.getOption().getOpt());
         }
     }
 

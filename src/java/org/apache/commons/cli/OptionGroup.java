@@ -14,15 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * A group of mutually exclusive options.
+ *
  * @author John Keyes ( john at integralsource.com )
  * @version $Revision$
  */
@@ -31,7 +34,7 @@ public class OptionGroup implements Serializable {
     private static final long serialVersionUID = 1L;
     
     /** hold the options */
-    private HashMap optionMap = new HashMap();
+    private Map optionMap = new HashMap();
 
     /** the name of the selected option */
     private String selected;
@@ -40,16 +43,16 @@ public class OptionGroup implements Serializable {
     private boolean required;
 
     /**
-     * add <code>opt</code> to this group
+     * Add the specified <code>Option</code> to this group.
      *
-     * @param opt the option to add to this group
-     * @return this option group with opt added
+     * @param option the option to add to this group
+     * @return this option group with the option added
      */
-    public OptionGroup addOption(Option opt)
+    public OptionGroup addOption(Option option)
     {
         // key   - option name
         // value - the option
-        optionMap.put(opt.getKey(), opt);
+        optionMap.put(option.getKey(), option);
 
         return this;
     }
@@ -75,25 +78,22 @@ public class OptionGroup implements Serializable {
 
     /**
      * set the selected option of this group to <code>name</code>.
-     * @param opt the option that is selected
+     * @param option the option that is selected
      * @throws AlreadySelectedException if an option from this group has 
      * already been selected.
      */
-    public void setSelected(Option opt)
-                     throws AlreadySelectedException
+    public void setSelected(Option option) throws AlreadySelectedException
     {
         // if no option has already been selected or the 
         // same option is being reselected then set the
         // selected member variable
-        if ((this.selected == null) || this.selected.equals(opt.getOpt()))
+        if ((this.selected == null) || this.selected.equals(option.getOpt()))
         {
-            this.selected = opt.getOpt();
+            this.selected = option.getOpt();
         }
         else
         {
-            throw new AlreadySelectedException("an option from this group has "
-                                               + "already been selected: '"
-                                               + selected + "'");
+            throw new AlreadySelectedException(this, option);
         }
     }
 

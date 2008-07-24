@@ -26,6 +26,12 @@ package org.apache.commons.cli;
  */
 public class AlreadySelectedException extends ParseException
 {
+    /** The option group selected. */
+    private OptionGroup group;
+
+    /** The option that triggered the exception. */
+    private Option option;
+
     /**
      * Construct a new <code>AlreadySelectedException</code>
      * with the specified detail message.
@@ -35,5 +41,41 @@ public class AlreadySelectedException extends ParseException
     public AlreadySelectedException(String message)
     {
         super(message);
+    }
+
+    /**
+     * Construct a new <code>AlreadySelectedException</code>
+     * for the specified option group.
+     *
+     * @param group  the option group already selected
+     * @param option the option that triggered the exception
+     * @since 1.2
+     */
+    public AlreadySelectedException(OptionGroup group, Option option)
+    {
+        this("The option '" + option.getKey() + "' was specified but an option from this group " +
+                "has already been selected: '" + group.getSelected() + "'");
+        this.group = group;
+        this.option = option;
+    }
+
+    /**
+     * Returns the option group where another option has been selected.
+     *
+     * @since 1.2
+     */
+    public OptionGroup getOptionGroup()
+    {
+        return group;
+    }
+
+    /**
+     * Returns the option that was added to the group and triggered the exception.
+     *
+     * @since 1.2
+     */
+    public Option getOption()
+    {
+        return option;
     }
 }
