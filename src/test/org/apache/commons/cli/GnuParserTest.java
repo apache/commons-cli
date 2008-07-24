@@ -65,28 +65,19 @@ public class GnuParserTest extends TestCase
         assertTrue("Confirm size of extra args", cl.getArgList().size() == 2);
     }
 
-    public void testExtraOption() throws Exception
+    public void testUnrecognizedOption() throws Exception
     {
-        String[] args = new String[] { "-a", "-d", "-b", "toast",
-                                       "foo", "bar" };
-
-        boolean caught = false;
+        String[] args = new String[] { "-a", "-d", "-b", "toast", "foo", "bar" };
 
         try
         {
-            CommandLine cl = parser.parse(options, args);
-
-            assertTrue("Confirm -a is set", cl.hasOption("a"));
-            assertTrue("Confirm -b is set", cl.hasOption("b"));
-            assertTrue("confirm arg of -b", cl.getOptionValue("b").equals("toast"));
-            assertTrue("Confirm size of extra args", cl.getArgList().size() == 3);
+            parser.parse(options, args);
+            fail("UnrecognizedOptionException wasn't thrown");
         }
         catch (UnrecognizedOptionException e)
         {
-            caught = true;
+            assertEquals("-d", e.getOption());
         }
-
-        assertTrue( "Confirm UnrecognizedOptionException caught", caught );
     }
 
     public void testMissingArg() throws Exception

@@ -26,6 +26,9 @@ package org.apache.commons.cli;
  */
 public class UnrecognizedOptionException extends ParseException
 {
+    /** The  unrecognized option */
+    private String option;
+
     /**
      * Construct a new <code>UnrecognizedArgumentException</code>
      * with the specified detail message.
@@ -35,5 +38,29 @@ public class UnrecognizedOptionException extends ParseException
     public UnrecognizedOptionException(String message)
     {
         super(message);
+    }
+
+    /**
+     * Construct a new <code>UnrecognizedArgumentException</code>
+     * with the specified option and detail message.
+     *
+     * @param message the detail message
+     * @param option  the unrecognized option
+     * @since 1.2
+     */
+    public UnrecognizedOptionException(String message, String option)
+    {
+        this(message);
+        this.option = option;
+    }
+
+    /**
+     * Returns the unrecognized option.
+     *
+     * @since 1.2
+     */
+    public String getOption()
+    {
+        return option;
     }
 }

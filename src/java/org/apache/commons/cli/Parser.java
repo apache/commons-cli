@@ -379,8 +379,7 @@ public abstract class Parser implements CommandLineParser {
         // if there is no option throw an UnrecognisedOptionException
         if (!hasOption)
         {
-            throw new UnrecognizedOptionException("Unrecognized option: " 
-                                                  + arg);
+            throw new UnrecognizedOptionException("Unrecognized option: " + arg, arg);
         }
         
         // get the option represented by arg
