@@ -41,8 +41,9 @@ import java.util.Date;
  *
  * <p>
  * For example, the following allows command line flags of '-v -p string-value -f /dir/file'.
+ * The exclamation mark precede a mandatory option.
  * </p>
- * <code>Options options = PatternOptionBuilder.parsePattern("vp:f/");</code>
+ * <code>Options options = PatternOptionBuilder.parsePattern("vp:!f/");</code>
  *
  * <p>
  * TODO These need to break out to OptionType and also 
@@ -86,93 +87,77 @@ public class PatternOptionBuilder {
     public static final Class URL_VALUE = URL.class;
 
     /**
-     * <p>Retrieve the class that <code>ch</code> represents.</p>
+     * Retrieve the class that <code>ch</code> represents.
      *
      * @param ch the specified character
      * @return The class that <code>ch</code> represents
      */
     public static Object getValueClass(char ch)
     {
-        if (ch == '@')
+        switch (ch)
         {
-            return PatternOptionBuilder.OBJECT_VALUE;
-        }
-        else if (ch == ':')
-        {
-            return PatternOptionBuilder.STRING_VALUE;
-        }
-        else if (ch == '%')
-        {
-            return PatternOptionBuilder.NUMBER_VALUE;
-        }
-        else if (ch == '+')
-        {
-            return PatternOptionBuilder.CLASS_VALUE;
-        }
-        else if (ch == '#')
-        {
-            return PatternOptionBuilder.DATE_VALUE;
-        }
-        else if (ch == '<')
-        {
-            return PatternOptionBuilder.EXISTING_FILE_VALUE;
-        }
-        else if (ch == '>')
-        {
-            return PatternOptionBuilder.FILE_VALUE;
-        }
-        else if (ch == '*')
-        {
-            return PatternOptionBuilder.FILES_VALUE;
-        }
-        else if (ch == '/')
-        {
-            return PatternOptionBuilder.URL_VALUE;
+            case '@':
+                return PatternOptionBuilder.OBJECT_VALUE;
+            case ':':
+                return PatternOptionBuilder.STRING_VALUE;
+            case '%':
+                return PatternOptionBuilder.NUMBER_VALUE;
+            case '+':
+                return PatternOptionBuilder.CLASS_VALUE;
+            case '#':
+                return PatternOptionBuilder.DATE_VALUE;
+            case '<':
+                return PatternOptionBuilder.EXISTING_FILE_VALUE;
+            case '>':
+                return PatternOptionBuilder.FILE_VALUE;
+            case '*':
+                return PatternOptionBuilder.FILES_VALUE;
+            case '/':
+                return PatternOptionBuilder.URL_VALUE;
         }
 
         return null;
     }
 
     /**
-     * <p>Returns whether <code>ch</code> is a value code, i.e.
-     * whether it represents a class in a pattern.</p>
+     * Returns whether <code>ch</code> is a value code, i.e.
+     * whether it represents a class in a pattern.
      * 
      * @param ch the specified character
      * @return true if <code>ch</code> is a value code, otherwise false.
      */
     public static boolean isValueCode(char ch)
     {
-        if ((ch != '@') && (ch != ':') && (ch != '%') && (ch != '+')
-            && (ch != '#') && (ch != '<') && (ch != '>') && (ch != '*')
-            && (ch != '/') && (ch != '!'))
-        {
-            return false;
-        }
-
-        return true;
+        return ch == '@'
+                || ch == ':'
+                || ch == '%'
+                || ch == '+'
+                || ch == '#'
+                || ch == '<'
+                || ch == '>'
+                || ch == '*'
+                || ch == '/'
+                || ch == '!';
     }
 
     /**
-     * <p>Returns the {@link Options} instance represented by 
-     * <code>pattern</code>.</p>
+     * Returns the {@link Options} instance represented by 
+     * <code>pattern</code>.
      *
      * @param pattern the pattern string
      * @return The {@link Options} instance
      */
     public static Options parsePattern(String pattern)
     {
-        int sz = pattern.length();
-
         char opt = ' ';
-        char ch = ' ';
         boolean required = false;
         Object type = null;
 
         Options options = new Options();
 
-        for (int i = 0; i < sz; i++)
+        for (int i = 0; i < pattern.length(); i++)
         {
-            ch = pattern.charAt(i);
+            char ch = pattern.charAt(i);
 
             // a value code comes after an option and specifies 
             // details about it

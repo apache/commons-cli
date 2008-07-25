@@ -35,8 +35,8 @@ import java.util.Date;
 public class TypeHandler {
 
     /**
-     * <p>Returns the <code>Object</code> of type <code>obj</code>
-     * with the value of <code>str</code>.</p>
+     * Returns the <code>Object</code> of type <code>obj</code>
+     * with the value of <code>str</code>.
      *
      * @param str the command line value
      * @param obj the type of argument
@@ -49,8 +49,8 @@ public class TypeHandler {
     }
 
     /**
-     * <p>Returns the <code>Object</code> of type <code>clazz</code>
-     * with the value of <code>str</code>.</p>
+     * Returns the <code>Object</code> of type <code>clazz</code>
+     * with the value of <code>str</code>.
      *
      * @param str the command line value
      * @param clazz the type of argument
@@ -102,7 +102,7 @@ public class TypeHandler {
     }
 
     /**
-      * <p>Create an Object from the classname and empty constructor.</p>
+      * Create an Object from the classname and empty constructor.
       *
       * @param str the argument value
       * @return the initialised object, or null if it couldn't create 
@@ -118,7 +118,7 @@ public class TypeHandler {
         }
         catch (ClassNotFoundException cnfe)
         {
-            System.err.println("Unable to find: " + str);
+            System.err.println("Unable to find the class: " + str);
 
             return null;
         }
@@ -129,27 +129,17 @@ public class TypeHandler {
         {
             instance = cl.newInstance();
         }
-        catch (InstantiationException cnfe)
+        catch (Exception e)
         {
-            System.err.println("InstantiationException; Unable to create: "
-                               + str);
-
-            return null;
-        }
-        catch (IllegalAccessException cnfe)
-        {
-            System.err.println("IllegalAccessException; Unable to create: "
-                               + str);
-
-            return null;
+            System.err.println(e.getClass().getName() + "; Unable to create an instance of: " + str);
         }
 
         return instance;
     }
 
     /**
-     * <p>Create a number from a String. If a . is present, it creates a 
-     *    Double, otherwise a Long. </p>
+     * Create a number from a String. If a . is present, it creates a 
+     * Double, otherwise a Long.
      *
      * @param str the value
      * @return the number represented by <code>str</code>, if <code>str</code>
@@ -159,16 +149,13 @@ public class TypeHandler {
     {
         try
         {
-            if( str != null )
+            if( str.indexOf('.') != -1 )
             {
-                if( str.indexOf('.') != -1 )
-                {
-                    return Double.valueOf(str);
-                }
-                else
-                {
-                    return Long.valueOf(str);
-                }
+                return Double.valueOf(str);
+            }
+            else
+            {
+                return Long.valueOf(str);
             }
         }
         catch (NumberFormatException nfe)
@@ -180,7 +167,7 @@ public class TypeHandler {
     }
 
     /**
-     * <p>Returns the class whose name is <code>str</code>.</p>
+     * Returns the class whose name is <code>str</code>.
      *
      * @param str the class name
      * @return The class if it is found, otherwise return null
@@ -200,7 +187,7 @@ public class TypeHandler {
     }
 
     /**
-     * <p>Returns the date represented by <code>str</code>.</p>
+     * Returns the date represented by <code>str</code>.
      *
      * @param str the date string
      * @return The date if <code>str</code> is a valid date string,
@@ -212,7 +199,7 @@ public class TypeHandler {
     }
 
     /**
-     * <p>Returns the URL represented by <code>str</code>.</p>
+     * Returns the URL represented by <code>str</code>.
      *
      * @param str the URL string
      * @return The URL is <code>str</code> is well-formed, otherwise
@@ -224,16 +211,16 @@ public class TypeHandler {
         {
             return new URL(str);
         }
-        catch (MalformedURLException mue)
+        catch (MalformedURLException e)
         {
-            System.err.println("Unable to parse: " + str);
+            System.err.println("Unable to parse the URL: " + str);
 
             return null;
         }
     }
 
     /**
-     * <p>Returns the File represented by <code>str</code>.</p>
+     * Returns the File represented by <code>str</code>.
      *
      * @param str the File location
      * @return The file represented by <code>str</code>.
@@ -244,7 +231,7 @@ public class TypeHandler {
     }
 
     /**
-     * <p>Returns the File[] represented by <code>str</code>.</p>
+     * Returns the File[] represented by <code>str</code>.
      *
      * @param str the paths to the files
      * @return The File[] represented by <code>str</code>.

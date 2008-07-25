@@ -28,40 +28,135 @@ import junit.framework.TestCase;
  * Test case for the PatternOptionBuilder class 
  *
  * @author Henri Yandell
- **/
+ * @version $Revision$, $Date$
+ */
 public class PatternOptionBuilderTest extends TestCase
 {
-   public void testSimplePattern() throws Exception
-   {
-       Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/");
-       String[] args = new String[] { "-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://jakarta.apache.org/" };
+    public void testSimplePattern() throws Exception
+    {
+        Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/");
+        String[] args = new String[]{"-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://jakarta.apache.org/"};
 
-       CommandLineParser parser = new PosixParser();
-       CommandLine line = parser.parse(options,args);
+        CommandLineParser parser = new PosixParser();
+        CommandLine line = parser.parse(options, args);
 
-       assertEquals("flag a", "foo", line.getOptionValue("a"));
-       assertEquals("string flag a", "foo", line.getOptionObject("a"));
-       assertEquals("object flag b", new Vector(), line.getOptionObject("b"));
-       assertTrue("boolean true flag c", line.hasOption("c"));
-       assertFalse("boolean false flag d", line.hasOption("d"));
-       assertEquals("file flag e", new File("build.xml"), line.getOptionObject("e"));
-       assertEquals("class flag f", Calendar.class, line.getOptionObject("f"));
-       assertEquals("number flag n", new Double(4.5), line.getOptionObject("n"));
-       assertEquals("url flag t", new URL("http://jakarta.apache.org/"), line.getOptionObject("t"));
+        assertEquals("flag a", "foo", line.getOptionValue("a"));
+        assertEquals("string flag a", "foo", line.getOptionObject("a"));
+        assertEquals("object flag b", new Vector(), line.getOptionObject("b"));
+        assertTrue("boolean true flag c", line.hasOption("c"));
+        assertFalse("boolean false flag d", line.hasOption("d"));
+        assertEquals("file flag e", new File("build.xml"), line.getOptionObject("e"));
+        assertEquals("class flag f", Calendar.class, line.getOptionObject("f"));
+        assertEquals("number flag n", new Double(4.5), line.getOptionObject("n"));
+        assertEquals("url flag t", new URL("http://jakarta.apache.org/"), line.getOptionObject("t"));
 
-       // tests the char methods of CommandLine that delegate to the String methods
-       assertEquals("flag a", "foo", line.getOptionValue('a'));
-       assertEquals("string flag a", "foo", line.getOptionObject('a'));
-       assertEquals("object flag b", new Vector(), line.getOptionObject('b'));
-       assertTrue("boolean true flag c", line.hasOption('c'));
-       assertFalse("boolean false flag d", line.hasOption('d'));
-       assertEquals("file flag e", new File("build.xml"), line.getOptionObject('e'));
-       assertEquals("class flag f", Calendar.class, line.getOptionObject('f'));
-       assertEquals("number flag n", new Double(4.5), line.getOptionObject('n'));
-       assertEquals("url flag t", new URL("http://jakarta.apache.org/"), line.getOptionObject('t'));
+        // tests the char methods of CommandLine that delegate to the String methods
+        assertEquals("flag a", "foo", line.getOptionValue('a'));
+        assertEquals("string flag a", "foo", line.getOptionObject('a'));
+        assertEquals("object flag b", new Vector(), line.getOptionObject('b'));
+        assertTrue("boolean true flag c", line.hasOption('c'));
+        assertFalse("boolean false flag d", line.hasOption('d'));
+        assertEquals("file flag e", new File("build.xml"), line.getOptionObject('e'));
+        assertEquals("class flag f", Calendar.class, line.getOptionObject('f'));
+        assertEquals("number flag n", new Double(4.5), line.getOptionObject('n'));
+        assertEquals("url flag t", new URL("http://jakarta.apache.org/"), line.getOptionObject('t'));
 
-       /// DATES NOT SUPPORTED YET.
-       //      assertEquals("number flag t", new Date(1023400137276L), line.getOptionObject('z'));
-       //     input is:  "Thu Jun 06 17:48:57 EDT 2002"
-   }
+        /// DATES NOT SUPPORTED YET.
+        //      assertEquals("number flag t", new Date(1023400137276L), line.getOptionObject('z'));
+        //     input is:  "Thu Jun 06 17:48:57 EDT 2002"
+    }
+
+    public void testEmptyPattern() throws Exception
+    {
+        Options options = PatternOptionBuilder.parsePattern("");
+        assertTrue(options.getOptions().isEmpty());
+    }
+
+    public void testUntypedPattern() throws Exception
+    {
+        Options options = PatternOptionBuilder.parsePattern("abc");
+        CommandLineParser parser = new PosixParser();
+        CommandLine line = parser.parse(options, new String[] { "-abc" });
+
+        assertTrue(line.hasOption('a'));
+        assertNull("value a", line.getOptionObject('a'));
+        assertTrue(line.hasOption('b'));
+        assertNull("value b", line.getOptionObject('b'));
+        assertTrue(line.hasOption('c'));
+        assertNull("value c", line.getOptionObject('c'));
+    }
+
+    public void testNumberPattern() throws Exception
+    {
+        Options options = PatternOptionBuilder.parsePattern("n%d%x%");
+        CommandLineParser parser = new PosixParser();
+        CommandLine line = parser.parse(options, new String[] { "-n", "1", "-d", "2.1", "-x", "3,5" });
+
+        assertEquals("n object class", Long.class, line.getOptionObject("n").getClass());
+        assertEquals("n value", new Long(1), line.getOptionObject("n"));
+
+        assertEquals("d object class", Double.class, line.getOptionObject("d").getClass());
+        assertEquals("d value", new Double(2.1), line.getOptionObject("d"));
+
+        assertNull("x object", line.getOptionObject("x"));
+    }
+
+    public void testClassPattern() throws Exception
+    {
+        Options options = PatternOptionBuilder.parsePattern("c+d+");
+        CommandLineParser parser = new PosixParser();
+        CommandLine line = parser.parse(options, new String[] { "-c", "java.util.Calendar", "-d", "System.DateTime" });
+
+        assertEquals("c value", Calendar.class, line.getOptionObject("c"));
+        assertNull("d value", line.getOptionObject("d"));
+    }
+
+    public void testObjectPattern() throws Exception
+    {
+        Options options = PatternOptionBuilder.parsePattern("o@i@n@");
+        CommandLineParser parser = new PosixParser();
+        CommandLine line = parser.parse(options, new String[] { "-o", "java.lang.String", "-i", "java.util.Calendar", "-n", "System.DateTime" });
+
+        assertEquals("o value", "", line.getOptionObject("o"));
+        assertNull("i value", line.getOptionObject("i"));
+        assertNull("n value", line.getOptionObject("n"));
+    }
+
+    public void testURLPattern() throws Exception
+    {
+        Options options = PatternOptionBuilder.parsePattern("u/v/");
+        CommandLineParser parser = new PosixParser();
+        CommandLine line = parser.parse(options, new String[] { "-u", "http://commons.apache.org", "-v", "foo://commons.apache.org" });
+
+        assertEquals("u value", new URL("http://commons.apache.org"), line.getOptionObject("u"));
+        assertNull("v value", line.getOptionObject("v"));
+    }
+
+    public void testExistingFilePattern() throws Exception
+    {
+        Options options = PatternOptionBuilder.parsePattern("f<");
+        CommandLineParser parser = new PosixParser();
+        CommandLine line = parser.parse(options, new String[] { "-f", "test.properties" });
+
+        assertEquals("f value", new File("test.properties"), line.getOptionObject("f"));
+
+        // todo test if an error is returned if the file doesn't exists (when it's implemented)
+    }
+
+    public void testRequiredOption() throws Exception
+    {
+        Options options = PatternOptionBuilder.parsePattern("!n%m%");
+        CommandLineParser parser = new PosixParser();
+
+        try
+        {
+            parser.parse(options, new String[]{""});
+            fail("MissingOptionException wasn't thrown");
+        }
+        catch (MissingOptionException e)
+        {
+            assertEquals(1, e.getMissingOptions().size());
+            assertTrue(e.getMissingOptions().contains("n"));
+        }
+    }
 }
