@@ -14,11 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * The class PosixParser provides an implementation of the 
@@ -31,7 +33,7 @@ import java.util.Iterator;
 public class PosixParser extends Parser {
 
     /** holder for flattened tokens */
-    private ArrayList tokens = new ArrayList();
+    private List tokens = new ArrayList();
 
     /** specifies if bursting should continue */
     private boolean eatTheRest;
@@ -43,9 +45,9 @@ public class PosixParser extends Parser {
     private Options options;
 
     /**
-     * <p>Resets the members to their original state i.e. remove
+     * Resets the members to their original state i.e. remove
      * all of <code>tokens</code> entries, set <code>eatTheRest</code>
-     * to false and set <code>currentOption</code> to null.</p>
+     * to false and set <code>currentOption</code> to null.
      */
     private void init()
     {
@@ -92,21 +94,19 @@ public class PosixParser extends Parser {
      * when an non option is found.
      * @return The flattened <code>arguments</code> String array.
      */
-    protected String[] flatten(Options options, String[] arguments, 
-                               boolean stopAtNonOption)
+    protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption)
     {
         init();
         this.options = options;
 
         // an iterator for the command line tokens
         Iterator iter = Arrays.asList(arguments).iterator();
-        String token;
 
         // process each command line token
         while (iter.hasNext())
         {
             // get the next command line token
-            token = (String) iter.next();
+            String token = (String) iter.next();
 
             // handle SPECIAL TOKEN
             if (token.startsWith("--"))
@@ -114,8 +114,7 @@ public class PosixParser extends Parser {
                 if (token.indexOf('=') != -1)
                 {
                     tokens.add(token.substring(0, token.indexOf('=')));
-                    tokens.add(token.substring(token.indexOf('=') + 1, 
-                                               token.length()));
+                    tokens.add(token.substring(token.indexOf('=') + 1, token.length()));
                 }
                 else
                 {
@@ -136,8 +135,9 @@ public class PosixParser extends Parser {
                 {
                     processOptionToken(token, stopAtNonOption);
                 }
-                else if (options.hasOption(token)) {
-                	tokens.add(token);
+                else if (options.hasOption(token))
+                {
+                    tokens.add(token);
                 }
                 // requires bursting
                 else
@@ -164,7 +164,7 @@ public class PosixParser extends Parser {
     }
 
     /**
-     * <p>Adds the remaining tokens to the processed tokens list.</p>
+     * Adds the remaining tokens to the processed tokens list.
      *
      * @param iter An iterator over the remaining tokens
      */
@@ -183,8 +183,10 @@ public class PosixParser extends Parser {
      * <p>If there is a current option and it can have an argument
      * value then add the token to the processed tokens list and 
      * set the current option to null.</p>
+     *
      * <p>If there is a current option and it can have argument
      * values then add the token to the processed tokens list.</p>
+     *
      * <p>If there is not a current option add the special token
      * "<b>--</b>" and the current <code>value</code> to the processed
      * tokens list.  The add all the remaining <code>argument</code>
@@ -194,7 +196,7 @@ public class PosixParser extends Parser {
      */
     private void process(String value)
     {
-        if ((currentOption != null) && currentOption.hasArg())
+        if (currentOption != null && currentOption.hasArg())
         {
             if (currentOption.hasArg())
             {
@@ -215,8 +217,8 @@ public class PosixParser extends Parser {
     }
 
     /**
-     * <p>If it is a hyphen then add the hyphen directly to
-     * the processed tokens list.</p>
+     * If it is a hyphen then add the hyphen directly to
+     * the processed tokens list.
      *
      * @param hyphen The hyphen token
      */
@@ -229,6 +231,7 @@ public class PosixParser extends Parser {
      * <p>If an {@link Option} exists for <code>token</code> then
      * set the current option and add the token to the processed 
      * list.</p>
+     *
      * <p>If an {@link Option} does not exist and <code>stopAtNonOption</code>
      * is set then ignore the current token and add the remaining tokens
      * to the processed tokens list directly.</p>
@@ -278,14 +281,11 @@ public class PosixParser extends Parser {
      */
     protected void burstToken(String token, boolean stopAtNonOption)
     {
-        int tokenLength = token.length();
-
-        for (int i = 1; i < tokenLength; i++)
+        for (int i = 1; i < token.length(); i++)
         {
             String ch = String.valueOf(token.charAt(i));
-            boolean hasOption = options.hasOption(ch);
 
-            if (hasOption)
+            if (options.hasOption(ch))
             {
                 tokens.add("-" + ch);
                 currentOption = options.getOption(ch);
@@ -300,6 +300,7 @@ public class PosixParser extends Parser {
             else if (stopAtNonOption)
             {
                 process(token.substring(i));
+                break;
             }
             else
             {

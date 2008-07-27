@@ -130,6 +130,18 @@ public class PosixParserTest extends TestCase
         assertTrue( "Confirm  2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
     }
 
+    public void testStopBursting() throws Exception
+    {
+        String[] args = new String[] { "-azc" };
+
+        CommandLine cl = parser.parse(options, args, true);
+        assertTrue( "Confirm -a is set", cl.hasOption("a") );
+        assertFalse( "Confirm -c is not set", cl.hasOption("c") );
+
+        assertTrue( "Confirm  1 extra arg: " + cl.getArgList().size(), cl.getArgList().size() == 1);
+        assertTrue(cl.getArgList().contains("zc"));
+    }
+
     public void testMultiple() throws Exception
     {
         String[] args = new String[] { "-c",
@@ -155,8 +167,7 @@ public class PosixParserTest extends TestCase
                                        "foobar",
                                        "--bfile", "toast" };
 
-        CommandLine cl = parser.parse(options,args,
-                                        true);
+        CommandLine cl = parser.parse(options,args, true);
         assertTrue( "Confirm -c is set", cl.hasOption("c") );
         assertTrue( "Confirm  3 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 3);
 
