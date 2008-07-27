@@ -55,7 +55,7 @@ public class GroupTest
         options.add(COMMAND_START);
         options.add(COMMAND_STOP);
 
-        return new GroupImpl(options, "httpd-cmds", "The command to pass to the server", 1, 1);
+        return new GroupImpl(options, "httpd-cmds", "The command to pass to the server", 1, 1, true);
     }
 
     public static Group buildApachectlGroup() {
@@ -64,7 +64,7 @@ public class GroupTest
         options.add(ParentTest.buildKParent());
 
         return new GroupImpl(options, "apachectl", "Controls the apache http deamon", 0,
-                             Integer.MAX_VALUE);
+                             Integer.MAX_VALUE, true);
     }
 
     public static Group buildAntGroup() {
@@ -72,7 +72,18 @@ public class GroupTest
         options.add(DefaultOptionTest.buildHelpOption());
         options.add(ArgumentTest.buildTargetsArgument());
 
-        return new GroupImpl(options, "ant", "The options for ant", 0, Integer.MAX_VALUE);
+        return new GroupImpl(options, "ant", "The options for ant", 0, Integer.MAX_VALUE, true);
+    }
+
+    private static Group buildRequiredTestGroup(final boolean required,
+            final int minimum)
+    {
+        final Group group = new GroupImpl(new ArrayList(), "test", null,
+                minimum, Integer.MAX_VALUE, required);
+        final List options = new ArrayList(1);
+        options.add(group);
+        new GroupImpl(options, "parent", null, 0, Integer.MAX_VALUE, false);
+        return group;
     }
 
     /*
@@ -436,5 +447,66 @@ public class GroupTest
         assertEquals(COMMAND_STOP, line5.getOption());
 
         assertFalse(i.hasNext());
+    }
+
+    /**
+     * Tests isRequired() for a child group if neither the required flag nor a
+     * minimum constraint is set.
+     */
+    public void testIsRequired_ChildNoFlagNoMinimum()
+    {
+        final Group group = buildRequiredTestGroup(false, 0);
+        assertFalse("Group is required", group.isRequired());
+    }
+
+    /**
+     * Tests isRequired() for a child group that has a minimum constraint, but
+     * the required flag is not set.
+     */
+    public void testIsRequired_ChildNoFlagMinimum()
+    {
+        final Group group = buildRequiredTestGroup(false, 10);
+        assertFalse("Group is required", group.isRequired());
+    }
+
+    /**
+     * Tests isRequired() for a child group that has the required flag set, but
+     * no minimum constraint. In this constellation the group is de facto not
+     * required.
+     */
+    public void testIsRequired_ChildFlagNoMinimum()
+    {
+        final Group group = buildRequiredTestGroup(true, 0);
+        assertFalse("Group is required", group.isRequired());
+    }
+
+    /**
+     * Tests isRequired() for a child group that has both the required flag and
+     * a minimum constraint set. This is indeed a required group.
+     */
+    public void testIsRequired_ChildFlagMinimum()
+    {
+        final Group group = buildRequiredTestGroup(true, 10);
+        assertTrue("Group is not required", group.isRequired());
+    }
+
+    /**
+     * Tests isRequired() for the root group when no minimum constraint is set.
+     */
+    public void testIsRequired_ParentNoMinimum()
+    {
+        final Group parent = (Group) buildRequiredTestGroup(false, 0)
+                .getParent();
+        assertFalse("Group is required", parent.isRequired());
+    }
+
+    /**
+     * Tests isRequired() for the root group with a minimum constraint.
+     */
+    public void testIsRequired_ParentMiminum()
+    {
+        final Group parent = new GroupImpl(new ArrayList(), "test", null, 10,
+                Integer.MAX_VALUE, false);
+        assertTrue("Group not required", parent.isRequired());
     }
 }

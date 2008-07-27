@@ -60,13 +60,15 @@ public class GroupImpl
      * @param description a description of this Group
      * @param minimum the minimum number of Options for a valid CommandLine
      * @param maximum the maximum number of Options for a valid CommandLine
+     * @param required a flag whether this group is required
      */
     public GroupImpl(final List options,
                      final String name,
                      final String description,
                      final int minimum,
-                     final int maximum) {
-        super(0, false);
+                     final int maximum,
+                     final boolean required) {
+        super(0, required);
 
         this.name = name;
         this.description = description;
@@ -247,7 +249,7 @@ public class GroupImpl
             final Option option = (Option) i.next();
 
             // needs validation?
-            boolean validate = option.isRequired() || option instanceof Group;
+            boolean validate = option.isRequired();
 
             // if the child option is present then validate it
             if (commandLine.hasOption(option)) {
@@ -470,8 +472,16 @@ public class GroupImpl
         return maximum;
     }
 
-    public boolean isRequired() {
-        return getMinimum() > 0;
+    /**
+     * Tests whether this option is required. For groups we evaluate the
+     * <code>required</code> flag common to all options, but also take the
+     * minimum constraints into account.
+     *
+     * @return a flag whether this option is required
+     */
+    public boolean isRequired()
+    {
+        return (getParent() == null || super.isRequired()) && getMinimum() > 0;
     }
 
     public void defaults(final WriteableCommandLine commandLine) {

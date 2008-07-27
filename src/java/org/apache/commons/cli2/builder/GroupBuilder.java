@@ -33,6 +33,7 @@ public class GroupBuilder {
     private List options;
     private int minimum;
     private int maximum;
+    private boolean required;
 
     /**
      * Creates a new GroupBuilder
@@ -47,7 +48,7 @@ public class GroupBuilder {
      */
     public Group create() {
         final GroupImpl group =
-            new GroupImpl(options, name, description, minimum, maximum);
+            new GroupImpl(options, name, description, minimum, maximum, required);
 
         reset();
 
@@ -63,6 +64,7 @@ public class GroupBuilder {
         options = new ArrayList();
         minimum = 0;
         maximum = Integer.MAX_VALUE;
+        required = true;
         return this;
     }
 
@@ -113,6 +115,18 @@ public class GroupBuilder {
      */
     public GroupBuilder withOption(final Option option) {
         this.options.add(option);
+        return this;
+    }
+
+    /**
+     * Sets the required flag. This flag is evaluated for groups that are
+     * added to other groups as child groups. If set to <b>true</b> the
+     * minimum and maximum constraints of the child group are always evaluated.
+     * @param newRequired the required flag
+     * @return this builder
+     */
+    public GroupBuilder withRequired(final boolean newRequired) {
+        this.required = newRequired;
         return this;
     }
 }
