@@ -108,17 +108,22 @@ public class PosixParser extends Parser {
             // get the next command line token
             String token = (String) iter.next();
 
-            // handle SPECIAL TOKEN
+            // handle long option --foo or --foo=bar
             if (token.startsWith("--"))
             {
-                if (token.indexOf('=') != -1)
+                int pos = token.indexOf('=');
+                String opt = pos == -1 ? token : token.substring(0, pos); // --foo
+
+                if (!options.hasOption(opt) && stopAtNonOption)
                 {
-                    tokens.add(token.substring(0, token.indexOf('=')));
-                    tokens.add(token.substring(token.indexOf('=') + 1, token.length()));
+                    process(token);
                 }
                 else
                 {
-                    tokens.add(token);
+                    tokens.add(opt);
+                    if (pos != -1) {
+                        tokens.add(token.substring(pos + 1));
+                    }
                 }
             }
 
