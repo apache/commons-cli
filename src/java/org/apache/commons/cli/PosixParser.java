@@ -125,13 +125,11 @@ public class PosixParser extends Parser {
             // single hyphen
             else if ("-".equals(token))
             {
-                processSingleHyphen(token);
+                tokens.add(token);
             }
             else if (token.startsWith("-"))
             {
-                int tokenLength = token.length();
-
-                if (tokenLength == 2)
+                if (token.length() == 2)
                 {
                     processOptionToken(token, stopAtNonOption);
                 }
@@ -145,16 +143,13 @@ public class PosixParser extends Parser {
                     burstToken(token, stopAtNonOption);
                 }
             }
+            else if (stopAtNonOption)
+            {
+                process(token);
+            }
             else
             {
-                if (stopAtNonOption)
-                {
-                    process(token);
-                }
-                else
-                {
-                    tokens.add(token);
-                }
+                tokens.add(token);
             }
 
             gobble(iter);
@@ -217,17 +212,6 @@ public class PosixParser extends Parser {
     }
 
     /**
-     * If it is a hyphen then add the hyphen directly to
-     * the processed tokens list.
-     *
-     * @param hyphen The hyphen token
-     */
-    private void processSingleHyphen(String hyphen)
-    {
-        tokens.add(hyphen);
-    }
-
-    /**
      * <p>If an {@link Option} exists for <code>token</code> then
      * set the current option and add the token to the processed 
      * list.</p>
@@ -242,14 +226,15 @@ public class PosixParser extends Parser {
      */
     private void processOptionToken(String token, boolean stopAtNonOption)
     {
-        if (this.options.hasOption(token))
+        if (options.hasOption(token))
         {
-            currentOption = this.options.getOption(token);
+            currentOption = options.getOption(token);
             tokens.add(token);
         }
         else if (stopAtNonOption)
         {
             eatTheRest = true;
+            tokens.add(token);
         }
     }
 

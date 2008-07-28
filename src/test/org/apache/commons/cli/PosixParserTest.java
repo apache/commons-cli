@@ -130,6 +130,17 @@ public class PosixParserTest extends TestCase
         assertTrue( "Confirm  2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
     }
 
+    public void testStop2() throws Exception
+    {
+        String[] args = new String[]{"-z",
+                                     "-a",
+                                     "-btoast"};
+
+        CommandLine cl = parser.parse(options, args, true);
+        assertFalse("Confirm -a is not set", cl.hasOption("a"));
+        assertTrue("Confirm  3 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 3);
+    }
+
     public void testStopBursting() throws Exception
     {
         String[] args = new String[] { "-azc" };
