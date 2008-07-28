@@ -1,8 +1,8 @@
 $Id$
 
-			Commons CLI Package
-			   Version 1.1
-			    Release Notes
+            Commons CLI Package
+                Version 1.1
+               Release Notes
 
 
 INTRODUCTION:
@@ -20,7 +20,7 @@ CLI 1.1 is a bugfix release of CLI. The following changes notable API changes we
 
 The jar should be API backwards compatible, though if you were calling addValue(String) then you won't be happy. Please let us know your use case if that is so. 
 
-For more information, read the documentation on the project site at http://jakarta.apache.org/commons/cli/
+For more information, read the documentation on the project site at http://commons.apache.org/cli/
 
 NEW FEATURES:
 

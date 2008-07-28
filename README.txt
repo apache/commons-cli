@@ -1,41 +1,41 @@
-Jakarta Commons CLI
+Apache Commons CLI
 ===================
 
-Welcome to the CLI component of the Jakarta Commons project.
+Welcome to the CLI component of the Apache Commons project.
 
 The information in this file is relevant if you have
 downloaded a CLI source distribution.
 
 For testing the project, you will need JUnit (if you use
-maven this will be automatically installed and configured
+Maven this will be automatically installed and configured
 for you):
 
-  http://www.junit.org/
+  http://www.junit.org
 
-There are two ways to build CLI, either with Ant or Maven 1.
+There are two ways to build CLI, either with Ant or Maven 2.
 
 Ant can be found here :
 
-  http://jakarta.apache.org/ant
+  http://ant.apache.org
 
 and to build and test the system use:
 
   ant dist
 
-Maven 1 can be found here :
+Maven 2 can be found here :
 
   http://maven.apache.org
 
 and to build and test the system use:
 
-  maven clean jar
+  mvn clean package
 
 The system will build and test itself.
 
 For complete documentation type:
 
-  maven site
+  mvn site
 
 Good luck!
 
--The CLI Team
+- The Apache Commons Team

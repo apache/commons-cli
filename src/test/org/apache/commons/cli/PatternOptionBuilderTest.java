@@ -35,7 +35,7 @@ public class PatternOptionBuilderTest extends TestCase
     public void testSimplePattern() throws Exception
     {
         Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/");
-        String[] args = new String[]{"-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://jakarta.apache.org/"};
+        String[] args = new String[]{"-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://commons.apache.org"};
 
         CommandLineParser parser = new PosixParser();
         CommandLine line = parser.parse(options, args);
@@ -48,7 +48,7 @@ public class PatternOptionBuilderTest extends TestCase
         assertEquals("file flag e", new File("build.xml"), line.getOptionObject("e"));
         assertEquals("class flag f", Calendar.class, line.getOptionObject("f"));
         assertEquals("number flag n", new Double(4.5), line.getOptionObject("n"));
-        assertEquals("url flag t", new URL("http://jakarta.apache.org/"), line.getOptionObject("t"));
+        assertEquals("url flag t", new URL("http://commons.apache.org"), line.getOptionObject("t"));
 
         // tests the char methods of CommandLine that delegate to the String methods
         assertEquals("flag a", "foo", line.getOptionValue('a'));
@@ -59,7 +59,7 @@ public class PatternOptionBuilderTest extends TestCase
         assertEquals("file flag e", new File("build.xml"), line.getOptionObject('e'));
         assertEquals("class flag f", Calendar.class, line.getOptionObject('f'));
         assertEquals("number flag n", new Double(4.5), line.getOptionObject('n'));
-        assertEquals("url flag t", new URL("http://jakarta.apache.org/"), line.getOptionObject('t'));
+        assertEquals("url flag t", new URL("http://commons.apache.org"), line.getOptionObject('t'));
 
         /// DATES NOT SUPPORTED YET.
         //      assertEquals("number flag t", new Date(1023400137276L), line.getOptionObject('z'));
