@@ -229,13 +229,13 @@ public class PosixParser extends Parser {
         if (options.hasOption(token))
         {
             currentOption = options.getOption(token);
-            tokens.add(token);
         }
         else if (stopAtNonOption)
         {
             eatTheRest = true;
-            tokens.add(token);
         }
+
+        tokens.add(token);
     }
 
     /**
