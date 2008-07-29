@@ -10,7 +10,6 @@ X-Compile-Source-JDK: 1.3
 X-Compile-Target-JDK: 1.3
 Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 Import-Package: org.apache.commons.cli;version="1.2.0.SNAPSHOT"
-Bnd-LastModified: 1217335218750
 Export-Package: org.apache.commons.cli;version="1.2.0.SNAPSHOT"
 Bundle-Version: 1.2.0.SNAPSHOT
 Bundle-Name: Commons CLI
@@ -20,4 +19,3 @@ Bundle-DocURL: http://commons.apache.org/cli/
 Bundle-ManifestVersion: 2
 Bundle-Vendor: The Apache Software Foundation
 Bundle-SymbolicName: org.apache.commons.cli
-Tool: Bnd-0.0.238
