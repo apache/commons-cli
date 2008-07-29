@@ -168,7 +168,6 @@
         <artifactId>maven-ant-plugin</artifactId>
         <version>2.1.1-SNAPSHOT</version>
       </plugin>
-
     </plugins>
   </build>
 
@@ -208,6 +207,14 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
         <version>2.2</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>clirr-maven-plugin</artifactId>
+        <version>2.2.1</version>
+        <configuration>
+          <comparisonVersion>1.1</comparisonVersion>
+        </configuration>
       </plugin>
     </plugins>
   </reporting>
