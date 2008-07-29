@@ -25,14 +25,12 @@
         <fileSet>
             <includes>
                 <include>build.xml</include>
+                <include>build.properties</include>
                 <include>CLI2Converter.java</include>
                 <include>CLI2ConverterTest.java</include>
                 <include>LICENSE.txt</include>
-                <include>maven.xml</include>
                 <include>NOTICE.txt</include>
                 <include>pom.xml</include>
-                <include>project.properties</include>
-                <include>project.xml</include>
                 <include>README.txt</include>
                 <include>RELEASE-NOTES.txt</include>
             </includes>
