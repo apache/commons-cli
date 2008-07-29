@@ -24,7 +24,7 @@ import java.util.Iterator;
  * Thrown when a required option has not been provided.
  *
  * @author John Keyes ( john at integralsource.com )
- * @see ParseException
+ * @version $Revision$, $Date$
  */
 public class MissingOptionException extends ParseException
 {
@@ -58,6 +58,7 @@ public class MissingOptionException extends ParseException
     /**
      * Return the list of options (as strings) missing in the command line parsed.
      *
+     * @return the missing options
      * @since 1.2
      */
     public List getMissingOptions()

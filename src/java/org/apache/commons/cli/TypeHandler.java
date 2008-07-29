@@ -1,4 +1,4 @@
-/*
+/**
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import java.io.File;
@@ -24,16 +25,16 @@ import java.net.URL;
 import java.util.Date;
 
 /**
-  * This is a temporary implementation. TypeHandler will handle the 
-  * pluggableness of OptionTypes and it will direct all of these types 
-  * of conversion functionalities to ConvertUtils component in Commons 
-  * alreayd. BeanUtils I think.
+  * This is a temporary implementation. TypeHandler will handle the
+  * pluggableness of OptionTypes and it will direct all of these types
+  * of conversion functionalities to ConvertUtils component in Commons
+  * already. BeanUtils I think.
   *
   * @author Henri Yandell (bayard @ generationjava.com)
-  * @version $Revision$
+  * @version $Revision$, $Date$
   */
-public class TypeHandler {
-
+public class TypeHandler
+{
     /**
      * Returns the <code>Object</code> of type <code>obj</code>
      * with the value of <code>str</code>.
@@ -105,7 +106,7 @@ public class TypeHandler {
       * Create an Object from the classname and empty constructor.
       *
       * @param str the argument value
-      * @return the initialised object, or null if it couldn't create 
+      * @return the initialised object, or null if it couldn't create
       * the Object.
       */
     public static Object createObject(String str)
@@ -138,7 +139,7 @@ public class TypeHandler {
     }
 
     /**
-     * Create a number from a String. If a . is present, it creates a 
+     * Create a number from a String. If a . is present, it creates a
      * Double, otherwise a Long.
      *
      * @param str the value
@@ -149,7 +150,7 @@ public class TypeHandler {
     {
         try
         {
-            if( str.indexOf('.') != -1 )
+            if (str.indexOf('.') != -1)
             {
                 return Double.valueOf(str);
             }

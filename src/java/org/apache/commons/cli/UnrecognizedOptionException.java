@@ -22,7 +22,7 @@ package org.apache.commons.cli;
  * option was seen.
  *
  * @author bob mcwhiter (bob @ werken.com)
- * @version $Revision$
+ * @version $Revision$, $Date$
  */
 public class UnrecognizedOptionException extends ParseException
 {
@@ -57,6 +57,7 @@ public class UnrecognizedOptionException extends ParseException
     /**
      * Returns the unrecognized option.
      *
+     * @return the related option
      * @since 1.2
      */
     public String getOption()

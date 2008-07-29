@@ -42,8 +42,7 @@ public class ArgumentIsOptionTest extends TestCase
         CommandLine cl = parser.parse(options, args);
         assertTrue("Confirm -p is set", cl.hasOption("p"));
         assertTrue("Confirm -attr is set", cl.hasOption("attr"));
-        assertTrue("Confirm arg of -attr",
-                cl.getOptionValue("attr").equals("p"));
+        assertTrue("Confirm arg of -attr", cl.getOptionValue("attr").equals("p"));
         assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
     }
 

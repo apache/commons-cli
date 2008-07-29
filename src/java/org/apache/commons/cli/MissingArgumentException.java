@@ -22,7 +22,7 @@ package org.apache.commons.cli;
  * is not provided with an argument.
  *
  * @author John Keyes (john at integralsource.com)
- * @see ParseException
+ * @version $Revision$, $Date$
  */
 public class MissingArgumentException extends ParseException
 {
@@ -57,6 +57,7 @@ public class MissingArgumentException extends ParseException
      * Return the option requiring an argument that wasn't provided
      * on the command line.
      *
+     * @return the related option
      * @since 1.2
      */
     public Option getOption()

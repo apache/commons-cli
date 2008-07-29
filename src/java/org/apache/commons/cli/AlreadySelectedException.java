@@ -22,7 +22,7 @@ package org.apache.commons.cli;
  * has been provided.
  *
  * @author John Keyes ( john at integralsource.com )
- * @see ParseException
+ * @version $Revision$, $Date$
  */
 public class AlreadySelectedException extends ParseException
 {
@@ -53,8 +53,8 @@ public class AlreadySelectedException extends ParseException
      */
     public AlreadySelectedException(OptionGroup group, Option option)
     {
-        this("The option '" + option.getKey() + "' was specified but an option from this group " +
-                "has already been selected: '" + group.getSelected() + "'");
+        this("The option '" + option.getKey() + "' was specified but an option from this group "
+                + "has already been selected: '" + group.getSelected() + "'");
         this.group = group;
         this.option = option;
     }
@@ -62,6 +62,7 @@ public class AlreadySelectedException extends ParseException
     /**
      * Returns the option group where another option has been selected.
      *
+     * @return the related option group
      * @since 1.2
      */
     public OptionGroup getOptionGroup()
@@ -72,6 +73,7 @@ public class AlreadySelectedException extends ParseException
     /**
      * Returns the option that was added to the group and triggered the exception.
      *
+     * @return the related option
      * @since 1.2
      */
     public Option getOption()

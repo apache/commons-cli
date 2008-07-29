@@ -22,7 +22,7 @@ import java.io.FileInputStream;
 import java.net.URL;
 import java.util.Date;
 
-/** 
+/**
  * <p>
  * Allows Options to be created from a single String.
  * The pattern contains various single character flags and via
@@ -46,15 +46,15 @@ import java.util.Date;
  * <code>Options options = PatternOptionBuilder.parsePattern("vp:!f/");</code>
  *
  * <p>
- * TODO These need to break out to OptionType and also 
+ * TODO These need to break out to OptionType and also
  * to be pluggable.
  * </p>
  *
  * @author Henri Yandell (bayard @ generationjava.com)
- * @version $Revision$
+ * @version $Revision$, $Date$
  */
-public class PatternOptionBuilder {
-
+public class PatternOptionBuilder
+{
     /** String class */
     public static final Class STRING_VALUE = String.class;
 
@@ -70,7 +70,7 @@ public class PatternOptionBuilder {
     /** Class class */
     public static final Class CLASS_VALUE = Class.class;
 
-    /// can we do this one?? 
+    /// can we do this one??
     // is meant to check that the file exists, else it errors.
     // ie) it's for reading not writing.
 
@@ -122,7 +122,7 @@ public class PatternOptionBuilder {
     /**
      * Returns whether <code>ch</code> is a value code, i.e.
      * whether it represents a class in a pattern.
-     * 
+     *
      * @param ch the specified character
      * @return true if <code>ch</code> is a value code, otherwise false.
      */
@@ -141,8 +141,7 @@ public class PatternOptionBuilder {
     }
 
     /**
-     * Returns the {@link Options} instance represented by 
-     * <code>pattern</code>.
+     * Returns the {@link Options} instance represented by <code>pattern</code>.
      *
      * @param pattern the pattern string
      * @return The {@link Options} instance
@@ -159,7 +158,7 @@ public class PatternOptionBuilder {
         {
             char ch = pattern.charAt(i);
 
-            // a value code comes after an option and specifies 
+            // a value code comes after an option and specifies
             // details about it
             if (!isValueCode(ch))
             {
@@ -168,7 +167,7 @@ public class PatternOptionBuilder {
                     OptionBuilder.hasArg(type != null);
                     OptionBuilder.isRequired(required);
                     OptionBuilder.withType(type);
-                    
+
                     // we have a previous one to deal with
                     options.addOption(OptionBuilder.create(opt));
                     required = false;
@@ -193,7 +192,7 @@ public class PatternOptionBuilder {
             OptionBuilder.hasArg(type != null);
             OptionBuilder.isRequired(required);
             OptionBuilder.withType(type);
-            
+
             // we have a final one to deal with
             options.addOption(OptionBuilder.create(opt));
         }

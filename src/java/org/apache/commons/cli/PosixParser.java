@@ -23,15 +23,14 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * The class PosixParser provides an implementation of the 
+ * The class PosixParser provides an implementation of the
  * {@link Parser#flatten(Options,String[],boolean) flatten} method.
  *
  * @author John Keyes (john at integralsource.com)
- * @see Parser
- * @version $Revision$
+ * @version $Revision$, $Date$
  */
-public class PosixParser extends Parser {
-
+public class PosixParser extends Parser
+{
     /** holder for flattened tokens */
     private List tokens = new ArrayList();
 
@@ -71,14 +70,14 @@ public class PosixParser extends Parser {
      *  is a valid {@link Option} id.  If it is a valid id, then add the
      *  entry to the list of processed tokens and set the current {@link Option}
      *  member.  If it is not a valid id and <code>stopAtNonOption</code>
-     *  is true, then the remaining entries are copied to the list of 
+     *  is true, then the remaining entries are copied to the list of
      *  processed tokens.  Otherwise, the current entry is ignored.</li>
      *  <li>if the current <code>arguments</code> entry is more than two
      *  characters in length and the first character is "<b>-</b>" then
      *  we need to burst the entry to determine its constituents.  For more
-     *  information on the bursting algorithm see 
+     *  information on the bursting algorithm see
      *  {@link PosixParser#burstToken(String, boolean) burstToken}.</li>
-     *  <li>if the current <code>arguments</code> entry is not handled 
+     *  <li>if the current <code>arguments</code> entry is not handled
      *  by any of the previous rules, then the entry is added to the list
      *  of processed tokens.</li>
      * </ol>
@@ -117,7 +116,8 @@ public class PosixParser extends Parser {
                 else
                 {
                     tokens.add(opt);
-                    if (pos != -1) {
+                    if (pos != -1)
+                    {
                         tokens.add(token.substring(pos + 1));
                     }
                 }
@@ -212,26 +212,26 @@ public class PosixParser extends Parser {
     }
 
     /**
-     * <p>Breaks <code>token</code> into its constituent parts
+     * Breaks <code>token</code> into its constituent parts
      * using the following algorithm.
+     *
      * <ul>
      *  <li>ignore the first character ("<b>-</b>")</li>
      *  <li>foreach remaining character check if an {@link Option}
      *  exists with that id.</li>
      *  <li>if an {@link Option} does exist then add that character
      *  prepended with "<b>-</b>" to the list of processed tokens.</li>
-     *  <li>if the {@link Option} can have an argument value and there 
-     *  are remaining characters in the token then add the remaining 
+     *  <li>if the {@link Option} can have an argument value and there
+     *  are remaining characters in the token then add the remaining
      *  characters as a token to the list of processed tokens.</li>
-     *  <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> 
+     *  <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b>
      *  <code>stopAtNonOption</code> <b>IS</b> set then add the special token
-     *  "<b>--</b>" followed by the remaining characters and also 
+     *  "<b>--</b>" followed by the remaining characters and also
      *  the remaining tokens directly to the processed tokens list.</li>
      *  <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b>
      *  <code>stopAtNonOption</code> <b>IS NOT</b> set then add that
      *  character prepended with "<b>-</b>".</li>
      * </ul>
-     * </p>
      *
      * @param token The current token to be <b>burst</b>
      * @param stopAtNonOption Specifies whether to stop processing
@@ -240,7 +240,7 @@ public class PosixParser extends Parser {
     protected void burstToken(String token, boolean stopAtNonOption)
     {
         Option currentOption;
-        
+
         for (int i = 1; i < token.length(); i++)
         {
             String ch = String.valueOf(token.charAt(i));

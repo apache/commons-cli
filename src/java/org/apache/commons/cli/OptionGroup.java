@@ -27,10 +27,10 @@ import java.util.Map;
  * A group of mutually exclusive options.
  *
  * @author John Keyes ( john at integralsource.com )
- * @version $Revision$
+ * @version $Revision$, $Date$
  */
-public class OptionGroup implements Serializable {
-
+public class OptionGroup implements Serializable
+{
     private static final long serialVersionUID = 1L;
     
     /** hold the options */
@@ -77,7 +77,8 @@ public class OptionGroup implements Serializable {
     }
 
     /**
-     * set the selected option of this group to <code>name</code>.
+     * Set the selected option of this group to <code>name</code>.
+     *
      * @param option the option that is selected
      * @throws AlreadySelectedException if an option from this group has 
      * already been selected.
@@ -87,9 +88,9 @@ public class OptionGroup implements Serializable {
         // if no option has already been selected or the 
         // same option is being reselected then set the
         // selected member variable
-        if ((this.selected == null) || this.selected.equals(option.getOpt()))
+        if (selected == null || selected.equals(option.getOpt()))
         {
-            this.selected = option.getOpt();
+            selected = option.getOpt();
         }
         else
         {
@@ -120,11 +121,12 @@ public class OptionGroup implements Serializable {
      */
     public boolean isRequired()
     {
-        return this.required;
+        return required;
     }
 
     /**
-     * <p>Returns the stringified version of this OptionGroup.</p>
+     * Returns the stringified version of this OptionGroup.
+     * 
      * @return the stringified representation of this group
      */
     public String toString()

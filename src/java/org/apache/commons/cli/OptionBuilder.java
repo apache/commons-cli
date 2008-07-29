@@ -14,20 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 /**
- * <p>OptionBuilder allows the user to create Options using descriptive
- * methods.</p>
- * <p>Details on the Builder pattern can be found at 
+ * OptionBuilder allows the user to create Options using descriptive methods.
+ *
+ * <p>Details on the Builder pattern can be found at
  * <a href="http://c2.com/cgi-bin/wiki?BuilderPattern">
  * http://c2.com/cgi-bin/wiki?BuilderPattern</a>.</p>
  *
  * @author John Keyes (john at integralsource.com)
+ * @version $Revision$, $Date$
  * @since 1.0
  */
-public class OptionBuilder {
-
+public final class OptionBuilder
+{
     /** long option */
     private static String longopt;
 
@@ -115,14 +117,13 @@ public class OptionBuilder {
      */
     public static OptionBuilder hasArg(boolean hasArg)
     {
-        OptionBuilder.numberOfArgs = (hasArg == true) ? 1 : Option.UNINITIALIZED;
+        OptionBuilder.numberOfArgs = hasArg ? 1 : Option.UNINITIALIZED;
 
         return instance;
     }
 
     /**
-     * The next Option created will have the specified argument value 
-     * name.
+     * The next Option created will have the specified argument value name.
      *
      * @param name the name for the argument value
      * @return the OptionBuilder instance
@@ -221,8 +222,7 @@ public class OptionBuilder {
     }
 
     /**
-     * The next Option created can have <code>num</code> 
-     * argument values.
+     * The next Option created can have <code>num</code> argument values.
      *
      * @param num the number of args that the option can have
      * @return the OptionBuilder instance
@@ -248,8 +248,7 @@ public class OptionBuilder {
     }
 
     /**
-     * The next Option can have an unlimited number of
-     * optional arguments.
+     * The next Option can have an unlimited number of optional arguments.
      *
      * @return the OptionBuilder instance
      */
@@ -262,8 +261,7 @@ public class OptionBuilder {
     }
 
     /**
-     * The next Option can have the specified number of 
-     * optional arguments.
+     * The next Option can have the specified number of optional arguments.
      *
      * @param numArgs - the maximum number of optional arguments
      * the next Option created can have.
@@ -278,7 +276,7 @@ public class OptionBuilder {
     }
 
     /**
-     * The next Option created will have a value that will be an instance 
+     * The next Option created will have a value that will be an instance
      * of <code>type</code>.
      *
      * @param newType the type of the Options argument value
@@ -305,7 +303,7 @@ public class OptionBuilder {
     }
 
     /**
-     * Create an Option using the current settings and with 
+     * Create an Option using the current settings and with
      * the specified Option <code>char</code>.
      *
      * @param opt the character representation of the Option
@@ -313,8 +311,7 @@ public class OptionBuilder {
      * @throws IllegalArgumentException if <code>opt</code> is not
      * a valid character.  See Option.
      */
-    public static Option create(char opt)
-                         throws IllegalArgumentException
+    public static Option create(char opt) throws IllegalArgumentException
     {
         return create(String.valueOf(opt));
     }
@@ -323,11 +320,9 @@ public class OptionBuilder {
      * Create an Option using the current settings
      *
      * @return the Option instance
-     * @throws IllegalArgumentException if <code>longOpt</code> has
-     * not been set.  
+     * @throws IllegalArgumentException if <code>longOpt</code> has not been set.
      */
-    public static Option create()
-                         throws IllegalArgumentException
+    public static Option create() throws IllegalArgumentException
     {
         if (longopt == null)
         {
@@ -338,21 +333,19 @@ public class OptionBuilder {
     }
 
     /**
-     * Create an Option using the current settings and with 
+     * Create an Option using the current settings and with
      * the specified Option <code>char</code>.
      *
-     * @param opt the <code>java.lang.String</code> representation 
+     * @param opt the <code>java.lang.String</code> representation
      * of the Option
      * @return the Option instance
      * @throws IllegalArgumentException if <code>opt</code> is not
      * a valid character.  See Option.
      */
-    public static Option create(String opt)
-                         throws IllegalArgumentException
+    public static Option create(String opt) throws IllegalArgumentException
     {
         // create the option
         Option option = new Option(opt, description);
-
 
         // set the option properties
         option.setLongOpt(longopt);

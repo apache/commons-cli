@@ -21,32 +21,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class GnuParser provides an implementation of the 
- * {@link Parser#flatten(Options,String[],boolean) flatten} method.
+ * The class GnuParser provides an implementation of the
+ * {@link Parser#flatten(Options, String[], boolean) flatten} method.
  *
  * @author John Keyes (john at integralsource.com)
- * @see Parser
- * @version $Revision$
+ * @version $Revision$, $Date$
  */
-public class GnuParser extends Parser {
-
+public class GnuParser extends Parser
+{
     /**
-     * <p>This flatten method does so using the following rules:
+     * This flatten method does so using the following rules:
      * <ol>
-     *  <li>If an {@link Option} exists for the first character of 
-     *  the <code>arguments</code> entry <b>AND</b> an {@link Option} 
-     *  does not exist for the whole <code>argument</code> then
-     *  add the first character as an option to the processed tokens
-     *  list e.g. "-D" and add the rest of the entry to the also.</li>
-     *  <li>Otherwise just add the token to the processed tokens list.
-     *  </li>
+     *   <li>If an {@link Option} exists for the first character of
+     *   the <code>arguments</code> entry <b>AND</b> an {@link Option}
+     *   does not exist for the whole <code>argument</code> then
+     *   add the first character as an option to the processed tokens
+     *   list e.g. "-D" and add the rest of the entry to the also.</li>
+     *   <li>Otherwise just add the token to the processed tokens list.</li>
      * </ol>
-     * </p>
      *
-     * @param options The Options to parse the arguments by.
-     * @param arguments The arguments that have to be flattened.
-     * @param stopAtNonOption specifies whether to stop 
-     * flattening when a non option has been encountered
+     * @param options         The Options to parse the arguments by.
+     * @param arguments       The arguments that have to be flattened.
+     * @param stopAtNonOption specifies whether to stop flattening when
+     *                        a non option has been encountered
      * @return a String array of the flattened arguments
      */
     protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption)

@@ -14,19 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
-import java.util.Properties;
-
 /**
- * A class that implements the <code>CommandLineParser</code> interface 
+ * A class that implements the <code>CommandLineParser</code> interface
  * can parse a String array according to the {@link Options} specified
  * and return a {@link CommandLine}.
  *
  * @author John Keyes (john at integralsource.com)
+ * @version $Revision$, $Date$
  */
-public interface CommandLineParser {
-
+public interface CommandLineParser
+{
     /**
      * Parse the arguments according to the specified options.
      *
@@ -37,8 +37,7 @@ public interface CommandLineParser {
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    CommandLine parse(Options options, String[] arguments)
-               throws ParseException;
+    CommandLine parse(Options options, String[] arguments) throws ParseException;
 
     /**
      * Parse the arguments according to the specified options and
@@ -52,11 +51,10 @@ public interface CommandLineParser {
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    /* To maintain binary compatibility, this is commented out. 
-       It is still in the abstract Parser class, so most users will 
-       still reap the benefit. 
-    CommandLine parse(Options options, String[] arguments, 
-                      Properties properties)
+    /* To maintain binary compatibility, this is commented out.
+       It is still in the abstract Parser class, so most users will
+       still reap the benefit.
+    CommandLine parse(Options options, String[] arguments, Properties properties)
                throws ParseException;
      */
 
@@ -72,9 +70,7 @@ public interface CommandLineParser {
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    CommandLine parse(Options options, String[] arguments, 
-                      boolean stopAtNonOption)
-               throws ParseException;
+    CommandLine parse(Options options, String[] arguments, boolean stopAtNonOption) throws ParseException;
 
     /**
      * Parse the arguments according to the specified options and
@@ -89,11 +85,10 @@ public interface CommandLineParser {
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    /* To maintain binary compatibility, this is commented out. 
-       It is still in the abstract Parser class, so most users will 
-       still reap the benefit. 
-    CommandLine parse(Options options, String[] arguments, 
-                      Properties properties, boolean stopAtNonOption)
-               throws ParseException;
+    /* To maintain binary compatibility, this is commented out.
+       It is still in the abstract Parser class, so most users will
+       still reap the benefit.
+    CommandLine parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption)
+            throws ParseException;
      */
 }

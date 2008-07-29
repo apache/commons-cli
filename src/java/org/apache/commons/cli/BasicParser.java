@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 /**
@@ -21,13 +22,13 @@ package org.apache.commons.cli;
  * the {@link Parser#flatten(Options,String[],boolean) flatten} method.
  *
  * @author John Keyes (john at integralsource.com)
- * @see Parser
+ * @version $Revision$, $Date$
  */
-public class BasicParser extends Parser {
-
+public class BasicParser extends Parser
+{
     /**
      * <p>A simple implementation of {@link Parser}'s abstract
-     * {@link Parser#flatten(Options,String[],boolean) flatten} method.</p>
+     * {@link Parser#flatten(Options, String[], boolean) flatten} method.</p>
      *
      * <p><b>Note:</b> <code>options</code> and <code>stopAtNonOption</code>
      * are not used in this <code>flatten</code> method.</p>
@@ -38,8 +39,7 @@ public class BasicParser extends Parser {
      * when an non option is found.
      * @return The <code>arguments</code> String array.
      */
-    protected String[] flatten(Options options, String[] arguments, 
-                               boolean stopAtNonOption)
+    protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption)
     {
         // just echo the arguments
         return arguments;

@@ -21,14 +21,16 @@ package org.apache.commons.cli;
  * Validates an Option string.
  *
  * @author John Keyes ( john at integralsource.com )
+ * @version $Revision$, $Date$
  * @since 1.1
  */
-class OptionValidator {
-
+class OptionValidator
+{
     /**
-     * <p>Validates whether <code>opt</code> is a permissable Option
+     * Validates whether <code>opt</code> is a permissable Option
      * shortOpt.  The rules that specify if the <code>opt</code>
-     * is valid are:</p>
+     * is valid are:
+     *
      * <ul>
      *  <li><code>opt</code> is not NULL</li>
      *  <li>a single character <code>opt</code> that is either
@@ -75,19 +77,19 @@ class OptionValidator {
     }
 
     /**
-     * <p>Returns whether the specified character is a valid Option.</p>
+     * Returns whether the specified character is a valid Option.
      *
      * @param c the option to validate
-     * @return true if <code>c</code> is a letter, ' ', '?' or '@', 
-     * otherwise false.
+     * @return true if <code>c</code> is a letter, ' ', '?' or '@',
+     *         otherwise false.
      */
     private static boolean isValidOpt(char c)
     {
-        return (isValidChar(c) || (c == ' ') || (c == '?') || c == '@');
+        return isValidChar(c) || c == ' ' || c == '?' || c == '@';
     }
 
     /**
-     * <p>Returns whether the specified character is a valid character.</p>
+     * Returns whether the specified character is a valid character.
      *
      * @param c the character to validate
      * @return true if <code>c</code> is a letter.

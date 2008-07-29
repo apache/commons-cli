@@ -22,16 +22,18 @@ import junit.framework.TestCase;
 /**
  * @author brianegge
  */
-public class UtilTest extends TestCase {
-
-    public void testStripLeadingHyphens() {
+public class UtilTest extends TestCase
+{
+    public void testStripLeadingHyphens()
+    {
         assertEquals("f", Util.stripLeadingHyphens("-f"));
         assertEquals("foo", Util.stripLeadingHyphens("--foo"));
         assertEquals("-foo", Util.stripLeadingHyphens("---foo"));
         assertNull(Util.stripLeadingHyphens(null));
     }
 
-    public void testStripLeadingAndTrailingQuotes() {
+    public void testStripLeadingAndTrailingQuotes()
+    {
         assertEquals("foo", Util.stripLeadingAndTrailingQuotes("\"foo\""));
     }
 }

@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import java.io.Serializable;
@@ -24,9 +25,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
-/** 
- * <p>Represents list of arguments parsed against
- * a {@link Options} descriptor.<p>
+/**
+ * Represents list of arguments parsed against a {@link Options} descriptor.
  *
  * <p>It allows querying of a boolean {@link #hasOption(String opt)},
  * in addition to retrieving the {@link #getOptionValue(String opt)}
@@ -38,9 +38,10 @@ import java.util.Properties;
  * @author bob mcwhirter (bob @ werken.com)
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author John Keyes (john at integralsource.com)
+ * @version $Revision$, $Date$
  */
-public class CommandLine implements Serializable {
-
+public class CommandLine implements Serializable
+{
     private static final long serialVersionUID = 1L;
 
     /** the unrecognised options/arguments */
@@ -48,9 +49,6 @@ public class CommandLine implements Serializable {
 
     /** the processed options */
     private List options = new ArrayList();
-
-    /** Map of unique options for ease to get complete list of options */
-//    private Set allOptions = new HashSet();
 
     /**
      * Creates a command line.
@@ -68,7 +66,7 @@ public class CommandLine implements Serializable {
      */
     public boolean hasOption(String opt)
     {
-        return options.contains( resolveOption(opt));
+        return options.contains(resolveOption(opt));
     }
 
     /** 
@@ -151,10 +149,10 @@ public class CommandLine implements Serializable {
     {
         List values = new ArrayList();
 
-        for ( Iterator it = options.iterator(); it.hasNext(); )
+        for (Iterator it = options.iterator(); it.hasNext();)
         {
             Option option = (Option) it.next();
-            if (opt.equals(option.getOpt()) || opt.equals( option.getLongOpt()))
+            if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt()))
             {
                 values.addAll(option.getValuesList());
             }
@@ -164,24 +162,26 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * <p>Retrieves the option object given the long or short option as a String</p>
+     * Retrieves the option object given the long or short option as a String
+     * 
      * @param opt short or long name of the option
      * @return Canonicalized option
      */
-    private Option resolveOption( String opt )
+    private Option resolveOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
-        for ( Iterator it = options.iterator(); it.hasNext(); )
+        for (Iterator it = options.iterator(); it.hasNext();)
         {
             Option option = (Option) it.next();
             if (opt.equals(option.getOpt()))
             {
                 return option;
             }
-            if (opt.equals( option.getLongOpt()))
+
+            if (opt.equals(option.getLongOpt()))
             {
                 return option;
-        }
+            }
 
         }
         return null;
@@ -203,7 +203,7 @@ public class CommandLine implements Serializable {
      * Retrieve the argument, if any, of an option.
      *
      * @param opt name of the option
-     * @param defaultValue is the default value to be returned if the option 
+     * @param defaultValue is the default value to be returned if the option
      * is not specified
      * @return Value of the argument if option is set, and has an argument,
      * otherwise <code>defaultValue</code>.
@@ -219,7 +219,7 @@ public class CommandLine implements Serializable {
      * Retrieve the argument, if any, of an option.
      *
      * @param opt character name of the option
-     * @param defaultValue is the default value to be returned if the option 
+     * @param defaultValue is the default value to be returned if the option
      * is not specified
      * @return Value of the argument if option is set, and has an argument,
      * otherwise <code>defaultValue</code>.
@@ -262,7 +262,7 @@ public class CommandLine implements Serializable {
                 {
                     // no explicit value, handle it as a boolean
                     props.put(values.get(0), "true");
-                }                
+                }
             }
         }
 
@@ -326,8 +326,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Add an option to the command line.  The values of 
-     * the option are stored.
+     * Add an option to the command line.  The values of the option are stored.
      *
      * @param opt the processed option
      */
@@ -339,7 +338,7 @@ public class CommandLine implements Serializable {
     /**
      * Returns an iterator over the Option members of CommandLine.
      *
-     * @return an <code>Iterator</code> over the processed {@link Option} 
+     * @return an <code>Iterator</code> over the processed {@link Option}
      * members of this {@link CommandLine}
      */
     public Iterator iterator()

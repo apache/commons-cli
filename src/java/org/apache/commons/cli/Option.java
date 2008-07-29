@@ -14,10 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /** <p>Describes a single command-line option.  It maintains
  * information regarding the short-name of the option, the long-name,
@@ -32,48 +34,44 @@ import java.util.ArrayList;
  *
  * @author bob mcwhirter (bob @ werken.com)
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
+ * @version $Revision$, $Date$
  */
-public class Option implements Cloneable, Serializable {
-
+public class Option implements Cloneable, Serializable
+{
     private static final long serialVersionUID = 1L;
 
-    /** constant that specifies the number of argument values has 
-        not been specified */
+    /** constant that specifies the number of argument values has not been specified */
     public static final int UNINITIALIZED = -1;
 
     /** constant that specifies the number of argument values is infinite */
     public static final int UNLIMITED_VALUES = -2;
 
-    /** opt the name of the option */
+    /** the name of the option */
     private String opt;
 
-    /** longOpt is the long representation of the option */
+    /** the long representation of the option */
     private String longOpt;
 
-    /** argName specifies the name of the argument for this option */
+    /** the name of the argument for this option */
     private String argName = "arg";
 
     /** description of the option */
     private String description;
 
-    /** required specifies whether this option is required to be present */
+    /** specifies whether this option is required to be present */
     private boolean required;
 
     /** specifies whether the argument value of this Option is optional */
     private boolean optionalArg;
 
-    /** 
-     * numberOfArgs specifies the number of argument values this option 
-     * can have 
-     */
+    /** the number of argument values this option can have */
     private int numberOfArgs = UNINITIALIZED;
 
     /** the type of this Option */
     private Object type;
 
     /** the list of argument values **/
-    private ArrayList values = new ArrayList();
+    private List values = new ArrayList();
 
     /** the character that is the value separator */
     private char valuesep;
@@ -87,8 +85,7 @@ public class Option implements Cloneable, Serializable {
      * @throws IllegalArgumentException if there are any non valid
      * Option characters in <code>opt</code>.
      */
-    public Option(String opt, String description)
-           throws IllegalArgumentException
+    public Option(String opt, String description) throws IllegalArgumentException
     {
         this(opt, null, false, description);
     }
@@ -103,8 +100,7 @@ public class Option implements Cloneable, Serializable {
      * @throws IllegalArgumentException if there are any non valid
      * Option characters in <code>opt</code>.
      */
-    public Option(String opt, boolean hasArg, String description)
-           throws IllegalArgumentException
+    public Option(String opt, boolean hasArg, String description) throws IllegalArgumentException
     {
         this(opt, null, hasArg, description);
     }
@@ -120,8 +116,7 @@ public class Option implements Cloneable, Serializable {
      * @throws IllegalArgumentException if there are any non valid
      * Option characters in <code>opt</code>.
      */
-    public Option(String opt, String longOpt, boolean hasArg,
-                  String description)
+    public Option(String opt, String longOpt, boolean hasArg, String description)
            throws IllegalArgumentException
     {
         // ensure that the option is valid
@@ -161,10 +156,10 @@ public class Option implements Cloneable, Serializable {
         // if 'opt' is null, then it is a 'long' option
         if (opt == null)
         {
-            return this.longOpt;
+            return longOpt;
         }
 
-        return this.opt;
+        return opt;
     }
 
     /** 
@@ -179,7 +174,7 @@ public class Option implements Cloneable, Serializable {
      */
     public String getOpt()
     {
-        return this.opt;
+        return opt;
     }
 
     /**
@@ -189,7 +184,7 @@ public class Option implements Cloneable, Serializable {
      */
     public Object getType()
     {
-        return this.type;
+        return type;
     }
 
     /**
@@ -209,7 +204,7 @@ public class Option implements Cloneable, Serializable {
      */
     public String getLongOpt()
     {
-        return this.longOpt;
+        return longOpt;
     }
 
     /**
@@ -238,7 +233,7 @@ public class Option implements Cloneable, Serializable {
      */
     public boolean hasOptionalArg()
     {
-        return this.optionalArg;
+        return optionalArg;
     }
 
     /** 
@@ -248,7 +243,7 @@ public class Option implements Cloneable, Serializable {
      */
     public boolean hasLongOpt()
     {
-        return (this.longOpt != null);
+        return longOpt != null;
     }
 
     /** 
@@ -258,7 +253,7 @@ public class Option implements Cloneable, Serializable {
      */
     public boolean hasArg()
     {
-        return (this.numberOfArgs > 0) || (numberOfArgs == UNLIMITED_VALUES);
+        return numberOfArgs > 0 || numberOfArgs == UNLIMITED_VALUES;
     }
 
     /** 
@@ -268,7 +263,7 @@ public class Option implements Cloneable, Serializable {
      */
     public String getDescription()
     {
-        return this.description;
+        return description;
     }
 
     /**
@@ -289,7 +284,7 @@ public class Option implements Cloneable, Serializable {
      */
     public boolean isRequired()
     {
-        return this.required;
+        return required;
     }
 
     /**
@@ -319,7 +314,7 @@ public class Option implements Cloneable, Serializable {
      */
     public String getArgName()
     {
-        return this.argName;
+        return argName;
     }
 
     /**
@@ -331,7 +326,7 @@ public class Option implements Cloneable, Serializable {
      */
     public boolean hasArgName()
     {
-        return (this.argName != null && this.argName.length() > 0);
+        return argName != null && argName.length() > 0;
     }
 
     /** 
@@ -341,8 +336,7 @@ public class Option implements Cloneable, Serializable {
      */
     public boolean hasArgs()
     {
-        return (this.numberOfArgs > 1)
-                || (this.numberOfArgs == UNLIMITED_VALUES);
+        return numberOfArgs > 1 || numberOfArgs == UNLIMITED_VALUES;
     }
 
     /** 
@@ -373,7 +367,7 @@ public class Option implements Cloneable, Serializable {
      */
     public char getValueSeparator()
     {
-        return this.valuesep;
+        return valuesep;
     }
 
     /**
@@ -384,7 +378,7 @@ public class Option implements Cloneable, Serializable {
      */
     public boolean hasValueSeparator()
     {
-        return (this.valuesep > 0);
+        return valuesep > 0;
     }
 
     /** 
@@ -394,7 +388,7 @@ public class Option implements Cloneable, Serializable {
      */
     public int getArgs()
     {
-        return this.numberOfArgs;
+        return numberOfArgs;
     }
 
     /**
@@ -406,11 +400,11 @@ public class Option implements Cloneable, Serializable {
     {
         switch (numberOfArgs)
         {
-        case UNINITIALIZED:
-            throw new RuntimeException("NO_ARGS_ALLOWED");
+            case UNINITIALIZED:
+                throw new RuntimeException("NO_ARGS_ALLOWED");
 
-        default:
-            processValue(value);
+            default:
+                processValue(value);
         }
     }
 
@@ -445,20 +439,16 @@ public class Option implements Cloneable, Serializable {
                     break;
                 }
 
-
                 // store
                 add(value.substring(0, index));
 
-
                 // parse
                 value = value.substring(index + 1);
-
 
                 // get new index
                 index = value.indexOf(sep);
             }
         }
-
 
         // store the actual value or the last value that has been parsed
         add(value);
@@ -480,9 +470,8 @@ public class Option implements Cloneable, Serializable {
             throw new RuntimeException("Cannot add value, list full.");
         }
 
-
         // store value
-        this.values.add(value);
+        values.add(value);
     }
 
     /**
@@ -494,7 +483,7 @@ public class Option implements Cloneable, Serializable {
      */
     public String getValue()
     {
-        return hasNoValues() ? null : (String) this.values.get(0);
+        return hasNoValues() ? null : (String) values.get(0);
     }
 
     /**
@@ -509,10 +498,9 @@ public class Option implements Cloneable, Serializable {
      * @throws IndexOutOfBoundsException if index is less than 1
      * or greater than the number of the values for this Option.
      */
-    public String getValue(int index)
-        throws IndexOutOfBoundsException
+    public String getValue(int index) throws IndexOutOfBoundsException
     {
-        return hasNoValues() ? null : (String) this.values.get(index);
+        return hasNoValues() ? null : (String) values.get(index);
     }
 
     /**
@@ -541,17 +529,16 @@ public class Option implements Cloneable, Serializable {
      */
     public String[] getValues()
     {
-        return hasNoValues()
-               ? null : (String[]) this.values.toArray(new String[this.values.size()]);
+        return hasNoValues() ? null : (String[]) values.toArray(new String[values.size()]);
     }
 
     /**
      * @return the values of this Option as a List
      * or null if there are no values
      */
-    public java.util.List getValuesList()
+    public List getValuesList()
     {
-        return this.values;
+        return values;
     }
 
     /** 
@@ -563,11 +550,11 @@ public class Option implements Cloneable, Serializable {
     {
         StringBuffer buf = new StringBuffer().append("[ option: ");
 
-        buf.append(this.opt);
+        buf.append(opt);
 
-        if (this.longOpt != null)
+        if (longOpt != null)
         {
-            buf.append(" ").append(this.longOpt);
+            buf.append(" ").append(longOpt);
         }
 
         buf.append(" ");
@@ -575,15 +562,17 @@ public class Option implements Cloneable, Serializable {
         if (hasArgs())
         {
             buf.append("[ARG...]");
-        } else if (hasArg()) {
+        }
+        else if (hasArg())
+        {
             buf.append(" [ARG]");
         }
 
-        buf.append(" :: ").append(this.description);
+        buf.append(" :: ").append(description);
 
-        if (this.type != null)
+        if (type != null)
         {
-            buf.append(" :: ").append(this.type);
+            buf.append(" :: ").append(type);
         }
 
         buf.append(" ]");
@@ -598,16 +587,16 @@ public class Option implements Cloneable, Serializable {
      */
     private boolean hasNoValues()
     {
-        return this.values.size() == 0;
+        return values.isEmpty();
     }
 
-    public boolean equals( Object o )
+    public boolean equals(Object o)
     {
-        if ( this == o )
+        if (this == o)
         {
             return true;
         }
-        if ( o == null || getClass() != o.getClass() )
+        if (o == null || getClass() != o.getClass())
         {
             return false;
         }
@@ -615,11 +604,11 @@ public class Option implements Cloneable, Serializable {
         Option option = (Option) o;
 
 
-        if ( opt != null ? !opt.equals( option.opt ) : option.opt != null )
+        if (opt != null ? !opt.equals(option.opt) : option.opt != null)
         {
             return false;
         }
-        if ( longOpt != null ? !longOpt.equals( option.longOpt ) : option.longOpt != null )
+        if (longOpt != null ? !longOpt.equals(option.longOpt) : option.longOpt != null)
         {
             return false;
         }
@@ -630,8 +619,8 @@ public class Option implements Cloneable, Serializable {
     public int hashCode()
     {
         int result;
-        result = ( opt != null ? opt.hashCode() : 0 );
-        result = 31 * result + ( longOpt != null ? longOpt.hashCode() : 0 );
+        result = (opt != null ? opt.hashCode() : 0);
+        result = 31 * result + (longOpt != null ? longOpt.hashCode() : 0);
         return result;
     }
 
@@ -645,25 +634,29 @@ public class Option implements Cloneable, Serializable {
      *
      * @throws RuntimeException
      */
-    public Object clone() {
-        try {
+    public Object clone()
+    {
+        try
+        {
             Option option = (Option) super.clone();
             option.values = new ArrayList(values);
             return option;
-        } catch(CloneNotSupportedException cnse) {
+        }
+        catch (CloneNotSupportedException cnse)
+        {
             throw new RuntimeException("A CloneNotSupportedException was thrown: " + cnse.getMessage());
         }
     }
 
     /**
-     * <p>Clear the Option values. After a 
-     * parse is complete, these are left with data in them 
-     * and they need clearing if another parse is done. </p>
+     * Clear the Option values. After a parse is complete, these are left with
+     * data in them and they need clearing if another parse is done.
      *
      * See: <a href="https://issues.apache.org/jira/browse/CLI-71">CLI-71</a>
      */
-    void clearValues() {
-        this.values.clear();
+    void clearValues()
+    {
+        values.clear();
     }
 
     /**
@@ -672,11 +665,10 @@ public class Option implements Cloneable, Serializable {
      * @deprecated
      * @throws UnsupportedOperationException
      */
-    public boolean addValue(String value) {
-        throw new UnsupportedOperationException(
-           "The addValue method is not intended for client use. " + 
-           "Subclasses should use the addValueForProcessing method instead. "
-           );
+    public boolean addValue(String value)
+    {
+        throw new UnsupportedOperationException("The addValue method is not intended for client use. "
+                + "Subclasses should use the addValueForProcessing method instead. ");
     }
 
 }

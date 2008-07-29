@@ -27,7 +27,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/** <p>Main entry-point into the library.</p>
+/**
+ * <p>Main entry-point into the library.</p>
  *
  * <p>Options represents a collection of {@link Option} objects, which
  * describe the possible options for a command-line.<p>
@@ -40,12 +41,12 @@ import java.util.Map;
  *
  * @author bob mcwhirter (bob @ werken.com)
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
+ * @version $Revision$, $Date$
  */
-public class Options implements Serializable {
-
+public class Options implements Serializable
+{
     private static final long serialVersionUID = 1L;
-    
+
     /** a map of the options with the character key */
     private Map shortOpts = new HashMap();
 
@@ -57,13 +58,6 @@ public class Options implements Serializable {
 
     /** a map of the option groups */
     private Map optionGroups = new HashMap();
-
-    /** Construct a new Options descriptor
-     */
-    public Options()
-    {
-        // nothing to do
-    }
 
     /**
      * Add the specified option group.
@@ -84,7 +78,6 @@ public class Options implements Serializable {
         {
             Option option = (Option) options.next();
 
-
             // an Option cannot be required if it is in an
             // OptionGroup, either the group is required or
             // nothing is required
@@ -96,10 +89,10 @@ public class Options implements Serializable {
 
         return this;
     }
-    
+
     /**
      * Lists the OptionGroups that are members of this Options instance.
-     * 
+     *
      * @return a Collection of OptionGroup instances.
      */
     Collection getOptionGroups()
@@ -107,7 +100,7 @@ public class Options implements Serializable {
         return new HashSet(optionGroups.values());
     }
 
-    /** 
+    /**
      * Add an option that only contains a short-name.
      * It may be specified as requiring an argument.
      *
@@ -123,7 +116,7 @@ public class Options implements Serializable {
         return this;
     }
 
-    /** 
+    /**
      * Add an option that contains a short-name and a long-name.
      * It may be specified as requiring an argument.
      *
@@ -133,8 +126,7 @@ public class Options implements Serializable {
      * @param description Self-documenting description
      * @return the resulting Options instance
      */
-    public Options addOption(String opt, String longOpt, boolean hasArg, 
-                             String description)
+    public Options addOption(String opt, String longOpt, boolean hasArg, String description)
     {
         addOption(new Option(opt, longOpt, hasArg, description));
 
@@ -144,7 +136,7 @@ public class Options implements Serializable {
     /**
      * Adds an option instance
      *
-     * @param opt the option that is to be added 
+     * @param opt the option that is to be added
      * @return the resulting Options instance
      */
     public Options addOption(Option opt)
@@ -158,10 +150,11 @@ public class Options implements Serializable {
         }
 
         // if the option is required add it to the required list
-        if (opt.isRequired() ) 
+        if (opt.isRequired())
         {
-            if( requiredOpts.contains(key) ) {
-                requiredOpts.remove( requiredOpts.indexOf(key) );
+            if (requiredOpts.contains(key))
+            {
+                requiredOpts.remove(requiredOpts.indexOf(key));
             }
             requiredOpts.add(key);
         }
@@ -171,7 +164,7 @@ public class Options implements Serializable {
         return this;
     }
 
-    /** 
+    /**
      * Retrieve a read-only list of options in this set
      *
      * @return read-only Collection of {@link Option} objects in this descriptor
@@ -191,7 +184,7 @@ public class Options implements Serializable {
         return new ArrayList(shortOpts.values());
     }
 
-    /** 
+    /**
      * Returns the required options.
      *
      * @return List of required options
@@ -201,7 +194,7 @@ public class Options implements Serializable {
         return requiredOpts;
     }
 
-    /** 
+    /**
      * Retrieve the {@link Option} matching the long or short name specified.
      * The leading hyphens in the name are ignored (up to 2).
      *
@@ -220,9 +213,8 @@ public class Options implements Serializable {
         return (Option) longOpts.get(opt);
     }
 
-    /** 
-     * Returns whether the named {@link Option} is a member
-     * of this {@link Options}.
+    /**
+     * Returns whether the named {@link Option} is a member of this {@link Options}.
      *
      * @param opt short or long name of the {@link Option}
      * @return true if the named {@link Option} is a member
@@ -235,9 +227,8 @@ public class Options implements Serializable {
         return shortOpts.containsKey(opt) || longOpts.containsKey(opt);
     }
 
-    /** 
-     * Returns the OptionGroup the <code>opt</code>
-     * belongs to.
+    /**
+     * Returns the OptionGroup the <code>opt</code> belongs to.
      * @param opt the option whose OptionGroup is being queried.
      *
      * @return the OptionGroup if <code>opt</code> is part
@@ -248,7 +239,7 @@ public class Options implements Serializable {
         return (OptionGroup) optionGroups.get(opt.getKey());
     }
 
-    /** 
+    /**
      * Dump state, suitable for debugging.
      *
      * @return Stringified form of this object
