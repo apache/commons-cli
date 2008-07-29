@@ -1,61 +1,73 @@
 $Id$
 
             Commons CLI Package
-                Version 1.1
+                Version 1.2
                Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for this version of the Commons CLI package. Commons CLI provides a simple API for working with the command line arguments and options.
+This document contains the release notes for this version of the Commons CLI
+package. Commons CLI provides a simple API for working with the command line
+arguments and options.
 
-CLI 1.1 is a bugfix release of CLI. The following changes notable API changes were made: 
+Commons CLI 1.2 is a bugfix release. The following notable changes were made:
 
- * The Parser abstract class has two additional parse methods that take a Properties parameter. 
- * The HelpFormatter class had publicly accessible fields. These should now be accessed via get/set methods and the public fields are deprecated. 
- * The Option class addValue(String) method now throws UnsupportedOperationException. 
- * OptionValidator is a newly added class. 
- * Option's now have equals(Object) and hashCode() methods. 
- * The Option class also received two new methods, setDescription(String) and hasValueSeparator();boolean. 
+ * A major regression introduced in CLI 1.1 that prevented the usage of repeated options has been fixed.
+ * Several parser issues have been fixed, especially with the PosixParser.
+ * HelpFormatter now wraps the lines properly
+ * The ordering of the option in the help message can now be defined.
+ * Various API enhancements (improved exceptions, serializable classes)
 
-The jar should be API backwards compatible, though if you were calling addValue(String) then you won't be happy. Please let us know your use case if that is so. 
+Commons CLI 1.2 is binary compatible with the previous versions, except for
+the OptionValidator class that is no longer public.
 
-For more information, read the documentation on the project site at http://commons.apache.org/cli/
+More information can be found on the project site at http://commons.apache.org/cli
+
 
 NEW FEATURES:
 
-  CLI-78 - Setting description of a Option. 
+  * The method getOptionProperties() in the CommandLine class was added
+    to retrieve easily the key/value pairs specified with options like
+    -Dkey1=value1 -Dkey2=value2.
+
+  * GnuParser now supports long options with an '=' sign
+    (ie. --foo=bar and -foo=bar) (CLI-157)
+
+  * The ordering of options can be defined in help messages. (CLI-155)
+
 
 BUG FIXES:
 
-DEPRECATIONS:
+  * The number of arguments defined for an option specifies the arguments
+    per occurence of the option and not for all occurences. (CLI-137)
 
-CHANGES: 
+  * PosixParser no longer ignores unrecognized short options. (CLI-164)
 
-  CLI-2   - Wrong usage summary. 
-  CLI-5   - Dependecy on commons-lang-2.0 but commons-lang-1.0 is obtained. 
-  CLI-8   - Line separator as first char for helpformatter (footer) throws exception. 
-  CLI-13  - CommandLine.getOptionValue() behaves contrary to docs. 
-  CLI-21  - clone method in Option should use super.clone(). 
-  CLI-23  - Passing properties in Parser does not work for options with a single argument. 
-  CLI-26  - Only long options without short option seems to be noticed. 
-  CLI-28  - Infinite Loop in Command-Line processing. 
-  CLI-29  - Options should not be able to be added more than once. 
-  CLI-35  - HelpFormatter doesn't sort options properly. 
-  CLI-38  - HelpFormatter doesn't function correctly for options with only LongOpt. 
-  CLI-44  - Document enhancement. 
-  CLI-45  - Documentation errors. 
-  CLI-51  - Parameter value "-something" misinterpreted as a parameter. 
-  CLI-56  - clone() method doesn't fully clone contents. 
-  CLI-59  - No Javadoc for HelpFormatter!. 
-  CLI-65  - Parser breaks up command line parms into single characters. 
-  CLI-67  - Missing arguments in HelpFormatter.renderOptions(..). 
-  CLI-69  - Error parsing option arguments. 
-  CLI-71  - A weakness of parser. 
-  CLI-129 - CLI_1_BRANCH build.xml doesn't work. 
-  CLI-130 - Remove the Commons Lang dependency. 
-  CLI-131 - Options class returns options in random order. 
-  CLI-132 - MissingOptionException should contain a useful error message. 
-  CLI-133 - NullPointerException in Util.stripLeadingHyphens when passed a null argument. 
-  CLI-134 - 1.1 is not backwards compatible because it adds methods to the CommandLineParser interface. 
-  CLI-135 - Backwards compatibility between 1.1 and 1.0 broken due to Option.addValue removal. 
+  * PosixParser no longer stops the bursting process of a token if stopAtNonOption
+    is enabled and a non option character is encountered. (CLI-163)
+
+  * PosixParser no longer keeps processing the tokens after an unrecognized
+    long option when stopAtNonOption is enabled. (CLI-165)
+
+  * Required options are properly checked if an Options instance is used twice
+    to parse a command line. (CLI-156)
+
+  * The line wrapping in HelpFormatter now works properly. (CLI-151)
+
+
+CHANGES:
+
+  * The message of MissingOptionException has been improved. (CLI-149)
+
+  * The exceptions have been enhanced with methods to retrieve easily
+    the related options. (CLI-86)
+
+  * Option.toString() now reports arguments properly. (CLI-141)
+
+  * The Parser class has been changed to be more easily extendable. (CLI-142)
+
+  * The following classes are now serializable: Option, OptionGroup,
+    CommandLine and Options. (CLI-140)
+
+  * OptionValidator is no longer public, its methods were all private.
