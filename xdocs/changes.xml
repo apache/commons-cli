@@ -23,6 +23,28 @@
   <body>
 
     <release version="1.2" date="in SVN" description="This is a maintenance release containing bug fixes.">
+      <action type="fix" dev="ebourg" issue="CLI-137">
+        The number of arguments defined for an option specifies the arguments per occurence of the option
+        and not for all occurences. This was a major regression in CLI 1.1 which prevented the use of repeated options.
+      </action>
+      <action type="add" dev="ebourg">
+        Added a getOptionProperties() method in the CommandLine class to retrieve easily the key/value pairs
+        specified with options like -Dkey1=value1 -Dkey2=value2.
+      </action>
+      <action type="update" dev="ebourg" issue="CLI-157">
+        GnuParser now supports long options with an '=' sign (ie. --foo=bar and -foo=bar)
+      </action>
+      <action type="fix" dev="ebourg" issue="CLI-164">
+        PosixParser no longer ignores unrecognized short options.
+      </action>
+      <action type="fix" dev="ebourg" issue="CLI-163">
+        PosixParser no longer stops the bursting process of a token if stopAtNonOption is enabled and a non option
+        character is encountered.
+      </action>
+      <action type="fix" dev="ebourg" issue="CLI-165">
+        PosixParser no longer keeps processing the tokens after an unrecognized long option
+        when stopAtNonOption is enabled.
+      </action>
       <action type="fix" dev="ebourg" issue="CLI-156">
         Required options are properly checked if an Options instance is used twice to parse a command line.
       </action>
@@ -35,14 +57,20 @@
       <action type="fix" dev="bayard" issue="CLI-149">
         The message of MissingOptionException has been improved.
       </action>
+      <action type="update" dev="ebourg" issue="CLI-86">
+        The exceptions have been enhanced with methods to retrieve easily the related options.
+      </action>
       <action type="fix" dev="bayard" issue="CLI-141" due-to="Henning Schmiedehausen, Bjorn Townsend">
-        Option.toString() now reports arguments properly. 
+        Option.toString() now reports arguments properly.
       </action>
       <action type="update" dev="bayard" issue="CLI-142" due-to="Henning Schmiedehausen">
         The Parser class has been changed to be more easily extendable.
       </action>
       <action type="update" dev="bayard" issue="CLI-140">
         The following classes are now serializable: Option, OptionGroup, CommandLine and Options.
+      </action>
+      <action type="remove" dev="ebourg">
+        OptionValidator is no longer public, its methods were all private.
       </action>
     </release>
 
