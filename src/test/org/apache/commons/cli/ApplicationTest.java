@@ -45,8 +45,8 @@ public class ApplicationTest extends TestCase {
         options.addOption( "b", "escape", false, "print octal escapes for nongraphic characters" );
         options.addOption( OptionBuilder.withLongOpt( "block-size" )
                                         .withDescription( "use SIZE-byte blocks" )
-                                        .withValueSeparator( '=' )
                                         .hasArg()
+                                        .withArgName("SIZE")
                                         .create() );
         options.addOption( "B", "ignore-backups", false, "do not list implied entried ending with ~");
         options.addOption( "c", false, "with -lt: sort by, and show, ctime (time of last modification of file status information) with -l:show ctime and sort by name otherwise: sort by ctime" );
