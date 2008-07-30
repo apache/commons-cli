@@ -136,7 +136,7 @@ public class GroupImpl
             }
         }
 
-        if (commandLine.looksLikeOption(arg)) {
+        if (looksLikeOption(commandLine, arg)) {
             return false;
         }
 
@@ -188,7 +188,7 @@ public class GroupImpl
             else {
                 // it might be an anonymous argument continue search
                 // [START argument may be anonymous
-                if (commandLine.looksLikeOption(arg)) {
+                if (looksLikeOption(commandLine, arg)) {
                     // narrow the search
                     final Collection values = optionMap.tailMap(arg).values();
 
@@ -496,6 +496,26 @@ public class GroupImpl
         for (final Iterator i = anonymous.iterator(); i.hasNext();) {
             final Option option = (Option) i.next();
             option.defaults(commandLine);
+        }
+    }
+
+    /**
+     * Helper method for testing whether an element of the command line looks
+     * like an option. This method queries the command line, but sets the
+     * current option first.
+     *
+     * @param commandLine the command line
+     * @param trigger the trigger to be checked
+     * @return a flag whether this element looks like an option
+     */
+    private boolean looksLikeOption(final WriteableCommandLine commandLine,
+            final String trigger) {
+        Option oldOption = commandLine.getCurrentOption();
+        try {
+            commandLine.setCurrentOption(this);
+            return commandLine.looksLikeOption(trigger);
+        } finally {
+            commandLine.setCurrentOption(oldOption);
         }
     }
 }

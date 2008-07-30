@@ -48,6 +48,8 @@ public class WriteableCommandLineImpl
     private final Map defaultSwitches = new HashMap();
     private final List normalised;
     private final Set prefixes;
+    private Option currentOption;
+    private String checkForOption;
 
     /**
      * Creates a new WriteableCommandLineImpl rooted on the specified Option, to
@@ -60,6 +62,15 @@ public class WriteableCommandLineImpl
                                     final List arguments) {
         this.prefixes = rootOption.getPrefixes();
         this.normalised = arguments;
+        setCurrentOption(rootOption);
+    }
+
+    public Option getCurrentOption() {
+        return currentOption;
+    }
+
+    public void setCurrentOption(Option currentOption) {
+        this.currentOption = currentOption;
     }
 
     public void addOption(Option option) {
@@ -141,7 +152,7 @@ public class WriteableCommandLineImpl
                 }
             }
         }
-        
+
         return valueList == null ? Collections.EMPTY_LIST : valueList;
     }
 
@@ -216,16 +227,48 @@ public class WriteableCommandLineImpl
         return getProperties(new PropertyOption());
     }
 
-    public boolean looksLikeOption(final String trigger) {
-        for (final Iterator i = prefixes.iterator(); i.hasNext();) {
-            final String prefix = (String) i.next();
-
-            if (trigger.startsWith(prefix)) {
-                return true;
-            }
+    /**
+     * Tests whether the passed in trigger looks like an option. This
+     * implementation first checks whether the passed in string starts with a
+     * prefix that indicates an option. If this is the case, it is also checked
+     * whether an option of this name is known for the current option. (This can
+     * lead to reentrant invocations of this method, so care has to be taken
+     * about this.)
+     *
+     * @param trigger the command line element to test
+     * @return a flag whether this element seems to be an option
+     */
+    public boolean looksLikeOption(final String trigger)
+    {
+        if (checkForOption != null)
+        {
+            // this is a reentrant call
+            return !checkForOption.equals(trigger);
         }
 
-        return false;
+        checkForOption = trigger;
+        try
+        {
+            for (final Iterator i = prefixes.iterator(); i.hasNext();)
+            {
+                final String prefix = (String) i.next();
+
+                if (trigger.startsWith(prefix))
+                {
+                    if (getCurrentOption().canProcess(this, trigger)
+                            || getCurrentOption().findOption(trigger) != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+        finally
+        {
+            checkForOption = null;
+        }
     }
 
     public String toString() {

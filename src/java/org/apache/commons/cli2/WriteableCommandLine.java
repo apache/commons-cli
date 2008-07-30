@@ -93,4 +93,20 @@ public interface WriteableCommandLine extends CommandLine {
      * @return true if the argument looks like an Option trigger
      */
     boolean looksLikeOption(final String argument);
+
+    /**
+     * Returns the option that is currently processed.
+     *
+     * @return the current option
+     */
+    Option getCurrentOption();
+
+    /**
+     * Sets the current option. This method is called by concrete option
+     * implementations during command line processing. It enables the command
+     * line to keep track about the option that is currently processed.
+     *
+     * @param currentOption the new current option
+     */
+    void setCurrentOption(Option currentOption);
 }
