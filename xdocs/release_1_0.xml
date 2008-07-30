@@ -17,14 +17,14 @@ limitations under the License.
 -->
 <document>
  <properties>
-  <title>Release notes for 1.0</title>
+  <title>Release notes for CLI 1.0</title>
   <author email="dev@commons.apache.org">Commons Documentation Team</author>
  </properties>
 <body>
 
 <section name="Release notes">
 <p>
-These are the release notes for Commons-CLI version 1.0.
+These are the release notes for Commons CLI 1.0.
 <source>
 INTRODUCTION:
 

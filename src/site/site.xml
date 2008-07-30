@@ -15,7 +15,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project name="CLI">
+<project name="Commons CLI">
     <bannerRight>
         <name>Commons CLI</name>
         <src>/images/logo.png</src>
@@ -23,7 +23,7 @@
     </bannerRight>
 
     <body>
-        <menu name="CLI">
+        <menu name="Commons CLI">
             <item name="Overview"             href="/index.html"/>
             <item name="Download"             href="http://commons.apache.org/downloads/download_cli.cgi"/>
             <item name="Changes Report"       href="/changes-report.html"/>
@@ -32,15 +32,14 @@
             <item name="Source Repository"    href="/source-repository.html"/>
         </menu>
 
-        <menu name="CLI1 user guide">
+        <menu name="CLI 1 User Guide">
             <item name="Getting started"      href="/introduction.html"/>
             <item name="Usage scenarios"      href="/usage.html"/>
             <item name="Option properties"    href="/properties.html"/>
-            <item name="Upgrading to 1.1"     href="/upgrading-1.0-to-1.1.html"/>
-            <item name="Javadoc (1.1)"        href="api-release/index.html"/>
+            <item name="Javadoc (1.2)"        href="api-release/index.html"/>
         </menu>
 
-        <menu name="CLI2-dev user guide">
+        <menu name="CLI 2 User Guide (dev)">
             <item name="Overview"             href="/manual/index.html"/>
             <item name="Examples"             href="/examples/index.html"/>
             <item name="Options"              href="/manual/options.html"/>

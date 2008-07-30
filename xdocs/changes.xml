@@ -24,8 +24,8 @@
 
     <release version="1.2" date="in SVN" description="This is a maintenance release containing bug fixes.">
       <action type="fix" dev="ebourg" issue="CLI-137">
-        The number of arguments defined for an option specifies the arguments per occurence of the option
-        and not for all occurences. This was a major regression in CLI 1.1 which prevented the use of repeated options.
+        The number of arguments defined for an option specifies the arguments per occurrence of the option
+        and not for all occurrences. This was a major regression in CLI 1.1 which prevented the use of repeated options.
       </action>
       <action type="add" dev="ebourg">
         Added a getOptionProperties() method in the CommandLine class to retrieve easily the key/value pairs
