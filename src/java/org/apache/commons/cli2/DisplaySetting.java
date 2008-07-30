@@ -31,12 +31,12 @@ public class DisplaySetting {
     private static final Set all = new HashSet();
 
     /**
-     * A Set guarenteed to contain all possible DisplaySetting values
+     * A Set guaranteed to contain all possible DisplaySetting values
      */
     public static final Set ALL = Collections.unmodifiableSet(all);
 
     /**
-     * A Set guarenteed to contain no DisplaySetting values
+     * A Set guaranteed to contain no DisplaySetting values
      */
     public static final Set NONE = Collections.EMPTY_SET;
 
@@ -51,6 +51,13 @@ public class DisplaySetting {
      */
     public static final DisplaySetting DISPLAY_OPTIONAL =
         new DisplaySetting("DISPLAY_OPTIONAL");
+
+    /**
+     * Indicates that optional child groups should be displayed in square
+     * brackets.
+     */
+    public static final DisplaySetting DISPLAY_OPTIONAL_CHILD_GROUP =
+        new DisplaySetting("DISPLAY_OPTIONAL_CHILD_GROUP");
 
     /**
      * Indicates that property options should be included

@@ -17,7 +17,6 @@
 package org.apache.commons.cli2.util;
 
 import java.io.PrintWriter;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -84,6 +83,7 @@ public class HelpFormatter {
         final Set fullUsage = new HashSet(DisplaySetting.ALL);
         fullUsage.remove(DisplaySetting.DISPLAY_ALIASES);
         fullUsage.remove(DisplaySetting.DISPLAY_GROUP_NAME);
+        fullUsage.remove(DisplaySetting.DISPLAY_OPTIONAL_CHILD_GROUP);
         DEFAULT_FULL_USAGE_SETTINGS = Collections.unmodifiableSet(fullUsage);
 
         final Set lineUsage = new HashSet();

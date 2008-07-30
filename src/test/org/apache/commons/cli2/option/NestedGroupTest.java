@@ -16,8 +16,20 @@
  */
 package org.apache.commons.cli2.option;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.cli2.CLITestCase;
 import org.apache.commons.cli2.CommandLine;
+import org.apache.commons.cli2.DisplaySetting;
 import org.apache.commons.cli2.Group;
 import org.apache.commons.cli2.OptionException;
 import org.apache.commons.cli2.builder.ArgumentBuilder;
@@ -26,20 +38,28 @@ import org.apache.commons.cli2.builder.GroupBuilder;
 import org.apache.commons.cli2.commandline.Parser;
 import org.apache.commons.cli2.util.HelpFormatter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * Test to exercise nested groups developed to demonstrate bug 32533
  */
 public class NestedGroupTest extends CLITestCase {
+    private static final String[] EXPECTED_USAGE = new String[] {
+            "Usage:                                                                          ",
+            " [-h -k -e|-d -b|-3 -f <file>|-s <string>]                                      ",
+            "encryptionService                                                               ",
+            "  -h (--help)               Print this message                                  ",
+            "  -k (--key)                Encryption key                                      ",
+            "  Action                    Action                                              ",
+            "    -e (--encrypt)          Encrypt input                                       ",
+            "    -d (--decrypt)          Decrypt input                                       ",
+            "  Algorithm                 Encryption Algorithm                                ",
+            "    -b (--blowfish)         Blowfish                                            ",
+            "    -3 (--3DES)             Triple DES                                          ",
+            "  Input                     Input                                               ",
+            "    -f (--file) file        Input file                                          ",
+            "    -s (--string) string    Input string                                        "
+    };
+
     final static DefaultOptionBuilder obuilder = new DefaultOptionBuilder();
     final static ArgumentBuilder abuilder = new ArgumentBuilder();
     final static GroupBuilder gbuilder = new GroupBuilder();
@@ -127,13 +147,27 @@ public class NestedGroupTest extends CLITestCase {
     }
 
     public void testNestedGroupHelp() {
+        checkNestedGroupHelp(new HelpFormatter(), EXPECTED_USAGE);
+    }
+
+    public void testNestedGroupHelpOptional()
+    {
+        HelpFormatter helpFormatter = new HelpFormatter();
+        Set dispOptions = new HashSet(helpFormatter.getFullUsageSettings());
+        dispOptions.add(DisplaySetting.DISPLAY_OPTIONAL_CHILD_GROUP);
+        List expLines = new ArrayList(Arrays.asList(EXPECTED_USAGE));
+        expLines.set(1," [-h -k -e|-d [-b|-3] -f <file>|-s <string>]                                    ");
+        helpFormatter.setFullUsageSettings(dispOptions);
+        checkNestedGroupHelp(helpFormatter, (String[]) expLines
+                .toArray(new String[expLines.size()]));
+    }
+
+    private void checkNestedGroupHelp(HelpFormatter helpFormatter, String[] expected) {
         Group[] nestedGroups = {
                 buildActionGroup(),
                 buildAlgorithmGroup(),
                 buildInputGroup()
             };
-
-        HelpFormatter helpFormatter = new HelpFormatter();
         helpFormatter.setGroup(buildEncryptionServiceGroup(nestedGroups));
 
         final StringWriter out = new StringWriter();
@@ -144,22 +178,6 @@ public class NestedGroupTest extends CLITestCase {
 
             final BufferedReader bufferedReader = new BufferedReader(new StringReader(
                         out.toString()));
-            final String[] expected = new String[] {
-                    "Usage:                                                                          ",
-                    " [-h -k -e|-d -b|-3 -f <file>|-s <string>]                                      ",
-                    "encryptionService                                                               ",
-                    "  -h (--help)               Print this message                                  ",
-                    "  -k (--key)                Encryption key                                      ",
-                    "  Action                    Action                                              ",
-                    "    -e (--encrypt)          Encrypt input                                       ",
-                    "    -d (--decrypt)          Decrypt input                                       ",
-                    "  Algorithm                 Encryption Algorithm                                ",
-                    "    -b (--blowfish)         Blowfish                                            ",
-                    "    -3 (--3DES)             Triple DES                                          ",
-                    "  Input                     Input                                               ",
-                    "    -f (--file) file        Input file                                          ",
-                    "    -s (--string) string    Input string                                        "
-                };
 
             List actual = new ArrayList(expected.length);
             String input;

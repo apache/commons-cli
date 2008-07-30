@@ -304,8 +304,9 @@ public class GroupImpl
                             final String separator) {
         final Set helpSettingsCopy = new HashSet(helpSettings);
 
-        final boolean optional =
-            (minimum == 0) && helpSettingsCopy.contains(DisplaySetting.DISPLAY_OPTIONAL);
+        final boolean optional = !isRequired()
+                && (helpSettingsCopy.contains(DisplaySetting.DISPLAY_OPTIONAL) ||
+                        helpSettingsCopy.contains(DisplaySetting.DISPLAY_OPTIONAL_CHILD_GROUP));
 
         final boolean expanded =
             (name == null) || helpSettingsCopy.contains(DisplaySetting.DISPLAY_GROUP_EXPANDED);

@@ -344,6 +344,34 @@ public class GroupTest
         assertEquals("[ant (--help (-?,-h)) [<target1> [<target2> ...]]]", buffer.toString());
     }
 
+    public void testAppendUsage_OptionalChildGroup() {
+        final Option option = buildRequiredTestGroup(false, 2).getParent();
+        final StringBuffer buffer = new StringBuffer();
+        final Set settings = new HashSet(DisplaySetting.ALL);
+        option.appendUsage(buffer, settings, null);
+
+        assertEquals("[parent ([test ()])]", buffer.toString());
+    }
+
+    public void testAppendUsage_OptionalChildGroupNoSetting() {
+        final Option option = buildRequiredTestGroup(false, 2).getParent();
+        final StringBuffer buffer = new StringBuffer();
+        final Set settings = new HashSet(DisplaySetting.ALL);
+        settings.remove(DisplaySetting.DISPLAY_OPTIONAL_CHILD_GROUP);
+        option.appendUsage(buffer, settings, null);
+
+        assertEquals("[parent (test ())]", buffer.toString());
+    }
+
+    public void testAppendUsage_RequiredChildGroup() {
+        final Option option = buildRequiredTestGroup(true, 2).getParent();
+        final StringBuffer buffer = new StringBuffer();
+        final Set settings = new HashSet(DisplaySetting.ALL);
+        option.appendUsage(buffer, settings, null);
+
+        assertEquals("[parent (test ())]", buffer.toString());
+    }
+
     /*
      * (non-Javadoc)
      *
