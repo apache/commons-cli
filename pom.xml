@@ -210,4 +210,29 @@
       </plugin>
     </plugins>
   </reporting>
+
+
+  <profiles>
+    <!-- Profile to let Gump choose the name of the jar file generated -->
+    <profile>
+      <id>gump</id>
+      <activation>
+        <property>
+          <name>gump</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <finalName>${maven.final.name}</finalName>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
 </project>
