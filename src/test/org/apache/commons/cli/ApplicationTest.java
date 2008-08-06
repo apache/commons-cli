@@ -103,4 +103,71 @@ public class ApplicationTest extends TestCase {
         assertTrue( line.hasOption( "projecthelp") );
     }
 
+    public void testGroovy() throws Exception {
+        Options options = new Options();
+
+        options.addOption(
+            OptionBuilder.withLongOpt("define").
+                withDescription("define a system property").
+                hasArg(true).
+                withArgName("name=value").
+                create('D'));
+        options.addOption(
+            OptionBuilder.hasArg(false)
+            .withDescription("usage information")
+            .withLongOpt("help")
+            .create('h'));
+        options.addOption(
+            OptionBuilder.hasArg(false)
+            .withDescription("debug mode will print out full stack traces")
+            .withLongOpt("debug")
+            .create('d'));
+        options.addOption(
+            OptionBuilder.hasArg(false)
+            .withDescription("display the Groovy and JVM versions")
+            .withLongOpt("version")
+            .create('v'));
+        options.addOption(
+            OptionBuilder.withArgName("charset")
+            .hasArg()
+            .withDescription("specify the encoding of the files")
+            .withLongOpt("encoding")
+            .create('c'));
+        options.addOption(
+            OptionBuilder.withArgName("script")
+            .hasArg()
+            .withDescription("specify a command line script")
+            .create('e'));
+        options.addOption(
+            OptionBuilder.withArgName("extension")
+            .hasOptionalArg()
+            .withDescription("modify files in place; create backup if extension is given (e.g. \'.bak\')")
+            .create('i'));
+        options.addOption(
+            OptionBuilder.hasArg(false)
+            .withDescription("process files line by line using implicit 'line' variable")
+            .create('n'));
+        options.addOption(
+            OptionBuilder.hasArg(false)
+            .withDescription("process files line by line and print result (see also -n)")
+            .create('p'));
+        options.addOption(
+            OptionBuilder.withArgName("port")
+            .hasOptionalArg()
+            .withDescription("listen on a port and process inbound lines")
+            .create('l'));
+        options.addOption(
+            OptionBuilder.withArgName("splitPattern")
+            .hasOptionalArg()
+            .withDescription("split lines using splitPattern (default '\\s') using implicit 'split' variable")
+            .withLongOpt("autosplit")
+            .create('a'));
+
+        Parser parser = new PosixParser();
+        CommandLine line = parser.parse(options, new String[] { "-e", "println 'hello'" });
+
+        assertTrue(line.hasOption('e'));
+        assertEquals("println 'hello'", line.getOptionValue('e'));
+    }
+
 }
