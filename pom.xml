@@ -218,8 +218,7 @@
       <id>gump</id>
       <activation>
         <property>
-          <name>gump</name>
-          <value>true</value>
+          <name>maven.final.name</name>
         </property>
       </activation>
       <build>
