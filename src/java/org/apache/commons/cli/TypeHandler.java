@@ -105,21 +105,21 @@ public class TypeHandler
     /**
       * Create an Object from the classname and empty constructor.
       *
-      * @param str the argument value
+      * @param classname the argument value
       * @return the initialised object, or null if it couldn't create
       * the Object.
       */
-    public static Object createObject(String str)
+    public static Object createObject(String classname)
     {
         Class cl = null;
 
         try
         {
-            cl = Class.forName(str);
+            cl = Class.forName(classname);
         }
         catch (ClassNotFoundException cnfe)
         {
-            System.err.println("Unable to find the class: " + str);
+            System.err.println("Unable to find the class: " + classname);
 
             return null;
         }
@@ -132,7 +132,7 @@ public class TypeHandler
         }
         catch (Exception e)
         {
-            System.err.println(e.getClass().getName() + "; Unable to create an instance of: " + str);
+            System.err.println(e.getClass().getName() + "; Unable to create an instance of: " + classname);
         }
 
         return instance;
@@ -159,29 +159,29 @@ public class TypeHandler
                 return Long.valueOf(str);
             }
         }
-        catch (NumberFormatException nfe)
+        catch (NumberFormatException e)
         {
-            System.err.println(nfe.getMessage());
+            System.err.println(e.getMessage());
         }
 
         return null;
     }
 
     /**
-     * Returns the class whose name is <code>str</code>.
+     * Returns the class whose name is <code>classname</code>.
      *
-     * @param str the class name
+     * @param classname the class name
      * @return The class if it is found, otherwise return null
      */
-    public static Class createClass(String str)
+    public static Class createClass(String classname)
     {
         try
         {
-            return Class.forName(str);
+            return Class.forName(classname);
         }
-        catch (ClassNotFoundException cnfe)
+        catch (ClassNotFoundException e)
         {
-            System.err.println("Unable to find: " + str);
+            System.err.println("Unable to find the class: " + classname);
 
             return null;
         }
