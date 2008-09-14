@@ -40,7 +40,7 @@ NEW FEATURES:
 BUG FIXES:
 
   * The number of arguments defined for an option specifies the arguments
-    per occurence of the option and not for all occurences. (CLI-137)
+    per occurrence of the option and not for all occurrences. (CLI-137)
 
   * PosixParser no longer ignores unrecognized short options. (CLI-164)
 
