@@ -17,24 +17,40 @@
 
 package org.apache.commons.cli;
 
-import junit.framework.TestCase;
-
 /**
  * @author Emmanuel Bourg
  * @version $Revision$, $Date$
  */
-public class BasicParserTest extends TestCase
+public class BasicParserTest extends ParserTestCase
 {
-    public void testParser() throws Exception {
-        String[] args = new String[] { "-f", "1" };
+    public void setUp()
+    {
+        super.setUp();
+        parser = new BasicParser();
+    }
 
-        Options options = new Options();
-        options.addOption("f", "foo", true, null);
+    public void testPropertiesOption() throws Exception
+    {
+        // not supported by the BasicParser
+    }
 
-        CommandLine cl = new BasicParser().parse(options, args);
+    public void testShortWithEqual() throws Exception
+    {
+        // not supported by the BasicParser
+    }
 
-        assertNotNull("null CommandLine", cl);
-        assertEquals("1", cl.getOptionValue("foo"));
+    public void testShortWithoutEqual() throws Exception
+    {
+        // not supported by the BasicParser
+    }
 
+    public void testLongWithEqual() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testLongWithEqualSingleDash() throws Exception
+    {
+        // not supported by the BasicParser
     }
 }

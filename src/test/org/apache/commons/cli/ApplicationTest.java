@@ -20,15 +20,14 @@ package org.apache.commons.cli;
 import junit.framework.TestCase;
 
 /**
+ * This is a collection of tests that test real world applications command lines.
+ *
  * <p>
- * This is a collection of tests that test real world
- * applications command lines.
- * </p>
- * 
- * <p>
- * The following are the applications that are tested:
+ * The following applications are tested:
  * <ul>
- * <li>Ant</li>
+ *   <li>ls</li>
+ *   <li>Ant</li>
+ *   <li>Groovy</li>
  * </ul>
  * </p>
  *
@@ -164,7 +163,7 @@ public class ApplicationTest extends TestCase {
             .create('a'));
 
         Parser parser = new PosixParser();
-        CommandLine line = parser.parse(options, new String[] { "-e", "println 'hello'" });
+        CommandLine line = parser.parse(options, new String[] { "-e", "println 'hello'" }, true);
 
         assertTrue(line.hasOption('e'));
         assertEquals("println 'hello'", line.getOptionValue('e'));
