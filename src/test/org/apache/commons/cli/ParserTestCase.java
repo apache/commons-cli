@@ -227,6 +227,14 @@ public abstract class ParserTestCase extends TestCase
         assertEquals("-1", cl.getOptionValue("b"));
     }
 
+    public void testArgumentStartingWithHyphen() throws Exception
+    {
+        String[] args = new String[]{"-b", "-foo"};
+
+        CommandLine cl = parser.parse(options, args);
+        assertEquals("-foo", cl.getOptionValue("b"));
+    }
+
     public void testShortWithEqual() throws Exception
     {
         String[] args = new String[] { "-f=bar" };
