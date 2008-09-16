@@ -37,6 +37,9 @@ public class PosixParser extends Parser
     /** specifies if bursting should continue */
     private boolean eatTheRest;
 
+    /** holder for the current option */
+    private Option currentOption;
+
     /** the command line Options */
     private Options options;
 
@@ -109,12 +112,14 @@ public class PosixParser extends Parser
                 int pos = token.indexOf('=');
                 String opt = pos == -1 ? token : token.substring(0, pos); // --foo
 
-                if (!options.hasOption(opt) && stopAtNonOption)
+                if (!options.hasOption(opt))
                 {
-                    processNonOptionToken(token);
+                    processNonOptionToken(token, stopAtNonOption);
                 }
                 else
                 {
+                    currentOption = options.getOption(opt);
+                    
                     tokens.add(opt);
                     if (pos != -1)
                     {
@@ -130,13 +135,9 @@ public class PosixParser extends Parser
             }
             else if (token.startsWith("-"))
             {
-                if (token.length() == 2)
+                if (token.length() == 2 || options.hasOption(token))
                 {
                     processOptionToken(token, stopAtNonOption);
-                }
-                else if (options.hasOption(token))
-                {
-                    tokens.add(token);
                 }
                 // requires bursting
                 else
@@ -144,13 +145,9 @@ public class PosixParser extends Parser
                     burstToken(token, stopAtNonOption);
                 }
             }
-            else if (stopAtNonOption)
-            {
-                processNonOptionToken(token);
-            }
             else
             {
-                tokens.add(token);
+                processNonOptionToken(token, stopAtNonOption);
             }
 
             gobble(iter);
@@ -182,10 +179,14 @@ public class PosixParser extends Parser
      *
      * @param value The current token
      */
-    private void processNonOptionToken(String value)
+    private void processNonOptionToken(String value, boolean stopAtNonOption)
     {
-        eatTheRest = true;
-        tokens.add("--");
+        if (stopAtNonOption && (currentOption == null || !currentOption.hasArg()))
+        {
+            eatTheRest = true;
+            tokens.add("--");
+        }
+
         tokens.add(value);
     }
 
@@ -203,9 +204,14 @@ public class PosixParser extends Parser
      */
     private void processOptionToken(String token, boolean stopAtNonOption)
     {
-        if (!options.hasOption(token) && stopAtNonOption)
+        if (stopAtNonOption && !options.hasOption(token))
         {
             eatTheRest = true;
+        }
+
+        if (options.hasOption(token))
+        {
+            currentOption = options.getOption(token);
         }
 
         tokens.add(token);
@@ -239,8 +245,6 @@ public class PosixParser extends Parser
      */
     protected void burstToken(String token, boolean stopAtNonOption)
     {
-        Option currentOption;
-
         for (int i = 1; i < token.length(); i++)
         {
             String ch = String.valueOf(token.charAt(i));
@@ -259,7 +263,7 @@ public class PosixParser extends Parser
             }
             else if (stopAtNonOption)
             {
-                processNonOptionToken(token.substring(i));
+                processNonOptionToken(token.substring(i), true);
                 break;
             }
             else
