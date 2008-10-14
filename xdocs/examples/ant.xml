@@ -48,53 +48,53 @@ final GroupBuilder gbuilder = new GroupBuilder();</source>
       </p>
 <source>Option help =
     obuilder
-        .withShortName("help")
+        .withLongName("help")
         .withShortName("h")
         .withDescription("print this message")
         .create();
 Option projecthelp =
     obuilder
-        .withShortName("projecthelp")
+        .withLongName("projecthelp")
         .withShortName("p")
         .withDescription("print project help information")
         .create();
 Option version =
     obuilder
-        .withShortName("version")
+        .withLongName("version")
         .withDescription("print the version information and exit")
         .create();
 Option diagnostics =
     obuilder
-        .withShortName("diagnostics")
+        .withLongName("diagnostics")
         .withDescription("print information that might be helpful to diagnose or report problems.")
         .create();
 Option quiet =
     obuilder
-        .withShortName("quiet")
+        .withLongName("quiet")
         .withShortName("q")
         .withDescription("be extra quiet")
         .create();
 Option verbose =
     obuilder
-        .withShortName("verbose")
+        .withLongName("verbose")
         .withShortName("v")
         .withDescription("be extra verbose")
         .create();
 Option debug =
     obuilder
-        .withShortName("debug")
+        .withLongName("debug")
         .withShortName("d")
         .withDescription("print debugging information")
         .create();
 Option emacs =
     obuilder
-        .withShortName("emacs")
+        .withLongName("emacs")
         .withShortName("e")
         .withDescription("produce logging information without adornments")
         .create();
 Option lib =
     obuilder
-        .withShortName("lib")
+        .withLongName("lib")
         .withDescription("specifies a path to search for jars and classes")
         .withArgument(
             abuilder
@@ -105,7 +105,7 @@ Option lib =
         .create();
 Option logfile =
     obuilder
-        .withShortName("logfile")
+        .withLongName("logfile")
         .withShortName("l")
         .withDescription("use given file for log")
         .withArgument(
@@ -117,7 +117,7 @@ Option logfile =
         .create();
 Option logger =
     obuilder
-        .withShortName("logger")
+        .withLongName("logger")
         .withDescription("the class which is to perform logging")
         .withArgument(
             abuilder
@@ -128,7 +128,7 @@ Option logger =
         .create();
 Option listener =
     obuilder
-        .withShortName("listener")
+        .withLongName("listener")
         .withDescription("add an instance of class as a project listener")
         .withArgument(
             abuilder
@@ -139,13 +139,13 @@ Option listener =
         .create();
 Option noinput =
     obuilder
-        .withShortName("noinput")
+        .withLongName("noinput")
         .withDescription("do not allow interactive input")
         .create();
 Option buildfile =
     obuilder
-        .withShortName("buildfile")
-        .withShortName("file")
+        .withLongName("buildfile")
+        .withLongName("file")
         .withShortName("f")
         .withDescription("use given buildfile")
         .withArgument(
@@ -158,7 +158,7 @@ Option buildfile =
 Option property = new PropertyOption();
 Option propertyfile =
     obuilder
-        .withShortName("propertyfile")
+        .withLongName("propertyfile")
         .withDescription("load all properties from file with -D properties taking precedence")
         .withArgument(
             abuilder
@@ -169,7 +169,7 @@ Option propertyfile =
         .create();
 Option inputhandler =
     obuilder
-        .withShortName("inputhandler")
+        .withLongName("inputhandler")
         .withDescription("the class which will handle input requests")
         .withArgument(
             abuilder
@@ -180,7 +180,7 @@ Option inputhandler =
         .create();
 Option find =
     obuilder
-        .withShortName("find")
+        .withLongName("find")
         .withShortName("s")
         .withDescription("search for buildfile towards the root of the filesystem and use it")
         .withArgument(
@@ -260,7 +260,7 @@ for (Iterator i = targetList.iterator(); i.hasNext();) {
       <p>
         To generate a help page for ant we first need to create a 
         HelpFormatter and set some basic properties.  The shell command is 
-        the command that the used would have typed to invoke the application, 
+        the command that the user would have typed to invoke the application, 
         and the group is the group of options that compose the model.
       </p>
 <source>HelpFormatter hf = new HelpFormatter();
