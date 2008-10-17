@@ -33,8 +33,7 @@ import junit.framework.TestCase;
 public class FileValidatorTest extends TestCase {
 
     public void testValidate() throws InvalidArgumentException {
-        final Object[] array = new Object[] { "src", "project.xml",
-                "veryunlikelyfilename" };
+        final Object[] array = new Object[] { "src", "pom.xml", "veryunlikelyfilename" };
         final List list = Arrays.asList(array);
         final FileValidator validator = new FileValidator();
 
@@ -42,13 +41,13 @@ public class FileValidatorTest extends TestCase {
 
         final Iterator i = list.iterator();
         assertEquals(new File("src"), i.next());
-        assertEquals(new File("project.xml"), i.next());
+        assertEquals(new File("pom.xml"), i.next());
         assertEquals(new File("veryunlikelyfilename"), i.next());
         assertFalse(i.hasNext());
     }
 
     public void testValidate_Directory() {
-        final Object[] array = new Object[] { "src", "project.xml" };
+        final Object[] array = new Object[] { "src", "pom.xml" };
         final List list = Arrays.asList(array);
         final FileValidator validator = FileValidator
                 .getExistingDirectoryInstance();
@@ -62,7 +61,7 @@ public class FileValidatorTest extends TestCase {
             validator.validate(list);
             fail("InvalidArgumentException");
         } catch (InvalidArgumentException e) {
-            assertEquals("project.xml", e.getMessage());
+            assertEquals("pom.xml", e.getMessage());
         }
     }
 
@@ -163,8 +162,7 @@ public class FileValidatorTest extends TestCase {
     }
 
     public void testValidate_Existing() {
-        final Object[] array = new Object[] { "project.xml",
-                "veryunlikelyfilename" };
+        final Object[] array = new Object[] { "pom.xml", "veryunlikelyfilename" };
         final List list = Arrays.asList(array);
         final FileValidator validator = FileValidator.getExistingInstance();
 
@@ -182,7 +180,7 @@ public class FileValidatorTest extends TestCase {
     }
 
     public void testValidate_File() {
-        final Object[] array = new Object[] { "project.xml", "src" };
+        final Object[] array = new Object[] { "pom.xml", "src" };
         final List list = Arrays.asList(array);
         final Validator validator = FileValidator.getExistingFileInstance();
 

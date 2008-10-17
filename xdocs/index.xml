@@ -76,7 +76,7 @@ usage: ls
     <section name="Documentation">
       <p>
         A full <a href="introduction.html">User's Guide</a> is available
-        as are various<a href="maven-reports.html">project reports</a>.
+        as are various <a href="project-reports.html">project reports</a>.
       </p>
       <p>
         The Javadoc API documents are available online:
