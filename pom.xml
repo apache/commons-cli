@@ -15,10 +15,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
@@ -32,8 +29,7 @@
 
   <inceptionYear>2002</inceptionYear>
   <description>
-    Commons CLI provides a simple API for presenting, processing and
-    validating a command line interface.
+    Commons CLI provides a simple API for presenting, processing and validating a command line interface.
   </description>
 
   <url>http://commons.apache.org/cli/</url>
@@ -103,6 +99,12 @@
       </roles>
     </contributor>
     <contributor>
+      <name>Brian Egge</name>
+      <roles>
+        <role>made the 1.1 release happen</role>
+      </roles>
+    </contributor>
+    <contributor>
       <name>Berin Loritsch</name>
       <email>bloritsch@apache.org</email>
       <roles>
@@ -117,10 +119,15 @@
         <role>supplied patch</role>
       </roles>
     </contributor>
+    <contributor>
+      <name>Andrew Shirley</name>
+      <roles>
+        <role>lots of fixes for 1.1</role>
+      </roles>
+    </contributor>
   </contributors>
 
   <dependencies>
-
     <!-- used for unit tests -->
     <dependency>
       <groupId>junit</groupId>
@@ -128,21 +135,13 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-
-    <!-- used for unit tests -->
-    <dependency>
-      <groupId>jdepend</groupId>
-      <artifactId>jdepend</artifactId>
-      <version>2.5</version>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
 
   <properties>
     <commons.componentid>cli</commons.componentid>
+    <commons.release.name>commons-cli-${commons.release.version}</commons.release.name>
     <commons.osgi.symbolicName>org.apache.commons.cli2</commons.osgi.symbolicName>
-    <commons.release.version>1.1</commons.release.version>
+    <commons.release.version>1.2</commons.release.version>
     <commons.binary.suffix></commons.binary.suffix>
     <commons.jira.id>CLI</commons.jira.id>
     <commons.jira.pid>12310463</commons.jira.pid>
@@ -169,13 +168,12 @@
         </resource>
     </resources>
     <testResources>
-        <testResource>
-          <directory>src/test/org/apache/commons/cli2/resource</directory>
-          <targetPath>org/apache/commons/cli2/resource</targetPath>
-          <includes>
-            <include>**/*.properties</include>
-          </includes>
-        </testResource>
+      <testResource>
+        <directory>src/test</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </testResource>      
     </testResources>
     <plugins>
         <plugin>
