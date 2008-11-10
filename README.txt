@@ -32,7 +32,8 @@ and to build and test the system use:
 
 The system will build and test itself.
 
-For complete documentation type:
+For complete documentation and to create a local copy of the
+CLI project website, type:
 
   mvn site
 
