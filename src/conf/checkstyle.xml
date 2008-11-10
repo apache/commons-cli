@@ -3,7 +3,7 @@
     "-//Puppy Crawl//DTD Check Configuration 1.1//EN"
     "http://www.puppycrawl.com/dtds/configuration_1_1.dtd">
 
-<!-- Checkstyle configuration that checks the commons-configuration coding conventions -->
+<!-- Checkstyle configuration that checks the commons-cli coding conventions -->
 
 <module name="Checker">
     <property name="localeLanguage" value="en"/>
