@@ -22,7 +22,6 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Properties;
 
 import junit.framework.TestCase;
@@ -365,75 +364,6 @@ public class BugsTest extends TestCase
         CommandLine line = parser.parse( options, args );
         assertEquals( "Two Words", line.getOptionValue( "m" ) );
     }
-
-    public void test27635()
-    {
-        Option help = new Option("h", "help", false, "print this message");
-        Option version = new Option("v", "version", false, "print version information");
-        Option newRun = new Option("n", "new", false, "Create NLT cache entries only for new items");
-        Option trackerRun = new Option("t", "tracker", false, "Create NLT cache entries only for tracker items");
-        
-        Option timeLimit = OptionBuilder.withLongOpt("limit")
-                                        .hasArg()
-                                        .withValueSeparator()
-                                        .withDescription("Set time limit for execution, in mintues")
-                                        .create("l");
-        
-        Option age = OptionBuilder.withLongOpt("age")
-                                        .hasArg()
-                                        .withValueSeparator()
-                                        .withDescription("Age (in days) of cache item before being recomputed")
-                                        .create("a");
-        
-        Option server = OptionBuilder.withLongOpt("server")
-                                        .hasArg()
-                                        .withValueSeparator()
-                                        .withDescription("The NLT server address")
-                                        .create("s");
-        
-        Option numResults = OptionBuilder.withLongOpt("results")
-                                        .hasArg()
-                                        .withValueSeparator()
-                                        .withDescription("Number of results per item")
-                                        .create("r");
-        
-        Option configFile = OptionBuilder.withLongOpt("config")
-                                        .hasArg()
-                                        .withValueSeparator()
-                                        .withDescription("Use the specified configuration file")
-                                        .create();
-        
-        Options mOptions = new Options();
-        mOptions.addOption(help);
-        mOptions.addOption(version);
-        mOptions.addOption(newRun);
-        mOptions.addOption(trackerRun);
-        mOptions.addOption(timeLimit);
-        mOptions.addOption(age);
-        mOptions.addOption(server);
-        mOptions.addOption(numResults);
-        mOptions.addOption(configFile);
-        
-        HelpFormatter formatter = new HelpFormatter();
-        final String EOL = System.getProperty("line.separator");
-        StringWriter out = new StringWriter();
-        formatter.printHelp(new PrintWriter(out),80,"commandline","header",mOptions,2,2,"footer",true);
-        assertEquals(
-                "usage: commandline [-a <arg>] [--config <arg>] [-h] [-l <arg>] [-n] [-r <arg>]" + EOL +
-                "       [-s <arg>] [-t] [-v]" + EOL +
-                "header"+EOL+
-                "  -a,--age <arg>      Age (in days) of cache item before being recomputed"+EOL+
-                "     --config <arg>   Use the specified configuration file"+EOL+
-                "  -h,--help           print this message"+EOL+
-                "  -l,--limit <arg>    Set time limit for execution, in mintues"+EOL+
-                "  -n,--new            Create NLT cache entries only for new items"+EOL+
-                "  -r,--results <arg>  Number of results per item"+EOL+
-                "  -s,--server <arg>   The NLT server address"+EOL+
-                "  -t,--tracker        Create NLT cache entries only for tracker items"+EOL+
-                "  -v,--version        print version information"+EOL+
-                "footer"+EOL
-                ,out.toString());
-    }
     
     public void test31148() throws ParseException
     {
@@ -451,43 +381,6 @@ public class BugsTest extends TestCase
         
         assertTrue(cl.hasOption('o'));
         assertEquals("ovalue",cl.getOptionValue('o'));
-    }
-    
-    public void test21215()
-    {
-        Options options = new Options();
-        HelpFormatter formatter = new HelpFormatter();
-        String SEP = System.getProperty("line.separator");
-        String header = SEP+"Header";
-        String footer = "Footer";
-        StringWriter out = new StringWriter();
-        formatter.printHelp(new PrintWriter(out),80, "foobar", header, options, 2, 2, footer, true);
-        assertEquals(
-                "usage: foobar"+SEP+
-                ""+SEP+
-                "Header"+SEP+
-                ""+SEP+
-                "Footer"+SEP
-                ,out.toString());
-    }
-    
-    public void test19383()
-    {
-        Options options = new Options();
-        options.addOption(new Option("a","aaa",false,"aaaaaaa"));
-        options.addOption(new Option(null,"bbb",false,"bbbbbbb"));
-        options.addOption(new Option("c",null,false,"ccccccc"));
-        
-        HelpFormatter formatter = new HelpFormatter();
-        String SEP = System.getProperty("line.separator");
-        StringWriter out = new StringWriter();
-        formatter.printHelp(new PrintWriter(out),80, "foobar", "", options, 2, 2, "", true);
-        assertEquals(
-                "usage: foobar [-a] [--bbb] [-c]"+SEP+
-                "  -a,--aaa  aaaaaaa"+SEP+
-                "     --bbb  bbbbbbb"+SEP+
-                "  -c        ccccccc"+SEP
-                ,out.toString());
     }
 
 }
