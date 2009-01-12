@@ -62,6 +62,8 @@ public interface Option {
      * Indicates whether this Option will be able to process the particular
      * argument.
      *
+     * @param commandLine
+     *            The CommandLine to check
      * @param argument
      *            The argument to be tested
      * @return true if the argument can be processed by this Option
@@ -74,6 +76,8 @@ public interface Option {
      * returning the boolean.
      *
      * @see #canProcess(WriteableCommandLine,String)
+     * @param commandLine
+     *            the CommandLine to check
      * @param arguments
      *            the ListIterator over String arguments
      * @return true if the argument can be processed by this Option

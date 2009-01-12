@@ -99,6 +99,7 @@ public class ArgumentBuilder {
     /**
      * Resets the ArgumentBuilder to the defaults for a new Argument. The
      * method is called automatically at the end of a create() call.
+     * @return this ArgumentBuilder
      */
     public final ArgumentBuilder reset() {
         name = "arg";

@@ -56,7 +56,8 @@ public class GroupBuilder {
     }
 
     /**
-     * Resets the builder
+     * Resets the builder.
+     * @return this builder     
      */
     public GroupBuilder reset() {
         name = null;
@@ -69,7 +70,7 @@ public class GroupBuilder {
     }
 
     /**
-     * Use this option description
+     * Use this option description.
      * @param newDescription the description to use
      * @return this builder
      */

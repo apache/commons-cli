@@ -61,6 +61,7 @@ public class UrlValidator implements Validator {
 
     /**
      * Creates a UrlValidator for the specified protocol.
+     * @param protocol the protocol to be used
      */
     public UrlValidator(final String protocol) {
         setProtocol(protocol);

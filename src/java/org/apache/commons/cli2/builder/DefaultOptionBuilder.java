@@ -99,7 +99,8 @@ public class DefaultOptionBuilder {
     }
 
     /**
-     * Resets the builder
+     * Resets the builder.
+     * @return this builder
      */
     public DefaultOptionBuilder reset() {
         preferredName = null;

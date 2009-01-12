@@ -172,6 +172,8 @@ public class ClassValidator implements Validator {
     /**
      * Returns whether the specified name is allowed as
      * a Java class name.
+     * @param name the name to be checked
+     * @return true if allowed as Java class name
      */
     protected boolean isPotentialClassName(final String name) {
         final char[] chars = name.toCharArray();

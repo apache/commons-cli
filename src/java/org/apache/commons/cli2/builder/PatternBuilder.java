@@ -90,7 +90,8 @@ public class PatternBuilder {
     }
 
     /**
-     * Resets this builder
+     * Resets this builder.
+     * @return this builder
      */
     public PatternBuilder reset() {
         options.clear();
