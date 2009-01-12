@@ -49,8 +49,6 @@ public class ResourceHelperTest extends TestCase {
     
     /**
      * Create a new ResourceHelper for the specified class.
-     *
-     * @param clazz the Class that requires some resources
      */
     public ResourceHelperTest() {
     	super("ResourceHelperTest");

@@ -30,7 +30,9 @@ import org.apache.commons.cli2.option.DefaultOption;
 import org.apache.commons.cli2.validation.FileValidator;
 
 /**
- * Test case for http://issues.apache.org/jira/browse/CLI-144 CLI 2 throws
+ * Test case for http://issues.apache.org/jira/browse/CLI-144.
+ *
+ * CLI 2 throws
  *
  * <pre>
  * Exception in thread &quot;main&quot; java.lang.ClassCastException: java.io.File cannot be cast to java.lang.String
