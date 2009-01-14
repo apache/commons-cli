@@ -50,7 +50,6 @@ import java.util.Date;
  * to be pluggable.
  * </p>
  *
- * @author Henri Yandell (bayard @ generationjava.com)
  * @version $Revision$, $Date$
  */
 public class PatternOptionBuilder

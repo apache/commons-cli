@@ -27,7 +27,6 @@ import junit.framework.TestCase;
 /** 
  * Test case for the PatternOptionBuilder class 
  *
- * @author Henri Yandell
  * @version $Revision$, $Date$
  */
 public class PatternOptionBuilderTest extends TestCase
