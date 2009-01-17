@@ -44,6 +44,7 @@ public class TypeHandler
      * the value of <code>str</code>.
      */
     public static Object createValue(String str, Object obj)
+    throws ParseException
     {
         return createValue(str, (Class) obj);
     }
@@ -58,6 +59,7 @@ public class TypeHandler
      * the value of <code>str</code>.
      */
     public static Object createValue(String str, Class clazz)
+    throws ParseException
     {
         if (PatternOptionBuilder.STRING_VALUE == clazz)
         {
@@ -109,6 +111,7 @@ public class TypeHandler
       * the Object.
       */
     public static Object createObject(String classname)
+    throws ParseException
     {
         Class cl = null;
 
@@ -118,9 +121,7 @@ public class TypeHandler
         }
         catch (ClassNotFoundException cnfe)
         {
-            System.err.println("Unable to find the class: " + classname);
-
-            return null;
+            throw new ParseException("Unable to find the class: " + classname);
         }
 
         Object instance = null;
@@ -131,7 +132,7 @@ public class TypeHandler
         }
         catch (Exception e)
         {
-            System.err.println(e.getClass().getName() + "; Unable to create an instance of: " + classname);
+            throw new ParseException(e.getClass().getName() + "; Unable to create an instance of: " + classname);
         }
 
         return instance;
@@ -146,6 +147,7 @@ public class TypeHandler
      * is not a number, null is returned.
      */
     public static Number createNumber(String str)
+    throws ParseException
     {
         try
         {
@@ -160,10 +162,8 @@ public class TypeHandler
         }
         catch (NumberFormatException e)
         {
-            System.err.println(e.getMessage());
+            throw new ParseException(e.getMessage());
         }
-
-        return null;
     }
 
     /**
@@ -173,6 +173,7 @@ public class TypeHandler
      * @return The class if it is found, otherwise return null
      */
     public static Class createClass(String classname)
+    throws ParseException
     {
         try
         {
@@ -180,9 +181,7 @@ public class TypeHandler
         }
         catch (ClassNotFoundException e)
         {
-            System.err.println("Unable to find the class: " + classname);
-
-            return null;
+            throw new ParseException("Unable to find the class: " + classname);
         }
     }
 
@@ -194,6 +193,7 @@ public class TypeHandler
      * otherwise return null.
      */
     public static Date createDate(String str)
+    throws ParseException
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }
@@ -206,6 +206,7 @@ public class TypeHandler
      * return null.
      */
     public static URL createURL(String str)
+    throws ParseException
     {
         try
         {
@@ -213,9 +214,7 @@ public class TypeHandler
         }
         catch (MalformedURLException e)
         {
-            System.err.println("Unable to parse the URL: " + str);
-
-            return null;
+            throw new ParseException("Unable to parse the URL: " + str);
         }
     }
 
@@ -226,6 +225,7 @@ public class TypeHandler
      * @return The file represented by <code>str</code>.
      */
     public static File createFile(String str)
+    throws ParseException
     {
         return new File(str);
     }
@@ -237,6 +237,7 @@ public class TypeHandler
      * @return The File[] represented by <code>str</code>.
      */
     public static File[] createFiles(String str)
+    throws ParseException
     {
         // to implement/port:
         //        return FileW.findFiles(str);

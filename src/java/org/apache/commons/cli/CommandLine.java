@@ -85,8 +85,29 @@ public class CommandLine implements Serializable
      *
      * @param opt the name of the option
      * @return the type of this <code>Option</code>
+     * @deprecated due to System.err message. Instead use getParsedOptionValue(String)
      */
     public Object getOptionObject(String opt)
+    {
+        try {
+            return getParsedOptionValue(opt);
+        } catch(ParseException pe) {
+            System.err.println("Exception found converting " + opt + " to desired type: " + 
+                pe.getMessage() );
+            return null;
+        }
+    }
+
+    /**
+     * Return a version of this <code>Option</code> converted to a particular type. 
+     *
+     * @param opt the name of the option
+     * @return the value parsed into a particluar object
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     */
+    public Object getParsedOptionValue(String opt)
+    throws ParseException
     {
         String res = getOptionValue(opt);
 
