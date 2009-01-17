@@ -821,6 +821,7 @@ public class HelpFormatter
 
         while (true)
         {
+            int lastPos = pos;
             text = padding + text.substring(pos).trim();
             pos = findWrapPos(text, width, 0);
 
@@ -829,6 +830,10 @@ public class HelpFormatter
                 sb.append(text);
 
                 return sb;
+            } else
+            if (pos == lastPos)
+            {
+                throw new RuntimeException("Text too long for line - throwing exception to avoid infinite loop [CLI-162]: " + text);
             }
 
             sb.append(rtrim(text.substring(0, pos))).append(defaultNewLine);
