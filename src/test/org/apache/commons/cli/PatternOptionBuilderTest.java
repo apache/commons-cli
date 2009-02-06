@@ -20,8 +20,8 @@ package org.apache.commons.cli;
 import java.io.File;
 import java.net.URL;
 import java.util.Calendar;
-import java.util.Vector;
 import java.util.Date;
+import java.util.Vector;
 
 import junit.framework.TestCase;
 
@@ -71,7 +71,7 @@ public class PatternOptionBuilderTest extends TestCase
 
         // DATES NOT SUPPORTED YET
         try {
-            assertEquals("number flag z", new Date(1023400137276L), line.getOptionObject('z'));
+            assertEquals("date flag z", new Date(1023400137276L), line.getOptionObject('z'));
             fail("Date is not supported yet, should have failed");
         } catch(UnsupportedOperationException uoe) {
             // expected
