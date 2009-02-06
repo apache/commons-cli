@@ -171,7 +171,7 @@ public class ApplicationTest extends TestCase {
     }
 
     /**
-     * @author Slawek Zachcial
+     * author Slawek Zachcial
      */
     public void testMan()
     {
