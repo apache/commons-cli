@@ -21,6 +21,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Vector;
+import java.util.Date;
 
 import junit.framework.TestCase;
 
@@ -33,8 +34,8 @@ public class PatternOptionBuilderTest extends TestCase
 {
     public void testSimplePattern() throws Exception
     {
-        Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/");
-        String[] args = new String[]{"-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://commons.apache.org"};
+        Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/m*z#");
+        String[] args = new String[] {"-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://commons.apache.org", "-z", "Thu Jun 06 17:48:57 EDT 2002", "-m", "test*"};
 
         CommandLineParser parser = new PosixParser();
         CommandLine line = parser.parse(options, args);
@@ -60,9 +61,21 @@ public class PatternOptionBuilderTest extends TestCase
         assertEquals("number flag n", new Double(4.5), line.getOptionObject('n'));
         assertEquals("url flag t", new URL("http://commons.apache.org"), line.getOptionObject('t'));
 
-        /// DATES NOT SUPPORTED YET.
-        //      assertEquals("number flag t", new Date(1023400137276L), line.getOptionObject('z'));
-        //     input is:  "Thu Jun 06 17:48:57 EDT 2002"
+        // FILES NOT SUPPORTED YET
+        try {
+            assertEquals("files flag m", new File[0], line.getOptionObject('m'));
+            fail("Multiple files are not supported yet, should have failed");
+        } catch(UnsupportedOperationException uoe) {
+            // expected
+        }
+
+        // DATES NOT SUPPORTED YET
+        try {
+            assertEquals("number flag z", new Date(1023400137276L), line.getOptionObject('z'));
+            fail("Date is not supported yet, should have failed");
+        } catch(UnsupportedOperationException uoe) {
+            // expected
+        }
     }
 
     public void testEmptyPattern() throws Exception
