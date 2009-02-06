@@ -23,6 +23,18 @@
   <body>
 
     <release version="1.2" date="in SVN" description="This is a maintenance release containing bug fixes.">
+      <action type="fix" dev="ebourg" issue="CLI-154">
+        Incomplete usage documentation about Java property option.
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-170">
+        TypeHandler prints messages to stderr.
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-170">
+        TypeHandler prints messages to stderr.
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-162">
+        Infinite loop in the wrapping code of HelpFormatter.
+      </action>
       <action type="fix" dev="sgoeschl">
         Fixing some minor javadoc issues.
       </action>
