@@ -1,28 +1,12 @@
 Apache Commons CLI
 ===================
 
-Welcome to the CLI component of the Apache Commons project.
+Welcome to the CLI 1.x component of the Apache Commons project.
 
 The information in this file is relevant if you have
 downloaded a CLI source distribution.
 
-For testing the project, you will need JUnit (if you use
-Maven this will be automatically installed and configured
-for you):
-
-  http://www.junit.org
-
-There are two ways to build CLI, either with Ant or Maven 2.
-
-Ant can be found here :
-
-  http://ant.apache.org
-
-and to build and test the system use:
-
-  ant dist
-
-Maven 2 can be found here :
+CLI is built with Maven 2, which can be found here:
 
   http://maven.apache.org
 
