@@ -134,7 +134,7 @@
     <commons.release.version>1.2</commons.release.version>
     <commons.release.name>commons-cli-${commons.release.version}</commons.release.name>
     <commons.osgi.symbolicName>org.apache.commons.cli</commons.osgi.symbolicName>
-    <commons.binary.suffix/>
+    <commons.binary.suffix />
     <commons.jira.id>CLI</commons.jira.id>
     <commons.jira.pid>12310463</commons.jira.pid>
     <!-- The RC version used in the staging repository URL. -->
