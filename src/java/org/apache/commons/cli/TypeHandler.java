@@ -241,6 +241,6 @@ public class TypeHandler
     {
         // to implement/port:
         //        return FileW.findFiles(str);
-        return null;
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
