@@ -205,7 +205,7 @@ public class ApplicationTest extends TestCase {
                 //FIXME - should generate -m,--systems system
                 addOption("m", "systems", true, "search for man pages from other unix system(s).").
                 //FIXME - should generate -L,--locale locale
-                addOption("L", "locale", true, "defaine the locale for this particular man search.").
+                addOption("L", "locale", true, "define the locale for this particular man search.").
                 //FIXME - should generate -p,--preprocessor string
                 addOption("p", "preprocessor", true, "string indicates which preprocessor to run.\n" +
                          " e - [n]eqn  p - pic     t - tbl\n" +
