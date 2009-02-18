@@ -42,11 +42,7 @@ public class BugCLI162Test extends TestCase {
     public void testInfiniteLoop() {
         HelpFormatter formatter = new HelpFormatter();
         formatter.setWidth(20);
-        try {
-            formatter.printHelp("app", options); // hang & crash
-        } catch(RuntimeException re) {
-            assertTrue(re.getMessage().startsWith("Text too long for line - throwing exception to avoid infinite loop [CLI-162]: "));
-        }
+        formatter.printHelp("app", options); // used to hang & crash
     }
     
     private void testPrintHelp(Options options) throws ParseException, IOException {
