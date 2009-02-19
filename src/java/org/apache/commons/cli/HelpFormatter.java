@@ -831,7 +831,8 @@ public class HelpFormatter
                 return sb;
             }
             
-            if ( (text.length() > width) && (pos == nextLineTabStop - 1) ) {
+            if ( (text.length() > width) && (pos == nextLineTabStop - 1) ) 
+            {
                 pos = width;
             }
 
