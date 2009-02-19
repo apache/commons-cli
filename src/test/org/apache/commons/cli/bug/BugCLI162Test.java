@@ -44,10 +44,6 @@ public class BugCLI162Test extends TestCase {
         formatter.setWidth(20);
         formatter.printHelp("app", options); // used to hang & crash
     }
-    
-    private void testPrintHelp(Options options) throws ParseException, IOException {
-        new HelpFormatter().printHelp(this.getClass().getName(), options);
-    }
 
     public void testPrintHelpLongLines() throws ParseException, IOException {
         // Constants used for options
@@ -233,7 +229,7 @@ public class BugCLI162Test extends TestCase {
                 "Converts the JDBC file in the first argument to an SMFD file specified in the second argument.");
         option.setArgs(2);
         commandLineOptions.addOption(option);
-        this.testPrintHelp(commandLineOptions);
+        new HelpFormatter().printHelp(this.getClass().getName(), options);
     }
 
 }
