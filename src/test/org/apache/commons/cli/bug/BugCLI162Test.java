@@ -19,6 +19,8 @@
 package org.apache.commons.cli.bug;
 
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.PrintWriter;
 import java.sql.ParameterMetaData;
 import java.sql.Types;
 
@@ -225,6 +227,38 @@ public class BugCLI162Test extends TestCase {
         option.setArgs(2);
         commandLineOptions.addOption(option);
         new HelpFormatter().printHelp(this.getClass().getName(), commandLineOptions);
+    }
+
+    public void testLongLineChunking() throws ParseException, IOException {
+        Options options = new Options();
+        options.addOption("x", "extralongarg", false,
+                                     "This description has ReallyLongValuesThatAreLongerThanTheWidthOfTheColumns " +
+                                     "and also other ReallyLongValuesThatAreHugerAndBiggerThanTheWidthOfTheColumnsBob, " +
+                                     "yes. ");
+        HelpFormatter formatter = new HelpFormatter();
+        StringWriter sw = new StringWriter();
+        formatter.printHelp(new PrintWriter(sw), 35, this.getClass().getName(), "Header", options, 0, 5, "Footer");
+        String expected = "usage:\n" +
+                          "       org.apache.commons.cli.bug.B\n" +
+                          "       ugCLI162Test\n" +
+                          "Header\n" +
+                          "-x,--extralongarg     This\n" +
+                          "                      description\n" +
+                          "                      has\n" +
+                          "                      ReallyLongVal\n" +
+                          "                      uesThatAreLon\n" +
+                          "                      gerThanTheWid\n" +
+                          "                      thOfTheColumn\n" +
+                          "                      s and also\n" +
+                          "                      other\n" +
+                          "                      ReallyLongVal\n" +
+                          "                      uesThatAreHug\n" +
+                          "                      erAndBiggerTh\n" +
+                          "                      anTheWidthOfT\n" +
+                          "                      heColumnsBob,\n" +
+                          "                      yes.\n" +
+                          "Footer\n";
+        assertEquals( "Long arguments did not split as expected", expected, sw.toString() );
     }
 
 }
