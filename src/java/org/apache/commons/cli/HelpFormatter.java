@@ -832,9 +832,7 @@ public class HelpFormatter
             }
             
             if ( (text.length() > width) && (pos == nextLineTabStop - 1) ) {
-                sb.append(text);
-
-                return sb;
+                pos = width;
             }
 
             sb.append(rtrim(text.substring(0, pos))).append(defaultNewLine);
