@@ -32,14 +32,9 @@ import org.apache.commons.cli.ParseException;
 
 public class BugCLI162Test extends TestCase {
 
-    private Options options;
-
-    public void setUp() {
-        options = new Options();
-        options.addOption("h", "help", false, "This is a looooong description");
-    }
-
     public void testInfiniteLoop() {
+        Options options = new Options();
+        options.addOption("h", "help", false, "This is a looooong description");
         HelpFormatter formatter = new HelpFormatter();
         formatter.setWidth(20);
         formatter.printHelp("app", options); // used to hang & crash
@@ -229,7 +224,7 @@ public class BugCLI162Test extends TestCase {
                 "Converts the JDBC file in the first argument to an SMFD file specified in the second argument.");
         option.setArgs(2);
         commandLineOptions.addOption(option);
-        new HelpFormatter().printHelp(this.getClass().getName(), options);
+        new HelpFormatter().printHelp(this.getClass().getName(), commandLineOptions);
     }
 
 }
