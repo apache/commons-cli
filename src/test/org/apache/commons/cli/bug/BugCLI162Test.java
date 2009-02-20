@@ -259,6 +259,14 @@ public class BugCLI162Test extends TestCase {
                           "                      yes.\n" +
                           "Footer\n";
         assertEquals( "Long arguments did not split as expected", expected, sw.toString() );
+
+        try {
+            formatter.printHelp(new PrintWriter(sw), 22, this.getClass().getName(), "Header", options, 0, 5, "Footer");
+            fail("IllegalStateException expected");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
     }
 
 }

@@ -819,6 +819,13 @@ public class HelpFormatter
         // characters
         final String padding = createPadding(nextLineTabStop);
 
+        if (nextLineTabStop >= width)
+        {
+            // stops infinite loop happening
+            throw new IllegalStateException("Total width is less than the width of the argument and indent " + 
+                                            "- no room for the description");
+        }
+
         while (true)
         {
             text = padding + text.substring(pos).trim();
