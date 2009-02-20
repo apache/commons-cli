@@ -70,7 +70,10 @@
         The ordering of options can be defined in help messages.
       </action>
       <action type="fix" dev="bayard" issue="CLI-151" due-to="Dan Armbrust">
-        The line wrapping in HelpFormatter now works properly.
+        The line wrapping in HelpFormatter now works properly. This caused CLI-162, and thus there was a feature change 
+        for the HelpFormatter in that it is strict on width now rather than what seemed to be lenience before. Text without 
+        whitespace will be cut off to fit in the spacing, and an IllegalStateException will be thrown if it is impossible 
+        to output the information due to spacing constraints. 
       </action>
       <action type="fix" dev="bayard" issue="CLI-149">
         The message of MissingOptionException has been improved.
