@@ -433,6 +433,8 @@ public class HelpFormatter
      * @param descPad the number of characters of padding to be prefixed
      * to each description line
      * @param footer the banner to display at the end of the help
+     *
+     * @throws IllegalStateException if there is no room to print a line
      */
     public void printHelp(PrintWriter pw, int width, String cmdLineSyntax, 
                           String header, Options options, int leftPad, 
@@ -458,6 +460,8 @@ public class HelpFormatter
      * @param footer the banner to display at the end of the help
      * @param autoUsage whether to print an automatically generated
      * usage statement
+     *
+     * @throws IllegalStateException if there is no room to print a line
      */
     public void printHelp(PrintWriter pw, int width, String cmdLineSyntax,
                           String header, Options options, int leftPad,
