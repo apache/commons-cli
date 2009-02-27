@@ -822,8 +822,7 @@ public class HelpFormatter
         if (nextLineTabStop >= width)
         {
             // stops infinite loop happening
-            throw new IllegalStateException("Total width is less than the width of the argument and indent " + 
-                                            "- no room for the description");
+            nextLineTabStop = width - 1;
         }
 
         // all following lines must be padded with nextLineTabStop space 
