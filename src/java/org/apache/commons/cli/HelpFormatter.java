@@ -819,16 +819,16 @@ public class HelpFormatter
         }
         sb.append(rtrim(text.substring(0, pos))).append(defaultNewLine);
 
-        // all following lines must be padded with nextLineTabStop space 
-        // characters
-        final String padding = createPadding(nextLineTabStop);
-
         if (nextLineTabStop >= width)
         {
             // stops infinite loop happening
             throw new IllegalStateException("Total width is less than the width of the argument and indent " + 
                                             "- no room for the description");
         }
+
+        // all following lines must be padded with nextLineTabStop space 
+        // characters
+        final String padding = createPadding(nextLineTabStop);
 
         while (true)
         {
