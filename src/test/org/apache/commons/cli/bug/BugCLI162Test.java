@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,8 +19,8 @@
 package org.apache.commons.cli.bug;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.ParameterMetaData;
 import java.sql.Types;
 
@@ -33,6 +33,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 public class BugCLI162Test extends TestCase {
+    /** Constant for the line separator.*/
+    private static final String CR = System.getProperty("line.separator");
 
     public void testInfiniteLoop() {
         Options options = new Options();
@@ -105,17 +107,17 @@ public class BugCLI162Test extends TestCase {
         final String OPT_USER = "u";
 
         final String OPT_WRITE_TO_FILE = "w";
-        
+
         final String _PMODE_IN = "IN";
 
         final String _PMODE_INOUT = "INOUT";
 
         final String _PMODE_OUT = "OUT";
-        
+
         final String _PMODE_UNK = "Unknown";
-        
+
         final String PMODES = _PMODE_IN + ", " + _PMODE_INOUT + ", " + _PMODE_OUT + ", " + _PMODE_UNK;
-        
+
         // Options build
         Options commandLineOptions;
         commandLineOptions = new Options();
@@ -238,26 +240,26 @@ public class BugCLI162Test extends TestCase {
         HelpFormatter formatter = new HelpFormatter();
         StringWriter sw = new StringWriter();
         formatter.printHelp(new PrintWriter(sw), 35, this.getClass().getName(), "Header", options, 0, 5, "Footer");
-        String expected = "usage:\n" +
-                          "       org.apache.commons.cli.bug.B\n" +
-                          "       ugCLI162Test\n" +
-                          "Header\n" +
-                          "-x,--extralongarg     This\n" +
-                          "                      description\n" +
-                          "                      has\n" +
-                          "                      ReallyLongVal\n" +
-                          "                      uesThatAreLon\n" +
-                          "                      gerThanTheWid\n" +
-                          "                      thOfTheColumn\n" +
-                          "                      s and also\n" +
-                          "                      other\n" +
-                          "                      ReallyLongVal\n" +
-                          "                      uesThatAreHug\n" +
-                          "                      erAndBiggerTh\n" +
-                          "                      anTheWidthOfT\n" +
-                          "                      heColumnsBob,\n" +
-                          "                      yes.\n" +
-                          "Footer\n";
+        String expected = "usage:" + CR +
+                          "       org.apache.commons.cli.bug.B" + CR +
+                          "       ugCLI162Test" + CR +
+                          "Header" + CR +
+                          "-x,--extralongarg     This" + CR +
+                          "                      description" + CR +
+                          "                      has" + CR +
+                          "                      ReallyLongVal" + CR +
+                          "                      uesThatAreLon" + CR +
+                          "                      gerThanTheWid" + CR +
+                          "                      thOfTheColumn" + CR +
+                          "                      s and also" + CR +
+                          "                      other" + CR +
+                          "                      ReallyLongVal" + CR +
+                          "                      uesThatAreHug" + CR +
+                          "                      erAndBiggerTh" + CR +
+                          "                      anTheWidthOfT" + CR +
+                          "                      heColumnsBob," + CR +
+                          "                      yes." + CR +
+                          "Footer" + CR;
         assertEquals( "Long arguments did not split as expected", expected, sw.toString() );
     }
 
@@ -268,15 +270,15 @@ public class BugCLI162Test extends TestCase {
         StringWriter sw = new StringWriter();
         formatter.printHelp(new PrintWriter(sw), 22, this.getClass().getName(), "Header", options, 0, 5, "Footer");
         System.err.println(sw.toString());
-        String expected = "usage:\n" +
-                          "       org.apache.comm\n" +
-                          "       ons.cli.bug.Bug\n" +
-                          "       CLI162Test\n" +
-                          "Header\n" +
-                          "-x,--extralongarg\n" +
-                          " This description is\n" +
-                          " Long.\n" +
-                          "Footer\n";
+        String expected = "usage:" + CR +
+                          "       org.apache.comm" + CR +
+                          "       ons.cli.bug.Bug" + CR +
+                          "       CLI162Test" + CR +
+                          "Header" + CR +
+                          "-x,--extralongarg" + CR +
+                          " This description is" + CR +
+                          " Long." + CR +
+                          "Footer" + CR;
         assertEquals( "Long arguments did not split as expected", expected, sw.toString() );
     }
 
