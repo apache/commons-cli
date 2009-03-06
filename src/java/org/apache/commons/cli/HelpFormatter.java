@@ -48,7 +48,7 @@ public class HelpFormatter
      */
     public static final int DEFAULT_DESC_PAD = 3;
 
-    /** the string to display at the begining of the usage statement */
+    /** the string to display at the beginning of the usage statement */
     public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
 
     /** default prefix for shortOpts */
@@ -388,7 +388,7 @@ public class HelpFormatter
      *
      * @param width the number of characters to be displayed on each line
      * @param cmdLineSyntax the syntax for this application
-     * @param header the banner to display at the begining of the help
+     * @param header the banner to display at the beginning of the help
      * @param options the Options instance
      * @param footer the banner to display at the end of the help
      */

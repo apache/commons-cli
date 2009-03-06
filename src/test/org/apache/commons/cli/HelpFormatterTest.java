@@ -40,7 +40,7 @@ public class HelpFormatterTest extends TestCase
         HelpFormatter hf = new HelpFormatter();
 
         String text = "This is a test.";
-        //text width should be max 8; the wrap postition is 7
+        //text width should be max 8; the wrap position is 7
         assertEquals("wrap position", 7, hf.findWrapPos(text, 8, 0));
         //starting from 8 must give -1 - the wrap pos is after end
         assertEquals("wrap position 2", -1, hf.findWrapPos(text, 8, 8));

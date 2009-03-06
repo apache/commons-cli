@@ -201,17 +201,17 @@ public class OptionGroupTest extends TestCase
         group1.addOption(new Option(null, "foo", false, "Foo"));
         group1.addOption(new Option(null, "bar", false, "Bar"));
 
-        assertEquals("[--foo Foo, --bar Bar]".length(), group1.toString().length());
-        assertTrue(group1.toString().contains("--foo Foo"));
-        assertTrue(group1.toString().contains("--bar Bar"));
+        if (!"[--bar Bar, --foo Foo]".equals(group1.toString())) {
+            assertEquals("[--foo Foo, --bar Bar]", group1.toString());
+        }
 
         OptionGroup group2 = new OptionGroup();
         group2.addOption(new Option("f", "foo", false, "Foo"));
         group2.addOption(new Option("b", "bar", false, "Bar"));
 
-        assertEquals("[-f Foo, -b Bar]".length(), group2.toString().length());
-        assertTrue(group2.toString().contains("-f Foo"));
-        assertTrue(group2.toString().contains("-b Bar"));
+        if (!"[-b Bar, -f Foo]".equals(group2.toString())) {
+            assertEquals("[-f Foo, -b Bar]", group2.toString());
+        }
     }
 
     public void testGetNames()
