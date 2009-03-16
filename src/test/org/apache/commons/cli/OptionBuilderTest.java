@@ -145,6 +145,33 @@ public class OptionBuilderTest extends TestCase {
         catch (IllegalArgumentException e)
         {
             // expected
+            
+            // implicitly reset the builder
+            OptionBuilder.create( "opt" );
         }
+    }
+
+    public void testBuilderIsResettedAlways() {
+        try
+        {
+            OptionBuilder.withDescription("JUnit").create('"');
+            fail("IllegalArgumentException expected");
+        }
+        catch (IllegalArgumentException e)
+        {
+            // expected
+        }
+        assertNull("we inherited a description", OptionBuilder.create('x').getDescription());
+
+        try
+        {
+            OptionBuilder.withDescription("JUnit").create();
+            fail("IllegalArgumentException expected");
+        }
+        catch (IllegalArgumentException e)
+        {
+            // expected
+        }
+        assertNull("we inherited a description", OptionBuilder.create('x').getDescription());
     }
 }
