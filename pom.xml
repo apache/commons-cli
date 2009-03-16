@@ -138,7 +138,7 @@
     <commons.jira.id>CLI</commons.jira.id>
     <commons.jira.pid>12310463</commons.jira.pid>
     <!-- The RC version used in the staging repository URL. -->
-    <commons.rc.version>RC6</commons.rc.version>    
+    <commons.rc.version>RC7</commons.rc.version>    
   </properties>
 
   <build>
