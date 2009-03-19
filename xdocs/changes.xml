@@ -22,7 +22,10 @@
   </properties>
   <body>
 
-    <release version="1.2" date="in SVN" description="This is a maintenance release containing bug fixes.">
+    <release version="1.2" date="2009-03-19" description="This is a maintenance release containing bug fixes.">
+      <action type="fix" dev="oheger" issue="CLI-175">
+        Test class BugCLI162Test fails under Windows
+      </action>
       <action type="fix" dev="joehni" issue="CLI-177">
         OptionBuilder is not reseted in case of an IAE at create.
       </action>
