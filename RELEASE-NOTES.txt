@@ -53,7 +53,10 @@ BUG FIXES:
   * Required options are properly checked if an Options instance is used twice
     to parse a command line. (CLI-156)
 
-  * The line wrapping in HelpFormatter now works properly. (CLI-151)
+  * The line wrapping in HelpFormatter now works properly. (CLI-151) (CLI-162)
+
+  * OptionBuilder is now reset back to a blank state when it throws an 
+    Exception. (CLI-177)
 
 
 CHANGES:
@@ -71,3 +74,7 @@ CHANGES:
     CommandLine and Options. (CLI-140)
 
   * OptionValidator is no longer public, its methods were all private.
+
+  * TypeHandler no longer prints to stderr. (CLI-170)
+
+
