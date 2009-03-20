@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<document>
+ <properties>
+  <title>Release notes for CLI 1.2</title>
+  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+ </properties>
+<body>
+
+<section name="Release notes">
+
+  <p>These are the release notes for Commons CLI 1.2.</p>
+
+<source>
+INTRODUCTION:
+
+This document contains the release notes for this version of the Commons CLI
+package. Commons CLI provides a simple API for working with the command line
+arguments and options.
+
+Commons CLI 1.2 is a bugfix release. The following notable changes were made:
+
+ * A major regression introduced in CLI 1.1 that prevented the usage of repeated options has been fixed.
+ * Several parser issues have been fixed, especially with the PosixParser.
+ * HelpFormatter now wraps the lines properly
+ * The ordering of the option in the help message can now be defined.
+ * Various API enhancements (improved exceptions, serializable classes)
+
+Commons CLI 1.2 is binary compatible with the previous versions, except for
+the OptionValidator class that is no longer public.
+
+More information can be found on the project site at http://commons.apache.org/cli
+
+
+NEW FEATURES:
+
+  * The method getOptionProperties() in the CommandLine class was added
+    to retrieve easily the key/value pairs specified with options like
+    -Dkey1=value1 -Dkey2=value2.
+
+  * GnuParser now supports long options with an '=' sign
+    (ie. --foo=bar and -foo=bar) (CLI-157)
+
+  * The ordering of options can be defined in help messages. (CLI-155)
+
+
+BUG FIXES:
+
+  * The number of arguments defined for an option specifies the arguments
+    per occurrence of the option and not for all occurrences. (CLI-137)
+
+  * PosixParser no longer ignores unrecognized short options. (CLI-164)
+
+  * PosixParser no longer stops the bursting process of a token if stopAtNonOption
+    is enabled and a non option character is encountered. (CLI-163)
+
+  * PosixParser no longer keeps processing the tokens after an unrecognized
+    long option when stopAtNonOption is enabled. (CLI-165)
+
+  * Required options are properly checked if an Options instance is used twice
+    to parse a command line. (CLI-156)
+
+  * The line wrapping in HelpFormatter now works properly. (CLI-151)
+
+
+CHANGES:
+
+  * The message of MissingOptionException has been improved. (CLI-149)
+
+  * The exceptions have been enhanced with methods to retrieve easily
+    the related options. (CLI-86)
+
+  * Option.toString() now reports arguments properly. (CLI-141)
+
+  * The Parser class has been changed to be more easily extendable. (CLI-142)
+
+  * The following classes are now serializable: Option, OptionGroup,
+    CommandLine and Options. (CLI-140)
+
+  * OptionValidator is no longer public, its methods were all private.
+</source>
+
+</section>
+
+</body>
+</document>

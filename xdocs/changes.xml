@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+
+<document>
+  <properties>
+    <title>Commons CLI Release Notes</title>
+  </properties>
+  <body>
+
+    <release version="1.2" date="2009-03-19" description="This is a maintenance release containing bug fixes.">
+      <action type="fix" dev="oheger" issue="CLI-175">
+        Test class BugCLI162Test fails under Windows
+      </action>
+      <action type="fix" dev="joehni" issue="CLI-177">
+        OptionBuilder is not reseted in case of an IAE at create.
+      </action>
+      <action type="remove" dev="bayard">
+        Ant build system removed. 
+      </action>
+      <action type="fix" dev="ebourg" issue="CLI-154">
+        Incomplete usage documentation about Java property option.
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-170">
+        TypeHandler prints messages to stderr.
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-170">
+        TypeHandler prints messages to stderr.
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-162">
+        Infinite loop in the wrapping code of HelpFormatter.
+      </action>
+      <action type="fix" dev="sgoeschl">
+        Fixing some minor javadoc issues.
+      </action>
+      <action type="fix" dev="ebourg" issue="CLI-137">
+        The number of arguments defined for an option specifies the arguments per occurrence of the option
+        and not for all occurrences. This was a major regression in CLI 1.1 which prevented the use of repeated options.
+      </action>
+      <action type="add" dev="ebourg">
+        Added a getOptionProperties() method in the CommandLine class to retrieve easily the key/value pairs
+        specified with options like -Dkey1=value1 -Dkey2=value2.
+      </action>
+      <action type="update" dev="ebourg" issue="CLI-157">
+        GnuParser now supports long options with an '=' sign (ie. --foo=bar and -foo=bar)
+      </action>
+      <action type="fix" dev="ebourg" issue="CLI-164">
+        PosixParser no longer ignores unrecognized short options.
+      </action>
+      <action type="fix" dev="ebourg" issue="CLI-163">
+        PosixParser no longer stops the bursting process of a token if stopAtNonOption is enabled and a non option
+        character is encountered.
+      </action>
+      <action type="fix" dev="ebourg" issue="CLI-165">
+        PosixParser no longer keeps processing the tokens after an unrecognized long option
+        when stopAtNonOption is enabled.
+      </action>
+      <action type="fix" dev="ebourg" issue="CLI-156">
+        Required options are properly checked if an Options instance is used twice to parse a command line.
+      </action>
+      <action type="update" dev="bayard" issue="CLI-155">
+        The ordering of options can be defined in help messages.
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-151" due-to="Dan Armbrust">
+        The line wrapping in HelpFormatter now works properly. This caused CLI-162, and thus there was a feature change 
+        for the HelpFormatter in that it is strict on width now rather than what seemed to be lenience before. Text without 
+        whitespace will be cut off to fit in the spacing, and an IllegalStateException will be thrown if it is impossible 
+        to output the information due to spacing constraints. 
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-149">
+        The message of MissingOptionException has been improved.
+      </action>
+      <action type="update" dev="ebourg" issue="CLI-86">
+        The exceptions have been enhanced with methods to retrieve easily the related options.
+      </action>
+      <action type="fix" dev="bayard" issue="CLI-141" due-to="Henning Schmiedehausen, Bjorn Townsend">
+        Option.toString() now reports arguments properly.
+      </action>
+      <action type="update" dev="bayard" issue="CLI-142" due-to="Henning Schmiedehausen">
+        The Parser class has been changed to be more easily extendable.
+      </action>
+      <action type="update" dev="bayard" issue="CLI-140">
+        The following classes are now serializable: Option, OptionGroup, CommandLine and Options.
+      </action>
+      <action type="remove" dev="ebourg">
+        OptionValidator is no longer public, its methods were all private.
+      </action>
+    </release>
+
+    <release version="1.1" date="2007-07-08" description="This is a maintenance release containing bug fixes.">
+
+      <action type="fix" issue="CLI-2">Wrong usage summary. </action>
+      <action type="fix" issue="CLI-5">Dependecy on commons-lang-2.0 but commons-lang-1.0 is obtained. </action>
+      <action type="fix" issue="CLI-8">Line separator as first char for helpformatter (footer) throws exception. </action>
+      <action type="fix" issue="CLI-13">CommandLine.getOptionValue() behaves contrary to docs. </action>
+      <action type="fix" issue="CLI-21">clone method in Option should use super.clone(). </action>
+      <action type="fix" issue="CLI-23">Passing properties in Parser does not work for options with a single argument. </action>
+      <action type="fix" issue="CLI-26">Only long options without short option seems to be noticed. </action>
+      <action type="fix" issue="CLI-28">Infinite Loop in Command-Line processing. </action>
+      <action type="fix" issue="CLI-29">Options should not be able to be added more than once. </action>
+      <action type="fix" issue="CLI-35">HelpFormatter doesn't sort options properly. </action>
+      <action type="fix" issue="CLI-38">HelpFormatter doesn't function correctly for options with only LongOpt. </action>
+      <action type="fix" issue="CLI-44">Document enhancement. </action>
+      <action type="fix" issue="CLI-45">Documentation errors. </action>
+      <action type="fix" issue="CLI-51">Parameter value "-something" misinterpreted as a parameter. </action>
+      <action type="fix" issue="CLI-56">clone() method doesn't fully clone contents. </action>
+      <action type="fix" issue="CLI-59">No Javadoc for HelpFormatter!. </action>
+      <action type="fix" issue="CLI-65">Parser breaks up command line parms into single characters. </action>
+      <action type="fix" issue="CLI-67">Missing arguments in HelpFormatter.renderOptions(..). </action>
+      <action type="fix" issue="CLI-69">Error parsing option arguments. </action>
+      <action type="fix" issue="CLI-71">A weakness of parser. </action>
+      <action type="add" issue="CLI-78">Setting description of a Option. </action>
+      <action type="fix" issue="CLI-129">CLI_1_BRANCH build.xml doesn't work. </action>
+      <action type="fix" issue="CLI-130">Remove the Commons Lang dependency. </action>
+      <action type="fix" issue="CLI-131">Options class returns options in random order. </action>
+      <action type="fix" issue="CLI-132">MissingOptionException should contain a useful error message. </action>
+      <action type="fix" issue="CLI-133">NullPointerException in Util.stripLeadingHyphens when passed a null argument. </action>
+      <action type="fix" issue="CLI-134">1.1 is not backwards compatible because it adds methods to the CommandLineParser interface. </action>
+      <action type="fix" issue="CLI-135">Backwards compatibility between 1.1 and 1.0 broken due to Option.addValue removal. </action>
+
+    </release>   
+
+  </body>
+</document>

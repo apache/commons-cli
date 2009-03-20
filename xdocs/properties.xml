@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<document>
+
+  <properties>
+    <author email="dev@commons.apache.org">commons-dev</author>
+    <title>Option Properties</title>
+  </properties>
+
+  <body>
+    <section name="Option Properties">
+      <p>
+        The following are the properties that each 
+        <a href="api-1.2/org/apache/commons/cli/Option.html">Option</a> has.  All of these
+        can be set using the accessors or using the methods
+        defined in the
+        <a href="api-1.2/org/apache/commons/cli/OptionBuilder.html">OptionBuilder</a>.
+      </p>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>opt</td>
+          <td>java.lang.String</td>
+          <td>the identification string of the Option.</td>
+        </tr>
+        <tr>
+          <td>longOpt</td>
+          <td>java.lang.String</td>
+          <td>an alias and more descriptive identification string</td>
+        </tr>
+        <tr>
+          <td>description</td>
+          <td>java.lang.String</td>
+          <td>a description of the function of the option</td>
+        </tr>
+        <tr>
+          <td>required</td>
+          <td>boolean</td>
+          <td>a flag to say whether the option <b>must</b> appear on 
+            the command line.</td>
+        </tr>
+        <tr>
+          <td>multipleArgs</td>
+          <td>boolean</td>
+          <td>a flag to say whether the option takes multiple argument 
+            values</td>
+        </tr>
+        <tr>
+          <td>arg</td>
+          <td>boolean</td>
+          <td>a flag to say whether the option takes an argument</td>
+        </tr>
+        <tr>
+          <td>args</td>
+          <td>boolean</td>
+          <td>a flag to say whether the option takes more than one argument</td>
+        </tr>
+        <tr>
+          <td>optionalArg</td>
+          <td>boolean</td>
+          <td>a flag to say whether the option's argument is optional</td>
+        </tr>
+        <tr>
+          <td>argName</td>
+          <td>java.lang.String</td>
+          <td>the name of the argument value for the usage statement</td>
+        </tr>
+        <tr>
+          <td>valueSeparator</td>
+          <td>char</td>
+          <td>the character value used to split the argument string, that
+            is used in conjunction with multipleArgs e.g.
+            if the separator is ',' and the argument string is 'a,b,c' then
+            there are three argument values, 'a', 'b' and 'c'.</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td>java.lang.Object</td>
+          <td>the type of the argument</td>
+        </tr>
+        <tr>
+          <td>value</td>
+          <td>java.lang.String</td>
+          <td>the value of the option</td>
+        </tr>
+        <tr>
+          <td>values</td>
+          <td>java.lang.String[]</td>
+          <td>the values of the option</td>
+        </tr>
+      </table>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,57 @@
+<?xml version="1.0" standalone="no"?>
+<?xml-stylesheet type="text/css" href="diagrams.css" ?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg id="root" width="420" height="360" x="0" y="0">
+
+<script type="text/ecmascript" xlink:href="diagrams.js"/>
+<script type="text/ecmascript" xlink:href="diagrams-cli2.js"/>
+<script type="text/ecmascript">
+
+displayAttributes = false;
+displayMethods = false;
+
+</script>
+
+<g 
+	onload="new PackageSymbol('org.apache.commons.cli2',400,340).insert(evt)" 
+	transform="translate(10,10)"><g transform="translate(10,30)">
+	
+	<g transform="translate(  0, 30)" class="option"   onload="CommandLine.insert(evt);" />
+	<g transform="translate(  0,130)" class="group"    onload="WriteableCommandLine.insert(evt);"/>
+	
+	<g 
+		onload="new PackageSymbol('commandline',180,300).insert(evt)" 
+		transform="translate(200,0)"><g transform="translate(10,30)">
+		
+		<g transform="translate(0,  0)" class="option"   onload="Parser.insert(evt);" />
+		<g transform="translate(0, 50)" class="parent"   onload="DefaultingCommandLine.insert(evt);" />
+		<g transform="translate(0,100)" class="parent"   onload="PropertiesCommandLine.insert(evt);" />
+		<g transform="translate(0,190)" class="parent"   onload="PreferencesCommandLine.insert(evt);" />
+	</g></g>
+<!--	
+-->
+
+<polyline class="extends"    points="80,130 80,70"/>
+<polyline class="implements" points="210, 95 180, 95 180,45 170,45"/>
+<polyline class="implements" points="210,145 180,145 180,45 170,45"/>
+<polyline class="implements" points="210,235 180,235 180,45 170,45"/>
+
+</g></g>
+</svg>
