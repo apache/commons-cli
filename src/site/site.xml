@@ -32,19 +32,11 @@
             <item name="Source Repository"    href="/source-repository.html"/>
         </menu>
 
-        <menu name="CLI 1 User Guide">
+        <menu name="User Guide">
             <item name="Getting started"      href="/introduction.html"/>
             <item name="Usage scenarios"      href="/usage.html"/>
             <item name="Option properties"    href="/properties.html"/>
             <item name="Javadoc (1.2)"        href="api-release/index.html"/>
-        </menu>
-
-        <menu name="CLI 2 User Guide (dev)">
-            <item name="Overview"             href="/manual/index.html"/>
-            <item name="Examples"             href="/examples/index.html"/>
-            <item name="Options"              href="/manual/options.html"/>
-            <item name="Validators"           href="/manual/validators.html"/>
-            <item name="Javadoc (SVN latest)" href="apidocs/index.html"/>
         </menu>
 
     </body>
