@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<document>
+
+  <properties>
+    <author email="dev@commons.apache.org">commons-dev</author>
+    <title>Introduction</title>
+  </properties>
+
+  <body>
+    <section name="Introduction">
+      <p>
+        There are three stages to command line processing.  They are the
+        definition, parsing and interrogation stages.  The following 
+        sections will discuss each of these stages in turn, and discuss how
+        to implement them with CLI.
+      </p>
+    </section>
+    <section name="Definition Stage">
+      <p>
+        Each command line must define the set of options that will be used 
+        to define the interface to the application.
+      </p>
+      <p>
+        CLI uses the <a href="api-1.2/org/apache/commons/cli/Options.html">
+        Options</a> class, as a container for 
+        <a href="api-1.2/org/apache/commons/cli/Option.html">
+        Option</a> instances.  There are two ways to create
+        <code>Option</code>s in CLI.  One of them is via the constructors,
+        the other way is via the factory methods defined in 
+        <code>Options</code>.
+      </p>
+      <p>
+        The <a href="usage.html">Usage Scenarios</a> document provides
+        examples how to create an <code>Options</code> object and also
+        provides some real world examples.
+      </p>
+      <p>
+        The result of the definition stage is an <code>Options</code> 
+        instance.
+      </p>
+    </section>
+    <section name="Parsing Stage">
+      <p>
+        The parsing stage is where the text passed into the 
+        application via the command line is processed.  The text is 
+        processed according to the rules defined by the parser 
+        implementation.
+      </p>
+      <p>
+        The <code>parse</code> method defined on 
+        <a href="api-1.2/org/apache/commons/cli/CommandLineParser.html">
+        CommandLineParser</a> takes an <code>Options</code>
+        instance and a <code>String[]</code> of arguments and 
+        returns a 
+        <a href="api-1.2/org/apache/commons/cli/CommandLine.html">
+        CommandLine</a>.
+      </p>
+      <p>
+        The result of the parsing stage is a <code>CommandLine</code>
+        instance.
+      </p>
+    </section>
+    <section name="Interrogation Stage">
+      <p>
+        The interrogation stage is where the application querys the
+        <code>CommandLine</code> to decide what execution branch to
+        take depending on boolean options and uses the option values
+        to provide the application data.
+      </p>
+      <p>
+        This stage is implemented in the user code.  The accessor methods 
+        on <code>CommandLine</code> provide the interrogation capability
+        to the user code.
+      </p>
+      <p>
+        The result of the interrogation stage is that the user code 
+        is fully informed of all the text that was supplied on the command
+        line and processed according to the parser and <code>Options</code>
+        rules.
+      </p>
+    </section>
+  </body>
+</document>

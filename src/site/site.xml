@@ -23,19 +23,20 @@
     </bannerRight>
 
     <body>
-        <menu name="Commons CLI2">
+        <menu name="Commons CLI">
             <item name="Overview"             href="/index.html"/>
+            <item name="Download"             href="http://commons.apache.org/downloads/download_cli.cgi"/>
+            <item name="Changes Report"       href="/changes-report.html"/>
             <item name="Mailing Lists"        href="/mail-lists.html"/>
             <item name="Issue Tracking"       href="/issue-tracking.html"/>
             <item name="Source Repository"    href="/source-repository.html"/>
         </menu>
 
         <menu name="User Guide">
-            <item name="Overview"             href="/manual/index.html"/>
-            <item name="Examples"             href="/examples/index.html"/>
-            <item name="Options"              href="/manual/options.html"/>
-            <item name="Validators"           href="/manual/validators.html"/>
-            <item name="Javadoc (SVN latest)" href="apidocs/index.html"/>
+            <item name="Getting started"      href="/introduction.html"/>
+            <item name="Usage scenarios"      href="/usage.html"/>
+            <item name="Option properties"    href="/properties.html"/>
+            <item name="Javadoc (1.2)"        href="api-release/index.html"/>
         </menu>
 
     </body>
