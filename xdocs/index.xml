@@ -25,52 +25,17 @@
   </properties>
 
   <body>
-    <section name="Commons CLI">
+    <section name="Commons CLI2">
       <p>
-        The Apache Commons CLI library provides an API for parsing command line options passed to programs.
-        It's also able to print help messages detailing the options available for a command line tool.
+        CLI2 has been developed with the goals of clearer responsibilities and
+        being more flexible than Commons CLI.  The intention is that CLI2 should 
+        be able to model a far greater selection of interfaces and do so more 
+        completely, validating as much as possible.
       </p>
       <p>
-        Commons CLI supports different types of options:
+        The redesigned CLI2 is rooted in the <code>org.apache.commons.cli2</code>
+        package.
       </p>
-      <ul>
-        <li>POSIX like options (ie. <code>tar -zxvf foo.tar.gz</code>)</li>
-        <li>GNU like long options (ie. <code>du --human-readable --max-depth=1</code>)</li>
-        <li>Java like properties (ie. <code>java -Djava.awt.headless=true -Djava.net.useSystemProxies=true Foo</code>)</li>
-        <li>Short options with value attached (ie. <code>gcc -O2 foo.c</code>)</li>
-        <li>long options with single hyphen (ie. <code>ant -projecthelp</code>)</li>
-      </ul>
-      <p>
-        A typical help message displayed by Commons CLI looks like this:
-      </p>
-      <source>
-usage: ls
- -A,--almost-all          do not list implied . and ..
- -a,--all                 do not hide entries starting with .
- -B,--ignore-backups      do not list implied entried ending with ~
- -b,--escape              print octal escapes for nongraphic characters
-    --block-size &lt;SIZE>   use SIZE-byte blocks
- -c                       with -lt: sort by, and show, ctime (time of last
-                          modification of file status information) with
-                          -l:show ctime and sort by name otherwise: sort
-                          by ctime
- -C                       list entries by columns
-      </source>
-      <p>
-        Check out the <a href="introduction.html">introduction</a> page for a detailed presentation.
-      </p>
-    </section>
-
-    <section name="1.x vs 2.x?">
-      <p>Commons CLI 1.0 was formed from the merger of ideas and code from three different libraries -
-      Werken, Avalon and Optz. In dealing with the bugs and the feature requests a freshly designed and not
-      backwards compatible CLI 2 was created, but never finished or released. Since then bugfix releases
-      have been made for CLI 1.</p>
-
-      <p>The current plan is to maintain the 1.x line until CLI 2 is officially released. The 2.x design is generally
-      preferred and is in use, however there is no current activity to make a 2.0 release. To this end, the 1.2
-      release is recommended to most users while the 2.x line is recommended for anyone interested in helping to get
-      this better API released.</p>
     </section>
 
     <section name="Documentation">
@@ -82,26 +47,17 @@ usage: ls
         The Javadoc API documents are available online:
       </p>
       <ul>
-        <li><a href="api-release/index.html">CLI 1.2 (current release)</a></li>
-        <li><a href="api-1.1/index.html">CLI 1.1</a></li>
-        <li><a href="api-1.0/index.html">CLI 1.0</a></li>
         <li><a href="apidocs/index.html">CLI 2.0-SNAPSHOT (latest SVN)</a></li>
       </ul>
       <p>
         The <a href="source-repository.html">Subversion repository</a> can be
-        <a href="http://svn.apache.org/viewvc/commons/proper/cli/trunk/">browsed</a>.
+        <a href="http://svn.apache.org/viewvc/commons/sandbox/cli2/trunk/">browsed</a>.
       </p>
     </section>
 
     <section name="Releases">
       <p>
-        The latest version is v1.2. -
-        <a href="http://commons.apache.org/downloads/download_cli.cgi">Download now!</a>
-        <br/>
-        The <a href="release_1_2.html">release notes</a> are also available.
-      </p>
-      <p>
-        For previous releases, see the <a href="http://archive.apache.org/dist/commons/cli/">Apache Archive</a>.
+        CLI2 is a component in the Commons Sandbox and therefore has not had a release. 
       </p>
     </section>
 
@@ -109,83 +65,11 @@ usage: ls
       <p>The <a href="mail-lists.html">commons mailing lists</a> act as the main support forum. The user list
       is suitable for most library usage queries. The dev list is intended for the development discussion. Please
       remember that the lists are shared between all commons components, so prefix your email subject by
-      <code>[cli]</code>.</p>
+      <code>[cli2]</code>.</p>
 
       <p>Issues may be reported via the <a href="issue-tracking.html">ASF JIRA</a>.</p>
     </section>
 
-
-      <!--      <p>
-              CLI1 was formed by the merger of ideas and code from three different
-              libraries and allows most simple interfaces to be modelled.  CLI1
-              became increasingly difficult to maintain and develop further and so
-              CLI2 has been developed with the goals of clearer responsibilities and
-              being more flexible.  The intention is that CLI2 should be able to
-              model a far greater selection of interfaces and do so more completely,
-              validating as much as possible.
-            </p>
-            <p>
-              The redesigned CLI2 is rooted in the <code>org.apache.commons.cli2</code>
-              package and the distribution retains the <code>org.apache.commons.cli</code>
-              package so that the upgrade doesn't break old code.  The CLI1 package
-              should be regarded as deprecated to encourage the transition to the
-              more flexible CLI2 framework but minor bug fixes and patches may be
-              accepted to ensure that CLI1 based applications continue to function as
-              expected.
-            </p>
-            <p>
-              The rest of the documentation is split into the following three sections:
-              <ul>
-                <li><a href="manual/index.html">CLI2</a> - a reference manual for version 2</li>
-                <li><a href="introduction.html">CLI1</a> - documentation for version 1 </li>
-                <li><a href="examples/index.html">Examples</a> - a selection of worked examples demonstrating CLI2 features</li>
-              </ul>
-            </p>
-            <p>
-              The latest version of this documentation is available on the web:
-              <ul>
-                <li><a href="http://commons.apache.org/cli/">http://commons.apache.org/cli/</a></li>
-                <li>
-                  <a href="http://commons.apache.org/cli/commons-cli.pdf">http://commons.apache.org/cli/commons-cli.pdf</a>
-                  <a href="http://commons.apache.org/cli/commons-cli.pdf"><img border="0" src="images/pdf.gif"/></a>
-                </li>
-              </ul>
-            </p>
-          </section>
-          <section name="Dependancies">
-            <p>
-              The generated list of <a href="dependencies.html">dependencies</a>
-              lists the libraries needed to compile and test Commons CLI.  To use
-              the precompiled distribution none of these dependancies are strictly
-              necessary.  The following is a breakdown of what is required and when:
-            </p>
-            <table>
-              <tr>
-                <th>Library</th><th>Usage</th>
-              </tr>
-              <tr>
-                <td>Java 1.2</td>
-                <td>This is the minimum java level needed to use CLI2</td>
-              </tr>
-              <tr>
-                <td>Java 1.4</td>
-                <td>Needed if the PreferencesCommandLine is needed</td>
-              </tr>
-              <tr>
-                <td>commons-lang</td>
-                <td>Needed if the CLI1 package is being used</td>
-              </tr>
-              <tr>
-                <td>jdepend</td>
-                <td>Needed to build and test CLI2 only</td>
-              </tr>
-              <tr>
-                <td>junit</td>
-                <td>Needed to build and test CLI1 and CLI2</td>
-              </tr>
-            </table>
-          </section>
-      -->
   </body>
 
 </document>
