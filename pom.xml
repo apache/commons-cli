@@ -32,7 +32,7 @@
     Commons CLI provides a simple API for presenting, processing and validating a command line interface.
   </description>
 
-  <url>http://commons.apache.org/cli/</url>
+  <url>http://commons.apache.org/sandbox/cli2/</url>
 
   <issueManagement>
     <system>jira</system>
@@ -40,9 +40,9 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/cli/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/cli/trunk</developerConnection>
-    <url>http://svn.apache.org/viewvc/commons/proper/cli/trunk</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/sandbox/cli2/trunk</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/sandbox/cli2/trunk</developerConnection>
+    <url>http://svn.apache.org/viewvc/commons/sandbox/cli2/trunk</url>
   </scm>
 
   <developers>
@@ -147,7 +147,7 @@
     <commons.componentid>cli</commons.componentid>
     <commons.release.name>commons-cli-${commons.release.version}</commons.release.name>
     <commons.osgi.symbolicName>org.apache.commons.cli2</commons.osgi.symbolicName>
-    <commons.release.version>1.2</commons.release.version>
+    <commons.release.version>2.0</commons.release.version>
     <commons.binary.suffix></commons.binary.suffix>
     <commons.jira.id>CLI</commons.jira.id>
     <commons.jira.pid>12310463</commons.jira.pid>
@@ -232,7 +232,6 @@
             <enableRulesSummary>false</enableRulesSummary>
           </configuration>
         </plugin>
-        <!--
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>findbugs-maven-plugin</artifactId>
@@ -242,7 +241,6 @@
             <effort>Default</effort>
          </configuration>
         </plugin>
-      -->
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>cobertura-maven-plugin</artifactId>
