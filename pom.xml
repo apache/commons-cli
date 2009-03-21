@@ -40,9 +40,9 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/cli/branches/cli-1.x/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/cli/branches/cli-1.x/</developerConnection>
-    <url>http://svn.apache.org/viewvc/commons/proper/cli/branches/cli-1.x/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/cli/trunk/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/cli/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewvc/commons/proper/cli/trunk/</url>
   </scm>
 
   <developers>
