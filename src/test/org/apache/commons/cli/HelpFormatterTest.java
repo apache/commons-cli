@@ -450,4 +450,22 @@ public class HelpFormatterTest extends TestCase
                 "footer"+EOL
                 ,out.toString());
     }
+
+    public void testAutoWidth()
+    {
+        // related to Bugzilla #19383 (CLI-67)
+        Options options = new Options();
+        options.addOption(new Option("a", "aaa", false, "aaaaaaa aaaa aaaaa aaaaaaaa aaaaaa aa aaaaa aaaaaaaaaaaaa"));
+        options.addOption(new Option(null, "bbb", false, "bbbbbbb  bbbb bbbbbb bbbbb bbbbbb bbbb bbbbbbbb bbbbbbbb bbbbbbbbbb"));
+        options.addOption(new Option("c", null, false, "ccccccc ccccccccccc ccccccccccccc ccc ccccc cccccccc cccccccccccc ccccc ccc ccc ccccccccccccccccc cc"));
+        
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.setAutoWidth(true);
+        StringWriter out = new StringWriter();
+        formatter.printHelp("foobar", options);
+        assertEquals("1", "1");
+    }
+    
+    
+    
 }

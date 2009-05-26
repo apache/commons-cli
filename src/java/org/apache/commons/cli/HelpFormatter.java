@@ -24,6 +24,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 
 /** 
  * A formatter of help messages for the current command line options
@@ -134,6 +137,11 @@ public class HelpFormatter
      */
     protected Comparator optionComparator = new OptionComparator();
 
+    /**
+     * Flag to determine if we try to determine terminal width
+     */
+    public boolean autoWidth = false;
+    
     /**
      * Sets the 'width'.
      *
@@ -321,6 +329,28 @@ public class HelpFormatter
         }
     }
 
+    /**
+     * Sets the 'autoWidth'.
+     *
+     * @param flag the new value of 'autoWidth'
+     */
+    public void setAutoWidth(boolean flag)
+    {
+        this.autoWidth = flag;
+        int newWidth = (flag ? getTerminalWidth() : DEFAULT_WIDTH);
+        setWidth(newWidth);
+    }
+    
+    /**
+     * Returns the 'autoWidth'.
+     *
+     * @return the 'autoWidth'
+     */
+    public boolean getAutoWidth()
+    {
+        return autoWidth;
+    }
+    
     /**
      * Print the help for <code>options</code> with the specified
      * command line syntax.  This method prints help information to
@@ -631,6 +661,58 @@ public class HelpFormatter
         }
     }
 
+    /**
+     * Returns the auto-detected Terminal width as reported by stty -a  
+     *
+     */
+    
+    private static int getTerminalWidth()
+    {
+        int ret = DEFAULT_WIDTH;
+        if (System.getProperty("os.name").toLowerCase().indexOf("windows") == -1) {
+            String sttya = unixCmdOut("stty -a < /dev/tty");
+            StringTokenizer stok = new StringTokenizer(sttya, ";");
+            while (stok.hasMoreTokens()) {
+                String out = stok.nextToken().trim();
+                if (out.startsWith("columns")) {
+                    int index = out.lastIndexOf(" ");
+                    ret = Integer.parseInt(out.substring(index).trim());
+                    break;
+                } else if (out.endsWith("columns")) {
+                    int index = out.indexOf(" ");
+                    ret = Integer.parseInt(out.substring(0, index).trim());
+                    break;
+                }
+            }
+        }
+        return ret;
+    }
+    
+    /**
+     * Runs the provided Unix command line and returns stdout  
+     *
+     * @param program the program to run
+     */
+    private static String unixCmdOut(String program)
+    {
+        int c;
+        InputStream in;
+        String rstr;
+        ByteArrayOutputStream sout = new ByteArrayOutputStream();
+        try {
+            Process p = Runtime.getRuntime().exec(new String[] {"sh","-c",program});
+            in = p.getInputStream();
+            while ((c = in.read()) != -1) {
+                sout.write(c);
+            }
+            p.waitFor();
+            rstr = new String(sout.toString());
+        } catch (Exception e) {
+            rstr = new String(DEFAULT_WIDTH + " columns;");
+        }
+        return rstr;
+    }
+    
     /**
      * Print the cmdLineSyntax to the specified writer, using the
      * specified width.
@@ -981,4 +1063,5 @@ public class HelpFormatter
             return opt1.getKey().compareToIgnoreCase(opt2.getKey());
         }
     }
+
 }
