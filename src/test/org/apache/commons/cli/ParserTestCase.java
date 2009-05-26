@@ -30,7 +30,7 @@ import junit.framework.TestCase;
  */
 public abstract class ParserTestCase extends TestCase
 {
-    protected Parser parser;
+    protected CommandLineParser parser;
 
     protected Options options;
 
@@ -392,5 +392,107 @@ public abstract class ParserTestCase extends TestCase
         
         assertTrue("Confirm --version is set", cl.hasOption("version"));
         assertTrue("Confirm -v is not set", !cl.hasOption("v"));
+    }
+
+    public void testWithRequiredOption() throws Exception
+    {
+        String[] args = new String[] { "-b", "file" };
+        
+        Options options = new Options();
+        options.addOption("a", "enable-a", false, null);
+        options.addOption(OptionBuilder.withLongOpt("bfile").hasArg().isRequired().create('b'));
+
+        CommandLine cl = parser.parse(options,args);
+
+        assertTrue("Confirm -a is NOT set", !cl.hasOption("a"));
+        assertTrue("Confirm -b is set", cl.hasOption("b"));
+        assertTrue("Confirm arg of -b", cl.getOptionValue("b").equals("file"));
+        assertTrue("Confirm NO of extra args", cl.getArgList().size() == 0);
+    }
+
+    public void testOptionAndRequiredOption() throws Exception
+    {
+        String[] args = new String[] { "-a", "-b", "file" };
+        
+        Options options = new Options();
+        options.addOption("a", "enable-a", false, null);
+        options.addOption(OptionBuilder.withLongOpt("bfile").hasArg().isRequired().create('b'));
+
+        CommandLine cl = parser.parse(options,args);
+
+        assertTrue("Confirm -a is set", cl.hasOption("a"));
+        assertTrue("Confirm -b is set", cl.hasOption("b"));
+        assertTrue("Confirm arg of -b", cl.getOptionValue("b").equals("file"));
+        assertTrue("Confirm NO of extra args", cl.getArgList().size() == 0);
+    }
+
+    public void testMissingRequiredOption()
+    {
+        String[] args = new String[] { "-a" };
+        
+        Options options = new Options();
+        options.addOption("a", "enable-a", false, null);
+        options.addOption(OptionBuilder.withLongOpt("bfile").hasArg().isRequired().create('b'));
+
+        try
+        {
+            parser.parse(options,args);
+            fail("exception should have been thrown");
+        }
+        catch (MissingOptionException e)
+        {
+            assertEquals( "Incorrect exception message", "Missing required option: b", e.getMessage() );
+            assertTrue(e.getMissingOptions().contains("b"));
+        }
+        catch (ParseException e)
+        {
+            fail("expected to catch MissingOptionException");
+        }
+    }
+
+    public void testMissingRequiredOptions()
+    {
+        String[] args = new String[] { "-a" };
+
+        Options options = new Options();
+        options.addOption("a", "enable-a", false, null);
+        options.addOption(OptionBuilder.withLongOpt("bfile").hasArg().isRequired().create('b'));
+        options.addOption(OptionBuilder.withLongOpt("cfile").hasArg().isRequired().create('c'));
+
+        try
+        {
+            parser.parse(options,args);
+            fail("exception should have been thrown");
+        }
+        catch (MissingOptionException e)
+        {
+            assertEquals("Incorrect exception message", "Missing required options: b, c", e.getMessage());
+            assertTrue(e.getMissingOptions().contains("b"));
+            assertTrue(e.getMissingOptions().contains("c"));
+        }
+        catch (ParseException e)
+        {
+            fail("expected to catch MissingOptionException");
+        }
+    }
+
+    public void testReuseOptionsTwice() throws Exception
+    {
+        Options opts = new Options();
+		opts.addOption(OptionBuilder.isRequired().create('v'));
+
+        // first parsing
+        parser.parse(opts, new String[] { "-v" });
+
+        try
+        {
+            // second parsing, with the same Options instance and an invalid command line
+            parser.parse(opts, new String[0]);
+            fail("MissingOptionException not thrown");
+        }
+        catch (MissingOptionException e)
+        {
+            // expected
+        }
     }
 }
