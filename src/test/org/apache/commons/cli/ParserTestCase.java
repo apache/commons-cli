@@ -303,4 +303,94 @@ public abstract class ParserTestCase extends TestCase
         assertEquals("Should be 1 arg left",1,argsleft.size());
         assertEquals("Expecting foo","foo",argsleft.get(0));
     }
+    
+    public void testUnambiguousPartialLongOption1() throws Exception
+    {
+        String[] args = new String[] { "--ver" };
+        
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("version").create());
+        options.addOption(OptionBuilder.withLongOpt("help").create());
+        
+        CommandLine cl = parser.parse(options, args);
+        
+        assertTrue("Confirm --version is set", cl.hasOption("version"));
+    }
+
+    public void testUnambiguousPartialLongOption2() throws Exception
+    {
+        String[] args = new String[] { "-ver" };
+        
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("version").create());
+        options.addOption(OptionBuilder.withLongOpt("help").create());
+        
+        CommandLine cl = parser.parse(options, args);
+        
+        assertTrue("Confirm --version is set", cl.hasOption("version"));
+    }
+
+    public void testAmbiguousPartialLongOption1() throws Exception
+    {
+        String[] args = new String[] { "--ver" };
+        
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("version").create());
+        options.addOption(OptionBuilder.withLongOpt("verbose").create());
+        
+        boolean caught = false;
+        
+        try 
+        {
+            parser.parse(options, args);
+        }
+        catch (AmbiguousOptionException e) 
+        {
+            caught = true;
+            assertEquals("Partial option", "--ver", e.getOption());
+            assertNotNull("Matching options null", e.getMatchingOptions());
+            assertEquals("Matching options size", 2, e.getMatchingOptions().size());
+        }
+        
+        assertTrue( "Confirm MissingArgumentException caught", caught );
+    }
+    
+    public void testAmbiguousPartialLongOption2() throws Exception
+    {
+        String[] args = new String[] { "-ver" };
+        
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("version").create());
+        options.addOption(OptionBuilder.withLongOpt("verbose").create());
+        
+        boolean caught = false;
+        
+        try 
+        {
+            parser.parse(options, args);
+        }
+        catch (AmbiguousOptionException e) 
+        {
+            caught = true;
+            assertEquals("Partial option", "-ver", e.getOption());
+            assertNotNull("Matching options null", e.getMatchingOptions());
+            assertEquals("Matching options size", 2, e.getMatchingOptions().size());
+        }
+        
+        assertTrue( "Confirm MissingArgumentException caught", caught );
+    }
+    
+    public void testPartialLongOptionWithShort() throws Exception
+    {
+        String[] args = new String[] { "-ver" };
+        
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("version").create());
+        options.addOption(OptionBuilder.hasArg().create('v'));
+        
+        CommandLine cl = parser.parse(options, args);
+        
+        assertTrue("Confirm --version is set", cl.hasOption("version"));
+        assertTrue("Confirm -v is not set", !cl.hasOption("v"));
+    }
 }

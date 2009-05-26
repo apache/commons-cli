@@ -92,7 +92,7 @@ public class PosixParser extends Parser
      * when an non option is found.
      * @return The flattened <code>arguments</code> String array.
      */
-    protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption)
+    protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption) throws ParseException
     {
         init();
         this.options = options;
@@ -106,21 +106,33 @@ public class PosixParser extends Parser
             // get the next command line token
             String token = (String) iter.next();
 
+            // single or double hyphen
+            if ("-".equals(token) || "--".equals(token))
+            {
+                tokens.add(token);
+            }
+            
             // handle long option --foo or --foo=bar
-            if (token.startsWith("--"))
+            else if (token.startsWith("--"))
             {
                 int pos = token.indexOf('=');
                 String opt = pos == -1 ? token : token.substring(0, pos); // --foo
+                
+                List matchingOpts = options.getMatchingOptions(opt);
 
-                if (!options.hasOption(opt))
+                if (matchingOpts.isEmpty())
                 {
                     processNonOptionToken(token, stopAtNonOption);
                 }
+                else if (matchingOpts.size() > 1)
+                {
+                    throw new AmbiguousOptionException(opt, matchingOpts);
+                }
                 else
                 {
-                    currentOption = options.getOption(opt);
+                    currentOption = options.getOption((String) matchingOpts.get(0));
                     
-                    tokens.add(opt);
+                    tokens.add("--" + currentOption.getLongOpt());
                     if (pos != -1)
                     {
                         tokens.add(token.substring(pos + 1));
@@ -128,16 +140,24 @@ public class PosixParser extends Parser
                 }
             }
 
-            // single hyphen
-            else if ("-".equals(token))
-            {
-                tokens.add(token);
-            }
             else if (token.startsWith("-"))
             {
                 if (token.length() == 2 || options.hasOption(token))
                 {
                     processOptionToken(token, stopAtNonOption);
+                }
+                else if (!options.getMatchingOptions(token).isEmpty())
+                {
+                    List matchingOpts = options.getMatchingOptions(token);
+                    if (matchingOpts.size() > 1)
+                    {
+                        throw new AmbiguousOptionException(token, matchingOpts);
+                    }
+                    else
+                    {
+                        Option opt = options.getOption((String) matchingOpts.get(0));
+                        processOptionToken("-" + opt.getLongOpt(), stopAtNonOption);
+                    }
                 }
                 // requires bursting
                 else

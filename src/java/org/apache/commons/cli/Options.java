@@ -214,6 +214,32 @@ public class Options implements Serializable
     }
 
     /**
+     * Returns the options with a long name starting with the name specified.
+     * 
+     * @param opt the partial name of the option
+     * @return the options matching the partial name specified, or an empty list if none matches
+     * @since 1.3
+     */
+    public List getMatchingOptions(String opt)
+    {
+        opt = Util.stripLeadingHyphens(opt);
+        
+        List matchingOpts = new ArrayList();
+        
+        Iterator it = longOpts.keySet().iterator();
+        while (it.hasNext())
+        {
+            String longOpt = (String) it.next();
+            if (longOpt.startsWith(opt))
+            {
+                matchingOpts.add(longOpt);
+            }
+        }        
+        
+        return matchingOpts;
+    }
+
+    /**
      * Returns whether the named {@link Option} is a member of this {@link Options}.
      *
      * @param opt short or long name of the {@link Option}

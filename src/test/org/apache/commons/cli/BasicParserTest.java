@@ -53,4 +53,29 @@ public class BasicParserTest extends ParserTestCase
     {
         // not supported by the BasicParser
     }
+    
+    public void testUnambiguousPartialLongOption1() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testUnambiguousPartialLongOption2() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testAmbiguousPartialLongOption1() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testAmbiguousPartialLongOption2() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testPartialLongOptionWithShort() throws Exception
+    {
+        // not supported by the BasicParser
+    }
 }

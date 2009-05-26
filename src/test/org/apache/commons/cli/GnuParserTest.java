@@ -24,4 +24,29 @@ public class GnuParserTest extends ParserTestCase
         super.setUp();
         parser = new GnuParser();
     }
+
+    public void testUnambiguousPartialLongOption1() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testUnambiguousPartialLongOption2() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testAmbiguousPartialLongOption1() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testAmbiguousPartialLongOption2() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testPartialLongOptionWithShort() throws Exception
+    {
+        // not supported by the GnuParser
+    }
 }
