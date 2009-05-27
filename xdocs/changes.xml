@@ -23,6 +23,9 @@
   <body>
     
     <release version="1.3" date="in SVN">
+      <action type="add" dev="jim" issue="CLI-166">
+        HelpFormatter can now autodetect (if desired) terminal width under Unix.
+      </action>
       <action type="add" dev="ebourg" issue="CLI-160">
         PosixParser now supports partial long options (--ver instead of --version)
       </action>
