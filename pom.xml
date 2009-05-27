@@ -79,6 +79,12 @@
         <role>designed CLI2</role>
       </roles>
     </developer>
+    <developer>
+      <name>Emmanuel Bourg</name>
+      <id>ebourg</id>
+      <email>ebourg@apache.org</email>
+      <organization>Ariane Software</organization>
+    </developer>
   </developers>
 
   <contributors>
@@ -115,6 +121,7 @@
         <role>lots of fixes for 1.1</role>
       </roles>
     </contributor>
+    
   </contributors>
 
   <dependencies>
