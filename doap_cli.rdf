@@ -37,21 +37,21 @@ limitations under the License.
       </SVNRepository>
     </repository>
     <release>
-      <revision>
+      <Version>
         <name>commons-cli</name>
         <created>2009-03-19</created>
-        <version>1.2</version>
-      </revision>
-      <revision>
+        <revision>1.2</revision>
+      </Version>
+      <Version>
         <name>commons-cli</name>
         <created>2007-07-08</created>
-        <version>1.1</version>
-      </revision>
-      <revision>
+        <revision>1.1</revision>
+      </Version>
+      <Version>
         <name>commons-cli</name>
         <created>2002-11-06</created>
-        <version>1.0</version>
-      </revision>
+        <revision>1.0</revision>
+      </Version>
     </release>
     <mailing-list rdf:resource="http://commons.apache.org/mail-lists.html"/>
   </Project>
