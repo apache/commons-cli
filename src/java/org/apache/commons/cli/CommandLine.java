@@ -105,6 +105,7 @@ public class CommandLine implements Serializable
      * @return the value parsed into a particluar object
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
+     * @since 1.2
      */
     public Object getParsedOptionValue(String opt) throws ParseException
     {
@@ -118,7 +119,7 @@ public class CommandLine implements Serializable
 
         Object type = option.getType();
 
-        return (res == null)        ? null : TypeHandler.createValue(res, type);
+        return (res == null) ? null : TypeHandler.createValue(res, type);
     }
 
     /**

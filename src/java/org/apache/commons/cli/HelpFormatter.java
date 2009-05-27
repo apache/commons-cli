@@ -303,9 +303,10 @@ public class HelpFormatter
     }
 
     /**
-     * Comparator used to sort the options when they output in help text
+     * Comparator used to sort the options when they output in help text.
+     * Defaults to case-insensitive alphabetical sorting by option key.
      * 
-     * Defaults to case-insensitive alphabetical sorting by option key
+     * @since 1.2
      */
     public Comparator getOptionComparator()
     {
@@ -313,9 +314,10 @@ public class HelpFormatter
     }
 
     /**
-     * Set the comparator used to sort the options when they output in help text
+     * Set the comparator used to sort the options when they output in help text.
+     * Passing in a null parameter will set the ordering to the default mode.
      * 
-     * Passing in a null parameter will set the ordering to the default mode
+     * @since 1.2
      */
     public void setOptionComparator(Comparator comparator)
     {
