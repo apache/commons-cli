@@ -29,10 +29,15 @@ public class BasicParserTest extends ParserTestCase
         parser = new BasicParser();
     }
 
-    public void testPropertiesOption() throws Exception
+    public void testPropertiesOption1() throws Exception
     {
         // not supported by the BasicParser
     }
+
+    public void testPropertiesOption2() throws Exception
+    {
+        // not supported by the BasicParser
+    }    
 
     public void testShortWithEqual() throws Exception
     {

@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import junit.framework.TestCase;
 
@@ -283,7 +284,7 @@ public abstract class ParserTestCase extends TestCase
         assertEquals("bar", cl.getOptionValue("foo"));
     }
 
-    public void testPropertiesOption() throws Exception
+    public void testPropertiesOption1() throws Exception
     {
         String[] args = new String[] { "-Jsource=1.5", "-J", "target", "1.5", "foo" };
 
@@ -299,11 +300,31 @@ public abstract class ParserTestCase extends TestCase
         assertEquals("value 2", "1.5", values.get(1));
         assertEquals("value 3", "target", values.get(2));
         assertEquals("value 4", "1.5", values.get(3));
+        
         List argsleft = cl.getArgList();
-        assertEquals("Should be 1 arg left",1,argsleft.size());
-        assertEquals("Expecting foo","foo",argsleft.get(0));
+        assertEquals("Should be 1 arg left", 1, argsleft.size());
+        assertEquals("Expecting foo", "foo", argsleft.get(0));
     }
-    
+
+    public void testPropertiesOption2() throws Exception
+    {
+        String[] args = new String[] { "-Dparam1", "-Dparam2=value2", "-D"};
+
+        Options options = new Options();
+        options.addOption(OptionBuilder.withValueSeparator().hasOptionalArgs(2).create('D'));
+
+        CommandLine cl = parser.parse(options, args);
+        
+        Properties props = cl.getOptionProperties("D");
+        assertNotNull("null properties", props);
+        assertEquals("number of properties in " + props, 2, props.size());
+        assertEquals("property 1", "true", props.getProperty("param1"));
+        assertEquals("property 2", "value2", props.getProperty("param2"));
+        
+        List argsleft = cl.getArgList();
+        assertEquals("Should be no arg left", 0, argsleft.size());
+    }
+
     public void testUnambiguousPartialLongOption1() throws Exception
     {
         String[] args = new String[] { "--ver" };
