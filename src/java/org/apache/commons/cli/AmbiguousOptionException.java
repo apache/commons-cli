@@ -18,6 +18,7 @@
 package org.apache.commons.cli;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Exception thrown when an option can't be identified from a partial name.
@@ -39,7 +40,7 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
      */
     public AmbiguousOptionException(String option, Collection matchingOptions)
     {
-        super("Ambiguous option: " + option, option);
+        super(createMessage(option, matchingOptions), option);
         this.matchingOptions = matchingOptions;
     }
 
@@ -49,5 +50,34 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
     public Collection getMatchingOptions()
     {
         return matchingOptions;
+    }
+
+    /**
+     * Build the exception message from the specified list of options.
+     * 
+     * @param option
+     * @param matchingOptions
+     * @return
+     */
+    private static String createMessage(String option, Collection matchingOptions)
+    {
+        StringBuffer buff = new StringBuffer("Ambiguous option: '");
+        buff.append(option);
+        buff.append("'  (could be: ");
+
+        Iterator it = matchingOptions.iterator();
+        while (it.hasNext())
+        {
+            buff.append("'");
+            buff.append(it.next());
+            buff.append("'");
+            if (it.hasNext())
+            {
+                buff.append(", ");
+            }
+        }
+        buff.append(")");
+
+        return buff.toString();
     }
 }
