@@ -23,12 +23,6 @@
   <body>
     
     <release version="1.3" date="in SVN">
-      <action type="add" dev="jim" issue="CLI-166">
-        HelpFormatter can now autodetect (if desired) terminal width under Unix.
-        This is done via setAutoWidth(true) and the actual terminal width determination
-        is done internally by calling "/bin/sh -c stty -a < /dev/null". If anything
-        fails, the defaultWidth is used.
-      </action>
       <action type="add" dev="ebourg" issue="CLI-160">
         PosixParser now supports partial long options (--ver instead of --version)
       </action>
