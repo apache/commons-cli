@@ -140,7 +140,7 @@ public class HelpFormatter
     /**
      * Flag to determine if we try to determine terminal width
      */
-    public boolean autoWidth = false;
+    private boolean autoWidth = false;
     
     /**
      * Sets the 'width'.
@@ -702,7 +702,7 @@ public class HelpFormatter
         String rstr;
         ByteArrayOutputStream sout = new ByteArrayOutputStream();
         try {
-            Process p = Runtime.getRuntime().exec(new String[] {"sh","-c",program});
+            Process p = Runtime.getRuntime().exec(new String[] {"/bin/sh","-c",program});
             in = p.getInputStream();
             while ((c = in.read()) != -1) {
                 sout.write(c);
