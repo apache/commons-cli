@@ -44,7 +44,7 @@ public class BasicParserTest extends ParserTestCase
         // not supported by the BasicParser
     }
 
-    public void testLongWithEqual() throws Exception
+    public void testLongWithEqualDoubleDash() throws Exception
     {
         // not supported by the BasicParser
     }
@@ -64,6 +64,16 @@ public class BasicParserTest extends ParserTestCase
         // not supported by the BasicParser
     }
 
+    public void testUnambiguousPartialLongOption3() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testUnambiguousPartialLongOption4() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
     public void testAmbiguousPartialLongOption1() throws Exception
     {
         // not supported by the BasicParser
@@ -74,7 +84,17 @@ public class BasicParserTest extends ParserTestCase
         // not supported by the BasicParser
     }
 
-    public void testPartialLongOptionWithShort() throws Exception
+    public void testAmbiguousPartialLongOption3() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testAmbiguousPartialLongOption4() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testPartialLongOptionSingleDash() throws Exception
     {
         // not supported by the BasicParser
     }

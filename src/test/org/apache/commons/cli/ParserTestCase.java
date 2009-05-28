@@ -122,7 +122,7 @@ public abstract class ParserTestCase extends TestCase
         {
             assertEquals("-d", e.getOption());
         }
-    }    
+    }
 
     public void testMissingArg() throws Exception
     {
@@ -259,7 +259,7 @@ public abstract class ParserTestCase extends TestCase
         assertEquals("bar", cl.getOptionValue("foo"));
     }
 
-    public void testLongWithEqual() throws Exception
+    public void testLongWithEqualDoubleDash() throws Exception
     {
         String[] args = new String[] { "--foo=bar" };
 
@@ -330,6 +330,34 @@ public abstract class ParserTestCase extends TestCase
         assertTrue("Confirm --version is set", cl.hasOption("version"));
     }
 
+    public void testUnambiguousPartialLongOption3() throws Exception
+    {
+        String[] args = new String[] { "--ver=1" };
+        
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("verbose").hasOptionalArg().create());
+        options.addOption(OptionBuilder.withLongOpt("help").create());
+        
+        CommandLine cl = parser.parse(options, args);
+        
+        assertTrue("Confirm --verbose is set", cl.hasOption("verbose"));
+        assertEquals("1", cl.getOptionValue("verbose"));
+    }
+
+    public void testUnambiguousPartialLongOption4() throws Exception
+    {
+        String[] args = new String[] { "-ver=1" };
+        
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("verbose").hasOptionalArg().create());
+        options.addOption(OptionBuilder.withLongOpt("help").create());
+        
+        CommandLine cl = parser.parse(options, args);
+        
+        assertTrue("Confirm --verbose is set", cl.hasOption("verbose"));
+        assertEquals("1", cl.getOptionValue("verbose"));
+    }
+    
     public void testAmbiguousPartialLongOption1() throws Exception
     {
         String[] args = new String[] { "--ver" };
@@ -379,8 +407,58 @@ public abstract class ParserTestCase extends TestCase
         
         assertTrue( "Confirm MissingArgumentException caught", caught );
     }
+
+    public void testAmbiguousPartialLongOption3() throws Exception
+    {
+        String[] args = new String[] { "--ver=1" };
+        
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("version").create());
+        options.addOption(OptionBuilder.withLongOpt("verbose").hasOptionalArg().create());
+        
+        boolean caught = false;
+        
+        try 
+        {
+            parser.parse(options, args);
+        }
+        catch (AmbiguousOptionException e) 
+        {
+            caught = true;
+            assertEquals("Partial option", "--ver", e.getOption());
+            assertNotNull("Matching options null", e.getMatchingOptions());
+            assertEquals("Matching options size", 2, e.getMatchingOptions().size());
+        }
+        
+        assertTrue( "Confirm MissingArgumentException caught", caught );
+    }
+
+    public void testAmbiguousPartialLongOption4() throws Exception
+    {
+        String[] args = new String[] { "-ver=1" };
+        
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("version").create());
+        options.addOption(OptionBuilder.withLongOpt("verbose").hasOptionalArg().create());
+        
+        boolean caught = false;
+        
+        try 
+        {
+            parser.parse(options, args);
+        }
+        catch (AmbiguousOptionException e) 
+        {
+            caught = true;
+            assertEquals("Partial option", "-ver", e.getOption());
+            assertNotNull("Matching options null", e.getMatchingOptions());
+            assertEquals("Matching options size", 2, e.getMatchingOptions().size());
+        }
+        
+        assertTrue( "Confirm MissingArgumentException caught", caught );
+    }
     
-    public void testPartialLongOptionWithShort() throws Exception
+    public void testPartialLongOptionSingleDash() throws Exception
     {
         String[] args = new String[] { "-ver" };
         

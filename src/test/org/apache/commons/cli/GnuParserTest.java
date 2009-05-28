@@ -35,6 +35,16 @@ public class GnuParserTest extends ParserTestCase
         // not supported by the GnuParser
     }
 
+    public void testUnambiguousPartialLongOption3() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testUnambiguousPartialLongOption4() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
     public void testAmbiguousPartialLongOption1() throws Exception
     {
         // not supported by the GnuParser
@@ -45,7 +55,17 @@ public class GnuParserTest extends ParserTestCase
         // not supported by the GnuParser
     }
 
-    public void testPartialLongOptionWithShort() throws Exception
+   public void testAmbiguousPartialLongOption3() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testAmbiguousPartialLongOption4() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testPartialLongOptionSingleDash() throws Exception
     {
         // not supported by the GnuParser
     }

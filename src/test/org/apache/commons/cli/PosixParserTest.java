@@ -185,4 +185,14 @@ public class PosixParserTest extends ParserTestCase
     {
         // not supported by the PosixParser
     }
+
+    public void testUnambiguousPartialLongOption4() throws Exception
+    {
+        // not supported by the PosixParser
+    }
+
+    public void testAmbiguousPartialLongOption4() throws Exception
+    {
+        // not supported by the PosixParser
+    }
 }
