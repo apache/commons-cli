@@ -573,4 +573,80 @@ public abstract class ParserTestCase extends TestCase
             // expected
         }
     }
+
+    public void testBursting() throws Exception
+    {
+        String[] args = new String[] { "-acbtoast", "foo", "bar" };
+
+        CommandLine cl = parser.parse(options, args);
+
+        assertTrue( "Confirm -a is set", cl.hasOption("a") );
+        assertTrue( "Confirm -b is set", cl.hasOption("b") );
+        assertTrue( "Confirm -c is set", cl.hasOption("c") );
+        assertTrue( "Confirm arg of -b", cl.getOptionValue("b").equals("toast") );
+        assertTrue( "Confirm size of extra args", cl.getArgList().size() == 2);
+    }
+
+    public void testUnrecognizedOptionWithBursting() throws Exception
+    {
+        String[] args = new String[] { "-adbtoast", "foo", "bar" };
+
+        try
+        {
+            parser.parse(options, args);
+            fail("UnrecognizedOptionException wasn't thrown");
+        }
+        catch (UnrecognizedOptionException e)
+        {
+            assertEquals("-adbtoast", e.getOption());
+        }
+    }
+
+    public void testMissingArgWithBursting() throws Exception
+    {
+        String[] args = new String[] { "-acb" };
+
+        boolean caught = false;
+
+        try
+        {
+            parser.parse(options, args);
+        }
+        catch (MissingArgumentException e)
+        {
+            caught = true;
+            assertEquals("option missing an argument", "b", e.getOption().getOpt());
+        }
+
+        assertTrue( "Confirm MissingArgumentException caught", caught );
+    }
+
+    public void testStopBursting() throws Exception
+    {
+        String[] args = new String[] { "-azc" };
+
+        CommandLine cl = parser.parse(options, args, true);
+        assertTrue( "Confirm -a is set", cl.hasOption("a") );
+        assertFalse( "Confirm -c is not set", cl.hasOption("c") );
+
+        assertTrue( "Confirm  1 extra arg: " + cl.getArgList().size(), cl.getArgList().size() == 1);
+        assertTrue(cl.getArgList().contains("zc"));
+    }
+
+    public void testStopBursting2() throws Exception
+    {
+        String[] args = new String[] { "-c", "foobar", "-btoast" };
+
+        CommandLine cl = parser.parse(options, args, true);
+        assertTrue("Confirm -c is set", cl.hasOption("c"));
+        assertTrue("Confirm  2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
+
+        cl = parser.parse(options, cl.getArgs());
+
+        assertTrue("Confirm -c is not set", !cl.hasOption("c"));
+        assertTrue("Confirm -b is set", cl.hasOption("b"));
+        assertTrue("Confirm arg of -b", cl.getOptionValue("b").equals("toast"));
+        assertTrue("Confirm  1 extra arg: " + cl.getArgList().size(), cl.getArgList().size() == 1);
+        assertTrue("Confirm  value of extra arg: " + cl.getArgList().get(0), cl.getArgList().get(0).equals("foobar"));
+    }
 }

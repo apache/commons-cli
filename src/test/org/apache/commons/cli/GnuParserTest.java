@@ -69,4 +69,29 @@ public class GnuParserTest extends ParserTestCase
     {
         // not supported by the GnuParser
     }
+
+    public void testBursting() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testUnrecognizedOptionWithBursting() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testMissingArgWithBursting() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testStopBursting() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testStopBursting2() throws Exception
+    {
+        // not supported by the GnuParser
+    }
 }

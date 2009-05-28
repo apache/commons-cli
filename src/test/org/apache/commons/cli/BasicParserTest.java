@@ -98,4 +98,29 @@ public class BasicParserTest extends ParserTestCase
     {
         // not supported by the BasicParser
     }
+
+    public void testBursting() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testUnrecognizedOptionWithBursting() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testMissingArgWithBursting() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testStopBursting() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testStopBursting2() throws Exception
+    {
+        // not supported by the BasicParser
+    }
 }
