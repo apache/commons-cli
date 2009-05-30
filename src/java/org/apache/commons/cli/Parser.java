@@ -145,6 +145,13 @@ public abstract class Parser implements CommandLineParser
             Option opt = (Option) it.next();
             opt.clearValues();
         }
+        
+        // clear the data from the groups
+        for (Iterator it = options.getOptionGroups().iterator(); it.hasNext();)
+        {
+            OptionGroup group = (OptionGroup) it.next();
+            group.setSelected(null);
+        }        
 
         // initialise members
         setOptions(options);
