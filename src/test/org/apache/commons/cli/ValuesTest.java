@@ -17,14 +17,12 @@
 
 package org.apache.commons.cli;
 
-import java.util.Arrays;
-
 import junit.framework.TestCase;
+import junitx.framework.ArrayAssert;
 
 public class ValuesTest extends TestCase
 {
-    /** CommandLine instance */
-    private CommandLine _cmdline = null;
+    private CommandLine cmd;
 
     public void setUp() throws Exception
     {
@@ -38,7 +36,7 @@ public class ValuesTest extends TestCase
         options.addOption(OptionBuilder.withLongOpt("e").hasArgs().withDescription("set -e ").create('e'));
         options.addOption("f", "f", false, "jk");
         options.addOption(OptionBuilder.withLongOpt("g").hasArgs(2).withDescription("set -g").create('g'));
-        options.addOption(OptionBuilder.withLongOpt("h").hasArgs(2).withDescription("set -h").create('h'));
+        options.addOption(OptionBuilder.withLongOpt("h").hasArg().withDescription("set -h").create('h'));
         options.addOption(OptionBuilder.withLongOpt("i").withDescription("set -i").create('i'));
         options.addOption(OptionBuilder.withLongOpt("j").hasArgs().withDescription("set -j").withValueSeparator('=').create('j'));
         options.addOption(OptionBuilder.withLongOpt("k").hasArgs().withDescription("set -k").withValueSeparator('=').create('k'));
@@ -62,91 +60,70 @@ public class ValuesTest extends TestCase
 
         CommandLineParser parser = new PosixParser();
 
-        _cmdline = parser.parse(options,args);
+        cmd = parser.parse(options,args);
     }
 
     public void testShortArgs()
     {
-        assertTrue( _cmdline.hasOption("a") );
-        assertTrue( _cmdline.hasOption("c") );
+        assertTrue("Option a is not set", cmd.hasOption("a"));
+        assertTrue("Option c is not set", cmd.hasOption("c"));
 
-        assertNull( _cmdline.getOptionValues("a") );
-        assertNull( _cmdline.getOptionValues("c") );
+        assertNull(cmd.getOptionValues("a"));
+        assertNull(cmd.getOptionValues("c"));
     }
 
     public void testShortArgsWithValue()
     {
-        assertTrue( _cmdline.hasOption("b") );
-        assertTrue( _cmdline.getOptionValue("b").equals("foo"));
-        assertEquals(1, _cmdline.getOptionValues("b").length);
+        assertTrue("Option b is not set", cmd.hasOption("b"));
+        assertTrue(cmd.getOptionValue("b").equals("foo"));
+        assertEquals(1, cmd.getOptionValues("b").length);
 
-        assertTrue( _cmdline.hasOption("d") );
-        assertTrue( _cmdline.getOptionValue("d").equals("bar"));
-        assertEquals(1, _cmdline.getOptionValues("d").length);
+        assertTrue("Option d is not set", cmd.hasOption("d"));
+        assertTrue(cmd.getOptionValue("d").equals("bar"));
+        assertEquals(1, cmd.getOptionValues("d").length);
     }
 
     public void testMultipleArgValues()
     {
-        String[] result = _cmdline.getOptionValues("e");
-        String[] values = new String[] { "one", "two" };
-        assertTrue( _cmdline.hasOption("e") );
-        assertEquals(2, _cmdline.getOptionValues("e").length);
-        assertTrue( Arrays.equals( values, _cmdline.getOptionValues("e") ) );
+        assertTrue("Option e is not set", cmd.hasOption("e"));
+        ArrayAssert.assertEquals(new String[] { "one", "two" }, cmd.getOptionValues("e"));
     }
 
     public void testTwoArgValues()
     {
-        String[] result = _cmdline.getOptionValues("g");
-        String[] values = new String[] { "val1", "val2" };
-        assertTrue( _cmdline.hasOption("g") );
-        assertEquals(2, _cmdline.getOptionValues("g").length);
-        assertTrue( Arrays.equals( values, _cmdline.getOptionValues("g") ) );
+        assertTrue("Option g is not set", cmd.hasOption("g"));
+        ArrayAssert.assertEquals(new String[] { "val1", "val2" }, cmd.getOptionValues("g"));
     }
 
     public void testComplexValues()
     {
-        String[] result = _cmdline.getOptionValues("h");
-        String[] values = new String[] { "val1", "val2" };
-        assertTrue( _cmdline.hasOption("i") );
-        assertTrue( _cmdline.hasOption("h") );
-        assertEquals(2, _cmdline.getOptionValues("h").length);
-        assertTrue( Arrays.equals( values, _cmdline.getOptionValues("h") ) );
+        assertTrue("Option i is not set", cmd.hasOption("i"));
+        assertTrue("Option h is not set", cmd.hasOption("h"));
+        ArrayAssert.assertEquals(new String[] { "val1", "val2" }, cmd.getOptionValues("h"));
     }
 
     public void testExtraArgs()
     {
-        String[] args = new String[] { "arg1", "arg2", "arg3" };
-        assertEquals(3, _cmdline.getArgs().length);
-        assertTrue( Arrays.equals( args, _cmdline.getArgs() ) );
+        ArrayAssert.assertEquals("Extra args", new String[] { "arg1", "arg2", "arg3" }, cmd.getArgs());
     }
 
     public void testCharSeparator()
     {
-        // tests the char methods of CommandLine that delegate to
-        // the String methods
-        String[] values = new String[] { "key", "value", "key", "value" };
-        assertTrue( _cmdline.hasOption( "j" ) );
-        assertTrue( _cmdline.hasOption( 'j' ) );
-        assertEquals( 4, _cmdline.getOptionValues( "j" ).length );
-        assertEquals( 4, _cmdline.getOptionValues( 'j' ).length );
-        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( "j" ) ) );
-        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( 'j' ) ) );
+        // tests the char methods of CommandLine that delegate to the String methods
+        assertTrue("Option j is not set", cmd.hasOption("j"));
+        assertTrue("Option j is not set", cmd.hasOption('j'));
+        ArrayAssert.assertEquals(new String[] { "key", "value", "key", "value" }, cmd.getOptionValues("j"));
+        ArrayAssert.assertEquals(new String[] { "key", "value", "key", "value" }, cmd.getOptionValues('j'));
 
-        values = new String[] { "key1", "value1", "key2", "value2" };
-        assertTrue( _cmdline.hasOption( "k" ) );
-        assertTrue( _cmdline.hasOption( 'k' ) );
-        assertEquals(4, _cmdline.getOptionValues( "k" ).length);
-        assertEquals(4, _cmdline.getOptionValues( 'k' ).length);
-        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( "k" ) ) );
-        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( 'k' ) ) );
+        assertTrue("Option k is not set", cmd.hasOption("k"));
+        assertTrue("Option k is not set", cmd.hasOption('k'));
+        ArrayAssert.assertEquals(new String[] { "key1", "value1", "key2", "value2" }, cmd.getOptionValues("k"));
+        ArrayAssert.assertEquals(new String[] { "key1", "value1", "key2", "value2" }, cmd.getOptionValues('k'));
 
-        values = new String[] { "key", "value" };
-        assertTrue( _cmdline.hasOption( "m" ) );
-        assertTrue( _cmdline.hasOption( 'm' ) );
-        assertEquals(2, _cmdline.getOptionValues( "m" ).length);
-        assertEquals(2, _cmdline.getOptionValues( 'm' ).length);
-        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( "m" ) ) );
-        assertTrue( Arrays.equals( values, _cmdline.getOptionValues( 'm' ) ) );
+        assertTrue("Option m is not set", cmd.hasOption("m"));
+        assertTrue("Option m is not set", cmd.hasOption('m'));
+        ArrayAssert.assertEquals(new String[] { "key", "value" }, cmd.getOptionValues("m"));
+        ArrayAssert.assertEquals(new String[] { "key", "value" }, cmd.getOptionValues('m'));
     }
 
     /**
