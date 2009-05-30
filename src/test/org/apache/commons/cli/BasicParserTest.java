@@ -29,6 +29,26 @@ public class BasicParserTest extends ParserTestCase
         parser = new BasicParser();
     }
 
+    public void testDoubleDash2() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+
+    public void testLongWithoutEqualSingleDash() throws Exception
+    {
+        // not supported by the BasicParser
+    }
+    
+    public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
+    {
+        // not supported by the basicParser
+    }
+    
+    public void testNegativeOption() throws Exception
+    {
+        // not supported by the BasicParser (CLI-184)
+    }
+
     public void testPropertiesOption1() throws Exception
     {
         // not supported by the BasicParser

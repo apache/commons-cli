@@ -25,6 +25,41 @@ public class GnuParserTest extends ParserTestCase
         parser = new GnuParser();
     }
 
+    public void testDoubleDash2() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+    
+    public void testLongWithoutEqualSingleDash() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testNegativeOption() throws Exception
+    {
+        // not supported by the GnuParser (CLI-184)
+    }
+
+    public void testLongWithUnexpectedArgument1() throws Exception 
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testLongWithUnexpectedArgument2() throws Exception 
+    {
+        // not supported by the GnuParser
+    }
+
+    public void testShortWithUnexpectedArgument() throws Exception 
+    {
+        // not supported by the GnuParser
+    }
+
     public void testUnambiguousPartialLongOption1() throws Exception
     {
         // not supported by the GnuParser

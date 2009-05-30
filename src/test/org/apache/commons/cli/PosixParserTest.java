@@ -30,6 +30,31 @@ public class PosixParserTest extends ParserTestCase
         parser = new PosixParser();
     }
 
+    public void testDoubleDash2() throws Exception
+    {
+        // not supported by the PosixParser
+    }
+    
+    public void testLongWithoutEqualSingleDash() throws Exception
+    {
+        // not supported by the PosixParser
+    }
+
+    public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
+    {
+        // not supported by the PosixParser
+    }
+    
+    public void testNegativeOption() throws Exception
+    {
+        // not supported by the PosixParser (CLI-184)
+    }
+
+    public void testLongWithUnexpectedArgument1() throws Exception
+    {
+        // not supported by the PosixParser
+    }
+
     public void testLongWithEqualSingleDash() throws Exception
     {
         // not supported by the PosixParser

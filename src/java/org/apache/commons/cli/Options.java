@@ -243,14 +243,41 @@ public class Options implements Serializable
      * Returns whether the named {@link Option} is a member of this {@link Options}.
      *
      * @param opt short or long name of the {@link Option}
-     * @return true if the named {@link Option} is a member
-     * of this {@link Options}
+     * @return true if the named {@link Option} is a member of this {@link Options}
      */
     public boolean hasOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
         return shortOpts.containsKey(opt) || longOpts.containsKey(opt);
+    }
+
+    /**
+     * Returns whether the named {@link Option} is a member of this {@link Options}.
+     *
+     * @param opt long name of the {@link Option}
+     * @return true if the named {@link Option} is a member of this {@link Options}
+     * @since 1.3
+     */
+    public boolean hasLongOption(String opt)
+    {
+        opt = Util.stripLeadingHyphens(opt);
+
+        return longOpts.containsKey(opt);
+    }
+
+    /**
+     * Returns whether the named {@link Option} is a member of this {@link Options}.
+     *
+     * @param opt short name of the {@link Option}
+     * @return true if the named {@link Option} is a member of this {@link Options}
+     * @since 1.3
+     */
+    public boolean hasShortOption(String opt)
+    {
+        opt = Util.stripLeadingHyphens(opt);
+
+        return shortOpts.containsKey(opt);
     }
 
     /**

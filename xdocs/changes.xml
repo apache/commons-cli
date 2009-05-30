@@ -23,6 +23,11 @@
   <body>
     
     <release version="1.3" date="in SVN">
+      <action type="add" dev="ebourg" issue="CLI-181">
+        A new parser is available: DefaultParser. It combines the features of the GnuParser and the PosixParser.
+        It also provides additional features like partial matching for the long options, and long options without
+        separator (i.e like the JVM memory settings: -Xmx512m). This new parser deprecates the previous ones.
+      </action>
       <action type="fix" dev="ebourg" issue="CLI-183">
         OptionGroups no longer throw an AlreadySelectedException when reused for several parsings.
       </action>

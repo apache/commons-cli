@@ -465,7 +465,7 @@ public class Option implements Cloneable, Serializable
      */
     private void add(String value)
     {
-        if ((numberOfArgs > 0) && (values.size() > (numberOfArgs - 1)))
+        if (!acceptsArg())
         {
             throw new RuntimeException("Cannot add value, list full.");
         }
@@ -671,4 +671,36 @@ public class Option implements Cloneable, Serializable
                 + "Subclasses should use the addValueForProcessing method instead. ");
     }
 
+    /**
+     * Tells if the option can accept more arguments.
+     * 
+     * @return false if the maximum number of arguments is reached
+     * @since 1.3
+     */
+    boolean acceptsArg()
+    {
+        return (hasArg() || hasArgs() || hasOptionalArg()) && (numberOfArgs <= 0 || values.size() < numberOfArgs);
+    }
+
+    /**
+     * Tells if the option requires more arguments to be valid.
+     * 
+     * @return false if the option doesn't require more arguments
+     * @since 1.3
+     */
+    boolean requiresArg()
+    {
+        if (optionalArg)
+        {
+            return false;
+        }
+        if (numberOfArgs == UNLIMITED_VALUES)
+        {
+            return values.size() < 1;
+        }
+        else
+        {
+            return acceptsArg();
+        }
+    }
 }

@@ -157,6 +157,24 @@ public abstract class ParserTestCase extends TestCase
         assertTrue("Confirm 2 extra args: " + cl.getArgList().size(), cl.getArgList().size() == 2);
     }
 
+    public void testDoubleDash2() throws Exception
+    {
+        Options options = new Options();
+        options.addOption(OptionBuilder.hasArg().create('n'));
+        options.addOption(OptionBuilder.create('m'));
+
+        try
+        {
+            parser.parse(options, new String[]{"-n", "--", "-m"});
+            fail("MissingArgumentException not thrown for option -n");
+        }
+        catch (MissingArgumentException e)
+        {
+            assertNotNull("option null", e.getOption());
+            assertEquals("n", e.getOption().getOpt());
+        }
+    }
+    
     public void testSingleDash() throws Exception
     {
         String[] args = new String[] { "--copt",
@@ -228,6 +246,16 @@ public abstract class ParserTestCase extends TestCase
         assertEquals("-1", cl.getOptionValue("b"));
     }
 
+    public void testNegativeOption() throws Exception
+    {
+        String[] args = new String[] { "-b", "-1"} ;
+        
+        options.addOption("1", false, null);
+
+        CommandLine cl = parser.parse(options, args);
+        assertEquals("-1", cl.getOptionValue("b"));
+    }
+    
     public void testArgumentStartingWithHyphen() throws Exception
     {
         String[] args = new String[]{"-b", "-foo"};
@@ -284,6 +312,105 @@ public abstract class ParserTestCase extends TestCase
         assertEquals("bar", cl.getOptionValue("foo"));
     }
 
+    public void testLongWithoutEqualSingleDash() throws Exception
+    {
+        String[] args = new String[] { "-foobar" };
+
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
+
+        CommandLine cl = parser.parse(options, args);
+
+        assertEquals("bar", cl.getOptionValue("foo"));
+    }
+    
+    public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
+    {
+        String[] args = new String[] { "-b", "-foobar" };
+
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("foo").hasOptionalArg().create('f'));
+        options.addOption(OptionBuilder.withLongOpt("bar").hasOptionalArg().create('b'));
+
+        CommandLine cl = parser.parse(options, args);
+
+        assertTrue(cl.hasOption("b"));
+        assertTrue(cl.hasOption("f"));
+        assertEquals("bar", cl.getOptionValue("foo"));
+    }
+
+    public void testLongWithoutEqualDoubleDash() throws Exception
+    {
+        String[] args = new String[] { "--foobar" };
+
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
+
+        CommandLine cl = parser.parse(options, args, true);
+
+        assertFalse(cl.hasOption("foo")); // foo isn't expected to be recognized with a double dash
+    }
+
+    public void testLongWithUnexpectedArgument1() throws Exception
+    {
+        String[] args = new String[] { "--foo=bar" };
+
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("foo").create('f'));
+
+        try
+        {
+            parser.parse(options, args);
+        }
+        catch (UnrecognizedOptionException e)
+        {
+            assertEquals("--foo=bar", e.getOption());
+            return;
+        }
+
+        fail("UnrecognizedOptionException not thrown");
+    }
+
+    public void testLongWithUnexpectedArgument2() throws Exception
+    {
+        String[] args = new String[] { "-foobar" };
+
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("foo").create('f'));
+
+        try
+        {
+            parser.parse(options, args);
+        }
+        catch (UnrecognizedOptionException e)
+        {
+            assertEquals("-foobar", e.getOption());
+            return;
+        }
+
+        fail("UnrecognizedOptionException not thrown");
+    }
+
+    public void testShortWithUnexpectedArgument() throws Exception
+    {
+        String[] args = new String[] { "-f=bar" };
+
+        Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("foo").create('f'));
+
+        try
+        {
+            parser.parse(options, args);
+        }
+        catch (UnrecognizedOptionException e)
+        {
+            assertEquals("-f=bar", e.getOption());
+            return;
+        }
+
+        fail("UnrecognizedOptionException not thrown");
+    }
+    
     public void testPropertiesOption1() throws Exception
     {
         String[] args = new String[] { "-Jsource=1.5", "-J", "target", "1.5", "foo" };
@@ -725,5 +852,21 @@ public abstract class ParserTestCase extends TestCase
         assertTrue("Confirm arg of -b", cl.getOptionValue("b").equals("toast"));
         assertTrue("Confirm  1 extra arg: " + cl.getArgList().size(), cl.getArgList().size() == 1);
         assertTrue("Confirm  value of extra arg: " + cl.getArgList().get(0), cl.getArgList().get(0).equals("foobar"));
+    }
+
+    public void testUnlimitedArgs() throws Exception
+    {
+        String[] args = new String[]{"-e", "one", "two", "-f", "alpha"};
+
+        Options options = new Options();
+        options.addOption(OptionBuilder.hasArgs().create("e"));
+        options.addOption(OptionBuilder.hasArgs().create("f"));
+
+        CommandLine cl = parser.parse(options, args);
+
+        assertTrue("Confirm -e is set", cl.hasOption("e"));
+        assertEquals("number of arg for -e", 2, cl.getOptionValues("e").length);
+        assertTrue("Confirm -f is set", cl.hasOption("f"));
+        assertEquals("number of arg for -f", 1, cl.getOptionValues("f").length);
     }
 }
