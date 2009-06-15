@@ -17,50 +17,44 @@
 
 package org.apache.commons.cli.bug;
 
+import junit.framework.TestCase;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
-
-import junit.framework.TestCase;
 
 /**
  * http://issues.apache.org/jira/browse/CLI-148
  *
  * @author brianegge
  */
-public class BugCLI148Test  extends TestCase {
+public class BugCLI148Test  extends TestCase
+{    
+    private Options options;
+
+    protected void setUp() throws Exception
+    {
+        options = new Options();
+        options.addOption(OptionBuilder.hasArg().create('t'));
+        options.addOption(OptionBuilder.hasArg().create('s'));
+    }
 
     public void testWorkaround1() throws Exception
     {
-        Options options = buildCommandLineOptions();
         CommandLineParser parser = new PosixParser();
-        String[] args = new String[] {"-t-something" };
-        CommandLine commandLine;
-        commandLine = parser.parse( options, args );
-        assertEquals("-something", commandLine.getOptionValue( 't'));
+        String[] args = new String[]{ "-t-something" };
+
+        CommandLine commandLine = parser.parse(options, args);
+        assertEquals("-something", commandLine.getOptionValue('t'));
     }
 
     public void testWorkaround2() throws Exception
     {
-        Options options = buildCommandLineOptions();
         CommandLineParser parser = new PosixParser();
-        String[] args = new String[] {"-t", "\"-something\"" };
-        CommandLine commandLine;
-        commandLine = parser.parse( options, args );
-        assertEquals("-something", commandLine.getOptionValue( 't'));
-    }
+        String[] args = new String[]{ "-t", "\"-something\"" };
 
-    private Options buildCommandLineOptions()
-    {
-        Option t = OptionBuilder.withArgName( "t").hasArg().create('t');
-        Option s = OptionBuilder.withArgName( "s").hasArg().create('s');
-        Options options = new Options();
-        options.addOption( t);
-        options.addOption( s);
-        return options;
+        CommandLine commandLine = parser.parse(options, args);
+        assertEquals("-something", commandLine.getOptionValue('t'));
     }
-
 }
