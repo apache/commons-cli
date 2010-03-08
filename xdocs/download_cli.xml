@@ -99,14 +99,14 @@ limitations under the License.
       <subsection name="Binaries">
         <table>
           <tr>
-              <td><a href="[preferred]/commons/cli/binaries/commons-cli-1.2.tar.gz">commons-cli-1.2.tar.gz</a></td>
-              <td><a href="http://www.apache.org/dist/commons/cli/binaries/commons-cli-1.2.tar.gz.md5">md5</a></td>
-              <td><a href="http://www.apache.org/dist/commons/cli/binaries/commons-cli-1.2.tar.gz.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/cli/binaries/commons-cli-1.2-bin.tar.gz">commons-cli-1.2-bin.tar.gz</a></td>
+              <td><a href="http://www.apache.org/dist/commons/cli/binaries/commons-cli-1.2-bin.tar.gz.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/cli/binaries/commons-cli-1.2-bin.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
-              <td><a href="[preferred]/commons/cli/binaries/commons-cli-1.2.zip">commons-cli-1.2.zip</a></td>
-              <td><a href="http://www.apache.org/dist/commons/cli/binaries/commons-cli-1.2.zip.md5">md5</a></td>
-              <td><a href="http://www.apache.org/dist/commons/cli/binaries/commons-cli-1.2.zip.asc">pgp</a></td>
+              <td><a href="[preferred]/commons/cli/binaries/commons-cli-1.2-bin.zip">commons-cli-1.2-bin.zip</a></td>
+              <td><a href="http://www.apache.org/dist/commons/cli/binaries/commons-cli-1.2-bin.zip.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/cli/binaries/commons-cli-1.2-bin.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
