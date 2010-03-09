@@ -77,7 +77,7 @@ limitations under the License.
         <!-- Checks for Headers                              -->
         <!-- See http://checkstyle.sf.net/config_header.html -->
         <module name="Header">
-            <property name="headerFile" value="src/conf/HEADER.txt"/>
+            <property name="headerFile" value="${checkstyle.header.file}"/>
         </module>
 
         <!-- Following interprets the header file as regular expressions. -->
