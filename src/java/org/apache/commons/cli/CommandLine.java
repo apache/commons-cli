@@ -102,7 +102,7 @@ public class CommandLine implements Serializable
      * Return a version of this <code>Option</code> converted to a particular type. 
      *
      * @param opt the name of the option
-     * @return the value parsed into a particluar object
+     * @return the value parsed into a particular object
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.2
