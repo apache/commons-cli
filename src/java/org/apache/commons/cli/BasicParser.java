@@ -23,6 +23,7 @@ package org.apache.commons.cli;
  *
  * @author John Keyes (john at integralsource.com)
  * @version $Revision$, $Date$
+ * @deprecated Use the {@link DefaultParser} instead
  */
 public class BasicParser extends Parser
 {

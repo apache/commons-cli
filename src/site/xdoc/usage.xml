@@ -69,11 +69,11 @@ options.addOption("t", false, "display current time");</source>
       <subsection name="Parsing the command line arguments">
         <p>
           The <code>parse</code> methods of <code>CommandLineParser</code> are used 
-          to parse the command line arguments.  The <code>PosixPaser</code> is
-          great when you need to handle options that are one character long,
-          like the <code>t</code> option in this example.
+          to parse the command line arguments. There may be several implementations
+          of the <code>CommandLineParser</code> interface, the recommended one is the
+          <code>DefaultParser</code>.
         </p>
-        <source>CommandLineParser parser = new PosixParser();
+        <source>CommandLineParser parser = new DefaultParser();
 CommandLine cmd = parser.parse( options, args);</source>
         <p>
           Now we need to check if the <code>t</code> option is present.  To do
@@ -241,15 +241,13 @@ options.addOption( property );</source>
       </subsection>
       <subsection name="Create the Parser">
         <p>
-          We now need to create a <code>Parser</code>.  This will parse the command
+          We now need to create a <code>CommandLineParser</code>. This will parse the command
           line arguments, using the rules specified by the <code>Options</code> and
           return an instance of <a href="api-1.2/org/apache/commons/cli/CommandLine.html">CommandLine</a>.
-          This time we will use a <a href="api-1.2/org/apache/commons/cli/GnuParser.html">GnuParser</a>
-          which is able to handle options that are more than one character long.
         </p>
         <source>public static void main( String[] args ) {
     // create the parser
-    CommandLineParser parser = new GnuParser();
+    CommandLineParser parser = new DefaultParser();
     try {
         // parse the command line arguments
         CommandLine line = parser.parse( options, args );
@@ -310,10 +308,8 @@ formatter.printHelp( "ant", options );</source>
     <section name="ls Example">
       <p>
         One of the most widely used command line applications in the *nix world
-        is <code>ls</code>.  To parse a command line for an application like this
-        we will use the <a href="api-1.2/org/apache/commons/cli/PosixParser.html">PosixParser</a>.
-        Due to the large number of options required for <code>ls</code> this
-        example will only cover a small proportion of the options.  The following
+        is <code>ls</code>. Due to the large number of options required for <code>ls</code> 
+        this example will only cover a small proportion of the options.  The following
         is a section of the help output.
       </p>
       <source>Usage: ls [OPTION]... [FILE]...
@@ -335,7 +331,7 @@ Sort entries alphabetically if none of -cftuSUX nor --sort.
         <a href="api-1.2/org/apache/commons/cli/Options.html">Options</a> for this example.
       </p>
       <source>// create the command line parser
-CommandLineParser parser = new PosixParser();
+CommandLineParser parser = new DefaultParser();
 
 // create the Options
 Options options = new Options();

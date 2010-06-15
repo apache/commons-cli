@@ -30,6 +30,7 @@ import java.util.Properties;
  *
  * @author John Keyes (john at integralsource.com)
  * @version $Revision$, $Date$
+ * @deprecated The two-pass parsing with the flatten method is not enough flexible to handle complex cases
  */
 public abstract class Parser implements CommandLineParser
 {
