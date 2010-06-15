@@ -24,9 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
-import java.io.InputStream;
-import java.io.ByteArrayOutputStream;
 
 /** 
  * A formatter of help messages for the current command line options
@@ -59,6 +56,9 @@ public class HelpFormatter
 
     /** default prefix for long Option */
     public static final String DEFAULT_LONG_OPT_PREFIX = "--";
+
+    /** default separator displayed between a long Option and its value */
+    public static final String DEFAULT_LONG_OPT_SEPARATOR = " ";
 
     /** default name for an argument */
     public static final String DEFAULT_ARG_NAME = "arg";
@@ -121,6 +121,9 @@ public class HelpFormatter
      * - use get/setLongOptPrefix methods instead.
      */
     public String defaultLongOptPrefix = DEFAULT_LONG_OPT_PREFIX;
+
+    /** The separator displayed between the long option and its value. */
+    private String longOptSeparator = DEFAULT_LONG_OPT_SEPARATOR;
 
     /**
      * the name of the argument
@@ -275,6 +278,30 @@ public class HelpFormatter
     public String getLongOptPrefix()
     {
         return defaultLongOptPrefix;
+    }
+
+    /**
+     * Set the separator displayed between a long option and its value.
+     * Ensure that the separator specified is supported by the parser used,
+     * typically ' ' or '='.
+     * 
+     * @param longOptSeparator the separator, typically ' ' or '='.
+     * @since 1.3
+     */
+    public void setLongOptSeparator(String longOptSeparator)
+    {
+        this.longOptSeparator = longOptSeparator;
+    }
+
+    /**
+     * Returns the separator displayed between a long option and its value.
+     * 
+     * @return the separator
+     * @since 1.3
+     */
+    public String getLongOptSeparator()
+    {
+        return longOptSeparator;
     }
 
     /**
@@ -500,13 +527,12 @@ public class HelpFormatter
     }
 
     /**
-     * <p>Prints the usage statement for the specified application.</p>
+     * Prints the usage statement for the specified application.
      *
      * @param pw The PrintWriter to print the usage statement 
      * @param width The number of characters to display per line
      * @param app The application name
      * @param options The command line Options
-     *
      */
     public void printUsage(PrintWriter pw, int width, String app, Options options)
     {
@@ -607,7 +633,7 @@ public class HelpFormatter
      * @param option the Option to append
      * @param required whether the Option is required or not
      */
-    private static void appendOption(final StringBuffer buff, final Option option, final boolean required)
+    private void appendOption(final StringBuffer buff, final Option option, final boolean required)
     {
         if (!required)
         {
@@ -626,7 +652,8 @@ public class HelpFormatter
         // if the Option has a value
         if (option.hasArg() && option.hasArgName())
         {
-            buff.append(" <").append(option.getArgName()).append(">");
+            buff.append(option.getOpt() == null ? longOptSeparator : " ");
+            buff.append("<").append(option.getArgName()).append(">");
         }
 
         // if the Option is not a required option
@@ -652,8 +679,8 @@ public class HelpFormatter
     }
 
     /**
-     * <p>Print the help for the specified Options to the specified writer, 
-     * using the specified width, left padding and description padding.</p>
+     * Print the help for the specified Options to the specified writer, 
+     * using the specified width, left padding and description padding.
      *
      * @param pw The printWriter to write the help to
      * @param width The number of characters to display per line
@@ -756,7 +783,8 @@ public class HelpFormatter
             {
                 if (option.hasArgName())
                 {
-                    optBuf.append(" <").append(option.getArgName()).append(">");
+                    optBuf.append(option.hasLongOpt() ? longOptSeparator : " ");
+                    optBuf.append("<").append(option.getArgName()).append(">");
                 }
                 else
                 {

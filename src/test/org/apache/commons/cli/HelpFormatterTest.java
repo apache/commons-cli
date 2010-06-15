@@ -451,4 +451,46 @@ public class HelpFormatterTest extends TestCase
                 ,out.toString());
     }
     
+    public void testHelpWithLongOptSeparator() throws Exception
+    {
+        Options options = new Options();
+        options.addOption( "f", true, "the file" );
+        options.addOption(OptionBuilder.withLongOpt("size").withDescription("the size").hasArg().withArgName("SIZE").create('s'));
+        options.addOption(OptionBuilder.withLongOpt("age").withDescription("the age").hasArg().create());
+        
+        HelpFormatter formatter = new HelpFormatter();
+        assertEquals(HelpFormatter.DEFAULT_LONG_OPT_SEPARATOR, formatter.getLongOptSeparator());
+        formatter.setLongOptSeparator("=");
+        assertEquals("=", formatter.getLongOptSeparator());
+        
+        StringWriter out = new StringWriter();
+
+        formatter.printHelp(new PrintWriter(out), 80, "create", "header", options, 2, 2, "footer");
+
+        assertEquals(
+                "usage: create" + EOL +
+                "header" + EOL +
+                "     --age=<arg>    the age" + EOL +
+                "  -f <arg>          the file" + EOL +
+                "  -s,--size=<SIZE>  the size" + EOL +
+                "footer" + EOL,
+                out.toString());
+    }
+
+    public void testUsageWithLongOptSeparator() throws Exception
+    {
+        Options options = new Options();
+        options.addOption( "f", true, "the file" );
+        options.addOption(OptionBuilder.withLongOpt("size").withDescription("the size").hasArg().withArgName("SIZE").create('s'));
+        options.addOption(OptionBuilder.withLongOpt("age").withDescription("the age").hasArg().create());
+        
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.setLongOptSeparator("=");
+        
+        StringWriter out = new StringWriter();
+        
+        formatter.printUsage(new PrintWriter(out), 80, "create", options);
+        
+        assertEquals("usage: create [--age=<arg>] [-f <arg>] [-s <SIZE>]", out.toString().trim());
+    }
 }
