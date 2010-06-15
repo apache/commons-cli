@@ -63,8 +63,10 @@ public interface CommandLineParser
      *
      * @param options the specified Options
      * @param arguments the command line arguments
-     * @param stopAtNonOption specifies whether to continue parsing the
-     * arguments if a non option is encountered.
+     * @param stopAtNonOption if <tt>true</tt> an unrecognized argument stops
+     *     the parsing and the remaining arguments are added to the 
+     *     {@link CommandLine}s args list. If <tt>false</tt> an unrecognized
+     *     argument triggers a ParseException.
      *
      * @return the list of atomic option and value tokens
      * @throws ParseException if there are any problems encountered
@@ -79,7 +81,10 @@ public interface CommandLineParser
      * @param options the specified Options
      * @param arguments the command line arguments
      * @param properties command line option name-value pairs
-     * @param stopAtNonOption specifies whether to continue parsing the
+     * @param stopAtNonOption if <tt>true</tt> an unrecognized argument stops
+     *     the parsing and the remaining arguments are added to the 
+     *     {@link CommandLine}s args list. If <tt>false</tt> an unrecognized
+     *     argument triggers a ParseException.
      *
      * @return the list of atomic option and value tokens
      * @throws ParseException if there are any problems encountered

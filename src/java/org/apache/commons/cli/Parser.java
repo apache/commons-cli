@@ -108,9 +108,10 @@ public abstract class Parser implements CommandLineParser
      *
      * @param options         the <code>Options</code>
      * @param arguments       the <code>arguments</code>
-     * @param stopAtNonOption specifies whether to stop interpreting the
-     *                        arguments when a non option has been encountered
-     *                        and to add them to the CommandLines args list.
+     * @param stopAtNonOption if <tt>true</tt> an unrecognized argument stops
+     *     the parsing and the remaining arguments are added to the 
+     *     {@link CommandLine}s args list. If <tt>false</tt> an unrecognized
+     *     argument triggers a ParseException.
      * @return the <code>CommandLine</code>
      * @throws ParseException if an error occurs when parsing the arguments.
      */
@@ -126,8 +127,10 @@ public abstract class Parser implements CommandLineParser
      * @param options the specified Options
      * @param arguments the command line arguments
      * @param properties command line option name-value pairs
-     * @param stopAtNonOption stop parsing the arguments when the first
-     * non option is encountered.
+     * @param stopAtNonOption if <tt>true</tt> an unrecognized argument stops
+     *     the parsing and the remaining arguments are added to the 
+     *     {@link CommandLine}s args list. If <tt>false</tt> an unrecognized
+     *     argument triggers a ParseException.
      *
      * @return the list of atomic option and value tokens
      *

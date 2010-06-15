@@ -32,8 +32,14 @@ public class DefaultParser implements CommandLineParser
 {    
     protected CommandLine cmd;
     protected Options options;
+
+    /** 
+     * Flag indicating how unrecognized tokens are handled. <tt>true</tt> to stop
+     * the parsing and add the remaining tokens to the args list.
+     * <tt>false</tt> to throw an exception. 
+     */
     protected boolean stopAtNonOption;
-    
+
     /** The token currently processed. */
     protected String currentToken;
     
@@ -251,7 +257,7 @@ public class DefaultParser implements CommandLineParser
         if (stopAtNonOption)
         {
             skipParsing = true;
-        }        
+        }
     }
 
     /**
