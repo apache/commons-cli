@@ -986,4 +986,16 @@ public abstract class ParserTestCase extends TestCase
         assertEquals( "ink", cmd.getOptionValue("i") );
         assertTrue( !cmd.hasOption("fake") );
     }
+
+    public void testPropertyOptionRequired() throws Exception
+    {
+        Options opts = new Options();
+        opts.addOption(OptionBuilder.isRequired().create("f"));
+        
+        Properties properties = new Properties();
+        properties.setProperty("f", "true");
+        
+        CommandLine cmd = parse(parser, opts, null, properties);
+        assertTrue(cmd.hasOption("f"));
+    }
 }

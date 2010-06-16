@@ -249,7 +249,7 @@ public abstract class Parser implements CommandLineParser
      *
      * @param properties The value properties to be processed.
      */
-    protected void processProperties(Properties properties)
+    protected void processProperties(Properties properties) throws ParseException
     {
         if (properties == null)
         {
@@ -291,6 +291,7 @@ public abstract class Parser implements CommandLineParser
                 }
 
                 cmd.addOption(opt);
+                updateRequiredOptions(opt);
             }
         }
     }
@@ -376,7 +377,27 @@ public abstract class Parser implements CommandLineParser
 
         // get the option represented by arg
         Option opt = (Option) getOptions().getOption(arg).clone();
+        
+        // update the required options and groups
+        updateRequiredOptions(opt);
+        
+        // if the option takes an argument value
+        if (opt.hasArg())
+        {
+            processArgs(opt, iter);
+        }
+        
+        // set the option on the command line
+        cmd.addOption(opt);
+    }
 
+    /**
+     * Removes the option or its group from the list of expected elements.
+     * 
+     * @param opt
+     */
+    private void updateRequiredOptions(Option opt) throws ParseException
+    {
         // if the option is a required option remove the option from
         // the requiredOptions list
         if (opt.isRequired())
@@ -397,14 +418,5 @@ public abstract class Parser implements CommandLineParser
 
             group.setSelected(opt);
         }
-
-        // if the option takes an argument value
-        if (opt.hasArg())
-        {
-            processArgs(opt, iter);
-        }
-
-        // set the option on the command line
-        cmd.addOption(opt);
     }
 }

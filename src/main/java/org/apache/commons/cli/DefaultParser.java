@@ -136,7 +136,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param properties The value properties to be processed.
      */
-    private void handleProperties(Properties properties)
+    private void handleProperties(Properties properties) throws ParseException
     {
         if (properties == null)
         {
@@ -169,7 +169,8 @@ public class DefaultParser implements CommandLineParser
                     continue;
                 }
                 
-                cmd.addOption(opt);
+                handleOption(opt);
+                currentOption = null;
             }
         }
     }
