@@ -78,7 +78,7 @@ public class BugCLI71Test extends TestCase {
         CommandLine line = parser.parse( options, args);
         
         assertEquals( "Caesar", line.getOptionValue("a") );
-        assertEquals( "a", line.getOptionValue("k", "a") );
+        assertEquals( "a", line.getOptionValue('k', "a") );
     }
 
 }

@@ -48,4 +48,17 @@ public class CommandLineTest extends TestCase
 
         assertEquals("property with long format", "bar", cl.getOptionProperties("property").getProperty("foo"));
     }
+
+    public void testGetOptions()
+    {
+        CommandLine cmd = new CommandLine();
+        assertNotNull(cmd.getOptions());
+        assertEquals(0, cmd.getOptions().length);
+        
+        cmd.addOption(new Option("a", null));
+        cmd.addOption(new Option("b", null));
+        cmd.addOption(new Option("c", null));
+        
+        assertEquals(3, cmd.getOptions().length);
+    }
 }
