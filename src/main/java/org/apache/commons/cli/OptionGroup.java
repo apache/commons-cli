@@ -31,6 +31,7 @@ import java.util.Map;
  */
 public class OptionGroup implements Serializable
 {
+    /** The serial version UID. */
     private static final long serialVersionUID = 1L;
     
     /** hold the options */

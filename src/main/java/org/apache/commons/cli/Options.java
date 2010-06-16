@@ -45,6 +45,7 @@ import java.util.Map;
  */
 public class Options implements Serializable
 {
+    /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
     /** a map of the options with the character key */

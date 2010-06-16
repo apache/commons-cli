@@ -763,8 +763,8 @@ public class HelpFormatter
         for (Iterator i = optList.iterator(); i.hasNext();)
         {
             Option option = (Option) i.next();
-            optBuf = new StringBuffer(8);
-
+            optBuf = new StringBuffer();
+            
             if (option.getOpt() == null)
             {
                 optBuf.append(lpad).append("   " + defaultLongOptPrefix).append(option.getLongOpt());
@@ -874,7 +874,7 @@ public class HelpFormatter
                 return sb;
             }
             
-            if ( (text.length() > width) && (pos == nextLineTabStop - 1) ) 
+            if ((text.length() > width) && (pos == nextLineTabStop - 1))
             {
                 pos = width;
             }

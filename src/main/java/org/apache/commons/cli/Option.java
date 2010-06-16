@@ -38,6 +38,7 @@ import java.util.List;
  */
 public class Option implements Cloneable, Serializable
 {
+    /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
     /** constant that specifies the number of argument values has not been specified */
@@ -619,7 +620,7 @@ public class Option implements Cloneable, Serializable
     public int hashCode()
     {
         int result;
-        result = (opt != null ? opt.hashCode() : 0);
+        result = opt != null ? opt.hashCode() : 0;
         result = 31 * result + (longOpt != null ? longOpt.hashCode() : 0);
         return result;
     }

@@ -42,6 +42,7 @@ import java.util.Properties;
  */
 public class CommandLine implements Serializable
 {
+    /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
     /** the unrecognised options/arguments */
@@ -89,11 +90,13 @@ public class CommandLine implements Serializable
      */
     public Object getOptionObject(String opt)
     {
-        try {
+        try
+        {
             return getParsedOptionValue(opt);
-        } catch(ParseException pe) {
-            System.err.println("Exception found converting " + opt + " to desired type: " + 
-                pe.getMessage() );
+        }
+        catch (ParseException pe)
+        {
+            System.err.println("Exception found converting " + opt + " to desired type: " + pe.getMessage());
             return null;
         }
     }
