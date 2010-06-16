@@ -18,8 +18,10 @@
 package org.apache.commons.cli;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Default parser.
@@ -54,10 +56,46 @@ public class DefaultParser implements CommandLineParser
     
     public CommandLine parse(Options options, String[] arguments) throws ParseException
     {
-        return parse(options, arguments, false);
+        return parse(options, arguments, null);
+    }
+
+    /**
+     * Parse the arguments according to the specified options and properties.
+     *
+     * @param options    the specified Options
+     * @param arguments  the command line arguments
+     * @param properties command line option name-value pairs
+     * @return the list of atomic option and value tokens
+     *
+     * @throws ParseException if there are any problems encountered
+     * while parsing the command line tokens.
+     */
+    public CommandLine parse(Options options, String[] arguments, Properties properties) throws ParseException
+    {
+        return parse(options, arguments, properties, false);
     }
 
     public CommandLine parse(Options options, String[] arguments, boolean stopAtNonOption) throws ParseException
+    {
+        return parse(options, arguments, null, stopAtNonOption);
+    }
+
+    /**
+     * Parse the arguments according to the specified options and properties.
+     *
+     * @param options         the specified Options
+     * @param arguments       the command line arguments
+     * @param properties      command line option name-value pairs
+     * @param stopAtNonOption if <tt>true</tt> an unrecognized argument stops
+     *     the parsing and the remaining arguments are added to the 
+     *     {@link CommandLine}s args list. If <tt>false</tt> an unrecognized
+     *     argument triggers a ParseException.
+     *
+     * @return the list of atomic option and value tokens
+     * @throws ParseException if there are any problems encountered
+     * while parsing the command line tokens.
+     */
+    public CommandLine parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption) throws ParseException
     {
         this.options = options;
         this.stopAtNonOption = stopAtNonOption;
@@ -85,9 +123,55 @@ public class DefaultParser implements CommandLineParser
         // check the arguments of the last option
         checkRequiredArgs();
         
+        // add the default options
+        handleProperties(properties);
+        
         checkRequiredOptions();
         
         return cmd;
+    }
+
+    /**
+     * Sets the values of Options using the values in <code>properties</code>.
+     *
+     * @param properties The value properties to be processed.
+     */
+    private void handleProperties(Properties properties)
+    {
+        if (properties == null)
+        {
+            return;
+        }
+        
+        for (Enumeration e = properties.propertyNames(); e.hasMoreElements();)
+        {
+            String option = e.nextElement().toString();
+            
+            if (!cmd.hasOption(option))
+            {
+                Option opt = options.getOption(option);
+                
+                // get the value from the properties
+                String value = properties.getProperty(option);
+                
+                if (opt.hasArg())
+                {
+                    if (opt.getValues() == null || opt.getValues().length == 0)
+                    {
+                        opt.addValueForProcessing(value);
+                    }
+                }
+                else if (!("yes".equalsIgnoreCase(value)
+                        || "true".equalsIgnoreCase(value)
+                        || "1".equalsIgnoreCase(value)))
+                {
+                    // if the value is not yes, true or 1 then don't add the option to the CommandLine
+                    continue;
+                }
+                
+                cmd.addOption(opt);
+            }
+        }
     }
 
     /**

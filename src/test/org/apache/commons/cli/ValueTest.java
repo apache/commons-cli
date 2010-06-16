@@ -17,9 +17,6 @@
 
 package org.apache.commons.cli;
 
-import java.util.Arrays;
-import java.util.Properties;
-
 import junit.framework.TestCase;
 
 public class ValueTest extends TestCase
@@ -40,7 +37,6 @@ public class ValueTest extends TestCase
         opts.addOption(OptionBuilder.hasOptionalArgs(2).withLongOpt("hide").create());
         opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
         opts.addOption(OptionBuilder.hasOptionalArgs().create('j'));
-        opts.addOption(OptionBuilder.hasArgs().withValueSeparator(',').create('k'));
 
         String[] args = new String[] { "-a",
             "-b", "foo",
@@ -175,102 +171,4 @@ public class ValueTest extends TestCase
         assertEquals( cmd.getArgs().length, 1 );
         assertEquals( "head", cmd.getArgs()[0] );
     }
-
-    public void testPropertyOptionSingularValue() throws Exception
-    {
-        Properties properties = new Properties();
-        properties.setProperty( "hide", "seek" );
-
-        Parser parser = new PosixParser();
-        
-        CommandLine cmd = parser.parse(opts, null, properties);
-        assertTrue( cmd.hasOption("hide") );
-        assertEquals( "seek", cmd.getOptionValue("hide") );
-        assertTrue( !cmd.hasOption("fake") );
-    }
-
-    public void testPropertyOptionFlags() throws Exception
-    {
-        Properties properties = new Properties();
-        properties.setProperty( "a", "true" );
-        properties.setProperty( "c", "yes" );
-        properties.setProperty( "e", "1" );
-
-        Parser parser = new PosixParser();
-
-        CommandLine cmd = parser.parse(opts, null, properties);
-        assertTrue( cmd.hasOption("a") );
-        assertTrue( cmd.hasOption("c") );
-        assertTrue( cmd.hasOption("e") );
-
-
-        properties = new Properties();
-        properties.setProperty( "a", "false" );
-        properties.setProperty( "c", "no" );
-        properties.setProperty( "e", "0" );
-
-        cmd = parser.parse(opts, null, properties);
-        assertTrue( !cmd.hasOption("a") );
-        assertTrue( !cmd.hasOption("c") );
-        assertTrue( cmd.hasOption("e") ); // this option accepts as argument
-
-
-        properties = new Properties();
-        properties.setProperty( "a", "TRUE" );
-        properties.setProperty( "c", "nO" );
-        properties.setProperty( "e", "TrUe" );
-
-        cmd = parser.parse(opts, null, properties);
-        assertTrue( cmd.hasOption("a") );
-        assertTrue( !cmd.hasOption("c") );
-        assertTrue( cmd.hasOption("e") );
-
-        
-        properties = new Properties();
-        properties.setProperty( "a", "just a string" );
-        properties.setProperty( "e", "" );
-
-        cmd = parser.parse(opts, null, properties);
-        assertTrue( !cmd.hasOption("a") );
-        assertTrue( !cmd.hasOption("c") );
-        assertTrue( cmd.hasOption("e") );
-    } 
-
-    public void testPropertyOptionMultipleValues() throws Exception
-    {
-        Properties properties = new Properties();
-        properties.setProperty( "k", "one,two" );
-
-        Parser parser = new PosixParser();
-        
-        String[] values = new String[] {
-            "one", "two"
-        };
-
-        CommandLine cmd = parser.parse(opts, null, properties);
-        assertTrue( cmd.hasOption("k") );
-        assertTrue( Arrays.equals( values, cmd.getOptionValues('k') ) );
-    }
-
-    public void testPropertyOverrideValues() throws Exception
-    {
-        String[] args = new String[] { 
-            "-j",
-            "found",
-            "-i",
-            "ink"
-        };
-
-        Properties properties = new Properties();
-        properties.setProperty( "j", "seek" );
-
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts, args, properties);
-        assertTrue( cmd.hasOption("j") );
-        assertEquals( "found", cmd.getOptionValue("j") );
-        assertTrue( cmd.hasOption("i") );
-        assertEquals( "ink", cmd.getOptionValue("i") );
-        assertTrue( !cmd.hasOption("fake") );
-    }
-
 }

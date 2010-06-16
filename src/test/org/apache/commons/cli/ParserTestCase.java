@@ -869,4 +869,121 @@ public abstract class ParserTestCase extends TestCase
         assertTrue("Confirm -f is set", cl.hasOption("f"));
         assertEquals("number of arg for -f", 1, cl.getOptionValues("f").length);
     }
+
+    private CommandLine parse(CommandLineParser parser, Options opts, String[] args, Properties properties) throws ParseException {
+        if (parser instanceof Parser) {
+            return ((Parser) parser).parse(opts, args, properties);
+        } else if (parser instanceof DefaultParser) {
+            return ((DefaultParser) parser).parse(opts, args, properties);
+        } else {
+            throw new UnsupportedOperationException("Default options not supported by this parser");
+        }
+    }
+
+    public void testPropertyOptionSingularValue() throws Exception
+    {
+        Options opts = new Options();
+        opts.addOption(OptionBuilder.hasOptionalArgs(2).withLongOpt("hide").create());        
+        
+        Properties properties = new Properties();
+        properties.setProperty( "hide", "seek" );
+
+        CommandLine cmd = parse(parser, opts, null, properties);
+        assertTrue( cmd.hasOption("hide") );
+        assertEquals( "seek", cmd.getOptionValue("hide") );
+        assertTrue( !cmd.hasOption("fake") );
+    }
+
+    public void testPropertyOptionFlags() throws Exception
+    {
+        Options opts = new Options();
+        opts.addOption("a", false, "toggle -a");
+        opts.addOption("c", "c", false, "toggle -c");
+        opts.addOption(OptionBuilder.hasOptionalArg().create('e'));
+        
+        Properties properties = new Properties();
+        properties.setProperty("a", "true");
+        properties.setProperty("c", "yes");
+        properties.setProperty("e", "1");
+        
+        CommandLine cmd = parse(parser, opts, null, properties);
+        assertTrue(cmd.hasOption("a"));
+        assertTrue(cmd.hasOption("c"));
+        assertTrue(cmd.hasOption("e"));
+        
+        
+        properties = new Properties();
+        properties.setProperty("a", "false");
+        properties.setProperty("c", "no");
+        properties.setProperty("e", "0");
+        
+        cmd = parse(parser, opts, null, properties);
+        assertTrue(!cmd.hasOption("a"));
+        assertTrue(!cmd.hasOption("c"));
+        assertTrue(cmd.hasOption("e")); // this option accepts an argument
+        
+        
+        properties = new Properties();
+        properties.setProperty("a", "TRUE");
+        properties.setProperty("c", "nO");
+        properties.setProperty("e", "TrUe");
+        
+        cmd = parse(parser, opts, null, properties);
+        assertTrue(cmd.hasOption("a"));
+        assertTrue(!cmd.hasOption("c"));
+        assertTrue(cmd.hasOption("e"));
+        
+        
+        properties = new Properties();
+        properties.setProperty("a", "just a string");
+        properties.setProperty("e", "");
+        
+        cmd = parse(parser, opts, null, properties);
+        assertTrue(!cmd.hasOption("a"));
+        assertTrue(!cmd.hasOption("c"));
+        assertTrue(cmd.hasOption("e"));
+        
+        
+        properties = new Properties();
+        properties.setProperty("a", "0");
+        properties.setProperty("c", "1");
+        
+        cmd = parse(parser, opts, null, properties);
+        assertTrue(!cmd.hasOption("a"));
+        assertTrue(cmd.hasOption("c"));
+    } 
+
+    public void testPropertyOptionMultipleValues() throws Exception
+    {
+        Options opts = new Options();
+        opts.addOption(OptionBuilder.hasArgs().withValueSeparator(',').create('k'));
+        
+        Properties properties = new Properties();
+        properties.setProperty( "k", "one,two" );
+
+        String[] values = new String[] { "one", "two" };
+
+        CommandLine cmd = parse(parser, opts, null, properties);
+        assertTrue( cmd.hasOption("k") );
+        assertTrue( Arrays.equals( values, cmd.getOptionValues('k') ) );
+    }
+
+    public void testPropertyOverrideValues() throws Exception
+    {
+        Options opts = new Options();
+        opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
+        opts.addOption(OptionBuilder.hasOptionalArgs().create('j'));
+        
+        String[] args = new String[] { "-j", "found", "-i", "ink" };
+
+        Properties properties = new Properties();
+        properties.setProperty( "j", "seek" );
+
+        CommandLine cmd = parse(parser, opts, args, properties);
+        assertTrue( cmd.hasOption("j") );
+        assertEquals( "found", cmd.getOptionValue("j") );
+        assertTrue( cmd.hasOption("i") );
+        assertEquals( "ink", cmd.getOptionValue("i") );
+        assertTrue( !cmd.hasOption("fake") );
+    }
 }
