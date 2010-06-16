@@ -62,14 +62,12 @@ class Util
      */
     static String stripLeadingAndTrailingQuotes(String str)
     {
-        if (str.startsWith("\""))
+        int length = str.length();
+        if (length > 1 && str.startsWith("\"") && str.endsWith("\"") && str.substring(1, length - 1).indexOf('"') == -1)
         {
-            str = str.substring(1, str.length());
+            str = str.substring(1, length - 1);
         }
-        if (str.endsWith("\""))
-        {
-            str = str.substring(0, str.length() - 1);
-        }
+        
         return str;
     }
 }
