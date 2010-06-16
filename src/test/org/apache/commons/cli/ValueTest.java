@@ -212,7 +212,7 @@ public class ValueTest extends TestCase
         cmd = parser.parse(opts, null, properties);
         assertTrue( !cmd.hasOption("a") );
         assertTrue( !cmd.hasOption("c") );
-        assertTrue( !cmd.hasOption("e") );
+        assertTrue( cmd.hasOption("e") ); // this option accepts as argument
 
 
         properties = new Properties();
@@ -233,7 +233,7 @@ public class ValueTest extends TestCase
         cmd = parser.parse(opts, null, properties);
         assertTrue( !cmd.hasOption("a") );
         assertTrue( !cmd.hasOption("c") );
-        assertTrue( !cmd.hasOption("e") );
+        assertTrue( cmd.hasOption("e") );
     } 
 
     public void testPropertyOptionMultipleValues() throws Exception
