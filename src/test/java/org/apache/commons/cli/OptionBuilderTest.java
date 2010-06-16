@@ -97,6 +97,14 @@ public class OptionBuilderTest extends TestCase {
         // '@'
         Option opt2 = OptionBuilder.withDescription("read from stdin").create('@');
         assertEquals("@", opt2.getOpt());
+        
+        // ' '
+        try {
+            OptionBuilder.create(' ');
+            fail( "IllegalArgumentException not caught" );            
+        } catch (IllegalArgumentException e) {
+            // success
+        }
     }
 
     public void testOptionArgNumbers()

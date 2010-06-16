@@ -49,15 +49,15 @@ class OptionValidator
         {
             return;
         }
-
+        
         // handle the single character opt
-        else if (opt.length() == 1)
+        if (opt.length() == 1)
         {
             char ch = opt.charAt(0);
 
             if (!isValidOpt(ch))
             {
-                throw new IllegalArgumentException("illegal option value '" + ch + "'");
+                throw new IllegalArgumentException("Illegal option name '" + ch + "'");
             }
         }
 
@@ -70,7 +70,7 @@ class OptionValidator
             {
                 if (!isValidChar(chars[i]))
                 {
-                    throw new IllegalArgumentException("opt contains illegal character value '" + chars[i] + "'");
+                    throw new IllegalArgumentException("The option '" + opt + "' contains an illegal character : '" + chars[i] + "'");
                 }
             }
         }
@@ -80,12 +80,11 @@ class OptionValidator
      * Returns whether the specified character is a valid Option.
      *
      * @param c the option to validate
-     * @return true if <code>c</code> is a letter, ' ', '?' or '@',
-     *         otherwise false.
+     * @return true if <code>c</code> is a letter, '?' or '@', otherwise false.
      */
     private static boolean isValidOpt(char c)
     {
-        return isValidChar(c) || c == ' ' || c == '?' || c == '@';
+        return isValidChar(c) || c == '?' || c == '@';
     }
 
     /**
