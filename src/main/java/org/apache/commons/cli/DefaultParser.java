@@ -147,10 +147,18 @@ public class DefaultParser implements CommandLineParser
         {
             String option = e.nextElement().toString();
             
-            if (!cmd.hasOption(option))
+            Option opt = options.getOption(option);
+            if (opt == null)
             {
-                Option opt = options.getOption(option);
-                
+                throw new UnrecognizedOptionException("Default option wasn't defined", option);
+            }
+            
+            // if the option is part of a group, check if another option of the group has been selected
+            OptionGroup group = options.getOptionGroup(opt);
+            boolean selected = group != null && group.getSelected() != null;
+            
+            if (!cmd.hasOption(option) && !selected)
+            {
                 // get the value from the properties
                 String value = properties.getProperty(option);
                 

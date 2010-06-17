@@ -17,6 +17,8 @@
 
 package org.apache.commons.cli;
 
+import java.util.Properties;
+
 import junit.framework.TestCase;
 
 /**
@@ -26,7 +28,7 @@ import junit.framework.TestCase;
 public class OptionGroupTest extends TestCase
 {
     private Options _options = null;
-    private CommandLineParser parser = new PosixParser();
+    private Parser parser = new PosixParser();
 
     public void setUp()
     {
@@ -184,6 +186,18 @@ public class OptionGroupTest extends TestCase
         assertTrue( "Confirm -s is set", cl.hasOption("s") );
         assertTrue( "Confirm -c is NOT set", !cl.hasOption("c") );
         assertTrue( "Confirm NO extra args", cl.getArgList().size() == 0);
+    }
+
+    public void testTwoOptionsFromGroupWithProperties() throws Exception
+    {
+        String[] args = new String[] { "-f" };
+        
+        Properties properties = new Properties();
+        properties.put("d", "true");
+        
+        CommandLine cl = parser.parse( _options, args, properties);
+        assertTrue(cl.hasOption("f"));
+        assertTrue(!cl.hasOption("d"));
     }
 
     public void testValidLongOnlyOptions() throws Exception

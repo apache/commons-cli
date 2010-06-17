@@ -998,4 +998,47 @@ public abstract class ParserTestCase extends TestCase
         CommandLine cmd = parse(parser, opts, null, properties);
         assertTrue(cmd.hasOption("f"));
     }
+
+    public void testPropertyOptionUnexpected() throws Exception
+    {
+        Options opts = new Options();
+        
+        Properties properties = new Properties();
+        properties.setProperty("f", "true");
+        
+        try {
+            parse(parser, opts, null, properties);
+            fail("UnrecognizedOptionException expected");
+        } catch (UnrecognizedOptionException e) {
+            // expected
+        }
+    }
+
+    public void testPropertyOptionGroup() throws Exception
+    {
+        Options opts = new Options();
+        
+        OptionGroup group1 = new OptionGroup();
+        group1.addOption(new Option("a", null));
+        group1.addOption(new Option("b", null));
+        opts.addOptionGroup(group1);
+        
+        OptionGroup group2 = new OptionGroup();
+        group2.addOption(new Option("x", null));
+        group2.addOption(new Option("y", null));
+        opts.addOptionGroup(group2);
+        
+        String[] args = new String[] { "-a" };
+        
+        Properties properties = new Properties();
+        properties.put("b", "true");
+        properties.put("x", "true");
+        
+        CommandLine cmd = parse(parser, opts, args, properties);
+        
+        assertTrue(cmd.hasOption("a"));
+        assertFalse(cmd.hasOption("b"));
+        assertTrue(cmd.hasOption("x"));
+        assertFalse(cmd.hasOption("y"));
+    }
 }
