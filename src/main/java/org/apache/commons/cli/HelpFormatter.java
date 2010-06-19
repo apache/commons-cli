@@ -648,14 +648,14 @@ public class HelpFormatter
         {
             buff.append("--").append(option.getLongOpt());
         }
-
-        // if the Option has a value
-        if (option.hasArg() && option.hasArgName())
+        
+        // if the Option has a value and a non blank argname
+        if (option.hasArg() && (option.getArgName() == null || option.getArgName().length() != 0))
         {
             buff.append(option.getOpt() == null ? longOptSeparator : " ");
-            buff.append("<").append(option.getArgName()).append(">");
+            buff.append("<").append(option.getArgName() != null ? option.getArgName() : getArgName()).append(">");
         }
-
+        
         // if the Option is not a required option
         if (!required)
         {
@@ -781,14 +781,16 @@ public class HelpFormatter
 
             if (option.hasArg())
             {
-                if (option.hasArgName())
+                String argName = option.getArgName();
+                if (argName != null && argName.length() == 0)
                 {
-                    optBuf.append(option.hasLongOpt() ? longOptSeparator : " ");
-                    optBuf.append("<").append(option.getArgName()).append(">");
+                    // if the option has a blank argname
+                    optBuf.append(' ');
                 }
                 else
                 {
-                    optBuf.append(' ');
+                    optBuf.append(option.hasLongOpt() ? longOptSeparator : " ");
+                    optBuf.append("<").append(argName != null ? option.getArgName() : getArgName()).append(">");
                 }
             }
 

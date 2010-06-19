@@ -305,6 +305,22 @@ public class HelpFormatterTest extends TestCase
         assertEquals("usage: app -f" + EOL, out.toString());
     }
 
+    public void testDefaultArgName()
+    {
+        Option option = OptionBuilder.hasArg().isRequired().create("f");
+        
+        Options options = new Options();
+        options.addOption(option);
+        
+        StringWriter out = new StringWriter();
+
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.setArgName("argument");
+        formatter.printUsage(new PrintWriter(out), 80, "app", options);
+
+        assertEquals("usage: app -f <argument>" + EOL, out.toString());
+    }
+
     public void testRtrim()
     {
         HelpFormatter formatter = new HelpFormatter();

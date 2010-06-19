@@ -54,7 +54,7 @@ public class Option implements Cloneable, Serializable
     private String longOpt;
 
     /** the name of the argument for this option */
-    private String argName = "arg";
+    private String argName;
 
     /** description of the option */
     private String description;
@@ -319,11 +319,9 @@ public class Option implements Cloneable, Serializable
     }
 
     /**
-     * Returns whether the display name for the argument value
-     * has been set.
+     * Returns whether the display name for the argument value has been set.
      *
-     * @return if the display name for the argument value has been
-     * set.
+     * @return if the display name for the argument value has been set.
      */
     public boolean hasArgName()
     {

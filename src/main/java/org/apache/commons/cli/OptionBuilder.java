@@ -77,7 +77,7 @@ public final class OptionBuilder
     private static void reset()
     {
         description = null;
-        argName = "arg";
+        argName = null;
         longopt = null;
         type = null;
         required = false;
