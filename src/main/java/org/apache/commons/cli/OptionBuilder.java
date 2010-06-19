@@ -57,6 +57,12 @@ public final class OptionBuilder
     /** option builder instance */
     private static OptionBuilder instance = new OptionBuilder();
 
+    static
+    {
+        // ensure the consistency of the initial values
+        reset();
+    }
+
     /**
      * private constructor to prevent instances being created
      */
@@ -76,9 +82,6 @@ public final class OptionBuilder
         type = null;
         required = false;
         numberOfArgs = Option.UNINITIALIZED;
-
-
-        // PMM 9/6/02 - these were missing
         optionalArg = false;
         valuesep = (char) 0;
     }
