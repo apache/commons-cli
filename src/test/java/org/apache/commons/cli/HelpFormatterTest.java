@@ -40,57 +40,90 @@ public class HelpFormatterTest extends TestCase
         HelpFormatter hf = new HelpFormatter();
 
         String text = "This is a test.";
-        //text width should be max 8; the wrap position is 7
+        // text width should be max 8; the wrap position is 7
         assertEquals("wrap position", 7, hf.findWrapPos(text, 8, 0));
-        //starting from 8 must give -1 - the wrap pos is after end
+        
+        // starting from 8 must give -1 - the wrap pos is after end
         assertEquals("wrap position 2", -1, hf.findWrapPos(text, 8, 8));
-        //if there is no a good position before width to make a wrapping look for the next one
+        
+        // if there is no a good position before width to make a wrapping look for the next one
         text = "aaaa aa";
         assertEquals("wrap position 3", 4, hf.findWrapPos(text, 3, 0));
     }
 
-    public void testPrintWrapped() throws Exception
+    public void testRenderWrappedTextSingleLine()
     {
-        StringBuffer sb = new StringBuffer();
-        HelpFormatter hf = new HelpFormatter();
-
+        // single line text
+        int width = 12;
+        int padding = 0;
         String text = "This is a test.";
-
-        String expected = "This is a" + hf.getNewLine() + "test.";
-        hf.renderWrappedText(sb, 12, 0, text);
+        String expected = "This is a" + EOL + 
+                          "test.";
+        
+        StringBuffer sb = new StringBuffer();
+        new HelpFormatter().renderWrappedText(sb, width, padding, text);
         assertEquals("single line text", expected, sb.toString());
+    }
 
-        sb.setLength(0);
-        expected = "This is a" + hf.getNewLine() + "    test.";
-        hf.renderWrappedText(sb, 12, 4, text);
+    public void testRenderWrappedTextSingleLinePadded()
+    {
+        // single line padded text
+        int width = 12;
+        int padding = 4;
+        String text = "This is a test.";
+        String expected = "This is a" + EOL + 
+                          "    test.";
+        
+        StringBuffer sb = new StringBuffer();
+        new HelpFormatter().renderWrappedText(sb, width, padding, text);
         assertEquals("single line padded text", expected, sb.toString());
+    }
 
-        text = "  -p,--period <PERIOD>  PERIOD is time duration of form " +
-               "DATE[-DATE] where DATE has form YYYY[MM[DD]]";
-
-        sb.setLength(0);
-        expected = "  -p,--period <PERIOD>  PERIOD is time duration of" +
-                hf.getNewLine() +
-                "                        form DATE[-DATE] where DATE" +
-                hf.getNewLine() +
-                "                        has form YYYY[MM[DD]]";
-        hf.renderWrappedText(sb, 53, 24, text);
+    public void testRenderWrappedTextSingleLinePadded2()
+    {
+        // single line padded text 2
+        int width = 53;
+        int padding = 24;
+        String text = "  -p,--period <PERIOD>  PERIOD is time duration of form " +
+                      "DATE[-DATE] where DATE has form YYYY[MM[DD]]";
+        String expected = "  -p,--period <PERIOD>  PERIOD is time duration of" + EOL +
+                          "                        form DATE[-DATE] where DATE" + EOL +
+                          "                        has form YYYY[MM[DD]]";
+        
+        StringBuffer sb = new StringBuffer();
+        new HelpFormatter().renderWrappedText(sb, width, padding, text);
         assertEquals("single line padded text 2", expected, sb.toString());
+    }
 
-        text = "aaaa aaaa aaaa" + hf.getNewLine() +
-               "aaaaaa" + hf.getNewLine() +
-               "aaaaa";
-
-        expected = text;
-        sb.setLength(0);
-        hf.renderWrappedText(sb, 16, 0, text);
+    public void testRenderWrappedTextMultiLine()
+    {
+        // multi line text
+        int width = 16;
+        int padding = 0;
+        String text = "aaaa aaaa aaaa" + EOL +
+                      "aaaaaa" + EOL +
+                      "aaaaa";
+        String expected = text;
+        
+        StringBuffer sb = new StringBuffer();
+        new HelpFormatter().renderWrappedText(sb, width, padding, text);
         assertEquals("multi line text", expected, sb.toString());
+    }
 
-        expected = "aaaa aaaa aaaa" + hf.getNewLine() +
-                   "    aaaaaa" + hf.getNewLine() +
-                   "    aaaaa";
-        sb.setLength(0);
-        hf.renderWrappedText(sb, 16, 4, text);
+    public void testRenderWrappedTextMultiLinePadded()
+    {
+        // multi-line padded text
+        int width = 16;
+        int padding = 4;
+        String text = "aaaa aaaa aaaa" + EOL +
+                      "aaaaaa" + EOL +
+                      "aaaaa";
+        String expected = "aaaa aaaa aaaa" + EOL +
+                          "    aaaaaa" + EOL +
+                          "    aaaaa";
+        
+        StringBuffer sb = new StringBuffer();
+        new HelpFormatter().renderWrappedText(sb, width, padding, text);
         assertEquals("multi-line padded text", expected, sb.toString());
     }
 
@@ -111,7 +144,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("simple non-wrapped option", expected, sb.toString());
 
         int nextLineTabStop = leftPad + descPad + "-a".length();
-        expected = lpad + "-a" + dpad + "aaaa aaaa aaaa" + hf.getNewLine() +
+        expected = lpad + "-a" + dpad + "aaaa aaaa aaaa" + EOL +
                    hf.createPadding(nextLineTabStop) + "aaaa aaaa";
         sb.setLength(0);
         hf.renderOptions(sb, nextLineTabStop + 17, options, leftPad, descPad);
@@ -125,7 +158,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("long non-wrapped option", expected, sb.toString());
 
         nextLineTabStop = leftPad + descPad + "-a,--aaa".length();
-        expected = lpad + "-a,--aaa" + dpad + "dddd dddd" + hf.getNewLine() +
+        expected = lpad + "-a,--aaa" + dpad + "dddd dddd" + EOL +
                    hf.createPadding(nextLineTabStop) + "dddd dddd";
         sb.setLength(0);
         hf.renderOptions(sb, 25, options, leftPad, descPad);
@@ -134,9 +167,9 @@ public class HelpFormatterTest extends TestCase
         options = new Options().
                 addOption("a", "aaa", false, "dddd dddd dddd dddd").
                 addOption("b", false, "feeee eeee eeee eeee");
-        expected = lpad + "-a,--aaa" + dpad + "dddd dddd" + hf.getNewLine() +
-                   hf.createPadding(nextLineTabStop) + "dddd dddd" + hf.getNewLine() +
-                   lpad + "-b      " + dpad + "feeee eeee" + hf.getNewLine() +
+        expected = lpad + "-a,--aaa" + dpad + "dddd dddd" + EOL +
+                   hf.createPadding(nextLineTabStop) + "dddd dddd" + EOL +
+                   lpad + "-b      " + dpad + "feeee eeee" + EOL +
                    hf.createPadding(nextLineTabStop) + "eeee eeee";
         sb.setLength(0);
         hf.renderOptions(sb, 25, options, leftPad, descPad);
