@@ -761,7 +761,7 @@ public abstract class ParserTestCase extends TestCase
     public void testReuseOptionsTwice() throws Exception
     {
         Options opts = new Options();
-		opts.addOption(OptionBuilder.isRequired().create('v'));
+        opts.addOption(OptionBuilder.isRequired().create('v'));
 
         // first parsing
         parser.parse(opts, new String[] { "-v" });
