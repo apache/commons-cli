@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -860,8 +861,7 @@ public class HelpFormatter
             nextLineTabStop = 1;
         }
 
-        // all following lines must be padded with nextLineTabStop space 
-        // characters
+        // all following lines must be padded with nextLineTabStop space characters
         final String padding = createPadding(nextLineTabStop);
 
         while (true)
@@ -888,7 +888,7 @@ public class HelpFormatter
     /**
      * Finds the next text wrap position after <code>startPos</code> for the
      * text in <code>text</code> with the column width <code>width</code>.
-     * The wrap point is the last postion before startPos+width having a 
+     * The wrap point is the last position before startPos+width having a 
      * whitespace character (space, \n, \r).
      *
      * @param text The text being searched for the wrap position
@@ -953,14 +953,10 @@ public class HelpFormatter
      */
     protected String createPadding(int len)
     {
-        StringBuffer sb = new StringBuffer(len);
-
-        for (int i = 0; i < len; ++i)
-        {
-            sb.append(' ');
-        }
-
-        return sb.toString();
+        char[] padding = new char[len];
+        Arrays.fill(padding, ' ');
+        
+        return new String(padding);
     }
 
     /**
