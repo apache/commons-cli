@@ -889,7 +889,8 @@ public class HelpFormatter
      * Finds the next text wrap position after <code>startPos</code> for the
      * text in <code>text</code> with the column width <code>width</code>.
      * The wrap point is the last position before startPos+width having a 
-     * whitespace character (space, \n, \r).
+     * whitespace character (space, \n, \r). If there is no whitespace character
+     * before startPos+width, it will return startPos+width.
      *
      * @param text The text being searched for the wrap position
      * @param width width of the wrapped text
@@ -900,8 +901,8 @@ public class HelpFormatter
      */
     protected int findWrapPos(String text, int width, int startPos)
     {
-        int pos = -1;
-
+        int pos;
+        
         // the line ends before the max wrap pos or a new line char found
         if (((pos = text.indexOf('\n', startPos)) != -1 && pos <= width)
                 || ((pos = text.indexOf('\t', startPos)) != -1 && pos <= width))
@@ -931,17 +932,10 @@ public class HelpFormatter
             return pos;
         }
         
-        // must look for the first whitespace chearacter after startPos 
-        // + width
+        // if we didn't find one, simply chop at startPos+width
         pos = startPos + width;
-
-        while ((pos <= text.length()) && ((c = text.charAt(pos)) != ' ')
-               && (c != '\n') && (c != '\r'))
-        {
-            ++pos;
-        }
-
-        return (pos == text.length()) ? (-1) : pos;
+        
+        return pos == text.length() ? -1 : pos;
     }
 
     /**
