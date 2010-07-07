@@ -45,7 +45,7 @@
       </subsection>
       <subsection name="Create the Options">
         <p>
-          An <a href="api-1.2/org/apache/commons/cli/Options.html">
+          An <a href="api-release/org/apache/commons/cli/Options.html">
           Options</a> object must be created and the <code>Option</code> must be 
           added to it.
         </p>
@@ -78,7 +78,7 @@ CommandLine cmd = parser.parse( options, args);</source>
         <p>
           Now we need to check if the <code>t</code> option is present.  To do
           this we will interrogate the 
-          <a href="api-1.2/org/apache/commons/cli/CommandLine.html">CommandLine
+          <a href="api-release/org/apache/commons/cli/CommandLine.html">CommandLine
           </a> object.  The <code>hasOption</code> method takes a 
           <code>java.lang.String</code> parameter and returns <code>true</code> if the option 
           represented by the <code>java.lang.String</code> is present, otherwise 
@@ -212,11 +212,11 @@ Option find      = OptionBuilder.withArgName( "file" )
       <subsection name="Create the Options">
         <p>
           Now that we have created each 
-          <a href="api-1.2/org/apache/commons/cli/Option.html">Option</a> we need
+          <a href="api-release/org/apache/commons/cli/Option.html">Option</a> we need
           to create the 
-          <a href="api-1.2/org/apache/commons/cli/Options.html">Options</a>
+          <a href="api-release/org/apache/commons/cli/Options.html">Options</a>
           instance.  This is achieved using the 
-          <a href="api-1.2/org/apache/commons/cli/CommandLine.html#addOption(org.apache.commons.cli.Option)">addOption</a>
+          <a href="api-release/org/apache/commons/cli/CommandLine.html#addOption(org.apache.commons.cli.Option)">addOption</a>
           method of <code>Options</code>.
         </p>
         <source>Options options = new Options();
@@ -243,7 +243,7 @@ options.addOption( property );</source>
         <p>
           We now need to create a <code>CommandLineParser</code>. This will parse the command
           line arguments, using the rules specified by the <code>Options</code> and
-          return an instance of <a href="api-1.2/org/apache/commons/cli/CommandLine.html">CommandLine</a>.
+          return an instance of <a href="api-release/org/apache/commons/cli/CommandLine.html">CommandLine</a>.
         </p>
         <source>public static void main( String[] args ) {
     // create the parser
@@ -274,7 +274,7 @@ if( line.hasOption( "buildfile" ) ) {
         <p>
           CLI also provides the means to automatically generate usage
           and help information.  This is achieved with the
-          <a href="api-1.2/org/apache/commons/cli/HelpFormatter.html">HelpFormatter</a>
+          <a href="api-release/org/apache/commons/cli/HelpFormatter.html">HelpFormatter</a>
           class.
         </p>
         <source>// automatically generate the help statement
@@ -328,7 +328,7 @@ Sort entries alphabetically if none of -cftuSUX nor --sort.
 -C                         list entries by columns</source>
       <p>
         The following is the code that is used to create the 
-        <a href="api-1.2/org/apache/commons/cli/Options.html">Options</a> for this example.
+        <a href="api-release/org/apache/commons/cli/Options.html">Options</a> for this example.
       </p>
       <source>// create the command line parser
 CommandLineParser parser = new DefaultParser();
