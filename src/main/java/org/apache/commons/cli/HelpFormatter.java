@@ -17,7 +17,10 @@
 
 package org.apache.commons.cli;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -724,7 +727,7 @@ public class HelpFormatter
     {
         StringBuffer sb = new StringBuffer(text.length());
 
-        renderWrappedText(sb, width, nextLineTabStop, text);
+        renderWrappedTextBlock(sb, width, nextLineTabStop, text);
         pw.println(sb.toString());
     }
 
@@ -883,6 +886,35 @@ public class HelpFormatter
 
             sb.append(rtrim(text.substring(0, pos))).append(defaultNewLine);
         }
+    }
+
+    /**
+     * Render the specified text width a maximum width. This method differs
+     * from renderWrappedText by not removing leading spaces after a new line.
+     * 
+     * @param sb The StringBuffer to place the rendered text into.
+     * @param width The number of characters to display per line
+     * @param nextLineTabStop The position on the next line for the first tab.
+     * @param text The text to be rendered.
+     */
+    private StringBuffer renderWrappedTextBlock(StringBuffer sb, int width, int nextLineTabStop, String text) {
+        try {
+            BufferedReader in = new BufferedReader(new StringReader(text));
+            String line;
+            boolean firstLine = true;
+            while ((line = in.readLine()) != null) {
+                if (!firstLine) {
+                    sb.append(getNewLine());
+                } else {
+                    firstLine = false;
+                }
+                renderWrappedText(sb, width, nextLineTabStop, line);
+            }
+        } catch (IOException e) {
+            // cannot happen
+        }
+
+        return sb;
     }
 
     /**
