@@ -367,7 +367,7 @@ public class HelpFormatter
      */
     public void printHelp(String cmdLineSyntax, Options options)
     {
-        printHelp(defaultWidth, cmdLineSyntax, null, options, null, false);
+        printHelp(getWidth(), cmdLineSyntax, null, options, null, false);
     }
 
     /**
@@ -382,7 +382,7 @@ public class HelpFormatter
      */
     public void printHelp(String cmdLineSyntax, Options options, boolean autoUsage)
     {
-        printHelp(defaultWidth, cmdLineSyntax, null, options, null, autoUsage);
+        printHelp(getWidth(), cmdLineSyntax, null, options, null, autoUsage);
     }
 
     /**
@@ -414,7 +414,7 @@ public class HelpFormatter
      */
     public void printHelp(String cmdLineSyntax, String header, Options options, String footer, boolean autoUsage)
     {
-        printHelp(defaultWidth, cmdLineSyntax, header, options, footer, autoUsage);
+        printHelp(getWidth(), cmdLineSyntax, header, options, footer, autoUsage);
     }
 
     /**
@@ -451,7 +451,7 @@ public class HelpFormatter
     {
         PrintWriter pw = new PrintWriter(System.out);
 
-        printHelp(pw, width, cmdLineSyntax, header, options, defaultLeftPad, defaultDescPad, footer, autoUsage);
+        printHelp(pw, width, cmdLineSyntax, header, options, getLeftPadding(), getDescPadding(), footer, autoUsage);
         pw.flush();
     }
 
@@ -541,7 +541,7 @@ public class HelpFormatter
     public void printUsage(PrintWriter pw, int width, String app, Options options)
     {
         // initialise the string buffer
-        StringBuffer buff = new StringBuffer(defaultSyntaxPrefix).append(app).append(" ");
+        StringBuffer buff = new StringBuffer(getSyntaxPrefix()).append(app).append(" ");
 
         // create a list for processed option groups
         final Collection processedGroups = new ArrayList();
@@ -679,7 +679,7 @@ public class HelpFormatter
     {
         int argPos = cmdLineSyntax.indexOf(' ') + 1;
 
-        printWrapped(pw, width, defaultSyntaxPrefix.length() + argPos, defaultSyntaxPrefix + cmdLineSyntax);
+        printWrapped(pw, width, getSyntaxPrefix().length() + argPos, getSyntaxPrefix() + cmdLineSyntax);
     }
 
     /**
@@ -771,15 +771,15 @@ public class HelpFormatter
             
             if (option.getOpt() == null)
             {
-                optBuf.append(lpad).append("   " + defaultLongOptPrefix).append(option.getLongOpt());
+                optBuf.append(lpad).append("   ").append(getLongOptPrefix()).append(option.getLongOpt());
             }
             else
             {
-                optBuf.append(lpad).append(defaultOptPrefix).append(option.getOpt());
+                optBuf.append(lpad).append(getOptPrefix()).append(option.getOpt());
 
                 if (option.hasLongOpt())
                 {
-                    optBuf.append(',').append(defaultLongOptPrefix).append(option.getLongOpt());
+                    optBuf.append(',').append(getLongOptPrefix()).append(option.getLongOpt());
                 }
             }
 
@@ -827,7 +827,7 @@ public class HelpFormatter
 
             if (i.hasNext())
             {
-                sb.append(defaultNewLine);
+                sb.append(getNewLine());
             }
         }
 
@@ -856,7 +856,7 @@ public class HelpFormatter
 
             return sb;
         }
-        sb.append(rtrim(text.substring(0, pos))).append(defaultNewLine);
+        sb.append(rtrim(text.substring(0, pos))).append(getNewLine());
 
         if (nextLineTabStop >= width)
         {
@@ -884,7 +884,7 @@ public class HelpFormatter
                 pos = width;
             }
 
-            sb.append(rtrim(text.substring(0, pos))).append(defaultNewLine);
+            sb.append(rtrim(text.substring(0, pos))).append(getNewLine());
         }
     }
 
