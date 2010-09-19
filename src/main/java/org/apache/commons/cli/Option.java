@@ -279,9 +279,9 @@ public class Option implements Cloneable, Serializable
     }
 
     /** 
-     * Query to see if this Option requires an argument
+     * Query to see if this Option is mandatory
      *
-     * @return boolean flag indicating if an argument is required
+     * @return boolean flag indicating whether this Option is mandatory
      */
     public boolean isRequired()
     {
