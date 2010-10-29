@@ -54,7 +54,7 @@ public class CommandLine implements Serializable
     /**
      * Creates a command line.
      */
-    CommandLine()
+    protected CommandLine()
     {
         // nothing to do
     }
@@ -344,7 +344,7 @@ public class CommandLine implements Serializable
      *
      * @param arg the unrecognised option/argument.
      */
-    void addArg(String arg)
+    protected void addArg(String arg)
     {
         args.add(arg);
     }
@@ -354,7 +354,7 @@ public class CommandLine implements Serializable
      *
      * @param opt the processed option
      */
-    void addOption(Option opt)
+    protected void addOption(Option opt)
     {
         options.add(opt);
     }
