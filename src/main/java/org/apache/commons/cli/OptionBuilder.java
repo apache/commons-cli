@@ -24,7 +24,7 @@ package org.apache.commons.cli;
  * <a href="http://c2.com/cgi-bin/wiki?BuilderPattern">
  * http://c2.com/cgi-bin/wiki?BuilderPattern</a>.</p>
  *
- * <p>This class is NOT thread safe. If several thread were to use this class they must be synchronized.</p>
+ * <p>This class is NOT thread safe. See <a href="https://issues.apache.org/jira/browse/CLI-209">CLI-209</a></p>
  * 
  * @author John Keyes (john at integralsource.com)
  * @version $Revision$, $Date$
