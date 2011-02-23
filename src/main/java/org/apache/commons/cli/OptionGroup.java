@@ -159,10 +159,13 @@ public class OptionGroup implements Serializable
                 buff.append("--");
                 buff.append(option.getLongOpt());
             }
-
-            buff.append(" ");
-            buff.append(option.getDescription());
-
+            
+            if (option.getDescription() != null)
+            {
+                buff.append(" ");
+                buff.append(option.getDescription());
+            }
+            
             if (iter.hasNext())
             {
                 buff.append(", ");
