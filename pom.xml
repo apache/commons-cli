@@ -248,6 +248,9 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
+          <configuration>
+            <targetJdk>${maven.compile.source}</targetJdk>
+          </configuration>
         </plugin>
       </plugins>
   </reporting>
