@@ -46,10 +46,10 @@ public class CommandLine implements Serializable
     private static final long serialVersionUID = 1L;
 
     /** the unrecognised options/arguments */
-    private List args = new LinkedList();
+    private List<String> args = new LinkedList<String>();
 
     /** the processed options */
-    private List options = new ArrayList();
+    private List<Option> options = new ArrayList<Option>();
 
     /**
      * Creates a command line.
@@ -169,18 +169,17 @@ public class CommandLine implements Serializable
      */
     public String[] getOptionValues(String opt)
     {
-        List values = new ArrayList();
+        List<String> values = new ArrayList<String>();
 
-        for (Iterator it = options.iterator(); it.hasNext();)
+        for (Option option : options)
         {
-            Option option = (Option) it.next();
             if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt()))
             {
                 values.addAll(option.getValuesList());
             }
         }
 
-        return values.isEmpty() ? null : (String[]) values.toArray(new String[values.size()]);
+        return values.isEmpty() ? null : values.toArray(new String[values.size()]);
     }
 
     /**
@@ -192,9 +191,7 @@ public class CommandLine implements Serializable
     private Option resolveOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
-        for (Iterator it = options.iterator(); it.hasNext();)
-        {
-            Option option = (Option) it.next();
+        for (Option option : options) {
             if (opt.equals(option.getOpt()))
             {
                 return option;
@@ -268,13 +265,11 @@ public class CommandLine implements Serializable
     {
         Properties props = new Properties();
 
-        for (Iterator it = options.iterator(); it.hasNext();)
+        for (Option option : options)
         {
-            Option option = (Option) it.next();
-
             if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt()))
             {
-                List values = option.getValuesList();
+                List<String> values = option.getValuesList();
                 if (values.size() >= 2)
                 {
                     // use the first 2 arguments as the key/value pair
@@ -310,7 +305,7 @@ public class CommandLine implements Serializable
      *
      * @return remaining items passed in but not parsed as a <code>List</code>.
      */
-    public List getArgList()
+    public List<String> getArgList()
     {
         return args;
     }
@@ -375,12 +370,12 @@ public class CommandLine implements Serializable
      */
     public Option[] getOptions()
     {
-        Collection processed = options;
+        Collection<Option> processed = options;
 
         // reinitialise array
         Option[] optionsArray = new Option[processed.size()];
 
         // return the array
-        return (Option[]) processed.toArray(optionsArray);
+        return processed.toArray(optionsArray);
     }
 }

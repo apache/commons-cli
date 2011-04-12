@@ -30,7 +30,7 @@ import java.util.Iterator;
 public class AmbiguousOptionException extends UnrecognizedOptionException
 {
     /** The list of options matching the partial name specified */
-    private Collection matchingOptions;
+    private Collection<String> matchingOptions;
 
     /**
      * Constructs a new AmbiguousOptionException.
@@ -38,7 +38,7 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
      * @param option          the partial option name
      * @param matchingOptions the options matching the name
      */
-    public AmbiguousOptionException(String option, Collection matchingOptions)
+    public AmbiguousOptionException(String option, Collection<String> matchingOptions)
     {
         super(createMessage(option, matchingOptions), option);
         this.matchingOptions = matchingOptions;
@@ -47,7 +47,7 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
     /**
      * Returns the options matching the partial name.
      */
-    public Collection getMatchingOptions()
+    public Collection<String> getMatchingOptions()
     {
         return matchingOptions;
     }
@@ -59,7 +59,7 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
      * @param matchingOptions
      * @return
      */
-    private static String createMessage(String option, Collection matchingOptions)
+    private static String createMessage(String option, Collection<String> matchingOptions)
     {
         StringBuffer buff = new StringBuffer("Ambiguous option: '");
         buff.append(option);

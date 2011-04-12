@@ -19,7 +19,6 @@ package org.apache.commons.cli;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -51,7 +50,7 @@ public class DefaultParser implements CommandLineParser
     /** Flag indicating if tokens should no longer be analysed and simply added as arguments of the command line. */
     protected boolean skipParsing;
     
-    /** The required options expected to be found when parsing the command line. */
+    /** The required options and groups expected to be found when parsing the command line. */
     protected List expectedOpts;
     
     public CommandLine parse(Options options, String[] arguments) throws ParseException
@@ -104,9 +103,8 @@ public class DefaultParser implements CommandLineParser
         expectedOpts = new ArrayList(options.getRequiredOptions());
         
         // clear the data from the groups
-        for (Iterator it = options.getOptionGroups().iterator(); it.hasNext();)
+        for (OptionGroup group : options.getOptionGroups())
         {
-            OptionGroup group = (OptionGroup) it.next();
             group.setSelected(null);
         }
         
@@ -114,9 +112,9 @@ public class DefaultParser implements CommandLineParser
 
         if (arguments != null)
         {
-            for (int i = 0; i < arguments.length; i++)
+            for (String argument : arguments)
             {
-                handleToken(arguments[i]);
+                handleToken(argument);
             }
         }
         
@@ -387,7 +385,7 @@ public class DefaultParser implements CommandLineParser
      */
     private void handleLongOptionWithoutEqual(String token) throws ParseException
     {
-        List matchingOpts = options.getMatchingOptions(token);
+        List<String> matchingOpts = options.getMatchingOptions(token);
         if (matchingOpts.isEmpty())
         {
             handleUnknownToken(currentToken);
@@ -398,7 +396,7 @@ public class DefaultParser implements CommandLineParser
         }
         else
         {
-            handleOption(options.getOption((String) matchingOpts.get(0)));
+            handleOption(options.getOption(matchingOpts.get(0)));
         }
     }
 
@@ -420,7 +418,7 @@ public class DefaultParser implements CommandLineParser
         
         String opt = token.substring(0, pos);
         
-        List matchingOpts = options.getMatchingOptions(opt);
+        List<String> matchingOpts = options.getMatchingOptions(opt);
         if (matchingOpts.isEmpty())
         {
             handleUnknownToken(currentToken);
@@ -431,7 +429,7 @@ public class DefaultParser implements CommandLineParser
         }
         else
         {
-            Option option = options.getOption((String) matchingOpts.get(0));
+            Option option = options.getOption(matchingOpts.get(0));
             
             if (option.acceptsArg())
             {
@@ -485,6 +483,7 @@ public class DefaultParser implements CommandLineParser
         }
         else if (pos == -1)
         {
+            // no equal sign found (-xxx)
             if (options.hasShortOption(t))
             {
                 handleOption(options.getOption(t));
@@ -521,6 +520,7 @@ public class DefaultParser implements CommandLineParser
         }
         else
         {
+            // equal sign found (-xxx=yyy)
             String opt = t.substring(0, pos);
             String value = t.substring(pos + 1);
             
@@ -595,7 +595,7 @@ public class DefaultParser implements CommandLineParser
         // check the previous option before handling the next one
         checkRequiredArgs();
         
-        option = (Option) option.clone();
+        option = option.clone();
         
         updateRequiredOptions(option);
         

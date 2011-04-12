@@ -142,7 +142,7 @@ public class HelpFormatter
      * 
      * Defaults to case-insensitive alphabetical sorting by option key
      */
-    protected Comparator optionComparator = new OptionComparator();
+    protected Comparator<Option> optionComparator = new OptionComparator();
     
     /**
      * Sets the 'width'.
@@ -334,7 +334,7 @@ public class HelpFormatter
      * 
      * @since 1.2
      */
-    public Comparator getOptionComparator()
+    public Comparator<Option> getOptionComparator()
     {
         return optionComparator;
     }
@@ -345,7 +345,7 @@ public class HelpFormatter
      * 
      * @since 1.2
      */
-    public void setOptionComparator(Comparator comparator)
+    public void setOptionComparator(Comparator<Option> comparator)
     {
         if (comparator == null)
         {
@@ -544,12 +544,12 @@ public class HelpFormatter
         StringBuffer buff = new StringBuffer(getSyntaxPrefix()).append(app).append(" ");
 
         // create a list for processed option groups
-        final Collection processedGroups = new ArrayList();
+        final Collection<OptionGroup> processedGroups = new ArrayList<OptionGroup>();
 
         // temp variable
         Option option;
 
-        List optList = new ArrayList(options.getOptions());
+        List<Option> optList = new ArrayList<Option>(options.getOptions());
         Collections.sort(optList, getOptionComparator());
         // iterate over the options
         for (Iterator i = optList.iterator(); i.hasNext();)
@@ -610,7 +610,7 @@ public class HelpFormatter
             buff.append("[");
         }
 
-        List optList = new ArrayList(group.getOptions());
+        List<Option> optList = new ArrayList<Option>(group.getOptions());
         Collections.sort(optList, getOptionComparator());
         // for each option in the OptionGroup
         for (Iterator i = optList.iterator(); i.hasNext();)
@@ -758,15 +758,14 @@ public class HelpFormatter
         // sort options ascending
         int max = 0;
         StringBuffer optBuf;
-        List prefixList = new ArrayList();
-
-        List optList = options.helpOptions();
-
+        List<StringBuffer> prefixList = new ArrayList<StringBuffer>();
+        
+        List<Option> optList = options.helpOptions();
+        
         Collections.sort(optList, getOptionComparator());
-
-        for (Iterator i = optList.iterator(); i.hasNext();)
+        
+        for (Option option : optList)
         {
-            Option option = (Option) i.next();
             optBuf = new StringBuffer();
             
             if (option.getOpt() == null)
@@ -1016,25 +1015,21 @@ public class HelpFormatter
      * This class implements the <code>Comparator</code> interface
      * for comparing Options.
      */
-    private static class OptionComparator implements Comparator
+    private static class OptionComparator implements Comparator<Option>
     {
-
         /**
          * Compares its two arguments for order. Returns a negative
          * integer, zero, or a positive integer as the first argument
          * is less than, equal to, or greater than the second.
          *
-         * @param o1 The first Option to be compared.
-         * @param o2 The second Option to be compared.
+         * @param opt1 The first Option to be compared.
+         * @param opt2 The second Option to be compared.
          * @return a negative integer, zero, or a positive integer as
          *         the first argument is less than, equal to, or greater than the
          *         second.
          */
-        public int compare(Object o1, Object o2)
+        public int compare(Option opt1, Option opt2)
         {
-            Option opt1 = (Option) o1;
-            Option opt2 = (Option) o2;
-
             return opt1.getKey().compareToIgnoreCase(opt2.getKey());
         }
     }

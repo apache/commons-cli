@@ -35,7 +35,7 @@ public class OptionGroup implements Serializable
     private static final long serialVersionUID = 1L;
     
     /** hold the options */
-    private Map optionMap = new HashMap();
+    private Map<String, Option> optionMap = new HashMap<String, Option>();
 
     /** the name of the selected option */
     private String selected;
@@ -62,7 +62,7 @@ public class OptionGroup implements Serializable
      * @return the names of the options in this group as a 
      * <code>Collection</code>
      */
-    public Collection getNames()
+    public Collection<String> getNames()
     {
         // the key set is the collection of names
         return optionMap.keySet();
@@ -71,7 +71,7 @@ public class OptionGroup implements Serializable
     /**
      * @return the options in this group as a <code>Collection</code>
      */
-    public Collection getOptions()
+    public Collection<Option> getOptions()
     {
         // the values are the collection of options
         return optionMap.values();
@@ -139,15 +139,15 @@ public class OptionGroup implements Serializable
      */
     public String toString()
     {
-        StringBuffer buff = new StringBuffer();
-
-        Iterator iter = getOptions().iterator();
+        StringBuilder buff = new StringBuilder();
+        
+        Iterator<Option> iter = getOptions().iterator();
 
         buff.append("[");
 
         while (iter.hasNext())
         {
-            Option option = (Option) iter.next();
+            Option option = iter.next();
 
             if (option.getOpt() != null)
             {

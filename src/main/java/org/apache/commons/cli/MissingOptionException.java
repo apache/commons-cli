@@ -28,7 +28,7 @@ import java.util.Iterator;
  */
 public class MissingOptionException extends ParseException
 {
-    /** The list of missing options */
+    /** The list of missing options and groups */
     private List missingOptions;
 
     /**

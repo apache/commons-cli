@@ -72,7 +72,7 @@ public class Option implements Cloneable, Serializable
     private Class type = String.class;
 
     /** the list of argument values **/
-    private List values = new ArrayList();
+    private List<String> values = new ArrayList<String>();
 
     /** the character that is the value separator */
     private char valuesep;
@@ -482,7 +482,7 @@ public class Option implements Cloneable, Serializable
      */
     public String getValue()
     {
-        return hasNoValues() ? null : (String) values.get(0);
+        return hasNoValues() ? null : values.get(0);
     }
 
     /**
@@ -499,7 +499,7 @@ public class Option implements Cloneable, Serializable
      */
     public String getValue(int index) throws IndexOutOfBoundsException
     {
-        return hasNoValues() ? null : (String) values.get(index);
+        return hasNoValues() ? null : values.get(index);
     }
 
     /**
@@ -528,14 +528,14 @@ public class Option implements Cloneable, Serializable
      */
     public String[] getValues()
     {
-        return hasNoValues() ? null : (String[]) values.toArray(new String[values.size()]);
+        return hasNoValues() ? null : values.toArray(new String[values.size()]);
     }
 
     /**
      * @return the values of this Option as a List
      * or null if there are no values
      */
-    public List getValuesList()
+    public List<String> getValuesList()
     {
         return values;
     }
@@ -633,12 +633,12 @@ public class Option implements Cloneable, Serializable
      *
      * @throws RuntimeException
      */
-    public Object clone()
+    public Option clone()
     {
         try
         {
             Option option = (Option) super.clone();
-            option.values = new ArrayList(values);
+            option.values = new ArrayList<String>(values);
             return option;
         }
         catch (CloneNotSupportedException cnse)

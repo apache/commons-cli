@@ -49,16 +49,16 @@ public class Options implements Serializable
     private static final long serialVersionUID = 1L;
 
     /** a map of the options with the character key */
-    private Map shortOpts = new HashMap();
+    private Map<String, Option> shortOpts = new HashMap<String, Option>();
 
     /** a map of the options with the long key */
-    private Map longOpts = new HashMap();
+    private Map<String, Option> longOpts = new HashMap<String, Option>();
 
     /** a map of the required options */
-    private List requiredOpts = new ArrayList();
+    private List<Object> requiredOpts = new ArrayList<Object>();
 
     /** a map of the option groups */
-    private Map optionGroups = new HashMap();
+    private Map<String, OptionGroup> optionGroups = new HashMap<String, OptionGroup>();
 
     /**
      * Add the specified option group.
@@ -96,9 +96,9 @@ public class Options implements Serializable
      *
      * @return a Collection of OptionGroup instances.
      */
-    Collection getOptionGroups()
+    Collection<OptionGroup> getOptionGroups()
     {
-        return new HashSet(optionGroups.values());
+        return new HashSet<OptionGroup>(optionGroups.values());
     }
 
     /**
@@ -170,7 +170,7 @@ public class Options implements Serializable
      *
      * @return read-only Collection of {@link Option} objects in this descriptor
      */
-    public Collection getOptions()
+    public Collection<Option> getOptions()
     {
         return Collections.unmodifiableCollection(helpOptions());
     }
@@ -180,9 +180,9 @@ public class Options implements Serializable
      *
      * @return the List of Options
      */
-    List helpOptions()
+    List<Option> helpOptions()
     {
-        return new ArrayList(shortOpts.values());
+        return new ArrayList<Option>(shortOpts.values());
     }
 
     /**
@@ -208,10 +208,10 @@ public class Options implements Serializable
 
         if (shortOpts.containsKey(opt))
         {
-            return (Option) shortOpts.get(opt);
+            return shortOpts.get(opt);
         }
 
-        return (Option) longOpts.get(opt);
+        return longOpts.get(opt);
     }
 
     /**
@@ -221,21 +221,17 @@ public class Options implements Serializable
      * @return the options matching the partial name specified, or an empty list if none matches
      * @since 1.3
      */
-    public List getMatchingOptions(String opt)
+    public List<String> getMatchingOptions(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
         
-        List matchingOpts = new ArrayList();
+        List<String> matchingOpts = new ArrayList<String>();
         
-        Iterator it = longOpts.keySet().iterator();
-        while (it.hasNext())
-        {
-            String longOpt = (String) it.next();
-            if (longOpt.startsWith(opt))
-            {
+        for (String longOpt : longOpts.keySet()) {
+            if (longOpt.startsWith(opt)) {
                 matchingOpts.add(longOpt);
             }
-        }        
+        }
         
         return matchingOpts;
     }
@@ -290,7 +286,7 @@ public class Options implements Serializable
      */
     public OptionGroup getOptionGroup(Option opt)
     {
-        return (OptionGroup) optionGroups.get(opt.getKey());
+        return optionGroups.get(opt.getKey());
     }
 
     /**

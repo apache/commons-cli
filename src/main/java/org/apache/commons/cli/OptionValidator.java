@@ -64,13 +64,11 @@ class OptionValidator
         // handle the multi character opt
         else
         {
-            char[] chars = opt.toCharArray();
-
-            for (int i = 0; i < chars.length; i++)
+            for (char ch : opt.toCharArray())
             {
-                if (!isValidChar(chars[i]))
+                if (!isValidChar(ch))
                 {
-                    throw new IllegalArgumentException("The option '" + opt + "' contains an illegal character : '" + chars[i] + "'");
+                    throw new IllegalArgumentException("The option '" + opt + "' contains an illegal character : '" + ch + "'");
                 }
             }
         }
