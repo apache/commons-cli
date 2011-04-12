@@ -113,16 +113,14 @@ public class CommandLine implements Serializable
     public Object getParsedOptionValue(String opt) throws ParseException
     {
         String res = getOptionValue(opt);
-
         Option option = resolveOption(opt);
-        if (option == null)
+        
+        if (option == null || res == null)
         {
             return null;
         }
-
-        Object type = option.getType();
-
-        return (res == null) ? null : TypeHandler.createValue(res, type);
+        
+        return TypeHandler.createValue(res, option.getType());
     }
 
     /**

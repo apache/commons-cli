@@ -61,4 +61,16 @@ public class CommandLineTest extends TestCase
         
         assertEquals(3, cmd.getOptions().length);
     }
+
+    public void testGetParsedOptionValue() throws Exception {
+        Options options = new Options();
+        options.addOption(OptionBuilder.hasArg().withType(Number.class).create("i"));
+        options.addOption(OptionBuilder.hasArg().create("f"));
+        
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse(options, new String[] { "-i", "123", "-f", "foo" });
+        
+        assertEquals(123, ((Number) cmd.getParsedOptionValue("i")).intValue());
+        assertEquals("foo", cmd.getParsedOptionValue("f"));
+    }
 }

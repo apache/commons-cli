@@ -48,7 +48,7 @@ public final class OptionBuilder
     private static int numberOfArgs = Option.UNINITIALIZED;
 
     /** option type */
-    private static Object type;
+    private static Class type;
 
     /** option can have an optional argument value */
     private static boolean optionalArg;
@@ -81,7 +81,7 @@ public final class OptionBuilder
         description = null;
         argName = null;
         longopt = null;
-        type = null;
+        type = String.class;
         required = false;
         numberOfArgs = Option.UNINITIALIZED;
         optionalArg = false;
@@ -287,7 +287,7 @@ public final class OptionBuilder
      * @param newType the type of the Options argument value
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder withType(Object newType)
+    public static OptionBuilder withType(Class newType)
     {
         OptionBuilder.type = newType;
 

@@ -26,14 +26,14 @@ public class OptionBuilderTest extends TestCase {
                                      .hasArg( )
                                      .isRequired( )
                                      .hasArgs( )
-                                     .withType( new Float( 10 ) )
+                                     .withType( Float.class )
                                      .withDescription( "this is a simple option" )
                                      .create( 's' );
 
         assertEquals( "s", simple.getOpt() );
         assertEquals( "simple option", simple.getLongOpt() );
         assertEquals( "this is a simple option", simple.getDescription() );
-        assertEquals( simple.getType().getClass(), Float.class );
+        assertEquals( simple.getType(), Float.class );
         assertTrue( simple.hasArg() );
         assertTrue( simple.isRequired() );
         assertTrue( simple.hasArgs() );
@@ -44,14 +44,14 @@ public class OptionBuilderTest extends TestCase {
                                      .hasArg( )
                                      .isRequired( )
                                      .hasArgs( )
-                                     .withType( new Float( 10 ) )
+                                     .withType( Float.class )
                                      .withDescription( "this is a simple option" )
                                      .create( 's' );
 
         assertEquals( "s", simple.getOpt() );
         assertEquals( "simple option", simple.getLongOpt() );
         assertEquals( "this is a simple option", simple.getDescription() );
-        assertEquals( simple.getType().getClass(), Float.class );
+        assertEquals( simple.getType(), Float.class );
         assertTrue( simple.hasArg() );
         assertTrue( simple.isRequired() );
         assertTrue( simple.hasArgs() );
@@ -64,7 +64,7 @@ public class OptionBuilderTest extends TestCase {
         assertEquals( "d", simple.getOpt() );
         assertEquals( "dimple option", simple.getLongOpt() );
         assertEquals( "this is a dimple option", simple.getDescription() );
-        assertNull( simple.getType() );
+        assertEquals( String.class, simple.getType() );
         assertTrue( simple.hasArg() );
         assertTrue( !simple.isRequired() );
         assertTrue( !simple.hasArgs() );

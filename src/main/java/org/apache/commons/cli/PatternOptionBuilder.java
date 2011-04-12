@@ -91,7 +91,7 @@ public class PatternOptionBuilder
      * @param ch the specified character
      * @return The class that <code>ch</code> represents
      */
-    public static Object getValueClass(char ch)
+    public static Class getValueClass(char ch)
     {
         switch (ch)
         {
@@ -149,7 +149,7 @@ public class PatternOptionBuilder
     {
         char opt = ' ';
         boolean required = false;
-        Object type = null;
+        Class type = null;
 
         Options options = new Options();
 
