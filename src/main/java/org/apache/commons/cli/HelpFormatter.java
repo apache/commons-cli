@@ -896,20 +896,28 @@ public class HelpFormatter
      * @param nextLineTabStop The position on the next line for the first tab.
      * @param text The text to be rendered.
      */
-    private StringBuffer renderWrappedTextBlock(StringBuffer sb, int width, int nextLineTabStop, String text) {
-        try {
+    private StringBuffer renderWrappedTextBlock(StringBuffer sb, int width, int nextLineTabStop, String text)
+    {
+        try
+        {
             BufferedReader in = new BufferedReader(new StringReader(text));
             String line;
             boolean firstLine = true;
-            while ((line = in.readLine()) != null) {
-                if (!firstLine) {
+            while ((line = in.readLine()) != null)
+            {
+                if (!firstLine)
+                {
                     sb.append(getNewLine());
-                } else {
+                }
+                else
+                {
                     firstLine = false;
                 }
                 renderWrappedText(sb, width, nextLineTabStop, line);
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             // cannot happen
         }
 

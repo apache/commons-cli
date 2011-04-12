@@ -191,7 +191,8 @@ public class CommandLine implements Serializable
     private Option resolveOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
-        for (Option option : options) {
+        for (Option option : options)
+        {
             if (opt.equals(option.getOpt()))
             {
                 return option;

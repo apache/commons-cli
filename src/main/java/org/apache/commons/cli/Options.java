@@ -227,8 +227,10 @@ public class Options implements Serializable
         
         List<String> matchingOpts = new ArrayList<String>();
         
-        for (String longOpt : longOpts.keySet()) {
-            if (longOpt.startsWith(opt)) {
+        for (String longOpt : longOpts.keySet())
+        {
+            if (longOpt.startsWith(opt))
+            {
                 matchingOpts.add(longOpt);
             }
         }
