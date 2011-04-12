@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,10 +50,10 @@ public class Options implements Serializable
     private static final long serialVersionUID = 1L;
 
     /** a map of the options with the character key */
-    private Map<String, Option> shortOpts = new HashMap<String, Option>();
+    private Map<String, Option> shortOpts = new LinkedHashMap<String, Option>();
 
     /** a map of the options with the long key */
-    private Map<String, Option> longOpts = new HashMap<String, Option>();
+    private Map<String, Option> longOpts = new LinkedHashMap<String, Option>();
 
     /** a map of the required options */
     private List<Object> requiredOpts = new ArrayList<Object>();

@@ -269,13 +269,11 @@ public class HelpFormatterTest extends TestCase
         opts.addOption(new Option("c", "third"));
 
         HelpFormatter helpFormatter = new HelpFormatter();
-        helpFormatter.setOptionComparator(new Comparator()
+        helpFormatter.setOptionComparator(new Comparator<Option>()
         {
-            public int compare(Object o1, Object o2)
+            public int compare(Option opt1, Option opt2)
             {
                 // reverses the fuctionality of the default comparator
-                Option opt1 = (Option) o1;
-                Option opt2 = (Option) o2;
                 return opt2.getKey().compareToIgnoreCase(opt1.getKey());
             }
         });
@@ -289,9 +287,9 @@ public class HelpFormatterTest extends TestCase
     public void testPrintSortedUsageWithNullComparator()
     {
         Options opts = new Options();
-        opts.addOption(new Option("a", "first"));
+        opts.addOption(new Option("c", "first"));
         opts.addOption(new Option("b", "second"));
-        opts.addOption(new Option("c", "third"));
+        opts.addOption(new Option("a", "third"));
 
         HelpFormatter helpFormatter = new HelpFormatter();
         helpFormatter.setOptionComparator(null);
@@ -299,7 +297,7 @@ public class HelpFormatterTest extends TestCase
         StringWriter out = new StringWriter();
         helpFormatter.printUsage(new PrintWriter(out), 80, "app", opts);
 
-        assertEquals("usage: app [-a] [-b] [-c]" + EOL, out.toString());
+        assertEquals("usage: app [-c] [-b] [-a]" + EOL, out.toString());
     }
 
     public void testPrintOptionGroupUsage()

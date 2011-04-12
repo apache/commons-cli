@@ -341,20 +341,13 @@ public class HelpFormatter
 
     /**
      * Set the comparator used to sort the options when they output in help text.
-     * Passing in a null parameter will set the ordering to the default mode.
+     * Passing in a null comparator will keep the options in the order they were declared.
      * 
      * @since 1.2
      */
     public void setOptionComparator(Comparator<Option> comparator)
     {
-        if (comparator == null)
-        {
-            this.optionComparator = new OptionComparator();
-        }
-        else
-        {
-            this.optionComparator = comparator;
-        }
+        this.optionComparator = comparator;
     }
 
     /**
@@ -546,17 +539,17 @@ public class HelpFormatter
         // create a list for processed option groups
         final Collection<OptionGroup> processedGroups = new ArrayList<OptionGroup>();
 
-        // temp variable
-        Option option;
-
         List<Option> optList = new ArrayList<Option>(options.getOptions());
-        Collections.sort(optList, getOptionComparator());
+        if (getOptionComparator() != null)
+        {
+            Collections.sort(optList, getOptionComparator());
+        }
         // iterate over the options
         for (Iterator i = optList.iterator(); i.hasNext();)
         {
             // get the next Option
-            option = (Option) i.next();
-
+            Option option = (Option) i.next();
+            
             // check if the option is part of an OptionGroup
             OptionGroup group = options.getOptionGroup(option);
 
@@ -611,7 +604,10 @@ public class HelpFormatter
         }
 
         List<Option> optList = new ArrayList<Option>(group.getOptions());
-        Collections.sort(optList, getOptionComparator());
+        if (getOptionComparator() != null)
+        {
+            Collections.sort(optList, getOptionComparator());
+        }
         // for each option in the OptionGroup
         for (Iterator i = optList.iterator(); i.hasNext();)
         {
@@ -757,16 +753,18 @@ public class HelpFormatter
         // the longest opt string this list will be then used to 
         // sort options ascending
         int max = 0;
-        StringBuffer optBuf;
         List<StringBuffer> prefixList = new ArrayList<StringBuffer>();
         
         List<Option> optList = options.helpOptions();
         
-        Collections.sort(optList, getOptionComparator());
+        if (getOptionComparator() != null)
+        {
+            Collections.sort(optList, getOptionComparator());
+        }
         
         for (Option option : optList)
         {
-            optBuf = new StringBuffer();
+            StringBuffer optBuf = new StringBuffer();
             
             if (option.getOpt() == null)
             {
@@ -806,7 +804,7 @@ public class HelpFormatter
         for (Iterator i = optList.iterator(); i.hasNext();)
         {
             Option option = (Option) i.next();
-            optBuf = new StringBuffer(prefixList.get(x++).toString());
+            StringBuffer optBuf = new StringBuffer(prefixList.get(x++).toString());
 
             if (optBuf.length() < max)
             {
