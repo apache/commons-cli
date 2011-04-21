@@ -26,6 +26,11 @@ package org.apache.commons.cli;
  */
 public class AlreadySelectedException extends ParseException
 {
+    /**
+     * This exception {@code serialVersionUID}.
+     */
+    private static final long serialVersionUID = 3674381532418544760L;
+
     /** The option group selected. */
     private OptionGroup group;
 

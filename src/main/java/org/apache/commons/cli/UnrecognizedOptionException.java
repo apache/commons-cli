@@ -26,6 +26,11 @@ package org.apache.commons.cli;
  */
 public class UnrecognizedOptionException extends ParseException
 {
+    /**
+     * This exception {@code serialVersionUID}.
+     */
+    private static final long serialVersionUID = -252504690284625623L;
+
     /** The  unrecognized option */
     private String option;
 

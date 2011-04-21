@@ -28,6 +28,11 @@ import java.util.Iterator;
  */
 public class MissingOptionException extends ParseException
 {
+    /**
+     * This exception {@code serialVersionUID}.
+     */
+    private static final long serialVersionUID = 8161889051578563249L;
+
     /** The list of missing options and groups */
     private List missingOptions;
 

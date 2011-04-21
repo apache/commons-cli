@@ -29,6 +29,11 @@ import java.util.Iterator;
  */
 public class AmbiguousOptionException extends UnrecognizedOptionException
 {
+    /**
+     * This exception {@code serialVersionUID}.
+     */
+    private static final long serialVersionUID = 5829816121277947229L;
+
     /** The list of options matching the partial name specified */
     private Collection<String> matchingOptions;
 

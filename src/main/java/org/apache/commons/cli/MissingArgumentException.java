@@ -26,6 +26,11 @@ package org.apache.commons.cli;
  */
 public class MissingArgumentException extends ParseException
 {
+    /**
+     * This exception {@code serialVersionUID}.
+     */
+    private static final long serialVersionUID = -7098538588704965017L;
+
     /** The option requiring additional arguments */
     private Option option;
 
