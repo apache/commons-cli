@@ -69,7 +69,7 @@ public class Options implements Serializable
      */
     public Options addOptionGroup(OptionGroup group)
     {
-        Iterator options = group.getOptions().iterator();
+        Iterator<Option> options = group.getOptions().iterator();
 
         if (group.isRequired())
         {
@@ -78,7 +78,7 @@ public class Options implements Serializable
 
         while (options.hasNext())
         {
-            Option option = (Option) options.next();
+            Option option = options.next();
 
             // an Option cannot be required if it is in an
             // OptionGroup, either the group is required or
