@@ -70,7 +70,7 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
         buff.append(option);
         buff.append("'  (could be: ");
 
-        Iterator it = matchingOptions.iterator();
+        Iterator<String> it = matchingOptions.iterator();
         while (it.hasNext())
         {
             buff.append("'");
