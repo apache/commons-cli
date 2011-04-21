@@ -25,6 +25,7 @@ package org.apache.commons.cli;
  * @version $Revision$, $Date$
  * @deprecated Use the {@link DefaultParser} instead
  */
+@Deprecated
 public class BasicParser extends Parser
 {
     /**
