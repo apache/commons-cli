@@ -29,7 +29,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-/** 
+/**
  * A formatter of help messages for the current command line options
  *
  * @author Slawek Zachcial
@@ -331,7 +331,7 @@ public class HelpFormatter
     /**
      * Comparator used to sort the options when they output in help text.
      * Defaults to case-insensitive alphabetical sorting by option key.
-     * 
+     *
      * @since 1.2
      */
     public Comparator<Option> getOptionComparator()
@@ -342,7 +342,7 @@ public class HelpFormatter
     /**
      * Set the comparator used to sort the options when they output in help text.
      * Passing in a null comparator will keep the options in the order they were declared.
-     * 
+     *
      * @since 1.2
      */
     public void setOptionComparator(Comparator<Option> comparator)
@@ -549,7 +549,7 @@ public class HelpFormatter
         {
             // get the next Option
             Option option = (Option) i.next();
-            
+
             // check if the option is part of an OptionGroup
             OptionGroup group = options.getOptionGroup(option);
 
@@ -662,7 +662,7 @@ public class HelpFormatter
             buff.append("]");
         }
     }
-    
+
     /**
      * Print the cmdLineSyntax to the specified writer, using the
      * specified width.
@@ -754,18 +754,18 @@ public class HelpFormatter
         // sort options ascending
         int max = 0;
         List<StringBuffer> prefixList = new ArrayList<StringBuffer>();
-        
+
         List<Option> optList = options.helpOptions();
-        
+
         if (getOptionComparator() != null)
         {
             Collections.sort(optList, getOptionComparator());
         }
-        
+
         for (Option option : optList)
         {
             StringBuffer optBuf = new StringBuffer();
-            
+
             if (option.getOpt() == null)
             {
                 optBuf.append(lpad).append("   ").append(getLongOptPrefix()).append(option.getLongOpt());
@@ -875,7 +875,7 @@ public class HelpFormatter
 
                 return sb;
             }
-            
+
             if ((text.length() > width) && (pos == nextLineTabStop - 1))
             {
                 pos = width;
@@ -888,7 +888,7 @@ public class HelpFormatter
     /**
      * Render the specified text width a maximum width. This method differs
      * from renderWrappedText by not removing leading spaces after a new line.
-     * 
+     *
      * @param sb The StringBuffer to place the rendered text into.
      * @param width The number of characters to display per line
      * @param nextLineTabStop The position on the next line for the first tab.
@@ -939,7 +939,7 @@ public class HelpFormatter
     protected int findWrapPos(String text, int width, int startPos)
     {
         int pos;
-        
+
         // the line ends before the max wrap pos or a new line char found
         if (((pos = text.indexOf('\n', startPos)) != -1 && pos <= width)
                 || ((pos = text.indexOf('\t', startPos)) != -1 && pos <= width))
@@ -968,10 +968,10 @@ public class HelpFormatter
         {
             return pos;
         }
-        
+
         // if we didn't find one, simply chop at startPos+width
         pos = startPos + width;
-        
+
         return pos == text.length() ? -1 : pos;
     }
 
@@ -986,7 +986,7 @@ public class HelpFormatter
     {
         char[] padding = new char[len];
         Arrays.fill(padding, ' ');
-        
+
         return new String(padding);
     }
 
