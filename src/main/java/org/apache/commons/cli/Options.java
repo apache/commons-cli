@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,17 +68,13 @@ public class Options implements Serializable
      */
     public Options addOptionGroup(OptionGroup group)
     {
-        Iterator<Option> options = group.getOptions().iterator();
-
         if (group.isRequired())
         {
             requiredOpts.add(group);
         }
 
-        while (options.hasNext())
+        for (Option option : group.getOptions())
         {
-            Option option = options.next();
-
             // an Option cannot be required if it is in an
             // OptionGroup, either the group is required or
             // nothing is required
