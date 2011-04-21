@@ -46,10 +46,10 @@ public class CommandLine implements Serializable
     private static final long serialVersionUID = 1L;
 
     /** the unrecognised options/arguments */
-    private List<String> args = new LinkedList<String>();
+    private final List<String> args = new LinkedList<String>();
 
     /** the processed options */
-    private List<Option> options = new ArrayList<Option>();
+    private final List<Option> options = new ArrayList<Option>();
 
     /**
      * Creates a command line.
