@@ -359,7 +359,7 @@ public class CommandLine implements Serializable
      * @return an <code>Iterator</code> over the processed {@link Option}
      * members of this {@link CommandLine}
      */
-    public Iterator iterator()
+    public Iterator<Option> iterator()
     {
         return options.iterator();
     }
