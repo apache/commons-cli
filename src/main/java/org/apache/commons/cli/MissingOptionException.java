@@ -28,9 +28,7 @@ import java.util.Iterator;
  */
 public class MissingOptionException extends ParseException
 {
-    /**
-     * This exception {@code serialVersionUID}.
-     */
+    /** This exception {@code serialVersionUID}. */
     private static final long serialVersionUID = 8161889051578563249L;
 
     /** The list of missing options and groups */
@@ -51,7 +49,7 @@ public class MissingOptionException extends ParseException
      * Constructs a new <code>MissingSelectedException</code> with the
      * specified list of missing options.
      *
-     * @param missingOptions the list of missing options
+     * @param missingOptions the list of missing options and groups
      * @since 1.2
      */
     public MissingOptionException(List missingOptions)
@@ -61,9 +59,10 @@ public class MissingOptionException extends ParseException
     }
 
     /**
-     * Return the list of options (as strings) missing in the command line parsed.
+     * Returns the list of options or option groups missing in the command line parsed.
      *
-     * @return the missing options
+     * @return the missing options, consisting of String instances for simple
+     *         options, and OptionGroup instances for required option groups.
      * @since 1.2
      */
     public List getMissingOptions()
@@ -74,7 +73,7 @@ public class MissingOptionException extends ParseException
     /**
      * Build the exception message from the specified list of options.
      *
-     * @param missingOptions
+     * @param missingOptions the list of missing options and groups
      * @since 1.2
      */
     private static String createMessage(List missingOptions)
