@@ -78,20 +78,20 @@ public class MissingOptionException extends ParseException
      */
     private static String createMessage(List missingOptions)
     {
-        StringBuffer buff = new StringBuffer("Missing required option");
-        buff.append(missingOptions.size() == 1 ? "" : "s");
-        buff.append(": ");
+        StringBuilder buf = new StringBuilder("Missing required option");
+        buf.append(missingOptions.size() == 1 ? "" : "s");
+        buf.append(": ");
 
         Iterator it = missingOptions.iterator();
         while (it.hasNext())
         {
-            buff.append(it.next());
+            buf.append(it.next());
             if (it.hasNext())
             {
-                buff.append(", ");
+                buf.append(", ");
             }
         }
 
-        return buff.toString();
+        return buf.toString();
     }
 }

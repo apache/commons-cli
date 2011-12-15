@@ -294,7 +294,7 @@ public class Options implements Serializable
      */
     public String toString()
     {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
 
         buf.append("[ Options: [ short ");
         buf.append(shortOpts.toString());

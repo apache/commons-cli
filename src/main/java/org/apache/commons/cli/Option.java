@@ -547,7 +547,7 @@ public class Option implements Cloneable, Serializable
      */
     public String toString()
     {
-        StringBuffer buf = new StringBuffer().append("[ option: ");
+        StringBuilder buf = new StringBuilder().append("[ option: ");
 
         buf.append(opt);
 

@@ -804,7 +804,7 @@ public class HelpFormatter
         for (Iterator i = optList.iterator(); i.hasNext();)
         {
             Option option = (Option) i.next();
-            StringBuffer optBuf = new StringBuffer(prefixList.get(x++).toString());
+            StringBuilder optBuf = new StringBuilder(prefixList.get(x++).toString());
 
             if (optBuf.length() < max)
             {
@@ -894,7 +894,7 @@ public class HelpFormatter
      * @param nextLineTabStop The position on the next line for the first tab.
      * @param text The text to be rendered.
      */
-    private StringBuffer renderWrappedTextBlock(StringBuffer sb, int width, int nextLineTabStop, String text)
+    private Appendable renderWrappedTextBlock(StringBuffer sb, int width, int nextLineTabStop, String text)
     {
         try
         {

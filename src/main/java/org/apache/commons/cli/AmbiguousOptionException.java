@@ -66,23 +66,23 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
      */
     private static String createMessage(String option, Collection<String> matchingOptions)
     {
-        StringBuffer buff = new StringBuffer("Ambiguous option: '");
-        buff.append(option);
-        buff.append("'  (could be: ");
+        StringBuilder buf = new StringBuilder("Ambiguous option: '");
+        buf.append(option);
+        buf.append("'  (could be: ");
 
         Iterator<String> it = matchingOptions.iterator();
         while (it.hasNext())
         {
-            buff.append("'");
-            buff.append(it.next());
-            buff.append("'");
+            buf.append("'");
+            buf.append(it.next());
+            buf.append("'");
             if (it.hasNext())
             {
-                buff.append(", ");
+                buf.append(", ");
             }
         }
-        buff.append(")");
+        buf.append(")");
 
-        return buff.toString();
+        return buf.toString();
     }
 }

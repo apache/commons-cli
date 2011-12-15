@@ -321,7 +321,7 @@ public class CommandLine implements Serializable
 
     /*
     public String toString() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
             
         buf.append("[ CommandLine: [ options: ");
         buf.append(options.toString());
