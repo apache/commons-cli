@@ -537,7 +537,7 @@ public class HelpFormatter
         StringBuffer buff = new StringBuffer(getSyntaxPrefix()).append(app).append(" ");
 
         // create a list for processed option groups
-        final Collection<OptionGroup> processedGroups = new ArrayList<OptionGroup>();
+        Collection<OptionGroup> processedGroups = new ArrayList<OptionGroup>();
 
         List<Option> optList = new ArrayList<Option>(options.getOptions());
         if (getOptionComparator() != null)
@@ -596,7 +596,7 @@ public class HelpFormatter
      * @param group the group to append
      * @see #appendOption(StringBuffer,Option,boolean)
      */
-    private void appendOptionGroup(final StringBuffer buff, final OptionGroup group)
+    private void appendOptionGroup(StringBuffer buff, OptionGroup group)
     {
         if (!group.isRequired())
         {
@@ -633,7 +633,7 @@ public class HelpFormatter
      * @param option the Option to append
      * @param required whether the Option is required or not
      */
-    private void appendOption(final StringBuffer buff, final Option option, final boolean required)
+    private void appendOption(StringBuffer buff, Option option, boolean required)
     {
         if (!required)
         {

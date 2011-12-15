@@ -43,7 +43,7 @@ public abstract class Parser implements CommandLineParser
     /** list of required options strings */
     private List requiredOptions;
 
-    protected void setOptions(final Options options)
+    protected void setOptions(Options options)
     {
         this.options = options;
         this.requiredOptions = new ArrayList(options.getRequiredOptions());
