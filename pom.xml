@@ -19,7 +19,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>21</version>
+    <version>25</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>commons-cli</groupId>
@@ -199,22 +199,6 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-changes-plugin</artifactId>
-          <version>2.0</version>
-          <configuration>
-            <xmlPath>${basedir}/src/changes/changes.xml</xmlPath>
-            <issueLinkTemplate>%URL%/%ISSUE%</issueLinkTemplate>
-          </configuration>
-          <reportSets>
-            <reportSet>
-              <reports>
-                 <report>changes-report</report>
-              </reports>
-            </reportSet>
-          </reportSets>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
           <version>2.1</version>
           <configuration>
@@ -226,7 +210,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>findbugs-maven-plugin</artifactId>
-          <version>1.2</version>
+          <version>2.4.0</version>
           <configuration>
             <threshold>Normal</threshold>
             <effort>Default</effort>
@@ -248,6 +232,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
+          <version>2.7.1</version>
           <configuration>
             <targetJdk>${maven.compile.source}</targetJdk>
           </configuration>
