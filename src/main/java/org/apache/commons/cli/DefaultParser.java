@@ -190,7 +190,7 @@ public class DefaultParser implements CommandLineParser
      */
     private void checkRequiredOptions() throws MissingOptionException
     {
-        // if there are required options that have not been processsed
+        // if there are required options that have not been processed
         if (!expectedOpts.isEmpty())
         {
             throw new MissingOptionException(expectedOpts);
