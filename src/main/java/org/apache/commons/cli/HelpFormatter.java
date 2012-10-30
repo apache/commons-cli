@@ -30,8 +30,43 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A formatter of help messages for the current command line options
+ * A formatter of help messages for command line options.
  *
+ * <p>Example:</p>
+ * 
+ * <pre>
+ * Options options = new Options();
+ * options.addOption(OptionBuilder.withLongOpt("file")
+ *                                .withDescription("The file to be processed")
+ *                                .hasArg()
+ *                                .withArgName("FILE")
+ *                                .isRequired()
+ *                                .create('f'));
+ * options.addOption(OptionBuilder.withLongOpt("version")
+ *                                .withDescription("Print the version of the application")
+ *                                .create('v'));
+ * options.addOption(OptionBuilder.withLongOpt("help").create('h'));
+ * 
+ * String header = "Do something useful with an input file\n\n";
+ * String footer = "\nPlease report issues at http://example.com/issues";
+ * 
+ * HelpFormatter formatter = new HelpFormatter();
+ * formatter.printHelp("myapp", header, options, footer, true);
+ * </pre>
+ * 
+ * This produces the following output:
+ * 
+ * <pre>
+ * usage: myapp -f <FILE> [-h] [-v]
+ * Do something useful with an input file
+ * 
+ *  -f,--file &lt;FILE>   The file to be processed
+ *  -h,--help
+ *  -v,--version       Print the version of the application
+ * 
+ * Please report issues at http://example.com/issues
+ * </pre>
+ * 
  * @author Slawek Zachcial
  * @author John Keyes (john at integralsource.com)
  * @version $Revision$, $Date$
@@ -46,10 +81,7 @@ public class HelpFormatter
     /** default padding to the left of each line */
     public static final int DEFAULT_LEFT_PAD = 1;
 
-    /**
-     * the number of characters of padding to be prefixed
-     * to each description line
-     */
+    /** number of space characters to be prefixed to each description line */
     public static final int DEFAULT_DESC_PAD = 3;
 
     /** the string to display at the beginning of the usage statement */
