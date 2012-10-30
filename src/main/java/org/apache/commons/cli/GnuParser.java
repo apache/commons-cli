@@ -49,7 +49,7 @@ public class GnuParser extends Parser
      */
     protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption)
     {
-        List tokens = new ArrayList();
+        List<String> tokens = new ArrayList<String>();
 
         boolean eatTheRest = false;
 
@@ -109,6 +109,6 @@ public class GnuParser extends Parser
             }
         }
 
-        return (String[]) tokens.toArray(new String[tokens.size()]);
+        return tokens.toArray(new String[tokens.size()]);
     }
 }

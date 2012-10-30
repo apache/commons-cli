@@ -20,7 +20,6 @@ package org.apache.commons.cli;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Properties;
@@ -140,20 +139,15 @@ public abstract class Parser implements CommandLineParser
      *
      * @since 1.1
      */
-    public CommandLine parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption)
-            throws ParseException
+    public CommandLine parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption) throws ParseException
     {
         // clear out the data in options in case it's been used before (CLI-71)
-        for (Iterator it = options.helpOptions().iterator(); it.hasNext();)
-        {
-            Option opt = (Option) it.next();
+        for (Option opt : options.helpOptions()) {
             opt.clearValues();
         }
         
         // clear the data from the groups
-        for (Iterator it = options.getOptionGroups().iterator(); it.hasNext();)
-        {
-            OptionGroup group = (OptionGroup) it.next();
+        for (OptionGroup group : options.getOptionGroups()) {
             group.setSelected(null);
         }        
 
@@ -169,14 +163,14 @@ public abstract class Parser implements CommandLineParser
             arguments = new String[0];
         }
 
-        List tokenList = Arrays.asList(flatten(getOptions(), arguments, stopAtNonOption));
+        List<String> tokenList = Arrays.asList(flatten(getOptions(), arguments, stopAtNonOption));
 
-        ListIterator iterator = tokenList.listIterator();
+        ListIterator<String> iterator = tokenList.listIterator();
 
         // process each flattened token
         while (iterator.hasNext())
         {
-            String t = (String) iterator.next();
+            String t = iterator.next();
 
             // the value is the double-dash
             if ("--".equals(t))
@@ -227,7 +221,7 @@ public abstract class Parser implements CommandLineParser
             {
                 while (iterator.hasNext())
                 {
-                    String str = (String) iterator.next();
+                    String str = iterator.next();
 
                     // ensure only one double-dash is added
                     if (!"--".equals(str))
@@ -308,8 +302,7 @@ public abstract class Parser implements CommandLineParser
      * Throws a {@link MissingOptionException} if all of the required options
      * are not present.
      *
-     * @throws MissingOptionException if any of the required Options
-     * are not present.
+     * @throws MissingOptionException if any of the required Options are not present.
      */
     protected void checkRequiredOptions() throws MissingOptionException
     {
@@ -321,24 +314,23 @@ public abstract class Parser implements CommandLineParser
     }
 
     /**
-     * <p>Process the argument values for the specified Option
+     * Process the argument values for the specified Option
      * <code>opt</code> using the values retrieved from the
      * specified iterator <code>iter</code>.
      *
      * @param opt The current Option
-     * @param iter The iterator over the flattened command line
-     * Options.
+     * @param iter The iterator over the flattened command line Options.
      *
      * @throws ParseException if an argument value is required
      * and it is has not been found.
      */
-    public void processArgs(Option opt, ListIterator iter) throws ParseException
+    public void processArgs(Option opt, ListIterator<String> iter) throws ParseException
     {
         // loop until an option is found
         while (iter.hasNext())
         {
-            String str = (String) iter.next();
-
+            String str = iter.next();
+            
             // found an Option, not an argument
             if (getOptions().hasOption(str) && str.startsWith("-"))
             {
@@ -373,7 +365,7 @@ public abstract class Parser implements CommandLineParser
      *
      * @throws ParseException if <code>arg</code> does not represent an Option
      */
-    protected void processOption(String arg, ListIterator iter) throws ParseException
+    protected void processOption(String arg, ListIterator<String> iter) throws ParseException
     {
         boolean hasOption = getOptions().hasOption(arg);
 
@@ -384,7 +376,7 @@ public abstract class Parser implements CommandLineParser
         }
 
         // get the option represented by arg
-        Option opt = (Option) getOptions().getOption(arg).clone();
+        Option opt = getOptions().getOption(arg).clone();
         
         // update the required options and groups
         updateRequiredOptions(opt);

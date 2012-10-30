@@ -110,7 +110,7 @@ public class TypeHandler
       */
     public static Object createObject(String classname) throws ParseException
     {
-        Class cl = null;
+        Class cl;
 
         try
         {
@@ -120,19 +120,15 @@ public class TypeHandler
         {
             throw new ParseException("Unable to find the class: " + classname);
         }
-
-        Object instance = null;
-
+        
         try
         {
-            instance = cl.newInstance();
+            return cl.newInstance();
         }
         catch (Exception e)
         {
             throw new ParseException(e.getClass().getName() + "; Unable to create an instance of: " + classname);
         }
-
-        return instance;
     }
 
     /**

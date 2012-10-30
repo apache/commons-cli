@@ -577,10 +577,10 @@ public class HelpFormatter
             Collections.sort(optList, getOptionComparator());
         }
         // iterate over the options
-        for (Iterator i = optList.iterator(); i.hasNext();)
+        for (Iterator<Option> it = optList.iterator(); it.hasNext();)
         {
             // get the next Option
-            Option option = (Option) i.next();
+            Option option = it.next();
 
             // check if the option is part of an OptionGroup
             OptionGroup group = options.getOptionGroup(option);
@@ -609,7 +609,7 @@ public class HelpFormatter
                 appendOption(buff, option, option.isRequired());
             }
 
-            if (i.hasNext())
+            if (it.hasNext())
             {
                 buff.append(" ");
             }
@@ -641,12 +641,12 @@ public class HelpFormatter
             Collections.sort(optList, getOptionComparator());
         }
         // for each option in the OptionGroup
-        for (Iterator i = optList.iterator(); i.hasNext();)
+        for (Iterator<Option> it = optList.iterator(); it.hasNext();)
         {
             // whether the option is required or not is handled at group level
-            appendOption(buff, (Option) i.next(), true);
+            appendOption(buff, it.next(), true);
 
-            if (i.hasNext())
+            if (it.hasNext())
             {
                 buff.append(" | ");
             }
@@ -833,9 +833,9 @@ public class HelpFormatter
 
         int x = 0;
 
-        for (Iterator i = optList.iterator(); i.hasNext();)
+        for (Iterator<Option> it = optList.iterator(); it.hasNext();)
         {
-            Option option = (Option) i.next();
+            Option option = it.next();
             StringBuilder optBuf = new StringBuilder(prefixList.get(x++).toString());
 
             if (optBuf.length() < max)
@@ -854,7 +854,7 @@ public class HelpFormatter
 
             renderWrappedText(sb, width, nextLineTabStop, optBuf.toString());
 
-            if (i.hasNext())
+            if (it.hasNext())
             {
                 sb.append(getNewLine());
             }
