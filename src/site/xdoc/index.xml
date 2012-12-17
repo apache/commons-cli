@@ -79,9 +79,9 @@ usage: ls
       </p>
       <ul>
         <li><a href="apidocs/index.html">CLI 1.3-SNAPSHOT (latest SVN)</a></li>
-        <li><a href="api-release/index.html">CLI 1.2 (current release)</a></li>
-        <li><a href="api-1.1/index.html">CLI 1.1</a></li>
-        <li><a href="api-1.0/index.html">CLI 1.0</a></li>
+        <li><a href="javadocs/api-release/index.html">CLI 1.2 (current release)</a></li>
+        <li><a href="javadocs/api-1.1/index.html">CLI 1.1</a></li>
+        <li><a href="javadocs/api-1.0/index.html">CLI 1.0</a></li>
       </ul>
       <p>
         The <a href="source-repository.html">Subversion repository</a> can be
