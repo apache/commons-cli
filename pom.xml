@@ -206,7 +206,7 @@
         <configuration>
           <configLocation>${basedir}/src/conf/checkstyle.xml</configLocation>
           <enableRulesSummary>false</enableRulesSummary>
-          <headerFile>${basedir}/src/conf/HEADER.txt</headerFile>
+          <headerLocation>${basedir}/src/conf/HEADER.txt</headerLocation>
         </configuration>
       </plugin>
       <plugin>
@@ -266,7 +266,7 @@
       <id>setup-checkout</id>
       <activation>
         <file>
-          <missing>${scmPubCheckoutDirectory}</missing>
+          <missing>${commons.scmPubCheckoutDirectory}</missing>
         </file>
       </activation>
       <build>

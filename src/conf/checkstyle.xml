@@ -37,12 +37,22 @@ limitations under the License.
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
     <module name="Translation"/>
 
+    <!-- Checks for Headers                              -->
+    <!-- See http://checkstyle.sf.net/config_header.html -->
+    <module name="RegexpHeader">
+      <property name="headerFile" value="${checkstyle.header.file}"/>
+    </module>
+
     <!-- Exceptions -->
     <!--
     <module name="SuppressionFilter">
         <property name="file" value="conf/checkstyle-suppressions.xml"/>
     </module>
     -->
+
+    <module name="FileTabCharacter">
+      <property name="eachLine" value="true"/>
+    </module>
 
     <module name="TreeWalker">
 
@@ -71,17 +81,6 @@ limitations under the License.
         <module name="StaticVariableName"/>
         <module name="TypeName"/>
 
-
-        <!-- Checks for Headers                              -->
-        <!-- See http://checkstyle.sf.net/config_header.html -->
-        <module name="Header">
-            <property name="headerFile" value="${checkstyle.header.file}"/>
-        </module>
-
-        <!-- Following interprets the header file as regular expressions. -->
-        <!-- <module name="RegexpHeader"/>                                -->
-
-
         <!-- Checks for imports                              -->
         <!-- See http://checkstyle.sf.net/config_import.html -->
         <module name="AvoidStarImport"/>
@@ -107,7 +106,7 @@ limitations under the License.
         <module name="NoWhitespaceBefore"/>
         <module name="OperatorWrap"/>
         <module name="ParenPad"/>
-        <module name="TabCharacter"/>
+
         <module name="WhitespaceAfter"/>
         <module name="WhitespaceAround">
           <property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, EQUAL, GE, GT, LAND, LCURLY, LE, LITERAL_ASSERT, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, TYPE_EXTENSION_AND"/>
