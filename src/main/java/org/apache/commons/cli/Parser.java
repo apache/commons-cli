@@ -144,12 +144,14 @@ public abstract class Parser implements CommandLineParser
             throws ParseException
     {
         // clear out the data in options in case it's been used before (CLI-71)
-        for (Option opt : options.helpOptions()) {
+        for (Option opt : options.helpOptions())
+        {
             opt.clearValues();
         }
         
         // clear the data from the groups
-        for (OptionGroup group : options.getOptionGroups()) {
+        for (OptionGroup group : options.getOptionGroups())
+        {
             group.setSelected(null);
         }        
 
