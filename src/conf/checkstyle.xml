@@ -27,7 +27,9 @@ limitations under the License.
 
     <!-- Checks that a package.html file exists for each package.     -->
     <!-- See http://checkstyle.sourceforge.net/config_javadoc.html#JavadocPackage -->
-    <module name="JavadocPackage"/>
+    <module name="JavadocPackage">
+        <property name="allowLegacy" value="true" />
+    </module>
 
     <!-- Checks whether files end with a new line.                        -->
     <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
