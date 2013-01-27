@@ -27,6 +27,13 @@ package org.apache.commons.cli;
 class OptionValidator
 {
     /**
+     * Hide constructor for a utility class.
+     */
+    private OptionValidator()
+    {
+    }
+
+    /**
      * Validates whether <code>opt</code> is a permissable Option
      * shortOpt.  The rules that specify if the <code>opt</code>
      * is valid are:
@@ -68,7 +75,8 @@ class OptionValidator
             {
                 if (!isValidChar(ch))
                 {
-                    throw new IllegalArgumentException("The option '" + opt + "' contains an illegal character : '" + ch + "'");
+                    throw new IllegalArgumentException("The option '" + opt + "' contains an illegal "
+                                                       + "character : '" + ch + "'");
                 }
             }
         }

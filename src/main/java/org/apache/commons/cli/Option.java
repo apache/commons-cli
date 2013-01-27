@@ -26,7 +26,7 @@ import java.util.List;
  * if any exists, a flag indicating if an argument is required for
  * this option, and a self-documenting description of the option.</p>
  *
- * <p>An Option is not created independantly, but is create through
+ * <p>An Option is not created independently, but is create through
  * an instance of {@link Options}.<p>
  *
  * @see org.apache.commons.cli.Options

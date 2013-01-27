@@ -68,7 +68,8 @@ public abstract class Parser implements CommandLineParser
      * flattening when a non option has been encountered
      * @return a String array of the flattened arguments
      */
-    protected abstract String[] flatten(Options opts, String[] arguments, boolean stopAtNonOption) throws ParseException;
+    protected abstract String[] flatten(Options opts, String[] arguments, boolean stopAtNonOption)
+            throws ParseException;
 
     /**
      * Parses the specified <code>arguments</code> based
@@ -139,7 +140,8 @@ public abstract class Parser implements CommandLineParser
      *
      * @since 1.1
      */
-    public CommandLine parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption) throws ParseException
+    public CommandLine parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption)
+            throws ParseException
     {
         // clear out the data in options in case it's been used before (CLI-71)
         for (Option opt : options.helpOptions()) {

@@ -26,6 +26,13 @@ package org.apache.commons.cli;
 class Util
 {
     /**
+     * Hide constructor for a utility class.
+     */
+    private Util()
+    {
+    }
+
+    /**
      * Remove the hyphens from the begining of <code>str</code> and
      * return the new String.
      *

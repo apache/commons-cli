@@ -25,13 +25,13 @@ import java.net.URL;
 import java.util.Date;
 
 /**
-  * This is a temporary implementation. TypeHandler will handle the
-  * pluggableness of OptionTypes and it will direct all of these types
-  * of conversion functionalities to ConvertUtils component in Commons
-  * already. BeanUtils I think.
-  *
-  * @version $Revision$, $Date$
-  */
+ * This is a temporary implementation. TypeHandler will handle the
+ * pluggableness of OptionTypes and it will direct all of these types
+ * of conversion functionalities to ConvertUtils component in Commons
+ * already. BeanUtils I think.
+ *
+ * @version $Revision$, $Date$
+ */
 public class TypeHandler
 {
     /**
@@ -178,10 +178,14 @@ public class TypeHandler
 
     /**
      * Returns the date represented by <code>str</code>.
+     * <p>
+     * This method is not yet implemented and always throws an
+     * {@link UnsupportedOperationException}.
      *
      * @param str the date string
      * @return The date if <code>str</code> is a valid date string,
      * otherwise return null.
+     * @throws UnsupportedOperationException always
      */
     public static Date createDate(String str) throws ParseException
     {
@@ -220,9 +224,13 @@ public class TypeHandler
 
     /**
      * Returns the File[] represented by <code>str</code>.
+     * <p>
+     * This method is not yet implemented and always throws an
+     * {@link UnsupportedOperationException}.
      *
      * @param str the paths to the files
      * @return The File[] represented by <code>str</code>.
+     * @throws UnsupportedOperationException always
      */
     public static File[] createFiles(String str) throws ParseException
     {
