@@ -104,7 +104,7 @@ public abstract class Parser implements CommandLineParser
 
     /**
      * Parses the specified <code>arguments</code>
-     * based on the specifed {@link Options}.
+     * based on the specified {@link Options}.
      *
      * @param options         the <code>Options</code>
      * @param arguments       the <code>arguments</code>
@@ -306,7 +306,7 @@ public abstract class Parser implements CommandLineParser
      */
     protected void checkRequiredOptions() throws MissingOptionException
     {
-        // if there are required options that have not been processsed
+        // if there are required options that have not been processed
         if (!getRequiredOptions().isEmpty())
         {
             throw new MissingOptionException(getRequiredOptions());
@@ -358,7 +358,7 @@ public abstract class Parser implements CommandLineParser
 
     /**
      * Process the Option specified by <code>arg</code> using the values
-     * retrieved from the specfied iterator <code>iter</code>.
+     * retrieved from the specified iterator <code>iter</code>.
      *
      * @param arg The String value representing an Option
      * @param iter The iterator over the flattened command line arguments.
