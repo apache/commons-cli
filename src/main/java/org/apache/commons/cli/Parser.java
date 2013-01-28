@@ -73,7 +73,7 @@ public abstract class Parser implements CommandLineParser
 
     /**
      * Parses the specified <code>arguments</code> based
-     * on the specifed {@link Options}.
+     * on the specified {@link Options}.
      *
      * @param options the <code>Options</code>
      * @param arguments the <code>arguments</code>
@@ -254,7 +254,7 @@ public abstract class Parser implements CommandLineParser
             return;
         }
 
-        for (Enumeration e = properties.propertyNames(); e.hasMoreElements();)
+        for (Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();)
         {
             String option = e.nextElement().toString();
             

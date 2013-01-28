@@ -128,7 +128,7 @@ public class HelpFormatter
     public int defaultDescPad = DEFAULT_DESC_PAD;
 
     /**
-     * the string to display at the begining of the usage statement
+     * the string to display at the beginning of the usage statement
      *
      * @deprecated Scope will be made private for next major version
      * - use get/setSyntaxPrefix methods instead.
