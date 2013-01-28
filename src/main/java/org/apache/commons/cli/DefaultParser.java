@@ -31,7 +31,10 @@ import java.util.Properties;
  */
 public class DefaultParser implements CommandLineParser
 {
+    /** The command-line instance. */
     protected CommandLine cmd;
+    
+    /** The current options. */
     protected Options options;
 
     /**
@@ -94,7 +97,8 @@ public class DefaultParser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    public CommandLine parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption) throws ParseException
+    public CommandLine parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption)
+            throws ParseException
     {
         this.options = options;
         this.stopAtNonOption = stopAtNonOption;
@@ -141,7 +145,7 @@ public class DefaultParser implements CommandLineParser
             return;
         }
 
-        for (Enumeration e = properties.propertyNames(); e.hasMoreElements();)
+        for (Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();)
         {
             String option = e.nextElement().toString();
 
