@@ -34,7 +34,7 @@ class OptionValidator
     }
 
     /**
-     * Validates whether <code>opt</code> is a permissable Option
+     * Validates whether <code>opt</code> is a permissible Option
      * shortOpt.  The rules that specify if the <code>opt</code>
      * is valid are:
      *

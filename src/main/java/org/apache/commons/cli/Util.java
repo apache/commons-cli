@@ -33,7 +33,7 @@ class Util
     }
 
     /**
-     * Remove the hyphens from the begining of <code>str</code> and
+     * Remove the hyphens from the beginning of <code>str</code> and
      * return the new String.
      *
      * @param str The string from which the hyphens should be removed.

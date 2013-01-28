@@ -512,7 +512,7 @@ public class HelpFormatter
      * @param pw the writer to which the help will be written
      * @param width the number of characters to be displayed on each line
      * @param cmdLineSyntax the syntax for this application
-     * @param header the banner to display at the begining of the help
+     * @param header the banner to display at the beginning of the help
      * @param options the Options instance
      * @param leftPad the number of characters of padding to be prefixed
      * to each line
@@ -965,7 +965,7 @@ public class HelpFormatter
      * @param width width of the wrapped text
      * @param startPos position from which to start the lookup whitespace
      * character
-     * @return postion on which the text must be wrapped or -1 if the wrap
+     * @return position on which the text must be wrapped or -1 if the wrap
      * position is at the end of the text
      */
     protected int findWrapPos(String text, int width, int startPos)
