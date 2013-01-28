@@ -20,6 +20,7 @@ package org.apache.commons.cli;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -364,6 +365,7 @@ public class HelpFormatter
      * Comparator used to sort the options when they output in help text.
      * Defaults to case-insensitive alphabetical sorting by option key.
      *
+     * @return the {@link Comparator} currently in use to sort the options
      * @since 1.2
      */
     public Comparator<Option> getOptionComparator()
@@ -375,6 +377,7 @@ public class HelpFormatter
      * Set the comparator used to sort the options when they output in help text.
      * Passing in a null comparator will keep the options in the order they were declared.
      *
+     * @param comparator the {@link Comparator} to use for sorting the options
      * @since 1.2
      */
     public void setOptionComparator(Comparator<Option> comparator)
@@ -465,7 +468,7 @@ public class HelpFormatter
      *
      * @param width the number of characters to be displayed on each line
      * @param cmdLineSyntax the syntax for this application
-     * @param header the banner to display at the begining of the help
+     * @param header the banner to display at the beginning of the help
      * @param options the Options instance
      * @param footer the banner to display at the end of the help
      * @param autoUsage whether to print an automatically generated 
@@ -487,7 +490,7 @@ public class HelpFormatter
      * @param pw the writer to which the help will be written
      * @param width the number of characters to be displayed on each line
      * @param cmdLineSyntax the syntax for this application
-     * @param header the banner to display at the begining of the help
+     * @param header the banner to display at the beginning of the help
      * @param options the Options instance
      * @param leftPad the number of characters of padding to be prefixed
      * to each line
@@ -1053,8 +1056,11 @@ public class HelpFormatter
      * This class implements the <code>Comparator</code> interface
      * for comparing Options.
      */
-    private static class OptionComparator implements Comparator<Option>
+    private static class OptionComparator implements Comparator<Option>, Serializable
     {
+        /** The serial version UID. */
+        private static final long serialVersionUID = 5305467873966684014L;
+
         /**
          * Compares its two arguments for order. Returns a negative
          * integer, zero, or a positive integer as the first argument
