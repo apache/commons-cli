@@ -380,7 +380,7 @@ public abstract class Parser implements CommandLineParser
         }
 
         // get the option represented by arg
-        Option opt = getOptions().getOption(arg).clone();
+        Option opt = (Option) getOptions().getOption(arg).clone();
         
         // update the required options and groups
         updateRequiredOptions(opt);

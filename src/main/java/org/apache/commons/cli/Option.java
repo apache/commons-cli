@@ -631,9 +631,11 @@ public class Option implements Cloneable, Serializable
      * After calling this method, it is very likely you will want to call 
      * clearValues(). 
      *
-     * @throws RuntimeException
+     * @return a clone of this Option instance
+     * @throws RuntimeException if a {@link CloneNotSupportedException} has been thrown
+     * by {@link super#clone()}
      */
-    public Option clone()
+    public Object clone()
     {
         try
         {

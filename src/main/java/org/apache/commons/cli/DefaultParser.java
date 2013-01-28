@@ -599,7 +599,7 @@ public class DefaultParser implements CommandLineParser
         // check the previous option before handling the next one
         checkRequiredArgs();
 
-        option = option.clone();
+        option = (Option) option.clone();
 
         updateRequiredOptions(option);
 
