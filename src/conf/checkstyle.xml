@@ -98,7 +98,7 @@ limitations under the License.
         </module>
         <module name="MethodLength"/>
         <module name="ParameterNumber">
-            <property name="max" value="8"/>
+            <property name="max" value="9"/>
         </module>
 
 

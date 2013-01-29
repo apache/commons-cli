@@ -24,7 +24,7 @@ package org.apache.commons.cli;
  * @version $Revision$, $Date$
  * @since 1.1
  */
-class OptionValidator
+final class OptionValidator
 {
     /**
      * Hide constructor for a utility class.

@@ -4,7 +4,11 @@
 <suppressions>
 
   <!-- Suppress visibility check of some member fields as they have to be kept
-       for backwards compatibility reasons                                      -->
+       for binary compatibility reasons                                         -->
   <suppress checks="VisibilityModifier" files="HelpFormatter.java" />
+
+  <!-- Cannot hide public constructor due to binary compatibility reasons       -->
+  <suppress checks="HideUtilityClassConstructor" files="PatternOptionBuilder.java" />
+  <suppress checks="HideUtilityClassConstructor" files="TypeHandler.java" />
 
 </suppressions>

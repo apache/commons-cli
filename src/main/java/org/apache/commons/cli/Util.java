@@ -23,7 +23,7 @@ package org.apache.commons.cli;
  * @author John Keyes (john at integralsource.com)
  * @version $Revision$, $Date$
  */
-class Util
+final class Util
 {
     /**
      * Hide constructor for a utility class.
