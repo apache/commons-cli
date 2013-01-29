@@ -28,6 +28,7 @@ import java.util.List;
  * @version $Revision$, $Date$
  * @deprecated Use the {@link DefaultParser} instead
  */
+@Deprecated
 public class GnuParser extends Parser
 {
     /**

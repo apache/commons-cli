@@ -30,6 +30,7 @@ import java.util.List;
  * @version $Revision$, $Date$
  * @deprecated Use the {@link DefaultParser} instead
  */
+@Deprecated
 public class PosixParser extends Parser
 {
     /** holder for flattened tokens */

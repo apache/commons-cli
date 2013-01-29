@@ -108,6 +108,7 @@ public class HelpFormatter
      * @deprecated Scope will be made private for next major version
      * - use get/setWidth methods instead.
      */
+    @Deprecated
     public int defaultWidth = DEFAULT_WIDTH;
 
     /**
@@ -116,6 +117,7 @@ public class HelpFormatter
      * @deprecated Scope will be made private for next major version
      * - use get/setLeftPadding methods instead.
      */
+    @Deprecated
     public int defaultLeftPad = DEFAULT_LEFT_PAD;
 
     /**
@@ -125,6 +127,7 @@ public class HelpFormatter
      * @deprecated Scope will be made private for next major version
      * - use get/setDescPadding methods instead.
      */
+    @Deprecated
     public int defaultDescPad = DEFAULT_DESC_PAD;
 
     /**
@@ -133,6 +136,7 @@ public class HelpFormatter
      * @deprecated Scope will be made private for next major version
      * - use get/setSyntaxPrefix methods instead.
      */
+    @Deprecated
     public String defaultSyntaxPrefix = DEFAULT_SYNTAX_PREFIX;
 
     /**
@@ -141,6 +145,7 @@ public class HelpFormatter
      * @deprecated Scope will be made private for next major version
      * - use get/setNewLine methods instead.
      */
+    @Deprecated
     public String defaultNewLine = System.getProperty("line.separator");
 
     /**
@@ -149,6 +154,7 @@ public class HelpFormatter
      * @deprecated Scope will be made private for next major version
      * - use get/setOptPrefix methods instead.
      */
+    @Deprecated
     public String defaultOptPrefix = DEFAULT_OPT_PREFIX;
 
     /**
@@ -157,10 +163,8 @@ public class HelpFormatter
      * @deprecated Scope will be made private for next major version
      * - use get/setLongOptPrefix methods instead.
      */
+    @Deprecated
     public String defaultLongOptPrefix = DEFAULT_LONG_OPT_PREFIX;
-
-    /** The separator displayed between the long option and its value. */
-    private String longOptSeparator = DEFAULT_LONG_OPT_SEPARATOR;
 
     /**
      * the name of the argument
@@ -168,6 +172,7 @@ public class HelpFormatter
      * @deprecated Scope will be made private for next major version
      * - use get/setArgName methods instead.
      */
+    @Deprecated
     public String defaultArgName = DEFAULT_ARG_NAME;
 
     /**
@@ -176,7 +181,10 @@ public class HelpFormatter
      * Defaults to case-insensitive alphabetical sorting by option key
      */
     protected Comparator<Option> optionComparator = new OptionComparator();
-    
+
+    /** The separator displayed between the long option and its value. */
+    private String longOptSeparator = DEFAULT_LONG_OPT_SEPARATOR;
+
     /**
      * Sets the 'width'.
      *
