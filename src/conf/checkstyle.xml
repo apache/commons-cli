@@ -24,6 +24,7 @@ limitations under the License.
 
 <module name="Checker">
     <property name="localeLanguage" value="en"/>
+    <property name="severity" value="warning"/>
 
     <!-- Checks that a package.html file exists for each package.     -->
     <!-- See http://checkstyle.sourceforge.net/config_javadoc.html#JavadocPackage -->
@@ -98,7 +99,9 @@ limitations under the License.
             <property name="max" value="120"/>
         </module>
         <module name="MethodLength"/>
-        <module name="ParameterNumber"/>
+        <module name="ParameterNumber">
+            <property name="max" value="8"/>
+        </module>
 
 
         <!-- Checks for whitespace                               -->
