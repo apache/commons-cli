@@ -38,14 +38,14 @@ import java.util.List;
  */
 public class Option implements Cloneable, Serializable
 {
-    /** The serial version UID. */
-    private static final long serialVersionUID = 1L;
-
     /** constant that specifies the number of argument values has not been specified */
     public static final int UNINITIALIZED = -1;
 
     /** constant that specifies the number of argument values is infinite */
     public static final int UNLIMITED_VALUES = -2;
+
+    /** The serial version UID. */
+    private static final long serialVersionUID = 1L;
 
     /** the name of the option */
     private String opt;
@@ -662,10 +662,14 @@ public class Option implements Cloneable, Serializable
 
     /**
      * This method is not intended to be used. It was a piece of internal 
-     * API that was made public in 1.0. It currently throws an UnsupportedOperationException. 
+     * API that was made public in 1.0. It currently throws an UnsupportedOperationException.
+     *
+     * @param value the value to add
+     * @return always throws an {@link UnsupportedOperationException}
+     * @throws UnsupportedOperationException always
      * @deprecated
-     * @throws UnsupportedOperationException
      */
+    @Deprecated
     public boolean addValue(String value)
     {
         throw new UnsupportedOperationException("The addValue method is not intended for client use. "
