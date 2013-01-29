@@ -427,7 +427,7 @@ public class HelpFormatter
      * System.out.
      *
      * @param cmdLineSyntax the syntax for this application
-     * @param header the banner to display at the begining of the help
+     * @param header the banner to display at the beginning of the help
      * @param options the Options instance
      * @param footer the banner to display at the end of the help
      */
@@ -442,7 +442,7 @@ public class HelpFormatter
      * System.out.
      *
      * @param cmdLineSyntax the syntax for this application
-     * @param header the banner to display at the begining of the help
+     * @param header the banner to display at the beginning of the help
      * @param options the Options instance
      * @param footer the banner to display at the end of the help
      * @param autoUsage whether to print an automatically generated
