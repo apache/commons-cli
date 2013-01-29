@@ -54,6 +54,12 @@ public class HelpFormatterTest extends TestCase
         text = "aaaaaa aaaaaa";
         assertEquals("wrap position 4", 6, hf.findWrapPos(text, 6, 0));
         assertEquals("wrap position 4", -1, hf.findWrapPos(text, 6, 7));
+        
+        text = "aaaaaa\n aaaaaa";
+        assertEquals("wrap position 5", 7, hf.findWrapPos(text, 6, 0));
+        
+        text = "aaaaaa\t aaaaaa";
+        assertEquals("wrap position 6", 7, hf.findWrapPos(text, 6, 0));
     }
 
     public void testRenderWrappedTextWordCut()
