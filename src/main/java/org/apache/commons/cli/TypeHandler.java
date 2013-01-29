@@ -42,6 +42,7 @@ public class TypeHandler
      * @param obj the type of argument
      * @return The instance of <code>obj</code> initialised with
      * the value of <code>str</code>.
+     * @throws ParseException if the value creation for the given object type failed
      */
     public static Object createValue(String str, Object obj) throws ParseException
     {
@@ -56,6 +57,7 @@ public class TypeHandler
      * @param clazz the type of argument
      * @return The instance of <code>clazz</code> initialised with
      * the value of <code>str</code>.
+     * @throws ParseException if the value creation for the given class failed
      */
     public static Object createValue(String str, Class clazz) throws ParseException
     {
@@ -105,8 +107,8 @@ public class TypeHandler
       * Create an Object from the classname and empty constructor.
       *
       * @param classname the argument value
-      * @return the initialised object, or null if it couldn't create
-      * the Object.
+      * @return the initialised object
+      * @throws ParseException if the class could not be found or the object could not be created
       */
     public static Object createObject(String classname) throws ParseException
     {
@@ -136,8 +138,8 @@ public class TypeHandler
      * Double, otherwise a Long.
      *
      * @param str the value
-     * @return the number represented by <code>str</code>, if <code>str</code>
-     * is not a number, null is returned.
+     * @return the number represented by <code>str</code>
+     * @throws ParseException if <code>str</code> is not a number
      */
     public static Number createNumber(String str) throws ParseException
     {
@@ -162,7 +164,8 @@ public class TypeHandler
      * Returns the class whose name is <code>classname</code>.
      *
      * @param classname the class name
-     * @return The class if it is found, otherwise return null
+     * @return The class if it is found
+     * @throws ParseException if the class could not be found
      */
     public static Class createClass(String classname) throws ParseException
     {
@@ -187,7 +190,7 @@ public class TypeHandler
      * otherwise return null.
      * @throws UnsupportedOperationException always
      */
-    public static Date createDate(String str) throws ParseException
+    public static Date createDate(String str)
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }
@@ -196,8 +199,8 @@ public class TypeHandler
      * Returns the URL represented by <code>str</code>.
      *
      * @param str the URL string
-     * @return The URL is <code>str</code> is well-formed, otherwise
-     * return null.
+     * @return The URL in <code>str</code> is well-formed
+     * @throws ParseException if the URL in <code>str</code> is not well-formed
      */
     public static URL createURL(String str) throws ParseException
     {
@@ -217,7 +220,7 @@ public class TypeHandler
      * @param str the File location
      * @return The file represented by <code>str</code>.
      */
-    public static File createFile(String str) throws ParseException
+    public static File createFile(String str)
     {
         return new File(str);
     }
@@ -232,7 +235,7 @@ public class TypeHandler
      * @return The File[] represented by <code>str</code>.
      * @throws UnsupportedOperationException always
      */
-    public static File[] createFiles(String str) throws ParseException
+    public static File[] createFiles(String str)
     {
         // to implement/port:
         //        return FileW.findFiles(str);
