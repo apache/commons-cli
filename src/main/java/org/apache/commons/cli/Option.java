@@ -69,7 +69,7 @@ public class Option implements Cloneable, Serializable
     private int numberOfArgs = UNINITIALIZED;
 
     /** the type of this Option */
-    private Class type = String.class;
+    private Class<?> type = String.class;
 
     /** the list of argument values **/
     private List<String> values = new ArrayList<String>();
@@ -186,6 +186,21 @@ public class Option implements Cloneable, Serializable
     public Object getType()
     {
         return type;
+    }
+
+    /**
+     * Sets the type of this Option.
+     * <p>
+     * <b>Note:</b> this method is kept for binary compatibility and the
+     * input type is supposed to be a {@link Class} object. 
+     *
+     * @param type the type of this Option
+     * @deprecated since 1.3, use {@link #setType(Class)} instead
+     */
+    @Deprecated
+    public void setType(Object type)
+    {
+        setType((Class) type);
     }
 
     /**

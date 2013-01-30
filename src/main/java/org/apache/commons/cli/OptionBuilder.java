@@ -283,6 +283,23 @@ public final class OptionBuilder
     /**
      * The next Option created will have a value that will be an instance
      * of <code>type</code>.
+     * <p>
+     * <b>Note:</b> this method is kept for binary compatibility and the
+     * input type is supposed to be a {@link Class} object. 
+     *
+     * @param newType the type of the Options argument value
+     * @return the OptionBuilder instance
+     * @deprecated since 1.3, use {@link #withType(Class)} instead
+     */
+    @Deprecated
+    public static OptionBuilder withType(Object newType)
+    {
+        return withType((Class) newType);
+    }
+
+    /**
+     * The next Option created will have a value that will be an instance
+     * of <code>type</code>.
      *
      * @param newType the type of the Options argument value
      * @return the OptionBuilder instance
