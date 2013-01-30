@@ -46,7 +46,7 @@ public class TypeHandler
      */
     public static Object createValue(String str, Object obj) throws ParseException
     {
-        return createValue(str, (Class) obj);
+        return createValue(str, (Class<?>) obj);
     }
 
     /**
@@ -59,7 +59,7 @@ public class TypeHandler
      * the value of <code>str</code>.
      * @throws ParseException if the value creation for the given class failed
      */
-    public static Object createValue(String str, Class clazz) throws ParseException
+    public static Object createValue(String str, Class<?> clazz) throws ParseException
     {
         if (PatternOptionBuilder.STRING_VALUE == clazz)
         {
@@ -112,7 +112,7 @@ public class TypeHandler
       */
     public static Object createObject(String classname) throws ParseException
     {
-        Class cl;
+        Class<?> cl;
 
         try
         {
@@ -167,7 +167,7 @@ public class TypeHandler
      * @return The class if it is found
      * @throws ParseException if the class could not be found
      */
-    public static Class createClass(String classname) throws ParseException
+    public static Class<?> createClass(String classname) throws ParseException
     {
         try
         {

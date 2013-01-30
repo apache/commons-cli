@@ -48,7 +48,7 @@ public final class OptionBuilder
     private static int numberOfArgs = Option.UNINITIALIZED;
 
     /** option type */
-    private static Class type;
+    private static Class<?> type;
 
     /** option can have an optional argument value */
     private static boolean optionalArg;
@@ -294,7 +294,7 @@ public final class OptionBuilder
     @Deprecated
     public static OptionBuilder withType(Object newType)
     {
-        return withType((Class) newType);
+        return withType((Class<?>) newType);
     }
 
     /**
@@ -304,7 +304,7 @@ public final class OptionBuilder
      * @param newType the type of the Options argument value
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder withType(Class newType)
+    public static OptionBuilder withType(Class<?> newType)
     {
         OptionBuilder.type = newType;
 

@@ -200,7 +200,7 @@ public class Option implements Cloneable, Serializable
     @Deprecated
     public void setType(Object type)
     {
-        setType((Class) type);
+        setType((Class<?>) type);
     }
 
     /**
@@ -208,7 +208,7 @@ public class Option implements Cloneable, Serializable
      *
      * @param type the type of this Option
      */
-    public void setType(Class type)
+    public void setType(Class<?> type)
     {
         this.type = type;
     }
