@@ -50,7 +50,7 @@ public class OptionTest extends TestCase
     }
 
     // See http://issues.apache.org/jira/browse/CLI-21
-    public void testClone() throws CloneNotSupportedException
+    public void testClone()
     {
         TestOption a = new TestOption("a", true, "");
         TestOption b = (TestOption) a.clone();
@@ -83,7 +83,7 @@ public class OptionTest extends TestCase
         }
     }
 
-    public void testSubclass() throws CloneNotSupportedException
+    public void testSubclass()
     {
         Option option = new DefaultOption("f", "file", "myfile.txt");
         Option clone = (Option) option.clone();
