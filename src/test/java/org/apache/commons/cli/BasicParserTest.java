@@ -21,6 +21,7 @@ package org.apache.commons.cli;
  * @author Emmanuel Bourg
  * @version $Revision$, $Date$
  */
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class BasicParserTest extends ParserTestCase
 {
     @Override

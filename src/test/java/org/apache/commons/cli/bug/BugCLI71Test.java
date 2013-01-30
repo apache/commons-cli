@@ -27,6 +27,7 @@ import org.apache.commons.cli.PosixParser;
 
 import junit.framework.TestCase;
 
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugCLI71Test extends TestCase {
 
     private Options options;

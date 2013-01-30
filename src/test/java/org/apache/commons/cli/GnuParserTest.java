@@ -17,6 +17,7 @@
 
 package org.apache.commons.cli;
 
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class GnuParserTest extends ParserTestCase
 {
     @Override

@@ -29,6 +29,7 @@ import junit.framework.TestCase;
 /**
  * @author brianegge
  */
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugCLI13Test extends TestCase
 {
     public void testCLI13() throws ParseException

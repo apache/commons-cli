@@ -25,6 +25,7 @@ import junit.framework.TestCase;
  * @author John Keyes (john at integralsource.com)
  * @version $Revision$
  */
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class OptionGroupTest extends TestCase
 {
     private Options _options = null;

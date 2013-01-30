@@ -26,6 +26,7 @@ import junit.framework.TestCase;
  * @author Rob Oxspring roxspring@apache.org
  * @version $Revision$
  */
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class OptionsTest extends TestCase
 {
     public void testSimple()

@@ -24,6 +24,7 @@ import java.util.Properties;
 
 import junit.framework.TestCase;
 
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugsTest extends TestCase
 {
     public void test11457() throws Exception

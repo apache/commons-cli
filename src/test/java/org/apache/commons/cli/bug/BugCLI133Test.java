@@ -28,6 +28,7 @@ import junit.framework.TestCase;
 /**
  * @author brianegge
  */
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugCLI133Test extends TestCase {
     public void testOrder() throws ParseException {
         Option optionA = new Option("a", "first");

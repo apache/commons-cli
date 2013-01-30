@@ -25,6 +25,7 @@ import junit.framework.TestCase;
  * @author Emmanuel Bourg
  * @version $Revision$, $Date$
  */
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class CommandLineTest extends TestCase
 {
     public void testGetOptionProperties() throws Exception

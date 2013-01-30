@@ -34,6 +34,7 @@ import junit.framework.TestCase;
  *
  * @author John Keyes (john at integralsource.com)
  */
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class ApplicationTest extends TestCase {
 
     public void testLs() throws Exception {

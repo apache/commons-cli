@@ -29,6 +29,7 @@ import org.apache.commons.cli.PosixParser;
  *
  * @author brianegge
  */
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugCLI148Test  extends TestCase
 {    
     private Options options;

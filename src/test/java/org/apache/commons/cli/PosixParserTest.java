@@ -24,6 +24,7 @@ package org.apache.commons.cli;
  */
 public class PosixParserTest extends ParserTestCase
 {
+    @SuppressWarnings("deprecation")
     @Override
     public void setUp()
     {

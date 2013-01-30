@@ -20,6 +20,7 @@ package org.apache.commons.cli;
 import junit.framework.TestCase;
 import junitx.framework.ArrayAssert;
 
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class ValuesTest extends TestCase
 {
     private CommandLine cmd;

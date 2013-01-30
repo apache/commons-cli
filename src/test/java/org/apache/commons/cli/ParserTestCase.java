@@ -871,6 +871,7 @@ public abstract class ParserTestCase extends TestCase
         assertEquals("number of arg for -f", 1, cl.getOptionValues("f").length);
     }
 
+    @SuppressWarnings("deprecation")
     private CommandLine parse(CommandLineParser parser, Options opts, String[] args, Properties properties) throws ParseException {
         if (parser instanceof Parser) {
             return ((Parser) parser).parse(opts, args, properties);

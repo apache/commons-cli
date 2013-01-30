@@ -30,6 +30,7 @@ import junit.framework.TestCase;
  *
  * @version $Revision$, $Date$
  */
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class PatternOptionBuilderTest extends TestCase
 {
     public void testSimplePattern() throws Exception

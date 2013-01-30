@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import junit.framework.TestCase;
 
+@SuppressWarnings("deprecation") // tests some deprecated classes
 public class ArgumentIsOptionTest extends TestCase
 {
     private Options options = null;
