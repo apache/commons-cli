@@ -35,6 +35,7 @@ public abstract class ParserTestCase extends TestCase
 
     protected Options options;
 
+    @Override
     public void setUp()
     {
         options = new Options()

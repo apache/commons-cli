@@ -24,6 +24,7 @@ public class ArgumentIsOptionTest extends TestCase
     private Options options = null;
     private CommandLineParser parser = null;
 
+    @Override
     public void setUp()
     {
         options = new Options().addOption("p", false, "Option p").addOption("attr", true, "Option accepts argument");

@@ -560,6 +560,7 @@ public class Option implements Cloneable, Serializable
      *
      * @return Stringified form of this object
      */
+    @Override
     public String toString()
     {
         StringBuilder buf = new StringBuilder().append("[ option: ");
@@ -604,6 +605,7 @@ public class Option implements Cloneable, Serializable
         return values.isEmpty();
     }
 
+    @Override
     public boolean equals(Object o)
     {
         if (this == o)
@@ -630,6 +632,7 @@ public class Option implements Cloneable, Serializable
         return true;
     }
 
+    @Override
     public int hashCode()
     {
         int result;
@@ -650,6 +653,7 @@ public class Option implements Cloneable, Serializable
      * @throws RuntimeException if a {@link CloneNotSupportedException} has been thrown
      * by {@link super#clone()}
      */
+    @Override
     public Object clone()
     {
         try

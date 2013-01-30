@@ -24,6 +24,7 @@ public class ValueTest extends TestCase
     private CommandLine _cl = null;
     private Options opts = new Options();
 
+    @Override
     public void setUp() throws Exception
     {
         opts.addOption("a", false, "toggle -a");

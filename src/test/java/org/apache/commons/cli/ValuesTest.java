@@ -24,6 +24,7 @@ public class ValuesTest extends TestCase
 {
     private CommandLine cmd;
 
+    @Override
     public void setUp() throws Exception
     {
         Options options = new Options();

@@ -23,6 +23,7 @@ package org.apache.commons.cli;
  */
 public class DefaultParserTest extends ParserTestCase {
 
+    @Override
     public void setUp() {
         super.setUp();
         parser = new DefaultParser();

@@ -23,127 +23,152 @@ package org.apache.commons.cli;
  */
 public class BasicParserTest extends ParserTestCase
 {
+    @Override
     public void setUp()
     {
         super.setUp();
         parser = new BasicParser();
     }
 
+    @Override
     public void testDoubleDash2() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testLongWithoutEqualSingleDash() throws Exception
     {
         // not supported by the BasicParser
     }
     
+    @Override
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
     {
         // not supported by the basicParser
     }
     
+    @Override
     public void testNegativeOption() throws Exception
     {
         // not supported by the BasicParser (CLI-184)
     }
 
+    @Override
     public void testPropertiesOption1() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testPropertiesOption2() throws Exception
     {
         // not supported by the BasicParser
     }    
 
+    @Override
     public void testShortWithEqual() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testShortWithoutEqual() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testLongWithEqualDoubleDash() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testLongWithEqualSingleDash() throws Exception
     {
         // not supported by the BasicParser
     }
     
+    @Override
     public void testUnambiguousPartialLongOption1() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testUnambiguousPartialLongOption2() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testUnambiguousPartialLongOption3() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testUnambiguousPartialLongOption4() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testAmbiguousPartialLongOption1() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testAmbiguousPartialLongOption2() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testAmbiguousPartialLongOption3() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testAmbiguousPartialLongOption4() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testPartialLongOptionSingleDash() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testBursting() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testUnrecognizedOptionWithBursting() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testMissingArgWithBursting() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testStopBursting() throws Exception
     {
         // not supported by the BasicParser
     }
 
+    @Override
     public void testStopBursting2() throws Exception
     {
         // not supported by the BasicParser

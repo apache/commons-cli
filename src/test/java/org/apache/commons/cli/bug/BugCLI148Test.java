@@ -33,6 +33,7 @@ public class BugCLI148Test  extends TestCase
 {    
     private Options options;
 
+    @Override
     protected void setUp() throws Exception
     {
         options = new Options();

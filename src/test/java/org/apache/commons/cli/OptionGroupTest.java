@@ -30,6 +30,7 @@ public class OptionGroupTest extends TestCase
     private Options _options = null;
     private Parser parser = new PosixParser();
 
+    @Override
     public void setUp()
     {
         Option file = new Option( "f", "file", false, "file to process" );

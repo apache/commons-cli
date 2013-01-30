@@ -137,6 +137,7 @@ public class OptionGroup implements Serializable
      * 
      * @return the stringified representation of this group
      */
+    @Override
     public String toString()
     {
         StringBuilder buff = new StringBuilder();

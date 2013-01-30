@@ -32,6 +32,7 @@ public class BugCLI71Test extends TestCase {
     private Options options;
     private CommandLineParser parser;
 
+    @Override
     public void setUp() {
         options = new Options();
 

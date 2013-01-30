@@ -24,52 +24,62 @@ package org.apache.commons.cli;
  */
 public class PosixParserTest extends ParserTestCase
 {
+    @Override
     public void setUp()
     {
         super.setUp();
         parser = new PosixParser();
     }
 
+    @Override
     public void testDoubleDash2() throws Exception
     {
         // not supported by the PosixParser
     }
     
+    @Override
     public void testLongWithoutEqualSingleDash() throws Exception
     {
         // not supported by the PosixParser
     }
 
+    @Override
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
     {
         // not supported by the PosixParser
     }
     
+    @Override
     public void testNegativeOption() throws Exception
     {
         // not supported by the PosixParser (CLI-184)
     }
 
+    @Override
     public void testLongWithUnexpectedArgument1() throws Exception
     {
         // not supported by the PosixParser
     }
 
+    @Override
     public void testLongWithEqualSingleDash() throws Exception
     {
         // not supported by the PosixParser
     }
 
+    @Override
     public void testShortWithEqual() throws Exception
     {
         // not supported by the PosixParser
     }
 
+    @Override
     public void testUnambiguousPartialLongOption4() throws Exception
     {
         // not supported by the PosixParser
     }
 
+    @Override
     public void testAmbiguousPartialLongOption4() throws Exception
     {
         // not supported by the PosixParser

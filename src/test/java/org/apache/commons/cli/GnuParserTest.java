@@ -19,112 +19,134 @@ package org.apache.commons.cli;
 
 public class GnuParserTest extends ParserTestCase
 {
+    @Override
     public void setUp()
     {
         super.setUp();
         parser = new GnuParser();
     }
 
+    @Override
     public void testDoubleDash2() throws Exception
     {
         // not supported by the GnuParser
     }
     
+    @Override
     public void testLongWithoutEqualSingleDash() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testNegativeOption() throws Exception
     {
         // not supported by the GnuParser (CLI-184)
     }
 
+    @Override
     public void testLongWithUnexpectedArgument1() throws Exception 
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testLongWithUnexpectedArgument2() throws Exception 
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testShortWithUnexpectedArgument() throws Exception 
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testUnambiguousPartialLongOption1() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testUnambiguousPartialLongOption2() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testUnambiguousPartialLongOption3() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testUnambiguousPartialLongOption4() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testAmbiguousPartialLongOption1() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testAmbiguousPartialLongOption2() throws Exception
     {
         // not supported by the GnuParser
     }
 
-   public void testAmbiguousPartialLongOption3() throws Exception
+   @Override
+public void testAmbiguousPartialLongOption3() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testAmbiguousPartialLongOption4() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testPartialLongOptionSingleDash() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testBursting() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testUnrecognizedOptionWithBursting() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testMissingArgWithBursting() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testStopBursting() throws Exception
     {
         // not supported by the GnuParser
     }
 
+    @Override
     public void testStopBursting2() throws Exception
     {
         // not supported by the GnuParser

@@ -31,6 +31,7 @@ public class OptionTest extends TestCase
             super(opt, hasArg, description);
         }
 
+        @Override
         public boolean addValue(String value)
         {
             addValueForProcessing(value);
@@ -75,6 +76,7 @@ public class OptionTest extends TestCase
             this.defaultValue = defaultValue;
         }
 
+        @Override
         public String getValue()
         {
             return super.getValue() != null ? super.getValue() : defaultValue;
