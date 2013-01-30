@@ -19,8 +19,6 @@ package org.apache.commons.cli;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.Properties;
 
@@ -62,10 +60,10 @@ public class BugsTest extends TestCase
         assertEquals(values[1], "file2");
         assertEquals(values[2], "file3");
 
-        Iterator iter = cmd.iterator();
+        Iterator<Option> iter = cmd.iterator();
         while (iter.hasNext())
         {
-            Option opt = (Option) iter.next();
+            Option opt = iter.next();
             switch (opt.getId())
             {
                 case 'D':
