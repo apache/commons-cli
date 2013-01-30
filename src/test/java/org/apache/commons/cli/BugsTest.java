@@ -201,17 +201,11 @@ public class BugsTest extends TestCase
 
         Parser parser = new PosixParser();
 
-        try
-        {
+        try {
             parser.parse( options, args );
+            fail( "MissingArgumentException not caught." );
+        } catch( MissingArgumentException expected ) {
         }
-        // catch the exception and leave the method
-        catch( Exception exp )
-        {
-            assertTrue( exp != null );
-            return;
-        }
-        fail( "MissingArgumentException not caught." );
     }
 
     public void test13666() throws Exception
@@ -263,62 +257,31 @@ public class BugsTest extends TestCase
         opts.addOption( straight );
 
         CommandLineParser parser = new PosixParser();
-        boolean exception = false;
 
         String[] args = new String[] {  };
-        try
-        {
+        try {
             parser.parse(opts, args);
+            fail("Expected ParseException");
         }
-        catch (ParseException exp)
-        {
-            exception = true;
+        catch (ParseException expected) {
         }
-
-        if (!exception)
-        {
-            fail("Expected exception not caught.");
-        }
-
-        exception = false;
 
         args = new String[] { "-s" };
-        try
-        {
+        try {
             parser.parse(opts, args);
+            fail("Expected ParseException");
         }
-        catch (ParseException exp)
-        {
-            exception = true;
+        catch (ParseException expected) {
         }
-
-        if (!exception)
-        {
-            fail("Expected exception not caught.");
-        }
-
-        exception = false;
 
         args = new String[] { "-s", "-l" };
-        try
-        {
-            parser.parse(opts, args);
-        }
-        catch (ParseException exp)
-        {
-            fail("Unexpected exception: " + exp.getClass().getName() + ":" + exp.getMessage());
-        }
+        CommandLine line = parser.parse(opts, args);
+        assertNotNull(line);
 
         opts.addOption( forward );
         args = new String[] { "-s", "-l", "-f" };
-        try
-        {
-            parser.parse(opts, args);
-        }
-        catch (ParseException exp)
-        {
-            fail("Unexpected exception: " + exp.getClass().getName() + ":" + exp.getMessage());
-        }
+        line = parser.parse(opts, args);
+        assertNotNull(line);
     }
 
     public void test14786() throws Exception
