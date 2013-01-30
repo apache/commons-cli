@@ -31,6 +31,7 @@ import java.util.Properties;
  * @version $Revision$, $Date$
  * @deprecated The two-pass parsing with the flatten method is not enough flexible to handle complex cases
  */
+@Deprecated
 public abstract class Parser implements CommandLineParser
 {
     /** commandline instance */
