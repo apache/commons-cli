@@ -30,4 +30,9 @@
   <!-- Constant used in hashCode() method                                       -->
   <suppress checks="MagicNumber" files="Option.java" />
 
+  <!-- These are final package private classes, and we do not want to hide the
+       constructor as this will negatively affect the code coverage             -->
+  <suppress checks="HideUtilityClassConstructor" files="OptionValidator.java" />
+  <suppress checks="HideUtilityClassConstructor" files="Util.java" />
+
 </suppressions>

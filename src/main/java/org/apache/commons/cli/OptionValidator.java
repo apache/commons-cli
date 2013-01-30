@@ -27,13 +27,6 @@ package org.apache.commons.cli;
 final class OptionValidator
 {
     /**
-     * Hide constructor for a utility class.
-     */
-    private OptionValidator()
-    {
-    }
-
-    /**
      * Validates whether <code>opt</code> is a permissible Option
      * shortOpt.  The rules that specify if the <code>opt</code>
      * is valid are:
