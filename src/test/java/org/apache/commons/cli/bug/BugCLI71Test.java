@@ -67,7 +67,7 @@ public class BugCLI71Test extends TestCase {
     public void testLackOfError() throws Exception {
         String[] args = new String[] { "-k", "-a",  "Caesar" };
         try {
-            CommandLine line = parser.parse( options, args);
+            parser.parse( options, args);
             fail("MissingArgumentException expected");
         } catch(MissingArgumentException e) {
             assertEquals("option missing an argument", "k", e.getOption().getOpt());

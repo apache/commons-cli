@@ -268,7 +268,7 @@ public class BugsTest extends TestCase
         String[] args = new String[] {  };
         try
         {
-            CommandLine line = parser.parse(opts, args);
+            parser.parse(opts, args);
         }
         catch (ParseException exp)
         {
@@ -285,7 +285,7 @@ public class BugsTest extends TestCase
         args = new String[] { "-s" };
         try
         {
-            CommandLine line = parser.parse(opts, args);
+            parser.parse(opts, args);
         }
         catch (ParseException exp)
         {

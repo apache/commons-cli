@@ -127,7 +127,7 @@ public class OptionBuilderTest extends TestCase {
 
         // bad character in option string
         try {
-            Option opt = OptionBuilder.create( "opt`" );
+            OptionBuilder.create( "opt`" );
             fail( "IllegalArgumentException not caught" );
         }
         catch( IllegalArgumentException exp ) {
@@ -136,7 +136,7 @@ public class OptionBuilderTest extends TestCase {
 
         // valid option 
         try {
-            Option opt = OptionBuilder.create( "opt" );
+            OptionBuilder.create( "opt" );
             // success
         }
         catch( IllegalArgumentException exp ) {
