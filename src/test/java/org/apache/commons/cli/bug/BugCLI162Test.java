@@ -18,7 +18,6 @@
 
 package org.apache.commons.cli.bug;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.ParameterMetaData;
@@ -30,7 +29,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 
 public class BugCLI162Test extends TestCase {
     /** Constant for the line separator.*/
@@ -44,7 +42,7 @@ public class BugCLI162Test extends TestCase {
         formatter.printHelp("app", options); // used to hang & crash
     }
 
-    public void testPrintHelpLongLines() throws ParseException, IOException {
+    public void testPrintHelpLongLines() {
         // Constants used for options
         final String OPT = "-";
 
@@ -231,7 +229,7 @@ public class BugCLI162Test extends TestCase {
         new HelpFormatter().printHelp(this.getClass().getName(), commandLineOptions);
     }
 
-    public void testLongLineChunking() throws ParseException, IOException {
+    public void testLongLineChunking() {
         Options options = new Options();
         options.addOption("x", "extralongarg", false,
                                      "This description has ReallyLongValuesThatAreLongerThanTheWidthOfTheColumns " +
@@ -263,7 +261,7 @@ public class BugCLI162Test extends TestCase {
         assertEquals( "Long arguments did not split as expected", expected, sw.toString() );
     }
 
-    public void testLongLineChunkingIndentIgnored() throws ParseException, IOException {
+    public void testLongLineChunkingIndentIgnored() {
         Options options = new Options();
         options.addOption("x", "extralongarg", false, "This description is Long." );
         HelpFormatter formatter = new HelpFormatter();
