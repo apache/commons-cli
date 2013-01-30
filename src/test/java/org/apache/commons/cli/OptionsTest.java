@@ -84,7 +84,7 @@ public class OptionsTest extends TestCase
         options.addOption(bothA);
         options.addOption(bothB);
         
-        Collection allOptions = new ArrayList();
+        Collection<Option> allOptions = new ArrayList<Option>();
         allOptions.add(longOnly1);
         allOptions.add(longOnly2);
         allOptions.add(shortOnly1);
@@ -92,7 +92,7 @@ public class OptionsTest extends TestCase
         allOptions.add(bothA);
         allOptions.add(bothB);
         
-        Collection helpOptions = options.helpOptions();
+        Collection<Option> helpOptions = options.helpOptions();
         
         assertTrue("Everything in all should be in help", helpOptions.containsAll(allOptions));
         assertTrue("Everything in help should be in all", allOptions.containsAll(helpOptions));        
