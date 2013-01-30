@@ -27,4 +27,7 @@
   <suppress checks="HideUtilityClassConstructor" files="PatternOptionBuilder.java" />
   <suppress checks="HideUtilityClassConstructor" files="TypeHandler.java" />
 
+  <!-- Constant used in hashCode() method                                       -->
+  <suppress checks="MagicNumber" files="Option.java" />
+
 </suppressions>
