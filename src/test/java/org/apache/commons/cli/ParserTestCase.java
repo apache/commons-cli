@@ -421,7 +421,7 @@ public abstract class ParserTestCase extends TestCase
 
         CommandLine cl = parser.parse(options, args);
 
-        List values = Arrays.asList(cl.getOptionValues("J"));
+        List<String> values = Arrays.asList(cl.getOptionValues("J"));
         assertNotNull("null values", values);
         assertEquals("number of values", 4, values.size());
         assertEquals("value 1", "source", values.get(0));
@@ -429,7 +429,7 @@ public abstract class ParserTestCase extends TestCase
         assertEquals("value 3", "target", values.get(2));
         assertEquals("value 4", "1.5", values.get(3));
         
-        List argsleft = cl.getArgList();
+        List<?> argsleft = cl.getArgList();
         assertEquals("Should be 1 arg left", 1, argsleft.size());
         assertEquals("Expecting foo", "foo", argsleft.get(0));
     }
@@ -449,7 +449,7 @@ public abstract class ParserTestCase extends TestCase
         assertEquals("property 1", "true", props.getProperty("param1"));
         assertEquals("property 2", "value2", props.getProperty("param2"));
         
-        List argsleft = cl.getArgList();
+        List<?> argsleft = cl.getArgList();
         assertEquals("Should be no arg left", 0, argsleft.size());
     }
 
