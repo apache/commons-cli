@@ -88,6 +88,7 @@ public class CommandLine implements Serializable
      * @return the type of this <code>Option</code>
      * @deprecated due to System.err message. Instead use getParsedOptionValue(String)
      */
+    @Deprecated
     public Object getOptionObject(String opt)
     {
         try
