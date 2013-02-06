@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @author John Keyes (john at integralsource.com)
  * @version $Revision$, $Date$
- * @deprecated Use the {@link DefaultParser} instead
+ * @deprecated since 1.3, use the {@link DefaultParser} instead
  */
 @Deprecated
 public class PosixParser extends Parser
