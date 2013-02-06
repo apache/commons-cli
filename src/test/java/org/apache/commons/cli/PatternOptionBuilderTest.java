@@ -17,22 +17,27 @@
 
 package org.apache.commons.cli;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /** 
- * Test case for the PatternOptionBuilder class 
- *
- * @version $Revision$, $Date$
+ * Test case for the PatternOptionBuilder class.
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class PatternOptionBuilderTest extends TestCase
+public class PatternOptionBuilderTest
 {
+    @Test
     public void testSimplePattern() throws Exception
     {
         Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/m*z#");
@@ -79,12 +84,14 @@ public class PatternOptionBuilderTest extends TestCase
         }
     }
 
+    @Test
     public void testEmptyPattern() throws Exception
     {
         Options options = PatternOptionBuilder.parsePattern("");
         assertTrue(options.getOptions().isEmpty());
     }
 
+    @Test
     public void testUntypedPattern() throws Exception
     {
         Options options = PatternOptionBuilder.parsePattern("abc");
@@ -99,6 +106,7 @@ public class PatternOptionBuilderTest extends TestCase
         assertNull("value c", line.getOptionObject('c'));
     }
 
+    @Test
     public void testNumberPattern() throws Exception
     {
         Options options = PatternOptionBuilder.parsePattern("n%d%x%");
@@ -114,6 +122,7 @@ public class PatternOptionBuilderTest extends TestCase
         assertNull("x object", line.getOptionObject("x"));
     }
 
+    @Test
     public void testClassPattern() throws Exception
     {
         Options options = PatternOptionBuilder.parsePattern("c+d+");
@@ -124,6 +133,7 @@ public class PatternOptionBuilderTest extends TestCase
         assertNull("d value", line.getOptionObject("d"));
     }
 
+    @Test
     public void testObjectPattern() throws Exception
     {
         Options options = PatternOptionBuilder.parsePattern("o@i@n@");
@@ -135,6 +145,7 @@ public class PatternOptionBuilderTest extends TestCase
         assertNull("n value", line.getOptionObject("n"));
     }
 
+    @Test
     public void testURLPattern() throws Exception
     {
         Options options = PatternOptionBuilder.parsePattern("u/v/");
@@ -145,6 +156,7 @@ public class PatternOptionBuilderTest extends TestCase
         assertNull("v value", line.getOptionObject("v"));
     }
 
+    @Test
     public void testExistingFilePattern() throws Exception
     {
         Options options = PatternOptionBuilder.parsePattern("f<");
@@ -156,6 +168,7 @@ public class PatternOptionBuilderTest extends TestCase
         // todo test if an error is returned if the file doesn't exists (when it's implemented)
     }
 
+    @Test
     public void testRequiredOption() throws Exception
     {
         Options options = PatternOptionBuilder.parsePattern("!n%m%");

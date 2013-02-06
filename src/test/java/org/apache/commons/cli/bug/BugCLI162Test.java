@@ -15,25 +15,27 @@
  * limitations under the License.
  */
 
-
 package org.apache.commons.cli.bug;
+
+import static org.junit.Assert.assertEquals;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.ParameterMetaData;
 import java.sql.Types;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
+import org.junit.Test;
 
-public class BugCLI162Test extends TestCase {
+public class BugCLI162Test
+{
     /** Constant for the line separator.*/
     private static final String CR = System.getProperty("line.separator");
 
+    @Test
     public void testInfiniteLoop() {
         Options options = new Options();
         options.addOption("h", "help", false, "This is a looooong description");
@@ -42,6 +44,7 @@ public class BugCLI162Test extends TestCase {
         formatter.printHelp("app", options); // used to hang & crash
     }
 
+    @Test
     public void testPrintHelpLongLines() {
         // Constants used for options
         final String OPT = "-";
@@ -229,6 +232,7 @@ public class BugCLI162Test extends TestCase {
         new HelpFormatter().printHelp(this.getClass().getName(), commandLineOptions);
     }
 
+    @Test
     public void testLongLineChunking() {
         Options options = new Options();
         options.addOption("x", "extralongarg", false,
@@ -261,6 +265,7 @@ public class BugCLI162Test extends TestCase {
         assertEquals( "Long arguments did not split as expected", expected, sw.toString() );
     }
 
+    @Test
     public void testLongLineChunkingIndentIgnored() {
         Options options = new Options();
         options.addOption("x", "extralongarg", false, "This description is Long." );

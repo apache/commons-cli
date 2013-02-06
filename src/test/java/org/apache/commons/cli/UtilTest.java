@@ -17,13 +17,14 @@
 
 package org.apache.commons.cli;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-/**
- * @author brianegge
- */
-public class UtilTest extends TestCase
+import org.junit.Test;
+
+public class UtilTest
 {
+    @Test
     public void testStripLeadingHyphens()
     {
         assertEquals("f", Util.stripLeadingHyphens("-f"));
@@ -32,6 +33,7 @@ public class UtilTest extends TestCase
         assertNull(Util.stripLeadingHyphens(null));
     }
 
+    @Test
     public void testStripLeadingAndTrailingQuotes()
     {
         assertEquals("foo", Util.stripLeadingAndTrailingQuotes("\"foo\""));

@@ -17,15 +17,15 @@
 
 package org.apache.commons.cli;
 
+import org.junit.Before;
+
 /**
  * Test case for the PosixParser.
- *
- * @version $Revision$, $Date$
  */
 public class PosixParserTest extends ParserTestCase
 {
     @SuppressWarnings("deprecation")
-    @Override
+    @Before
     public void setUp()
     {
         super.setUp();

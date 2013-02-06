@@ -17,10 +17,12 @@
 
 package org.apache.commons.cli;
 
+import org.junit.Before;
+
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class GnuParserTest extends ParserTestCase
 {
-    @Override
+    @Before
     public void setUp()
     {
         super.setUp();
@@ -105,8 +107,8 @@ public class GnuParserTest extends ParserTestCase
         // not supported by the GnuParser
     }
 
-   @Override
-public void testAmbiguousPartialLongOption3() throws Exception
+    @Override
+    public void testAmbiguousPartialLongOption3() throws Exception
     {
         // not supported by the GnuParser
     }

@@ -17,14 +17,12 @@
 
 package org.apache.commons.cli;
 
-/**
- * @author Emmanuel Bourg
- * @version $Revision$, $Date$
- */
+import org.junit.Before;
+
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class BasicParserTest extends ParserTestCase
 {
-    @Override
+    @Before
     public void setUp()
     {
         super.setUp();

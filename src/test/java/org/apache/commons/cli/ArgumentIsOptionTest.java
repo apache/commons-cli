@@ -17,15 +17,19 @@
 
 package org.apache.commons.cli;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class ArgumentIsOptionTest extends TestCase
+public class ArgumentIsOptionTest
 {
     private Options options = null;
     private CommandLineParser parser = null;
 
-    @Override
+    @Before
     public void setUp()
     {
         options = new Options().addOption("p", false, "Option p").addOption("attr", true, "Option accepts argument");
@@ -33,6 +37,7 @@ public class ArgumentIsOptionTest extends TestCase
         parser = new PosixParser();
     }
 
+    @Test
     public void testOptionAndOptionWithArgument() throws Exception
     {
         String[] args = new String[]{
@@ -48,6 +53,7 @@ public class ArgumentIsOptionTest extends TestCase
         assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
     }
 
+    @Test
     public void testOptionWithArgument() throws Exception
     {
         String[] args = new String[]{
@@ -63,6 +69,7 @@ public class ArgumentIsOptionTest extends TestCase
         assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
     }
 
+    @Test
     public void testOption() throws Exception
     {
         String[] args = new String[]{

@@ -17,15 +17,20 @@
 
 package org.apache.commons.cli;
 
-import junit.framework.TestCase;
-import junitx.framework.ArrayAssert;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class ValuesTest extends TestCase
+public class ValuesTest
 {
     private CommandLine cmd;
 
-    @Override
+    @Before
     public void setUp() throws Exception
     {
         Options options = new Options();
@@ -65,6 +70,7 @@ public class ValuesTest extends TestCase
         cmd = parser.parse(options,args);
     }
 
+    @Test
     public void testShortArgs()
     {
         assertTrue("Option a is not set", cmd.hasOption("a"));
@@ -74,6 +80,7 @@ public class ValuesTest extends TestCase
         assertNull(cmd.getOptionValues("c"));
     }
 
+    @Test
     public void testShortArgsWithValue()
     {
         assertTrue("Option b is not set", cmd.hasOption("b"));
@@ -85,47 +92,52 @@ public class ValuesTest extends TestCase
         assertEquals(1, cmd.getOptionValues("d").length);
     }
 
+    @Test
     public void testMultipleArgValues()
     {
         assertTrue("Option e is not set", cmd.hasOption("e"));
-        ArrayAssert.assertEquals(new String[] { "one", "two" }, cmd.getOptionValues("e"));
+        assertArrayEquals(new String[] { "one", "two" }, cmd.getOptionValues("e"));
     }
 
+    @Test
     public void testTwoArgValues()
     {
         assertTrue("Option g is not set", cmd.hasOption("g"));
-        ArrayAssert.assertEquals(new String[] { "val1", "val2" }, cmd.getOptionValues("g"));
+        assertArrayEquals(new String[] { "val1", "val2" }, cmd.getOptionValues("g"));
     }
 
+    @Test
     public void testComplexValues()
     {
         assertTrue("Option i is not set", cmd.hasOption("i"));
         assertTrue("Option h is not set", cmd.hasOption("h"));
-        ArrayAssert.assertEquals(new String[] { "val1", "val2" }, cmd.getOptionValues("h"));
+        assertArrayEquals(new String[] { "val1", "val2" }, cmd.getOptionValues("h"));
     }
 
+    @Test
     public void testExtraArgs()
     {
-        ArrayAssert.assertEquals("Extra args", new String[] { "arg1", "arg2", "arg3" }, cmd.getArgs());
+        assertArrayEquals("Extra args", new String[] { "arg1", "arg2", "arg3" }, cmd.getArgs());
     }
 
+    @Test
     public void testCharSeparator()
     {
         // tests the char methods of CommandLine that delegate to the String methods
         assertTrue("Option j is not set", cmd.hasOption("j"));
         assertTrue("Option j is not set", cmd.hasOption('j'));
-        ArrayAssert.assertEquals(new String[] { "key", "value", "key", "value" }, cmd.getOptionValues("j"));
-        ArrayAssert.assertEquals(new String[] { "key", "value", "key", "value" }, cmd.getOptionValues('j'));
+        assertArrayEquals(new String[] { "key", "value", "key", "value" }, cmd.getOptionValues("j"));
+        assertArrayEquals(new String[] { "key", "value", "key", "value" }, cmd.getOptionValues('j'));
 
         assertTrue("Option k is not set", cmd.hasOption("k"));
         assertTrue("Option k is not set", cmd.hasOption('k'));
-        ArrayAssert.assertEquals(new String[] { "key1", "value1", "key2", "value2" }, cmd.getOptionValues("k"));
-        ArrayAssert.assertEquals(new String[] { "key1", "value1", "key2", "value2" }, cmd.getOptionValues('k'));
+        assertArrayEquals(new String[] { "key1", "value1", "key2", "value2" }, cmd.getOptionValues("k"));
+        assertArrayEquals(new String[] { "key1", "value1", "key2", "value2" }, cmd.getOptionValues('k'));
 
         assertTrue("Option m is not set", cmd.hasOption("m"));
         assertTrue("Option m is not set", cmd.hasOption('m'));
-        ArrayAssert.assertEquals(new String[] { "key", "value" }, cmd.getOptionValues("m"));
-        ArrayAssert.assertEquals(new String[] { "key", "value" }, cmd.getOptionValues('m'));
+        assertArrayEquals(new String[] { "key", "value" }, cmd.getOptionValues("m"));
+        assertArrayEquals(new String[] { "key", "value" }, cmd.getOptionValues('m'));
     }
 
     /**

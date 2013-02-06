@@ -17,31 +17,33 @@
 
 package org.apache.commons.cli.bug;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * http://issues.apache.org/jira/browse/CLI-148
- *
- * @author brianegge
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI148Test  extends TestCase
+public class BugCLI148Test
 {    
     private Options options;
 
-    @Override
-    protected void setUp() throws Exception
+    @Before
+    public void setUp() throws Exception
     {
         options = new Options();
         options.addOption(OptionBuilder.hasArg().create('t'));
         options.addOption(OptionBuilder.hasArg().create('s'));
     }
 
+    @Test
     public void testWorkaround1() throws Exception
     {
         CommandLineParser parser = new PosixParser();
@@ -51,6 +53,7 @@ public class BugCLI148Test  extends TestCase
         assertEquals("-something", commandLine.getOptionValue('t'));
     }
 
+    @Test
     public void testWorkaround2() throws Exception
     {
         CommandLineParser parser = new PosixParser();

@@ -23,14 +23,14 @@ import java.io.StringWriter;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * http://issues.apache.org/jira/browse/CLI-18
  */
-public class BugCLI18Test extends TestCase
+public class BugCLI18Test
 {
+    @Test
     public void testCLI18()
     {
         Options options = new Options();

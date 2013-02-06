@@ -17,7 +17,10 @@
 
 package org.apache.commons.cli;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 /**
  * This is a collection of tests that test real world applications command lines.
@@ -31,12 +34,11 @@ import junit.framework.TestCase;
  *   <li>man</li>
  * </ul>
  * </p>
- *
- * @author John Keyes (john at integralsource.com)
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class ApplicationTest extends TestCase {
-
+public class ApplicationTest
+{
+    @Test
     public void testLs() throws Exception {
         // create the command line parser
         CommandLineParser parser = new PosixParser();
@@ -63,6 +65,7 @@ public class ApplicationTest extends TestCase {
     /**
      * Ant test
      */
+    @Test
     public void testAnt() throws Exception {
         // use the GNU parser
         CommandLineParser parser = new GnuParser( );
@@ -104,6 +107,7 @@ public class ApplicationTest extends TestCase {
         assertTrue( line.hasOption( "projecthelp") );
     }
 
+    @Test
     public void testGroovy() throws Exception {
         Options options = new Options();
 
@@ -174,6 +178,7 @@ public class ApplicationTest extends TestCase {
     /**
      * author Slawek Zachcial
      */
+    @Test
     public void testMan()
     {
         String cmdLine =
@@ -223,6 +228,7 @@ public class ApplicationTest extends TestCase {
     /**
      * Real world test with long and short options.
      */
+    @Test
     public void testNLT() throws Exception {
         Option help = new Option("h", "help", false, "print this message");
         Option version = new Option("v", "version", false, "print version information");

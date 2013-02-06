@@ -17,21 +17,23 @@
 
 package org.apache.commons.cli;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Properties;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
-/**
- * @author John Keyes (john at integralsource.com)
- * @version $Revision$
- */
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class OptionGroupTest extends TestCase
+public class OptionGroupTest
 {
     private Options _options = null;
     private Parser parser = new PosixParser();
 
-    @Override
+    @Before
     public void setUp()
     {
         Option file = new Option( "f", "file", false, "file to process" );
@@ -59,6 +61,7 @@ public class OptionGroupTest extends TestCase
         _options.addOption( "r", "revision", false, "revision number" );
     }
 
+    @Test
     public void testSingleOptionFromGroup() throws Exception
     {
         String[] args = new String[] { "-f" };
@@ -73,6 +76,7 @@ public class OptionGroupTest extends TestCase
         assertTrue( "Confirm no extra args", cl.getArgList().size() == 0);
     }
 
+    @Test
     public void testSingleOption() throws Exception
     {
         String[] args = new String[] { "-r" };
@@ -87,6 +91,7 @@ public class OptionGroupTest extends TestCase
         assertTrue( "Confirm no extra args", cl.getArgList().size() == 0);
     }
 
+    @Test
     public void testTwoValidOptions() throws Exception
     {
         String[] args = new String[] { "-r", "-f" };
@@ -101,6 +106,7 @@ public class OptionGroupTest extends TestCase
         assertTrue( "Confirm no extra args", cl.getArgList().size() == 0);
     }
 
+    @Test
     public void testSingleLongOption() throws Exception
     {
         String[] args = new String[] { "--file" };
@@ -115,6 +121,7 @@ public class OptionGroupTest extends TestCase
         assertTrue( "Confirm no extra args", cl.getArgList().size() == 0);
     }
 
+    @Test
     public void testTwoValidLongOptions() throws Exception
     {
         String[] args = new String[] { "--revision", "--file" };
@@ -129,6 +136,7 @@ public class OptionGroupTest extends TestCase
         assertTrue( "Confirm no extra args", cl.getArgList().size() == 0);
     }
 
+    @Test
     public void testNoOptionsExtraArgs() throws Exception
     {
         String[] args = new String[] { "arg1", "arg2" };
@@ -143,6 +151,7 @@ public class OptionGroupTest extends TestCase
         assertTrue( "Confirm TWO extra args", cl.getArgList().size() == 2);
     }
 
+    @Test
     public void testTwoOptionsFromGroup() throws Exception
     {
         String[] args = new String[] { "-f", "-d" };
@@ -160,6 +169,7 @@ public class OptionGroupTest extends TestCase
         }
     }
 
+    @Test
     public void testTwoLongOptionsFromGroup() throws Exception
     {
         String[] args = new String[] { "--file", "--directory" };
@@ -177,6 +187,7 @@ public class OptionGroupTest extends TestCase
         }
     }
 
+    @Test
     public void testTwoOptionsFromDifferentGroup() throws Exception
     {
         String[] args = new String[] { "-f", "-s" };
@@ -190,6 +201,7 @@ public class OptionGroupTest extends TestCase
         assertTrue( "Confirm NO extra args", cl.getArgList().size() == 0);
     }
 
+    @Test
     public void testTwoOptionsFromGroupWithProperties() throws Exception
     {
         String[] args = new String[] { "-f" };
@@ -202,6 +214,7 @@ public class OptionGroupTest extends TestCase
         assertTrue(!cl.hasOption("d"));
     }
 
+    @Test
     public void testValidLongOnlyOptions() throws Exception
     {
         CommandLine cl1 = parser.parse(_options, new String[]{"--export"});
@@ -211,6 +224,7 @@ public class OptionGroupTest extends TestCase
         assertTrue("Confirm --import is set", cl2.hasOption("import"));
     }
 
+    @Test
     public void testToString()
     {
         OptionGroup group1 = new OptionGroup();
@@ -230,6 +244,7 @@ public class OptionGroupTest extends TestCase
         }
     }
 
+    @Test
     public void testGetNames()
     {
         OptionGroup group = new OptionGroup();

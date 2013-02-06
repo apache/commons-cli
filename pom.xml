@@ -121,6 +121,12 @@
         <role>lots of fixes for 1.1</role>
       </roles>
     </contributor>
+    <contributor>
+      <name>Slawek Zachcial</name>
+      <roles>
+        <role>unit tests</role>
+      </roles>
+    </contributor>
     
   </contributors>
 
@@ -129,7 +135,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.8.2</version>
+      <version>4.11</version>
       <scope>test</scope>
     </dependency>
     <dependency>

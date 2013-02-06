@@ -17,19 +17,19 @@
 
 package org.apache.commons.cli.bug;
 
+import static org.junit.Assert.assertFalse;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
+import org.junit.Test;
 
-import junit.framework.TestCase;
-
-/**
- * @author brianegge
- */
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI133Test extends TestCase {
+public class BugCLI133Test
+{    
+    @Test
     public void testOrder() throws ParseException {
         Option optionA = new Option("a", "first");
         Options opts = new Options();

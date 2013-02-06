@@ -17,24 +17,24 @@
 
 package org.apache.commons.cli;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Comparator;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /** 
- * Test case for the HelpFormatter class 
- *
- * @author Slawek Zachcial
- * @author John Keyes ( john at integralsource.com )
- * @author brianegge
+ * Test case for the HelpFormatter class.
  */
-public class HelpFormatterTest extends TestCase
+public class HelpFormatterTest
 {
     private static final String EOL = System.getProperty("line.separator");
 
+    @Test
     public void testFindWrapPos() throws Exception
     {
         HelpFormatter hf = new HelpFormatter();
@@ -62,6 +62,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("wrap position 6", 7, hf.findWrapPos(text, 6, 0));
     }
 
+    @Test
     public void testRenderWrappedTextWordCut()
     {
         int width = 7;
@@ -75,6 +76,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("cut and wrap", expected, sb.toString());
     }
 
+    @Test
     public void testRenderWrappedTextSingleLine()
     {
         // single line text
@@ -89,6 +91,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("single line text", expected, sb.toString());
     }
 
+    @Test
     public void testRenderWrappedTextSingleLinePadded()
     {
         // single line padded text
@@ -103,6 +106,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("single line padded text", expected, sb.toString());
     }
 
+    @Test
     public void testRenderWrappedTextSingleLinePadded2()
     {
         // single line padded text 2
@@ -119,6 +123,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("single line padded text 2", expected, sb.toString());
     }
 
+    @Test
     public void testRenderWrappedTextMultiLine()
     {
         // multi line text
@@ -134,6 +139,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("multi line text", expected, sb.toString());
     }
 
+    @Test
     public void testRenderWrappedTextMultiLinePadded()
     {
         // multi-line padded text
@@ -151,6 +157,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("multi-line padded text", expected, sb.toString());
     }
 
+    @Test
     public void testPrintOptions() throws Exception
     {
         StringBuffer sb = new StringBuffer();
@@ -200,6 +207,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("multiple wrapped options", expected, sb.toString());
     }
 
+    @Test
     public void testPrintHelpWithEmptySyntax()
     {
         HelpFormatter formatter = new HelpFormatter();
@@ -224,6 +232,7 @@ public class HelpFormatterTest extends TestCase
         }
     }
 
+    @Test
     public void testAutomaticUsage() throws Exception
     {
         HelpFormatter hf = new HelpFormatter();
@@ -249,6 +258,7 @@ public class HelpFormatterTest extends TestCase
 
     // This test ensures the options are properly sorted
     // See https://issues.apache.org/jira/browse/CLI-131
+    @Test
     public void testPrintUsage()
     {
         Option optionA = new Option("a", "first");
@@ -267,6 +277,7 @@ public class HelpFormatterTest extends TestCase
     }
 
     // uses the test for CLI-131 to implement CLI-155
+    @Test
     public void testPrintSortedUsage()
     {
         Options opts = new Options();
@@ -279,7 +290,7 @@ public class HelpFormatterTest extends TestCase
         {
             public int compare(Option opt1, Option opt2)
             {
-                // reverses the fuctionality of the default comparator
+                // reverses the functionality of the default comparator
                 return opt2.getKey().compareToIgnoreCase(opt1.getKey());
             }
         });
@@ -290,6 +301,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("usage: app [-c] [-b] [-a]" + EOL, out.toString());
     }
 
+    @Test
     public void testPrintSortedUsageWithNullComparator()
     {
         Options opts = new Options();
@@ -306,6 +318,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("usage: app [-c] [-b] [-a]" + EOL, out.toString());
     }
 
+    @Test
     public void testPrintOptionGroupUsage()
     {
         OptionGroup group = new OptionGroup();
@@ -324,6 +337,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("usage: app [-a | -b | -c]" + EOL, out.toString());
     }
 
+    @Test
     public void testPrintRequiredOptionGroupUsage()
     {
         OptionGroup group = new OptionGroup();
@@ -343,6 +357,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("usage: app -a | -b | -c" + EOL, out.toString());
     }
 
+    @Test
     public void testPrintOptionWithEmptyArgNameUsage()
     {
         Option option = new Option("f", true, null);
@@ -360,6 +375,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("usage: app -f" + EOL, out.toString());
     }
 
+    @Test
     public void testDefaultArgName()
     {
         Option option = OptionBuilder.hasArg().isRequired().create("f");
@@ -376,6 +392,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("usage: app -f <argument>" + EOL, out.toString());
     }
 
+    @Test
     public void testRtrim()
     {
         HelpFormatter formatter = new HelpFormatter();
@@ -385,6 +402,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("  foo", formatter.rtrim("  foo  "));
     }
 
+    @Test
     public void testAccessors()
     {
         HelpFormatter formatter = new HelpFormatter();
@@ -414,6 +432,7 @@ public class HelpFormatterTest extends TestCase
         assertEquals("width", 80, formatter.getWidth());
     }
     
+    @Test
     public void testHeaderStartingWithLineSeparator()
     {
         // related to Bugzilla #21215
@@ -432,6 +451,7 @@ public class HelpFormatterTest extends TestCase
                 , out.toString());
     }
 
+    @Test
     public void testIndentedHeaderAndFooter()
     {
         // related to CLI-207
@@ -452,6 +472,7 @@ public class HelpFormatterTest extends TestCase
                 , out.toString());
     }
 
+    @Test
     public void testOptionWithoutShortFormat()
     {
         // related to Bugzilla #19383 (CLI-67)
@@ -471,7 +492,7 @@ public class HelpFormatterTest extends TestCase
                 , out.toString());
     }
     
-
+    @Test
     public void testOptionWithoutShortFormat2()
     {
         // related to Bugzilla #27635 (CLI-26)
@@ -542,6 +563,7 @@ public class HelpFormatterTest extends TestCase
                 ,out.toString());
     }
     
+    @Test
     public void testHelpWithLongOptSeparator() throws Exception
     {
         Options options = new Options();
@@ -568,6 +590,7 @@ public class HelpFormatterTest extends TestCase
                 out.toString());
     }
 
+    @Test
     public void testUsageWithLongOptSeparator() throws Exception
     {
         Options options = new Options();

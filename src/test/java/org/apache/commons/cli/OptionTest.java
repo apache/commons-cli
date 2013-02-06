@@ -17,12 +17,14 @@
 
 package org.apache.commons.cli;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
-/**
- * @author brianegge
- */
-public class OptionTest extends TestCase
+import org.junit.Test;
+
+public class OptionTest
 {
     private static class TestOption extends Option
     {
@@ -39,6 +41,7 @@ public class OptionTest extends TestCase
         }
     }
 
+    @Test
     public void testClear()
     {
         TestOption option = new TestOption("x", true, "");
@@ -50,6 +53,7 @@ public class OptionTest extends TestCase
     }
 
     // See http://issues.apache.org/jira/browse/CLI-21
+    @Test
     public void testClone()
     {
         TestOption a = new TestOption("a", true, "");
@@ -83,6 +87,7 @@ public class OptionTest extends TestCase
         }
     }
 
+    @Test
     public void testSubclass()
     {
         Option option = new DefaultOption("f", "file", "myfile.txt");
@@ -91,6 +96,7 @@ public class OptionTest extends TestCase
         assertEquals(DefaultOption.class, clone.getClass());
     }
 
+    @Test
     public void testHasArgName()
     {
         Option option = new Option("f", null);
@@ -105,6 +111,7 @@ public class OptionTest extends TestCase
         assertTrue(option.hasArgName());
     }
 
+    @Test
     public void testHasArgs()
     {
         Option option = new Option("f", null);
@@ -125,6 +132,7 @@ public class OptionTest extends TestCase
         assertFalse(option.hasArgs());
     }
 
+    @Test
     public void testGetValue()
     {
         Option option = new Option("f", null);

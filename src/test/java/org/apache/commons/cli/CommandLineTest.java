@@ -17,17 +17,17 @@
 
 package org.apache.commons.cli;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Properties;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-/**
- * @author Emmanuel Bourg
- * @version $Revision$, $Date$
- */
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class CommandLineTest extends TestCase
+public class CommandLineTest
 {
+    @Test
     public void testGetOptionProperties() throws Exception
     {
         String[] args = new String[] { "-Dparam1=value1", "-Dparam2=value2", "-Dparam3", "-Dparam4=value4", "-D", "--property", "foo=bar" };
@@ -50,6 +50,7 @@ public class CommandLineTest extends TestCase
         assertEquals("property with long format", "bar", cl.getOptionProperties("property").getProperty("foo"));
     }
 
+    @Test
     public void testGetOptions()
     {
         CommandLine cmd = new CommandLine();
@@ -63,6 +64,7 @@ public class CommandLineTest extends TestCase
         assertEquals(3, cmd.getOptions().length);
     }
 
+    @Test
     public void testGetParsedOptionValue() throws Exception {
         Options options = new Options();
         options.addOption(OptionBuilder.hasArg().withType(Number.class).create("i"));

@@ -17,24 +17,25 @@
 
 package org.apache.commons.cli.bug;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
+import org.junit.Test;
 
-import junit.framework.TestCase;
-
-/**
- * @author brianegge
- */
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI13Test extends TestCase
+public class BugCLI13Test
 {
+    @Test
     public void testCLI13() throws ParseException
     {
         final String debugOpt = "debug";
+        @SuppressWarnings("static-access")
         Option debug = OptionBuilder
             .withArgName( debugOpt )
             .withDescription( "turn on debugging" )

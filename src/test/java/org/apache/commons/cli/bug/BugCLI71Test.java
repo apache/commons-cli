@@ -15,8 +15,10 @@
  * limitations under the License.
  */
 
-
 package org.apache.commons.cli.bug;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -24,16 +26,16 @@ import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
-
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI71Test extends TestCase {
-
+public class BugCLI71Test
+{
     private Options options;
     private CommandLineParser parser;
 
-    @Override
+    @Before
     public void setUp() {
         options = new Options();
 
@@ -48,6 +50,7 @@ public class BugCLI71Test extends TestCase {
         parser = new PosixParser();
     }
 
+    @Test
     public void testBasic() throws Exception {
         String[] args = new String[] { "-a", "Caesar", "-k", "A" };
         CommandLine line = parser.parse( options, args);
@@ -55,6 +58,7 @@ public class BugCLI71Test extends TestCase {
         assertEquals( "A", line.getOptionValue("k") );
     }
 
+    @Test
     public void testMistakenArgument() throws Exception {
         String[] args = new String[] { "-a", "Caesar", "-k", "A" };
         CommandLine line = parser.parse( options, args);
@@ -64,6 +68,7 @@ public class BugCLI71Test extends TestCase {
         assertEquals( "a", line.getOptionValue("k") );
     }
 
+    @Test
     public void testLackOfError() throws Exception {
         String[] args = new String[] { "-k", "-a",  "Caesar" };
         try {
@@ -74,6 +79,7 @@ public class BugCLI71Test extends TestCase {
         }
     }
 
+    @Test
     public void testGetsDefaultIfOptional() throws Exception {
         String[] args = new String[] { "-k", "-a", "Caesar" };
         options.getOption("k").setOptionalArg(true);

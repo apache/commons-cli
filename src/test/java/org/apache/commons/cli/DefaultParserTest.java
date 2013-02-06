@@ -17,13 +17,11 @@
 
 package org.apache.commons.cli;
 
-/**
- * @author Emmanuel Bourg
- * @version $Revision$, $Date$
- */
+import org.junit.Before;
+
 public class DefaultParserTest extends ParserTestCase {
 
-    @Override
+    @Before
     public void setUp() {
         super.setUp();
         parser = new DefaultParser();

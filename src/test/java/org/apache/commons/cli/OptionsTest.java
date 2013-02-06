@@ -17,18 +17,20 @@
 
 package org.apache.commons.cli;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-/**
- * @author Rob Oxspring roxspring@apache.org
- * @version $Revision$
- */
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class OptionsTest extends TestCase
+public class OptionsTest
 {
+    @Test
     public void testSimple()
     {
         Options opts = new Options();
@@ -40,6 +42,7 @@ public class OptionsTest extends TestCase
         assertTrue(opts.hasOption("b"));
     }
 
+    @Test
     public void testDuplicateSimple()
     {
         Options opts = new Options();
@@ -49,6 +52,7 @@ public class OptionsTest extends TestCase
         assertEquals("last one in wins", "toggle -a*", opts.getOption("a").getDescription());
     }
 
+    @Test
     public void testLong()
     {
         Options opts = new Options();
@@ -60,6 +64,7 @@ public class OptionsTest extends TestCase
         assertTrue(opts.hasOption("b"));
     }
 
+    @Test
     public void testDuplicateLong()
     {
         Options opts = new Options();
@@ -68,6 +73,7 @@ public class OptionsTest extends TestCase
         assertEquals("last one in wins", "toggle -a*", opts.getOption("a").getDescription());
     }
 
+    @Test
     public void testHelpOptions()
     {
         Option longOnly1 = OptionBuilder.withLongOpt("long-only1").create();
@@ -99,6 +105,7 @@ public class OptionsTest extends TestCase
         assertTrue("Everything in help should be in all", allOptions.containsAll(helpOptions));        
     }
 
+    @Test
     public void testMissingOptionException() throws ParseException
     {
         Options options = new Options();
@@ -114,6 +121,7 @@ public class OptionsTest extends TestCase
         }
     }
 
+    @Test
     public void testMissingOptionsException() throws ParseException
     {
         Options options = new Options();
@@ -130,6 +138,7 @@ public class OptionsTest extends TestCase
         }
     }
 
+    @Test
     public void testToString()
     {
         Options options = new Options();
@@ -142,6 +151,7 @@ public class OptionsTest extends TestCase
         assertTrue("bar option missing", s.toLowerCase().indexOf("bar") != -1);
     }
 
+    @Test
     public void testGetOptionsGroups()
     {
         Options options = new Options();
@@ -161,6 +171,7 @@ public class OptionsTest extends TestCase
         assertEquals(2, options.getOptionGroups().size());
     }
     
+    @Test
     public void testGetMatchingOpts()
     {
         Options options = new Options();

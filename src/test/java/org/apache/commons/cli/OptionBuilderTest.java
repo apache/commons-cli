@@ -17,10 +17,16 @@
 
 package org.apache.commons.cli;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-public class OptionBuilderTest extends TestCase {
+import org.junit.Test;
 
+public class OptionBuilderTest
+{
+    @Test
     public void testCompleteOption( ) {
         Option simple = OptionBuilder.withLongOpt( "simple option")
                                      .hasArg( )
@@ -39,6 +45,7 @@ public class OptionBuilderTest extends TestCase {
         assertTrue( simple.hasArgs() );
     }
 
+    @Test
     public void testTwoCompleteOptions( ) {
         Option simple = OptionBuilder.withLongOpt( "simple option")
                                      .hasArg( )
@@ -70,6 +77,7 @@ public class OptionBuilderTest extends TestCase {
         assertTrue( !simple.hasArgs() );
     }
 
+    @Test
     public void testBaseOptionCharOpt() {
         Option base = OptionBuilder.withDescription( "option description")
                                    .create( 'o' );
@@ -79,6 +87,7 @@ public class OptionBuilderTest extends TestCase {
         assertTrue( !base.hasArg() );
     }
 
+    @Test
     public void testBaseOptionStringOpt() {
         Option base = OptionBuilder.withDescription( "option description")
                                    .create( "o" );
@@ -88,6 +97,7 @@ public class OptionBuilderTest extends TestCase {
         assertTrue( !base.hasArg() );
     }
 
+    @Test
     public void testSpecialOptChars() throws Exception
     {
         // '?'
@@ -107,6 +117,7 @@ public class OptionBuilderTest extends TestCase {
         }
     }
 
+    @Test
     public void testOptionArgNumbers()
     {
         Option opt = OptionBuilder.withDescription( "option description" )
@@ -115,6 +126,7 @@ public class OptionBuilderTest extends TestCase {
         assertEquals( 2, opt.getArgs() );
     }
 
+    @Test
     public void testIllegalOptions() {
         // bad single character option
         try {
@@ -144,6 +156,7 @@ public class OptionBuilderTest extends TestCase {
         }
     }
 
+    @Test
     public void testCreateIncompleteOption() {
         try
         {
@@ -159,6 +172,7 @@ public class OptionBuilderTest extends TestCase {
         }
     }
 
+    @Test
     public void testBuilderIsResettedAlways() {
         try
         {
