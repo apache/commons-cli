@@ -21,8 +21,7 @@ package org.apache.commons.cli;
  * Thrown when an option requiring an argument
  * is not provided with an argument.
  *
- * @author John Keyes (john at integralsource.com)
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class MissingArgumentException extends ParseException
 {

@@ -17,5 +17,7 @@
 
 /**
  * Commons CLI 1.3
+ * 
+ * @version $Id$
  */
 package org.apache.commons.cli;

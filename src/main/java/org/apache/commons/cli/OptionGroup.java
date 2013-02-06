@@ -26,8 +26,7 @@ import java.util.Map;
 /**
  * A group of mutually exclusive options.
  *
- * @author John Keyes ( john at integralsource.com )
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class OptionGroup implements Serializable
 {

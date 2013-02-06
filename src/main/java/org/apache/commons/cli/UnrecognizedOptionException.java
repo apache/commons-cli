@@ -21,8 +21,7 @@ package org.apache.commons.cli;
  * Exception thrown during parsing signalling an unrecognized
  * option was seen.
  *
- * @author bob mcwhiter (bob @ werken.com)
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class UnrecognizedOptionException extends ParseException
 {

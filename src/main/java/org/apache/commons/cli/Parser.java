@@ -27,8 +27,7 @@ import java.util.Properties;
 /**
  * <code>Parser</code> creates {@link CommandLine}s.
  *
- * @author John Keyes (john at integralsource.com)
- * @version $Revision$, $Date$
+ * @version $Id$
  * @deprecated since 1.3, the two-pass parsing with the flatten method is not enough flexible to handle complex cases
  */
 @Deprecated

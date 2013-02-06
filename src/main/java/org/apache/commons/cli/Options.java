@@ -28,20 +28,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>Main entry-point into the library.</p>
- *
- * <p>Options represents a collection of {@link Option} objects, which
- * describe the possible options for a command-line.<p>
- *
- * <p>It may flexibly parse long and short options, with or without
+ * Main entry-point into the library.
+ * <p>
+ * Options represents a collection of {@link Option} objects, which
+ * describe the possible options for a command-line.
+ * <p>
+ * It may flexibly parse long and short options, with or without
  * values.  Additionally, it may parse only a portion of a commandline,
- * allowing for flexible multi-stage parsing.<p>
+ * allowing for flexible multi-stage parsing.
  *
  * @see org.apache.commons.cli.CommandLine
  *
- * @author bob mcwhirter (bob @ werken.com)
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class Options implements Serializable
 {

@@ -23,8 +23,7 @@ import java.util.Iterator;
 /**
  * Thrown when a required option has not been provided.
  *
- * @author John Keyes ( john at integralsource.com )
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class MissingOptionException extends ParseException
 {

@@ -20,8 +20,7 @@ package org.apache.commons.cli;
 /**
  * Base for Exceptions thrown during parsing of a command-line.
  *
- * @author bob mcwhirter (bob @ werken.com)
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class ParseException extends Exception
 {

@@ -22,8 +22,7 @@ package org.apache.commons.cli;
  * can parse a String array according to the {@link Options} specified
  * and return a {@link CommandLine}.
  *
- * @author John Keyes (john at integralsource.com)
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public interface CommandLineParser
 {

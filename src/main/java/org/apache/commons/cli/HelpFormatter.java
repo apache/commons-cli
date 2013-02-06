@@ -68,9 +68,7 @@ import java.util.List;
  * Please report issues at http://example.com/issues
  * </pre>
  * 
- * @author Slawek Zachcial
- * @author John Keyes (john at integralsource.com)
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class HelpFormatter
 {

@@ -21,8 +21,7 @@ package org.apache.commons.cli;
  * Thrown when more than one option in an option group
  * has been provided.
  *
- * @author John Keyes ( john at integralsource.com )
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class AlreadySelectedException extends ParseException
 {

@@ -21,20 +21,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/** <p>Describes a single command-line option.  It maintains
+/**
+ * Describes a single command-line option.  It maintains
  * information regarding the short-name of the option, the long-name,
  * if any exists, a flag indicating if an argument is required for
- * this option, and a self-documenting description of the option.</p>
- *
- * <p>An Option is not created independently, but is create through
- * an instance of {@link Options}.<p>
+ * this option, and a self-documenting description of the option.
+ * <p>
+ * An Option is not created independently, but is create through
+ * an instance of {@link Options}.
  *
  * @see org.apache.commons.cli.Options
  * @see org.apache.commons.cli.CommandLine
  *
- * @author bob mcwhirter (bob @ werken.com)
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class Option implements Cloneable, Serializable
 {

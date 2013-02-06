@@ -20,8 +20,7 @@ package org.apache.commons.cli;
 /**
  * Contains useful helper methods for classes within this package.
  *
- * @author John Keyes (john at integralsource.com)
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 final class Util
 {

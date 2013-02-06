@@ -27,18 +27,15 @@ import java.util.Properties;
 
 /**
  * Represents list of arguments parsed against a {@link Options} descriptor.
- *
- * <p>It allows querying of a boolean {@link #hasOption(String opt)},
+ * <p>
+ * It allows querying of a boolean {@link #hasOption(String opt)},
  * in addition to retrieving the {@link #getOptionValue(String opt)}
- * for options requiring arguments.</p>
+ * for options requiring arguments.
+ * <p>
+ * Additionally, any left-over or unrecognized arguments,
+ * are available for further processing.
  *
- * <p>Additionally, any left-over or unrecognized arguments,
- * are available for further processing.</p>
- *
- * @author bob mcwhirter (bob @ werken.com)
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @author John Keyes (john at integralsource.com)
- * @version $Revision$, $Date$
+ * @version $Id$
  */
 public class CommandLine implements Serializable
 {
