@@ -23,6 +23,9 @@
   <body>
     
     <release version="1.3" date="in SVN">
+      <action type="add" dev="tn" issue="CLI-214" due-to="Alexandru Mocanu">
+        Added new method Options.addOption(String, String).
+      </action>
       <action type="fix" dev="tn" issue="CLI-227" due-to="Duncan Jones">
         Changed unit tests to junit 4 annotation style.
       </action>

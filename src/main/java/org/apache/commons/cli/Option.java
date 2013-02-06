@@ -79,6 +79,7 @@ public class Option implements Cloneable, Serializable
 
     /**
      * Creates an Option using the specified parameters.
+     * The option does not take an argument.
      *
      * @param opt short representation of the option
      * @param description describes the function of the option

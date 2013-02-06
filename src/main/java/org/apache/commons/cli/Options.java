@@ -100,6 +100,21 @@ public class Options implements Serializable
     }
 
     /**
+     * Add an option that only contains a short name.
+     * The option does not take an argument.
+     *
+     * @param opt Short single-character name of the option.
+     * @param description Self-documenting description
+     * @return the resulting Options instance
+     * @since 1.3
+     */
+    public Options addOption(String opt, String description)
+    {
+        addOption(opt, null, false, description);
+        return this;
+    }
+
+    /**
      * Add an option that only contains a short-name.
      * It may be specified as requiring an argument.
      *
@@ -111,7 +126,6 @@ public class Options implements Serializable
     public Options addOption(String opt, boolean hasArg, String description)
     {
         addOption(opt, null, hasArg, description);
-
         return this;
     }
 
@@ -128,7 +142,6 @@ public class Options implements Serializable
     public Options addOption(String opt, String longOpt, boolean hasArg, String description)
     {
         addOption(new Option(opt, longOpt, hasArg, description));
-
         return this;
     }
 
