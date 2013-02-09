@@ -23,6 +23,10 @@
   <body>
     
     <release version="1.3" date="in SVN">
+      <action type="fix" dev="tn" issue="CLI-218" due-to="Sven">
+        Clarify javadoc for CommandLine.getOptionValue() that the first specified
+        argument will be returned.
+      </action>
       <action type="add" dev="tn" issue="CLI-214" due-to="Alexandru Mocanu">
         Added new method Options.addOption(String, String).
       </action>

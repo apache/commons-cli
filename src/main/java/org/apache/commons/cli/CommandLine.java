@@ -133,7 +133,7 @@ public class CommandLine implements Serializable
     }
 
     /** 
-     * Retrieve the argument, if any, of this option.
+     * Retrieve the first argument, if any, of this option.
      *
      * @param opt the name of the option
      * @return Value of the argument if option is set, and has an argument,
@@ -147,7 +147,7 @@ public class CommandLine implements Serializable
     }
 
     /** 
-     * Retrieve the argument, if any, of this option.
+     * Retrieve the first argument, if any, of this option.
      *
      * @param opt the character name of the option
      * @return Value of the argument if option is set, and has an argument,
@@ -218,7 +218,7 @@ public class CommandLine implements Serializable
     }
 
     /** 
-     * Retrieve the argument, if any, of an option.
+     * Retrieve the first argument, if any, of an option.
      *
      * @param opt name of the option
      * @param defaultValue is the default value to be returned if the option
