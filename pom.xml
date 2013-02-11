@@ -101,6 +101,12 @@
       </roles>
     </contributor>
     <contributor>
+      <name>Duncan Jones</name>
+      <roles>
+        <role>supplied patches</role>
+      </roles>
+    </contributor>
+    <contributor>
       <name>Berin Loritsch</name>
       <email>bloritsch@apache.org</email>
       <roles>
@@ -116,6 +122,12 @@
       </roles>
     </contributor>
     <contributor>
+      <name>Alexandru Mocanu</name>
+      <roles>
+        <role>supplied patch</role>
+      </roles>
+    </contributor>
+    <contributor>
       <name>Andrew Shirley</name>
       <roles>
         <role>lots of fixes for 1.1</role>
@@ -126,9 +138,6 @@
       <roles>
         <role>unit tests</role>
       </roles>
-    </contributor>
-    <contributor>
-      <name>Alexandru Mocanu</name>
     </contributor>
     
   </contributors>
