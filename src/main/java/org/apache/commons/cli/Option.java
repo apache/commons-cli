@@ -790,6 +790,14 @@ public class Option implements Cloneable, Serializable
         private char valuesep;
 
         /**
+         * Constructs a new <code>Builder</code>.
+         */
+        public Builder()
+        {
+            this(null, null);
+        }
+
+        /**
          * Constructs a new <code>Builder</code> with the minimum
          * required parameters for an <code>Option</code> instance.
          * 
