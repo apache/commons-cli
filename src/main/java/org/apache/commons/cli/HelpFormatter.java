@@ -955,7 +955,7 @@ public class HelpFormatter
                 renderWrappedText(sb, width, nextLineTabStop, line);
             }
         }
-        catch (IOException e)
+        catch (IOException e) //NOPMD
         {
             // cannot happen
         }
