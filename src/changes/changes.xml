@@ -23,6 +23,10 @@
   <body>
     
     <release version="1.3" date="in SVN">
+      <action type="add" dev="tn" issue="CLI-224" due-to="Duncan Jones, Brian Blount">
+        Added new fluent API to create Option instances via builder class Option.Builder.
+        This replaces the now deprecated OptionBuilder.
+      </action>
       <action type="fix" dev="tn" issue="CLI-218" due-to="Sven">
         Clarify javadoc for CommandLine.getOptionValue() that the first specified
         argument will be returned.

@@ -77,6 +77,24 @@ public class Option implements Cloneable, Serializable
     private char valuesep;
 
     /**
+     * Private constructor used by the nested Builder class.
+     * 
+     * @param builder builder used to create this option
+     */
+    private Option(final Builder builder)
+    {
+        this.argName = builder.argName;
+        this.description = builder.description;
+        this.longOpt = builder.longOpt;
+        this.numberOfArgs = builder.numberOfArgs;
+        this.opt = builder.opt;
+        this.optionalArg = builder.optionalArg;
+        this.required = builder.required;
+        this.type = builder.type;
+        this.valuesep = builder.valuesep;
+    }
+    
+    /**
      * Creates an Option using the specified parameters.
      * The option does not take an argument.
      *
@@ -725,6 +743,176 @@ public class Option implements Cloneable, Serializable
         else
         {
             return acceptsArg();
+        }
+    }
+    
+    /**
+     * A nested builder class to create <code>Option</code> instances
+     * using descriptive methods.
+     * <p>
+     * Example usage:
+     * <pre>
+     * Option option = new Option.Builder("a", "Long description")
+     *     .required(true)
+     *     .longOpt("arg-name")
+     *     .build();
+     * </pre>
+     * 
+     * @since 1.3
+     */
+    public static class Builder 
+    {
+        /** the name of the option */
+        private final String opt;
+
+        /** description of the option */
+        private final String description;
+
+        /** the long representation of the option */
+        private String longOpt;
+
+        /** the name of the argument for this option */
+        private String argName;
+
+        /** specifies whether this option is required to be present */
+        private boolean required;
+
+        /** specifies whether the argument value of this Option is optional */
+        private boolean optionalArg;
+
+        /** the number of argument values this option can have */
+        private int numberOfArgs = UNINITIALIZED;
+
+        /** the type of this Option */
+        private Class<?> type = String.class;
+
+        /** the character that is the value separator */
+        private char valuesep;
+
+        /**
+         * Constructs a new <code>Builder</code> with the minimum
+         * required parameters for an <code>Option</code> instance.
+         * 
+         * @param opt short representation of the option
+         * @param description describes the function of the option
+         * @throws IllegalArgumentException if there are any non valid
+         * Option characters in <code>opt</code>.
+         */
+        public Builder(final String opt, final String description) 
+                throws IllegalArgumentException
+        {
+            OptionValidator.validateOption(opt);
+            this.opt = opt;
+            this.description = description;
+        }
+        
+        /**
+         * Sets the display name for the argument value.
+         *
+         * @param argName the display name for the argument value.
+         * @return this builder, to allow method chaining
+         */
+        public Builder argName(final String argName)
+        {
+            this.argName = argName;
+            return this;
+        }
+        
+        /**
+         * Sets the long name of the Option.
+         *
+         * @param longOpt the long name of the Option
+         * @return this builder, to allow method chaining
+         */        
+        public Builder longOpt(final String longOpt)
+        {
+            this.longOpt = longOpt;
+            return this;
+        }
+        
+        /** 
+         * Sets the number of argument values the Option can take.
+         *
+         * @param numberOfArgs the number of argument values
+         * @return this builder, to allow method chaining
+         */        
+        public Builder numberOfArgs(final int numberOfArgs)
+        {
+            this.numberOfArgs = numberOfArgs;
+            return this;
+        }
+        
+        /**
+         * Sets whether the Option can have an optional argument.
+         *
+         * @param isOptional specifies whether the Option can have
+         * an optional argument.
+         * @return this builder, to allow method chaining
+         */
+        public Builder optionalArg(final boolean isOptional)
+        {
+            this.optionalArg = isOptional;
+            return this;
+        }
+        
+        /**
+         * Sets whether the Option is mandatory.
+         *
+         * @param required specifies whether the Option is mandatory
+         * @return this builder, to allow method chaining
+         */
+        public Builder required(final boolean required)
+        {
+            this.required = required;
+            return this;
+        }
+        
+        /**
+         * Sets the type of the Option.
+         *
+         * @param type the type of the Option
+         * @return this builder, to allow method chaining
+         */
+        public Builder type(final Class<?> type)
+        {
+            this.type = type;
+            return this;
+        }
+        
+        /**
+         * Sets the value separator. For example if the argument value
+         * was a Java property, the value separator would be '='.
+         *
+         * @param sep The value separator.
+         * @return this builder, to allow method chaining
+         */
+        public Builder valueSeparator(final char sep)
+        {
+            valuesep = sep;
+            return this;
+        }
+        
+        /**
+         * Indicates if the Option has an argument or not.
+         * 
+         * @param hasArg specifies whether the Option takes an argument or not
+         * @return this builder, to allow method chaining
+         */
+        public Builder hasArg(final boolean hasArg)
+        {
+            // set to UNINITIALIZED when no arg is specified to be compatible with OptionBuilder
+            numberOfArgs = hasArg ? 1 : Option.UNINITIALIZED;
+            return this;
+        }
+        
+        /**
+         * Constructs an Option.
+         * 
+         * @return the new Option
+         */
+        public Option build()
+        {
+            return new Option(this);
         }
     }
 }

@@ -64,7 +64,7 @@ public class PatternOptionBuilder
     public static final Class<Date> DATE_VALUE = Date.class;
 
     /** Class class */
-    public static final Class CLASS_VALUE = Class.class;
+    public static final Class<?> CLASS_VALUE = Class.class;
 
     /// can we do this one??
     // is meant to check that the file exists, else it errors.
@@ -160,12 +160,14 @@ public class PatternOptionBuilder
             {
                 if (opt != ' ')
                 {
-                    OptionBuilder.hasArg(type != null);
-                    OptionBuilder.isRequired(required);
-                    OptionBuilder.withType(type);
-
+                    final Option option = new Option.Builder(String.valueOf(opt), null)
+                        .hasArg(type != null)
+                        .required(required)
+                        .type(type)
+                        .build();
+                    
                     // we have a previous one to deal with
-                    options.addOption(OptionBuilder.create(opt));
+                    options.addOption(option);
                     required = false;
                     type = null;
                     opt = ' ';
@@ -185,12 +187,14 @@ public class PatternOptionBuilder
 
         if (opt != ' ')
         {
-            OptionBuilder.hasArg(type != null);
-            OptionBuilder.isRequired(required);
-            OptionBuilder.withType(type);
-
+            final Option option = new Option.Builder(String.valueOf(opt), null)
+                .hasArg(type != null)
+                .required(required)
+                .type(type)
+                .build();
+            
             // we have a final one to deal with
-            options.addOption(OptionBuilder.create(opt));
+            options.addOption(option);
         }
 
         return options;

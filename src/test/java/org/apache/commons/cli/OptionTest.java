@@ -147,4 +147,57 @@ public class OptionTest
         assertEquals("foo", option.getValue(0));
         assertEquals("foo", option.getValue("default"));
     }
+    
+    @Test
+    public void testBuilderMethods()
+    {
+        char defaultSeparator = (char) 0;
+
+        checkOption(new Option.Builder("a",  "desc").build(),
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+        checkOption(new Option.Builder("a",  "desc").build(),
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+        checkOption(new Option.Builder("a",  "desc").longOpt("aaa").build(),
+            "a", "desc", "aaa", Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+        checkOption(new Option.Builder("a",  "desc").hasArg(true).build(),
+            "a", "desc", null, 1, null, false, false, defaultSeparator, String.class);
+        checkOption(new Option.Builder("a",  "desc").hasArg(false).build(),
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+        checkOption(new Option.Builder("a",  "desc").hasArg(true).build(),
+            "a", "desc", null, 1, null, false, false, defaultSeparator, String.class);
+        checkOption(new Option.Builder("a",  "desc").numberOfArgs(3).build(),
+            "a", "desc", null, 3, null, false, false, defaultSeparator, String.class);
+        checkOption(new Option.Builder("a",  "desc").required(true).build(),
+            "a", "desc", null, Option.UNINITIALIZED, null, true, false, defaultSeparator, String.class);
+        checkOption(new Option.Builder("a",  "desc").required(false).build(),
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+
+        checkOption(new Option.Builder("a",  "desc").argName("arg1").build(),
+            "a", "desc", null, Option.UNINITIALIZED, "arg1", false, false, defaultSeparator, String.class);
+        checkOption(new Option.Builder("a",  "desc").optionalArg(false).build(),
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+        checkOption(new Option.Builder("a",  "desc").optionalArg(true).build(),
+            "a", "desc", null, Option.UNINITIALIZED, null, false, true, defaultSeparator, String.class);
+        checkOption(new Option.Builder("a",  "desc").valueSeparator(':').build(),
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, ':', String.class);
+        checkOption(new Option.Builder("a",  "desc").type(Integer.class).build(),
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, Integer.class);
+    }
+
+    private static void checkOption(Option option, String opt, String description, String longOpt, int numArgs,
+                                    String argName,  boolean required, boolean optionalArg,
+                                    char valueSeparator, Class<?> cls)
+    {
+        assertEquals(opt, option.getOpt());
+        assertEquals(description, option.getDescription());
+        assertEquals(longOpt, option.getLongOpt());
+        assertEquals(numArgs, option.getArgs());
+        assertEquals(argName, option.getArgName());
+        assertEquals(required, option.isRequired());
+
+        assertEquals(optionalArg, option.hasOptionalArg());
+        assertEquals(valueSeparator, option.getValueSeparator());
+        assertEquals(cls,  option.getType());
+    }
+    
 }
