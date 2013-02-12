@@ -103,7 +103,7 @@ public class GnuParser extends Parser
 
             if (eatTheRest)
             {
-                for (i++; i < arguments.length; i++)
+                for (i++; i < arguments.length; i++) //NOPMD
                 {
                     tokens.add(arguments[i]);
                 }

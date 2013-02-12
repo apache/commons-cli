@@ -281,7 +281,7 @@ public abstract class Parser implements CommandLineParser
                         {
                             opt.addValueForProcessing(value);
                         }
-                        catch (RuntimeException exp)
+                        catch (RuntimeException exp) //NOPMD
                         {
                             // if we cannot add the value don't worry about it
                         }
