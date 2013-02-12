@@ -303,6 +303,7 @@ public final class OptionBuilder
      *
      * @param newType the type of the Options argument value
      * @return the OptionBuilder instance
+     * @since 1.3
      */
     public static OptionBuilder withType(Class<?> newType)
     {

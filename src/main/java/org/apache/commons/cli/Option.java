@@ -228,6 +228,7 @@ public class Option implements Cloneable, Serializable
      * Sets the type of this Option.
      *
      * @param type the type of this Option
+     * @since 1.3
      */
     public void setType(Class<?> type)
     {
