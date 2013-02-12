@@ -22,22 +22,22 @@
   </properties>
   <body>
     
-    <release version="1.3" date="in SVN">
-      <action type="fix" dev="tn" issue="CLI-230">
+    <release version="1.3" date="in SVN" description="This is a maintenance release containing bug fixes.">
+      <action type="update" dev="tn" issue="CLI-230">
         Options.getRequiredOptions() now returns an unmodifiable list.
       </action>
       <action type="add" dev="tn" issue="CLI-224" due-to="Duncan Jones, Brian Blount">
         Added new fluent API to create Option instances via builder class Option.Builder.
         This replaces the now deprecated OptionBuilder.
       </action>
-      <action type="fix" dev="tn" issue="CLI-218" due-to="Sven">
+      <action type="update" dev="tn" issue="CLI-218" due-to="Sven">
         Clarify javadoc for CommandLine.getOptionValue() that the first specified
         argument will be returned.
       </action>
       <action type="add" dev="tn" issue="CLI-214" due-to="Alexandru Mocanu">
         Added new method Options.addOption(String, String).
       </action>
-      <action type="fix" dev="tn" issue="CLI-227" due-to="Duncan Jones">
+      <action type="update" dev="tn" issue="CLI-227" due-to="Duncan Jones">
         Changed unit tests to junit 4 annotation style.
       </action>
       <action type="fix" dev="ebourg" issue="CLI-202">
@@ -46,13 +46,13 @@
       <action type="fix" dev="ebourg" issue="CLI-203">
         Default options will now work correctly together with option groups.
       </action>
-      <action type="fix" dev="ebourg" issue="CLI-209" due-to="Thomas Herre">
+      <action type="update" dev="ebourg" issue="CLI-209" due-to="Thomas Herre">
         The javadoc of OptionBuilder now states that the class is not thread-safe.
       </action>
-      <action type="fix" dev="ebourg" issue="CLI-169" due-to="J. Lewis Muir">
+      <action type="add" dev="ebourg" issue="CLI-169" due-to="J. Lewis Muir">
         HelpFormatter now supports setting the displayed separator of long options.
       </action>
-      <action type="fix" dev="ebourg" issue="CLI-197" due-to="Anders Larsson">
+      <action type="update" dev="ebourg" issue="CLI-197" due-to="Anders Larsson">
         Improve description of parameter "stopAtNonOption" in method
         CommandLine.parse(Options, String[], boolean).
       </action>
@@ -71,10 +71,13 @@
         CommandLine.getParsedOptionValue() now returns a String object if no
         option type has been explicitly set.
       </action>
-      <action type="fix" dev="ggregory" issue="CLI-200" due-to="Gerard Weatherby">
+      <action type="update" dev="ggregory" issue="CLI-200" due-to="Gerard Weatherby">
         Fixed typo in javadoc of class CommandLine.
       </action>
-      <action type="fix" dev="ebourg" issue="CLI-220" due-to="Joe Casadonte">
+      <action type="update" dev="ebourg" issue="CLI-223" due-to="Gerard Weatherby">
+        Source code now uses generic types instead of raw types where possible.
+      </action>
+      <action type="update" dev="ebourg" issue="CLI-220" due-to="Joe Casadonte">
         Corrected javadoc for return type of MissingOptionException.getMissingOptions().
       </action>
       <action type="fix" dev="ebourg" issue="CLI-212" due-to="Per Cederberg">
@@ -92,12 +95,13 @@
         beginning and one at the end.
       </action>
       <action type="fix" dev="ebourg" issue="CLI-184">
-        Negative numerical arguments take precedence over numerical options.
+        Negative numerical arguments take precedence over numerical options (only supported
+        by the new DefaultParser).
       </action>
       <action type="fix" dev="ebourg" issue="CLI-193" due-to="Travis McLeskey">
         Fix possible StringIndexOutOfBoundsException in HelpFormatter.
       </action>
-      <action type="add" dev="ebourg" issue="CLI-181">
+      <action type="add" dev="ebourg" issue="CLI-161,CLI-167,CLI-181">
         A new parser is available: DefaultParser. It combines the features of the GnuParser and the PosixParser.
         It also provides additional features like partial matching for the long options, and long options without
         separator (i.e like the JVM memory settings: -Xmx512m). This new parser deprecates the previous ones.
