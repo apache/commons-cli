@@ -41,19 +41,19 @@ More information can be found on the project site at http://commons.apache.org/c
 
 NEW FEATURES:
 
-  * Added new fluent API to create Option instances via builder class Option.Builder.
-    This replaces the now deprecated OptionBuilder. Thanks to Duncan Jones, Brian Blount. (CLI-224)
-
-  * Added new method Options.addOption(String, String). Thanks to Alexandru Mocanu. (CLI-214)
-  
   * A new parser is available: DefaultParser. It combines the features of the GnuParser and the PosixParser.
     It also provides additional features like partial matching for the long options, and long options without
     separator (i.e like the JVM memory settings: -Xmx512m). This new parser deprecates the previous ones.
     (CLI-161, CLI-167, CLI-181)
 
+  * Added new fluent API to create Option instances via builder class Option.Builder.
+    This replaces the now deprecated OptionBuilder. Thanks to Duncan Jones, Brian Blount. (CLI-224)
+
   * PosixParser now supports partial long options (--ver instead of --version). (CLI-160) 
 
   * HelpFormatter now supports setting the displayed separator of long options. Thanks to J. Lewis Muir. (CLI-169) 
+
+  * Added new method Options.addOption(String, String). Thanks to Alexandru Mocanu. (CLI-214)
 
 
 BUG FIXES:
