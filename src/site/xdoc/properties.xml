@@ -61,12 +61,6 @@
             the command line.</td>
         </tr>
         <tr>
-          <td>multipleArgs</td>
-          <td>boolean</td>
-          <td>a flag to say whether the option takes multiple argument 
-            values</td>
-        </tr>
-        <tr>
           <td>arg</td>
           <td>boolean</td>
           <td>a flag to say whether the option takes an argument</td>

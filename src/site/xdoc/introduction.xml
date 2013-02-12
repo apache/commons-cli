@@ -80,7 +80,7 @@
     </section>
     <section name="Interrogation Stage">
       <p>
-        The interrogation stage is where the application querys the
+        The interrogation stage is where the application queries the
         <code>CommandLine</code> to decide what execution branch to
         take depending on boolean options and uses the option values
         to provide the application data.
