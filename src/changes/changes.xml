@@ -23,6 +23,9 @@
   <body>
     
     <release version="1.3" date="in SVN" description="This is a maintenance release containing bug fixes.">
+      <action type="update" dev="tn" issue="CLI-231" due-to="Duncan Jones">
+        Removed DoubleCheckedLocking test from checkstyle configuration.
+      </action>
       <action type="update" dev="tn" issue="CLI-230">
         Options.getRequiredOptions() now returns an unmodifiable list.
       </action>

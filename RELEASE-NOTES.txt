@@ -88,4 +88,6 @@ CHANGES:
   * Corrected javadoc for return type of MissingOptionException.getMissingOptions(). Thanks to Joe Casadonte. (CLI-220)
 
   * Improve description of parameter "stopAtNonOption" in method
-    CommandLine.parse(Options, String[], boolean). Thanks to Anders Larsson. (CLI-197) 
+    CommandLine.parse(Options, String[], boolean). Thanks to Anders Larsson. (CLI-197)
+    
+  * Removed DoubleCheckedLocking test from checkstyle configuration. Thanks to Duncan Jones. (CLI-231)
