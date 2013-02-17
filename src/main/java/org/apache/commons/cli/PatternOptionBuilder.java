@@ -160,7 +160,7 @@ public class PatternOptionBuilder
             {
                 if (opt != ' ')
                 {
-                    final Option option = new Option.Builder(String.valueOf(opt), null)
+                    final Option option = Option.builder(String.valueOf(opt))
                         .hasArg(type != null)
                         .required(required)
                         .type(type)
@@ -187,7 +187,7 @@ public class PatternOptionBuilder
 
         if (opt != ' ')
         {
-            final Option option = new Option.Builder(String.valueOf(opt), null)
+            final Option option = Option.builder(String.valueOf(opt))
                 .hasArg(type != null)
                 .required(required)
                 .type(type)

@@ -153,35 +153,47 @@ public class OptionTest
     {
         char defaultSeparator = (char) 0;
 
-        checkOption(new Option.Builder("a",  "desc").build(),
+        checkOption(Option.builder("a").desc("desc").build(),
             "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
-        checkOption(new Option.Builder("a",  "desc").build(),
+        checkOption(Option.builder("a").desc("desc").build(),
             "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
-        checkOption(new Option.Builder("a",  "desc").longOpt("aaa").build(),
+        checkOption(Option.builder("a").desc("desc").longOpt("aaa").build(),
             "a", "desc", "aaa", Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
-        checkOption(new Option.Builder("a",  "desc").hasArg(true).build(),
+        checkOption(Option.builder("a").desc("desc").hasArg(true).build(),
             "a", "desc", null, 1, null, false, false, defaultSeparator, String.class);
-        checkOption(new Option.Builder("a",  "desc").hasArg(false).build(),
+        checkOption(Option.builder("a").desc("desc").hasArg(false).build(),
             "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
-        checkOption(new Option.Builder("a",  "desc").hasArg(true).build(),
+        checkOption(Option.builder("a").desc("desc").hasArg(true).build(),
             "a", "desc", null, 1, null, false, false, defaultSeparator, String.class);
-        checkOption(new Option.Builder("a",  "desc").numberOfArgs(3).build(),
+        checkOption(Option.builder("a").desc("desc").numberOfArgs(3).build(),
             "a", "desc", null, 3, null, false, false, defaultSeparator, String.class);
-        checkOption(new Option.Builder("a",  "desc").required(true).build(),
+        checkOption(Option.builder("a").desc("desc").required(true).build(),
             "a", "desc", null, Option.UNINITIALIZED, null, true, false, defaultSeparator, String.class);
-        checkOption(new Option.Builder("a",  "desc").required(false).build(),
+        checkOption(Option.builder("a").desc("desc").required(false).build(),
             "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
 
-        checkOption(new Option.Builder("a",  "desc").argName("arg1").build(),
+        checkOption(Option.builder("a").desc("desc").argName("arg1").build(),
             "a", "desc", null, Option.UNINITIALIZED, "arg1", false, false, defaultSeparator, String.class);
-        checkOption(new Option.Builder("a",  "desc").optionalArg(false).build(),
+        checkOption(Option.builder("a").desc("desc").optionalArg(false).build(),
             "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
-        checkOption(new Option.Builder("a",  "desc").optionalArg(true).build(),
+        checkOption(Option.builder("a").desc("desc").optionalArg(true).build(),
             "a", "desc", null, Option.UNINITIALIZED, null, false, true, defaultSeparator, String.class);
-        checkOption(new Option.Builder("a",  "desc").valueSeparator(':').build(),
+        checkOption(Option.builder("a").desc("desc").valueSeparator(':').build(),
             "a", "desc", null, Option.UNINITIALIZED, null, false, false, ':', String.class);
-        checkOption(new Option.Builder("a",  "desc").type(Integer.class).build(),
+        checkOption(Option.builder("a").desc("desc").type(Integer.class).build(),
             "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, Integer.class);
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testBuilderInsufficientParams1()
+    {
+        Option.builder().desc("desc").build();
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testBuilderInsufficientParams2()
+    {
+        Option.builder(null).desc("desc").build();
     }
 
     private static void checkOption(Option option, String opt, String description, String longOpt, int numArgs,

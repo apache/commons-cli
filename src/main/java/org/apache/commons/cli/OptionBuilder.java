@@ -27,7 +27,7 @@ package org.apache.commons.cli;
  * 
  * @version $Id$
  * @since 1.0
- * @deprecated since 1.3, use {@link Option.Builder} instead
+ * @deprecated since 1.3, use {@link Option.builder(String)} instead
  */
 @Deprecated
 public final class OptionBuilder

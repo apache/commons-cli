@@ -28,7 +28,8 @@ import java.util.List;
  * this option, and a self-documenting description of the option.
  * <p>
  * An Option is not created independently, but is created through
- * an instance of {@link Options}.
+ * an instance of {@link Options}. An Option is required to have
+ * at least a short or a long-name.
  * <p>
  * <b>Note:</b> once an {@link Option} has been added to an instance
  * of {@link Options}, it's required flag may not be changed anymore.
@@ -751,12 +752,38 @@ public class Option implements Cloneable, Serializable
     }
     
     /**
+     * Returns a {@link Builder} to create an {@link Option} using descriptive
+     * methods.  
+     * 
+     * @return a new {@link Builder} instance
+     * @since 1.3
+     */
+    public static Builder builder()
+    {
+        return builder(null);
+    }
+    
+    /**
+     * Returns a {@link Builder} to create an {@link Option} using descriptive
+     * methods.  
+     *
+     * @param opt short representation of the option
+     * @return a new {@link Builder} instance
+     * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
+     * @since 1.3
+     */
+    public static Builder builder(final String opt)
+    {
+        return new Builder(opt);
+    }
+    
+    /**
      * A nested builder class to create <code>Option</code> instances
      * using descriptive methods.
      * <p>
      * Example usage:
      * <pre>
-     * Option option = new Option.Builder("a", "Long description")
+     * Option option = Option.builder("a")
      *     .required(true)
      *     .longOpt("arg-name")
      *     .build();
@@ -764,13 +791,13 @@ public class Option implements Cloneable, Serializable
      * 
      * @since 1.3
      */
-    public static class Builder 
+    public static final class Builder 
     {
         /** the name of the option */
         private final String opt;
 
         /** description of the option */
-        private final String description;
+        private String description;
 
         /** the long representation of the option */
         private String longOpt;
@@ -794,28 +821,16 @@ public class Option implements Cloneable, Serializable
         private char valuesep;
 
         /**
-         * Constructs a new <code>Builder</code>.
-         */
-        public Builder()
-        {
-            this(null, null);
-        }
-
-        /**
          * Constructs a new <code>Builder</code> with the minimum
          * required parameters for an <code>Option</code> instance.
          * 
          * @param opt short representation of the option
-         * @param description describes the function of the option
-         * @throws IllegalArgumentException if there are any non valid
-         * Option characters in <code>opt</code>.
+         * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
          */
-        public Builder(final String opt, final String description) 
-                throws IllegalArgumentException
+        private Builder(final String opt) throws IllegalArgumentException
         {
             OptionValidator.validateOption(opt);
             this.opt = opt;
-            this.description = description;
         }
         
         /**
@@ -829,7 +844,19 @@ public class Option implements Cloneable, Serializable
             this.argName = argName;
             return this;
         }
-        
+
+        /**
+         * Sets the description for this option.
+         *
+         * @param description the description of the option.
+         * @return this builder, to allow method chaining
+         */
+        public Builder desc(final String description)
+        {
+            this.description = description;
+            return this;
+        }
+
         /**
          * Sets the long name of the Option.
          *
@@ -918,12 +945,17 @@ public class Option implements Cloneable, Serializable
         }
         
         /**
-         * Constructs an Option.
+         * Constructs an Option with the values declared by this {@link Builder}.
          * 
-         * @return the new Option
+         * @return the new {@link Option}
+         * @throws IllegalArgumentException if neither {@code opt} or {@code longOpt} has been set
          */
         public Option build()
         {
+            if (opt == null && longOpt == null)
+            {
+                throw new IllegalArgumentException("Either opt or longOpt must be specified");
+            }
             return new Option(this);
         }
     }
