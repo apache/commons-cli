@@ -932,6 +932,16 @@ public class Option implements Cloneable, Serializable
         }
         
         /**
+         * Indicates that the Option will require an argument.
+         * 
+         * @return this builder, to allow method chaining
+         */
+        public Builder hasArg()
+        {
+            return hasArg(true);
+        }
+
+        /**
          * Indicates if the Option has an argument or not.
          * 
          * @param hasArg specifies whether the Option takes an argument or not
@@ -943,7 +953,18 @@ public class Option implements Cloneable, Serializable
             numberOfArgs = hasArg ? 1 : Option.UNINITIALIZED;
             return this;
         }
-        
+
+        /**
+         * Indicates that the Option can have unlimited argument values.
+         * 
+         * @return this builder, to allow method chaining
+         */
+        public Builder hasArgs()
+        {
+            numberOfArgs = Option.UNLIMITED_VALUES;
+            return this;
+        }
+
         /**
          * Constructs an Option with the values declared by this {@link Builder}.
          * 
