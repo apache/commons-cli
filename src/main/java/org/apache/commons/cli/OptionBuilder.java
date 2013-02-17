@@ -155,15 +155,16 @@ public final class OptionBuilder
     /**
      * The next Option created uses <code>sep</code> as a means to
      * separate argument values.
-     *
+     * <p>
      * <b>Example:</b>
      * <pre>
-     * Option opt = OptionBuilder.withValueSeparator(':')
+     * Option opt = OptionBuilder.withValueSeparator('=')
      *                           .create('D');
      *
+     * String args = "-Dkey=value";
      * CommandLine line = parser.parse(args);
-     * String propertyName = opt.getValue(0);
-     * String propertyValue = opt.getValue(1);
+     * String propertyName = opt.getValue(0);  // will be "key"
+     * String propertyValue = opt.getValue(1); // will be "value"
      * </pre>
      *
      * @param sep The value separator to be used for the argument values.

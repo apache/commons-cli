@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+@SuppressWarnings("deprecation") // OptionBuilder is marked deprecated
 public class OptionBuilderTest
 {
     @Test

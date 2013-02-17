@@ -322,9 +322,9 @@ public class HelpFormatterTest
     public void testPrintOptionGroupUsage()
     {
         OptionGroup group = new OptionGroup();
-        group.addOption(OptionBuilder.create("a"));
-        group.addOption(OptionBuilder.create("b"));
-        group.addOption(OptionBuilder.create("c"));
+        group.addOption(Option.builder("a").build());
+        group.addOption(Option.builder("b").build());
+        group.addOption(Option.builder("c").build());
 
         Options options = new Options();
         options.addOptionGroup(group);
@@ -341,9 +341,9 @@ public class HelpFormatterTest
     public void testPrintRequiredOptionGroupUsage()
     {
         OptionGroup group = new OptionGroup();
-        group.addOption(OptionBuilder.create("a"));
-        group.addOption(OptionBuilder.create("b"));
-        group.addOption(OptionBuilder.create("c"));
+        group.addOption(Option.builder("a").build());
+        group.addOption(Option.builder("b").build());
+        group.addOption(Option.builder("c").build());
         group.setRequired(true);
 
         Options options = new Options();
@@ -378,7 +378,7 @@ public class HelpFormatterTest
     @Test
     public void testDefaultArgName()
     {
-        Option option = OptionBuilder.hasArg().isRequired().create("f");
+        Option option = Option.builder("f").hasArg().required(true).build();
         
         Options options = new Options();
         options.addOption(option);
@@ -501,35 +501,36 @@ public class HelpFormatterTest
         Option newRun = new Option("n", "new", false, "Create NLT cache entries only for new items");
         Option trackerRun = new Option("t", "tracker", false, "Create NLT cache entries only for tracker items");
         
-        Option timeLimit = OptionBuilder.withLongOpt("limit")
-                                        .hasArg()
-                                        .withValueSeparator()
-                                        .withDescription("Set time limit for execution, in mintues")
-                                        .create("l");
+        Option timeLimit = Option.builder("l")
+                                 .longOpt("limit")
+                                 .hasArg()
+                                 .valueSeparator()
+                                 .desc("Set time limit for execution, in mintues")
+                                 .build();
         
-        Option age = OptionBuilder.withLongOpt("age")
+        Option age = Option.builder("a").longOpt("age")
                                         .hasArg()
-                                        .withValueSeparator()
-                                        .withDescription("Age (in days) of cache item before being recomputed")
-                                        .create("a");
+                                        .valueSeparator()
+                                        .desc("Age (in days) of cache item before being recomputed")
+                                        .build();
         
-        Option server = OptionBuilder.withLongOpt("server")
-                                        .hasArg()
-                                        .withValueSeparator()
-                                        .withDescription("The NLT server address")
-                                        .create("s");
+        Option server = Option.builder("s").longOpt("server")
+                                           .hasArg()
+                                           .valueSeparator()
+                                           .desc("The NLT server address")
+                                           .build();
         
-        Option numResults = OptionBuilder.withLongOpt("results")
-                                        .hasArg()
-                                        .withValueSeparator()
-                                        .withDescription("Number of results per item")
-                                        .create("r");
+        Option numResults = Option.builder("r").longOpt("results")
+                                               .hasArg()
+                                               .valueSeparator()
+                                               .desc("Number of results per item")
+                                               .build();
         
-        Option configFile = OptionBuilder.withLongOpt("config")
-                                        .hasArg()
-                                        .withValueSeparator()
-                                        .withDescription("Use the specified configuration file")
-                                        .create();
+        Option configFile = Option.builder().longOpt("config")
+                                            .hasArg()
+                                            .valueSeparator()
+                                            .desc("Use the specified configuration file")
+                                            .build();
         
         Options mOptions = new Options();
         mOptions.addOption(help);
@@ -568,8 +569,8 @@ public class HelpFormatterTest
     {
         Options options = new Options();
         options.addOption( "f", true, "the file" );
-        options.addOption(OptionBuilder.withLongOpt("size").withDescription("the size").hasArg().withArgName("SIZE").create('s'));
-        options.addOption(OptionBuilder.withLongOpt("age").withDescription("the age").hasArg().create());
+        options.addOption(Option.builder("s").longOpt("size").desc("the size").hasArg().argName("SIZE").build());
+        options.addOption(Option.builder().longOpt("age").desc("the age").hasArg().build());
         
         HelpFormatter formatter = new HelpFormatter();
         assertEquals(HelpFormatter.DEFAULT_LONG_OPT_SEPARATOR, formatter.getLongOptSeparator());
@@ -595,8 +596,8 @@ public class HelpFormatterTest
     {
         Options options = new Options();
         options.addOption( "f", true, "the file" );
-        options.addOption(OptionBuilder.withLongOpt("size").withDescription("the size").hasArg().withArgName("SIZE").create('s'));
-        options.addOption(OptionBuilder.withLongOpt("age").withDescription("the age").hasArg().create());
+        options.addOption(Option.builder("s").longOpt("size").desc("the size").hasArg().argName("SIZE").build());
+        options.addOption(Option.builder().longOpt("age").desc("the age").hasArg().build());
         
         HelpFormatter formatter = new HelpFormatter();
         formatter.setLongOptSeparator("=");

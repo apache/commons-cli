@@ -28,6 +28,8 @@ public class OptionTest
 {
     private static class TestOption extends Option
     {
+        private static final long serialVersionUID = 1L;
+
         public TestOption(String opt, boolean hasArg, String description) throws IllegalArgumentException
         {
             super(opt, hasArg, description);
@@ -72,6 +74,8 @@ public class OptionTest
 
     private static class DefaultOption extends Option
     {
+        private static final long serialVersionUID = 1L;
+
         private final String defaultValue;
 
         public DefaultOption(String opt, String description, String defaultValue) throws IllegalArgumentException

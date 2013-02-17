@@ -895,6 +895,16 @@ public class Option implements Cloneable, Serializable
         }
         
         /**
+         * Marks this Option as required.
+         *
+         * @return this builder, to allow method chaining
+         */
+        public Builder required()
+        {
+            return required(true);
+        }
+
+        /**
          * Sets whether the Option is mandatory.
          *
          * @param required specifies whether the Option is mandatory
@@ -917,10 +927,31 @@ public class Option implements Cloneable, Serializable
             this.type = type;
             return this;
         }
-        
+
         /**
-         * Sets the value separator. For example if the argument value
-         * was a Java property, the value separator would be '='.
+         * The Option will use '=' as a means to separate argument value.
+         *
+         * @return this builder, to allow method chaining
+         */
+        public Builder valueSeparator()
+        {
+            return valueSeparator('=');
+        }
+
+        /**
+         * The Option will use <code>sep</code> as a means to
+         * separate argument values.
+         * <p>
+         * <b>Example:</b>
+         * <pre>
+         * Option opt = Option.builder("D").valueSeparator('=')
+         *                                 .build();
+         *
+         * String args = "-Dkey=value";
+         * CommandLine line = parser.parse(args);
+         * String propertyName = opt.getValue(0);  // will be "key"
+         * String propertyValue = opt.getValue(1); // will be "value"
+         * </pre>
          *
          * @param sep The value separator.
          * @return this builder, to allow method chaining
