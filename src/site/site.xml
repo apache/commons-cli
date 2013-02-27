@@ -36,6 +36,7 @@
             <item name="Getting started"      href="/introduction.html"/>
             <item name="Usage scenarios"      href="/usage.html"/>
             <item name="Option properties"    href="/properties.html"/>
+            <item name="Javadoc (Current ${project.version})"        href="/apidocs/api-release/index.html"/>
             <item name="Javadoc (1.2)"        href="/javadocs/api-release/index.html"/>
         </menu>
 
