@@ -23,7 +23,7 @@ limitations under the License.
     <category rdf:resource="http://projects.apache.org/category/library"/>
     <license rdf:resource="http://usefulinc.com/doap/licenses/asl20"/>
     <bug-database rdf:resource="http://issues.apache.org/jira/browse/CLI"/>
-    <download-page rdf:resource="http://commons.apache.org/downloads/download_cli.cgi"/>
+    <download-page rdf:resource="http://commons.apache.org/cli/download_cli.cgi"/>
     <asfext:pmc rdf:resource="http://commons.apache.org/"/>
     <shortdesc xml:lang="en">Commons CLI</shortdesc>
     <description xml:lang="en">
