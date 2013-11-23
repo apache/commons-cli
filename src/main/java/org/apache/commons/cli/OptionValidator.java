@@ -31,19 +31,20 @@ final class OptionValidator
      * is valid are:
      *
      * <ul>
-     *  <li><code>opt</code> is not NULL</li>
      *  <li>a single character <code>opt</code> that is either
      *  ' '(special case), '?', '@' or a letter</li>
      *  <li>a multi character <code>opt</code> that only contains
      *  letters.</li>
      * </ul>
+     * <p>
+     * In case {@code opt} is {@code null} no further validation is performed.
      *
-     * @param opt The option string to validate
+     * @param opt The option string to validate, may be null
      * @throws IllegalArgumentException if the Option is not valid.
      */
     static void validateOption(String opt) throws IllegalArgumentException
     {
-        // check that opt is not NULL
+        // if opt is NULL do not check further
         if (opt == null)
         {
             return;

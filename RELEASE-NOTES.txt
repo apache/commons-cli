@@ -36,6 +36,8 @@ NEW FEATURES:
 
 BUG FIXES:
 
+  * Clarified behavior of "OptionValidator#validateOption(String)" in case of null input. Thanks to Beluga Behr. (CLI-241)
+
   * Default options will now work correctly with required options that are missing. (CLI-202)
 
   * Default options will now work correctly together with option groups. (CLI-203) 

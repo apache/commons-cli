@@ -23,6 +23,9 @@
   <body>
     
     <release version="1.3" date="in SVN" description="This is a maintenance release containing bug fixes.">
+      <action type="fix" dev="tn" issue="CLI-241" due-to="Beluga Behr">
+        Clarified behavior of "OptionValidator#validateOption(String)" in case of null input.
+      </action>
       <action type="update" dev="tn" issue="CLI-240" due-to="Beluga Behr">
         Small cleanup of Option class.
       </action>
