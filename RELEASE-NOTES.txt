@@ -72,6 +72,8 @@ BUG FIXES:
 
 CHANGES:
 
+  * Small cleanup of Option class. Thanks to Beluga Behr. (CLI-240)
+
   * Options.getRequiredOptions() now returns an unmodifiable list. (CLI-230) 
 
   * Clarify javadoc for CommandLine.getOptionValue() that the first specified

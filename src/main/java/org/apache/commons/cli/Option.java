@@ -177,12 +177,7 @@ public class Option implements Cloneable, Serializable
     String getKey()
     {
         // if 'opt' is null, then it is a 'long' option
-        if (opt == null)
-        {
-            return longOpt;
-        }
-
-        return opt;
+        return (opt == null) ? longOpt : opt;
     }
 
     /** 
@@ -435,14 +430,11 @@ public class Option implements Cloneable, Serializable
      */
     void addValueForProcessing(String value)
     {
-        switch (numberOfArgs)
+        if (numberOfArgs == UNINITIALIZED)
         {
-            case UNINITIALIZED:
-                throw new RuntimeException("NO_ARGS_ALLOWED");
-
-            default:
-                processValue(value);
+            throw new RuntimeException("NO_ARGS_ALLOWED");
         }
+        processValue(value);
     }
 
     /**
@@ -743,12 +735,9 @@ public class Option implements Cloneable, Serializable
         }
         if (numberOfArgs == UNLIMITED_VALUES)
         {
-            return values.size() < 1;
+            return values.isEmpty();
         }
-        else
-        {
-            return acceptsArg();
-        }
+        return acceptsArg();
     }
     
     /**
