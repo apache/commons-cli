@@ -36,6 +36,8 @@ NEW FEATURES:
 
 BUG FIXES:
 
+  * Fixed code example in javadoc of "Option#Builder#valueSeparator(char)". Thanks to Greg Thomas. (CLI-234)
+
   * Clarified behavior of "OptionValidator#validateOption(String)" in case of null input. Thanks to Beluga Behr. (CLI-241)
 
   * Default options will now work correctly with required options that are missing. (CLI-202)

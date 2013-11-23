@@ -933,13 +933,16 @@ public class Option implements Cloneable, Serializable
          * <p>
          * <b>Example:</b>
          * <pre>
-         * Option opt = Option.builder("D").valueSeparator('=')
+         * Option opt = Option.builder("D").hasArgs()
+         *                                 .valueSeparator('=')
          *                                 .build();
-         *
-         * String args = "-Dkey=value";
-         * CommandLine line = parser.parse(args);
-         * String propertyName = opt.getValue(0);  // will be "key"
-         * String propertyValue = opt.getValue(1); // will be "value"
+         * Options options = new Options();
+         * options.addOption(opt);
+         * String[] args = {"-Dkey=value"};
+         * CommandLineParser parser = new DefaultParser();
+         * CommandLine line = parser.parse(options, args);
+         * String propertyName = line.getOptionValues("D")[0];  // will be "key"
+         * String propertyValue = line.getOptionValues("D")[1]; // will be "value"
          * </pre>
          *
          * @param sep The value separator.

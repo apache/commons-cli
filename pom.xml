@@ -85,9 +85,17 @@
       <email>ebourg@apache.org</email>
       <organization>Ariane Software</organization>
     </developer>
+    <developer>
+      <name>Thomas Neidhart</name>
+      <id>tn</id>
+      <email>tn@apache.org</email>
+    </developer>
   </developers>
 
   <contributors>
+    <contributor>
+      <name>Beluga Behr</name>
+    </contributor>
     <contributor>
       <name>Peter Donald</name>
       <roles>
@@ -132,6 +140,9 @@
       <roles>
         <role>lots of fixes for 1.1</role>
       </roles>
+    </contributor>
+    <contributor>
+      <name>Greg Thomas</name>
     </contributor>
     <contributor>
       <name>Slawek Zachcial</name>

@@ -23,6 +23,9 @@
   <body>
     
     <release version="1.3" date="in SVN" description="This is a maintenance release containing bug fixes.">
+      <action type="fix" dev="tn" issue="CLI-234" due-to="Greg Thomas">
+        Fixed code example in javadoc of "Option#Builder#valueSeparator(char)".
+      </action>
       <action type="fix" dev="tn" issue="CLI-241" due-to="Beluga Behr">
         Clarified behavior of "OptionValidator#validateOption(String)" in case of null input.
       </action>
