@@ -71,7 +71,7 @@ options.addOption("t", false, "display current time");</source>
           The <code>parse</code> methods of <code>CommandLineParser</code> are used 
           to parse the command line arguments. There may be several implementations
           of the <code>CommandLineParser</code> interface, the recommended one is the
-          <code>DefaultParser</code>.
+          <code>Parser</code>.
         </p>
         <source>CommandLineParser parser = new DefaultParser();
 CommandLine cmd = parser.parse( options, args);</source>
@@ -331,7 +331,7 @@ Sort entries alphabetically if none of -cftuSUX nor --sort.
         <a href="api-release/org/apache/commons/cli/Options.html">Options</a> for this example.
       </p>
       <source>// create the command line parser
-CommandLineParser parser = new DefaultParser();
+CommandLineParser parser = new Parser();
 
 // create the Options
 Options options = new Options();
