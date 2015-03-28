@@ -147,8 +147,8 @@ public class OptionsTest
 
         String s = options.toString();
         assertNotNull("null string returned", s);
-        assertTrue("foo option missing", s.toLowerCase().indexOf("foo") != -1);
-        assertTrue("bar option missing", s.toLowerCase().indexOf("bar") != -1);
+        assertTrue("foo option missing", s.toLowerCase().contains("foo"));
+        assertTrue("bar option missing", s.toLowerCase().contains("bar"));
     }
 
     @Test
