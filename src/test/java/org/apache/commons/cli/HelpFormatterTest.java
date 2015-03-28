@@ -129,13 +129,12 @@ public class HelpFormatterTest
         // multi line text
         int width = 16;
         int padding = 0;
-        String text = "aaaa aaaa aaaa" + EOL +
+        String expected = "aaaa aaaa aaaa" + EOL +
                       "aaaaaa" + EOL +
                       "aaaaa";
-        String expected = text;
-        
+
         StringBuffer sb = new StringBuffer();
-        new HelpFormatter().renderWrappedText(sb, width, padding, text);
+        new HelpFormatter().renderWrappedText(sb, width, padding, expected);
         assertEquals("multi line text", expected, sb.toString());
     }
 
