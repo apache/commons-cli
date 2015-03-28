@@ -57,7 +57,7 @@ public final class OptionBuilder
     private static char valuesep;
 
     /** option builder instance */
-    private static OptionBuilder instance = new OptionBuilder();
+    private static final OptionBuilder instance = new OptionBuilder();
 
     static
     {

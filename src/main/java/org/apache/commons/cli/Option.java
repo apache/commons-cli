@@ -51,7 +51,7 @@ public class Option implements Cloneable, Serializable
     private static final long serialVersionUID = 1L;
 
     /** the name of the option */
-    private String opt;
+    private final String opt;
 
     /** the long representation of the option */
     private String longOpt;

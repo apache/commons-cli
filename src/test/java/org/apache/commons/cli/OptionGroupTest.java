@@ -31,7 +31,7 @@ import org.junit.Test;
 public class OptionGroupTest
 {
     private Options _options = null;
-    private Parser parser = new PosixParser();
+    private final Parser parser = new PosixParser();
 
     @Before
     public void setUp()

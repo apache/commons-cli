@@ -34,7 +34,7 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
     private static final long serialVersionUID = 5829816121277947229L;
 
     /** The list of options matching the partial name specified */
-    private Collection<String> matchingOptions;
+    private final Collection<String> matchingOptions;
 
     /**
      * Constructs a new AmbiguousOptionException.

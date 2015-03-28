@@ -29,7 +29,7 @@ import org.junit.Test;
 public class ValueTest
 {
     private CommandLine _cl = null;
-    private Options opts = new Options();
+    private final Options opts = new Options();
 
     @Before
     public void setUp() throws Exception
