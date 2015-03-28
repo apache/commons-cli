@@ -27,8 +27,9 @@
                 <include>LICENSE.txt</include>
                 <include>NOTICE.txt</include>
                 <include>pom.xml</include>
-                <include>README.txt</include>
                 <include>RELEASE-NOTES.txt</include>
+                <include>README.md</include>
+                <include>CONTRIBUTING.md</include>
             </includes>
         </fileSet>
         <fileSet>
