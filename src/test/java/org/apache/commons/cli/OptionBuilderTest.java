@@ -112,7 +112,7 @@ public class OptionBuilderTest
         // ' '
         try {
             OptionBuilder.create(' ');
-            fail( "IllegalArgumentException not caught" );            
+            fail( "IllegalArgumentException not caught" );
         } catch (IllegalArgumentException e) {
             // success
         }
