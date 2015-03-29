@@ -536,7 +536,7 @@ public class Option implements Cloneable, Serializable
      * Returns the value/first value of this Option or the 
      * <code>defaultValue</code> if there is no value.
      *
-     * @param defaultValue The value to be returned if ther
+     * @param defaultValue The value to be returned if there
      * is no value.
      *
      * @return the value/first value of this Option or the 
