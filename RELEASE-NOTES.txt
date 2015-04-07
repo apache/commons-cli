@@ -67,6 +67,7 @@ o CLI-214: Added new method Options.addOption(String, String). Thanks to
 BUG FIXES
 =========
 
+o CLI-248: Dead links on doc page.
 o CLI-234: Fixed code example in javadoc of
            "Option#Builder#valueSeparator(char)". Thanks to Greg Thomas.
 o CLI-241: Clarified behavior of "OptionValidator#validateOption(String)"
