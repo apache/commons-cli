@@ -49,7 +49,7 @@ public class DefaultParser implements CommandLineParser
     /** The last option parsed. */
     protected Option currentOption;
  
-    /** Flag indicating if tokens should no longer be analysed and simply added as arguments of the command line. */
+    /** Flag indicating if tokens should no longer be analyzed and simply added as arguments of the command line. */
     protected boolean skipParsing;
  
     /** The required options and groups expected to be found when parsing the command line. */
