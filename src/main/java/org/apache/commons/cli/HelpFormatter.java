@@ -537,7 +537,7 @@ public class HelpFormatter
                           String header, Options options, int leftPad,
                           int descPad, String footer, boolean autoUsage)
     {
-        if ((cmdLineSyntax == null) || (cmdLineSyntax.length() == 0))
+        if (cmdLineSyntax == null || cmdLineSyntax.length() == 0)
         {
             throw new IllegalArgumentException("cmdLineSyntax not provided");
         }
@@ -551,14 +551,14 @@ public class HelpFormatter
             printUsage(pw, width, cmdLineSyntax);
         }
 
-        if ((header != null) && (header.trim().length() > 0))
+        if (header != null && header.trim().length() > 0)
         {
             printWrapped(pw, width, header);
         }
 
         printOptions(pw, width, options, leftPad, descPad);
 
-        if ((footer != null) && (footer.trim().length() > 0))
+        if (footer != null && footer.trim().length() > 0)
         {
             printWrapped(pw, width, footer);
         }
@@ -837,7 +837,7 @@ public class HelpFormatter
             }
 
             prefixList.add(optBuf);
-            max = (optBuf.length() > max) ? optBuf.length() : max;
+            max = optBuf.length() > max ? optBuf.length() : max;
         }
 
         int x = 0;
@@ -917,7 +917,7 @@ public class HelpFormatter
                 return sb;
             }
 
-            if ((text.length() > width) && (pos == nextLineTabStop - 1))
+            if (text.length() > width && pos == nextLineTabStop - 1)
             {
                 pos = width;
             }
@@ -1043,14 +1043,14 @@ public class HelpFormatter
      */
     protected String rtrim(String s)
     {
-        if ((s == null) || (s.length() == 0))
+        if (s == null || s.length() == 0)
         {
             return s;
         }
 
         int pos = s.length();
 
-        while ((pos > 0) && Character.isWhitespace(s.charAt(pos - 1)))
+        while (pos > 0 && Character.isWhitespace(s.charAt(pos - 1)))
         {
             --pos;
         }

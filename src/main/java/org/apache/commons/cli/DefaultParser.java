@@ -675,7 +675,7 @@ public class DefaultParser implements CommandLineParser
             {
                 handleOption(options.getOption(ch));
 
-                if (currentOption != null && (token.length() != (i + 1)))
+                if (currentOption != null && token.length() != i + 1)
                 {
                     // add the trail as an argument of the option
                     currentOption.addValueForProcessing(token.substring(i + 1));

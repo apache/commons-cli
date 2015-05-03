@@ -463,7 +463,7 @@ public class Option implements Cloneable, Serializable
             while (index != -1)
             {
                 // next value to be added 
-                if (values.size() == (numberOfArgs - 1))
+                if (values.size() == numberOfArgs - 1)
                 {
                     break;
                 }

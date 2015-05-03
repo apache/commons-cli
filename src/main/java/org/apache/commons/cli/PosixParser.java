@@ -276,7 +276,7 @@ public class PosixParser extends Parser
                 tokens.add("-" + ch);
                 currentOption = options.getOption(ch);
 
-                if (currentOption.hasArg() && (token.length() != (i + 1)))
+                if (currentOption.hasArg() && token.length() != i + 1)
                 {
                     tokens.add(token.substring(i + 1));
 
