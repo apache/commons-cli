@@ -92,7 +92,11 @@ public class HelpFormatter
     /** default prefix for long Option */
     public static final String DEFAULT_LONG_OPT_PREFIX = "--";
 
-    /** default separator displayed between a long Option and its value */
+    /** 
+     * default separator displayed between a long Option and its value
+     * 
+     * @since 1.3
+     **/
     public static final String DEFAULT_LONG_OPT_SEPARATOR = " ";
 
     /** default name for an argument */
