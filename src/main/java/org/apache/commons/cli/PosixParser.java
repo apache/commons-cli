@@ -154,11 +154,8 @@ public class PosixParser extends Parser
                     {
                         throw new AmbiguousOptionException(token, matchingOpts);
                     }
-                    else
-                    {
-                        Option opt = options.getOption(matchingOpts.get(0));
-                        processOptionToken("-" + opt.getLongOpt(), stopAtNonOption);
-                    }
+                    Option opt = options.getOption(matchingOpts.get(0));
+                    processOptionToken("-" + opt.getLongOpt(), stopAtNonOption);
                 }
                 // requires bursting
                 else
