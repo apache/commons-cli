@@ -57,7 +57,7 @@ public final class OptionBuilder
     private static char valuesep;
 
     /** option builder instance */
-    private static final OptionBuilder instance = new OptionBuilder();
+    private static final OptionBuilder INSTANCE = new OptionBuilder();
 
     static
     {
@@ -98,7 +98,7 @@ public final class OptionBuilder
     {
         OptionBuilder.longopt = newLongopt;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -110,7 +110,7 @@ public final class OptionBuilder
     {
         OptionBuilder.numberOfArgs = 1;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -124,7 +124,7 @@ public final class OptionBuilder
     {
         OptionBuilder.numberOfArgs = hasArg ? 1 : Option.UNINITIALIZED;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -137,7 +137,7 @@ public final class OptionBuilder
     {
         OptionBuilder.argName = name;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -149,7 +149,7 @@ public final class OptionBuilder
     {
         OptionBuilder.required = true;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -175,7 +175,7 @@ public final class OptionBuilder
     {
         OptionBuilder.valuesep = sep;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -198,7 +198,7 @@ public final class OptionBuilder
     {
         OptionBuilder.valuesep = '=';
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -212,7 +212,7 @@ public final class OptionBuilder
     {
         OptionBuilder.required = newRequired;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -224,7 +224,7 @@ public final class OptionBuilder
     {
         OptionBuilder.numberOfArgs = Option.UNLIMITED_VALUES;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -237,7 +237,7 @@ public final class OptionBuilder
     {
         OptionBuilder.numberOfArgs = num;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -250,7 +250,7 @@ public final class OptionBuilder
         OptionBuilder.numberOfArgs = 1;
         OptionBuilder.optionalArg = true;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -263,7 +263,7 @@ public final class OptionBuilder
         OptionBuilder.numberOfArgs = Option.UNLIMITED_VALUES;
         OptionBuilder.optionalArg = true;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -278,7 +278,7 @@ public final class OptionBuilder
         OptionBuilder.numberOfArgs = numArgs;
         OptionBuilder.optionalArg = true;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -310,7 +310,7 @@ public final class OptionBuilder
     {
         OptionBuilder.type = newType;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -323,7 +323,7 @@ public final class OptionBuilder
     {
         OptionBuilder.description = newDescription;
 
-        return instance;
+        return INSTANCE;
     }
 
     /**
