@@ -189,13 +189,6 @@
           <tarLongFileMode>gnu</tarLongFileMode>
         </configuration>
       </plugin>
-      <!--
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-ant-plugin</artifactId>
-        <version>2.1.1-SNAPSHOT</version>
-      </plugin>
-      -->
     </plugins>
     <pluginManagement>
       <plugins>
@@ -227,7 +220,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.9.1</version>
+        <version>2.15</version>
         <configuration>
           <configLocation>${basedir}/src/conf/checkstyle.xml</configLocation>
           <enableRulesSummary>false</enableRulesSummary>
@@ -239,12 +232,12 @@
               <report>checkstyle</report>
             </reports>
           </reportSet>
-        </reportSets>         
+        </reportSets>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>2.5.2</version>
+        <version>3.0.1</version>
         <configuration>
           <threshold>Normal</threshold>
           <effort>Default</effort>
