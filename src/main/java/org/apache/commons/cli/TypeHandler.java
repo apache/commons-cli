@@ -149,10 +149,7 @@ public class TypeHandler
             {
                 return Double.valueOf(str);
             }
-            else
-            {
-                return Long.valueOf(str);
-            }
+            return Long.valueOf(str);
         }
         catch (NumberFormatException e)
         {
