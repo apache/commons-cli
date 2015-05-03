@@ -20,6 +20,9 @@ package org.apache.commons.cli;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import org.junit.Test;
 
 /**
@@ -220,8 +223,50 @@ public class ApplicationTest
                 addOption("h", "help", false, "show this usage message.");
 
         HelpFormatter hf = new HelpFormatter();
-        //hf.printHelp(cmdLine, opts);
-        hf.printHelp(60, cmdLine, null, options, null);
+        final String EOL = System.getProperty("line.separator");
+        StringWriter out = new StringWriter();
+        hf.printHelp(new PrintWriter(out), 60, cmdLine, null, options, HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, null, false);
+        assertEquals("usage: man [-c|-f|-k|-w|-tZT device] [-adlhu7V] [-Mpath]" + EOL +
+                        "           [-Ppager] [-Slist] [-msystem] [-pstring]" + EOL +
+                        "           [-Llocale] [-eextension] [section] page ..." + EOL +
+                        " -7,--ascii                display ASCII translation or" + EOL +
+                        "                           certain latin1 chars." + EOL +
+                        " -a,--all                  find all matching manual pages." + EOL +
+                        " -c,--catman               used by catman to reformat out of" + EOL +
+                        "                           date cat pages." + EOL +
+                        " -d,--debug                emit debugging messages." + EOL +
+                        " -D,--default              reset all options to their" + EOL +
+                        "                           default values." + EOL +
+                        " -e,--extension            limit search to extension type" + EOL +
+                        "                           'extension'." + EOL +
+                        " -f,--whatis               equivalent to whatis." + EOL +
+                        " -h,--help                 show this usage message." + EOL +
+                        " -k,--apropos              equivalent to apropos." + EOL +
+                        " -l,--local-file           interpret 'page' argument(s) as" + EOL +
+                        "                           local filename(s)" + EOL +
+                        " -L,--locale <arg>         define the locale for this" + EOL +
+                        "                           particular man search." + EOL +
+                        " -M,--manpath <arg>        set search path for manual pages" + EOL +
+                        "                           to 'path'." + EOL +
+                        " -m,--systems <arg>        search for man pages from other" + EOL +
+                        "                           unix system(s)." + EOL +
+                        " -P,--pager <arg>          use program 'pager' to display" + EOL +
+                        "                           output." + EOL +
+                        " -p,--preprocessor <arg>   string indicates which" + EOL +
+                        "                           preprocessor to run." + EOL +
+                        "                           e - [n]eqn  p - pic     t - tbl" + EOL +
+                        "                           g - grap    r - refer   v -" + EOL +
+                        "                           vgrind" + EOL +
+                        " -r,--prompt <arg>         provide 'less' pager with prompt." + EOL +
+                        " -S,--sections <arg>       use colon separated section list." + EOL +
+                        " -t,--troff                use troff format pages." + EOL +
+                        " -T,--troff-device <arg>   use groff with selected device." + EOL +
+                        " -u,--update               force a cache consistency check." + EOL +
+                        " -V,--version              show version." + EOL +
+                        " -w,--location             print physical location of man" + EOL +
+                        "                           page(s)." + EOL +
+                        " -Z,--ditroff              use groff with selected device." + EOL,
+                out.toString());
     }
 
 
