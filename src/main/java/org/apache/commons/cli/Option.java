@@ -666,7 +666,7 @@ public class Option implements Cloneable, Serializable
      *
      * @return a clone of this Option instance
      * @throws RuntimeException if a {@link CloneNotSupportedException} has been thrown
-     * by {@link super#clone()}
+     * by {@code super.clone()}
      */
     @Override
     public Object clone()

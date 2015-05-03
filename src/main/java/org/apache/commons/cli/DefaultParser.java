@@ -664,6 +664,8 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token The current token to be <b>burst</b>
      * at the first non-Option encountered.
+     * @throws ParseException if there are any problems encountered
+     *                        while parsing the command line token.
      */
     protected void handleConcatenatedOptions(String token) throws ParseException
     {

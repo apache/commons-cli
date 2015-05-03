@@ -67,6 +67,8 @@ public abstract class Parser implements CommandLineParser
      * @param stopAtNonOption specifies whether to stop
      * flattening when a non option has been encountered
      * @return a String array of the flattened arguments
+     * @throws ParseException if there are any problems encountered
+     *                        while parsing the command line tokens.
      */
     protected abstract String[] flatten(Options opts, String[] arguments, boolean stopAtNonOption)
             throws ParseException;
@@ -78,8 +80,8 @@ public abstract class Parser implements CommandLineParser
      * @param options the <code>Options</code>
      * @param arguments the <code>arguments</code>
      * @return the <code>CommandLine</code>
-     * @throws ParseException if an error occurs when parsing the
-     * arguments.
+     * @throws ParseException if there are any problems encountered
+     *                        while parsing the command line tokens.
      */
     public CommandLine parse(Options options, String[] arguments) throws ParseException
     {
@@ -246,6 +248,8 @@ public abstract class Parser implements CommandLineParser
      * Sets the values of Options using the values in <code>properties</code>.
      *
      * @param properties The value properties to be processed.
+     * @throws ParseException if there are any problems encountered
+     *                        while processing the properties.
      */
     protected void processProperties(Properties properties) throws ParseException
     {

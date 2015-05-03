@@ -23,29 +23,34 @@ import java.net.URL;
 import java.util.Date;
 
 /**
- * Allows Options to be created from a single String.
+ * <p>Allows Options to be created from a single String.
  * The pattern contains various single character flags and via
  * an optional punctuation character, their expected type.
- * <p>
+ * </p>
+ * 
  * <table border="1">
- * <tr><td>a</td><td>-a flag</td></tr>
- * <tr><td>b@</td><td>-b [classname]</td></tr>
- * <tr><td>c&gt;</td><td>-c [filename]</td></tr>
- * <tr><td>d+</td><td>-d [classname] (creates object via empty constructor)</td></tr>
- * <tr><td>e%</td><td>-e [number] (creates Double/Long instance depending on existing of a '.')</td></tr>
- * <tr><td>f/</td><td>-f [url]</td></tr>
- * <tr><td>g:</td><td>-g [string]</td></tr>
+ *   <caption>Overview of PatternOptionBuilder patterns</caption>
+ *   <tr><td>a</td><td>-a flag</td></tr>
+ *   <tr><td>b@</td><td>-b [classname]</td></tr>
+ *   <tr><td>c&gt;</td><td>-c [filename]</td></tr>
+ *   <tr><td>d+</td><td>-d [classname] (creates object via empty constructor)</td></tr>
+ *   <tr><td>e%</td><td>-e [number] (creates Double/Long instance depending on existing of a '.')</td></tr>
+ *   <tr><td>f/</td><td>-f [url]</td></tr>
+ *   <tr><td>g:</td><td>-g [string]</td></tr>
  * </table>
+ * 
  * <p>
  * For example, the following allows command line flags of '-v -p string-value -f /dir/file'.
  * The exclamation mark precede a mandatory option.
+ * </p>
  *
  * <pre>
  *     Options options = PatternOptionBuilder.parsePattern("vp:!f/");
  * </pre>
  *
  * <p>
- * TODO These need to break out to OptionType and also to be pluggable.
+ * TODO: These need to break out to OptionType and also to be pluggable.
+ * </p>
  *
  * @version $Id$
  */

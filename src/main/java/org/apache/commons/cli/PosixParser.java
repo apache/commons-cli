@@ -59,7 +59,7 @@ public class PosixParser extends Parser
      * <p>An implementation of {@link Parser}'s abstract
      * {@link Parser#flatten(Options,String[],boolean) flatten} method.</p>
      *
-     * <p>The following are the rules used by this flatten method.
+     * <p>The following are the rules used by this flatten method.</p>
      * <ol>
      *  <li>if <code>stopAtNonOption</code> is <b>true</b> then do not
      *  burst anymore of <code>arguments</code> entries, just add each
@@ -85,7 +85,6 @@ public class PosixParser extends Parser
      *  by any of the previous rules, then the entry is added to the list
      *  of processed tokens.</li>
      * </ol>
-     * </p>
      *
      * @param options The command line {@link Options}
      * @param arguments The command line arguments to be parsed

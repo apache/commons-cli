@@ -58,10 +58,10 @@ import java.util.List;
  * This produces the following output:
  * 
  * <pre>
- * usage: myapp -f <FILE> [-h] [-v]
+ * usage: myapp -f &lt;FILE&gt; [-h] [-v]
  * Do something useful with an input file
  * 
- *  -f,--file &lt;FILE>   The file to be processed
+ *  -f,--file &lt;FILE&gt;   The file to be processed
  *  -h,--help
  *  -v,--version       Print the version of the application
  * 
