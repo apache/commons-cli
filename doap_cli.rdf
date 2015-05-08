@@ -42,11 +42,15 @@ limitations under the License.
         <created>2009-03-19</created>
         <revision>1.2</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-cli</name>
         <created>2007-07-08</created>
         <revision>1.1</revision>
       </Version>
+    </release>
+    <release>
       <Version>
         <name>commons-cli</name>
         <created>2002-11-06</created>
