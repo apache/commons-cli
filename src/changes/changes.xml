@@ -21,8 +21,11 @@
     <title>Commons CLI Release Notes</title>
   </properties>
   <body>
-    
-    <release version="1.3" date="in SVN" description="This is a feature and maintenance bug fix release.">
+
+    <release version="1.4" date="tba" description="tba">
+    </release>
+
+    <release version="1.3" date="2015-05-09" description="This is a feature and maintenance bug fix release.">
       <action type="fix" dev="djones" issue="CLI-248">
         Fixed broken Javadoc links on Introduction page.
       </action>
