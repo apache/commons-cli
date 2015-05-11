@@ -62,7 +62,7 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>commons-cli</groupId>
   <artifactId>commons-cli</artifactId>
-  <version>1.2</version>
+  <version>1.3</version>
 </dependency>
 ```
 
