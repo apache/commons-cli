@@ -1,5 +1,5 @@
             Apache Commons CLI
-                Version 1.3
+                Version 1.3.1
                Release Notes
 
 
@@ -9,12 +9,20 @@ This document contains the release notes for this version of the Commons CLI
 package. Commons CLI provides a simple API for working with the command line
 arguments and options.
 
-Commons CLI 1.3 is a bugfix and feature release and binary compatible with the
+Commons CLI 1.3.1 is a bug fix release and binary compatible with the
 previous versions, except for the OptionValidator class that is no longer public
-(change introduced in v1.2). Commons CLI 1.3 at least requires Java 5.0.
+(change introduced in v1.2). Commons CLI 1.3.1 at least requires Java 5.0.
 
 More information can be found on the project site at 
 http://commons.apache.org/cli.
+
+BUG FIXES
+=========
+
+o CLI-252: LongOpt falsely detected as ambiguous. Thanks to Simon Harrer.
+
+
+                Release Notes for version 1.3
 
 NOTES
 =====
