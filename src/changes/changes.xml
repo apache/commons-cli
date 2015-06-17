@@ -22,7 +22,7 @@
   </properties>
   <body>
 
-    <release version="1.3.1" date="tba" description="Bug fix release for 1.3">
+    <release version="1.3.1" date="2015-06-17" description="Bug fix release for 1.3">
       <action type="fix" dev="britter" issue="CLI-252" due-to="Simon Harrer">
         LongOpt falsely detected as ambiguous
       </action>
