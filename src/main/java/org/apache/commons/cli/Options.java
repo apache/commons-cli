@@ -224,6 +224,20 @@ public class Options implements Serializable
     }
 
     /**
+     * Retrieve the {@link Option} matching the long name specified.
+     * The leading hyphens in the name are ignored (up to 2).
+     *
+     * @param opt long name of the {@link Option}
+     * @return the option represented by opt
+     */
+    Option getLongOption(String opt)
+    {
+        opt = Util.stripLeadingHyphens(opt);
+
+        return longOpts.get(opt);
+    }
+
+    /**
      * Returns the options with a long name starting with the name specified.
      * 
      * @param opt the partial name of the option

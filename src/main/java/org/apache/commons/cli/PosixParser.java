@@ -131,7 +131,7 @@ public class PosixParser extends Parser
                 }
                 else
                 {
-                    currentOption = options.getOption(matchingOpts.get(0));
+                    currentOption = options.getLongOption(matchingOpts.get(0));
                     
                     tokens.add("--" + currentOption.getLongOpt());
                     if (pos != -1)
