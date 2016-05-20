@@ -377,7 +377,7 @@ public abstract class Parser implements CommandLineParser
     {
         boolean hasOption = getOptions().hasOption(arg);
 
-        // if there is no option throw an UnrecognisedOptionException
+        // if there is no option throw an UnrecognizedOptionException
         if (!hasOption)
         {
             throw new UnrecognizedOptionException("Unrecognized option: " + arg, arg);

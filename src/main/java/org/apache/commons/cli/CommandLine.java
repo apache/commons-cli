@@ -42,7 +42,7 @@ public class CommandLine implements Serializable
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
-    /** the unrecognised options/arguments */
+    /** the unrecognized options/arguments */
     private final List<String> args = new LinkedList<String>();
 
     /** the processed options */
@@ -334,7 +334,7 @@ public class CommandLine implements Serializable
     /**
      * Add left-over unrecognized option/argument.
      *
-     * @param arg the unrecognised option/argument.
+     * @param arg the unrecognized option/argument.
      */
     protected void addArg(String arg)
     {
