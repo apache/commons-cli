@@ -20,7 +20,7 @@ package org.apache.commons.cli.bug;
 import org.apache.commons.cli.*;
 import org.junit.Test;
 
-public class BugCLI252Test extends DefaultParserTest {
+public class BugCLI252Test {
 
     @Test
     public void testExactOptionNameMatch() throws ParseException {
