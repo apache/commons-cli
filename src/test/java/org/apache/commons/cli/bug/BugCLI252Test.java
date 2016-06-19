@@ -17,7 +17,11 @@
 
 package org.apache.commons.cli.bug;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.AmbiguousOptionException;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
 public class BugCLI252Test {
