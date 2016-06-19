@@ -18,6 +18,8 @@
 package org.apache.commons.cli;
 
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Test case for the PosixParser.
@@ -32,55 +34,55 @@ public class PosixParserTest extends ParserTestCase
         parser = new PosixParser();
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testDoubleDash2() throws Exception
     {
         // not supported by the PosixParser
     }
     
-    @Override
+    @Override @Test @Ignore
     public void testLongWithoutEqualSingleDash() throws Exception
     {
         // not supported by the PosixParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
     {
         // not supported by the PosixParser
     }
     
-    @Override
+    @Override @Test @Ignore
     public void testNegativeOption() throws Exception
     {
         // not supported by the PosixParser (CLI-184)
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testLongWithUnexpectedArgument1() throws Exception
     {
         // not supported by the PosixParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testLongWithEqualSingleDash() throws Exception
     {
         // not supported by the PosixParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testShortWithEqual() throws Exception
     {
         // not supported by the PosixParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testUnambiguousPartialLongOption4() throws Exception
     {
         // not supported by the PosixParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testAmbiguousPartialLongOption4() throws Exception
     {
         // not supported by the PosixParser

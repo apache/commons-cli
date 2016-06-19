@@ -18,6 +18,8 @@
 package org.apache.commons.cli;
 
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class BasicParserTest extends ParserTestCase
@@ -29,145 +31,145 @@ public class BasicParserTest extends ParserTestCase
         parser = new BasicParser();
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testDoubleDash2() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testLongWithoutEqualSingleDash() throws Exception
     {
         // not supported by the BasicParser
     }
     
-    @Override
+    @Override @Test @Ignore
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
     {
         // not supported by the basicParser
     }
     
-    @Override
+    @Override @Test @Ignore
     public void testNegativeOption() throws Exception
     {
         // not supported by the BasicParser (CLI-184)
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testPropertiesOption1() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testPropertiesOption2() throws Exception
     {
         // not supported by the BasicParser
     }    
 
-    @Override
+    @Override @Test @Ignore
     public void testShortWithEqual() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testShortWithoutEqual() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testLongWithEqualDoubleDash() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testLongWithEqualSingleDash() throws Exception
     {
         // not supported by the BasicParser
     }
     
-    @Override
+    @Override @Test @Ignore
     public void testUnambiguousPartialLongOption1() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testUnambiguousPartialLongOption2() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testUnambiguousPartialLongOption3() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testUnambiguousPartialLongOption4() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testAmbiguousPartialLongOption1() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testAmbiguousPartialLongOption2() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testAmbiguousPartialLongOption3() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testAmbiguousPartialLongOption4() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testPartialLongOptionSingleDash() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testBursting() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testUnrecognizedOptionWithBursting() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testMissingArgWithBursting() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testStopBursting() throws Exception
     {
         // not supported by the BasicParser
     }
 
-    @Override
+    @Override @Test @Ignore
     public void testStopBursting2() throws Exception
     {
         // not supported by the BasicParser
