@@ -34,57 +34,48 @@ public class PosixParserTest extends ParserTestCase
         parser = new PosixParser();
     }
 
-    @Override @Test @Ignore
+    @Override @Test @Ignore("not supported by the PosixParser")
     public void testDoubleDash2() throws Exception
     {
-        // not supported by the PosixParser
     }
     
-    @Override @Test @Ignore
+    @Override @Test @Ignore("not supported by the PosixParser")
     public void testLongWithoutEqualSingleDash() throws Exception
     {
-        // not supported by the PosixParser
     }
 
-    @Override @Test @Ignore
+    @Override @Test @Ignore("not supported by the PosixParser")
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
     {
-        // not supported by the PosixParser
     }
     
-    @Override @Test @Ignore
+    @Override @Test @Ignore("not supported by the PosixParser (CLI-184)")
     public void testNegativeOption() throws Exception
     {
-        // not supported by the PosixParser (CLI-184)
     }
 
-    @Override @Test @Ignore
+    @Override @Test @Ignore("not supported by the PosixParser")
     public void testLongWithUnexpectedArgument1() throws Exception
     {
-        // not supported by the PosixParser
     }
 
-    @Override @Test @Ignore
+    @Override @Test @Ignore("not supported by the PosixParser")
     public void testLongWithEqualSingleDash() throws Exception
     {
-        // not supported by the PosixParser
     }
 
-    @Override @Test @Ignore
+    @Override @Test @Ignore("not supported by the PosixParser")
     public void testShortWithEqual() throws Exception
     {
-        // not supported by the PosixParser
     }
 
-    @Override @Test @Ignore
+    @Override @Test @Ignore("not supported by the PosixParser")
     public void testUnambiguousPartialLongOption4() throws Exception
     {
-        // not supported by the PosixParser
     }
 
-    @Override @Test @Ignore
+    @Override @Test @Ignore("not supported by the PosixParser")
     public void testAmbiguousPartialLongOption4() throws Exception
     {
-        // not supported by the PosixParser
     }
 }
