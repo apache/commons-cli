@@ -19,8 +19,8 @@ package org.apache.commons.cli;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -34,7 +34,7 @@ public class OptionGroup implements Serializable
     private static final long serialVersionUID = 1L;
     
     /** hold the options */
-    private final Map<String, Option> optionMap = new HashMap<String, Option>();
+    private final Map<String, Option> optionMap = new LinkedHashMap<String, Option>();
 
     /** the name of the selected option */
     private String selected;

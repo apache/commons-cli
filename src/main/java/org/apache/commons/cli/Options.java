@@ -21,7 +21,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -58,7 +57,7 @@ public class Options implements Serializable
     private final List<Object> requiredOpts = new ArrayList<Object>();
 
     /** a map of the option groups */
-    private final Map<String, OptionGroup> optionGroups = new HashMap<String, OptionGroup>();
+    private final Map<String, OptionGroup> optionGroups = new LinkedHashMap<String, OptionGroup>();
 
     /**
      * Add the specified option group.
