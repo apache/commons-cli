@@ -23,6 +23,9 @@
   <body>
 
     <release version="1.4" date="tba" description="tba">
+      <action type="fix" dev="britter" issue="CLI-266" due-to="Ravi Teja">
+        HelpFormatter.setOptionComparator(null) doesn't display the values in inserted order
+      </action>
     </release>
 
     <release version="1.3.1" date="2015-06-17" description="Bug fix release for 1.3">
