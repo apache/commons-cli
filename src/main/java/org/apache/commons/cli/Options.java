@@ -171,6 +171,7 @@ public class Options implements Serializable
      * @param hasArg flag signally if an argument is required after this option
      * @param description Self-documenting description
      * @return the resulting Options instance
+     * @since 1.4
      */
     public Options addRequiredOption(String opt, String longOpt, boolean hasArg, String description)
     {
