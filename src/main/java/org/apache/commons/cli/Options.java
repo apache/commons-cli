@@ -143,6 +143,25 @@ public class Options implements Serializable
     }
 
     /**
+     * Add an option that contains a short-name and a long-name.
+     * This option is set as required.
+     * It may be specified as requiring an argument.
+     *
+     * @param opt Short single-character name of the option.
+     * @param longOpt Long multi-character name of the option.
+     * @param hasArg flag signally if an argument is required after this option
+     * @param description Self-documenting description
+     * @return the resulting Options instance
+     */
+    public Options addRequiredOption(String opt, String longOpt, boolean hasArg, String description)
+    {
+        Option option = new Option(opt, longOpt, hasArg, description);
+        option.setRequired(true);
+        addOption(option);
+        return this;
+    }
+
+    /**
      * Adds an option instance
      *
      * @param opt the option that is to be added

@@ -23,6 +23,9 @@
   <body>
 
     <release version="1.4" date="tba" description="tba">
+      <action type="add" dev="britter" issue="CLI-267" due-to="Ricardo Ribeiro">
+        Add an addRequiredOption method to Options
+      </action>
       <action type="fix" dev="britter" issue="CLI-266" due-to="Ravi Teja">
         HelpFormatter.setOptionComparator(null) doesn't display the values in inserted order
       </action>
