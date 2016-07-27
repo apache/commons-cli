@@ -98,7 +98,10 @@ public class Options implements Serializable
 
     /**
      * Add an option that only contains a short name.
+     * 
+     * <p>
      * The option does not take an argument.
+     * </p>
      *
      * @param opt Short single-character name of the option.
      * @param description Self-documenting description
@@ -113,7 +116,10 @@ public class Options implements Serializable
 
     /**
      * Add an option that only contains a short-name.
+     *
+     * <p>
      * It may be specified as requiring an argument.
+     * </p>
      *
      * @param opt Short single-character name of the option.
      * @param hasArg flag signally if an argument is required after this option
@@ -128,7 +134,10 @@ public class Options implements Serializable
 
     /**
      * Add an option that contains a short-name and a long-name.
+     *
+     * <p>
      * It may be specified as requiring an argument.
+     * </p>
      *
      * @param opt Short single-character name of the option.
      * @param longOpt Long multi-character name of the option.
@@ -144,8 +153,18 @@ public class Options implements Serializable
 
     /**
      * Add an option that contains a short-name and a long-name.
-     * This option is set as required.
-     * It may be specified as requiring an argument.
+     * 
+     * <p>
+     * The added option is set as required. It may be specified as requiring an argument. This method is a shortcut for:
+     * </p>
+     *
+     * <pre>
+     * <code>
+     * Options option = new Option(opt, longOpt, hasArg, description);
+     * option.setRequired(true);
+     * options.add(option);
+     * </code>
+     * </pre>
      *
      * @param opt Short single-character name of the option.
      * @param longOpt Long multi-character name of the option.
@@ -224,7 +243,10 @@ public class Options implements Serializable
 
     /**
      * Retrieve the {@link Option} matching the long or short name specified.
+     *
+     * <p>
      * The leading hyphens in the name are ignored (up to 2).
+     * </p>
      *
      * @param opt short or long name of the {@link Option}
      * @return the option represented by opt
@@ -314,10 +336,9 @@ public class Options implements Serializable
 
     /**
      * Returns the OptionGroup the <code>opt</code> belongs to.
-     * @param opt the option whose OptionGroup is being queried.
      *
-     * @return the OptionGroup if <code>opt</code> is part
-     * of an OptionGroup, otherwise return null
+     * @param opt the option whose OptionGroup is being queried.
+     * @return the OptionGroup if <code>opt</code> is part of an OptionGroup, otherwise return null
      */
     public OptionGroup getOptionGroup(Option opt)
     {
