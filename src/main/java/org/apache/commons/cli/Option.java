@@ -415,8 +415,17 @@ public class Option implements Cloneable, Serializable
 
     /** 
      * Returns the number of argument values this Option can take.
+     * 
+     * <p>
+     * A value equal to the constant {@link #UNINITIALIZED} (= -1) indicates
+     * the number of arguments has not been specified.
+     * A value equal to the constant {@link #UNLIMITED_VALUES} (= -2) indicates
+     * that this options takes an unlimited amount of values.
+     * </p>
      *
      * @return num the number of argument values
+     * @see #UNINITIALIZED
+     * @see #UNLIMITED_VALUES
      */
     public int getArgs()
     {
