@@ -23,6 +23,9 @@
   <body>
 
     <release version="1.4" date="tba" description="tba">
+      <action type="fix" dev="britter" issue="CLI-265">
+        Optional argument picking up next regular option as its argument
+      </action>
       <action type="add" dev="britter" issue="CLI-267" due-to="Ricardo Ribeiro">
         Add an addRequiredOption method to Options
       </action>
