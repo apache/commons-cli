@@ -307,7 +307,12 @@ public class DefaultParser implements CommandLineParser
         // remove leading "-" and "=value"
         int pos = token.indexOf("=");
         String optName = pos == -1 ? token.substring(1) : token.substring(1, pos);
-        return options.hasShortOption(optName);
+        if (options.hasShortOption(optName))
+        {
+            return true;
+        }
+        // check for several concatenated short options
+        return optName.length() > 0 && options.hasShortOption(String.valueOf(optName.charAt(0)));
     }
 
     /**

@@ -27,6 +27,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -43,10 +44,12 @@ public class BugCLI265Test {
     public void setUp() throws Exception {
         parser = new DefaultParser();
 
-        Option TYPE1 = Option.builder("t1").hasArg().numberOfArgs(1).optionalArg(true).argName("t1_path").build();
-        Option LAST = Option.builder("last").hasArg(false).build();
+        Option optionT1 = Option.builder("t1").hasArg().numberOfArgs(1).optionalArg(true).argName("t1_path").build();
+        Option optionA = Option.builder("a").hasArg(false).build();
+        Option optionB = Option.builder("b").hasArg(false).build();
+        Option optionLast = Option.builder("last").hasArg(false).build();
 
-        options = new Options().addOption(TYPE1).addOption(LAST);
+        options = new Options().addOption(optionT1).addOption(optionA).addOption(optionB).addOption(optionLast);
     }
 
     @Test
@@ -70,4 +73,16 @@ public class BugCLI265Test {
         assertTrue("Second option has not been detected", commandLine.hasOption("last"));
     }
 
+    @Test
+    public void shouldParseConcatenatedShortOptions() throws Exception {
+        String[] concatenatedShortOptions = new String[] { "-t1", "-ab" };
+
+        final CommandLine commandLine = parser.parse(options, concatenatedShortOptions);
+
+        assertTrue(commandLine.hasOption("t1"));
+        assertNull(commandLine.getOptionValue("t1"));
+        assertTrue(commandLine.hasOption("a"));
+        assertTrue(commandLine.hasOption("b"));
+        assertFalse(commandLine.hasOption("last"));
+    }
 }
