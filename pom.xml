@@ -175,6 +175,7 @@
     <commons.rc.version>RC1</commons.rc.version>
 
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
+    <commons.encoding>utf-8</commons.encoding>
   </properties>
 
   <build>
