@@ -90,7 +90,7 @@ o CLI-204: Passing default values for not defined options to a parser will now
 o CLI-201: Default properties provided as input to the Parser.parse() methods
            are now correctly processed.
 o CLI-215: CommandLine.getParsedOptionValue() now returns a String object if no
-           option type has been explicitly set. Thanks to Manuel Müller. 
+           option type has been explicitly set. Thanks to Manuel MÃ¼ller. 
 o CLI-212: HelpFormatter now prints command-line options in the same order as
            they have been added. Thanks to Per Cederberg.
 o CLI-186: Standard help text now shows mandatory arguments also for the first
