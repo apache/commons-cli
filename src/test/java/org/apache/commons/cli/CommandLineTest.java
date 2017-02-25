@@ -76,4 +76,18 @@ public class CommandLineTest
         assertEquals(123, ((Number) cmd.getParsedOptionValue("i")).intValue());
         assertEquals("foo", cmd.getParsedOptionValue("f"));
     }
+
+    @Test
+    public void testBuilder()
+        throws Exception
+    {
+        CommandLine.Builder builder = new CommandLine.Builder();
+        builder.addArg( "foo" ).addArg( "bar" );
+        builder.addOption( Option.builder( "T" ).build() );
+        CommandLine cmd = builder.build();
+
+        assertEquals( "foo", cmd.getArgs()[0] );
+        assertEquals( "bar", cmd.getArgList().get( 1 ) );
+        assertEquals( "T", cmd.getOptions()[0].getOpt() );
+    }
 }

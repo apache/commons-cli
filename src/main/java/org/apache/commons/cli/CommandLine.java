@@ -377,4 +377,42 @@ public class CommandLine implements Serializable
         // return the array
         return processed.toArray(optionsArray);
     }
+
+    /**
+     * A nested builder class to create <code>CommandLine</code> instance
+     * using descriptive methods.
+     * 
+     * @since 1.4
+     */
+    public static final class Builder
+    {
+        private final CommandLine commandLine = new CommandLine();
+
+        /**
+         * Add an option to the command line. The values of the option are stored.
+         *
+         * @param opt the processed option
+         */
+        public Builder addOption( Option opt )
+        {
+            commandLine.addOption( opt );
+            return this;
+        }
+
+        /**
+         * Add left-over unrecognized option/argument.
+         *
+         * @param arg the unrecognized option/argument.
+         */
+        public Builder addArg( String arg )
+        {
+            commandLine.addArg( arg );
+            return this;
+        }
+
+        public CommandLine build()
+        {
+            return commandLine;
+        }
+    }
 }
