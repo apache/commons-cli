@@ -386,16 +386,21 @@ public class CommandLine implements Serializable
      */
     public static final class Builder
     {
+        /**
+         * CommandLine that is being build by this Builder.
+         */
         private final CommandLine commandLine = new CommandLine();
 
         /**
          * Add an option to the command line. The values of the option are stored.
          *
          * @param opt the processed option
+         *
+         * @return this Builder instance for method chaining.
          */
-        public Builder addOption( Option opt )
+        public Builder addOption(Option opt)
         {
-            commandLine.addOption( opt );
+            commandLine.addOption(opt);
             return this;
         }
 
@@ -403,10 +408,12 @@ public class CommandLine implements Serializable
          * Add left-over unrecognized option/argument.
          *
          * @param arg the unrecognized option/argument.
+         *
+         * @return this Builder instance for method chaining.
          */
-        public Builder addArg( String arg )
+        public Builder addArg(String arg)
         {
-            commandLine.addArg( arg );
+            commandLine.addArg(arg);
             return this;
         }
 
