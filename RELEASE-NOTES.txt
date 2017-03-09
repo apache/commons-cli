@@ -1,5 +1,5 @@
             Apache Commons CLI
-                Version 1.3.1
+                Version 1.4
                Release Notes
 
 
@@ -9,12 +9,32 @@ This document contains the release notes for this version of the Commons CLI
 package. Commons CLI provides a simple API for working with the command line
 arguments and options.
 
-Commons CLI 1.3.1 is a bug fix release and binary compatible with the
+Commons CLI 1.4 is a feature release and binary compatible with the
 previous versions, except for the OptionValidator class that is no longer public
-(change introduced in v1.2). Commons CLI 1.3.1 at least requires Java 5.0.
+(change introduced in v1.2). Commons CLI 1.4 at least requires Java 5.0.
 
-More information can be found on the project site at 
+More information can be found on the project site at
 http://commons.apache.org/cli.
+
+
+NEW FEATURES
+============
+
+o CLI-269: Introduce CommandLine.Builder
+o CLI-267: Add an addRequiredOption method to Options.
+           Thanks to Ricardo Ribeiro.
+
+
+BUG FIXES
+=========
+
+o CLI-265: Optional argument picking up next regular option as its argument.
+           Thanks to Martin Sandiford.
+o CLI-266: HelpFormatter.setOptionComparator(null) doesn't display the values
+           in inserted order. Thanks to Ravi Teja.
+
+
+                Release Notes for version 1.3.1
 
 BUG FIXES
 =========
@@ -36,21 +56,21 @@ deprecates the previous ones.
 DEPRECATIONS
 ============
 
-o org.apache.commons.cli.BasicParser 
+o org.apache.commons.cli.BasicParser
     replaced by org.apache.commons.cli.DefaultParser
 
-o org.apache.commons.cli.GnuParser 
+o org.apache.commons.cli.GnuParser
     replaced by org.apache.commons.cli.DefaultParser
 
-o org.apache.commons.cli.OptionBuilder 
+o org.apache.commons.cli.OptionBuilder
     replaced by org.apache.commons.cli.Option.builder()
                 org.apache.commons.cli.Option.builder(String)
                 org.apache.commons.cli.Option.Builder
 
-o org.apache.commons.cli.Parser 
+o org.apache.commons.cli.Parser
     replaced by org.apache.commons.cli.DefaultParser
 
-o org.apache.commons.cli.PosixParser 
+o org.apache.commons.cli.PosixParser
     replaced by org.apache.commons.cli.DefaultParser
 
 
@@ -65,9 +85,9 @@ o CLI-224: Added new fluent API to create Option instances via builder class
            Option.Builder. This replaces the now deprecated OptionBuilder.
            Thanks to Duncan Jones, Brian Blount.
 o CLI-160: PosixParser now supports partial long options (--ver instead of
-           --version). 
+           --version).
 o CLI-169: HelpFormatter now supports setting the displayed separator of long
-           options. Thanks to J. Lewis Muir. 
+           options. Thanks to J. Lewis Muir.
 o CLI-214: Added new method Options.addOption(String, String). Thanks to
            Alexandru Mocanu.
 
@@ -82,7 +102,7 @@ o CLI-241: Clarified behavior of "OptionValidator#validateOption(String)"
            in case of null input. Thanks to Beluga Behr.
 o CLI-202: Default options will now work correctly with required options that
            are missing.
-o CLI-203: Default options will now work correctly together with option groups. 
+o CLI-203: Default options will now work correctly together with option groups.
 o CLI-205: HelpFormatter.setArgName(String) now correctly sets the argument
            name.
 o CLI-204: Passing default values for not defined options to a parser will now
@@ -90,7 +110,7 @@ o CLI-204: Passing default values for not defined options to a parser will now
 o CLI-201: Default properties provided as input to the Parser.parse() methods
            are now correctly processed.
 o CLI-215: CommandLine.getParsedOptionValue() now returns a String object if no
-           option type has been explicitly set. Thanks to Manuel Müller. 
+           option type has been explicitly set. Thanks to Manuel Müller.
 o CLI-212: HelpFormatter now prints command-line options in the same order as
            they have been added. Thanks to Per Cederberg.
 o CLI-186: Standard help text now shows mandatory arguments also for the first
@@ -100,7 +120,7 @@ o CLI-207: HelpFormatter does not strip anymore leading whitespace in the
 o CLI-185: Strip quotes contained in argument values only if there is exactly
            one at the beginning and one at the end. Thanks to
            Einar M. R. Rosenvinge.
-o CLI-184: Negative numerical arguments take precedence over numerical options. 
+o CLI-184: Negative numerical arguments take precedence over numerical options.
 o CLI-193: Fix possible StringIndexOutOfBoundsException in HelpFormatter.
            Thanks to Travis McLeskey.
 o CLI-183: OptionGroups no longer throw an AlreadySelectedException when reused
@@ -112,17 +132,17 @@ CHANGES
 =======
 
 o CLI-240: Small cleanup of Option class. Thanks to Beluga Behr.
-o CLI-230: Options.getRequiredOptions() now returns an unmodifiable list. 
+o CLI-230: Options.getRequiredOptions() now returns an unmodifiable list.
 o CLI-218: Clarify javadoc for CommandLine.getOptionValue() that the first
-           specified argument will be returned. Thanks to Sven. 
+           specified argument will be returned. Thanks to Sven.
 o CLI-227: Changed unit tests to junit 4 annotation style. Thanks to
-           Duncan Jones. 
+           Duncan Jones.
 o CLI-209: The javadoc of OptionBuilder now states that the class is not
-           thread-safe. Thanks to Thomas Herre. 
+           thread-safe. Thanks to Thomas Herre.
 o CLI-200: Fixed typo in javadoc of class CommandLine. Thanks to
-           Gerard Weatherby. 
+           Gerard Weatherby.
 o CLI-223: Source code now uses generic types instead of raw types where
-           possible. Thanks to Gerard Weatherby. 
+           possible. Thanks to Gerard Weatherby.
 o CLI-220  Corrected javadoc for return type of
            MissingOptionException.getMissingOptions(). Thanks to Joe Casadonte.
 o CLI-197: Improve description of parameter "stopAtNonOption" in method
@@ -140,7 +160,7 @@ NEW FEATURES
 o --     : The method getOptionProperties() in the CommandLine class was added
            to retrieve easily the key/value pairs specified with options like
            -Dkey1=value1 -Dkey2=value2.
-o CLI-157: GnuParser now supports long options with an '=' sign 
+o CLI-157: GnuParser now supports long options with an '=' sign
            (ie. --foo=bar and -foo=bar)
 o CLI-155: The ordering of options can be defined in help messages.
 
@@ -154,7 +174,7 @@ o CLI-164: PosixParser no longer ignores unrecognized short options.
 o CLI-163: PosixParser no longer stops the bursting process of a token if
            stopAtNonOption is enabled and a non option character is
            encountered.
-o CLI-165: PosixParser no longer keeps processing the tokens after an 
+o CLI-165: PosixParser no longer keeps processing the tokens after an
            unrecognized long option when stopAtNonOption is enabled.
 o CLI-156: Required options are properly checked if an Options instance is used
            twice to parse a command line.
@@ -179,31 +199,31 @@ o --     : OptionValidator is no longer public, its methods were all private.
 NEW FEATURES
 ============
 
-o CLI-78:  Setting description of a Option. 
+o CLI-78:  Setting description of a Option.
 
 CHANGES
 =======
 
-o CLI-2:   Wrong usage summary. 
-o CLI-5:   Dependecy on commons-lang-2.0 but commons-lang-1.0 is obtained. 
+o CLI-2:   Wrong usage summary.
+o CLI-5:   Dependecy on commons-lang-2.0 but commons-lang-1.0 is obtained.
 o CLI-8:   Line separator as first char for helpformatter (footer) throws
-           exception. 
-o CLI-13:  CommandLine.getOptionValue() behaves contrary to docs. 
-o CLI-21:  clone method in Option should use super.clone(). 
+           exception.
+o CLI-13:  CommandLine.getOptionValue() behaves contrary to docs.
+o CLI-21:  clone method in Option should use super.clone().
 o CLI-23:  Passing properties in Parser does not work for options with a single
-           argument. 
-o CLI-26:  Only long options without short option seems to be noticed. 
-o CLI-28:  Infinite Loop in Command-Line processing. 
-o CLI-29:  Options should not be able to be added more than once. 
-o CLI-35:  HelpFormatter doesn't sort options properly. 
+           argument.
+o CLI-26:  Only long options without short option seems to be noticed.
+o CLI-28:  Infinite Loop in Command-Line processing.
+o CLI-29:  Options should not be able to be added more than once.
+o CLI-35:  HelpFormatter doesn't sort options properly.
 o CLI-38:  HelpFormatter doesn't function correctly for options with only
-           LongOpt. 
-o CLI-44:  Document enhancement. 
-o CLI-45:  Documentation errors. 
-o CLI-51:  Parameter value "-something" misinterpreted as a parameter. 
-o CLI-56:  clone() method doesn't fully clone contents. 
-o CLI-59:  No Javadoc for HelpFormatter!. 
-o CLI-65:  Parser breaks up command line parms into single characters. 
+           LongOpt.
+o CLI-44:  Document enhancement.
+o CLI-45:  Documentation errors.
+o CLI-51:  Parameter value "-something" misinterpreted as a parameter.
+o CLI-56:  clone() method doesn't fully clone contents.
+o CLI-59:  No Javadoc for HelpFormatter!.
+o CLI-65:  Parser breaks up command line parms into single characters.
 o CLI-67:  Missing arguments in HelpFormatter.renderOptions(..).
 o CLI-69:  Error parsing option arguments.
 o CLI-71:  A weakness of parser.
@@ -212,17 +232,17 @@ o CLI-130: Remove the Commons Lang dependency.
 o CLI-131: Options class returns options in random order.
 o CLI-132: MissingOptionException should contain a useful error message.
 o CLI-133: NullPointerException in Util.stripLeadingHyphens when passed a null
-           argument. 
+           argument.
 o CLI-134: 1.1 is not backwards compatible because it adds methods to the
-           CommandLineParser interface. 
+           CommandLineParser interface.
 o CLI-135: Backwards compatibility between 1.1 and 1.0 broken due to
-           Option.addValue removal. 
+           Option.addValue removal.
 
 
 Historical list of changes: http://commons.apache.org/cli/changes-report.html
 
 For complete information on Commons CLI, including instructions on how to
-submit bug reports, patches, or suggestions for improvement, see the 
+submit bug reports, patches, or suggestions for improvement, see the
 Apache Commons CLI website:
 
 http://commons.apache.org/cli/
