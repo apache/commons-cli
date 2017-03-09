@@ -22,7 +22,7 @@
   </properties>
   <body>
 
-    <release version="1.4" date="tba" description="tba">
+    <release version="1.4" date="tba" description="New features and bug fixes">
       <action type="add" dev="rfscholte" issue="CLI-269">
         Introduce CommandLine.Builder
       </action>
