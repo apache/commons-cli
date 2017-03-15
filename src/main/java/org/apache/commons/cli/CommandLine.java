@@ -55,6 +55,18 @@ public class CommandLine implements Serializable
     {
         // nothing to do
     }
+    
+    /** 
+     * Query to see if an option has been set.
+     *
+     * @param opt the option to check
+     * @return true if set, false if not
+     * @since 1.4
+     */
+    public boolean hasOption(Option opt)
+    {
+        return options.contains(opt);
+    }
 
     /** 
      * Query to see if an option has been set.
@@ -64,9 +76,9 @@ public class CommandLine implements Serializable
      */
     public boolean hasOption(String opt)
     {
-        return options.contains(resolveOption(opt));
+        return hasOption(resolveOption(opt));
     }
-
+    
     /** 
      * Query to see if an option has been set.
      *
@@ -98,6 +110,29 @@ public class CommandLine implements Serializable
             return null;
         }
     }
+    
+    /**
+     * Return a version of this <code>Option</code> converted to a particular type. 
+     *
+     * @param option the name of the option
+     * @return the value parsed into a particular object
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.4
+     */
+    public Object getParsedOptionValue(Option option) throws ParseException
+    {
+        if (option == null)
+        {
+            return null;
+        }
+        String res = getOptionValue(option);
+        if (res == null)
+        {
+            return null;
+        }
+        return TypeHandler.createValue(res, option.getType());
+    }
 
     /**
      * Return a version of this <code>Option</code> converted to a particular type. 
@@ -110,26 +145,51 @@ public class CommandLine implements Serializable
      */
     public Object getParsedOptionValue(String opt) throws ParseException
     {
-        String res = getOptionValue(opt);
-        Option option = resolveOption(opt);
-        
-        if (option == null || res == null)
-        {
-            return null;
-        }
-        
-        return TypeHandler.createValue(res, option.getType());
+        return getParsedOptionValue(resolveOption(opt));
+    }
+    
+    /**
+     * Return a version of this <code>Option</code> converted to a particular type. 
+     *
+     * @param opt the name of the option
+     * @return the value parsed into a particular object
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.2
+     */
+    public Object getParsedOptionValue(char opt) throws ParseException
+    {
+        return getParsedOptionValue(String.valueOf(opt));
     }
 
     /**
      * Return the <code>Object</code> type of this <code>Option</code>.
      *
+     * @deprecated due to System.err message. Instead use getParsedOptionValue(char)
      * @param opt the name of the option
      * @return the type of opt
      */
     public Object getOptionObject(char opt)
     {
         return getOptionObject(String.valueOf(opt));
+    }
+    
+    /** 
+     * Retrieve the first argument, if any, of this option.
+     *
+     * @param option the name of the option
+     * @return Value of the argument if option is set, and has an argument,
+     * otherwise null.
+     * @since 1.4
+     */
+    public String getOptionValue(Option option)
+    {
+        if (option == null)
+        {
+            return null;
+        }
+        String[] values = getOptionValues(option);
+        return (values == null) ? null : values[0];
     }
 
     /** 
@@ -141,9 +201,7 @@ public class CommandLine implements Serializable
      */
     public String getOptionValue(String opt)
     {
-        String[] values = getOptionValues(opt);
-
-        return (values == null) ? null : values[0];
+        return getOptionValue(resolveOption(opt));
     }
 
     /** 
@@ -157,6 +215,29 @@ public class CommandLine implements Serializable
     {
         return getOptionValue(String.valueOf(opt));
     }
+    
+    /** 
+     * Retrieves the array of values, if any, of an option.
+     *
+     * @param option string name of the option
+     * @return Values of the argument if option is set, and has an argument,
+     * otherwise null.
+     * @since 1.4
+     */
+    public String[] getOptionValues(Option option)
+    {
+        List<String> values = new ArrayList<String>();
+
+        for (Option processedOption : options)
+        {
+            if (processedOption.equals(option))
+            {
+                values.addAll(processedOption.getValuesList());
+            }
+        }
+
+        return values.isEmpty() ? null : values.toArray(new String[values.size()]);
+    }
 
     /** 
      * Retrieves the array of values, if any, of an option.
@@ -167,17 +248,7 @@ public class CommandLine implements Serializable
      */
     public String[] getOptionValues(String opt)
     {
-        List<String> values = new ArrayList<String>();
-
-        for (Option option : options)
-        {
-            if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt()))
-            {
-                values.addAll(option.getValuesList());
-            }
-        }
-
-        return values.isEmpty() ? null : values.toArray(new String[values.size()]);
+        return getOptionValues(resolveOption(opt));
     }
 
     /**
@@ -216,6 +287,22 @@ public class CommandLine implements Serializable
     {
         return getOptionValues(String.valueOf(opt));
     }
+    
+    /** 
+     * Retrieve the first argument, if any, of an option.
+     *
+     * @param option name of the option
+     * @param defaultValue is the default value to be returned if the option
+     * is not specified
+     * @return Value of the argument if option is set, and has an argument,
+     * otherwise <code>defaultValue</code>.
+     * @since 1.4
+     */
+    public String getOptionValue(Option option, String defaultValue)
+    {
+        String answer = getOptionValue(option);
+        return (answer != null) ? answer : defaultValue;
+    }
 
     /** 
      * Retrieve the first argument, if any, of an option.
@@ -228,9 +315,7 @@ public class CommandLine implements Serializable
      */
     public String getOptionValue(String opt, String defaultValue)
     {
-        String answer = getOptionValue(opt);
-
-        return (answer != null) ? answer : defaultValue;
+        return getOptionValue(resolveOption(opt), defaultValue);
     }
 
     /** 
@@ -245,6 +330,44 @@ public class CommandLine implements Serializable
     public String getOptionValue(char opt, String defaultValue)
     {
         return getOptionValue(String.valueOf(opt), defaultValue);
+    }
+    
+    /**
+     * Retrieve the map of values associated to the option. This is convenient
+     * for options specifying Java properties like <tt>-Dparam1=value1
+     * -Dparam2=value2</tt>. The first argument of the option is the key, and
+     * the 2nd argument is the value. If the option has only one argument
+     * (<tt>-Dfoo</tt>) it is considered as a boolean flag and the value is
+     * <tt>"true"</tt>.
+     *
+     * @param option name of the option
+     * @return The Properties mapped by the option, never <tt>null</tt>
+     *         even if the option doesn't exists
+     * @since 1.4
+     */
+    public Properties getOptionProperties(Option option)
+    {
+        Properties props = new Properties();
+
+        for (Option processedOption : options)
+        {
+            if (processedOption.equals(option))
+            {
+                List<String> values = processedOption.getValuesList();
+                if (values.size() >= 2)
+                {
+                    // use the first 2 arguments as the key/value pair
+                    props.put(values.get(0), values.get(1));
+                }
+                else if (values.size() == 1)
+                {
+                    // no explicit value, handle it as a boolean
+                    props.put(values.get(0), "true");
+                }
+            }
+        }
+
+        return props;
     }
 
     /**

@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.Properties;
 
@@ -49,6 +50,31 @@ public class CommandLineTest
 
         assertEquals("property with long format", "bar", cl.getOptionProperties("property").getProperty("foo"));
     }
+    
+    @Test
+    public void testGetOptionPropertiesWithOption() throws Exception
+    {
+        String[] args = new String[] { "-Dparam1=value1", "-Dparam2=value2", "-Dparam3", "-Dparam4=value4", "-D", "--property", "foo=bar" };
+
+        Options options = new Options();
+        Option option_D = OptionBuilder.withValueSeparator().hasOptionalArgs(2).create('D');
+        Option option_property = OptionBuilder.withValueSeparator().hasArgs(2).withLongOpt("property").create();
+        options.addOption(option_D);
+        options.addOption(option_property);
+
+        Parser parser = new GnuParser();
+        CommandLine cl = parser.parse(options, args);
+
+        Properties props = cl.getOptionProperties(option_D);
+        assertNotNull("null properties", props);
+        assertEquals("number of properties in " + props, 4, props.size());
+        assertEquals("property 1", "value1", props.getProperty("param1"));
+        assertEquals("property 2", "value2", props.getProperty("param2"));
+        assertEquals("property 3", "true", props.getProperty("param3"));
+        assertEquals("property 4", "value4", props.getProperty("param4"));
+
+        assertEquals("property with long format", "bar", cl.getOptionProperties(option_property).getProperty("foo"));
+    }
 
     @Test
     public void testGetOptions()
@@ -75,6 +101,47 @@ public class CommandLineTest
         
         assertEquals(123, ((Number) cmd.getParsedOptionValue("i")).intValue());
         assertEquals("foo", cmd.getParsedOptionValue("f"));
+    }
+    
+    @Test
+    public void testGetParsedOptionValueWithChar() throws Exception {
+        Options options = new Options();
+        options.addOption(Option.builder("i").hasArg().type(Number.class).build());
+        options.addOption(Option.builder("f").hasArg().build());
+        
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse(options, new String[] { "-i", "123", "-f", "foo" });
+        
+        assertEquals(123, ((Number) cmd.getParsedOptionValue('i')).intValue());
+        assertEquals("foo", cmd.getParsedOptionValue('f'));
+    }
+    
+    @Test
+    public void testGetParsedOptionValueWithOption() throws Exception {
+        Options options = new Options();
+        Option opt_i = Option.builder("i").hasArg().type(Number.class).build();
+        Option opt_f = Option.builder("f").hasArg().build();
+        options.addOption(opt_i);
+        options.addOption(opt_f);
+        
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse(options, new String[] { "-i", "123", "-f", "foo" });
+        
+        assertEquals(123, ((Number) cmd.getParsedOptionValue(opt_i)).intValue());
+        assertEquals("foo", cmd.getParsedOptionValue(opt_f));
+    }
+    
+    @Test
+    public void testNullhOption() throws Exception {
+        Options options = new Options();
+        Option opt_i = Option.builder("i").hasArg().type(Number.class).build();
+        Option opt_f = Option.builder("f").hasArg().build();
+        options.addOption(opt_i);
+        options.addOption(opt_f);
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse(options, new String[] { "-i", "123", "-f", "foo" });
+        assertNull(cmd.getOptionValue((Option)null));
+        assertNull(cmd.getParsedOptionValue((Option)null));
     }
 
     @Test
