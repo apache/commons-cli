@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
@@ -70,6 +71,13 @@ public class OptionTest
         assertEquals(1, a.getArgs());
         assertEquals(0, a.getValuesList().size());
         assertEquals(2, b.getValues().length);
+    }
+    
+    @Test
+    public void testHashCode() {
+        assertNotEquals(Option.builder("test").build().hashCode(), Option.builder("test2").build().hashCode()) ;
+        assertNotEquals(Option.builder("test").build().hashCode(), Option.builder().longOpt("test").build().hashCode()) ;
+        assertNotEquals(Option.builder("test").build().hashCode(), Option.builder("test").longOpt("long test").build().hashCode()) ;
     }
 
     private static class DefaultOption extends Option

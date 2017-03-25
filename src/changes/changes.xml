@@ -23,6 +23,9 @@
   <body>
 
     <release version="1.5" date="tba" description="tba">
+      <action type="add" dev="britter" due-to="Christoph Läubrich" issue="CLI-271">
+        CommandLine.getXXX and CommandLine.hasXXX should accept an Option as a parameter
+      </action>
     </release>
 
     <release version="1.4" date="2017-03-09" description="New features and bug fixes">

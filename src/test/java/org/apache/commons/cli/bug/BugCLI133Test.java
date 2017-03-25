@@ -36,6 +36,6 @@ public class BugCLI133Test
         opts.addOption(optionA);
         PosixParser posixParser = new PosixParser();
         CommandLine line = posixParser.parse(opts, null);
-        assertFalse(line.hasOption(null));
+        assertFalse(line.hasOption((String)null));
     }
 }
