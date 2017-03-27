@@ -61,7 +61,7 @@ public class CommandLine implements Serializable
      *
      * @param opt the option to check
      * @return true if set, false if not
-     * @since 1.4
+     * @since 1.5
      */
     public boolean hasOption(Option opt)
     {
@@ -118,7 +118,7 @@ public class CommandLine implements Serializable
      * @return the value parsed into a particular object
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
-     * @since 1.4
+     * @since 1.5
      */
     public Object getParsedOptionValue(Option option) throws ParseException
     {
@@ -155,7 +155,7 @@ public class CommandLine implements Serializable
      * @return the value parsed into a particular object
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
-     * @since 1.2
+     * @since 1.5
      */
     public Object getParsedOptionValue(char opt) throws ParseException
     {
@@ -180,7 +180,7 @@ public class CommandLine implements Serializable
      * @param option the name of the option
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
-     * @since 1.4
+     * @since 1.5
      */
     public String getOptionValue(Option option)
     {
@@ -222,7 +222,7 @@ public class CommandLine implements Serializable
      * @param option string name of the option
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
-     * @since 1.4
+     * @since 1.5
      */
     public String[] getOptionValues(Option option)
     {
@@ -296,7 +296,7 @@ public class CommandLine implements Serializable
      * is not specified
      * @return Value of the argument if option is set, and has an argument,
      * otherwise <code>defaultValue</code>.
-     * @since 1.4
+     * @since 1.5
      */
     public String getOptionValue(Option option, String defaultValue)
     {
@@ -343,7 +343,7 @@ public class CommandLine implements Serializable
      * @param option name of the option
      * @return The Properties mapped by the option, never <tt>null</tt>
      *         even if the option doesn't exists
-     * @since 1.4
+     * @since 1.5
      */
     public Properties getOptionProperties(Option option)
     {
