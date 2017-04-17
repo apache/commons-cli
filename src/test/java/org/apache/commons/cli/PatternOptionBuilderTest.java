@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -164,7 +165,7 @@ public class PatternOptionBuilderTest
         CommandLineParser parser = new PosixParser();
         CommandLine line = parser.parse(options, new String[] { "-f", "test.properties", "-g", "build.xml" });
         
-        assertNotNull((FileInputStream) line.getOptionObject("g"));
+        assertNotNull("option g not parsed, or not FileInputStream", (FileInputStream) line.getOptionObject("g"));
         
         try
         {
