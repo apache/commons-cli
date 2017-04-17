@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
@@ -159,13 +160,20 @@ public class PatternOptionBuilderTest
     @Test
     public void testExistingFilePattern() throws Exception
     {
-        Options options = PatternOptionBuilder.parsePattern("f<");
+        Options options = PatternOptionBuilder.parsePattern("f<g<");
         CommandLineParser parser = new PosixParser();
-        CommandLine line = parser.parse(options, new String[] { "-f", "test.properties" });
-
-        assertEquals("f value", new File("test.properties"), line.getOptionObject("f"));
-
-        // todo test if an error is returned if the file doesn't exists (when it's implemented)
+        CommandLine line = parser.parse(options, new String[] { "-f", "test.properties", "-g", "build.xml" });
+        
+        assertNotNull((FileInputStream) line.getOptionObject("g"));
+        
+        try
+        {
+            line.getOptionObject("f");
+            fail("ParseException wasn't thrown");
+        }
+        catch (ParseException e)
+        {
+        }
     }
 
     @Test
