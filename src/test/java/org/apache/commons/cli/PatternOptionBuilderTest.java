@@ -166,15 +166,7 @@ public class PatternOptionBuilderTest
         CommandLine line = parser.parse(options, new String[] { "-f", "test.properties", "-g", "build.xml" });
         
         assertNotNull("option g not parsed, or not FileInputStream", (FileInputStream) line.getOptionObject("g"));
-        
-        try
-        {
-            line.getOptionObject("f");
-            fail("ParseException wasn't thrown");
-        }
-        catch (ParseException e)
-        {
-        }
+        assertNull("option f parsed", (FileInputStream) line.getOptionObject("f"));
     }
 
     @Test
