@@ -163,7 +163,7 @@ public class PatternOptionBuilderTest
     {
         Options options = PatternOptionBuilder.parsePattern("f<g<");
         CommandLineParser parser = new PosixParser();
-        CommandLine line = parser.parse(options, new String[] { "-f", "test.properties", "-g", "build.xml" });
+        CommandLine line = parser.parse(options, new String[] { "-f", "test.properties", "-g", "/dev/null" });
         
         assertNotNull("option g not parsed, or not FileInputStream", (FileInputStream) line.getOptionObject("g"));
         assertNull("option f parsed", (FileInputStream) line.getOptionObject("f"));
