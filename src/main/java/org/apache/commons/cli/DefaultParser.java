@@ -191,7 +191,7 @@ public class DefaultParser implements CommandLineParser
      * @throws MissingOptionException if any of the required Options
      * are not present.
      */
-    private void checkRequiredOptions() throws MissingOptionException
+    protected void checkRequiredOptions() throws MissingOptionException
     {
         // if there are required options that have not been processed
         if (!expectedOpts.isEmpty())
