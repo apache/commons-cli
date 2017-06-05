@@ -50,13 +50,13 @@ public class GnuParser extends Parser
     @Override
     protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption)
     {
-        List<String> tokens = new ArrayList<String>();
+        final List<String> tokens = new ArrayList<String>();
 
         boolean eatTheRest = false;
 
         for (int i = 0; i < arguments.length; i++)
         {
-            String arg = arguments[i];
+            final String arg = arguments[i];
 
             if ("--".equals(arg))
             {
@@ -69,7 +69,7 @@ public class GnuParser extends Parser
             }
             else if (arg.startsWith("-"))
             {
-                String opt = Util.stripLeadingHyphens(arg);
+                final String opt = Util.stripLeadingHyphens(arg);
 
                 if (options.hasOption(opt))
                 {

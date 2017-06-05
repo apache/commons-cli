@@ -33,13 +33,13 @@ public class BugCLI18Test
     @Test
     public void testCLI18()
     {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption(new Option("a", "aaa", false, "aaaaaaa"));
         options.addOption(new Option(null, "bbb", false, "bbbbbbb dksh fkshd fkhs dkfhsdk fhskd hksdks dhfowehfsdhfkjshf skfhkshf sf jkshfk sfh skfh skf f"));
         options.addOption(new Option("c", null, false, "ccccccc"));
 
-        HelpFormatter formatter = new HelpFormatter();
-        StringWriter out = new StringWriter();
+        final HelpFormatter formatter = new HelpFormatter();
+        final StringWriter out = new StringWriter();
 
         formatter.printHelp(new PrintWriter(out), 80, "foobar", "dsfkfsh kdh hsd hsdh fkshdf ksdh fskdh fsdh fkshfk sfdkjhskjh fkjh fkjsh khsdkj hfskdhf skjdfh ksf khf s", options, 2, 2, "blort j jgj j jg jhghjghjgjhgjhg jgjhgj jhg jhg hjg jgjhghjg jhg hjg jhgjg jgjhghjg jg jgjhgjgjg jhg jhgjh" + '\r' + '\n' + "rarrr", true);
     }

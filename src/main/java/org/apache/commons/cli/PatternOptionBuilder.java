@@ -153,11 +153,11 @@ public class PatternOptionBuilder
         boolean required = false;
         Class<?> type = null;
 
-        Options options = new Options();
+        final Options options = new Options();
 
         for (int i = 0; i < pattern.length(); i++)
         {
-            char ch = pattern.charAt(i);
+            final char ch = pattern.charAt(i);
 
             // a value code comes after an option and specifies
             // details about it

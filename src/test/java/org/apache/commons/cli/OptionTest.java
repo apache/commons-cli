@@ -47,7 +47,7 @@ public class OptionTest
     @Test
     public void testClear()
     {
-        TestOption option = new TestOption("x", true, "");
+        final TestOption option = new TestOption("x", true, "");
         assertEquals(0, option.getValuesList().size());
         option.addValue("a");
         assertEquals(1, option.getValuesList().size());
@@ -59,8 +59,8 @@ public class OptionTest
     @Test
     public void testClone()
     {
-        TestOption a = new TestOption("a", true, "");
-        TestOption b = (TestOption) a.clone();
+        final TestOption a = new TestOption("a", true, "");
+        final TestOption b = (TestOption) a.clone();
         assertEquals(a, b);
         assertNotSame(a, b);
         a.setDescription("a");
@@ -102,8 +102,8 @@ public class OptionTest
     @Test
     public void testSubclass()
     {
-        Option option = new DefaultOption("f", "file", "myfile.txt");
-        Option clone = (Option) option.clone();
+        final Option option = new DefaultOption("f", "file", "myfile.txt");
+        final Option clone = (Option) option.clone();
         assertEquals("myfile.txt", clone.getValue());
         assertEquals(DefaultOption.class, clone.getClass());
     }
@@ -111,7 +111,7 @@ public class OptionTest
     @Test
     public void testHasArgName()
     {
-        Option option = new Option("f", null);
+        final Option option = new Option("f", null);
 
         option.setArgName(null);
         assertFalse(option.hasArgName());
@@ -126,7 +126,7 @@ public class OptionTest
     @Test
     public void testHasArgs()
     {
-        Option option = new Option("f", null);
+        final Option option = new Option("f", null);
 
         option.setArgs(0);
         assertFalse(option.hasArgs());
@@ -147,7 +147,7 @@ public class OptionTest
     @Test
     public void testGetValue()
     {
-        Option option = new Option("f", null);
+        final Option option = new Option("f", null);
         option.setArgs(Option.UNLIMITED_VALUES);
 
         assertEquals("default", option.getValue("default"));
@@ -163,7 +163,7 @@ public class OptionTest
     @Test
     public void testBuilderMethods()
     {
-        char defaultSeparator = (char) 0;
+        final char defaultSeparator = (char) 0;
 
         checkOption(Option.builder("a").desc("desc").build(),
             "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);

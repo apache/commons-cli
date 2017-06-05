@@ -139,15 +139,15 @@ public class OptionGroup implements Serializable
     @Override
     public String toString()
     {
-        StringBuilder buff = new StringBuilder();
+        final StringBuilder buff = new StringBuilder();
         
-        Iterator<Option> iter = getOptions().iterator();
+        final Iterator<Option> iter = getOptions().iterator();
 
         buff.append("[");
 
         while (iter.hasNext())
         {
-            Option option = iter.next();
+            final Option option = iter.next();
 
             if (option.getOpt() != null)
             {

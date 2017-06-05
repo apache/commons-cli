@@ -40,11 +40,11 @@ public class PatternOptionBuilderTest
     @Test
     public void testSimplePattern() throws Exception
     {
-        Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/m*z#");
-        String[] args = new String[] {"-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://commons.apache.org", "-z", "Thu Jun 06 17:48:57 EDT 2002", "-m", "test*"};
+        final Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/m*z#");
+        final String[] args = new String[] {"-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://commons.apache.org", "-z", "Thu Jun 06 17:48:57 EDT 2002", "-m", "test*"};
 
-        CommandLineParser parser = new PosixParser();
-        CommandLine line = parser.parse(options, args);
+        final CommandLineParser parser = new PosixParser();
+        final CommandLine line = parser.parse(options, args);
 
         assertEquals("flag a", "foo", line.getOptionValue("a"));
         assertEquals("string flag a", "foo", line.getOptionObject("a"));
@@ -71,7 +71,7 @@ public class PatternOptionBuilderTest
         try {
             assertEquals("files flag m", new File[0], line.getOptionObject('m'));
             fail("Multiple files are not supported yet, should have failed");
-        } catch(UnsupportedOperationException uoe) {
+        } catch(final UnsupportedOperationException uoe) {
             // expected
         }
 
@@ -79,7 +79,7 @@ public class PatternOptionBuilderTest
         try {
             assertEquals("date flag z", new Date(1023400137276L), line.getOptionObject('z'));
             fail("Date is not supported yet, should have failed");
-        } catch(UnsupportedOperationException uoe) {
+        } catch(final UnsupportedOperationException uoe) {
             // expected
         }
     }
@@ -87,16 +87,16 @@ public class PatternOptionBuilderTest
     @Test
     public void testEmptyPattern() throws Exception
     {
-        Options options = PatternOptionBuilder.parsePattern("");
+        final Options options = PatternOptionBuilder.parsePattern("");
         assertTrue(options.getOptions().isEmpty());
     }
 
     @Test
     public void testUntypedPattern() throws Exception
     {
-        Options options = PatternOptionBuilder.parsePattern("abc");
-        CommandLineParser parser = new PosixParser();
-        CommandLine line = parser.parse(options, new String[] { "-abc" });
+        final Options options = PatternOptionBuilder.parsePattern("abc");
+        final CommandLineParser parser = new PosixParser();
+        final CommandLine line = parser.parse(options, new String[] { "-abc" });
 
         assertTrue(line.hasOption('a'));
         assertNull("value a", line.getOptionObject('a'));
@@ -109,9 +109,9 @@ public class PatternOptionBuilderTest
     @Test
     public void testNumberPattern() throws Exception
     {
-        Options options = PatternOptionBuilder.parsePattern("n%d%x%");
-        CommandLineParser parser = new PosixParser();
-        CommandLine line = parser.parse(options, new String[] { "-n", "1", "-d", "2.1", "-x", "3,5" });
+        final Options options = PatternOptionBuilder.parsePattern("n%d%x%");
+        final CommandLineParser parser = new PosixParser();
+        final CommandLine line = parser.parse(options, new String[] { "-n", "1", "-d", "2.1", "-x", "3,5" });
 
         assertEquals("n object class", Long.class, line.getOptionObject("n").getClass());
         assertEquals("n value", new Long(1), line.getOptionObject("n"));
@@ -125,9 +125,9 @@ public class PatternOptionBuilderTest
     @Test
     public void testClassPattern() throws Exception
     {
-        Options options = PatternOptionBuilder.parsePattern("c+d+");
-        CommandLineParser parser = new PosixParser();
-        CommandLine line = parser.parse(options, new String[] { "-c", "java.util.Calendar", "-d", "System.DateTime" });
+        final Options options = PatternOptionBuilder.parsePattern("c+d+");
+        final CommandLineParser parser = new PosixParser();
+        final CommandLine line = parser.parse(options, new String[] { "-c", "java.util.Calendar", "-d", "System.DateTime" });
 
         assertEquals("c value", Calendar.class, line.getOptionObject("c"));
         assertNull("d value", line.getOptionObject("d"));
@@ -136,9 +136,9 @@ public class PatternOptionBuilderTest
     @Test
     public void testObjectPattern() throws Exception
     {
-        Options options = PatternOptionBuilder.parsePattern("o@i@n@");
-        CommandLineParser parser = new PosixParser();
-        CommandLine line = parser.parse(options, new String[] { "-o", "java.lang.String", "-i", "java.util.Calendar", "-n", "System.DateTime" });
+        final Options options = PatternOptionBuilder.parsePattern("o@i@n@");
+        final CommandLineParser parser = new PosixParser();
+        final CommandLine line = parser.parse(options, new String[] { "-o", "java.lang.String", "-i", "java.util.Calendar", "-n", "System.DateTime" });
 
         assertEquals("o value", "", line.getOptionObject("o"));
         assertNull("i value", line.getOptionObject("i"));
@@ -148,9 +148,9 @@ public class PatternOptionBuilderTest
     @Test
     public void testURLPattern() throws Exception
     {
-        Options options = PatternOptionBuilder.parsePattern("u/v/");
-        CommandLineParser parser = new PosixParser();
-        CommandLine line = parser.parse(options, new String[] { "-u", "http://commons.apache.org", "-v", "foo://commons.apache.org" });
+        final Options options = PatternOptionBuilder.parsePattern("u/v/");
+        final CommandLineParser parser = new PosixParser();
+        final CommandLine line = parser.parse(options, new String[] { "-u", "http://commons.apache.org", "-v", "foo://commons.apache.org" });
 
         assertEquals("u value", new URL("http://commons.apache.org"), line.getOptionObject("u"));
         assertNull("v value", line.getOptionObject("v"));
@@ -159,9 +159,9 @@ public class PatternOptionBuilderTest
     @Test
     public void testExistingFilePattern() throws Exception
     {
-        Options options = PatternOptionBuilder.parsePattern("f<");
-        CommandLineParser parser = new PosixParser();
-        CommandLine line = parser.parse(options, new String[] { "-f", "test.properties" });
+        final Options options = PatternOptionBuilder.parsePattern("f<");
+        final CommandLineParser parser = new PosixParser();
+        final CommandLine line = parser.parse(options, new String[] { "-f", "test.properties" });
 
         assertEquals("f value", new File("test.properties"), line.getOptionObject("f"));
 
@@ -171,15 +171,15 @@ public class PatternOptionBuilderTest
     @Test
     public void testRequiredOption() throws Exception
     {
-        Options options = PatternOptionBuilder.parsePattern("!n%m%");
-        CommandLineParser parser = new PosixParser();
+        final Options options = PatternOptionBuilder.parsePattern("!n%m%");
+        final CommandLineParser parser = new PosixParser();
 
         try
         {
             parser.parse(options, new String[]{""});
             fail("MissingOptionException wasn't thrown");
         }
-        catch (MissingOptionException e)
+        catch (final MissingOptionException e)
         {
             assertEquals(1, e.getMissingOptions().size());
             assertTrue(e.getMissingOptions().contains("n"));

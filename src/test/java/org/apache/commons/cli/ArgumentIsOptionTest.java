@@ -40,13 +40,13 @@ public class ArgumentIsOptionTest
     @Test
     public void testOptionAndOptionWithArgument() throws Exception
     {
-        String[] args = new String[]{
+        final String[] args = new String[]{
                 "-p",
                 "-attr",
                 "p"
         };
 
-        CommandLine cl = parser.parse(options, args);
+        final CommandLine cl = parser.parse(options, args);
         assertTrue("Confirm -p is set", cl.hasOption("p"));
         assertTrue("Confirm -attr is set", cl.hasOption("attr"));
         assertTrue("Confirm arg of -attr", cl.getOptionValue("attr").equals("p"));
@@ -56,12 +56,12 @@ public class ArgumentIsOptionTest
     @Test
     public void testOptionWithArgument() throws Exception
     {
-        String[] args = new String[]{
+        final String[] args = new String[]{
                 "-attr",
                 "p"
         };
 
-        CommandLine cl = parser.parse(options, args);
+        final CommandLine cl = parser.parse(options, args);
         assertFalse("Confirm -p is set", cl.hasOption("p"));
         assertTrue("Confirm -attr is set", cl.hasOption("attr"));
         assertTrue("Confirm arg of -attr",
@@ -72,11 +72,11 @@ public class ArgumentIsOptionTest
     @Test
     public void testOption() throws Exception
     {
-        String[] args = new String[]{
+        final String[] args = new String[]{
                 "-p"
         };
 
-        CommandLine cl = parser.parse(options, args);
+        final CommandLine cl = parser.parse(options, args);
         assertTrue("Confirm -p is set", cl.hasOption("p"));
         assertFalse("Confirm -attr is not set", cl.hasOption("attr"));
         assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);

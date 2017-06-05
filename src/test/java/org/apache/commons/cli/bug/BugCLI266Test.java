@@ -38,11 +38,11 @@ public class BugCLI266Test {
 
     @Test
     public void testOptionComparatorDefaultOrder() throws ParseException {
-        HelpFormatter formatter = new HelpFormatter();
-        List<Option> options = new ArrayList<Option>(getOptions().getOptions());
+        final HelpFormatter formatter = new HelpFormatter();
+        final List<Option> options = new ArrayList<Option>(getOptions().getOptions());
         Collections.sort(options, formatter.getOptionComparator());
         int i = 0;
-        for(Option o: options) {
+        for(final Option o: options) {
             Assert.assertEquals(o.getOpt(), sortOrder.get(i));
             i++;
         }
@@ -50,17 +50,17 @@ public class BugCLI266Test {
 
     @Test
     public void testOptionComparatorInsertedOrder() throws ParseException {
-        Collection<Option> options = getOptions().getOptions();
+        final Collection<Option> options = getOptions().getOptions();
         int i = 0;
-        for(Option o: options) {
+        for(final Option o: options) {
             Assert.assertEquals(o.getOpt(), insertedOrder.get(i));
             i++;
         }
     }
 
     private Options getOptions() {
-        Options options = new Options();
-        Option help = Option.builder("h")
+        final Options options = new Options();
+        final Option help = Option.builder("h")
                 .longOpt("help")
                 .desc("Prints this help message")
                 .build();
@@ -68,17 +68,17 @@ public class BugCLI266Test {
 
         buildOptionsGroup(options);
 
-        Option t = Option.builder("t")
+        final Option t = Option.builder("t")
                 .required()
                 .hasArg()
                 .argName("file")
                 .build();
-        Option w = Option.builder("w")
+        final Option w = Option.builder("w")
                 .required()
                 .hasArg()
                 .argName("word")
                 .build();
-        Option o = Option.builder("o")
+        final Option o = Option.builder("o")
                 .hasArg()
                 .argName("directory")
                 .build();
@@ -89,8 +89,8 @@ public class BugCLI266Test {
     }
 
     private void buildOptionsGroup(Options options) {
-        OptionGroup firstGroup = new OptionGroup();
-        OptionGroup secondGroup = new OptionGroup();
+        final OptionGroup firstGroup = new OptionGroup();
+        final OptionGroup secondGroup = new OptionGroup();
         firstGroup.setRequired(true);
         secondGroup.setRequired(true);
 

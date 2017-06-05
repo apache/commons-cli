@@ -104,7 +104,7 @@ public class CommandLine implements Serializable
         {
             return getParsedOptionValue(opt);
         }
-        catch (ParseException pe)
+        catch (final ParseException pe)
         {
             System.err.println("Exception found converting " + opt + " to desired type: " + pe.getMessage());
             return null;
@@ -126,7 +126,7 @@ public class CommandLine implements Serializable
         {
             return null;
         }
-        String res = getOptionValue(option);
+        final String res = getOptionValue(option);
         if (res == null)
         {
             return null;
@@ -188,7 +188,7 @@ public class CommandLine implements Serializable
         {
             return null;
         }
-        String[] values = getOptionValues(option);
+        final String[] values = getOptionValues(option);
         return (values == null) ? null : values[0];
     }
 
@@ -226,9 +226,9 @@ public class CommandLine implements Serializable
      */
     public String[] getOptionValues(Option option)
     {
-        List<String> values = new ArrayList<String>();
+        final List<String> values = new ArrayList<String>();
 
-        for (Option processedOption : options)
+        for (final Option processedOption : options)
         {
             if (processedOption.equals(option))
             {
@@ -260,7 +260,7 @@ public class CommandLine implements Serializable
     private Option resolveOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
-        for (Option option : options)
+        for (final Option option : options)
         {
             if (opt.equals(option.getOpt()))
             {
@@ -300,7 +300,7 @@ public class CommandLine implements Serializable
      */
     public String getOptionValue(Option option, String defaultValue)
     {
-        String answer = getOptionValue(option);
+        final String answer = getOptionValue(option);
         return (answer != null) ? answer : defaultValue;
     }
 
@@ -347,13 +347,13 @@ public class CommandLine implements Serializable
      */
     public Properties getOptionProperties(Option option)
     {
-        Properties props = new Properties();
+        final Properties props = new Properties();
 
-        for (Option processedOption : options)
+        for (final Option processedOption : options)
         {
             if (processedOption.equals(option))
             {
-                List<String> values = processedOption.getValuesList();
+                final List<String> values = processedOption.getValuesList();
                 if (values.size() >= 2)
                 {
                     // use the first 2 arguments as the key/value pair
@@ -385,13 +385,13 @@ public class CommandLine implements Serializable
      */
     public Properties getOptionProperties(String opt)
     {
-        Properties props = new Properties();
+        final Properties props = new Properties();
 
-        for (Option option : options)
+        for (final Option option : options)
         {
             if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt()))
             {
-                List<String> values = option.getValuesList();
+                final List<String> values = option.getValuesList();
                 if (values.size() >= 2)
                 {
                     // use the first 2 arguments as the key/value pair
@@ -415,7 +415,7 @@ public class CommandLine implements Serializable
      */
     public String[] getArgs()
     {
-        String[] answer = new String[args.size()];
+        final String[] answer = new String[args.size()];
 
         args.toArray(answer);
 
@@ -492,10 +492,10 @@ public class CommandLine implements Serializable
      */
     public Option[] getOptions()
     {
-        Collection<Option> processed = options;
+        final Collection<Option> processed = options;
 
         // reinitialise array
-        Option[] optionsArray = new Option[processed.size()];
+        final Option[] optionsArray = new Option[processed.size()];
 
         // return the array
         return processed.toArray(optionsArray);

@@ -48,12 +48,12 @@ public class BugCLI162Test
 
     @Test
     public void testInfiniteLoop() {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption("h", "help", false, "This is a looooong description");
         // used to hang & crash
         formatter.printHelp(new PrintWriter(sw), 20, "app", null, options, HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, null);
 
-        String expected = "usage: app" + CR +
+        final String expected = "usage: app" + CR +
                 " -h,--help   This is" + CR +
                 "             a" + CR +
                 "             looooon" + CR +
@@ -181,8 +181,8 @@ public class BugCLI162Test
             + " \"pname1 pname2\"");
         commandLineOptions.addOption(option);
         //
-        OptionGroup pOutTypesOptionGroup = new OptionGroup();
-        String pOutTypesOptionGroupDoc = OPT + OPT_PARAM_TYPES_INT + " and " + OPT + OPT_PARAM_TYPES_NAME + " are mutually exclusive.";
+        final OptionGroup pOutTypesOptionGroup = new OptionGroup();
+        final String pOutTypesOptionGroupDoc = OPT + OPT_PARAM_TYPES_INT + " and " + OPT + OPT_PARAM_TYPES_NAME + " are mutually exclusive.";
         final String typesClassName = Types.class.getName();
         option = new Option(OPT_PARAM_TYPES_INT, "paramTypes", true, "Parameter types from "
             + typesClassName
@@ -204,8 +204,8 @@ public class BugCLI162Test
         commandLineOptions.addOption(option);
         commandLineOptions.addOptionGroup(pOutTypesOptionGroup);
         //
-        OptionGroup modesOptionGroup = new OptionGroup();
-        String modesOptionGroupDoc = OPT + OPT_PARAM_MODES_INT + " and " + OPT + OPT_PARAM_MODES_NAME + " are mutually exclusive.";
+        final OptionGroup modesOptionGroup = new OptionGroup();
+        final String modesOptionGroupDoc = OPT + OPT_PARAM_MODES_INT + " and " + OPT + OPT_PARAM_MODES_NAME + " are mutually exclusive.";
         option = new Option(OPT_PARAM_MODES_INT, "paramModes", true, "Parameters modes ("
             + ParameterMetaData.parameterModeIn
             + "=IN, "
@@ -250,7 +250,7 @@ public class BugCLI162Test
         commandLineOptions.addOption(option);
 
         formatter.printHelp(new PrintWriter(sw), HelpFormatter.DEFAULT_WIDTH, this.getClass().getName(), null, commandLineOptions, HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, null);
-        String expected = "usage: org.apache.commons.cli.bug.BugCLI162Test" + CR +
+        final String expected = "usage: org.apache.commons.cli.bug.BugCLI162Test" + CR +
                 " -2,--jdbc2sfmd <arg>        Converts the JDBC file in the first argument" + CR +
                 "                             to an SMFD file specified in the second" + CR +
                 "                             argument." + CR +
@@ -312,14 +312,14 @@ public class BugCLI162Test
 
     @Test
     public void testLongLineChunking() {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption("x", "extralongarg", false,
                                      "This description has ReallyLongValuesThatAreLongerThanTheWidthOfTheColumns " +
                                      "and also other ReallyLongValuesThatAreHugerAndBiggerThanTheWidthOfTheColumnsBob, " +
                                      "yes. ");
         
         formatter.printHelp(new PrintWriter(sw), 35, this.getClass().getName(), "Header", options, 0, 5, "Footer");
-        String expected = "usage:" + CR +
+        final String expected = "usage:" + CR +
                           "       org.apache.commons.cli.bug.B" + CR +
                           "       ugCLI162Test" + CR +
                           "Header" + CR +
@@ -344,11 +344,11 @@ public class BugCLI162Test
 
     @Test
     public void testLongLineChunkingIndentIgnored() {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption("x", "extralongarg", false, "This description is Long." );
 
         formatter.printHelp(new PrintWriter(sw), 22, this.getClass().getName(), "Header", options, 0, 5, "Footer");
-        String expected = "usage:" + CR +
+        final String expected = "usage:" + CR +
                           "       org.apache.comm" + CR +
                           "       ons.cli.bug.Bug" + CR +
                           "       CLI162Test" + CR +

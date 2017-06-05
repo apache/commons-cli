@@ -463,7 +463,7 @@ public class Option implements Cloneable, Serializable
         if (hasValueSeparator())
         {
             // get the separator character
-            char sep = getValueSeparator();
+            final char sep = getValueSeparator();
 
             // store the index for the value separator
             int index = value.indexOf(sep);
@@ -553,7 +553,7 @@ public class Option implements Cloneable, Serializable
      */
     public String getValue(String defaultValue)
     {
-        String value = getValue();
+        final String value = getValue();
 
         return (value != null) ? value : defaultValue;
     }
@@ -587,7 +587,7 @@ public class Option implements Cloneable, Serializable
     @Override
     public String toString()
     {
-        StringBuilder buf = new StringBuilder().append("[ option: ");
+        final StringBuilder buf = new StringBuilder().append("[ option: ");
 
         buf.append(opt);
 
@@ -681,11 +681,11 @@ public class Option implements Cloneable, Serializable
     {
         try
         {
-            Option option = (Option) super.clone();
+            final Option option = (Option) super.clone();
             option.values = new ArrayList<String>(values);
             return option;
         }
-        catch (CloneNotSupportedException cnse)
+        catch (final CloneNotSupportedException cnse)
         {
             throw new RuntimeException("A CloneNotSupportedException was thrown: " + cnse.getMessage());
         }

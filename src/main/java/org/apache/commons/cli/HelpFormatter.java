@@ -487,7 +487,7 @@ public class HelpFormatter
     public void printHelp(int width, String cmdLineSyntax, String header,
                           Options options, String footer, boolean autoUsage)
     {
-        PrintWriter pw = new PrintWriter(System.out);
+        final PrintWriter pw = new PrintWriter(System.out);
 
         printHelp(pw, width, cmdLineSyntax, header, options, getLeftPadding(), getDescPadding(), footer, autoUsage);
         pw.flush();
@@ -579,24 +579,24 @@ public class HelpFormatter
     public void printUsage(PrintWriter pw, int width, String app, Options options)
     {
         // initialise the string buffer
-        StringBuffer buff = new StringBuffer(getSyntaxPrefix()).append(app).append(" ");
+        final StringBuffer buff = new StringBuffer(getSyntaxPrefix()).append(app).append(" ");
 
         // create a list for processed option groups
-        Collection<OptionGroup> processedGroups = new ArrayList<OptionGroup>();
+        final Collection<OptionGroup> processedGroups = new ArrayList<OptionGroup>();
 
-        List<Option> optList = new ArrayList<Option>(options.getOptions());
+        final List<Option> optList = new ArrayList<Option>(options.getOptions());
         if (getOptionComparator() != null)
         {
             Collections.sort(optList, getOptionComparator());
         }
         // iterate over the options
-        for (Iterator<Option> it = optList.iterator(); it.hasNext();)
+        for (final Iterator<Option> it = optList.iterator(); it.hasNext();)
         {
             // get the next Option
-            Option option = it.next();
+            final Option option = it.next();
 
             // check if the option is part of an OptionGroup
-            OptionGroup group = options.getOptionGroup(option);
+            final OptionGroup group = options.getOptionGroup(option);
 
             // if the option is part of a group 
             if (group != null)
@@ -648,13 +648,13 @@ public class HelpFormatter
             buff.append("[");
         }
 
-        List<Option> optList = new ArrayList<Option>(group.getOptions());
+        final List<Option> optList = new ArrayList<Option>(group.getOptions());
         if (getOptionComparator() != null)
         {
             Collections.sort(optList, getOptionComparator());
         }
         // for each option in the OptionGroup
-        for (Iterator<Option> it = optList.iterator(); it.hasNext();)
+        for (final Iterator<Option> it = optList.iterator(); it.hasNext();)
         {
             // whether the option is required or not is handled at group level
             appendOption(buff, it.next(), true);
@@ -718,7 +718,7 @@ public class HelpFormatter
      */
     public void printUsage(PrintWriter pw, int width, String cmdLineSyntax)
     {
-        int argPos = cmdLineSyntax.indexOf(' ') + 1;
+        final int argPos = cmdLineSyntax.indexOf(' ') + 1;
 
         printWrapped(pw, width, getSyntaxPrefix().length() + argPos, getSyntaxPrefix() + cmdLineSyntax);
     }
@@ -738,7 +738,7 @@ public class HelpFormatter
     public void printOptions(PrintWriter pw, int width, Options options, 
                              int leftPad, int descPad)
     {
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer sb = new StringBuffer();
 
         renderOptions(sb, width, options, leftPad, descPad);
         pw.println(sb.toString());
@@ -766,7 +766,7 @@ public class HelpFormatter
      */
     public void printWrapped(PrintWriter pw, int width, int nextLineTabStop, String text)
     {
-        StringBuffer sb = new StringBuffer(text.length());
+        final StringBuffer sb = new StringBuffer(text.length());
 
         renderWrappedTextBlock(sb, width, nextLineTabStop, text);
         pw.println(sb.toString());
@@ -798,18 +798,18 @@ public class HelpFormatter
         // the longest opt string this list will be then used to 
         // sort options ascending
         int max = 0;
-        List<StringBuffer> prefixList = new ArrayList<StringBuffer>();
+        final List<StringBuffer> prefixList = new ArrayList<StringBuffer>();
 
-        List<Option> optList = options.helpOptions();
+        final List<Option> optList = options.helpOptions();
 
         if (getOptionComparator() != null)
         {
             Collections.sort(optList, getOptionComparator());
         }
 
-        for (Option option : optList)
+        for (final Option option : optList)
         {
-            StringBuffer optBuf = new StringBuffer();
+            final StringBuffer optBuf = new StringBuffer();
 
             if (option.getOpt() == null)
             {
@@ -827,7 +827,7 @@ public class HelpFormatter
 
             if (option.hasArg())
             {
-                String argName = option.getArgName();
+                final String argName = option.getArgName();
                 if (argName != null && argName.length() == 0)
                 {
                     // if the option has a blank argname
@@ -846,10 +846,10 @@ public class HelpFormatter
 
         int x = 0;
 
-        for (Iterator<Option> it = optList.iterator(); it.hasNext();)
+        for (final Iterator<Option> it = optList.iterator(); it.hasNext();)
         {
-            Option option = it.next();
-            StringBuilder optBuf = new StringBuilder(prefixList.get(x++).toString());
+            final Option option = it.next();
+            final StringBuilder optBuf = new StringBuilder(prefixList.get(x++).toString());
 
             if (optBuf.length() < max)
             {
@@ -858,7 +858,7 @@ public class HelpFormatter
 
             optBuf.append(dpad);
 
-            int nextLineTabStop = max + descPad;
+            final int nextLineTabStop = max + descPad;
 
             if (option.getDescription() != null)
             {
@@ -943,7 +943,7 @@ public class HelpFormatter
     {
         try
         {
-            BufferedReader in = new BufferedReader(new StringReader(text));
+            final BufferedReader in = new BufferedReader(new StringReader(text));
             String line;
             boolean firstLine = true;
             while ((line = in.readLine()) != null)
@@ -959,7 +959,7 @@ public class HelpFormatter
                 renderWrappedText(sb, width, nextLineTabStop, line);
             }
         }
-        catch (IOException e) //NOPMD
+        catch (final IOException e) //NOPMD
         {
             // cannot happen
         }
@@ -1032,7 +1032,7 @@ public class HelpFormatter
      */
     protected String createPadding(int len)
     {
-        char[] padding = new char[len];
+        final char[] padding = new char[len];
         Arrays.fill(padding, ' ');
 
         return new String(padding);

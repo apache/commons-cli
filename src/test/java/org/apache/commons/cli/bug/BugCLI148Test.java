@@ -46,20 +46,20 @@ public class BugCLI148Test
     @Test
     public void testWorkaround1() throws Exception
     {
-        CommandLineParser parser = new PosixParser();
-        String[] args = new String[]{ "-t-something" };
+        final CommandLineParser parser = new PosixParser();
+        final String[] args = new String[]{ "-t-something" };
 
-        CommandLine commandLine = parser.parse(options, args);
+        final CommandLine commandLine = parser.parse(options, args);
         assertEquals("-something", commandLine.getOptionValue('t'));
     }
 
     @Test
     public void testWorkaround2() throws Exception
     {
-        CommandLineParser parser = new PosixParser();
-        String[] args = new String[]{ "-t", "\"-something\"" };
+        final CommandLineParser parser = new PosixParser();
+        final String[] args = new String[]{ "-t", "\"-something\"" };
 
-        CommandLine commandLine = parser.parse(options, args);
+        final CommandLine commandLine = parser.parse(options, args);
         assertEquals("-something", commandLine.getOptionValue('t'));
     }
 }

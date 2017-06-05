@@ -99,13 +99,13 @@ public class PosixParser extends Parser
         this.options = options;
 
         // an iterator for the command line tokens
-        Iterator<String> iter = Arrays.asList(arguments).iterator();
+        final Iterator<String> iter = Arrays.asList(arguments).iterator();
 
         // process each command line token
         while (iter.hasNext())
         {
             // get the next command line token
-            String token = iter.next();
+            final String token = iter.next();
 
             // single or double hyphen
             if ("-".equals(token) || "--".equals(token))
@@ -116,10 +116,10 @@ public class PosixParser extends Parser
             // handle long option --foo or --foo=bar
             else if (token.startsWith("--"))
             {
-                int pos = token.indexOf('=');
-                String opt = pos == -1 ? token : token.substring(0, pos); // --foo
+                final int pos = token.indexOf('=');
+                final String opt = pos == -1 ? token : token.substring(0, pos); // --foo
                 
-                List<String> matchingOpts = options.getMatchingOptions(opt);
+                final List<String> matchingOpts = options.getMatchingOptions(opt);
 
                 if (matchingOpts.isEmpty())
                 {
@@ -149,12 +149,12 @@ public class PosixParser extends Parser
                 }
                 else if (!options.getMatchingOptions(token).isEmpty())
                 {
-                    List<String> matchingOpts = options.getMatchingOptions(token);
+                    final List<String> matchingOpts = options.getMatchingOptions(token);
                     if (matchingOpts.size() > 1)
                     {
                         throw new AmbiguousOptionException(token, matchingOpts);
                     }
-                    Option opt = options.getOption(matchingOpts.get(0));
+                    final Option opt = options.getOption(matchingOpts.get(0));
                     processOptionToken("-" + opt.getLongOpt(), stopAtNonOption);
                 }
                 // requires bursting
@@ -265,7 +265,7 @@ public class PosixParser extends Parser
     {
         for (int i = 1; i < token.length(); i++)
         {
-            String ch = String.valueOf(token.charAt(i));
+            final String ch = String.valueOf(token.charAt(i));
 
             if (options.hasOption(ch))
             {

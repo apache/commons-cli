@@ -53,7 +53,7 @@ final class OptionValidator
         // handle the single character opt
         if (opt.length() == 1)
         {
-            char ch = opt.charAt(0);
+            final char ch = opt.charAt(0);
 
             if (!isValidOpt(ch))
             {
@@ -64,7 +64,7 @@ final class OptionValidator
         // handle the multi character opt
         else
         {
-            for (char ch : opt.toCharArray())
+            for (final char ch : opt.toCharArray())
             {
                 if (!isValidChar(ch))
                 {

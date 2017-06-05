@@ -146,13 +146,13 @@ public abstract class Parser implements CommandLineParser
             throws ParseException
     {
         // clear out the data in options in case it's been used before (CLI-71)
-        for (Option opt : options.helpOptions())
+        for (final Option opt : options.helpOptions())
         {
             opt.clearValues();
         }
         
         // clear the data from the groups
-        for (OptionGroup group : options.getOptionGroups())
+        for (final OptionGroup group : options.getOptionGroups())
         {
             group.setSelected(null);
         }        
@@ -169,14 +169,14 @@ public abstract class Parser implements CommandLineParser
             arguments = new String[0];
         }
 
-        List<String> tokenList = Arrays.asList(flatten(getOptions(), arguments, stopAtNonOption));
+        final List<String> tokenList = Arrays.asList(flatten(getOptions(), arguments, stopAtNonOption));
 
-        ListIterator<String> iterator = tokenList.listIterator();
+        final ListIterator<String> iterator = tokenList.listIterator();
 
         // process each flattened token
         while (iterator.hasNext())
         {
-            String t = iterator.next();
+            final String t = iterator.next();
 
             // the value is the double-dash
             if ("--".equals(t))
@@ -227,7 +227,7 @@ public abstract class Parser implements CommandLineParser
             {
                 while (iterator.hasNext())
                 {
-                    String str = iterator.next();
+                    final String str = iterator.next();
 
                     // ensure only one double-dash is added
                     if (!"--".equals(str))
@@ -258,24 +258,24 @@ public abstract class Parser implements CommandLineParser
             return;
         }
 
-        for (Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();)
+        for (final Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();)
         {
-            String option = e.nextElement().toString();
+            final String option = e.nextElement().toString();
             
-            Option opt = options.getOption(option);
+            final Option opt = options.getOption(option);
             if (opt == null)
             {
                 throw new UnrecognizedOptionException("Default option wasn't defined", option);
             }
             
             // if the option is part of a group, check if another option of the group has been selected
-            OptionGroup group = options.getOptionGroup(opt);
-            boolean selected = group != null && group.getSelected() != null;
+            final OptionGroup group = options.getOptionGroup(opt);
+            final boolean selected = group != null && group.getSelected() != null;
             
             if (!cmd.hasOption(option) && !selected)
             {
                 // get the value from the properties instance
-                String value = properties.getProperty(option);
+                final String value = properties.getProperty(option);
 
                 if (opt.hasArg())
                 {
@@ -285,7 +285,7 @@ public abstract class Parser implements CommandLineParser
                         {
                             opt.addValueForProcessing(value);
                         }
-                        catch (RuntimeException exp) //NOPMD
+                        catch (final RuntimeException exp) //NOPMD
                         {
                             // if we cannot add the value don't worry about it
                         }
@@ -337,7 +337,7 @@ public abstract class Parser implements CommandLineParser
         // loop until an option is found
         while (iter.hasNext())
         {
-            String str = iter.next();
+            final String str = iter.next();
             
             // found an Option, not an argument
             if (getOptions().hasOption(str) && str.startsWith("-"))
@@ -351,7 +351,7 @@ public abstract class Parser implements CommandLineParser
             {
                 opt.addValueForProcessing(Util.stripLeadingAndTrailingQuotes(str));
             }
-            catch (RuntimeException exp)
+            catch (final RuntimeException exp)
             {
                 iter.previous();
                 break;
@@ -375,7 +375,7 @@ public abstract class Parser implements CommandLineParser
      */
     protected void processOption(String arg, ListIterator<String> iter) throws ParseException
     {
-        boolean hasOption = getOptions().hasOption(arg);
+        final boolean hasOption = getOptions().hasOption(arg);
 
         // if there is no option throw an UnrecognizedOptionException
         if (!hasOption)
@@ -384,7 +384,7 @@ public abstract class Parser implements CommandLineParser
         }
 
         // get the option represented by arg
-        Option opt = (Option) getOptions().getOption(arg).clone();
+        final Option opt = (Option) getOptions().getOption(arg).clone();
         
         // update the required options and groups
         updateRequiredOptions(opt);
@@ -417,7 +417,7 @@ public abstract class Parser implements CommandLineParser
         // option of the group
         if (getOptions().getOptionGroup(opt) != null)
         {
-            OptionGroup group = getOptions().getOptionGroup(opt);
+            final OptionGroup group = getOptions().getOptionGroup(opt);
 
             if (group.isRequired())
             {
