@@ -641,8 +641,7 @@ public class Option implements Cloneable, Serializable
             return false;
         }
 
-        Option option = (Option) o;
-
+        final Option option = (Option) o;
 
         if (opt != null ? !opt.equals(option.opt) : option.opt != null)
         {
