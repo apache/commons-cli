@@ -39,7 +39,7 @@ public class UnrecognizedOptionException extends ParseException
      *
      * @param message the detail message
      */
-    public UnrecognizedOptionException(String message)
+    public UnrecognizedOptionException(final String message)
     {
         super(message);
     }
@@ -52,7 +52,7 @@ public class UnrecognizedOptionException extends ParseException
      * @param option  the unrecognized option
      * @since 1.2
      */
-    public UnrecognizedOptionException(String message, String option)
+    public UnrecognizedOptionException(final String message, final String option)
     {
         this(message);
         this.option = option;

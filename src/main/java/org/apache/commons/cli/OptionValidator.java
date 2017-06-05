@@ -42,7 +42,7 @@ final class OptionValidator
      * @param opt The option string to validate, may be null
      * @throws IllegalArgumentException if the Option is not valid.
      */
-    static void validateOption(String opt) throws IllegalArgumentException
+    static void validateOption(final String opt) throws IllegalArgumentException
     {
         // if opt is NULL do not check further
         if (opt == null)
@@ -81,7 +81,7 @@ final class OptionValidator
      * @param c the option to validate
      * @return true if <code>c</code> is a letter, '?' or '@', otherwise false.
      */
-    private static boolean isValidOpt(char c)
+    private static boolean isValidOpt(final char c)
     {
         return isValidChar(c) || c == '?' || c == '@';
     }
@@ -92,7 +92,7 @@ final class OptionValidator
      * @param c the character to validate
      * @return true if <code>c</code> is a letter.
      */
-    private static boolean isValidChar(char c)
+    private static boolean isValidChar(final char c)
     {
         return Character.isJavaIdentifierPart(c);
     }

@@ -32,7 +32,7 @@ final class Util
      *
      * @return the new String.
      */
-    static String stripLeadingHyphens(String str)
+    static String stripLeadingHyphens(final String str)
     {
         if (str == null)
         {

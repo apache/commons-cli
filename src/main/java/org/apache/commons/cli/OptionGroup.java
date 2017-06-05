@@ -48,7 +48,7 @@ public class OptionGroup implements Serializable
      * @param option the option to add to this group
      * @return this option group with the option added
      */
-    public OptionGroup addOption(Option option)
+    public OptionGroup addOption(final Option option)
     {
         // key   - option name
         // value - the option
@@ -83,7 +83,7 @@ public class OptionGroup implements Serializable
      * @throws AlreadySelectedException if an option from this group has 
      * already been selected.
      */
-    public void setSelected(Option option) throws AlreadySelectedException
+    public void setSelected(final Option option) throws AlreadySelectedException
     {
         if (option == null)
         {
@@ -116,7 +116,7 @@ public class OptionGroup implements Serializable
     /**
      * @param required specifies if this group is required
      */
-    public void setRequired(boolean required)
+    public void setRequired(final boolean required)
     {
         this.required = required;
     }

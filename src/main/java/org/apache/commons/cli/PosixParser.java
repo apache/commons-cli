@@ -93,7 +93,7 @@ public class PosixParser extends Parser
      * @return The flattened <code>arguments</code> String array.
      */
     @Override
-    protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption) throws ParseException
+    protected String[] flatten(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException
     {
         init();
         this.options = options;
@@ -179,7 +179,7 @@ public class PosixParser extends Parser
      *
      * @param iter An iterator over the remaining tokens
      */
-    private void gobble(Iterator<String> iter)
+    private void gobble(final Iterator<String> iter)
     {
         if (eatTheRest)
         {
@@ -197,7 +197,7 @@ public class PosixParser extends Parser
      *
      * @param value The current token
      */
-    private void processNonOptionToken(String value, boolean stopAtNonOption)
+    private void processNonOptionToken(final String value, final boolean stopAtNonOption)
     {
         if (stopAtNonOption && (currentOption == null || !currentOption.hasArg()))
         {
@@ -220,7 +220,7 @@ public class PosixParser extends Parser
      * @param stopAtNonOption Specifies whether flattening should halt
      * at the first non option.
      */
-    private void processOptionToken(String token, boolean stopAtNonOption)
+    private void processOptionToken(final String token, final boolean stopAtNonOption)
     {
         if (stopAtNonOption && !options.hasOption(token))
         {
@@ -261,7 +261,7 @@ public class PosixParser extends Parser
      * @param stopAtNonOption Specifies whether to stop processing
      * at the first non-Option encountered.
      */
-    protected void burstToken(String token, boolean stopAtNonOption)
+    protected void burstToken(final String token, final boolean stopAtNonOption)
     {
         for (int i = 1; i < token.length(); i++)
         {

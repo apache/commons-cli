@@ -39,7 +39,7 @@ public class MissingOptionException extends ParseException
      *
      * @param message the detail message
      */
-    public MissingOptionException(String message)
+    public MissingOptionException(final String message)
     {
         super(message);
     }
@@ -51,7 +51,7 @@ public class MissingOptionException extends ParseException
      * @param missingOptions the list of missing options and groups
      * @since 1.2
      */
-    public MissingOptionException(List missingOptions)
+    public MissingOptionException(final List missingOptions)
     {
         this(createMessage(missingOptions));
         this.missingOptions = missingOptions;
@@ -75,7 +75,7 @@ public class MissingOptionException extends ParseException
      * @param missingOptions the list of missing options and groups
      * @since 1.2
      */
-    private static String createMessage(List<?> missingOptions)
+    private static String createMessage(final List<?> missingOptions)
     {
         final StringBuilder buf = new StringBuilder("Missing required option");
         buf.append(missingOptions.size() == 1 ? "" : "s");

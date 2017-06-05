@@ -927,7 +927,7 @@ public abstract class ParserTestCase
     }
 
     @SuppressWarnings("deprecation")
-    private CommandLine parse(CommandLineParser parser, Options opts, String[] args, Properties properties) throws ParseException {
+    private CommandLine parse(final CommandLineParser parser, final Options opts, final String[] args, final Properties properties) throws ParseException {
         if (parser instanceof Parser) {
             return ((Parser) parser).parse(opts, args, properties);
         } else if (parser instanceof DefaultParser) {

@@ -55,7 +55,7 @@ public class DefaultParser implements CommandLineParser
     /** The required options and groups expected to be found when parsing the command line. */
     protected List expectedOpts;
  
-    public CommandLine parse(Options options, String[] arguments) throws ParseException
+    public CommandLine parse(final Options options, final String[] arguments) throws ParseException
     {
         return parse(options, arguments, null);
     }
@@ -71,12 +71,12 @@ public class DefaultParser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    public CommandLine parse(Options options, String[] arguments, Properties properties) throws ParseException
+    public CommandLine parse(final Options options, final String[] arguments, final Properties properties) throws ParseException
     {
         return parse(options, arguments, properties, false);
     }
 
-    public CommandLine parse(Options options, String[] arguments, boolean stopAtNonOption) throws ParseException
+    public CommandLine parse(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException
     {
         return parse(options, arguments, null, stopAtNonOption);
     }
@@ -96,7 +96,7 @@ public class DefaultParser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    public CommandLine parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption)
+    public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption)
             throws ParseException
     {
         this.options = options;
@@ -137,7 +137,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param properties The value properties to be processed.
      */
-    private void handleProperties(Properties properties) throws ParseException
+    private void handleProperties(final Properties properties) throws ParseException
     {
         if (properties == null)
         {
@@ -218,7 +218,7 @@ public class DefaultParser implements CommandLineParser
      * @param token the command line token to handle
      * @throws ParseException
      */
-    private void handleToken(String token) throws ParseException
+    private void handleToken(final String token) throws ParseException
     {
         currentToken = token;
 
@@ -258,7 +258,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    private boolean isArgument(String token)
+    private boolean isArgument(final String token)
     {
         return !isOption(token) || isNegativeNumber(token);
     }
@@ -268,7 +268,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    private boolean isNegativeNumber(String token)
+    private boolean isNegativeNumber(final String token)
     {
         try
         {
@@ -286,7 +286,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    private boolean isOption(String token)
+    private boolean isOption(final String token)
     {
         return isLongOption(token) || isShortOption(token);
     }
@@ -296,7 +296,7 @@ public class DefaultParser implements CommandLineParser
      * 
      * @param token
      */
-    private boolean isShortOption(String token)
+    private boolean isShortOption(final String token)
     {
         // short options (-S, -SV, -S=V, -SV1=V2, -S1S2)
         if (!token.startsWith("-") || token.length() == 1)
@@ -320,7 +320,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    private boolean isLongOption(String token)
+    private boolean isLongOption(final String token)
     {
         if (!token.startsWith("-") || token.length() == 1)
         {
@@ -353,7 +353,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token the command line token to handle
      */
-    private void handleUnknownToken(String token) throws ParseException
+    private void handleUnknownToken(final String token) throws ParseException
     {
         if (token.startsWith("-") && token.length() > 1 && !stopAtNonOption)
         {
@@ -377,7 +377,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token the command line token to handle
      */
-    private void handleLongOption(String token) throws ParseException
+    private void handleLongOption(final String token) throws ParseException
     {
         if (token.indexOf('=') == -1)
         {
@@ -399,7 +399,7 @@ public class DefaultParser implements CommandLineParser
      * 
      * @param token the command line token to handle
      */
-    private void handleLongOptionWithoutEqual(String token) throws ParseException
+    private void handleLongOptionWithoutEqual(final String token) throws ParseException
     {
         final List<String> matchingOpts = options.getMatchingOptions(token);
         if (matchingOpts.isEmpty())
@@ -426,7 +426,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token the command line token to handle
      */
-    private void handleLongOptionWithEqual(String token) throws ParseException
+    private void handleLongOptionWithEqual(final String token) throws ParseException
     {
         final int pos = token.indexOf('=');
 
@@ -479,7 +479,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token the command line token to handle
      */
-    private void handleShortAndLongOption(String token) throws ParseException
+    private void handleShortAndLongOption(final String token) throws ParseException
     {
         final String t = Util.stripLeadingHyphens(token);
 
@@ -576,7 +576,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    private String getLongPrefix(String token)
+    private String getLongPrefix(final String token)
     {
         final String t = Util.stripLeadingHyphens(token);
 
@@ -598,7 +598,7 @@ public class DefaultParser implements CommandLineParser
     /**
      * Check if the specified token is a Java-like property (-Dkey=value).
      */
-    private boolean isJavaProperty(String token)
+    private boolean isJavaProperty(final String token)
     {
         final String opt = token.substring(0, 1);
         final Option option = options.getOption(opt);
@@ -632,7 +632,7 @@ public class DefaultParser implements CommandLineParser
      *
      * @param option
      */
-    private void updateRequiredOptions(Option option) throws AlreadySelectedException
+    private void updateRequiredOptions(final Option option) throws AlreadySelectedException
     {
         if (option.isRequired())
         {
@@ -680,7 +680,7 @@ public class DefaultParser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      *                        while parsing the command line token.
      */
-    protected void handleConcatenatedOptions(String token) throws ParseException
+    protected void handleConcatenatedOptions(final String token) throws ParseException
     {
         for (int i = 1; i < token.length(); i++)
         {

@@ -42,7 +42,7 @@ public abstract class Parser implements CommandLineParser
     /** list of required options strings */
     private List requiredOptions;
 
-    protected void setOptions(Options options)
+    protected void setOptions(final Options options)
     {
         this.options = options;
         this.requiredOptions = new ArrayList(options.getRequiredOptions());
@@ -83,7 +83,7 @@ public abstract class Parser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      *                        while parsing the command line tokens.
      */
-    public CommandLine parse(Options options, String[] arguments) throws ParseException
+    public CommandLine parse(final Options options, final String[] arguments) throws ParseException
     {
         return parse(options, arguments, null, false);
     }
@@ -100,7 +100,7 @@ public abstract class Parser implements CommandLineParser
      *
      * @since 1.1
      */
-    public CommandLine parse(Options options, String[] arguments, Properties properties) throws ParseException
+    public CommandLine parse(final Options options, final String[] arguments, final Properties properties) throws ParseException
     {
         return parse(options, arguments, properties, false);
     }
@@ -118,7 +118,7 @@ public abstract class Parser implements CommandLineParser
      * @return the <code>CommandLine</code>
      * @throws ParseException if an error occurs when parsing the arguments.
      */
-    public CommandLine parse(Options options, String[] arguments, boolean stopAtNonOption) throws ParseException
+    public CommandLine parse(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException
     {
         return parse(options, arguments, null, stopAtNonOption);
     }
@@ -142,7 +142,7 @@ public abstract class Parser implements CommandLineParser
      *
      * @since 1.1
      */
-    public CommandLine parse(Options options, String[] arguments, Properties properties, boolean stopAtNonOption)
+    public CommandLine parse(final Options options, String[] arguments, final Properties properties, final boolean stopAtNonOption)
             throws ParseException
     {
         // clear out the data in options in case it's been used before (CLI-71)
@@ -251,7 +251,7 @@ public abstract class Parser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      *                        while processing the properties.
      */
-    protected void processProperties(Properties properties) throws ParseException
+    protected void processProperties(final Properties properties) throws ParseException
     {
         if (properties == null)
         {
@@ -332,7 +332,7 @@ public abstract class Parser implements CommandLineParser
      * @throws ParseException if an argument value is required
      * and it is has not been found.
      */
-    public void processArgs(Option opt, ListIterator<String> iter) throws ParseException
+    public void processArgs(final Option opt, final ListIterator<String> iter) throws ParseException
     {
         // loop until an option is found
         while (iter.hasNext())
@@ -373,7 +373,7 @@ public abstract class Parser implements CommandLineParser
      *
      * @throws ParseException if <code>arg</code> does not represent an Option
      */
-    protected void processOption(String arg, ListIterator<String> iter) throws ParseException
+    protected void processOption(final String arg, final ListIterator<String> iter) throws ParseException
     {
         final boolean hasOption = getOptions().hasOption(arg);
 
@@ -404,7 +404,7 @@ public abstract class Parser implements CommandLineParser
      * 
      * @param opt
      */
-    private void updateRequiredOptions(Option opt) throws ParseException
+    private void updateRequiredOptions(final Option opt) throws ParseException
     {
         // if the option is a required option remove the option from
         // the requiredOptions list

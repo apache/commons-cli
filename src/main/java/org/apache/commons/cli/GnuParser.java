@@ -48,7 +48,7 @@ public class GnuParser extends Parser
      * @return a String array of the flattened arguments
      */
     @Override
-    protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption)
+    protected String[] flatten(final Options options, final String[] arguments, final boolean stopAtNonOption)
     {
         final List<String> tokens = new ArrayList<String>();
 

@@ -94,7 +94,7 @@ public final class OptionBuilder
      * @param newLongopt the long option value
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder withLongOpt(String newLongopt)
+    public static OptionBuilder withLongOpt(final String newLongopt)
     {
         OptionBuilder.longopt = newLongopt;
 
@@ -120,7 +120,7 @@ public final class OptionBuilder
      * @param hasArg if true then the Option has an argument value
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder hasArg(boolean hasArg)
+    public static OptionBuilder hasArg(final boolean hasArg)
     {
         OptionBuilder.numberOfArgs = hasArg ? 1 : Option.UNINITIALIZED;
 
@@ -133,7 +133,7 @@ public final class OptionBuilder
      * @param name the name for the argument value
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder withArgName(String name)
+    public static OptionBuilder withArgName(final String name)
     {
         OptionBuilder.argName = name;
 
@@ -171,7 +171,7 @@ public final class OptionBuilder
      *
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder withValueSeparator(char sep)
+    public static OptionBuilder withValueSeparator(final char sep)
     {
         OptionBuilder.valuesep = sep;
 
@@ -208,7 +208,7 @@ public final class OptionBuilder
      * @param newRequired if true then the Option is required
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder isRequired(boolean newRequired)
+    public static OptionBuilder isRequired(final boolean newRequired)
     {
         OptionBuilder.required = newRequired;
 
@@ -233,7 +233,7 @@ public final class OptionBuilder
      * @param num the number of args that the option can have
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder hasArgs(int num)
+    public static OptionBuilder hasArgs(final int num)
     {
         OptionBuilder.numberOfArgs = num;
 
@@ -273,7 +273,7 @@ public final class OptionBuilder
      * the next Option created can have.
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder hasOptionalArgs(int numArgs)
+    public static OptionBuilder hasOptionalArgs(final int numArgs)
     {
         OptionBuilder.numberOfArgs = numArgs;
         OptionBuilder.optionalArg = true;
@@ -293,7 +293,7 @@ public final class OptionBuilder
      * @deprecated since 1.3, use {@link #withType(Class)} instead
      */
     @Deprecated
-    public static OptionBuilder withType(Object newType)
+    public static OptionBuilder withType(final Object newType)
     {
         return withType((Class<?>) newType);
     }
@@ -306,7 +306,7 @@ public final class OptionBuilder
      * @return the OptionBuilder instance
      * @since 1.3
      */
-    public static OptionBuilder withType(Class<?> newType)
+    public static OptionBuilder withType(final Class<?> newType)
     {
         OptionBuilder.type = newType;
 
@@ -319,7 +319,7 @@ public final class OptionBuilder
      * @param newDescription a description of the Option's purpose
      * @return the OptionBuilder instance
      */
-    public static OptionBuilder withDescription(String newDescription)
+    public static OptionBuilder withDescription(final String newDescription)
     {
         OptionBuilder.description = newDescription;
 
@@ -335,7 +335,7 @@ public final class OptionBuilder
      * @throws IllegalArgumentException if <code>opt</code> is not
      * a valid character.  See Option.
      */
-    public static Option create(char opt) throws IllegalArgumentException
+    public static Option create(final char opt) throws IllegalArgumentException
     {
         return create(String.valueOf(opt));
     }
@@ -367,7 +367,7 @@ public final class OptionBuilder
      * @throws IllegalArgumentException if <code>opt</code> is not
      * a valid character.  See Option.
      */
-    public static Option create(String opt) throws IllegalArgumentException
+    public static Option create(final String opt) throws IllegalArgumentException
     {
         Option option = null;
         try

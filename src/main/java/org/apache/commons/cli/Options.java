@@ -65,7 +65,7 @@ public class Options implements Serializable
      * @param group the OptionGroup that is to be added
      * @return the resulting Options instance
      */
-    public Options addOptionGroup(OptionGroup group)
+    public Options addOptionGroup(final OptionGroup group)
     {
         if (group.isRequired())
         {
@@ -108,7 +108,7 @@ public class Options implements Serializable
      * @return the resulting Options instance
      * @since 1.3
      */
-    public Options addOption(String opt, String description)
+    public Options addOption(final String opt, final String description)
     {
         addOption(opt, null, false, description);
         return this;
@@ -126,7 +126,7 @@ public class Options implements Serializable
      * @param description Self-documenting description
      * @return the resulting Options instance
      */
-    public Options addOption(String opt, boolean hasArg, String description)
+    public Options addOption(final String opt, final boolean hasArg, final String description)
     {
         addOption(opt, null, hasArg, description);
         return this;
@@ -145,7 +145,7 @@ public class Options implements Serializable
      * @param description Self-documenting description
      * @return the resulting Options instance
      */
-    public Options addOption(String opt, String longOpt, boolean hasArg, String description)
+    public Options addOption(final String opt, final String longOpt, final boolean hasArg, final String description)
     {
         addOption(new Option(opt, longOpt, hasArg, description));
         return this;
@@ -173,7 +173,7 @@ public class Options implements Serializable
      * @return the resulting Options instance
      * @since 1.4
      */
-    public Options addRequiredOption(String opt, String longOpt, boolean hasArg, String description)
+    public Options addRequiredOption(final String opt, final String longOpt, final boolean hasArg, final String description)
     {
         final Option option = new Option(opt, longOpt, hasArg, description);
         option.setRequired(true);
@@ -187,7 +187,7 @@ public class Options implements Serializable
      * @param opt the option that is to be added
      * @return the resulting Options instance
      */
-    public Options addOption(Option opt)
+    public Options addOption(final Option opt)
     {
         final String key = opt.getKey();
 
@@ -341,7 +341,7 @@ public class Options implements Serializable
      * @param opt the option whose OptionGroup is being queried.
      * @return the OptionGroup if <code>opt</code> is part of an OptionGroup, otherwise return null
      */
-    public OptionGroup getOptionGroup(Option opt)
+    public OptionGroup getOptionGroup(final Option opt)
     {
         return optionGroups.get(opt.getKey());
     }

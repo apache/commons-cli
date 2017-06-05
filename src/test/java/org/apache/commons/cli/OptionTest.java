@@ -31,13 +31,13 @@ public class OptionTest
     {
         private static final long serialVersionUID = 1L;
 
-        public TestOption(String opt, boolean hasArg, String description) throws IllegalArgumentException
+        public TestOption(final String opt, final boolean hasArg, final String description) throws IllegalArgumentException
         {
             super(opt, hasArg, description);
         }
 
         @Override
-        public boolean addValue(String value)
+        public boolean addValue(final String value)
         {
             addValueForProcessing(value);
             return true;
@@ -86,7 +86,7 @@ public class OptionTest
 
         private final String defaultValue;
 
-        public DefaultOption(String opt, String description, String defaultValue) throws IllegalArgumentException
+        public DefaultOption(final String opt, final String description, final String defaultValue) throws IllegalArgumentException
         {
             super(opt, true, description);
             this.defaultValue = defaultValue;
@@ -208,9 +208,9 @@ public class OptionTest
         Option.builder(null).desc("desc").build();
     }
 
-    private static void checkOption(Option option, String opt, String description, String longOpt, int numArgs,
-                                    String argName,  boolean required, boolean optionalArg,
-                                    char valueSeparator, Class<?> cls)
+    private static void checkOption(final Option option, final String opt, final String description, final String longOpt, final int numArgs,
+                                    final String argName,  final boolean required, final boolean optionalArg,
+                                    final char valueSeparator, final Class<?> cls)
     {
         assertEquals(opt, option.getOpt());
         assertEquals(description, option.getDescription());

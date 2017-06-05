@@ -88,7 +88,7 @@ public class BugCLI266Test {
         return options;
     }
 
-    private void buildOptionsGroup(Options options) {
+    private void buildOptionsGroup(final Options options) {
         final OptionGroup firstGroup = new OptionGroup();
         final OptionGroup secondGroup = new OptionGroup();
         firstGroup.setRequired(true);
