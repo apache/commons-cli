@@ -33,8 +33,8 @@ import java.util.List;
 
 public class BugCLI266Test {
 
-    private List<String> insertedOrder  =   Arrays.asList("h", "d", "f", "x", "s", "p", "t", "w", "o");
-    private List<String> sortOrder      =   Arrays.asList("d", "f", "h", "o", "p", "s", "t", "w", "x");
+    private final List<String> insertedOrder  =   Arrays.asList("h", "d", "f", "x", "s", "p", "t", "w", "o");
+    private final List<String> sortOrder      =   Arrays.asList("d", "f", "h", "o", "p", "s", "t", "w", "x");
 
     @Test
     public void testOptionComparatorDefaultOrder() throws ParseException {
