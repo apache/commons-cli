@@ -40,9 +40,10 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/cli/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/cli/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewvc/commons/proper/cli/trunk/</url>
+    <connection>scm:git:http://git-wip-us.apache.org/repos/asf/commons-cli.git</connection>
+    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/commons-cli.git</developerConnection>
+    <url>https://git-wip-us.apache.org/repos/asf?p=commons-cli.git</url>
+    <tag>HEAD</tag>
   </scm>
 
   <developers>
