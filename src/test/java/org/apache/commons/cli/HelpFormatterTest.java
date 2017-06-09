@@ -37,7 +37,7 @@ public class HelpFormatterTest
     @Test
     public void testFindWrapPos() throws Exception
     {
-        HelpFormatter hf = new HelpFormatter();
+        final HelpFormatter hf = new HelpFormatter();
 
         String text = "This is a test.";
         // text width should be max 8; the wrap position is 7
@@ -65,13 +65,13 @@ public class HelpFormatterTest
     @Test
     public void testRenderWrappedTextWordCut()
     {
-        int width = 7;
-        int padding = 0;
-        String text = "Thisisatest.";
-        String expected = "Thisisa" + EOL + 
+        final int width = 7;
+        final int padding = 0;
+        final String text = "Thisisatest.";
+        final String expected = "Thisisa" + EOL + 
                           "test.";
         
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, text);
         assertEquals("cut and wrap", expected, sb.toString());
     }
@@ -80,13 +80,13 @@ public class HelpFormatterTest
     public void testRenderWrappedTextSingleLine()
     {
         // single line text
-        int width = 12;
-        int padding = 0;
-        String text = "This is a test.";
-        String expected = "This is a" + EOL + 
+        final int width = 12;
+        final int padding = 0;
+        final String text = "This is a test.";
+        final String expected = "This is a" + EOL + 
                           "test.";
         
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, text);
         assertEquals("single line text", expected, sb.toString());
     }
@@ -95,13 +95,13 @@ public class HelpFormatterTest
     public void testRenderWrappedTextSingleLinePadded()
     {
         // single line padded text
-        int width = 12;
-        int padding = 4;
-        String text = "This is a test.";
-        String expected = "This is a" + EOL + 
+        final int width = 12;
+        final int padding = 4;
+        final String text = "This is a test.";
+        final String expected = "This is a" + EOL + 
                           "    test.";
         
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, text);
         assertEquals("single line padded text", expected, sb.toString());
     }
@@ -110,15 +110,15 @@ public class HelpFormatterTest
     public void testRenderWrappedTextSingleLinePadded2()
     {
         // single line padded text 2
-        int width = 53;
-        int padding = 24;
-        String text = "  -p,--period <PERIOD>  PERIOD is time duration of form " +
+        final int width = 53;
+        final int padding = 24;
+        final String text = "  -p,--period <PERIOD>  PERIOD is time duration of form " +
                       "DATE[-DATE] where DATE has form YYYY[MM[DD]]";
-        String expected = "  -p,--period <PERIOD>  PERIOD is time duration of" + EOL +
+        final String expected = "  -p,--period <PERIOD>  PERIOD is time duration of" + EOL +
                           "                        form DATE[-DATE] where DATE" + EOL +
                           "                        has form YYYY[MM[DD]]";
         
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, text);
         assertEquals("single line padded text 2", expected, sb.toString());
     }
@@ -127,13 +127,13 @@ public class HelpFormatterTest
     public void testRenderWrappedTextMultiLine()
     {
         // multi line text
-        int width = 16;
-        int padding = 0;
-        String expected = "aaaa aaaa aaaa" + EOL +
+        final int width = 16;
+        final int padding = 0;
+        final String expected = "aaaa aaaa aaaa" + EOL +
                       "aaaaaa" + EOL +
                       "aaaaa";
 
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, expected);
         assertEquals("multi line text", expected, sb.toString());
     }
@@ -142,16 +142,16 @@ public class HelpFormatterTest
     public void testRenderWrappedTextMultiLinePadded()
     {
         // multi-line padded text
-        int width = 16;
-        int padding = 4;
-        String text = "aaaa aaaa aaaa" + EOL +
+        final int width = 16;
+        final int padding = 4;
+        final String text = "aaaa aaaa aaaa" + EOL +
                       "aaaaaa" + EOL +
                       "aaaaa";
-        String expected = "aaaa aaaa aaaa" + EOL +
+        final String expected = "aaaa aaaa aaaa" + EOL +
                           "    aaaaaa" + EOL +
                           "    aaaaa";
         
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, text);
         assertEquals("multi-line padded text", expected, sb.toString());
     }
@@ -159,8 +159,8 @@ public class HelpFormatterTest
     @Test
     public void testPrintOptions() throws Exception
     {
-        StringBuffer sb = new StringBuffer();
-        HelpFormatter hf = new HelpFormatter();
+        final StringBuffer sb = new StringBuffer();
+        final HelpFormatter hf = new HelpFormatter();
         final int leftPad = 1;
         final int descPad = 3;
         final String lpad = hf.createPadding(leftPad);
@@ -209,13 +209,13 @@ public class HelpFormatterTest
     @Test
     public void testPrintHelpWithEmptySyntax()
     {
-        HelpFormatter formatter = new HelpFormatter();
+        final HelpFormatter formatter = new HelpFormatter();
         try
         {
             formatter.printHelp(null, new Options());
             fail("null command line syntax should be rejected");
         }
-        catch (IllegalArgumentException e)
+        catch (final IllegalArgumentException e)
         {
             // expected
         }
@@ -225,7 +225,7 @@ public class HelpFormatterTest
             formatter.printHelp("", new Options());
             fail("empty command line syntax should be rejected");
         }
-        catch (IllegalArgumentException e)
+        catch (final IllegalArgumentException e)
         {
             // expected
         }
@@ -234,11 +234,11 @@ public class HelpFormatterTest
     @Test
     public void testAutomaticUsage() throws Exception
     {
-        HelpFormatter hf = new HelpFormatter();
+        final HelpFormatter hf = new HelpFormatter();
         Options options = null;
         String expected = "usage: app [-a]";
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        PrintWriter pw = new PrintWriter(out);
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final PrintWriter pw = new PrintWriter(out);
 
         options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa");
         hf.printUsage(pw, 60, "app", options);
@@ -260,16 +260,16 @@ public class HelpFormatterTest
     @Test
     public void testPrintUsage()
     {
-        Option optionA = new Option("a", "first");
-        Option optionB = new Option("b", "second");
-        Option optionC = new Option("c", "third");
-        Options opts = new Options();
+        final Option optionA = new Option("a", "first");
+        final Option optionB = new Option("b", "second");
+        final Option optionC = new Option("c", "third");
+        final Options opts = new Options();
         opts.addOption(optionA);
         opts.addOption(optionB);
         opts.addOption(optionC);
-        HelpFormatter helpFormatter = new HelpFormatter();
-        ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
-        PrintWriter printWriter = new PrintWriter(bytesOut);
+        final HelpFormatter helpFormatter = new HelpFormatter();
+        final ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
+        final PrintWriter printWriter = new PrintWriter(bytesOut);
         helpFormatter.printUsage(printWriter, 80, "app", opts);
         printWriter.close();
         assertEquals("usage: app [-a] [-b] [-c]" + EOL, bytesOut.toString());
@@ -279,22 +279,22 @@ public class HelpFormatterTest
     @Test
     public void testPrintSortedUsage()
     {
-        Options opts = new Options();
+        final Options opts = new Options();
         opts.addOption(new Option("a", "first"));
         opts.addOption(new Option("b", "second"));
         opts.addOption(new Option("c", "third"));
 
-        HelpFormatter helpFormatter = new HelpFormatter();
+        final HelpFormatter helpFormatter = new HelpFormatter();
         helpFormatter.setOptionComparator(new Comparator<Option>()
         {
-            public int compare(Option opt1, Option opt2)
+            public int compare(final Option opt1, final Option opt2)
             {
                 // reverses the functionality of the default comparator
                 return opt2.getKey().compareToIgnoreCase(opt1.getKey());
             }
         });
 
-        StringWriter out = new StringWriter();
+        final StringWriter out = new StringWriter();
         helpFormatter.printUsage(new PrintWriter(out), 80, "app", opts);
 
         assertEquals("usage: app [-c] [-b] [-a]" + EOL, out.toString());
@@ -303,15 +303,15 @@ public class HelpFormatterTest
     @Test
     public void testPrintSortedUsageWithNullComparator()
     {
-        Options opts = new Options();
+        final Options opts = new Options();
         opts.addOption(new Option("c", "first"));
         opts.addOption(new Option("b", "second"));
         opts.addOption(new Option("a", "third"));
 
-        HelpFormatter helpFormatter = new HelpFormatter();
+        final HelpFormatter helpFormatter = new HelpFormatter();
         helpFormatter.setOptionComparator(null);
 
-        StringWriter out = new StringWriter();
+        final StringWriter out = new StringWriter();
         helpFormatter.printUsage(new PrintWriter(out), 80, "app", opts);
 
         assertEquals("usage: app [-c] [-b] [-a]" + EOL, out.toString());
@@ -320,17 +320,17 @@ public class HelpFormatterTest
     @Test
     public void testPrintOptionGroupUsage()
     {
-        OptionGroup group = new OptionGroup();
+        final OptionGroup group = new OptionGroup();
         group.addOption(Option.builder("a").build());
         group.addOption(Option.builder("b").build());
         group.addOption(Option.builder("c").build());
 
-        Options options = new Options();
+        final Options options = new Options();
         options.addOptionGroup(group);
 
-        StringWriter out = new StringWriter();
+        final StringWriter out = new StringWriter();
 
-        HelpFormatter formatter = new HelpFormatter();
+        final HelpFormatter formatter = new HelpFormatter();
         formatter.printUsage(new PrintWriter(out), 80, "app", options);
 
         assertEquals("usage: app [-a | -b | -c]" + EOL, out.toString());
@@ -339,18 +339,18 @@ public class HelpFormatterTest
     @Test
     public void testPrintRequiredOptionGroupUsage()
     {
-        OptionGroup group = new OptionGroup();
+        final OptionGroup group = new OptionGroup();
         group.addOption(Option.builder("a").build());
         group.addOption(Option.builder("b").build());
         group.addOption(Option.builder("c").build());
         group.setRequired(true);
 
-        Options options = new Options();
+        final Options options = new Options();
         options.addOptionGroup(group);
 
-        StringWriter out = new StringWriter();
+        final StringWriter out = new StringWriter();
 
-        HelpFormatter formatter = new HelpFormatter();
+        final HelpFormatter formatter = new HelpFormatter();
         formatter.printUsage(new PrintWriter(out), 80, "app", options);
 
         assertEquals("usage: app -a | -b | -c" + EOL, out.toString());
@@ -359,16 +359,16 @@ public class HelpFormatterTest
     @Test
     public void testPrintOptionWithEmptyArgNameUsage()
     {
-        Option option = new Option("f", true, null);
+        final Option option = new Option("f", true, null);
         option.setArgName("");
         option.setRequired(true);
 
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption(option);
 
-        StringWriter out = new StringWriter();
+        final StringWriter out = new StringWriter();
 
-        HelpFormatter formatter = new HelpFormatter();
+        final HelpFormatter formatter = new HelpFormatter();
         formatter.printUsage(new PrintWriter(out), 80, "app", options);
 
         assertEquals("usage: app -f" + EOL, out.toString());
@@ -377,14 +377,14 @@ public class HelpFormatterTest
     @Test
     public void testDefaultArgName()
     {
-        Option option = Option.builder("f").hasArg().required(true).build();
+        final Option option = Option.builder("f").hasArg().required(true).build();
         
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption(option);
         
-        StringWriter out = new StringWriter();
+        final StringWriter out = new StringWriter();
 
-        HelpFormatter formatter = new HelpFormatter();
+        final HelpFormatter formatter = new HelpFormatter();
         formatter.setArgName("argument");
         formatter.printUsage(new PrintWriter(out), 80, "app", options);
 
@@ -394,7 +394,7 @@ public class HelpFormatterTest
     @Test
     public void testRtrim()
     {
-        HelpFormatter formatter = new HelpFormatter();
+        final HelpFormatter formatter = new HelpFormatter();
 
         assertEquals(null, formatter.rtrim(null));
         assertEquals("", formatter.rtrim(""));
@@ -404,7 +404,7 @@ public class HelpFormatterTest
     @Test
     public void testAccessors()
     {
-        HelpFormatter formatter = new HelpFormatter();
+        final HelpFormatter formatter = new HelpFormatter();
 
         formatter.setArgName("argname");
         assertEquals("arg name", "argname", formatter.getArgName());
@@ -435,11 +435,11 @@ public class HelpFormatterTest
     public void testHeaderStartingWithLineSeparator()
     {
         // related to Bugzilla #21215
-        Options options = new Options();
-        HelpFormatter formatter = new HelpFormatter();
-        String header = EOL + "Header";
-        String footer = "Footer";
-        StringWriter out = new StringWriter();
+        final Options options = new Options();
+        final HelpFormatter formatter = new HelpFormatter();
+        final String header = EOL + "Header";
+        final String footer = "Footer";
+        final StringWriter out = new StringWriter();
         formatter.printHelp(new PrintWriter(out), 80, "foobar", header, options, 2, 2, footer, true);
         assertEquals(
                 "usage: foobar" + EOL +
@@ -454,11 +454,11 @@ public class HelpFormatterTest
     public void testIndentedHeaderAndFooter()
     {
         // related to CLI-207
-        Options options = new Options();
-        HelpFormatter formatter = new HelpFormatter();
-        String header = "  Header1\n  Header2";
-        String footer = "  Footer1\n  Footer2";
-        StringWriter out = new StringWriter();
+        final Options options = new Options();
+        final HelpFormatter formatter = new HelpFormatter();
+        final String header = "  Header1\n  Header2";
+        final String footer = "  Footer1\n  Footer2";
+        final StringWriter out = new StringWriter();
         formatter.printHelp(new PrintWriter(out), 80, "foobar", header, options, 2, 2, footer, true);
 
         assertEquals(
@@ -475,13 +475,13 @@ public class HelpFormatterTest
     public void testOptionWithoutShortFormat()
     {
         // related to Bugzilla #19383 (CLI-67)
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption(new Option("a", "aaa", false, "aaaaaaa"));
         options.addOption(new Option(null, "bbb", false, "bbbbbbb"));
         options.addOption(new Option("c", null, false, "ccccccc"));
 
-        HelpFormatter formatter = new HelpFormatter();
-        StringWriter out = new StringWriter();
+        final HelpFormatter formatter = new HelpFormatter();
+        final StringWriter out = new StringWriter();
         formatter.printHelp(new PrintWriter(out), 80, "foobar", "", options, 2, 2, "", true);
         assertEquals(
                 "usage: foobar [-a] [--bbb] [-c]" + EOL +
@@ -495,43 +495,43 @@ public class HelpFormatterTest
     public void testOptionWithoutShortFormat2()
     {
         // related to Bugzilla #27635 (CLI-26)
-        Option help = new Option("h", "help", false, "print this message");
-        Option version = new Option("v", "version", false, "print version information");
-        Option newRun = new Option("n", "new", false, "Create NLT cache entries only for new items");
-        Option trackerRun = new Option("t", "tracker", false, "Create NLT cache entries only for tracker items");
+        final Option help = new Option("h", "help", false, "print this message");
+        final Option version = new Option("v", "version", false, "print version information");
+        final Option newRun = new Option("n", "new", false, "Create NLT cache entries only for new items");
+        final Option trackerRun = new Option("t", "tracker", false, "Create NLT cache entries only for tracker items");
         
-        Option timeLimit = Option.builder("l")
+        final Option timeLimit = Option.builder("l")
                                  .longOpt("limit")
                                  .hasArg()
                                  .valueSeparator()
                                  .desc("Set time limit for execution, in mintues")
                                  .build();
         
-        Option age = Option.builder("a").longOpt("age")
+        final Option age = Option.builder("a").longOpt("age")
                                         .hasArg()
                                         .valueSeparator()
                                         .desc("Age (in days) of cache item before being recomputed")
                                         .build();
         
-        Option server = Option.builder("s").longOpt("server")
+        final Option server = Option.builder("s").longOpt("server")
                                            .hasArg()
                                            .valueSeparator()
                                            .desc("The NLT server address")
                                            .build();
         
-        Option numResults = Option.builder("r").longOpt("results")
+        final Option numResults = Option.builder("r").longOpt("results")
                                                .hasArg()
                                                .valueSeparator()
                                                .desc("Number of results per item")
                                                .build();
         
-        Option configFile = Option.builder().longOpt("config")
+        final Option configFile = Option.builder().longOpt("config")
                                             .hasArg()
                                             .valueSeparator()
                                             .desc("Use the specified configuration file")
                                             .build();
         
-        Options mOptions = new Options();
+        final Options mOptions = new Options();
         mOptions.addOption(help);
         mOptions.addOption(version);
         mOptions.addOption(newRun);
@@ -542,9 +542,9 @@ public class HelpFormatterTest
         mOptions.addOption(numResults);
         mOptions.addOption(configFile);
         
-        HelpFormatter formatter = new HelpFormatter();
+        final HelpFormatter formatter = new HelpFormatter();
         final String EOL = System.getProperty("line.separator");
-        StringWriter out = new StringWriter();
+        final StringWriter out = new StringWriter();
         formatter.printHelp(new PrintWriter(out),80,"commandline","header",mOptions,2,2,"footer",true);
         assertEquals(
                 "usage: commandline [-a <arg>] [--config <arg>] [-h] [-l <arg>] [-n] [-r <arg>]" + EOL +
@@ -566,17 +566,17 @@ public class HelpFormatterTest
     @Test
     public void testHelpWithLongOptSeparator() throws Exception
     {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption( "f", true, "the file" );
         options.addOption(Option.builder("s").longOpt("size").desc("the size").hasArg().argName("SIZE").build());
         options.addOption(Option.builder().longOpt("age").desc("the age").hasArg().build());
         
-        HelpFormatter formatter = new HelpFormatter();
+        final HelpFormatter formatter = new HelpFormatter();
         assertEquals(HelpFormatter.DEFAULT_LONG_OPT_SEPARATOR, formatter.getLongOptSeparator());
         formatter.setLongOptSeparator("=");
         assertEquals("=", formatter.getLongOptSeparator());
         
-        StringWriter out = new StringWriter();
+        final StringWriter out = new StringWriter();
 
         formatter.printHelp(new PrintWriter(out), 80, "create", "header", options, 2, 2, "footer");
 
@@ -593,15 +593,15 @@ public class HelpFormatterTest
     @Test
     public void testUsageWithLongOptSeparator() throws Exception
     {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption( "f", true, "the file" );
         options.addOption(Option.builder("s").longOpt("size").desc("the size").hasArg().argName("SIZE").build());
         options.addOption(Option.builder().longOpt("age").desc("the age").hasArg().build());
         
-        HelpFormatter formatter = new HelpFormatter();
+        final HelpFormatter formatter = new HelpFormatter();
         formatter.setLongOptSeparator("=");
         
-        StringWriter out = new StringWriter();
+        final StringWriter out = new StringWriter();
         
         formatter.printUsage(new PrintWriter(out), 80, "create", options);
         

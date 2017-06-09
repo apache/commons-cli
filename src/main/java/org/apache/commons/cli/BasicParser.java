@@ -41,9 +41,9 @@ public class BasicParser extends Parser
      * @return The <code>arguments</code> String array.
      */
     @Override
-    protected String[] flatten(@SuppressWarnings("unused") Options options,
-            String[] arguments,
-            @SuppressWarnings("unused") boolean stopAtNonOption)
+    protected String[] flatten(@SuppressWarnings("unused") final Options options,
+            final String[] arguments,
+            @SuppressWarnings("unused") final boolean stopAtNonOption)
     {
         // just echo the arguments
         return arguments;

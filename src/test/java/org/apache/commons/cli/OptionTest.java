@@ -31,13 +31,13 @@ public class OptionTest
     {
         private static final long serialVersionUID = 1L;
 
-        public TestOption(String opt, boolean hasArg, String description) throws IllegalArgumentException
+        public TestOption(final String opt, final boolean hasArg, final String description) throws IllegalArgumentException
         {
             super(opt, hasArg, description);
         }
 
         @Override
-        public boolean addValue(String value)
+        public boolean addValue(final String value)
         {
             addValueForProcessing(value);
             return true;
@@ -47,7 +47,7 @@ public class OptionTest
     @Test
     public void testClear()
     {
-        TestOption option = new TestOption("x", true, "");
+        final TestOption option = new TestOption("x", true, "");
         assertEquals(0, option.getValuesList().size());
         option.addValue("a");
         assertEquals(1, option.getValuesList().size());
@@ -59,8 +59,8 @@ public class OptionTest
     @Test
     public void testClone()
     {
-        TestOption a = new TestOption("a", true, "");
-        TestOption b = (TestOption) a.clone();
+        final TestOption a = new TestOption("a", true, "");
+        final TestOption b = (TestOption) a.clone();
         assertEquals(a, b);
         assertNotSame(a, b);
         a.setDescription("a");
@@ -86,7 +86,7 @@ public class OptionTest
 
         private final String defaultValue;
 
-        public DefaultOption(String opt, String description, String defaultValue) throws IllegalArgumentException
+        public DefaultOption(final String opt, final String description, final String defaultValue) throws IllegalArgumentException
         {
             super(opt, true, description);
             this.defaultValue = defaultValue;
@@ -102,8 +102,8 @@ public class OptionTest
     @Test
     public void testSubclass()
     {
-        Option option = new DefaultOption("f", "file", "myfile.txt");
-        Option clone = (Option) option.clone();
+        final Option option = new DefaultOption("f", "file", "myfile.txt");
+        final Option clone = (Option) option.clone();
         assertEquals("myfile.txt", clone.getValue());
         assertEquals(DefaultOption.class, clone.getClass());
     }
@@ -111,7 +111,7 @@ public class OptionTest
     @Test
     public void testHasArgName()
     {
-        Option option = new Option("f", null);
+        final Option option = new Option("f", null);
 
         option.setArgName(null);
         assertFalse(option.hasArgName());
@@ -126,7 +126,7 @@ public class OptionTest
     @Test
     public void testHasArgs()
     {
-        Option option = new Option("f", null);
+        final Option option = new Option("f", null);
 
         option.setArgs(0);
         assertFalse(option.hasArgs());
@@ -147,7 +147,7 @@ public class OptionTest
     @Test
     public void testGetValue()
     {
-        Option option = new Option("f", null);
+        final Option option = new Option("f", null);
         option.setArgs(Option.UNLIMITED_VALUES);
 
         assertEquals("default", option.getValue("default"));
@@ -163,7 +163,7 @@ public class OptionTest
     @Test
     public void testBuilderMethods()
     {
-        char defaultSeparator = (char) 0;
+        final char defaultSeparator = (char) 0;
 
         checkOption(Option.builder("a").desc("desc").build(),
             "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
@@ -208,9 +208,9 @@ public class OptionTest
         Option.builder(null).desc("desc").build();
     }
 
-    private static void checkOption(Option option, String opt, String description, String longOpt, int numArgs,
-                                    String argName,  boolean required, boolean optionalArg,
-                                    char valueSeparator, Class<?> cls)
+    private static void checkOption(final Option option, final String opt, final String description, final String longOpt, final int numArgs,
+                                    final String argName,  final boolean required, final boolean optionalArg,
+                                    final char valueSeparator, final Class<?> cls)
     {
         assertEquals(opt, option.getOpt());
         assertEquals(description, option.getDescription());

@@ -29,7 +29,7 @@ public class OptionBuilderTest
 {
     @Test
     public void testCompleteOption( ) {
-        Option simple = OptionBuilder.withLongOpt( "simple option")
+        final Option simple = OptionBuilder.withLongOpt( "simple option")
                                      .hasArg( )
                                      .isRequired( )
                                      .hasArgs( )
@@ -80,7 +80,7 @@ public class OptionBuilderTest
 
     @Test
     public void testBaseOptionCharOpt() {
-        Option base = OptionBuilder.withDescription( "option description")
+        final Option base = OptionBuilder.withDescription( "option description")
                                    .create( 'o' );
 
         assertEquals( "o", base.getOpt() );
@@ -90,7 +90,7 @@ public class OptionBuilderTest
 
     @Test
     public void testBaseOptionStringOpt() {
-        Option base = OptionBuilder.withDescription( "option description")
+        final Option base = OptionBuilder.withDescription( "option description")
                                    .create( "o" );
 
         assertEquals( "o", base.getOpt() );
@@ -102,18 +102,18 @@ public class OptionBuilderTest
     public void testSpecialOptChars() throws Exception
     {
         // '?'
-        Option opt1 = OptionBuilder.withDescription("help options").create('?');
+        final Option opt1 = OptionBuilder.withDescription("help options").create('?');
         assertEquals("?", opt1.getOpt());
 
         // '@'
-        Option opt2 = OptionBuilder.withDescription("read from stdin").create('@');
+        final Option opt2 = OptionBuilder.withDescription("read from stdin").create('@');
         assertEquals("@", opt2.getOpt());
         
         // ' '
         try {
             OptionBuilder.create(' ');
             fail( "IllegalArgumentException not caught" );
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // success
         }
     }
@@ -121,7 +121,7 @@ public class OptionBuilderTest
     @Test
     public void testOptionArgNumbers()
     {
-        Option opt = OptionBuilder.withDescription( "option description" )
+        final Option opt = OptionBuilder.withDescription( "option description" )
                                   .hasArgs( 2 )
                                   .create( 'o' );
         assertEquals( 2, opt.getArgs() );
@@ -134,7 +134,7 @@ public class OptionBuilderTest
             OptionBuilder.withDescription( "option description" ).create( '"' );
             fail( "IllegalArgumentException not caught" );
         }
-        catch( IllegalArgumentException exp ) {
+        catch( final IllegalArgumentException exp ) {
             // success
         }
 
@@ -143,7 +143,7 @@ public class OptionBuilderTest
             OptionBuilder.create( "opt`" );
             fail( "IllegalArgumentException not caught" );
         }
-        catch( IllegalArgumentException exp ) {
+        catch( final IllegalArgumentException exp ) {
             // success
         }
 
@@ -152,7 +152,7 @@ public class OptionBuilderTest
             OptionBuilder.create( "opt" );
             // success
         }
-        catch( IllegalArgumentException exp ) {
+        catch( final IllegalArgumentException exp ) {
             fail( "IllegalArgumentException caught" );
         }
     }
@@ -164,7 +164,7 @@ public class OptionBuilderTest
             OptionBuilder.hasArg().create();
             fail("Incomplete option should be rejected");
         }
-        catch (IllegalArgumentException e)
+        catch (final IllegalArgumentException e)
         {
             // expected
             
@@ -180,7 +180,7 @@ public class OptionBuilderTest
             OptionBuilder.withDescription("JUnit").create('"');
             fail("IllegalArgumentException expected");
         }
-        catch (IllegalArgumentException e)
+        catch (final IllegalArgumentException e)
         {
             // expected
         }
@@ -191,7 +191,7 @@ public class OptionBuilderTest
             OptionBuilder.withDescription("JUnit").create();
             fail("IllegalArgumentException expected");
         }
-        catch (IllegalArgumentException e)
+        catch (final IllegalArgumentException e)
         {
             // expected
         }

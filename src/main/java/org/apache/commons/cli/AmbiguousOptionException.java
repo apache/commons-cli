@@ -42,7 +42,7 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
      * @param option          the partial option name
      * @param matchingOptions the options matching the name
      */
-    public AmbiguousOptionException(String option, Collection<String> matchingOptions)
+    public AmbiguousOptionException(final String option, final Collection<String> matchingOptions)
     {
         super(createMessage(option, matchingOptions), option);
         this.matchingOptions = matchingOptions;
@@ -64,13 +64,13 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
      * @param matchingOptions
      * @return
      */
-    private static String createMessage(String option, Collection<String> matchingOptions)
+    private static String createMessage(final String option, final Collection<String> matchingOptions)
     {
-        StringBuilder buf = new StringBuilder("Ambiguous option: '");
+        final StringBuilder buf = new StringBuilder("Ambiguous option: '");
         buf.append(option);
         buf.append("'  (could be: ");
 
-        Iterator<String> it = matchingOptions.iterator();
+        final Iterator<String> it = matchingOptions.iterator();
         while (it.hasNext())
         {
             buf.append("'");

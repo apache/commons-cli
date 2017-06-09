@@ -36,15 +36,16 @@ public class BugCLI13Test
     {
         final String debugOpt = "debug";
         @SuppressWarnings("static-access")
+        final
         Option debug = OptionBuilder
             .withArgName( debugOpt )
             .withDescription( "turn on debugging" )
             .withLongOpt( debugOpt )
             .hasArg()
             .create( 'd' );
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption( debug );
-        CommandLine commandLine = new PosixParser().parse( options, new String[]{"-d", "true"} );
+        final CommandLine commandLine = new PosixParser().parse( options, new String[]{"-d", "true"} );
 
         assertEquals("true", commandLine.getOptionValue( debugOpt ));
         assertEquals("true", commandLine.getOptionValue( 'd' ));

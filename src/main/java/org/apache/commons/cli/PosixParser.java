@@ -93,19 +93,19 @@ public class PosixParser extends Parser
      * @return The flattened <code>arguments</code> String array.
      */
     @Override
-    protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption) throws ParseException
+    protected String[] flatten(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException
     {
         init();
         this.options = options;
 
         // an iterator for the command line tokens
-        Iterator<String> iter = Arrays.asList(arguments).iterator();
+        final Iterator<String> iter = Arrays.asList(arguments).iterator();
 
         // process each command line token
         while (iter.hasNext())
         {
             // get the next command line token
-            String token = iter.next();
+            final String token = iter.next();
 
             // single or double hyphen
             if ("-".equals(token) || "--".equals(token))
@@ -116,10 +116,10 @@ public class PosixParser extends Parser
             // handle long option --foo or --foo=bar
             else if (token.startsWith("--"))
             {
-                int pos = token.indexOf('=');
-                String opt = pos == -1 ? token : token.substring(0, pos); // --foo
+                final int pos = token.indexOf('=');
+                final String opt = pos == -1 ? token : token.substring(0, pos); // --foo
                 
-                List<String> matchingOpts = options.getMatchingOptions(opt);
+                final List<String> matchingOpts = options.getMatchingOptions(opt);
 
                 if (matchingOpts.isEmpty())
                 {
@@ -149,12 +149,12 @@ public class PosixParser extends Parser
                 }
                 else if (!options.getMatchingOptions(token).isEmpty())
                 {
-                    List<String> matchingOpts = options.getMatchingOptions(token);
+                    final List<String> matchingOpts = options.getMatchingOptions(token);
                     if (matchingOpts.size() > 1)
                     {
                         throw new AmbiguousOptionException(token, matchingOpts);
                     }
-                    Option opt = options.getOption(matchingOpts.get(0));
+                    final Option opt = options.getOption(matchingOpts.get(0));
                     processOptionToken("-" + opt.getLongOpt(), stopAtNonOption);
                 }
                 // requires bursting
@@ -179,7 +179,7 @@ public class PosixParser extends Parser
      *
      * @param iter An iterator over the remaining tokens
      */
-    private void gobble(Iterator<String> iter)
+    private void gobble(final Iterator<String> iter)
     {
         if (eatTheRest)
         {
@@ -197,7 +197,7 @@ public class PosixParser extends Parser
      *
      * @param value The current token
      */
-    private void processNonOptionToken(String value, boolean stopAtNonOption)
+    private void processNonOptionToken(final String value, final boolean stopAtNonOption)
     {
         if (stopAtNonOption && (currentOption == null || !currentOption.hasArg()))
         {
@@ -220,7 +220,7 @@ public class PosixParser extends Parser
      * @param stopAtNonOption Specifies whether flattening should halt
      * at the first non option.
      */
-    private void processOptionToken(String token, boolean stopAtNonOption)
+    private void processOptionToken(final String token, final boolean stopAtNonOption)
     {
         if (stopAtNonOption && !options.hasOption(token))
         {
@@ -261,11 +261,11 @@ public class PosixParser extends Parser
      * @param stopAtNonOption Specifies whether to stop processing
      * at the first non-Option encountered.
      */
-    protected void burstToken(String token, boolean stopAtNonOption)
+    protected void burstToken(final String token, final boolean stopAtNonOption)
     {
         for (int i = 1; i < token.length(); i++)
         {
-            String ch = String.valueOf(token.charAt(i));
+            final String ch = String.valueOf(token.charAt(i));
 
             if (options.hasOption(ch))
             {

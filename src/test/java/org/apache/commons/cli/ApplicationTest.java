@@ -44,8 +44,8 @@ public class ApplicationTest
     @Test
     public void testLs() throws Exception {
         // create the command line parser
-        CommandLineParser parser = new PosixParser();
-        Options options = new Options();
+        final CommandLineParser parser = new PosixParser();
+        final Options options = new Options();
         options.addOption( "a", "all", false, "do not hide entries starting with ." );
         options.addOption( "A", "almost-all", false, "do not list implied . and .." );
         options.addOption( "b", "escape", false, "print octal escapes for nongraphic characters" );
@@ -58,9 +58,9 @@ public class ApplicationTest
         options.addOption( "c", false, "with -lt: sort by, and show, ctime (time of last modification of file status information) with -l:show ctime and sort by name otherwise: sort by ctime" );
         options.addOption( "C", false, "list entries by columns" );
 
-        String[] args = new String[]{ "--block-size=10" };
+        final String[] args = new String[]{ "--block-size=10" };
 
-        CommandLine line = parser.parse( options, args );
+        final CommandLine line = parser.parse( options, args );
         assertTrue( line.hasOption( "block-size" ) );
         assertEquals( line.getOptionValue( "block-size" ), "10" );
     }
@@ -71,8 +71,8 @@ public class ApplicationTest
     @Test
     public void testAnt() throws Exception {
         // use the GNU parser
-        CommandLineParser parser = new GnuParser( );
-        Options options = new Options();
+        final CommandLineParser parser = new GnuParser( );
+        final Options options = new Options();
         options.addOption( "help", false, "print this message" );
         options.addOption( "projecthelp", false, "print project help information" );
         options.addOption( "version", false, "print the version information and exit" );
@@ -90,14 +90,14 @@ public class ApplicationTest
                            //, null, true, , false, true );
         options.addOption( "find", true, "search for buildfile towards the root of the filesystem and use it" );
 
-        String[] args = new String[]{ "-buildfile", "mybuild.xml",
+        final String[] args = new String[]{ "-buildfile", "mybuild.xml",
             "-Dproperty=value", "-Dproperty1=value1",
             "-projecthelp" };
 
-        CommandLine line = parser.parse( options, args );
+        final CommandLine line = parser.parse( options, args );
 
         // check multiple values
-        String[] opts = line.getOptionValues( "D" );
+        final String[] opts = line.getOptionValues( "D" );
         assertEquals( "property", opts[0] );
         assertEquals( "value", opts[1] );
         assertEquals( "property1", opts[2] );
@@ -112,7 +112,7 @@ public class ApplicationTest
 
     @Test
     public void testGroovy() throws Exception {
-        Options options = new Options();
+        final Options options = new Options();
 
         options.addOption(
             OptionBuilder.withLongOpt("define").
@@ -171,8 +171,8 @@ public class ApplicationTest
             .withLongOpt("autosplit")
             .create('a'));
 
-        Parser parser = new PosixParser();
-        CommandLine line = parser.parse(options, new String[] { "-e", "println 'hello'" }, true);
+        final Parser parser = new PosixParser();
+        final CommandLine line = parser.parse(options, new String[] { "-e", "println 'hello'" }, true);
 
         assertTrue(line.hasOption('e'));
         assertEquals("println 'hello'", line.getOptionValue('e'));
@@ -184,10 +184,10 @@ public class ApplicationTest
     @Test
     public void testMan()
     {
-        String cmdLine =
+        final String cmdLine =
                 "man [-c|-f|-k|-w|-tZT device] [-adlhu7V] [-Mpath] [-Ppager] [-Slist] " +
                         "[-msystem] [-pstring] [-Llocale] [-eextension] [section] page ...";
-        Options options = new Options().
+        final Options options = new Options().
                 addOption("a", "all", false, "find all matching manual pages.").
                 addOption("d", "debug", false, "emit debugging messages.").
                 addOption("e", "extension", false, "limit search to extension type 'extension'.").
@@ -222,9 +222,9 @@ public class ApplicationTest
                 addOption("V", "version", false, "show version.").
                 addOption("h", "help", false, "show this usage message.");
 
-        HelpFormatter hf = new HelpFormatter();
+        final HelpFormatter hf = new HelpFormatter();
         final String EOL = System.getProperty("line.separator");
-        StringWriter out = new StringWriter();
+        final StringWriter out = new StringWriter();
         hf.printHelp(new PrintWriter(out), 60, cmdLine, null, options, HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, null, false);
         assertEquals("usage: man [-c|-f|-k|-w|-tZT device] [-adlhu7V] [-Mpath]" + EOL +
                         "           [-Ppager] [-Slist] [-msystem] [-pstring]" + EOL +
@@ -275,37 +275,37 @@ public class ApplicationTest
      */
     @Test
     public void testNLT() throws Exception {
-        Option help = new Option("h", "help", false, "print this message");
-        Option version = new Option("v", "version", false, "print version information");
-        Option newRun = new Option("n", "new", false, "Create NLT cache entries only for new items");
-        Option trackerRun = new Option("t", "tracker", false, "Create NLT cache entries only for tracker items");
+        final Option help = new Option("h", "help", false, "print this message");
+        final Option version = new Option("v", "version", false, "print version information");
+        final Option newRun = new Option("n", "new", false, "Create NLT cache entries only for new items");
+        final Option trackerRun = new Option("t", "tracker", false, "Create NLT cache entries only for tracker items");
 
-        Option timeLimit = OptionBuilder.withLongOpt("limit").hasArg()
+        final Option timeLimit = OptionBuilder.withLongOpt("limit").hasArg()
                                         .withValueSeparator()
                                         .withDescription("Set time limit for execution, in minutes")
                                         .create("l");
 
-        Option age = OptionBuilder.withLongOpt("age").hasArg()
+        final Option age = OptionBuilder.withLongOpt("age").hasArg()
                                   .withValueSeparator()
                                   .withDescription("Age (in days) of cache item before being recomputed")
                                   .create("a");
 
-        Option server = OptionBuilder.withLongOpt("server").hasArg()
+        final Option server = OptionBuilder.withLongOpt("server").hasArg()
                                      .withValueSeparator()
                                      .withDescription("The NLT server address")
                                      .create("s");
 
-        Option numResults = OptionBuilder.withLongOpt("results").hasArg()
+        final Option numResults = OptionBuilder.withLongOpt("results").hasArg()
                                          .withValueSeparator()
                                          .withDescription("Number of results per item")
                                          .create("r");
 
-        Option configFile = OptionBuilder.withLongOpt("file").hasArg()
+        final Option configFile = OptionBuilder.withLongOpt("file").hasArg()
                                          .withValueSeparator()
                                          .withDescription("Use the specified configuration file")
                                          .create();
 
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption(help);
         options.addOption(version);
         options.addOption(newRun);
@@ -317,9 +317,9 @@ public class ApplicationTest
         options.addOption(configFile);
 
         // create the command line parser
-        CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new PosixParser();
 
-        String[] args = new String[] {
+        final String[] args = new String[] {
                 "-v",
                 "-l",
                 "10",
@@ -329,7 +329,7 @@ public class ApplicationTest
                 "filename"
             };
 
-        CommandLine line = parser.parse(options, args);
+        final CommandLine line = parser.parse(options, args);
         assertTrue(line.hasOption("v"));
         assertEquals(line.getOptionValue("l"), "10");
         assertEquals(line.getOptionValue("limit"), "10");

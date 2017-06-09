@@ -46,13 +46,13 @@ public class ValueTest
         opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
         opts.addOption(OptionBuilder.hasOptionalArgs().create('j'));
 
-        String[] args = new String[] { "-a",
+        final String[] args = new String[] { "-a",
             "-b", "foo",
             "--c",
             "--d", "bar" 
         };
 
-        Parser parser = new PosixParser();
+        final Parser parser = new PosixParser();
         _cl = parser.parse(opts,args);
     }
 
@@ -119,10 +119,10 @@ public class ValueTest
     @Test
     public void testShortOptionalArgNoValue() throws Exception
     {
-        String[] args = new String[] { "-e" };
+        final String[] args = new String[] { "-e" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("e") );
         assertNull( cmd.getOptionValue("e") );
     }
@@ -130,10 +130,10 @@ public class ValueTest
     @Test
     public void testShortOptionalArgNoValueWithOption() throws Exception
     {
-        String[] args = new String[] { "-e" };
+        final String[] args = new String[] { "-e" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("e")) );
         assertNull( cmd.getOptionValue(opts.getOption("e")) );
     }
@@ -141,10 +141,10 @@ public class ValueTest
     @Test
     public void testShortOptionalArgValue() throws Exception
     {
-        String[] args = new String[] { "-e", "everything" };
+        final String[] args = new String[] { "-e", "everything" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("e") );
         assertEquals( "everything", cmd.getOptionValue("e") );
     }
@@ -152,10 +152,10 @@ public class ValueTest
     @Test
     public void testShortOptionalArgValueWithOption() throws Exception
     {
-        String[] args = new String[] { "-e", "everything" };
+        final String[] args = new String[] { "-e", "everything" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("e")) );
         assertEquals( "everything", cmd.getOptionValue(opts.getOption("e")) );
     }
@@ -163,10 +163,10 @@ public class ValueTest
     @Test
     public void testLongOptionalNoValue() throws Exception
     {
-        String[] args = new String[] { "--fish" };
+        final String[] args = new String[] { "--fish" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("fish") );
         assertNull( cmd.getOptionValue("fish") );
     }
@@ -174,10 +174,10 @@ public class ValueTest
     @Test
     public void testLongOptionalNoValueWithOption() throws Exception
     {
-        String[] args = new String[] { "--fish" };
+        final String[] args = new String[] { "--fish" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("fish")) );
         assertNull( cmd.getOptionValue(opts.getOption("fish")) );
     }
@@ -185,10 +185,10 @@ public class ValueTest
     @Test
     public void testLongOptionalArgValue() throws Exception
     {
-        String[] args = new String[] { "--fish", "face" };
+        final String[] args = new String[] { "--fish", "face" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("fish") );
         assertEquals( "face", cmd.getOptionValue("fish") );
     }
@@ -196,10 +196,10 @@ public class ValueTest
     @Test
     public void testLongOptionalArgValueWithOption() throws Exception
     {
-        String[] args = new String[] { "--fish", "face" };
+        final String[] args = new String[] { "--fish", "face" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("fish")) );
         assertEquals( "face", cmd.getOptionValue(opts.getOption("fish")) );
     }
@@ -207,10 +207,10 @@ public class ValueTest
     @Test
     public void testShortOptionalArgValues() throws Exception
     {
-        String[] args = new String[] { "-j", "ink", "idea" };
+        final String[] args = new String[] { "-j", "ink", "idea" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("j") );
         assertEquals( "ink", cmd.getOptionValue("j") );
         assertEquals( "ink", cmd.getOptionValues("j")[0] );
@@ -221,10 +221,10 @@ public class ValueTest
     @Test
     public void testShortOptionalArgValuesWithOption() throws Exception
     {
-        String[] args = new String[] { "-j", "ink", "idea" };
+        final String[] args = new String[] { "-j", "ink", "idea" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("j")) );
         assertEquals( "ink", cmd.getOptionValue(opts.getOption("j")) );
         assertEquals( "ink", cmd.getOptionValues(opts.getOption("j"))[0] );
@@ -235,10 +235,10 @@ public class ValueTest
     @Test
     public void testLongOptionalArgValues() throws Exception
     {
-        String[] args = new String[] { "--gravy", "gold", "garden" };
+        final String[] args = new String[] { "--gravy", "gold", "garden" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("gravy") );
         assertEquals( "gold", cmd.getOptionValue("gravy") );
         assertEquals( "gold", cmd.getOptionValues("gravy")[0] );
@@ -249,10 +249,10 @@ public class ValueTest
     @Test
     public void testLongOptionalArgValuesWithOption() throws Exception
     {
-        String[] args = new String[] { "--gravy", "gold", "garden" };
+        final String[] args = new String[] { "--gravy", "gold", "garden" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("gravy")) );
         assertEquals( "gold", cmd.getOptionValue(opts.getOption("gravy")) );
         assertEquals( "gold", cmd.getOptionValues(opts.getOption("gravy"))[0] );
@@ -263,10 +263,10 @@ public class ValueTest
     @Test
     public void testShortOptionalNArgValues() throws Exception
     {
-        String[] args = new String[] { "-i", "ink", "idea", "isotope", "ice" };
+        final String[] args = new String[] { "-i", "ink", "idea", "isotope", "ice" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("i") );
         assertEquals( "ink", cmd.getOptionValue("i") );
         assertEquals( "ink", cmd.getOptionValues("i")[0] );
@@ -279,10 +279,10 @@ public class ValueTest
     @Test
     public void testShortOptionalNArgValuesWithOption() throws Exception
     {
-        String[] args = new String[] { "-i", "ink", "idea", "isotope", "ice" };
+        final String[] args = new String[] { "-i", "ink", "idea", "isotope", "ice" };
 
-        Parser parser = new PosixParser();
-        CommandLine cmd = parser.parse(opts,args);
+        final Parser parser = new PosixParser();
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("i") );
         assertEquals( "ink", cmd.getOptionValue(opts.getOption("i")) );
         assertEquals( "ink", cmd.getOptionValues(opts.getOption("i"))[0] );
@@ -295,13 +295,13 @@ public class ValueTest
     @Test
     public void testLongOptionalNArgValues() throws Exception
     {
-        String[] args = new String[] { 
+        final String[] args = new String[] { 
             "--hide", "house", "hair", "head"
         };
 
-        Parser parser = new PosixParser();
+        final Parser parser = new PosixParser();
 
-        CommandLine cmd = parser.parse(opts,args);
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption("hide") );
         assertEquals( "house", cmd.getOptionValue("hide") );
         assertEquals( "house", cmd.getOptionValues("hide")[0] );
@@ -313,13 +313,13 @@ public class ValueTest
     @Test
     public void testLongOptionalNArgValuesWithOption() throws Exception
     {
-        String[] args = new String[] { 
+        final String[] args = new String[] { 
             "--hide", "house", "hair", "head"
         };
 
-        Parser parser = new PosixParser();
+        final Parser parser = new PosixParser();
 
-        CommandLine cmd = parser.parse(opts,args);
+        final CommandLine cmd = parser.parse(opts,args);
         assertTrue( cmd.hasOption(opts.getOption("hide")) );
         assertEquals( "house", cmd.getOptionValue(opts.getOption("hide")) );
         assertEquals( "house", cmd.getOptionValues(opts.getOption("hide"))[0] );

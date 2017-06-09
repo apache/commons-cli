@@ -33,7 +33,7 @@ public class OptionsTest
     @Test
     public void testSimple()
     {
-        Options opts = new Options();
+        final Options opts = new Options();
 
         opts.addOption("a", false, "toggle -a");
         opts.addOption("b", true, "toggle -b");
@@ -45,7 +45,7 @@ public class OptionsTest
     @Test
     public void testDuplicateSimple()
     {
-        Options opts = new Options();
+        final Options opts = new Options();
         opts.addOption("a", false, "toggle -a");
         opts.addOption("a", true, "toggle -a*");
 
@@ -55,7 +55,7 @@ public class OptionsTest
     @Test
     public void testLong()
     {
-        Options opts = new Options();
+        final Options opts = new Options();
 
         opts.addOption("a", "--a", false, "toggle -a");
         opts.addOption("b", "--b", true, "set -b");
@@ -67,7 +67,7 @@ public class OptionsTest
     @Test
     public void testDuplicateLong()
     {
-        Options opts = new Options();
+        final Options opts = new Options();
         opts.addOption("a", "--a", false, "toggle -a");
         opts.addOption("a", "--a", false, "toggle -a*");
         assertEquals("last one in wins", "toggle -a*", opts.getOption("a").getDescription());
@@ -76,14 +76,14 @@ public class OptionsTest
     @Test
     public void testHelpOptions()
     {
-        Option longOnly1 = OptionBuilder.withLongOpt("long-only1").create();
-        Option longOnly2 = OptionBuilder.withLongOpt("long-only2").create();
-        Option shortOnly1 = OptionBuilder.create("1");
-        Option shortOnly2 = OptionBuilder.create("2");
-        Option bothA = OptionBuilder.withLongOpt("bothA").create("a");
-        Option bothB = OptionBuilder.withLongOpt("bothB").create("b");
+        final Option longOnly1 = OptionBuilder.withLongOpt("long-only1").create();
+        final Option longOnly2 = OptionBuilder.withLongOpt("long-only2").create();
+        final Option shortOnly1 = OptionBuilder.create("1");
+        final Option shortOnly2 = OptionBuilder.create("2");
+        final Option bothA = OptionBuilder.withLongOpt("bothA").create("a");
+        final Option bothB = OptionBuilder.withLongOpt("bothB").create("b");
         
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption(longOnly1);
         options.addOption(longOnly2);
         options.addOption(shortOnly1);
@@ -91,7 +91,7 @@ public class OptionsTest
         options.addOption(bothA);
         options.addOption(bothB);
         
-        Collection<Option> allOptions = new ArrayList<Option>();
+        final Collection<Option> allOptions = new ArrayList<Option>();
         allOptions.add(longOnly1);
         allOptions.add(longOnly2);
         allOptions.add(shortOnly1);
@@ -99,7 +99,7 @@ public class OptionsTest
         allOptions.add(bothA);
         allOptions.add(bothB);
         
-        Collection<Option> helpOptions = options.helpOptions();
+        final Collection<Option> helpOptions = options.helpOptions();
         
         assertTrue("Everything in all should be in help", helpOptions.containsAll(allOptions));
         assertTrue("Everything in help should be in all", allOptions.containsAll(helpOptions));        
@@ -108,14 +108,14 @@ public class OptionsTest
     @Test
     public void testMissingOptionException() throws ParseException
     {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption(OptionBuilder.isRequired().create("f"));
         try
         {
             new PosixParser().parse(options, new String[0]);
             fail("Expected MissingOptionException to be thrown");
         }
-        catch (MissingOptionException e)
+        catch (final MissingOptionException e)
         {
             assertEquals("Missing required option: f", e.getMessage());
         }
@@ -124,7 +124,7 @@ public class OptionsTest
     @Test
     public void testMissingOptionsException() throws ParseException
     {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption(OptionBuilder.isRequired().create("f"));
         options.addOption(OptionBuilder.isRequired().create("x"));
         try
@@ -132,7 +132,7 @@ public class OptionsTest
             new PosixParser().parse(options, new String[0]);
             fail("Expected MissingOptionException to be thrown");
         }
-        catch (MissingOptionException e)
+        catch (final MissingOptionException e)
         {
             assertEquals("Missing required options: f, x", e.getMessage());
         }
@@ -141,11 +141,11 @@ public class OptionsTest
     @Test
     public void testToString()
     {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption("f", "foo", true, "Foo");
         options.addOption("b", "bar", false, "Bar");
 
-        String s = options.toString();
+        final String s = options.toString();
         assertNotNull("null string returned", s);
         assertTrue("foo option missing", s.toLowerCase().contains("foo"));
         assertTrue("bar option missing", s.toLowerCase().contains("bar"));
@@ -154,13 +154,13 @@ public class OptionsTest
     @Test
     public void testGetOptionsGroups()
     {
-        Options options = new Options();
+        final Options options = new Options();
 
-        OptionGroup group1 = new OptionGroup();
+        final OptionGroup group1 = new OptionGroup();
         group1.addOption(OptionBuilder.create('a'));
         group1.addOption(OptionBuilder.create('b'));
 
-        OptionGroup group2 = new OptionGroup();
+        final OptionGroup group2 = new OptionGroup();
         group2.addOption(OptionBuilder.create('x'));
         group2.addOption(OptionBuilder.create('y'));
 
@@ -174,7 +174,7 @@ public class OptionsTest
     @Test
     public void testGetMatchingOpts()
     {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("version").create());
         options.addOption(OptionBuilder.withLongOpt("verbose").create());
         

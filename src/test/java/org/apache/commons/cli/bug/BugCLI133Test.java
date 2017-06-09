@@ -31,11 +31,11 @@ public class BugCLI133Test
 {    
     @Test
     public void testOrder() throws ParseException {
-        Option optionA = new Option("a", "first");
-        Options opts = new Options();
+        final Option optionA = new Option("a", "first");
+        final Options opts = new Options();
         opts.addOption(optionA);
-        PosixParser posixParser = new PosixParser();
-        CommandLine line = posixParser.parse(opts, null);
+        final PosixParser posixParser = new PosixParser();
+        final CommandLine line = posixParser.parse(opts, null);
         assertFalse(line.hasOption((String)null));
     }
 }

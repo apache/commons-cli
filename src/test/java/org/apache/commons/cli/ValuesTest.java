@@ -33,7 +33,7 @@ public class ValuesTest
     @Before
     public void setUp() throws Exception
     {
-        Options options = new Options();
+        final Options options = new Options();
 
         options.addOption("a", false, "toggle -a");
         options.addOption("b", true, "set -b");
@@ -49,7 +49,7 @@ public class ValuesTest
         options.addOption(OptionBuilder.withLongOpt("k").hasArgs().withDescription("set -k").withValueSeparator('=').create('k'));
         options.addOption(OptionBuilder.withLongOpt("m").hasArgs().withDescription("set -m").withValueSeparator().create('m'));
 
-        String[] args = new String[] { "-a",
+        final String[] args = new String[] { "-a",
                                        "-b", "foo",
                                        "--c",
                                        "--d", "bar",
@@ -65,7 +65,7 @@ public class ValuesTest
                                        "-kkey2=value2",
                                        "-mkey=value"};
 
-        CommandLineParser parser = new PosixParser();
+        final CommandLineParser parser = new PosixParser();
 
         cmd = parser.parse(options,args);
     }

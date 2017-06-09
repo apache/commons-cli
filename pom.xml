@@ -40,9 +40,10 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/cli/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/cli/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewvc/commons/proper/cli/trunk/</url>
+    <connection>scm:git:http://git-wip-us.apache.org/repos/asf/commons-cli.git</connection>
+    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/commons-cli.git</developerConnection>
+    <url>https://git-wip-us.apache.org/repos/asf?p=commons-cli.git</url>
+    <tag>HEAD</tag>
   </scm>
 
   <developers>
@@ -166,6 +167,7 @@
     <maven.compiler.source>1.5</maven.compiler.source>
     <maven.compiler.target>1.5</maven.compiler.target>
     <commons.componentid>cli</commons.componentid>
+    <commons.module.name>org.apache.commons.cli</commons.module.name>
     <commons.release.version>1.4</commons.release.version>
     <commons.release.name>commons-cli-${commons.release.version}</commons.release.name>
     <commons.osgi.symbolicName>org.apache.commons.cli</commons.osgi.symbolicName>

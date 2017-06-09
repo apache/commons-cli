@@ -86,8 +86,8 @@ usage: ls
         <li><a href="javadocs/api-1.0/index.html">CLI 1.0</a></li>
       </ul>
       <p>
-        The <a href="source-repository.html">Subversion repository</a> can be
-        <a href="http://svn.apache.org/viewvc/commons/proper/cli/trunk/">browsed</a>.
+        The <a href="source-repository.html">git repository</a> can be
+        <a href="https://git-wip-us.apache.org/repos/asf?p=commons-cli.git">browsed</a>.
       </p>
     </section>
 

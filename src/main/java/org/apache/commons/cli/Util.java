@@ -32,7 +32,7 @@ final class Util
      *
      * @return the new String.
      */
-    static String stripLeadingHyphens(String str)
+    static String stripLeadingHyphens(final String str)
     {
         if (str == null)
         {
@@ -61,7 +61,7 @@ final class Util
      */
     static String stripLeadingAndTrailingQuotes(String str)
     {
-        int length = str.length();
+        final int length = str.length();
         if (length > 1 && str.startsWith("\"") && str.endsWith("\"") && str.substring(1, length - 1).indexOf('"') == -1)
         {
             str = str.substring(1, length - 1);

@@ -93,7 +93,7 @@ public class PatternOptionBuilder
      * @param ch the specified character
      * @return The class that <code>ch</code> represents
      */
-    public static Object getValueClass(char ch)
+    public static Object getValueClass(final char ch)
     {
         switch (ch)
         {
@@ -127,7 +127,7 @@ public class PatternOptionBuilder
      * @param ch the specified character
      * @return true if <code>ch</code> is a value code, otherwise false.
      */
-    public static boolean isValueCode(char ch)
+    public static boolean isValueCode(final char ch)
     {
         return ch == '@'
                 || ch == ':'
@@ -147,17 +147,17 @@ public class PatternOptionBuilder
      * @param pattern the pattern string
      * @return The {@link Options} instance
      */
-    public static Options parsePattern(String pattern)
+    public static Options parsePattern(final String pattern)
     {
         char opt = ' ';
         boolean required = false;
         Class<?> type = null;
 
-        Options options = new Options();
+        final Options options = new Options();
 
         for (int i = 0; i < pattern.length(); i++)
         {
-            char ch = pattern.charAt(i);
+            final char ch = pattern.charAt(i);
 
             // a value code comes after an option and specifies
             // details about it

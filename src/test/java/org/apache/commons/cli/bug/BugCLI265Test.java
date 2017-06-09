@@ -44,17 +44,17 @@ public class BugCLI265Test {
     public void setUp() throws Exception {
         parser = new DefaultParser();
 
-        Option optionT1 = Option.builder("t1").hasArg().numberOfArgs(1).optionalArg(true).argName("t1_path").build();
-        Option optionA = Option.builder("a").hasArg(false).build();
-        Option optionB = Option.builder("b").hasArg(false).build();
-        Option optionLast = Option.builder("last").hasArg(false).build();
+        final Option optionT1 = Option.builder("t1").hasArg().numberOfArgs(1).optionalArg(true).argName("t1_path").build();
+        final Option optionA = Option.builder("a").hasArg(false).build();
+        final Option optionB = Option.builder("b").hasArg(false).build();
+        final Option optionLast = Option.builder("last").hasArg(false).build();
 
         options = new Options().addOption(optionT1).addOption(optionA).addOption(optionB).addOption(optionLast);
     }
 
     @Test
     public void shouldParseShortOptionWithValue() throws Exception {
-        String[] shortOptionWithValue = new String[]{"-t1", "path/to/my/db"};
+        final String[] shortOptionWithValue = new String[]{"-t1", "path/to/my/db"};
 
         final CommandLine commandLine = parser.parse(options, shortOptionWithValue);
 
@@ -64,7 +64,7 @@ public class BugCLI265Test {
 
     @Test
     public void shouldParseShortOptionWithoutValue() throws Exception {
-        String[] twoShortOptions = new String[]{"-t1", "-last"};
+        final String[] twoShortOptions = new String[]{"-t1", "-last"};
 
         final CommandLine commandLine = parser.parse(options, twoShortOptions);
 
@@ -75,7 +75,7 @@ public class BugCLI265Test {
 
     @Test
     public void shouldParseConcatenatedShortOptions() throws Exception {
-        String[] concatenatedShortOptions = new String[] { "-t1", "-ab" };
+        final String[] concatenatedShortOptions = new String[] { "-t1", "-ab" };
 
         final CommandLine commandLine = parser.parse(options, concatenatedShortOptions);
 

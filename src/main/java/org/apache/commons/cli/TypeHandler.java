@@ -46,7 +46,7 @@ public class TypeHandler
      * the value of <code>str</code>.
      * @throws ParseException if the value creation for the given object type failed
      */
-    public static Object createValue(String str, Object obj) throws ParseException
+    public static Object createValue(final String str, final Object obj) throws ParseException
     {
         return createValue(str, (Class<?>) obj);
     }
@@ -61,7 +61,7 @@ public class TypeHandler
      * the value of <code>str</code>.
      * @throws ParseException if the value creation for the given class failed
      */
-    public static Object createValue(String str, Class<?> clazz) throws ParseException
+    public static Object createValue(final String str, final Class<?> clazz) throws ParseException
     {
         if (PatternOptionBuilder.STRING_VALUE == clazz)
         {
@@ -112,7 +112,7 @@ public class TypeHandler
       * @return the initialised object
       * @throws ParseException if the class could not be found or the object could not be created
       */
-    public static Object createObject(String classname) throws ParseException
+    public static Object createObject(final String classname) throws ParseException
     {
         Class<?> cl;
 
@@ -120,7 +120,7 @@ public class TypeHandler
         {
             cl = Class.forName(classname);
         }
-        catch (ClassNotFoundException cnfe)
+        catch (final ClassNotFoundException cnfe)
         {
             throw new ParseException("Unable to find the class: " + classname);
         }
@@ -129,7 +129,7 @@ public class TypeHandler
         {
             return cl.newInstance();
         }
-        catch (Exception e)
+        catch (final Exception e)
         {
             throw new ParseException(e.getClass().getName() + "; Unable to create an instance of: " + classname);
         }
@@ -143,7 +143,7 @@ public class TypeHandler
      * @return the number represented by <code>str</code>
      * @throws ParseException if <code>str</code> is not a number
      */
-    public static Number createNumber(String str) throws ParseException
+    public static Number createNumber(final String str) throws ParseException
     {
         try
         {
@@ -153,7 +153,7 @@ public class TypeHandler
             }
             return Long.valueOf(str);
         }
-        catch (NumberFormatException e)
+        catch (final NumberFormatException e)
         {
             throw new ParseException(e.getMessage());
         }
@@ -166,13 +166,13 @@ public class TypeHandler
      * @return The class if it is found
      * @throws ParseException if the class could not be found
      */
-    public static Class<?> createClass(String classname) throws ParseException
+    public static Class<?> createClass(final String classname) throws ParseException
     {
         try
         {
             return Class.forName(classname);
         }
-        catch (ClassNotFoundException e)
+        catch (final ClassNotFoundException e)
         {
             throw new ParseException("Unable to find the class: " + classname);
         }
@@ -189,7 +189,7 @@ public class TypeHandler
      * otherwise return null.
      * @throws UnsupportedOperationException always
      */
-    public static Date createDate(String str)
+    public static Date createDate(final String str)
     {
         throw new UnsupportedOperationException("Not yet implemented");
     }
@@ -201,13 +201,13 @@ public class TypeHandler
      * @return The URL in <code>str</code> is well-formed
      * @throws ParseException if the URL in <code>str</code> is not well-formed
      */
-    public static URL createURL(String str) throws ParseException
+    public static URL createURL(final String str) throws ParseException
     {
         try
         {
             return new URL(str);
         }
-        catch (MalformedURLException e)
+        catch (final MalformedURLException e)
         {
             throw new ParseException("Unable to parse the URL: " + str);
         }
@@ -219,7 +219,7 @@ public class TypeHandler
      * @param str the File location
      * @return The file represented by <code>str</code>.
      */
-    public static File createFile(String str)
+    public static File createFile(final String str)
     {
         return new File(str);
     }
@@ -252,7 +252,7 @@ public class TypeHandler
      * @return The File[] represented by <code>str</code>.
      * @throws UnsupportedOperationException always
      */
-    public static File[] createFiles(String str)
+    public static File[] createFiles(final String str)
     {
         // to implement/port:
         //        return FileW.findFiles(str);

@@ -37,7 +37,7 @@ public class BugCLI252Test {
     }
 
     private Options getOptions() {
-        Options options = new Options();
+        final Options options = new Options();
         options.addOption(Option.builder().longOpt("prefix").build());
         options.addOption(Option.builder().longOpt("prefixplusplus").build());
         return options;
