@@ -43,6 +43,9 @@
 Apache Commons CLI
 ===================
 
+[![Build Status](https://travis-ci.org/apache/commons-cli.svg?branch=master)](https://travis-ci.org/apache/commons-cli)
+[![Coverage Status](https://coveralls.io/repos/github/apache/commons-cli/badge.svg?branch=trunk)](https://coveralls.io/github/apache/commons-cli?branch=trunk)
+
 Apache Commons CLI provides a simple API for presenting, processing and validating a command line interface.
 
 Documentation
