@@ -163,10 +163,13 @@ public class PatternOptionBuilderTest
     {
         final Options options = PatternOptionBuilder.parsePattern("f<g<");
         final CommandLineParser parser = new PosixParser();
-        final CommandLine line = parser.parse(options, new String[] { "-f", "test.properties", "-g", "/dev/null" });
+        final CommandLine line = parser.parse(options, new String[] { "-f", "non-existing.file", "-g", "src/test/resources/existing-readable.file" });
         
-        assertNotNull("option g not parsed, or not FileInputStream", (FileInputStream) line.getOptionObject("g"));
-        assertNull("option f parsed", (FileInputStream) line.getOptionObject("f"));
+        assertNull("option f parsed", line.getOptionObject("f"));
+
+        Object parsedReadableFileStream = line.getOptionObject("g");
+        assertNotNull("option g not parsed", parsedReadableFileStream);
+        assertEquals("option g not FileInputStream", FileInputStream.class, parsedReadableFileStream.getClass());
     }
 
     @Test
