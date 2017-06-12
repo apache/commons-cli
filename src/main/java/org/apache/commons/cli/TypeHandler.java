@@ -229,6 +229,7 @@ public class TypeHandler
      *
      * @param str the file location
      * @return The file input stream represented by <code>str</code>.
+     * @throws ParseException if the file is not exist or not readable
      */
     public static FileInputStream openFile(String str) throws ParseException
     {
