@@ -161,15 +161,23 @@ public class PatternOptionBuilderTest
     @Test
     public void testExistingFilePattern() throws Exception
     {
-        final Options options = PatternOptionBuilder.parsePattern("f<g<");
+        final Options options = PatternOptionBuilder.parsePattern("g<");
         final CommandLineParser parser = new PosixParser();
-        final CommandLine line = parser.parse(options, new String[] { "-f", "non-existing.file", "-g", "src/test/resources/existing-readable.file" });
-        
-        assertNull("option f parsed", line.getOptionObject("f"));
+        final CommandLine line = parser.parse(options, new String[] { "-g", "src/test/resources/existing-readable.file" });
 
-        Object parsedReadableFileStream = line.getOptionObject("g");
+        final Object parsedReadableFileStream = line.getOptionObject("g");
+
         assertNotNull("option g not parsed", parsedReadableFileStream);
-        assertEquals("option g not FileInputStream", FileInputStream.class, parsedReadableFileStream.getClass());
+        assertTrue("option g not FileInputStream", parsedReadableFileStream instanceof FileInputStream);
+    }
+
+    @Test
+    public void testExistingFilePatternFileNotExist() throws Exception {
+        final Options options = PatternOptionBuilder.parsePattern("f<");
+        final CommandLineParser parser = new PosixParser();
+        final CommandLine line = parser.parse(options, new String[] { "-f", "non-existing.file" });
+
+        assertNull("option f parsed", line.getOptionObject("f"));
     }
 
     @Test
