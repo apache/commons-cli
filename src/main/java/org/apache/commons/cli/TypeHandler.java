@@ -18,6 +18,8 @@
 package org.apache.commons.cli;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -87,7 +89,7 @@ public class TypeHandler
         }
         else if (PatternOptionBuilder.EXISTING_FILE_VALUE == clazz)
         {
-            return createFile(str);
+            return openFile(str);
         }
         else if (PatternOptionBuilder.FILES_VALUE == clazz)
         {
@@ -220,6 +222,25 @@ public class TypeHandler
     public static File createFile(final String str)
     {
         return new File(str);
+    }
+
+    /**
+     * Returns the opened FileInputStream represented by <code>str</code>.
+     *
+     * @param str the file location
+     * @return The file input stream represented by <code>str</code>.
+     * @throws ParseException if the file is not exist or not readable
+     */
+    public static FileInputStream openFile(String str) throws ParseException
+    {
+        try
+        {
+            return new FileInputStream(str);
+        }
+        catch (FileNotFoundException e)
+        {
+            throw new ParseException("Unable to find file: " + str);
+        }
     }
 
     /**
