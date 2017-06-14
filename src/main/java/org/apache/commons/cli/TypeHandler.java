@@ -61,43 +61,44 @@ public class TypeHandler
      * the value of <code>str</code>.
      * @throws ParseException if the value creation for the given class failed
      */
-    public static Object createValue(final String str, final Class<?> clazz) throws ParseException
+    @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
+    public static <T> T createValue(final String str, final Class<T> clazz) throws ParseException
     {
         if (PatternOptionBuilder.STRING_VALUE == clazz)
         {
-            return str;
+            return (T) str;
         }
         else if (PatternOptionBuilder.OBJECT_VALUE == clazz)
         {
-            return createObject(str);
+            return (T) createObject(str);
         }
         else if (PatternOptionBuilder.NUMBER_VALUE == clazz)
         {
-            return createNumber(str);
+            return (T) createNumber(str);
         }
         else if (PatternOptionBuilder.DATE_VALUE == clazz)
         {
-            return createDate(str);
+            return (T) createDate(str);
         }
         else if (PatternOptionBuilder.CLASS_VALUE == clazz)
         {
-            return createClass(str);
+            return (T) createClass(str);
         }
         else if (PatternOptionBuilder.FILE_VALUE == clazz)
         {
-            return createFile(str);
+            return (T) createFile(str);
         }
         else if (PatternOptionBuilder.EXISTING_FILE_VALUE == clazz)
         {
-            return openFile(str);
+            return (T) openFile(str);
         }
         else if (PatternOptionBuilder.FILES_VALUE == clazz)
         {
-            return createFiles(str);
+            return (T) createFiles(str);
         }
         else if (PatternOptionBuilder.URL_VALUE == clazz)
         {
-            return createURL(str);
+            return (T) createURL(str);
         }
         else
         {
