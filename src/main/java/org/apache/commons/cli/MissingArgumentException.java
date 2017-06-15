@@ -20,8 +20,6 @@ package org.apache.commons.cli;
 /**
  * Thrown when an option requiring an argument
  * is not provided with an argument.
- *
- * @version $Id$
  */
 public class MissingArgumentException extends ParseException
 {

@@ -20,7 +20,6 @@ package org.apache.commons.cli;
 /**
  * Validates an Option string.
  *
- * @version $Id$
  * @since 1.1
  */
 final class OptionValidator

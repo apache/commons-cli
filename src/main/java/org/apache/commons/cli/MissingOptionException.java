@@ -22,8 +22,6 @@ import java.util.Iterator;
 
 /**
  * Thrown when a required option has not been provided.
- *
- * @version $Id$
  */
 public class MissingOptionException extends ParseException
 {

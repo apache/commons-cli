@@ -20,8 +20,6 @@ package org.apache.commons.cli;
 /**
  * Exception thrown during parsing signalling an unrecognized
  * option was seen.
- *
- * @version $Id$
  */
 public class UnrecognizedOptionException extends ParseException
 {

@@ -21,8 +21,6 @@ package org.apache.commons.cli;
  * A class that implements the <code>CommandLineParser</code> interface
  * can parse a String array according to the {@link Options} specified
  * and return a {@link CommandLine}.
- *
- * @version $Id$
  */
 public interface CommandLineParser
 {

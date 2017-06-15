@@ -26,7 +26,6 @@ import java.util.List;
  * The class PosixParser provides an implementation of the
  * {@link Parser#flatten(Options,String[],boolean) flatten} method.
  *
- * @version $Id$
  * @deprecated since 1.3, use the {@link DefaultParser} instead
  */
 @Deprecated

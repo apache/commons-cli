@@ -51,8 +51,6 @@ import java.util.Date;
  * <p>
  * TODO: These need to break out to OptionType and also to be pluggable.
  * </p>
- *
- * @version $Id$
  */
 public class PatternOptionBuilder
 {

@@ -24,8 +24,7 @@ package org.apache.commons.cli;
  * <a href="http://c2.com/cgi-bin/wiki?BuilderPattern">http://c2.com/cgi-bin/wiki?BuilderPattern</a>.
  * <p>
  * This class is NOT thread safe. See <a href="https://issues.apache.org/jira/browse/CLI-209">CLI-209</a>
- * 
- * @version $Id$
+ *
  * @since 1.0
  * @deprecated since 1.3, use {@link Option#builder(String)} instead
  */

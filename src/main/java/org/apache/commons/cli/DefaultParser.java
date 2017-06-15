@@ -24,8 +24,7 @@ import java.util.Properties;
 
 /**
  * Default parser.
- * 
- * @version $Id$
+ *
  * @since 1.3
  */
 public class DefaultParser implements CommandLineParser

@@ -31,8 +31,6 @@ import java.util.Date;
  * pluggableness of OptionTypes and it will direct all of these types
  * of conversion functionalities to ConvertUtils component in Commons
  * already. BeanUtils I think.
- *
- * @version $Id$
  */
 public class TypeHandler
 {

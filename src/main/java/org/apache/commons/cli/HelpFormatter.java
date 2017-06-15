@@ -67,8 +67,6 @@ import java.util.List;
  * 
  * Please report issues at http://example.com/issues
  * </pre>
- * 
- * @version $Id$
  */
 public class HelpFormatter
 {

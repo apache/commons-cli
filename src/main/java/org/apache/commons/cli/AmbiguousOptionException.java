@@ -22,8 +22,7 @@ import java.util.Iterator;
 
 /**
  * Exception thrown when an option can't be identified from a partial name.
- * 
- * @version $Id$
+ *
  * @since 1.3
  */
 public class AmbiguousOptionException extends UnrecognizedOptionException

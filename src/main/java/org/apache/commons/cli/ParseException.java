@@ -19,8 +19,6 @@ package org.apache.commons.cli;
 
 /**
  * Base for Exceptions thrown during parsing of a command-line.
- *
- * @version $Id$
  */
 public class ParseException extends Exception
 {

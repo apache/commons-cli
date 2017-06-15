@@ -19,8 +19,6 @@ package org.apache.commons.cli;
 
 /**
  * Contains useful helper methods for classes within this package.
- *
- * @version $Id$
  */
 final class Util
 {

@@ -36,8 +36,6 @@ import java.util.List;
  *
  * @see org.apache.commons.cli.Options
  * @see org.apache.commons.cli.CommandLine
- *
- * @version $Id$
  */
 public class Option implements Cloneable, Serializable
 {

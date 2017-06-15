@@ -34,8 +34,6 @@ import java.util.Properties;
  * <p>
  * Additionally, any left-over or unrecognized arguments,
  * are available for further processing.
- *
- * @version $Id$
  */
 public class CommandLine implements Serializable
 {

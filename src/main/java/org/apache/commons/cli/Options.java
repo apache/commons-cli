@@ -37,8 +37,6 @@ import java.util.Map;
  * allowing for flexible multi-stage parsing.
  *
  * @see org.apache.commons.cli.CommandLine
- *
- * @version $Id$
  */
 public class Options implements Serializable
 {

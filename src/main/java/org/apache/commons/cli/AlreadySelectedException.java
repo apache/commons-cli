@@ -20,8 +20,6 @@ package org.apache.commons.cli;
 /**
  * Thrown when more than one option in an option group
  * has been provided.
- *
- * @version $Id$
  */
 public class AlreadySelectedException extends ParseException
 {
