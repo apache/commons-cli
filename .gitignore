@@ -10,7 +10,9 @@ buildNumber.properties
 .mvn/timing.properties
 !/.mvn/wrapper/maven-wrapper.jar
 
-# vscode/eclipse
+# vscode/eclipse/idea
+*.iml
+.idea/
 .classpath
 .project
 .settings/
