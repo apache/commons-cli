@@ -33,11 +33,13 @@ public class DisablePartialMatchingTest
 
         options.addOption(new Option("d", "debug", false, "Turn on debug."));
         options.addOption(new Option("e", "extract", false, "Turn on extract."));
+        options.addOption(new Option("o", "option", true, "Turn on option with argument."));
 
-        CommandLine line = parser.parse(options, new String[]{"-de"});
+        CommandLine line = parser.parse(options, new String[]{"-de", "--option=foobar"});
 
         assertTrue("There should be an option debug in any case...", line.hasOption("debug"));
         assertTrue("There should be an extract option because partial matching is off", line.hasOption("extract"));
+        assertTrue("There should be an option option with a argument value", line.hasOption("option"));
     }
 
     @Test
@@ -49,10 +51,13 @@ public class DisablePartialMatchingTest
 
         options.addOption(new Option("d", "debug", false, "Turn on debug."));
         options.addOption(new Option("e", "extract", false, "Turn on extract."));
+        options.addOption(new Option("o", "option", true, "Turn on option with argument."));
 
-        CommandLine line = parser.parse(options, new String[]{"-de"});
+
+        CommandLine line = parser.parse(options, new String[]{"-de", "--option=foobar"});
 
         assertTrue("There should be an option debug in any case...", line.hasOption("debug"));
         assertFalse("There should not be an extract option because partial matching only selects debug", line.hasOption("extract"));
+        assertTrue("There should be an option option with a argument value", line.hasOption("option"));
     }
 }
