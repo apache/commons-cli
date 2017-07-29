@@ -23,6 +23,9 @@
   <body>
 
     <release version="1.5" date="tba" description="tba">
+      <action type="add" dev="chtompki" due-to="Rubin Simons" issue="CLI-217">
+        Accommodate toggling partial matching in DefaultParser.
+      </action>
       <action type="add" dev="britter" due-to="Béla Schaum" issue="CLI-274">
         Option parser type EXISTING_FILE_VALUE not check file existing
       </action>

@@ -91,6 +91,11 @@
       <id>tn</id>
       <email>tn@apache.org</email>
     </developer>
+    <developer>
+      <name>Rob Tompkins</name>
+      <id>chtompki</id>
+      <email>chtompki@apache.org</email>
+    </developer>
   </developers>
 
   <contributors>
@@ -149,6 +154,13 @@
       <name>Slawek Zachcial</name>
       <roles>
         <role>unit tests</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Rubin Simons</name>
+      <email>rubin@raaftech.com</email>
+      <roles>
+        <role>supplied patch</role>
       </roles>
     </contributor>
     
