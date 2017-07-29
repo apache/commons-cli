@@ -53,7 +53,24 @@ public class DefaultParser implements CommandLineParser
  
     /** The required options and groups expected to be found when parsing the command line. */
     protected List expectedOpts;
- 
+
+    /** Flag indicating if partial matching of long options is supported. */
+    private  boolean allowPartialMatching;
+
+    /** Creates a new DefaultParser instance with partial matching enabled. */
+    public DefaultParser() {
+        this.allowPartialMatching = true;
+    }
+
+    /**
+     * Create a new DefaultParser instance with the specified partial matching policy.
+     *
+     * @param allowPartialMatching if partial matching of long options shall be enabled
+     */
+    public DefaultParser(final boolean allowPartialMatching) {
+        this.allowPartialMatching = allowPartialMatching;
+    }
+
     public CommandLine parse(final Options options, final String[] arguments) throws ParseException
     {
         return parse(options, arguments, null);
@@ -329,7 +346,7 @@ public class DefaultParser implements CommandLineParser
         final int pos = token.indexOf("=");
         final String t = pos == -1 ? token : token.substring(0, pos);
 
-        if (!options.getMatchingOptions(t).isEmpty())
+        if (!getMatchingLongOptions(t).isEmpty())
         {
             // long or partial long options (--L, -L, --L=V, -L=V, --l, --l=V)
             return true;
@@ -400,18 +417,19 @@ public class DefaultParser implements CommandLineParser
      */
     private void handleLongOptionWithoutEqual(final String token) throws ParseException
     {
-        final List<String> matchingOpts = options.getMatchingOptions(token);
+        final List<String> matchingOpts = getMatchingLongOptions(token);
         if (matchingOpts.isEmpty())
         {
             handleUnknownToken(currentToken);
         }
-        else if (matchingOpts.size() > 1)
+        else if (matchingOpts.size() > 1 && !options.hasLongOption(token))
         {
             throw new AmbiguousOptionException(token, matchingOpts);
         }
         else
         {
-            handleOption(options.getOption(matchingOpts.get(0)));
+            final String key = options.hasLongOption(token) ? token : matchingOpts.get(0);
+            handleOption(options.getOption(key));
         }
     }
 
@@ -433,18 +451,19 @@ public class DefaultParser implements CommandLineParser
 
         final String opt = token.substring(0, pos);
 
-        final List<String> matchingOpts = options.getMatchingOptions(opt);
+        final List<String> matchingOpts = getMatchingLongOptions(opt);
         if (matchingOpts.isEmpty())
         {
             handleUnknownToken(currentToken);
         }
-        else if (matchingOpts.size() > 1)
+        else if (matchingOpts.size() > 1 && !options.hasLongOption(opt))
         {
             throw new AmbiguousOptionException(opt, matchingOpts);
         }
         else
         {
-            final Option option = options.getOption(matchingOpts.get(0));
+            final String key = options.hasLongOption(opt) ? opt : matchingOpts.get(0);
+            final Option option = options.getOption(key);
 
             if (option.acceptsArg())
             {
@@ -503,7 +522,7 @@ public class DefaultParser implements CommandLineParser
             {
                 handleOption(options.getOption(t));
             }
-            else if (!options.getMatchingOptions(t).isEmpty())
+            else if (!getMatchingLongOptions(t).isEmpty())
             {
                 // -L or -l
                 handleLongOptionWithoutEqual(token);
@@ -649,6 +668,32 @@ public class DefaultParser implements CommandLineParser
             }
 
             group.setSelected(option);
+        }
+    }
+
+    /**
+     * Returns a list of matching option strings for the given token, depending
+     * on the selected partial matching policy.
+     *
+     * @param token the token (may contain leading dashes)
+     * @return the list of matching option strings or an empty list if no matching option could be found
+     */
+    private List<String> getMatchingLongOptions(final String token)
+    {
+        if (allowPartialMatching)
+        {
+            return options.getMatchingOptions(token);
+        }
+        else
+        {
+            List<String> matches = new ArrayList<String>(1);
+            if (options.hasLongOption(token))
+            {
+                Option option = options.getOption(token);
+                matches.add(option.getLongOpt());
+            }
+
+            return matches;
         }
     }
 

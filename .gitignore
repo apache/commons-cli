@@ -1,5 +1,4 @@
-### https://raw.github.com/github/gitignore/f2ce448f2ba7a092da05482ceca99209127c0884/maven.gitignore
-
+# maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -9,9 +8,14 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-
-# Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
 
-site-content
+# vscode/eclipse/idea
+*.iml
+.idea/
+.classpath
+.project
+.settings/
 
+# other
+site-content
