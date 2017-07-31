@@ -90,6 +90,21 @@ CommandLine cmd = parser.parse( options, args);</source>
 else {
     // print the date
 }</source>
+        <p>
+          <h4>Note.</h4>
+          As of version 1.5-SNAPSHOT (as of 7/31/2017), the
+          <code>DefaultParser</code>'s constructor now has an override with
+          the signature <code>DefaultParser(final boolean allowPartialMatching)</code>.
+          Given the following code:
+          <source>final Options options = new Options();
+options.addOption(new Option("d", "debug", false, "Turn on debug."));
+options.addOption(new Option("e", "extract", false, "Turn on extract."));
+options.addOption(new Option("o", "option", true, "Turn on option with argument."));</source>
+          we define "partial matching" as <code>-de</code> only matching the
+          <code>"debug"</code> option. We can consequently, now, turn this off and have
+          <code>-de</code> match both the <code>debug</code> option as well as the
+          <code>extract</code> option.
+        </p>
       </subsection>
       <subsection name="International Time">
         <p>

@@ -57,13 +57,43 @@ public class DefaultParser implements CommandLineParser
     /** Flag indicating if partial matching of long options is supported. */
     private  boolean allowPartialMatching;
 
-    /** Creates a new DefaultParser instance with partial matching enabled. */
+    /**
+     * Creates a new DefaultParser instance with partial matching enabled.
+     *
+     * By "partial matching" we mean that given the following code:
+     * <pre>
+     *     {@code
+     *          final Options options = new Options();
+     *      options.addOption(new Option("d", "debug", false, "Turn on debug."));
+     *      options.addOption(new Option("e", "extract", false, "Turn on extract."));
+     *      options.addOption(new Option("o", "option", true, "Turn on option with argument."));
+     *      }
+     * </pre>
+     * with "partial matching" turned on, <code>-de</code> only matches the
+     * <code>"debug"</code> option. However, with "partial matching" disabled,
+     * <code>-de</code> would enable both <code>debug</code> as well as
+     * <code>extract</code> options.
+     */
     public DefaultParser() {
         this.allowPartialMatching = true;
     }
 
     /**
      * Create a new DefaultParser instance with the specified partial matching policy.
+     *
+     * By "partial matching" we mean that given the following code:
+     * <pre>
+     *     {@code
+     *          final Options options = new Options();
+     *      options.addOption(new Option("d", "debug", false, "Turn on debug."));
+     *      options.addOption(new Option("e", "extract", false, "Turn on extract."));
+     *      options.addOption(new Option("o", "option", true, "Turn on option with argument."));
+     *      }
+     * </pre>
+     * with "partial matching" turned on, <code>-de</code> only matches the
+     * <code>"debug"</code> option. However, with "partial matching" disabled,
+     * <code>-de</code> would enable both <code>debug</code> as well as
+     * <code>extract</code> options.
      *
      * @param allowPartialMatching if partial matching of long options shall be enabled
      */
