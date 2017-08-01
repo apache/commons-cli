@@ -193,6 +193,7 @@
   </properties>
 
   <build>
+    <defaultGoal>clean verify apache-rat:check clirr:check javadoc:javadoc</defaultGoal>
     <plugins>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
