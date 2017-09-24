@@ -53,12 +53,12 @@ public class CommandLine implements Serializable
     {
         // nothing to do
     }
-    
-    /** 
+
+    /**
      * Query to see if an option has been set.
      *
-     * @param opt the option to check
-     * @return true if set, false if not
+     * @param opt the option to check.
+     * @return true if set, false if not.
      * @since 1.5
      */
     public boolean hasOption(final Option opt)
@@ -66,22 +66,22 @@ public class CommandLine implements Serializable
         return options.contains(opt);
     }
 
-    /** 
+    /**
      * Query to see if an option has been set.
      *
-     * @param opt Short name of the option
-     * @return true if set, false if not
+     * @param opt Short name of the option.
+     * @return true if set, false if not.
      */
     public boolean hasOption(final String opt)
     {
         return hasOption(resolveOption(opt));
     }
-    
-    /** 
+
+    /**
      * Query to see if an option has been set.
      *
-     * @param opt character name of the option
-     * @return true if set, false if not
+     * @param opt character name of the option.
+     * @return true if set, false if not.
      */
     public boolean hasOption(final char opt)
     {
@@ -91,8 +91,8 @@ public class CommandLine implements Serializable
     /**
      * Return the <code>Object</code> type of this <code>Option</code>.
      *
-     * @param opt the name of the option
-     * @return the type of this <code>Option</code>
+     * @param opt the name of the option.
+     * @return the type of this <code>Option</code>.
      * @deprecated due to System.err message. Instead use getParsedOptionValue(String)
      */
     @Deprecated
@@ -108,12 +108,12 @@ public class CommandLine implements Serializable
             return null;
         }
     }
-    
+
     /**
-     * Return a version of this <code>Option</code> converted to a particular type. 
+     * Return a version of this <code>Option</code> converted to a particular type.
      *
-     * @param option the name of the option
-     * @return the value parsed into a particular object
+     * @param option the name of the option.
+     * @return the value parsed into a particular object.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.5
@@ -133,10 +133,10 @@ public class CommandLine implements Serializable
     }
 
     /**
-     * Return a version of this <code>Option</code> converted to a particular type. 
+     * Return a version of this <code>Option</code> converted to a particular type.
      *
-     * @param opt the name of the option
-     * @return the value parsed into a particular object
+     * @param opt the name of the option.
+     * @return the value parsed into a particular object.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.2
@@ -145,12 +145,12 @@ public class CommandLine implements Serializable
     {
         return getParsedOptionValue(resolveOption(opt));
     }
-    
+
     /**
-     * Return a version of this <code>Option</code> converted to a particular type. 
+     * Return a version of this <code>Option</code> converted to a particular type.
      *
-     * @param opt the name of the option
-     * @return the value parsed into a particular object
+     * @param opt the name of the option.
+     * @return the value parsed into a particular object.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.5
@@ -164,18 +164,18 @@ public class CommandLine implements Serializable
      * Return the <code>Object</code> type of this <code>Option</code>.
      *
      * @deprecated due to System.err message. Instead use getParsedOptionValue(char)
-     * @param opt the name of the option
-     * @return the type of opt
+     * @param opt the name of the option.
+     * @return the type of opt.
      */
     public Object getOptionObject(final char opt)
     {
         return getOptionObject(String.valueOf(opt));
     }
-    
-    /** 
+
+    /**
      * Retrieve the first argument, if any, of this option.
      *
-     * @param option the name of the option
+     * @param option the name of the option.
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
      * @since 1.5
@@ -190,10 +190,10 @@ public class CommandLine implements Serializable
         return (values == null) ? null : values[0];
     }
 
-    /** 
+    /**
      * Retrieve the first argument, if any, of this option.
      *
-     * @param opt the name of the option
+     * @param opt the name of the option.
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
      */
@@ -202,10 +202,10 @@ public class CommandLine implements Serializable
         return getOptionValue(resolveOption(opt));
     }
 
-    /** 
+    /**
      * Retrieve the first argument, if any, of this option.
      *
-     * @param opt the character name of the option
+     * @param opt the character name of the option.
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
      */
@@ -213,11 +213,11 @@ public class CommandLine implements Serializable
     {
         return getOptionValue(String.valueOf(opt));
     }
-    
-    /** 
+
+    /**
      * Retrieves the array of values, if any, of an option.
      *
-     * @param option string name of the option
+     * @param option string name of the option.
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      * @since 1.5
@@ -237,10 +237,10 @@ public class CommandLine implements Serializable
         return values.isEmpty() ? null : values.toArray(new String[values.size()]);
     }
 
-    /** 
+    /**
      * Retrieves the array of values, if any, of an option.
      *
-     * @param opt string name of the option
+     * @param opt string name of the option.
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      */
@@ -251,9 +251,9 @@ public class CommandLine implements Serializable
 
     /**
      * Retrieves the option object given the long or short option as a String
-     * 
-     * @param opt short or long name of the option
-     * @return Canonicalized option
+     *
+     * @param opt short or long name of the option.
+     * @return Canonicalized option.
      */
     private Option resolveOption(String opt)
     {
@@ -274,10 +274,10 @@ public class CommandLine implements Serializable
         return null;
     }
 
-    /** 
+    /**
      * Retrieves the array of values, if any, of an option.
      *
-     * @param opt character name of the option
+     * @param opt character name of the option.
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      */
@@ -285,13 +285,13 @@ public class CommandLine implements Serializable
     {
         return getOptionValues(String.valueOf(opt));
     }
-    
-    /** 
+
+    /**
      * Retrieve the first argument, if any, of an option.
      *
-     * @param option name of the option
+     * @param option name of the option.
      * @param defaultValue is the default value to be returned if the option
-     * is not specified
+     * is not specified.
      * @return Value of the argument if option is set, and has an argument,
      * otherwise <code>defaultValue</code>.
      * @since 1.5
@@ -302,12 +302,12 @@ public class CommandLine implements Serializable
         return (answer != null) ? answer : defaultValue;
     }
 
-    /** 
+    /**
      * Retrieve the first argument, if any, of an option.
      *
-     * @param opt name of the option
+     * @param opt name of the option.
      * @param defaultValue is the default value to be returned if the option
-     * is not specified
+     * is not specified.
      * @return Value of the argument if option is set, and has an argument,
      * otherwise <code>defaultValue</code>.
      */
@@ -316,12 +316,12 @@ public class CommandLine implements Serializable
         return getOptionValue(resolveOption(opt), defaultValue);
     }
 
-    /** 
+    /**
      * Retrieve the argument, if any, of an option.
      *
      * @param opt character name of the option
      * @param defaultValue is the default value to be returned if the option
-     * is not specified
+     * is not specified.
      * @return Value of the argument if option is set, and has an argument,
      * otherwise <code>defaultValue</code>.
      */
@@ -329,7 +329,7 @@ public class CommandLine implements Serializable
     {
         return getOptionValue(String.valueOf(opt), defaultValue);
     }
-    
+
     /**
      * Retrieve the map of values associated to the option. This is convenient
      * for options specifying Java properties like <tt>-Dparam1=value1
@@ -338,9 +338,9 @@ public class CommandLine implements Serializable
      * (<tt>-Dfoo</tt>) it is considered as a boolean flag and the value is
      * <tt>"true"</tt>.
      *
-     * @param option name of the option
+     * @param option name of the option.
      * @return The Properties mapped by the option, never <tt>null</tt>
-     *         even if the option doesn't exists
+     *         even if the option doesn't exists.
      * @since 1.5
      */
     public Properties getOptionProperties(final Option option)
@@ -376,9 +376,9 @@ public class CommandLine implements Serializable
      * (<tt>-Dfoo</tt>) it is considered as a boolean flag and the value is
      * <tt>"true"</tt>.
      *
-     * @param opt name of the option
+     * @param opt name of the option.
      * @return The Properties mapped by the option, never <tt>null</tt>
-     *         even if the option doesn't exists
+     *         even if the option doesn't exists.
      * @since 1.2
      */
     public Properties getOptionProperties(final String opt)
@@ -406,10 +406,10 @@ public class CommandLine implements Serializable
         return props;
     }
 
-    /** 
+    /**
      * Retrieve any left-over non-recognized options and arguments
      *
-     * @return remaining items passed in but not parsed as an array
+     * @return remaining items passed in but not parsed as an array.
      */
     public String[] getArgs()
     {
@@ -420,7 +420,7 @@ public class CommandLine implements Serializable
         return answer;
     }
 
-    /** 
+    /**
      * Retrieve any left-over non-recognized options and arguments
      *
      * @return remaining items passed in but not parsed as a <code>List</code>.
@@ -430,24 +430,24 @@ public class CommandLine implements Serializable
         return args;
     }
 
-    /** 
+    /**
      * jkeyes
      * - commented out until it is implemented properly
      * <p>Dump state, suitable for debugging.</p>
      *
-     * @return Stringified form of this object
+     * @return Stringified form of this object.
      */
 
     /*
     public String toString() {
         StringBuilder buf = new StringBuilder();
-            
+
         buf.append("[ CommandLine: [ options: ");
         buf.append(options.toString());
         buf.append(" ] [ args: ");
         buf.append(args.toString());
         buf.append(" ] ]");
-            
+
         return buf.toString();
     }
     */
@@ -465,7 +465,7 @@ public class CommandLine implements Serializable
     /**
      * Add an option to the command line.  The values of the option are stored.
      *
-     * @param opt the processed option
+     * @param opt the processed option.
      */
     protected void addOption(final Option opt)
     {
@@ -476,7 +476,7 @@ public class CommandLine implements Serializable
      * Returns an iterator over the Option members of CommandLine.
      *
      * @return an <code>Iterator</code> over the processed {@link Option}
-     * members of this {@link CommandLine}
+     * members of this {@link CommandLine}.
      */
     public Iterator<Option> iterator()
     {
@@ -502,7 +502,7 @@ public class CommandLine implements Serializable
     /**
      * A nested builder class to create <code>CommandLine</code> instance
      * using descriptive methods.
-     * 
+     *
      * @since 1.4
      */
     public static final class Builder
@@ -515,7 +515,7 @@ public class CommandLine implements Serializable
         /**
          * Add an option to the command line. The values of the option are stored.
          *
-         * @param opt the processed option
+         * @param opt the processed option.
          *
          * @return this Builder instance for method chaining.
          */
