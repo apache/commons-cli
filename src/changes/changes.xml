@@ -23,6 +23,9 @@
   <body>
 
     <release version="1.5" date="tba" description="tba">
+      <action type="update" dev="britter" due-to="Krishna Mohan Rao Kandunoori" issue="CLI-279">
+        @param or @return lines should end with a period in CommandLine.java
+      </action>
       <action type="add" dev="chtompki" due-to="Rubin Simons" issue="CLI-217">
         Accommodate toggling partial matching in DefaultParser.
       </action>
