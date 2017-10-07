@@ -239,7 +239,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>findbugs-maven-plugin</artifactId>
-          <version>3.0.1</version>
+          <version>${commons.findbugs.version}</version>
           <configuration>
             <threshold>Normal</threshold>
             <effort>Default</effort>
@@ -282,7 +282,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>${commons.findbugs.version}</version>
         <configuration>
           <threshold>Normal</threshold>
           <effort>Default</effort>
