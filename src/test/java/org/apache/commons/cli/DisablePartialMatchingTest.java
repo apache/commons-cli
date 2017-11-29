@@ -27,7 +27,9 @@ public class DisablePartialMatchingTest
     @Test
     public void testDisablePartialMatching() throws Exception
     {
-        CommandLineParser parser = new DefaultParser(false);
+        CommandLineParser parser = new DefaultParser.Builder()
+            .withPartialMatching(false)
+            .build();
 
         final Options options = new Options();
 

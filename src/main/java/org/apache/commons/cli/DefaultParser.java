@@ -29,6 +29,73 @@ import java.util.Properties;
  */
 public class DefaultParser implements CommandLineParser
 {
+    /**
+     * Builder class that creates a {@link DefaultParser} with some configuration.
+     */
+    public static class Builder
+    {
+        private boolean allowPartialMatching = true;
+        private boolean allowConcatenatedOptions = true;
+
+        /**
+         * By "partial matching" we mean that given the following code:
+         * <pre>
+         *     {@code
+         *      final Options options = new Options();
+         *      options.addOption(new Option("d", "debug", false, "Turn on debug."));
+         *      options.addOption(new Option("e", "extract", false, "Turn on extract."));
+         *      options.addOption(new Option("o", "option", true, "Turn on option with argument."));
+         *      }
+         * </pre>
+         * with "partial matching" turned on, <code>-de</code> only matches the
+         * <code>"debug"</code> option. However, with "partial matching" disabled,
+         * <code>-de</code> would enable both <code>debug</code> as well as
+         * <code>extract</code> options.
+         *
+         * Defaults to true.
+         *
+         * @param partialMatching if partial matching of long options shall be enabled
+         * @return this Builder
+         */
+        public Builder withPartialMatching(boolean partialMatching)
+        {
+            allowPartialMatching = partialMatching;
+            return this;
+        }
+
+        /**
+         * By "concatenated options" we mean that given the following code:
+         * <pre>
+         *     {@code
+         *      final Options options = new Options();
+         *      options.addOption(new Option("f", "file", true, "Load the given file."));
+         *      }
+         * </pre>
+         * with "concatenated options" turned on, <code>-fabc</code> is interpreted as being
+         * the <code>"file"</code> option with value <code>abc</code>. However, with this feature
+         * disabled, <code>-fabc</code> will only match a short option named <code>fabc</code>.
+         *
+         * Defaults to true.
+         *
+         * @param concatenatedOptions if concatenated options shall be enabled
+         * @return this Builder
+         */
+        public Builder withConcatenatedOptions(boolean concatenatedOptions)
+        {
+            allowConcatenatedOptions = concatenatedOptions;
+            return this;
+        }
+
+        /**
+         * Build a new DefaultParser based on the settings in this Builder.
+         * @return a new {@link DefaultParser}
+         */
+        public DefaultParser build()
+        {
+            return new DefaultParser(allowPartialMatching, allowConcatenatedOptions);
+        }
+    }
+
     /** The command-line instance. */
     protected CommandLine cmd;
     
@@ -55,7 +122,10 @@ public class DefaultParser implements CommandLineParser
     protected List expectedOpts;
 
     /** Flag indicating if partial matching of long options is supported. */
-    private  boolean allowPartialMatching;
+    private final boolean allowPartialMatching;
+
+    /** Flag indicating if partial matching of long options is supported. */
+    private final boolean allowConcatenatedOptions;
 
     /**
      * Creates a new DefaultParser instance with partial matching enabled.
@@ -63,7 +133,7 @@ public class DefaultParser implements CommandLineParser
      * By "partial matching" we mean that given the following code:
      * <pre>
      *     {@code
-     *          final Options options = new Options();
+     *      final Options options = new Options();
      *      options.addOption(new Option("d", "debug", false, "Turn on debug."));
      *      options.addOption(new Option("e", "extract", false, "Turn on extract."));
      *      options.addOption(new Option("o", "option", true, "Turn on option with argument."));
@@ -74,31 +144,19 @@ public class DefaultParser implements CommandLineParser
      * <code>-de</code> would enable both <code>debug</code> as well as
      * <code>extract</code> options.
      */
-    public DefaultParser() {
-        this.allowPartialMatching = true;
+    public DefaultParser()
+    {
+        this(true, true);
     }
 
     /**
      * Create a new DefaultParser instance with the specified partial matching policy.
      *
-     * By "partial matching" we mean that given the following code:
-     * <pre>
-     *     {@code
-     *          final Options options = new Options();
-     *      options.addOption(new Option("d", "debug", false, "Turn on debug."));
-     *      options.addOption(new Option("e", "extract", false, "Turn on extract."));
-     *      options.addOption(new Option("o", "option", true, "Turn on option with argument."));
-     *      }
-     * </pre>
-     * with "partial matching" turned on, <code>-de</code> only matches the
-     * <code>"debug"</code> option. However, with "partial matching" disabled,
-     * <code>-de</code> would enable both <code>debug</code> as well as
-     * <code>extract</code> options.
-     *
-     * @param allowPartialMatching if partial matching of long options shall be enabled
      */
-    public DefaultParser(final boolean allowPartialMatching) {
+    private DefaultParser(final boolean allowPartialMatching, final boolean allowConcatenatedOptions)
+    {
         this.allowPartialMatching = allowPartialMatching;
+        this.allowConcatenatedOptions = allowConcatenatedOptions;
     }
 
     public CommandLine parse(final Options options, final String[] arguments) throws ParseException
@@ -575,10 +633,14 @@ public class DefaultParser implements CommandLineParser
                     currentOption.addValueForProcessing(t.substring(1));
                     currentOption = null;
                 }
-                else
+                else if (allowConcatenatedOptions)
                 {
                     // -S1S2S3 or -S1S2V
                     handleConcatenatedOptions(token);
+                }
+                else
+                {
+                    handleUnknownToken(token);
                 }
             }
         }
