@@ -14,3 +14,6 @@ buildNumber.properties
 !/.mvn/wrapper/maven-wrapper.jar
 
 site-content
+/.classpath
+/.project
+/.settings/
