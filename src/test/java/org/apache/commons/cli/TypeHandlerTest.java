@@ -148,6 +148,13 @@ public class TypeHandlerTest
         TypeHandler.createValue("malformed-url", PatternOptionBuilder.URL_VALUE);
     }
 
+    @Test(expected = ParseException.class)
+    public void testCreateValueInteger_failure()
+            throws Exception
+    {
+        TypeHandler.createValue("just-a-string", Integer.class);
+    }
+
     public static class Instantiable
     {
     }
