@@ -100,7 +100,7 @@ public class TypeHandler
         }
         else
         {
-            return null;
+            throw new ParseException("Unable to handle the class: " + clazz);
         }
     }
 
