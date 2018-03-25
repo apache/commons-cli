@@ -230,7 +230,9 @@ public class CommandLine implements Serializable
         {
             if (processedOption.equals(option))
             {
-                values.addAll(processedOption.getValuesList());
+                List valuesList = processedOption.getValuesList();
+                if (valuesList != null)
+                    values.addAll(valuesList);
             }
         }
 
@@ -258,6 +260,9 @@ public class CommandLine implements Serializable
     private Option resolveOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
+        if (opt == null)
+            return null;
+
         for (final Option option : options)
         {
             if (opt.equals(option.getOpt()))
@@ -469,7 +474,8 @@ public class CommandLine implements Serializable
      */
     protected void addOption(final Option opt)
     {
-        options.add(opt);
+        if (opt != null)
+            options.add(opt);
     }
 
     /**
