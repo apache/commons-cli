@@ -143,6 +143,13 @@ public class Option implements Cloneable, Serializable
         // ensure that the option is valid
         OptionValidator.validateOption(opt);
 
+        // contract says: "An Option is required to have
+        // at least a short or a long-name."
+        if (opt == null && longOpt == null)
+        {
+            throw new IllegalArgumentException("Either short or long representation is required.");
+        }
+
         this.opt = opt;
         this.longOpt = longOpt;
 
