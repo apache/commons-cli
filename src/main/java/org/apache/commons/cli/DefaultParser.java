@@ -159,6 +159,8 @@ public class DefaultParser implements CommandLineParser
 
         cmd = new CommandLine();
 
+        checkRequiredComplementaryArgs();
+
         if (arguments != null)
         {
             for (final String argument : arguments)
@@ -672,6 +674,24 @@ public class DefaultParser implements CommandLineParser
         else
         {
             currentOption = null;
+        }
+    }
+
+    /**
+     * Throw a {@link MissingComplementaryArgument} if the current option
+     * didn't receive all the complementary args it expects
+     */
+    private void checkRequiredComplementaryArgs() throws MissingComplementaryArgument
+    {
+        for (Option currentOption : options.getOptions()) {
+            List<String> complementaryArgsShortOrLong = currentOption.getComplementaryArgs();
+            for (String complementaryArg : complementaryArgsShortOrLong) {
+                if (options.getOption(complementaryArg) == null) {
+                    String errorMsg = String.format("Missing complementary arg %s for option %s",
+                            complementaryArg, currentOption.getKey());
+                    throw new MissingComplementaryArgument(errorMsg);
+                }
+            }
         }
     }
 

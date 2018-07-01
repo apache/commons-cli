@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -79,6 +80,11 @@ public class Option implements Cloneable, Serializable
     private char valuesep;
 
     /**
+     * the list of complementary arguments to be used in conjunction with this option
+     */
+    private List<String> complementaryArgs = Collections.emptyList();
+
+    /**
      * Private constructor used by the nested Builder class.
      * 
      * @param builder builder used to create this option
@@ -94,6 +100,7 @@ public class Option implements Cloneable, Serializable
         this.required = builder.required;
         this.type = builder.type;
         this.valuesep = builder.valuesep;
+        this.complementaryArgs = builder.complementaryArgs;
     }
     
     /**
@@ -717,6 +724,16 @@ public class Option implements Cloneable, Serializable
     }
 
     /**
+     * The list of complementary args that must be supplied as a part of using this option
+     *
+     * @return
+     */
+    public List<String> getComplementaryArgs()
+    {
+        return complementaryArgs;
+    }
+
+    /**
      * Tells if the option can accept more arguments.
      * 
      * @return false if the maximum number of arguments is reached
@@ -771,7 +788,7 @@ public class Option implements Cloneable, Serializable
     {
         return new Builder(opt);
     }
-    
+
     /**
      * A nested builder class to create <code>Option</code> instances
      * using descriptive methods.
@@ -814,6 +831,9 @@ public class Option implements Cloneable, Serializable
 
         /** the character that is the value separator */
         private char valuesep;
+
+        /** list of complementary args that must be supplied as a part of using this option */
+        private List<String> complementaryArgs = Collections.emptyList();
 
         /**
          * Constructs a new <code>Builder</code> with the minimum
@@ -991,6 +1011,19 @@ public class Option implements Cloneable, Serializable
         public Builder hasArgs()
         {
             numberOfArgs = Option.UNLIMITED_VALUES;
+            return this;
+        }
+
+        /**
+         * Adds a list of required options that must also be supplied whenever
+         * this option is used
+         *
+         * @param requiredOptions
+         * @return
+         */
+        public Builder requiresOptions(final List<String> requiredOptions)
+        {
+            this.complementaryArgs = requiredOptions;
             return this;
         }
 

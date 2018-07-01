@@ -25,6 +25,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import java.util.Collections;
+import java.util.List;
+
 public class OptionTest
 {
     private static class TestOption extends Option
@@ -164,36 +167,37 @@ public class OptionTest
     public void testBuilderMethods()
     {
         final char defaultSeparator = (char) 0;
+        final List<String> defaultComplementaryArgs = Collections.emptyList();
 
         checkOption(Option.builder("a").desc("desc").build(),
-            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultComplementaryArgs, defaultSeparator, String.class);
         checkOption(Option.builder("a").desc("desc").build(),
-            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultComplementaryArgs, defaultSeparator, String.class);
         checkOption(Option.builder("a").desc("desc").longOpt("aaa").build(),
-            "a", "desc", "aaa", Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+            "a", "desc", "aaa", Option.UNINITIALIZED, null, false, false, defaultComplementaryArgs, defaultSeparator, String.class);
         checkOption(Option.builder("a").desc("desc").hasArg(true).build(),
-            "a", "desc", null, 1, null, false, false, defaultSeparator, String.class);
+            "a", "desc", null, 1, null, false, false, defaultComplementaryArgs, defaultSeparator, String.class);
         checkOption(Option.builder("a").desc("desc").hasArg(false).build(),
-            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultComplementaryArgs, defaultSeparator, String.class);
         checkOption(Option.builder("a").desc("desc").hasArg(true).build(),
-            "a", "desc", null, 1, null, false, false, defaultSeparator, String.class);
+            "a", "desc", null, 1, null, false, false, defaultComplementaryArgs, defaultSeparator, String.class);
         checkOption(Option.builder("a").desc("desc").numberOfArgs(3).build(),
-            "a", "desc", null, 3, null, false, false, defaultSeparator, String.class);
+            "a", "desc", null, 3, null, false, false, defaultComplementaryArgs, defaultSeparator, String.class);
         checkOption(Option.builder("a").desc("desc").required(true).build(),
-            "a", "desc", null, Option.UNINITIALIZED, null, true, false, defaultSeparator, String.class);
+            "a", "desc", null, Option.UNINITIALIZED, null, true, false, defaultComplementaryArgs, defaultSeparator, String.class);
         checkOption(Option.builder("a").desc("desc").required(false).build(),
-            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultComplementaryArgs, defaultSeparator, String.class);
 
         checkOption(Option.builder("a").desc("desc").argName("arg1").build(),
-            "a", "desc", null, Option.UNINITIALIZED, "arg1", false, false, defaultSeparator, String.class);
+            "a", "desc", null, Option.UNINITIALIZED, "arg1", false, false, defaultComplementaryArgs, defaultSeparator, String.class);
         checkOption(Option.builder("a").desc("desc").optionalArg(false).build(),
-            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultComplementaryArgs, defaultSeparator, String.class);
         checkOption(Option.builder("a").desc("desc").optionalArg(true).build(),
-            "a", "desc", null, Option.UNINITIALIZED, null, false, true, defaultSeparator, String.class);
+            "a", "desc", null, Option.UNINITIALIZED, null, false, true, defaultComplementaryArgs, defaultSeparator, String.class);
         checkOption(Option.builder("a").desc("desc").valueSeparator(':').build(),
-            "a", "desc", null, Option.UNINITIALIZED, null, false, false, ':', String.class);
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultComplementaryArgs, ':', String.class);
         checkOption(Option.builder("a").desc("desc").type(Integer.class).build(),
-            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, Integer.class);
+            "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultComplementaryArgs, defaultSeparator, Integer.class);
     }
     
     @Test(expected=IllegalArgumentException.class)
@@ -209,7 +213,7 @@ public class OptionTest
     }
 
     private static void checkOption(final Option option, final String opt, final String description, final String longOpt, final int numArgs,
-                                    final String argName,  final boolean required, final boolean optionalArg,
+                                    final String argName,  final boolean required, final boolean optionalArg, List<String> complementaryArgs,
                                     final char valueSeparator, final Class<?> cls)
     {
         assertEquals(opt, option.getOpt());
@@ -220,6 +224,7 @@ public class OptionTest
         assertEquals(required, option.isRequired());
 
         assertEquals(optionalArg, option.hasOptionalArg());
+        assertEquals(complementaryArgs, option.getComplementaryArgs());
         assertEquals(valueSeparator, option.getValueSeparator());
         assertEquals(cls,  option.getType());
     }
