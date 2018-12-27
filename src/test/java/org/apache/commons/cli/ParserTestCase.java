@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -483,6 +484,36 @@ public abstract class ParserTestCase
         
         final List<?> argsleft = cl.getArgList();
         assertEquals("Should be no arg left", 0, argsleft.size());
+    }
+
+    @Test
+    public void testPrioritizedProperties() throws Exception
+    {
+        final Option op1 = Option.builder("a").priority(90).build();
+        final Option op2 = Option.builder("b").priority(70).build();
+        final Option op3 = Option.builder("c").priority(73).build();
+        final Option op4 = Option.builder("d").priority(90).build();
+        final Option op5 = Option.builder("e").build();
+        final Option op6 = Option.builder("f").build();
+        final Options options = new Options()
+                .addOption(op1)
+                .addOption(op2)
+                .addOption(op3)
+                .addOption(op4)
+                .addOption(op5)
+                .addOption(op6);        
+
+        final String[] args = new String[] {"-c", "-f", "-b", "-a", "-d", "-e"};
+        final CommandLine cl = parser.parse(options, args);
+        
+        final Iterator<Option> itr = cl.iterator();
+        assertTrue(itr.hasNext());
+        assertEquals(op1, itr.next());
+        assertEquals(op4, itr.next());
+        assertEquals(op3, itr.next());
+        assertEquals(op2, itr.next());
+        assertEquals(op6, itr.next());
+        assertEquals(op5, itr.next());
     }
 
     @Test

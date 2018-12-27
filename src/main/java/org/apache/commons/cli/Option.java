@@ -78,6 +78,9 @@ public class Option implements Cloneable, Serializable
     /** the character that is the value separator */
     private char valuesep;
 
+    /** the prioirty of this Option */
+    private int priority;
+
     /**
      * Private constructor used by the nested Builder class.
      * 
@@ -94,6 +97,7 @@ public class Option implements Cloneable, Serializable
         this.required = builder.required;
         this.type = builder.type;
         this.valuesep = builder.valuesep;
+        this.priority = builder.priority;
     }
     
     /**
@@ -161,6 +165,8 @@ public class Option implements Cloneable, Serializable
      * statements.
      *
      * @return the id of this Option
+     * @deprecated from Java 7 onwards switch statements support String objects making getKey() a more
+     *             versatile solution.
      */
     public int getId()
     {
@@ -168,14 +174,14 @@ public class Option implements Cloneable, Serializable
     }
 
     /**
-     * Returns the 'unique' Option identifier.
+     * Returns the 'unique' Option identifier. Defaults to shortOpt if present.
      * 
      * @return the 'unique' Option identifier
      */
-    String getKey()
+    public String getKey()
     {
         // if 'opt' is null, then it is a 'long' option
-        return (opt == null) ? longOpt : opt;
+        return (opt == null) ? longOpt : opt; 
     }
 
     /** 
@@ -201,6 +207,16 @@ public class Option implements Cloneable, Serializable
     public Object getType()
     {
         return type;
+    }
+    
+    /**
+     * Retreive the priority of this Option.
+     * 
+     * @return The priority of this option
+     */    
+    public int getPriority()
+    {
+        return priority;
     }
 
     /**
@@ -815,6 +831,9 @@ public class Option implements Cloneable, Serializable
         /** the character that is the value separator */
         private char valuesep;
 
+        /** the prioirty of this Option */
+        private int priority;
+
         /**
          * Constructs a new <code>Builder</code> with the minimum
          * required parameters for an <code>Option</code> instance.
@@ -991,6 +1010,17 @@ public class Option implements Cloneable, Serializable
         public Builder hasArgs()
         {
             numberOfArgs = Option.UNLIMITED_VALUES;
+            return this;
+        }
+
+        /**
+         * Indicates the priority of this Option with higher corresponding to a higher priority.
+         * 
+         * @return this builder, to allow method chaining
+         */
+        public Builder priority(int priority)
+        {
+            this.priority = priority;
             return this;
         }
 

@@ -20,10 +20,13 @@ package org.apache.commons.cli;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Represents list of arguments parsed against a {@link Options} descriptor.
@@ -40,11 +43,33 @@ public class CommandLine implements Serializable
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
+    /** Allows TreeSet to act as an iterable priority queue that degrades to a plain queue
+     *  when no priority is specified. */
+    private static final Comparator<Option> compare = new Comparator<Option>() {
+        public int compare(Option o1, Option o2) {
+            return o1.getPriority() <= o2.getPriority() ? 1 : -1;
+        }
+    };
+
     /** the unrecognized options/arguments */
     private final List<String> args = new LinkedList<String>();
 
-    /** the processed options */
-    private final List<Option> options = new ArrayList<Option>();
+    /** the processed options. Tweak the definition of contains to fit our use case. */
+    private final Set<Option> options = new TreeSet<Option>(compare){
+        private static final long serialVersionUID = 1L;
+        @Override
+        public boolean contains(Object o){
+            for(Option opt : this) {
+
+                if(opt.equals(o)) {
+                    return true;
+                }
+                
+            }
+
+            return false;
+        }
+    }; 
 
     /**
      * Creates a command line.
