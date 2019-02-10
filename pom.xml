@@ -176,8 +176,8 @@
   </dependencies>
 
   <properties>
-    <maven.compiler.source>1.5</maven.compiler.source>
-    <maven.compiler.target>1.5</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
     <commons.componentid>cli</commons.componentid>
     <commons.module.name>org.apache.commons.cli</commons.module.name>
     <commons.release.version>1.4</commons.release.version>

@@ -41,6 +41,9 @@
       <action type="add" dev="ggregory" due-to="Alex Nordlund" issue="CLI-282">
         TypeHandler should throw ParseException for an unsupported class.
       </action>
+      <action type="update" dev="ggregory" issue="CLI-294">
+        Update Java from version 5 to 7.
+      </action>
     </release>
 
     <release version="1.4" date="2017-03-09" description="New features and bug fixes">
