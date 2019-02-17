@@ -43,8 +43,10 @@
 Apache Commons CLI
 ===================
 
-[![Build Status](https://travis-ci.org/apache/commons-cli.svg?branch=master)](https://travis-ci.org/apache/commons-cli)
-[![Coverage Status](https://coveralls.io/repos/github/apache/commons-cli/badge.svg?branch=master)](https://coveralls.io/github/apache/commons-cli?branch=master)
+[![Build Status](https://travis-ci.org/apache/commons-cli.svg)](https://travis-ci.org/apache/commons-cli)
+[![Coverage Status](https://coveralls.io/repos/apache/commons-cli/badge.svg)](https://coveralls.io/r/apache/commons-cli)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/badge.svg)](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/)
+[![Javadocs](https://javadoc.io/badge/commons-cli/commons-cli/1.4.svg)](https://javadoc.io/doc/commons-cli/commons-cli/1.4)
 
 Apache Commons CLI provides a simple API for presenting, processing and validating a command line interface.
 
@@ -101,4 +103,3 @@ Additional Resources
 + `#apache-commons` IRC channel on `irc.freenode.org`
 
 [ml]:https://commons.apache.org/mail-lists.html
-
