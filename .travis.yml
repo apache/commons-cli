@@ -19,6 +19,8 @@ sudo: false
 jdk:
   - openjdk7
   - openjdk8
+  - openjdk11
+  - openjdk12
   - oraclejdk8
 
 script:
