@@ -36,9 +36,9 @@ public class DefaultParser implements CommandLineParser
     protected Options options;
 
     /**
-     * Flag indicating how unrecognized tokens are handled. <tt>true</tt> to stop
+     * Flag indicating how unrecognized tokens are handled. <code>true</code> to stop
      * the parsing and add the remaining tokens to the args list.
-     * <tt>false</tt> to throw an exception. 
+     * <code>false</code> to throw an exception.
      */
     protected boolean stopAtNonOption;
 
@@ -133,9 +133,9 @@ public class DefaultParser implements CommandLineParser
      * @param options         the specified Options
      * @param arguments       the command line arguments
      * @param properties      command line option name-value pairs
-     * @param stopAtNonOption if <tt>true</tt> an unrecognized argument stops
+     * @param stopAtNonOption if <code>true</code> an unrecognized argument stops
      *     the parsing and the remaining arguments are added to the 
-     *     {@link CommandLine}s args list. If <tt>false</tt> an unrecognized
+     *     {@link CommandLine}s args list. If <code>false</code> an unrecognized
      *     argument triggers a ParseException.
      *
      * @return the list of atomic option and value tokens
