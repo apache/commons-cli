@@ -179,35 +179,39 @@ Option emacs = new Option( "emacs",
       </subsection>
       <subsection name="Argument Options">
         <p> 
-          The argument options are created using the <code>OptionBuilder</code>.
+          The argument options are created using the <code>Option#Builder</code>.
         </p>
-        <source>Option logfile   = OptionBuilder.withArgName( "file" )
-                                .hasArg()
-                                .withDescription(  "use given file for log" )
-                                .create( "logfile" );
+        <source>Option logfile   = Option.builder( "logfile" )
+                         .argName( "file" )
+                         .hasArg()
+                         .desc(  "use given file for log" )
+                         .build();
 
-Option logger    = OptionBuilder.withArgName( "classname" )
-                                .hasArg()
-                                .withDescription( "the class which it to perform "
-                                                  + "logging" )
-                                .create( "logger" );
+Option logger    = Option.builder( "logger" )
+                         .argName( "classname" )
+                         .hasArg()
+                         .desc( "the class which it to perform logging" )
+                         .build();
 
-Option listener  = OptionBuilder.withArgName( "classname" )
-                                .hasArg()
-                                .withDescription( "add an instance of class as "
-                                                  + "a project listener" )
-                                .create( "listener"); 
+Option listener  = Option.builder( "listener" )
+                         .argName( "classname" )
+                         .hasArg()
+                         .desc( "add an instance of class as "
+                                + "a project listener" )
+                         .build();
 
-Option buildfile = OptionBuilder.withArgName( "file" )
-                                .hasArg()
-                                .withDescription(  "use given buildfile" )
-                                .create( "buildfile");
+Option buildfile = Option.builder( "buildfile" )
+                         .argName( "file" )
+                         .hasArg()
+                         .desc(  "use given buildfile" )
+                         .build();
 
-Option find      = OptionBuilder.withArgName( "file" )
-                                .hasArg()
-                                .withDescription( "search for buildfile towards the "
-                                                  + "root of the filesystem and use it" )
-                                .create( "find" );</source>
+Option find      = Option.builder( "find" )
+                         .argName( "file" )
+                         .hasArg()
+                         .desc( "search for buildfile towards the "
+                                + "root of the filesystem and use it" )
+                         .build();</source>
       </subsection>
       <subsection name="Java Property Option">
         <p>
