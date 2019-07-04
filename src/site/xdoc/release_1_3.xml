@@ -38,7 +38,7 @@ previous versions, except for the OptionValidator class that is no longer public
 (change introduced in v1.2). Commons CLI 1.3 at least requires Java 5.0.
 
 More information can be found on the project site at
-http://commons.apache.org/cli.
+https://commons.apache.org/cli.
 
 NOTES
 =====

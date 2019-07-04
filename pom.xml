@@ -32,7 +32,7 @@
     Apache Commons CLI provides a simple API for presenting, processing and validating a command line interface.
   </description>
 
-  <url>http://commons.apache.org/proper/commons-cli/</url>
+  <url>https://commons.apache.org/proper/commons-cli/</url>
 
   <issueManagement>
     <system>jira</system>

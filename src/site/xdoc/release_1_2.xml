@@ -44,7 +44,7 @@ Commons CLI 1.2 is a bugfix release. The following notable changes were made:
 Commons CLI 1.2 is binary compatible with the previous versions, except for
 the OptionValidator class that is no longer public.
 
-More information can be found on the project site at http://commons.apache.org/cli
+More information can be found on the project site at https://commons.apache.org/cli
 
 
 NEW FEATURES:

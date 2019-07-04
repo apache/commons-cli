@@ -14,7 +14,7 @@ previous versions, except for the OptionValidator class that is no longer public
 (change introduced in v1.2). Commons CLI 1.4 at least requires Java 5.0.
 
 More information can be found on the project site at
-http://commons.apache.org/cli.
+https://commons.apache.org/cli.
 
 
 NEW FEATURES
@@ -239,13 +239,13 @@ o CLI-135: Backwards compatibility between 1.1 and 1.0 broken due to
            Option.addValue removal.
 
 
-Historical list of changes: http://commons.apache.org/cli/changes-report.html
+Historical list of changes: https://commons.apache.org/cli/changes-report.html
 
 For complete information on Commons CLI, including instructions on how to
 submit bug reports, patches, or suggestions for improvement, see the
 Apache Commons CLI website:
 
-http://commons.apache.org/cli/
+https://commons.apache.org/cli/
 
 Have fun!
 -Apache Commons CLI team

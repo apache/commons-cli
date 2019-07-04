@@ -43,7 +43,7 @@ public class PatternOptionBuilderTest
     public void testSimplePattern() throws Exception
     {
         final Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/m*z#");
-        final String[] args = new String[] {"-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "http://commons.apache.org", "-z", "Thu Jun 06 17:48:57 EDT 2002", "-m", "test*"};
+        final String[] args = new String[] {"-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t", "https://commons.apache.org", "-z", "Thu Jun 06 17:48:57 EDT 2002", "-m", "test*"};
 
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, args);
@@ -56,7 +56,7 @@ public class PatternOptionBuilderTest
         assertEquals("file flag e", new File("build.xml"), line.getOptionObject("e"));
         assertEquals("class flag f", Calendar.class, line.getOptionObject("f"));
         assertEquals("number flag n", new Double(4.5), line.getOptionObject("n"));
-        assertEquals("url flag t", new URL("http://commons.apache.org"), line.getOptionObject("t"));
+        assertEquals("url flag t", new URL("https://commons.apache.org"), line.getOptionObject("t"));
 
         // tests the char methods of CommandLine that delegate to the String methods
         assertEquals("flag a", "foo", line.getOptionValue('a'));
@@ -67,7 +67,7 @@ public class PatternOptionBuilderTest
         assertEquals("file flag e", new File("build.xml"), line.getOptionObject('e'));
         assertEquals("class flag f", Calendar.class, line.getOptionObject('f'));
         assertEquals("number flag n", new Double(4.5), line.getOptionObject('n'));
-        assertEquals("url flag t", new URL("http://commons.apache.org"), line.getOptionObject('t'));
+        assertEquals("url flag t", new URL("https://commons.apache.org"), line.getOptionObject('t'));
 
         // FILES NOT SUPPORTED YET
         try {
@@ -152,9 +152,9 @@ public class PatternOptionBuilderTest
     {
         final Options options = PatternOptionBuilder.parsePattern("u/v/");
         final CommandLineParser parser = new PosixParser();
-        final CommandLine line = parser.parse(options, new String[] { "-u", "http://commons.apache.org", "-v", "foo://commons.apache.org" });
+        final CommandLine line = parser.parse(options, new String[] { "-u", "https://commons.apache.org", "-v", "foo://commons.apache.org" });
 
-        assertEquals("u value", new URL("http://commons.apache.org"), line.getOptionObject("u"));
+        assertEquals("u value", new URL("https://commons.apache.org"), line.getOptionObject("u"));
         assertNull("v value", line.getOptionObject("v"));
     }
 

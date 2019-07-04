@@ -136,7 +136,7 @@ public class TypeHandlerTest
     public void testCreateValueURL()
             throws Exception
     {
-        String urlString = "http://commons.apache.org";
+        String urlString = "https://commons.apache.org";
         URL result = TypeHandler.createValue(urlString, PatternOptionBuilder.URL_VALUE);
         assertEquals(urlString, result.toString());
     }
