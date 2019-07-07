@@ -55,7 +55,7 @@ public class OptionTest
         assertEquals(0, option.getValuesList().size());
     }
 
-    // See http://issues.apache.org/jira/browse/CLI-21
+    // See https://issues.apache.org/jira/browse/CLI-21
     @Test
     public void testClone()
     {

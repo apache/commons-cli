@@ -26,7 +26,7 @@ import org.apache.commons.cli.Options;
 import org.junit.Test;
 
 /**
- * http://issues.apache.org/jira/browse/CLI-18
+ * https://issues.apache.org/jira/browse/CLI-18
  */
 public class BugCLI18Test
 {

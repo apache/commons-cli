@@ -28,7 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * http://issues.apache.org/jira/browse/CLI-148
+ * https://issues.apache.org/jira/browse/CLI-148
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugCLI148Test
