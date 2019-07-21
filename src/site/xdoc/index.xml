@@ -86,7 +86,7 @@ usage: ls
         <li><a href="javadocs/api-1.0/index.html">CLI 1.0</a></li>
       </ul>
       <p>
-        The <a href="source-repository.html">git repository</a> can be
+        The <a href="scm.html">source repository</a> can be
         <a href="https://git-wip-us.apache.org/repos/asf?p=commons-cli.git">browsed</a>.
       </p>
     </section>
