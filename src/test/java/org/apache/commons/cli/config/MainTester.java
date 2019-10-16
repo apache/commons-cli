@@ -44,7 +44,7 @@ public class MainTester implements OptionListener
 //                "/config/config_real.csv");
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(this);
-        cliConfig.process(is, args);
+        cliConfig.process(is, "UTF-8", args);
         if (md5 != null && file != null)
         {
             checkMd5();

@@ -105,6 +105,8 @@ public class ConfigurationParser
      * Parse the input stream and create the option configuration.
      *
      * @param is non-{@code null} input stream to read.
+     * 
+     * @param encoding non-{@code null} encoding for the input stream.
      *
      * @return the option configuration read from the input stream.
      *
@@ -113,13 +115,13 @@ public class ConfigurationParser
      *
      * @throws IOException if the input stream could not be read.
      */
-    public GlobalConfiguration parse(final InputStream is)
+    public GlobalConfiguration parse(final InputStream is, final String encoding)
             throws ConfigurationException, IOException
     {
-        final InputStreamReader isr = new InputStreamReader(is);
+        final InputStreamReader isr = new InputStreamReader(is, encoding);
         final BufferedReader buf = new BufferedReader(isr);
         String line = "";
-        String builtLine = null;
+        StringBuilder builtLine = null;
         int currentLineNo = 0;
         boolean globalConfigParsed = false;
         final GlobalConfiguration globalConfig = new GlobalConfiguration();
@@ -148,7 +150,7 @@ public class ConfigurationParser
                 {
                     // the line is complete based on previous escaped lines
                 }
-                builtLine += stripLeading.substring(0, lastIndex);
+                builtLine.append(stripLeading.substring(0, lastIndex));
                 if (lineEscaped)
                 {
                     continue;
@@ -163,19 +165,20 @@ public class ConfigurationParser
             if (builtLine == null)
             {
                 // new line data to read
+                builtLine = new StringBuilder();
                 if (line.endsWith("\\"))
                 {
                     // start of an escaped line, build it up from here:
-                    builtLine = line.substring(0, line.lastIndexOf("\\"));
+                    builtLine.append(line.substring(0, line.lastIndexOf("\\")));
                     continue;
                 }
                 else
                 {
                     // new line and it's complete and ready to go
-                    builtLine = line;
+                    builtLine.append(line);
                 }
             }
-            if (builtLine.trim().matches(GlobalConfiguration.OPTION_REGEX))
+            if (builtLine.toString().trim().matches(GlobalConfiguration.OPTION_REGEX))
             {
                 // if this is /after/ any standard options, throw an exception
                 // since all global options must come /before/ standard options
@@ -189,7 +192,7 @@ public class ConfigurationParser
                 // configuration deal with it:
                 try
                 {
-                    globalConfig.updateGlobalConfiguration(builtLine);
+                    globalConfig.updateGlobalConfiguration(builtLine.toString());
                     // global configuration updated, carry on
                     builtLine = null;
                 }
@@ -198,7 +201,7 @@ public class ConfigurationParser
                     throw new ConfigurationException(currentLineNo, ex.getMessage());
                 }
             }
-            else if (builtLine.matches(OPTION_REGEX_BASIC_LINE))
+            else if (builtLine.toString().matches(OPTION_REGEX_BASIC_LINE))
             {
                 // there shall be no more global definitions after this:
                 globalConfigParsed = true;

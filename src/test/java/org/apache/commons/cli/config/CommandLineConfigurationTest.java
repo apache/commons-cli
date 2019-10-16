@@ -34,26 +34,6 @@ public class CommandLineConfigurationTest
 {
 
     /**
-     *
-     * @throws Exception
-     */
-    @Before
-    public void setUp() throws Exception
-    {
-        System.setSecurityManager(new NoExitSecurityManager());
-    }
-
-    /**
-     *
-     * @throws Exception
-     */
-    @After
-    public void tearDown() throws Exception
-    {
-        System.setSecurityManager(null); // or save and restore original
-    }
-
-    /**
      * Test that once the configuration is parsed, the command line
      * configuration is created with the specified arguments and the listener
      * has been updated with the values specified by the CLI call. Since the
@@ -70,7 +50,7 @@ public class CommandLineConfigurationTest
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "-F -h 192.168.1.2 -p 80 -P /tmp".split(" ");
-        cliConfig.process(is, arguments);
+        cliConfig.process(is, "UTF-8", arguments);
         // short options:
         assertEquals("80", listener.getOptions().get("p"));
         assertEquals("192.168.1.2", listener.getOptions().get("h"));
@@ -97,7 +77,7 @@ public class CommandLineConfigurationTest
         cliConfig.addOptionListener(listener);
         String[] arguments = "-F -h 192.168.1.2 -p 80 -P /tmp".split(" ");
         cliConfig.removeOptionListener(listener);
-        cliConfig.process(is, arguments);
+        cliConfig.process(is, "UTF-8", arguments);
         // short options:
         assertEquals(null, listener.getOptions().get("p"));
         assertEquals(null, listener.getOptions().get("h"));
@@ -126,7 +106,7 @@ public class CommandLineConfigurationTest
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "-F -h 192.168.1.2 -p 80 -P /tmp".split(" ");
-        cliConfig.process(is, arguments);
+        cliConfig.process(is, "UTF-8", arguments);
         // short options:
         assertEquals("80", listener.getOptions().get("p"));
         assertEquals("192.168.1.2", listener.getOptions().get("h"));
@@ -155,7 +135,7 @@ public class CommandLineConfigurationTest
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "--fail --host 192.168.1.2 --port 80 --path /tmp".split(" ");
-        cliConfig.process(is, arguments);
+        cliConfig.process(is, "UTF-8", arguments);
         // long options:
         assertEquals("80", listener.getOptions().get("port"));
         assertEquals("192.168.1.2", listener.getOptions().get("host"));
@@ -185,7 +165,7 @@ public class CommandLineConfigurationTest
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "-F -h 192.168.1.2 -p 80 -P /tmp".split(" ");
-        cliConfig.process(is, arguments);
+        cliConfig.process(is, "UTF-8", arguments);
         List<Option> options = cliConfig.getOptions();
         // short options:
         assertEquals("80", getOptionValue(options, "p"));
@@ -209,7 +189,7 @@ public class CommandLineConfigurationTest
         String[] arguments = "--no-such-option -F -h 192.168.1.2".split(" ");
         try
         {
-            cliConfig.process(is, arguments);
+            cliConfig.process(is, "UTF-8", arguments);
         }
         catch (ConfigurationException ex)
         {
@@ -231,16 +211,18 @@ public class CommandLineConfigurationTest
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "-h".split(" ");
-        try
-        {
-            cliConfig.process(is, arguments);
-            fail("Expected system exit, but got here");
-        }
-        catch (ExitException ex)
-        {
-            assertEquals(0, ex.status);
-            assertEquals("Exiting with status " + ex.status, ex.getMessage());
-        }
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(os);
+        System.setOut(ps);
+        cliConfig.process(is, "UTF-8", arguments);
+        String output = os.toString("UTF8");
+        assertTrue(output.contains("Print this then quit."));
+        assertTrue(output.contains("Fail if no connection made, rather than retrying."));
+        assertTrue(output.contains("Specify the host; optional. Use localhost if not set."));
+        assertTrue(output.contains(" Protocol is optional, assumes HTTP."));
+        assertTrue(output.contains("Port number to use. Required."));
+        ps.close();
+        os.close();
     }
 
     /**
@@ -256,15 +238,18 @@ public class CommandLineConfigurationTest
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "-f -H localhost".split(" ");
-        try
-        {
-            cliConfig.process(is, arguments);
-        }
-        catch (ExitException ex)
-        {
-            fail("System exit invoked, but no request to print help specified."
-                    + " Something has gone wrong!");
-        }
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(os);
+        System.setOut(ps);
+        cliConfig.process(is, "UTF-8", arguments);
+        String output = os.toString("UTF8");
+        assertFalse(output.contains("Print this then quit."));
+        assertFalse(output.contains("Fail if no connection made, rather than retrying."));
+        assertFalse(output.contains("Specify the host; optional. Use localhost if not set."));
+        assertFalse(output.contains(" Protocol is optional, assumes HTTP."));
+        assertFalse(output.contains("Port number to use. Required."));
+        ps.close();
+        os.close();
     }
 
     /**
@@ -279,16 +264,18 @@ public class CommandLineConfigurationTest
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "--help".split(" ");
-        try
-        {
-            cliConfig.process(is, arguments);
-            fail("Expected system exit, but got here");
-        }
-        catch (ExitException ex)
-        {
-            assertEquals(0, ex.status);
-            assertEquals("Exiting with status " + ex.status, ex.getMessage());
-        }
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(os);
+        System.setOut(ps);
+        cliConfig.process(is, "UTF-8", arguments);
+        String output = os.toString("UTF8");
+        assertTrue(output.contains("Print this then quit."));
+        assertTrue(output.contains("Fail if no connection made, rather than retrying."));
+        assertTrue(output.contains("Specify the host; optional. Use localhost if not set."));
+        assertTrue(output.contains(" Protocol is optional, assumes HTTP."));
+        assertTrue(output.contains("Port number to use. Required."));
+        ps.close();
+        os.close();
     }
 
     /**
@@ -305,7 +292,7 @@ public class CommandLineConfigurationTest
         String[] arguments = "--help foobarbaz".split(" ");
         try
         {
-            cliConfig.process(is, arguments);
+            cliConfig.process(is, "UTF-8", arguments);
             fail("Expected exception");
         }
         catch (ConfigurationException ex)
@@ -328,23 +315,16 @@ public class CommandLineConfigurationTest
         cliConfig.addOptionListener(listener);
         String[] arguments = "--help".split(" ");
 
-        try
-        {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            PrintStream ps = new PrintStream(os);
-            System.setOut(ps);
-            cliConfig.process(is, arguments);
-            String output = os.toString("UTF8");
-            assertTrue(output.contains("foo_command"));
-            assertTrue(output.contains("Show some useful information"));
-            assertTrue(output.contains("Copyright Apache Software Foundation"));
-            fail("Expected system exit, but got here");
-        }
-        catch (ExitException ex)
-        {
-            assertEquals(0, ex.status);
-            assertEquals("Exiting with status " + ex.status, ex.getMessage());
-        }
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(os);
+        System.setOut(ps);
+        cliConfig.process(is, "UTF-8", arguments);
+        String output = os.toString("UTF8");
+        assertTrue(output.contains("foo_command"));
+        assertTrue(output.contains("Show some useful information"));
+        assertTrue(output.contains("Copyright Apache Software Foundation"));
+        ps.close();
+        os.close();
     }
 
     /**
@@ -360,25 +340,16 @@ public class CommandLineConfigurationTest
         cliConfig.addOptionListener(listener);
         String[] arguments = "--help".split(" ");
 
-        try
-        {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            PrintStream ps = new PrintStream(os);
-            System.setOut(ps);
-            cliConfig.process(is, arguments);
-            String output = os.toString("UTF8");
-            assertTrue(output.contains("foo_command"));
-            assertTrue(output.contains("Show some useful information, with some"
-                    + " extra escaped lines"));
-            assertTrue(output.contains("Copyright Apache Software Foundation"
-                    + " Submit escaped lines to System.out()"));
-            fail("Expected system exit, but got here");
-        }
-        catch (ExitException ex)
-        {
-            assertEquals(0, ex.status);
-            assertEquals("Exiting with status " + ex.status, ex.getMessage());
-        }
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(os);
+        System.setOut(ps);
+        cliConfig.process(is, "UTF-8", arguments);
+        String output = os.toString("UTF8");
+        assertTrue(output.contains("foo_command"));
+        assertTrue(output.contains("Show some useful information, with some"
+                + " extra escaped lines"));
+        assertTrue(output.contains("Copyright Apache Software Foundation"
+                + " Submit escaped lines to System.out()"));
     }
 
     /**
@@ -386,11 +357,11 @@ public class CommandLineConfigurationTest
      * specified key.
      *
      * @param options non-{@code null}, non-empty option list.
-     * 
+     *
      * @param key non-{@code null} key to search for.
-     * 
-     * @return the option value if it could be retrieved, or the empty string
-     * if the option does not have an argument; {@code null} otherwise.
+     *
+     * @return the option value if it could be retrieved, or the empty string if
+     * the option does not have an argument; {@code null} otherwise.
      */
     private String getOptionValue(final List<Option> options, String key)
     {

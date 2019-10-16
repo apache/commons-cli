@@ -65,22 +65,22 @@ import org.apache.commons.cli.ParseException;
  * <pre>
  * {@code
  * MyAppListener listener = new MyAppListener();
- InputStream is = ConfigParserTest.class.getResourceAsStream("opt.config");
- CommandLineConfiguration cliConfig = new CommandLineConfiguration();
- cliConfig.addOptionListener(listener);
- // args[] from the public static void main(String[] args) call:
- cliConfig.process(is, args);
- Application application = new Application();
- if (listener.file != null && listener.text != null)
- {
-      application.write(listener.file, listener.text, listener.overwrite);
- }
- else
- {
-      System.err.println("File and text must be supplied.");
-      System.exit(1);
- }
- }
+ * InputStream is = new FileInputStream(new File("opt.config"));
+ * CommandLineConfiguration cliConfig = new CommandLineConfiguration();
+ * cliConfig.addOptionListener(listener);
+ * // args[] from the public static void main(String[] args) call:
+ * cliConfig.process(is, args);
+ * Application application = new Application();
+ * if (listener.file != null && listener.text != null)
+ * {
+ *     application.write(listener.file, listener.text, listener.overwrite);
+ * }
+ * else
+ * {
+ *     System.err.println("File and text must be supplied.");
+ *     System.exit(1);
+ * }
+ * }
  * </pre>
  */
 public class CommandLineConfiguration
@@ -115,20 +115,23 @@ public class CommandLineConfiguration
      *
      * @param is non-{@code null} readable input stream of a command line
      * configuration to parse.
+     * 
+     * @param encoding non-{@code null} encoding for the input stream.
      *
      * @param args non-{@code null} arguments, typically supplied via a call
      * from a command line process.
      *
-     * @throws ConfigurationException if the configuration file contains any invalid
-     * definitions.
+     * @throws ConfigurationException if the configuration file contains any
+     * invalid definitions.
      *
      * @throws IOException if there is a problem reading the input stream.
      */
-    public void process(final InputStream is, final String[] args)
+    public void process(final InputStream is, final String encoding,
+            final String[] args)
             throws ConfigurationException, IOException
     {
         final ConfigurationParser configParser = new ConfigurationParser();
-        globalConfig = configParser.parse(is);
+        globalConfig = configParser.parse(is, encoding);
         final Map<String, OptionConfiguration> optionConfig = globalConfig.getOptionConfigurations();
         options = buildOptions(optionConfig);
         final CommandLineParser parser = new DefaultParser();
@@ -163,7 +166,6 @@ public class CommandLineConfiguration
             if (cli.hasOption(optionHelpValue))
             {
                 printHelp();
-                System.exit(0);
             }
         }
 

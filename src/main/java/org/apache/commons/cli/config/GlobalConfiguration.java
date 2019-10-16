@@ -82,7 +82,7 @@ import org.apache.commons.cli.HelpFormatter;
  * sizes.
  *
  * <p>
- * For example, by adding the following global options to the start of the 
+ * For example, by adding the following global options to the start of the
  * example file defined in {@link OptionConfiguration}:
  *
  * <pre>
@@ -109,7 +109,7 @@ import org.apache.commons.cli.HelpFormatter;
  * </pre>
  *
  * <p>
- * ... Would produce the following output and then quit with exit status 0:
+ * ... Would produce the following output:
  *
  * <pre>
  * usage: writeData
@@ -122,6 +122,11 @@ import org.apache.commons.cli.HelpFormatter;
  *  -t,--text &lt;text&gt;   Text to write to the file.
  * Copyleft Foo, Bar &amp; Baz International.
  * </pre>
+ *
+ * <p>
+ * Callers are required to decide what to do when help is invoked in this
+ * manner; typically, in the {@link OptionListener}, callers will check for the
+ * call to help and then exit gracefully.
  *
  * <p>
  * The {@code HELP_} global configuration options are not mandatory and are
@@ -212,7 +217,8 @@ public class GlobalConfiguration
      * @param line non-{@code null} line data to parse that matches
      * {@link #OPTION_REGEX}.
      *
-     * @throws ConfigurationException if the configuration is defined incorrectly.
+     * @throws ConfigurationException if the configuration is defined
+     * incorrectly.
      */
     public void updateGlobalConfiguration(String line) throws ConfigurationException
     {
@@ -326,8 +332,8 @@ public class GlobalConfiguration
      * {@link #GLOBAL_OPTION_TYPE_SHORT}, {@link #GLOBAL_OPTION_TYPE_LONG}, or
      * {@link #GLOBAL_OPTION_TYPE_BOTH}.
      *
-     * @throws ConfigurationException if the global options type has already been set,
-     * or if the options type did not match a known type.
+     * @throws ConfigurationException if the global options type has already
+     * been set, or if the options type did not match a known type.
      */
     private void parseOptionType(String data) throws ConfigurationException
     {

@@ -24,7 +24,7 @@ package org.apache.commons.cli.config;
  * An example option configuration is defined in {@link OptionConfiguration} and
  * how this is processed is explained in {@link CommandLineConfiguration}. Once
  * the call to
- * {@link CommandLineConfiguration#process(java.io.InputStream, java.lang.String[])}
+ * {@link CommandLineConfiguration#process(java.io.InputStream, java.lang.String, java.lang.String[])}
  * has been invoked, all registered listeners will have received all necessary
  * updates from the command line. All that is left to do now is do something
  * useful with the supplied arguments.
@@ -53,7 +53,11 @@ package org.apache.commons.cli.config;
  * &#064;Override
  * public void option(final String option, final Object value)
  * {
- *     if ("file".equals(option))
+ *     if ("help".equals(option))
+ *     {
+ *         System.exit(0);
+ *     }
+ *     else if ("file".equals(option))
  *     {
  *         outFile = new File(value.toString());
  *     }

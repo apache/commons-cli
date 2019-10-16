@@ -130,7 +130,7 @@ public class ConfigurationParserTest
         ConfigurationParser configParser = new ConfigurationParser();
         InputStream is = ConfigurationParserTest.class.getResourceAsStream(
                 "/config/config_001_short_and_long_options.conf");
-        GlobalConfiguration globalConfig = configParser.parse(is);
+        GlobalConfiguration globalConfig = configParser.parse(is, "UTF-8");
         Map<String, OptionConfiguration> optionConfig = globalConfig.getOptionConfigurations();
         is.close();
         OptionConfiguration optConfig = optionConfig.get("fail");
@@ -160,7 +160,7 @@ public class ConfigurationParserTest
         ConfigurationParser configParser = new ConfigurationParser();
         InputStream is = ConfigurationParserTest.class.getResourceAsStream(
                 "/config/config_002_short_options.conf");
-        GlobalConfiguration globalConfig = configParser.parse(is);
+        GlobalConfiguration globalConfig = configParser.parse(is, "UTF-8");
         Map<String, OptionConfiguration> optionConfig = globalConfig.getOptionConfigurations();
         is.close();
         OptionConfiguration optConfig = optionConfig.get("fail");
@@ -190,7 +190,7 @@ public class ConfigurationParserTest
         ConfigurationParser configParser = new ConfigurationParser();
         InputStream is = ConfigurationParserTest.class.getResourceAsStream(
                 "/config/config_003_long_options.conf");
-        GlobalConfiguration globalConfig = configParser.parse(is);
+        GlobalConfiguration globalConfig = configParser.parse(is, "UTF-8");
         Map<String, OptionConfiguration> optionConfig = globalConfig.getOptionConfigurations();
         is.close();
         OptionConfiguration optConfig = optionConfig.get("fail");
@@ -223,7 +223,7 @@ public class ConfigurationParserTest
                 "/config/config_004_bad_short_long_mix.conf");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
@@ -244,7 +244,7 @@ public class ConfigurationParserTest
                 "/config/config_005_empty_opts_value.conf");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
@@ -265,7 +265,7 @@ public class ConfigurationParserTest
                 "/config/config_006_no_options.conf");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
@@ -286,7 +286,7 @@ public class ConfigurationParserTest
                 "/config/config_007_unknown_config_option.conf");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
@@ -308,7 +308,7 @@ public class ConfigurationParserTest
                 "/config/config_008_invalid_escaped_line.conf");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
@@ -329,7 +329,7 @@ public class ConfigurationParserTest
                 "/config/config_009_invalid_short_long_format.conf");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
@@ -352,7 +352,7 @@ public class ConfigurationParserTest
                 "/config/config_010_invalid_short_format.conf");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
@@ -373,7 +373,7 @@ public class ConfigurationParserTest
                 "/config/config_011_invalid_long_option_format.conf");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
@@ -394,7 +394,7 @@ public class ConfigurationParserTest
                 "/config/config_012_invalid_option_definition.conf");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
@@ -416,7 +416,7 @@ public class ConfigurationParserTest
                 "/config/config_013_empty_option_value.conf");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
@@ -438,7 +438,7 @@ public class ConfigurationParserTest
                 "/config/config_014_option_type_defined_twice.conf");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
@@ -463,7 +463,7 @@ public class ConfigurationParserTest
                 "/config/config_020_bad_global_config_order.csv");
         try
         {
-            configParser.parse(is);
+            configParser.parse(is, "UTF-8");
             fail("Expected exception.");
         }
         catch (ConfigurationException ex)
