@@ -1,0 +1,56 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# When help is invoked, will print "Usage: foo" plus the rest of the options:
+HELP_COMMAND_NAME=foo
+
+# 
+# The name must:
+#   - match the option.[name] option configuration. For example, if 
+#     HELP_OPTION_NAME is defined as 'help' (not including apostrophes), then
+#     there must also be an option definition named 'option.help';
+#   - option.[name] hasArg must be false;
+#   - option.[name] must have a description
+# 
+# Defining this will print the help for the defined options then quit with 0
+# status.
+# 
+
+HELP_OPTION_NAME=help
+
+option.help.opts=help
+
+# Exception: help cannot have an argument
+
+option.help.hasArg=true
+option.help.description=Print this then quit.
+
+option.fail.opts=fail
+option.fail.hasArg=false
+option.fail.description=Fail if no connection made, rather than retrying.
+
+option.host.opts=host
+option.host.hasArg=true
+option.host.argName=host
+option.host.default=localhost
+option.host.description=Specify the host; optional. Use localhost if not set. \
+    Protocol is optional, assumes HTTP.
+
+option.port.opts=port
+option.port.hasArg=true
+option.port.argName=port
+option.port.description=Port number to use. Required.
