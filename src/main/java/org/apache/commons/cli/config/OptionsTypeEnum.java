@@ -18,7 +18,6 @@ package org.apache.commons.cli.config;
 
 /**
  * Defines if the configuration takes a short, long or both options.
- * @author rich
  */
 public enum OptionsTypeEnum
 {
