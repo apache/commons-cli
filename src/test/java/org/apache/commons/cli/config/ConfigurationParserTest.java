@@ -460,7 +460,7 @@ public class ConfigurationParserTest
     {
         ConfigurationParser configParser = new ConfigurationParser();
         InputStream is = ConfigurationParserTest.class.getResourceAsStream(
-                "/config/config_020_bad_global_config_order.csv");
+                "/config/config_020_bad_global_config_order.conf");
         try
         {
             configParser.parse(is, "UTF-8");
@@ -471,6 +471,137 @@ public class ConfigurationParserTest
             assertTrue(ex.getMessage().contains("Invalid global"
                     + " configuration definition; global configurations"
                     + " must come BEFORE standard \"option...\" definitions"));
+        }
+    }
+
+    /**
+     * Test that a redefinition of a long option throws an exception.
+     */
+    @Test
+    public void testParseInputStreamReDefinitionLongOption() throws Exception
+    {
+        ConfigurationParser configParser = new ConfigurationParser();
+        InputStream is = ConfigurationParserTest.class.getResourceAsStream(
+                "/config/config_021_redefinition_long_option.conf");
+        try
+        {
+            configParser.parse(is, "UTF-8");
+            fail("Expected exception.");
+        }
+        catch (ConfigurationException ex)
+        {
+            assertTrue(ex.getMessage().contains(
+                    "opts has already been defined for option help"));
+        }
+    }
+
+    /**
+     * Test that a redefinition of an option's description throws an exception.
+     */
+    @Test
+    public void testParseInputStreamDescriptionRedefinition() throws Exception
+    {
+        ConfigurationParser configParser = new ConfigurationParser();
+        InputStream is = ConfigurationParserTest.class.getResourceAsStream(
+                "/config/config_022_redefinition_description.conf");
+        try
+        {
+            configParser.parse(is, "UTF-8");
+            fail("Expected exception.");
+        }
+        catch (ConfigurationException ex)
+        {
+            assertTrue(ex.getMessage().contains(
+                    "description has already been defined for option help"));
+        }
+    }
+
+    /**
+     * Test that a redefinition of an option's has argument throws an exception.
+     */
+    @Test
+    public void testParseInputStreamHasArgRedefinition() throws Exception
+    {
+        ConfigurationParser configParser = new ConfigurationParser();
+        InputStream is = ConfigurationParserTest.class.getResourceAsStream(
+                "/config/config_023_redefinition_hasArg.conf");
+        try
+        {
+            configParser.parse(is, "UTF-8");
+            fail("Expected exception.");
+        }
+        catch (ConfigurationException ex)
+        {
+            assertTrue(ex.getMessage().contains(
+                    "hasArg has already been defined for option help"));
+        }
+    }
+
+    /**
+     * Test that a redefinition of an option's argument name throws an
+     * exception.
+     */
+    @Test
+    public void testParseInputStreamArgNameRedefinition() throws Exception
+    {
+        ConfigurationParser configParser = new ConfigurationParser();
+        InputStream is = ConfigurationParserTest.class.getResourceAsStream(
+                "/config/config_024_redefinition_argName.conf");
+        try
+        {
+            configParser.parse(is, "UTF-8");
+            fail("Expected exception.");
+        }
+        catch (ConfigurationException ex)
+        {
+            assertTrue(ex.getMessage().contains(
+                    "argName has already been defined for option fubar"));
+        }
+    }
+
+    /**
+     * Test that a redefinition of a short option throws an exception.
+     */
+    @Test
+    public void testParseInputStreamReDefinitionShortOption() throws Exception
+    {
+        ConfigurationParser configParser = new ConfigurationParser();
+        InputStream is = ConfigurationParserTest.class.getResourceAsStream(
+                "/config/config_025_redefinition_short_option.conf");
+        try
+        {
+            configParser.parse(is, "UTF-8");
+            fail("Expected exception.");
+        }
+        catch (ConfigurationException ex)
+        {
+            assertTrue(ex.getMessage().contains(
+                    " has already been defined for option help"));
+        }
+    }
+
+    /**
+     * Test that an option that is redefined later in the file throws an
+     * exception.
+     */
+    @Test
+    public void testParseInputStreamOptionsBadOrdering() throws Exception
+    {
+        ConfigurationParser configParser = new ConfigurationParser();
+        InputStream is = ConfigurationParserTest.class.getResourceAsStream(
+                "/config/config_026_redefinition_bad_ordering.conf");
+        try
+        {
+            configParser.parse(is, "UTF-8");
+            fail("Expected exception.");
+        }
+        catch (ConfigurationException ex)
+        {
+            System.out.println(ex.getMessage());
+            assertTrue(ex.getMessage().contains("Bad configuration  ordering;"
+                    + " options must be grouped together. Option 'dir' has"
+                    + " been defined prior to the declaration of option"
+                    + " 'file'"));
         }
     }
 

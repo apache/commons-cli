@@ -57,7 +57,7 @@ package org.apache.commons.cli.config;
  *
  * <p>
  * Lines beginning with &#35; are ignored.
- * 
+ *
  * <p>
  * For example, a configuration file named {@code opt.config} could be created
  * with the following option configuration (note that typically, creators of
@@ -142,9 +142,13 @@ public class OptionConfiguration
     private String argName;
 
     /**
-     * Determines if this option configuration has an argument.
+     * Determines if this option configuration has an argument. The motivation
+     * for using {@code java.lang.Boolean} is that we need to determine if a
+     * configuration has been defined where the user defines hasArg twice for
+     * the same option. Only be having the option of having the argument as 
+     * {@code null} can we check for this.
      */
-    private boolean hasArg;
+    private Boolean hasArg;
 
     /**
      * Get the name.
@@ -249,10 +253,10 @@ public class OptionConfiguration
     /**
      * Determine if this option has an argument.
      *
-     * @return {@code true} if the option takes an argument; {@code false}
-     * otherwise.
+     * @return {@code true} if the option takes an argument, {@code false}
+     * if it doesn't; {@code null} if the argument has never been set.
      */
-    public boolean hasArg()
+    public Boolean hasArg()
     {
         return hasArg;
     }

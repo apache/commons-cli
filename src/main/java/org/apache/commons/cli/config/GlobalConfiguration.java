@@ -17,7 +17,7 @@
 package org.apache.commons.cli.config;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.apache.commons.cli.HelpFormatter;
 
@@ -180,7 +180,7 @@ public class GlobalConfiguration
      * The key is the actual name part of the {@code option.[name].*}
      * declaration, in other words the option name.
      */
-    private final Map<String, OptionConfiguration> optionMap = new HashMap<>();
+    private final Map<String, OptionConfiguration> optionMap = new LinkedHashMap<>();
 
     /**
      * The option type of the configuration.

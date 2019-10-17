@@ -207,7 +207,7 @@ public class CommandLineConfigurationTest
     {
         ConfigListener listener = new ConfigListener();
         InputStream is = ConfigurationParserTest.class.getResourceAsStream(
-                "/config/config_015_print_short_option_help.csv");
+                "/config/config_015_print_short_option_help.conf");
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "-h".split(" ");
@@ -234,7 +234,7 @@ public class CommandLineConfigurationTest
     {
         ConfigListener listener = new ConfigListener();
         InputStream is = ConfigurationParserTest.class.getResourceAsStream(
-                "/config/config_015_print_short_option_help.csv");
+                "/config/config_015_print_short_option_help.conf");
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "-f -H localhost".split(" ");
@@ -260,7 +260,7 @@ public class CommandLineConfigurationTest
     {
         ConfigListener listener = new ConfigListener();
         InputStream is = ConfigurationParserTest.class.getResourceAsStream(
-                "/config/config_016_print_long_option_help.csv");
+                "/config/config_016_print_long_option_help.conf");
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "--help".split(" ");
@@ -286,7 +286,7 @@ public class CommandLineConfigurationTest
     {
         ConfigListener listener = new ConfigListener();
         InputStream is = ConfigurationParserTest.class.getResourceAsStream(
-                "/config/config_017_bad_help_option.csv");
+                "/config/config_017_bad_help_option.conf");
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "--help foobarbaz".split(" ");
@@ -310,7 +310,7 @@ public class CommandLineConfigurationTest
     {
         ConfigListener listener = new ConfigListener();
         InputStream is = ConfigurationParserTest.class.getResourceAsStream(
-                "/config/config_018_header_and_footer.csv");
+                "/config/config_018_header_and_footer.conf");
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "--help".split(" ");
@@ -335,7 +335,7 @@ public class CommandLineConfigurationTest
     {
         ConfigListener listener = new ConfigListener();
         InputStream is = ConfigurationParserTest.class.getResourceAsStream(
-                "/config/config_019_header_and_footer_escaped.csv");
+                "/config/config_019_header_and_footer_escaped.conf");
         CommandLineConfiguration cliConfig = new CommandLineConfiguration();
         cliConfig.addOptionListener(listener);
         String[] arguments = "--help".split(" ");

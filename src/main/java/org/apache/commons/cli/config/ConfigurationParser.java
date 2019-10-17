@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -105,13 +106,13 @@ public class ConfigurationParser
      * Parse the input stream and create the option configuration.
      *
      * @param is non-{@code null} input stream to read.
-     * 
+     *
      * @param encoding non-{@code null} encoding for the input stream.
      *
      * @return the option configuration read from the input stream.
      *
-     * @throws ConfigurationException if any of the configuration options are not
-     * defined correctly, or there are no options defined.
+     * @throws ConfigurationException if any of the configuration options are
+     * not defined correctly, or there are no options defined.
      *
      * @throws IOException if the input stream could not be read.
      */
@@ -203,11 +204,12 @@ public class ConfigurationParser
             }
             else if (builtLine.toString().matches(OPTION_REGEX_BASIC_LINE))
             {
+                // it's a standard option.[name].* definition;
                 // there shall be no more global definitions after this:
                 globalConfigParsed = true;
                 final Pattern p = Pattern.compile(ConfigurationParser.OPTION_REGEX_BASIC_LINE);
                 final Matcher m = p.matcher(builtLine);
-                boolean boo = m.matches();
+                m.matches();
                 // reset the line for next time, we're done
                 final String name = m.group(1);
                 final String subOption = m.group(2);
@@ -231,6 +233,17 @@ public class ConfigurationParser
         }
         buf.close();
         isr.close();
+        Map<String, OptionConfiguration> options = globalConfig.getOptionConfigurations();
+        for (String name : options.keySet())
+        {
+            // any options that did not have their hasArg set will be null;
+            // in which case set them to false
+            OptionConfiguration optConfig = options.get(name);
+            if (optConfig.hasArg() == null)
+            {
+                optConfig.setHasArg(false);
+            }
+        }
         return globalConfig;
     }
 
@@ -252,13 +265,16 @@ public class ConfigurationParser
      * @param currentLineNo current line number of the input stream being
      * parsed.
      *
-     * @throws ConfigurationException if there are any problems extracting the data.
+     * @throws ConfigurationException if there are any problems extracting the
+     * data.
      */
     private void updateCurrentOption(
             final GlobalConfiguration globalConfig, final String name,
             final String subOption, final String value, final int currentLineNo)
             throws ConfigurationException
     {
+        checkOptionNotRedefined(globalConfig.getOptionConfigurations(), name,
+                currentLineNo);
         OptionConfiguration currentOption = globalConfig.getOptionConfigurations().get(name);
         if (currentOption == null)
         {
@@ -267,6 +283,7 @@ public class ConfigurationParser
             currentOption.setName(name);
             globalConfig.addOptionConfiguration(currentOption);
         }
+
         if (OPTS.equals(subOption))
         {
             OptionsTypeEnum optionsType = null;
@@ -297,19 +314,40 @@ public class ConfigurationParser
                 throw new ConfigurationException(currentLineNo, message);
 
             }
+            if (currentOption.getShortOption() != null
+                    || currentOption.getLongOption() != null)
+            {
+                throw new ConfigurationException(currentLineNo, OPTS
+                        + " has already been defined for option " + name);
+            }
             checkCurrentOption(globalConfig, optionsType, currentOption, opt,
                     currentLineNo);
         }
         else if (DESCRIPTION.equals(subOption))
         {
+            if (currentOption.getDescription() != null)
+            {
+                throw new ConfigurationException(currentLineNo, DESCRIPTION
+                        + " has already been defined for option " + name);
+            }
             currentOption.setDescription(value);
         }
         else if (HAS_ARG.equals(subOption))
         {
+            if (currentOption.hasArg() != null)
+            {
+                throw new ConfigurationException(currentLineNo, HAS_ARG
+                        + " has already been defined for option " + name);
+            }
             currentOption.setHasArg(Boolean.parseBoolean(value));
         }
         else if (ARG_NAME.equals(subOption))
         {
+            if (currentOption.getArgName() != null)
+            {
+                throw new ConfigurationException(currentLineNo, ARG_NAME
+                        + " has already been defined for option " + name);
+            }
             currentOption.setArgName(value);
         }
         else if (DEFAULT.equals(subOption))
@@ -320,6 +358,44 @@ public class ConfigurationParser
         {
             throw new ConfigurationException(currentLineNo,
                     "Unknown configuration option: " + subOption);
+        }
+    }
+
+    /**
+     * Check that an option that has already been defined is not re-defined
+     * after another option (or options) have been defined - options must be
+     * declared together.
+     *
+     * @param options non-{@code null} configuration options.
+     *
+     * @param name non-{@code null} name of the option currently being examined.
+     *
+     * @param currentLineNo current line number of the input stream being
+     * parsed.
+     *
+     * @throws ConfigurationException if the named option has already been
+     * defined but the latest option is not the same.
+     */
+    private void checkOptionNotRedefined(
+            final Map<String, OptionConfiguration> options, final String name, 
+            final int currentLineNo)
+            throws ConfigurationException
+    {
+        if (!options.isEmpty())
+        {
+            // check to ensure we've not defined an option that has already
+            // been defined, and is defined after another option later on:
+            int index = options.size();
+            Object[] names = options.keySet().toArray();
+            String lastName = names[index - 1].toString();
+            if (!name.equals(lastName) && options.containsKey(name))
+            {
+                throw new ConfigurationException(currentLineNo,
+                        "Bad configuration  ordering; options must be"
+                        + " grouped together. Option '" + name + "' has"
+                        + " been defined prior to the declaration of option"
+                        + " '" + lastName + "'");
+            }
         }
     }
 
@@ -341,9 +417,9 @@ public class ConfigurationParser
      * @param currentLineNo current line number of where the data is encountered
      * in the input stream.
      *
-     * @throws ConfigurationException if the specified option does not match the global
-     * configuration's option type or the option formatting is incorrect (such
-     * as specifying a short option when the option type is long option).
+     * @throws ConfigurationException if the specified option does not match the
+     * global configuration's option type or the option formatting is incorrect
+     * (such as specifying a short option when the option type is long option).
      */
     private void checkCurrentOption(final GlobalConfiguration globalConfig,
             final OptionsTypeEnum expectedType,
