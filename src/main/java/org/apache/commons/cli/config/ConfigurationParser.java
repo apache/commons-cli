@@ -234,11 +234,10 @@ public class ConfigurationParser
         buf.close();
         isr.close();
         Map<String, OptionConfiguration> options = globalConfig.getOptionConfigurations();
-        for (String name : options.keySet())
+        for (OptionConfiguration optConfig : options.values())
         {
             // any options that did not have their hasArg set will be null;
             // in which case set them to false
-            OptionConfiguration optConfig = options.get(name);
             if (optConfig.hasArg() == null)
             {
                 optConfig.setHasArg(false);
