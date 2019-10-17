@@ -26,8 +26,8 @@ import org.apache.commons.cli.HelpFormatter;
  * least one {@link OptionConfiguration}.
  *
  * <p>
- * Lines beginning with &#35; are ignored.
- *
+ * Lines beginning with &#35; are ignored. Each global configuration can only be
+ * declared once; redeclaring a global option will produce an error.
  * <p>
  * Global configuration items are as follows - the global options beginning with
  * {@code HELP_} enable callers to print help linked to an option without any
@@ -370,20 +370,40 @@ public class GlobalConfiguration
     private void parseHelp(final String line) throws ConfigurationException
     {
         String[] data = line.split("=");
-        if (GlobalConfiguration.HELP_COMMAND_NAME.equals(data[0].trim()))
+        if (HELP_COMMAND_NAME.equals(data[0].trim()))
         {
+            if (helpCommandName != null)
+            {
+                throw new ConfigurationException(HELP_COMMAND_NAME
+                        + " has already been defined.");
+            }
             helpCommandName = data[1].trim();
         }
         else if (GlobalConfiguration.HELP_COMMAND_HEADER.equals(data[0].trim()))
         {
+            if (helpCommandHeader != null)
+            {
+                throw new ConfigurationException(HELP_COMMAND_HEADER
+                        + " has already been defined.");
+            }
             helpCommandHeader = data[1].trim();
         }
-        else if (GlobalConfiguration.HELP_COMMAND_FOOTER.equals(data[0].trim()))
+        else if (HELP_COMMAND_FOOTER.equals(data[0].trim()))
         {
+            if (helpCommandFooter != null)
+            {
+                throw new ConfigurationException(HELP_COMMAND_FOOTER
+                        + " has already been defined.");
+            }
             helpCommandFooter = data[1].trim();
         }
-        else if (GlobalConfiguration.HELP_OPTION_NAME.equals(data[0].trim()))
+        else if (HELP_OPTION_NAME.equals(data[0].trim()))
         {
+            if (helpOptionName != null)
+            {
+                throw new ConfigurationException(HELP_OPTION_NAME
+                        + " has already been defined.");
+            }
             helpOptionName = data[1].trim();
         }
         else

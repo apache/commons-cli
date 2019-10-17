@@ -59,6 +59,30 @@ package org.apache.commons.cli.config;
  * Lines beginning with &#35; are ignored.
  *
  * <p>
+ * In all cases, lines may be escaped; escaped lines must end in a trailing
+ * backslash character; lines to be appended must be indented using white space
+ * (space character and/or tab characters). This is especially useful when
+ * defining help descriptions. For example:
+ *
+ * <pre>
+ * option.file.description=Supply the output file to write results to. If the \
+ *      file doesn't exist, it is created. If the file does exist, it is
+ *      appended to.
+ * </pre>
+ *
+ * Note in the above example the spaces before the backslashes - this is so
+ * sentences are not 'glued' together and provide spacing that is easy on the
+ * eye to readers of the output.
+ * 
+ * <p>
+ * Options must be defined in groups - that is, once an option has been defined,
+ * it cannot have other values set on it (like description, argument name etc.)
+ * after another option has been defined. Options cannot have a value set on it
+ * more than once - so you cannot define the description twice, for example. In
+ * either case an exception will be thrown with the offending line and its line
+ * number.
+ *
+ * <p>
  * For example, a configuration file named {@code opt.config} could be created
  * with the following option configuration (note that typically, creators of
  * configurations will likely have the {@code name} and the long option text
@@ -94,22 +118,6 @@ package org.apache.commons.cli.config;
  * {@link OptionListener#option(java.lang.String, java.lang.Object)} and would
  * receive an update with the option {@code file} given a value of
  * {@code datafile.txt}.
- *
- * <p>
- * In all cases, lines may be escaped; escaped lines must end in a trailing
- * backslash character; lines to be appended must be indented using white space
- * (space character and/or tab characters). This is especially useful when
- * defining help descriptions. For example:
- *
- * <pre>
- * option.file.description=Supply the output file to write results to. If the \
- *      file doesn't exist, it is created. If the file does exist, it is
- *      appended to.
- * </pre>
- *
- * Note in the above example the spaces before the backslashes - this is so
- * sentences are not 'glued' together and provide spacing that is easy on the
- * eye to readers of the output.
  */
 public class OptionConfiguration
 {

@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static org.apache.commons.cli.config.GlobalConfiguration.HELP_COMMAND_NAME;
 import static org.apache.commons.cli.config.GlobalConfiguration.OPTION_TYPE;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -602,6 +603,102 @@ public class ConfigurationParserTest
                     + " options must be grouped together. Option 'dir' has"
                     + " been defined prior to the declaration of option"
                     + " 'file'"));
+        }
+    }
+
+    /**
+     * Test that an option that is redefined later in the file throws an
+     * exception.
+     */
+    @Test
+    public void testParseInputStreamHelpCommandDefinedTwice() throws Exception
+    {
+        ConfigurationParser configParser = new ConfigurationParser();
+        InputStream is = ConfigurationParserTest.class.getResourceAsStream(
+                "/config/config_027_help_command_defined_twice.conf");
+        try
+        {
+            configParser.parse(is, "UTF-8");
+            fail("Expected exception.");
+        }
+        catch (ConfigurationException ex)
+        {
+            System.out.println(ex.getMessage());
+            assertTrue(ex.getMessage().contains(
+                    GlobalConfiguration.HELP_COMMAND_NAME 
+                        + " has already been defined."));
+        }
+    }
+
+    /**
+     * Test that an option that is redefined later in the file throws an
+     * exception.
+     */
+    @Test
+    public void testParseInputStreamHelpOptionNameDefinedTwice() throws Exception
+    {
+        ConfigurationParser configParser = new ConfigurationParser();
+        InputStream is = ConfigurationParserTest.class.getResourceAsStream(
+                "/config/config_028_help_option_defined_twice.conf");
+        try
+        {
+            configParser.parse(is, "UTF-8");
+            fail("Expected exception.");
+        }
+        catch (ConfigurationException ex)
+        {
+            System.out.println(ex.getMessage());
+            assertTrue(ex.getMessage().contains(
+                    GlobalConfiguration.HELP_OPTION_NAME
+                        + " has already been defined."));
+        }
+    }
+
+    /**
+     * Test that an option that is redefined later in the file throws an
+     * exception.
+     */
+    @Test
+    public void testParseInputStreamHelpFooterDefinedTwice() throws Exception
+    {
+        ConfigurationParser configParser = new ConfigurationParser();
+        InputStream is = ConfigurationParserTest.class.getResourceAsStream(
+                "/config/config_029_help_footer_defined_twice.conf");
+        try
+        {
+            configParser.parse(is, "UTF-8");
+            fail("Expected exception.");
+        }
+        catch (ConfigurationException ex)
+        {
+            System.out.println(ex.getMessage());
+            assertTrue(ex.getMessage().contains(
+                    GlobalConfiguration.HELP_COMMAND_FOOTER
+                        + " has already been defined."));
+        }
+    }
+
+    /**
+     * Test that an option that is redefined later in the file throws an
+     * exception.
+     */
+    @Test
+    public void testParseInputStreamHelpHeaderDefinedTwice() throws Exception
+    {
+        ConfigurationParser configParser = new ConfigurationParser();
+        InputStream is = ConfigurationParserTest.class.getResourceAsStream(
+                "/config/config_030_help_header_defined_twice.conf");
+        try
+        {
+            configParser.parse(is, "UTF-8");
+            fail("Expected exception.");
+        }
+        catch (ConfigurationException ex)
+        {
+            System.out.println(ex.getMessage());
+            assertTrue(ex.getMessage().contains(
+                    GlobalConfiguration.HELP_COMMAND_HEADER
+                        + " has already been defined."));
         }
     }
 
