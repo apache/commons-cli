@@ -64,7 +64,7 @@ final class Util
         {
             str = str.substring(1, length - 1);
         }
-        
+
         return str;
     }
 }

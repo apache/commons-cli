@@ -205,10 +205,10 @@ public class OptionGroupTest
     public void testTwoOptionsFromGroupWithProperties() throws Exception
     {
         final String[] args = new String[] { "-f" };
-        
+
         final Properties properties = new Properties();
         properties.put("d", "true");
-        
+
         final CommandLine cl = parser.parse( _options, args, properties);
         assertTrue(cl.hasOption("f"));
         assertTrue(!cl.hasOption("d"));

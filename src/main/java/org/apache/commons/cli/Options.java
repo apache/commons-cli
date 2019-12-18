@@ -96,7 +96,7 @@ public class Options implements Serializable
 
     /**
      * Add an option that only contains a short name.
-     * 
+     *
      * <p>
      * The option does not take an argument.
      * </p>
@@ -151,7 +151,7 @@ public class Options implements Serializable
 
     /**
      * Add an option that contains a short-name and a long-name.
-     * 
+     *
      * <p>
      * The added option is set as required. It may be specified as requiring an argument. This method is a shortcut for:
      * </p>
@@ -264,7 +264,7 @@ public class Options implements Serializable
 
     /**
      * Returns the options with a long name starting with the name specified.
-     * 
+     *
      * @param opt the partial name of the option
      * @return the options matching the partial name specified, or an empty list if none matches
      * @since 1.3
@@ -272,7 +272,7 @@ public class Options implements Serializable
     public List<String> getMatchingOptions(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
-        
+
         final List<String> matchingOpts = new ArrayList<String>();
 
         // for a perfect match return the single option only
@@ -288,7 +288,7 @@ public class Options implements Serializable
                 matchingOpts.add(longOpt);
             }
         }
-        
+
         return matchingOpts;
     }
 

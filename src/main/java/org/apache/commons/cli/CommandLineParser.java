@@ -61,7 +61,7 @@ public interface CommandLineParser
      * @param options the specified Options
      * @param arguments the command line arguments
      * @param stopAtNonOption if <code>true</code> an unrecognized argument stops
-     *     the parsing and the remaining arguments are added to the 
+     *     the parsing and the remaining arguments are added to the
      *     {@link CommandLine}s args list. If <code>false</code> an unrecognized
      *     argument triggers a ParseException.
      *
@@ -79,7 +79,7 @@ public interface CommandLineParser
      * @param arguments the command line arguments
      * @param properties command line option name-value pairs
      * @param stopAtNonOption if <code>true</code> an unrecognized argument stops
-     *     the parsing and the remaining arguments are added to the 
+     *     the parsing and the remaining arguments are added to the
      *     {@link CommandLine}s args list. If <code>false</code> an unrecognized
      *     argument triggers a ParseException.
      *

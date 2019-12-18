@@ -108,7 +108,7 @@ public class OptionBuilderTest
         // '@'
         final Option opt2 = OptionBuilder.withDescription("read from stdin").create('@');
         assertEquals("@", opt2.getOpt());
-        
+
         // ' '
         try {
             OptionBuilder.create(' ');
@@ -147,7 +147,7 @@ public class OptionBuilderTest
             // success
         }
 
-        // valid option 
+        // valid option
         try {
             OptionBuilder.create( "opt" );
             // success
@@ -167,7 +167,7 @@ public class OptionBuilderTest
         catch (final IllegalArgumentException e)
         {
             // expected
-            
+
             // implicitly reset the builder
             OptionBuilder.create( "opt" );
         }

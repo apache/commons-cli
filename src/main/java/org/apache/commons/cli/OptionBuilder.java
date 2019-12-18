@@ -285,7 +285,7 @@ public final class OptionBuilder
      * of <code>type</code>.
      * <p>
      * <b>Note:</b> this method is kept for binary compatibility and the
-     * input type is supposed to be a {@link Class} object. 
+     * input type is supposed to be a {@link Class} object.
      *
      * @param newType the type of the Options argument value
      * @return the OptionBuilder instance

@@ -82,7 +82,7 @@ public class OptionsTest
         final Option shortOnly2 = OptionBuilder.create("2");
         final Option bothA = OptionBuilder.withLongOpt("bothA").create("a");
         final Option bothB = OptionBuilder.withLongOpt("bothB").create("b");
-        
+
         final Options options = new Options();
         options.addOption(longOnly1);
         options.addOption(longOnly2);
@@ -90,7 +90,7 @@ public class OptionsTest
         options.addOption(shortOnly2);
         options.addOption(bothA);
         options.addOption(bothB);
-        
+
         final Collection<Option> allOptions = new ArrayList<Option>();
         allOptions.add(longOnly1);
         allOptions.add(longOnly2);
@@ -98,11 +98,11 @@ public class OptionsTest
         allOptions.add(shortOnly2);
         allOptions.add(bothA);
         allOptions.add(bothB);
-        
+
         final Collection<Option> helpOptions = options.helpOptions();
-        
+
         assertTrue("Everything in all should be in help", helpOptions.containsAll(allOptions));
-        assertTrue("Everything in help should be in all", allOptions.containsAll(helpOptions));        
+        assertTrue("Everything in help should be in all", allOptions.containsAll(helpOptions));
     }
 
     @Test
@@ -170,14 +170,14 @@ public class OptionsTest
         assertNotNull(options.getOptionGroups());
         assertEquals(2, options.getOptionGroups().size());
     }
-    
+
     @Test
     public void testGetMatchingOpts()
     {
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("version").create());
         options.addOption(OptionBuilder.withLongOpt("verbose").create());
-        
+
         assertTrue(options.getMatchingOptions("foo").isEmpty());
         assertEquals(1, options.getMatchingOptions("version").size());
         assertEquals(2, options.getMatchingOptions("ver").size());

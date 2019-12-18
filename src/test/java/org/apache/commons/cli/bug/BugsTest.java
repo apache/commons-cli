@@ -120,7 +120,7 @@ public class BugsTest
     @Test
     public void test11456() throws Exception
     {
-        // Posix 
+        // Posix
         Options options = new Options();
         options.addOption( OptionBuilder.hasOptionalArg().create( 'a' ) );
         options.addOption( OptionBuilder.hasArg().create( 'b' ) );
@@ -213,10 +213,10 @@ public class BugsTest
             .hasArg()
             .create( 'n' );
 
-        final String[] args = { 
-            "-o", 
-            "-n", 
-            "newpassword" 
+        final String[] args = {
+            "-o",
+            "-n",
+            "newpassword"
         };
 
         options.addOption( oldpass );
@@ -237,18 +237,18 @@ public class BugsTest
         final Options options = new Options();
         final Option dir = OptionBuilder.withDescription( "dir" ).hasArg().create( 'd' );
         options.addOption( dir );
-        
+
         final PrintStream oldSystemOut = System.out;
         try
         {
             final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             final PrintStream print = new PrintStream(bytes);
-            
+
             // capture this platform's eol symbol
             print.println();
             final String eol = bytes.toString();
             bytes.reset();
-            
+
             System.setOut(new PrintStream(bytes));
 
             final HelpFormatter formatter = new HelpFormatter();
@@ -335,7 +335,7 @@ public class BugsTest
         options.addOption(new Option("z", "timezone", true, "affected option"));
 
         parser.parse(options, CLI_ARGS);
-        
+
         //now add conflicting option
         options.addOption("c", "conflict", true, "conflict option");
         final CommandLine line = parser.parse(options, CLI_ARGS);
@@ -354,22 +354,22 @@ public class BugsTest
         final CommandLine line = parser.parse( options, args );
         assertEquals( "Two Words", line.getOptionValue( "m" ) );
     }
-    
+
     @Test
     public void test31148() throws ParseException
     {
         final Option multiArgOption = new Option("o","option with multiple args");
         multiArgOption.setArgs(1);
-        
+
         final Options options = new Options();
         options.addOption(multiArgOption);
-        
+
         final Parser parser = new PosixParser();
         final String[] args = new String[]{};
         final Properties props = new Properties();
         props.setProperty("o","ovalue");
         final CommandLine cl = parser.parse(options,args,props);
-        
+
         assertTrue(cl.hasOption('o'));
         assertEquals("ovalue",cl.getOptionValue('o'));
     }

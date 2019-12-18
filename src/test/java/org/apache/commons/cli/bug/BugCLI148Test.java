@@ -32,7 +32,7 @@ import org.junit.Test;
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugCLI148Test
-{    
+{
     private Options options;
 
     @Before

@@ -49,7 +49,7 @@ public class ValueTest
         final String[] args = new String[] { "-a",
             "-b", "foo",
             "--c",
-            "--d", "bar" 
+            "--d", "bar"
         };
 
         final Parser parser = new PosixParser();
@@ -62,7 +62,7 @@ public class ValueTest
         assertTrue( _cl.hasOption("a") );
         assertNull( _cl.getOptionValue("a") );
     }
-    
+
     @Test
     public void testShortNoArgWithOption()
     {
@@ -77,7 +77,7 @@ public class ValueTest
         assertNotNull( _cl.getOptionValue("b") );
         assertEquals( _cl.getOptionValue("b"), "foo");
     }
-    
+
     @Test
     public void testShortWithArgWithOption()
     {
@@ -92,7 +92,7 @@ public class ValueTest
         assertTrue( _cl.hasOption("c") );
         assertNull( _cl.getOptionValue("c") );
     }
-    
+
     @Test
     public void testLongNoArgWithOption()
     {
@@ -107,7 +107,7 @@ public class ValueTest
         assertNotNull( _cl.getOptionValue("d") );
         assertEquals( _cl.getOptionValue("d"), "bar");
     }
-    
+
     @Test
     public void testLongWithArgWithOption()
     {
@@ -126,7 +126,7 @@ public class ValueTest
         assertTrue( cmd.hasOption("e") );
         assertNull( cmd.getOptionValue("e") );
     }
-    
+
     @Test
     public void testShortOptionalArgNoValueWithOption() throws Exception
     {
@@ -148,7 +148,7 @@ public class ValueTest
         assertTrue( cmd.hasOption("e") );
         assertEquals( "everything", cmd.getOptionValue("e") );
     }
-    
+
     @Test
     public void testShortOptionalArgValueWithOption() throws Exception
     {
@@ -170,7 +170,7 @@ public class ValueTest
         assertTrue( cmd.hasOption("fish") );
         assertNull( cmd.getOptionValue("fish") );
     }
-    
+
     @Test
     public void testLongOptionalNoValueWithOption() throws Exception
     {
@@ -192,7 +192,7 @@ public class ValueTest
         assertTrue( cmd.hasOption("fish") );
         assertEquals( "face", cmd.getOptionValue("fish") );
     }
-    
+
     @Test
     public void testLongOptionalArgValueWithOption() throws Exception
     {
@@ -217,7 +217,7 @@ public class ValueTest
         assertEquals( "idea", cmd.getOptionValues("j")[1] );
         assertEquals( cmd.getArgs().length, 0 );
     }
-    
+
     @Test
     public void testShortOptionalArgValuesWithOption() throws Exception
     {
@@ -245,7 +245,7 @@ public class ValueTest
         assertEquals( "garden", cmd.getOptionValues("gravy")[1] );
         assertEquals( cmd.getArgs().length, 0 );
     }
-    
+
     @Test
     public void testLongOptionalArgValuesWithOption() throws Exception
     {
@@ -275,7 +275,7 @@ public class ValueTest
         assertEquals( "isotope", cmd.getArgs()[0] );
         assertEquals( "ice", cmd.getArgs()[1] );
     }
-    
+
     @Test
     public void testShortOptionalNArgValuesWithOption() throws Exception
     {
@@ -295,7 +295,7 @@ public class ValueTest
     @Test
     public void testLongOptionalNArgValues() throws Exception
     {
-        final String[] args = new String[] { 
+        final String[] args = new String[] {
             "--hide", "house", "hair", "head"
         };
 
@@ -309,11 +309,11 @@ public class ValueTest
         assertEquals( cmd.getArgs().length, 1 );
         assertEquals( "head", cmd.getArgs()[0] );
     }
-    
+
     @Test
     public void testLongOptionalNArgValuesWithOption() throws Exception
     {
-        final String[] args = new String[] { 
+        final String[] args = new String[] {
             "--hide", "house", "hair", "head"
         };
 

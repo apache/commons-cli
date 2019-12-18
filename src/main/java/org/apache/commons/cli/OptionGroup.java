@@ -30,7 +30,7 @@ public class OptionGroup implements Serializable
 {
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
-    
+
     /** hold the options */
     private final Map<String, Option> optionMap = new LinkedHashMap<String, Option>();
 
@@ -56,7 +56,7 @@ public class OptionGroup implements Serializable
     }
 
     /**
-     * @return the names of the options in this group as a 
+     * @return the names of the options in this group as a
      * <code>Collection</code>
      */
     public Collection<String> getNames()
@@ -78,7 +78,7 @@ public class OptionGroup implements Serializable
      * Set the selected option of this group to <code>name</code>.
      *
      * @param option the option that is selected
-     * @throws AlreadySelectedException if an option from this group has 
+     * @throws AlreadySelectedException if an option from this group has
      * already been selected.
      */
     public void setSelected(final Option option) throws AlreadySelectedException
@@ -89,8 +89,8 @@ public class OptionGroup implements Serializable
             selected = null;
             return;
         }
-        
-        // if no option has already been selected or the 
+
+        // if no option has already been selected or the
         // same option is being reselected then set the
         // selected member variable
         if (selected == null || selected.equals(option.getKey()))
@@ -131,14 +131,14 @@ public class OptionGroup implements Serializable
 
     /**
      * Returns the stringified version of this OptionGroup.
-     * 
+     *
      * @return the stringified representation of this group
      */
     @Override
     public String toString()
     {
         final StringBuilder buff = new StringBuilder();
-        
+
         final Iterator<Option> iter = getOptions().iterator();
 
         buff.append("[");
@@ -157,13 +157,13 @@ public class OptionGroup implements Serializable
                 buff.append("--");
                 buff.append(option.getLongOpt());
             }
-            
+
             if (option.getDescription() != null)
             {
                 buff.append(" ");
                 buff.append(option.getDescription());
             }
-            
+
             if (iter.hasNext())
             {
                 buff.append(", ");

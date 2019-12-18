@@ -111,7 +111,7 @@ public abstract class Parser implements CommandLineParser
      * @param options         the <code>Options</code>
      * @param arguments       the <code>arguments</code>
      * @param stopAtNonOption if <code>true</code> an unrecognized argument stops
-     *     the parsing and the remaining arguments are added to the 
+     *     the parsing and the remaining arguments are added to the
      *     {@link CommandLine}s args list. If <code>false</code> an unrecognized
      *     argument triggers a ParseException.
      * @return the <code>CommandLine</code>
@@ -130,7 +130,7 @@ public abstract class Parser implements CommandLineParser
      * @param arguments the command line arguments
      * @param properties command line option name-value pairs
      * @param stopAtNonOption if <code>true</code> an unrecognized argument stops
-     *     the parsing and the remaining arguments are added to the 
+     *     the parsing and the remaining arguments are added to the
      *     {@link CommandLine}s args list. If <code>false</code> an unrecognized
      *     argument triggers a ParseException.
      *
@@ -149,12 +149,12 @@ public abstract class Parser implements CommandLineParser
         {
             opt.clearValues();
         }
-        
+
         // clear the data from the groups
         for (final OptionGroup group : options.getOptionGroups())
         {
             group.setSelected(null);
-        }        
+        }
 
         // initialise members
         setOptions(options);
@@ -260,17 +260,17 @@ public abstract class Parser implements CommandLineParser
         for (final Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();)
         {
             final String option = e.nextElement().toString();
-            
+
             final Option opt = options.getOption(option);
             if (opt == null)
             {
                 throw new UnrecognizedOptionException("Default option wasn't defined", option);
             }
-            
+
             // if the option is part of a group, check if another option of the group has been selected
             final OptionGroup group = options.getOptionGroup(opt);
             final boolean selected = group != null && group.getSelected() != null;
-            
+
             if (!cmd.hasOption(option) && !selected)
             {
                 // get the value from the properties instance
@@ -337,7 +337,7 @@ public abstract class Parser implements CommandLineParser
         while (iter.hasNext())
         {
             final String str = iter.next();
-            
+
             // found an Option, not an argument
             if (getOptions().hasOption(str) && str.startsWith("-"))
             {
@@ -384,23 +384,23 @@ public abstract class Parser implements CommandLineParser
 
         // get the option represented by arg
         final Option opt = (Option) getOptions().getOption(arg).clone();
-        
+
         // update the required options and groups
         updateRequiredOptions(opt);
-        
+
         // if the option takes an argument value
         if (opt.hasArg())
         {
             processArgs(opt, iter);
         }
-        
+
         // set the option on the command line
         cmd.addOption(opt);
     }
 
     /**
      * Removes the option or its group from the list of expected elements.
-     * 
+     *
      * @param opt
      */
     private void updateRequiredOptions(final Option opt) throws ParseException

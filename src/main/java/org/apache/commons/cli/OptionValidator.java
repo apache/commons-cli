@@ -48,7 +48,7 @@ final class OptionValidator
         {
             return;
         }
-        
+
         // handle the single character opt
         if (opt.length() == 1)
         {

@@ -35,7 +35,7 @@ public class BugCLI162Test
 {
     /** Constant for the line separator.*/
     private static final String CR = System.getProperty("line.separator");
-    
+
     private HelpFormatter formatter;
     private StringWriter sw;
 
@@ -317,7 +317,7 @@ public class BugCLI162Test
                                      "This description has ReallyLongValuesThatAreLongerThanTheWidthOfTheColumns " +
                                      "and also other ReallyLongValuesThatAreHugerAndBiggerThanTheWidthOfTheColumnsBob, " +
                                      "yes. ");
-        
+
         formatter.printHelp(new PrintWriter(sw), 35, this.getClass().getName(), "Header", options, 0, 5, "Footer");
         final String expected = "usage:" + CR +
                           "       org.apache.commons.cli.bug.B" + CR +

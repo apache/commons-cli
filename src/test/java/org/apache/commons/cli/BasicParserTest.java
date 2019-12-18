@@ -40,12 +40,12 @@ public class BasicParserTest extends ParserTestCase
     public void testLongWithoutEqualSingleDash() throws Exception
     {
     }
-    
+
     @Override @Test @Ignore("not supported by the BasicParser")
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
     {
     }
-    
+
     @Override @Test @Ignore("not supported by the BasicParser (CLI-184)")
     public void testNegativeOption() throws Exception
     {
@@ -59,7 +59,7 @@ public class BasicParserTest extends ParserTestCase
     @Override @Test @Ignore("not supported by the BasicParser")
     public void testPropertiesOption2() throws Exception
     {
-    }    
+    }
 
     @Override @Test @Ignore("not supported by the BasicParser")
     public void testShortWithEqual() throws Exception
@@ -80,7 +80,7 @@ public class BasicParserTest extends ParserTestCase
     public void testLongWithEqualSingleDash() throws Exception
     {
     }
-    
+
     @Override @Test @Ignore("not supported by the BasicParser")
     public void testUnambiguousPartialLongOption1() throws Exception
     {

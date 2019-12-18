@@ -28,7 +28,7 @@ import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugCLI133Test
-{    
+{
     @Test
     public void testOrder() throws ParseException {
         final Option optionA = new Option("a", "first");

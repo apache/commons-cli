@@ -38,7 +38,7 @@ public class PosixParserTest extends ParserTestCase
     public void testDoubleDash2() throws Exception
     {
     }
-    
+
     @Override @Test @Ignore("not supported by the PosixParser")
     public void testLongWithoutEqualSingleDash() throws Exception
     {
@@ -48,7 +48,7 @@ public class PosixParserTest extends ParserTestCase
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
     {
     }
-    
+
     @Override @Test @Ignore("not supported by the PosixParser (CLI-184)")
     public void testNegativeOption() throws Exception
     {

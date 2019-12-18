@@ -34,7 +34,7 @@ import java.util.List;
  * A formatter of help messages for command line options.
  *
  * <p>Example:</p>
- * 
+ *
  * <pre>
  * Options options = new Options();
  * options.addOption(OptionBuilder.withLongOpt("file")
@@ -47,24 +47,24 @@ import java.util.List;
  *                                .withDescription("Print the version of the application")
  *                                .create('v'));
  * options.addOption(OptionBuilder.withLongOpt("help").create('h'));
- * 
+ *
  * String header = "Do something useful with an input file\n\n";
  * String footer = "\nPlease report issues at http://example.com/issues";
- * 
+ *
  * HelpFormatter formatter = new HelpFormatter();
  * formatter.printHelp("myapp", header, options, footer, true);
  * </pre>
- * 
+ *
  * This produces the following output:
- * 
+ *
  * <pre>
  * usage: myapp -f &lt;FILE&gt; [-h] [-v]
  * Do something useful with an input file
- * 
+ *
  *  -f,--file &lt;FILE&gt;   The file to be processed
  *  -h,--help
  *  -v,--version       Print the version of the application
- * 
+ *
  * Please report issues at http://example.com/issues
  * </pre>
  */
@@ -90,9 +90,9 @@ public class HelpFormatter
     /** default prefix for long Option */
     public static final String DEFAULT_LONG_OPT_PREFIX = "--";
 
-    /** 
+    /**
      * default separator displayed between a long Option and its value
-     * 
+     *
      * @since 1.3
      **/
     public static final String DEFAULT_LONG_OPT_SEPARATOR = " ";
@@ -177,7 +177,7 @@ public class HelpFormatter
 
     /**
      * Comparator used to sort the options when they output in help text
-     * 
+     *
      * Defaults to case-insensitive alphabetical sorting by option key
      */
     protected Comparator<Option> optionComparator = new OptionComparator();
@@ -329,7 +329,7 @@ public class HelpFormatter
      * Set the separator displayed between a long option and its value.
      * Ensure that the separator specified is supported by the parser used,
      * typically ' ' or '='.
-     * 
+     *
      * @param longOptSeparator the separator, typically ' ' or '='.
      * @since 1.3
      */
@@ -340,7 +340,7 @@ public class HelpFormatter
 
     /**
      * Returns the separator displayed between a long option and its value.
-     * 
+     *
      * @return the separator
      * @since 1.3
      */
@@ -408,7 +408,7 @@ public class HelpFormatter
 
     /**
      * Print the help for <code>options</code> with the specified
-     * command line syntax.  This method prints help information to 
+     * command line syntax.  This method prints help information to
      * System.out.
      *
      * @param cmdLineSyntax the syntax for this application
@@ -438,7 +438,7 @@ public class HelpFormatter
 
     /**
      * Print the help for <code>options</code> with the specified
-     * command line syntax.  This method prints help information to 
+     * command line syntax.  This method prints help information to
      * System.out.
      *
      * @param cmdLineSyntax the syntax for this application
@@ -479,7 +479,7 @@ public class HelpFormatter
      * @param header the banner to display at the beginning of the help
      * @param options the Options instance
      * @param footer the banner to display at the end of the help
-     * @param autoUsage whether to print an automatically generated 
+     * @param autoUsage whether to print an automatically generated
      * usage statement
      */
     public void printHelp(final int width, final String cmdLineSyntax, final String header,
@@ -508,8 +508,8 @@ public class HelpFormatter
      *
      * @throws IllegalStateException if there is no room to print a line
      */
-    public void printHelp(final PrintWriter pw, final int width, final String cmdLineSyntax, 
-                          final String header, final Options options, final int leftPad, 
+    public void printHelp(final PrintWriter pw, final int width, final String cmdLineSyntax,
+                          final String header, final Options options, final int leftPad,
                           final int descPad, final String footer)
     {
         printHelp(pw, width, cmdLineSyntax, header, options, leftPad, descPad, footer, false);
@@ -569,7 +569,7 @@ public class HelpFormatter
     /**
      * Prints the usage statement for the specified application.
      *
-     * @param pw The PrintWriter to print the usage statement 
+     * @param pw The PrintWriter to print the usage statement
      * @param width The number of characters to display per line
      * @param app The application name
      * @param options The command line Options
@@ -596,7 +596,7 @@ public class HelpFormatter
             // check if the option is part of an OptionGroup
             final OptionGroup group = options.getOptionGroup(option);
 
-            // if the option is part of a group 
+            // if the option is part of a group
             if (group != null)
             {
                 // and if the group has not already been processed
@@ -632,7 +632,7 @@ public class HelpFormatter
     }
 
     /**
-     * Appends the usage clause for an OptionGroup to a StringBuffer.  
+     * Appends the usage clause for an OptionGroup to a StringBuffer.
      * The clause is wrapped in square brackets if the group is required.
      * The display of the options is handled by appendOption
      * @param buff the StringBuffer to append to
@@ -670,7 +670,7 @@ public class HelpFormatter
     }
 
     /**
-     * Appends the usage clause for an Option to a StringBuffer.  
+     * Appends the usage clause for an Option to a StringBuffer.
      *
      * @param buff the StringBuffer to append to
      * @param option the Option to append
@@ -691,14 +691,14 @@ public class HelpFormatter
         {
             buff.append("--").append(option.getLongOpt());
         }
-        
+
         // if the Option has a value and a non blank argname
         if (option.hasArg() && (option.getArgName() == null || option.getArgName().length() != 0))
         {
             buff.append(option.getOpt() == null ? longOptSeparator : " ");
             buff.append("<").append(option.getArgName() != null ? option.getArgName() : getArgName()).append(">");
         }
-        
+
         // if the Option is not a required option
         if (!required)
         {
@@ -722,7 +722,7 @@ public class HelpFormatter
     }
 
     /**
-     * Print the help for the specified Options to the specified writer, 
+     * Print the help for the specified Options to the specified writer,
      * using the specified width, left padding and description padding.
      *
      * @param pw The printWriter to write the help to
@@ -733,7 +733,7 @@ public class HelpFormatter
      * @param descPad the number of characters of padding to be prefixed
      * to each description line
      */
-    public void printOptions(final PrintWriter pw, final int width, final Options options, 
+    public void printOptions(final PrintWriter pw, final int width, final Options options,
                              final int leftPad, final int descPad)
     {
         final StringBuffer sb = new StringBuffer();
@@ -791,9 +791,9 @@ public class HelpFormatter
         final String lpad = createPadding(leftPad);
         final String dpad = createPadding(descPad);
 
-        // first create list containing only <lpad>-a,--aaa where 
-        // -a is opt and --aaa is long opt; in parallel look for 
-        // the longest opt string this list will be then used to 
+        // first create list containing only <lpad>-a,--aaa where
+        // -a is opt and --aaa is long opt; in parallel look for
+        // the longest opt string this list will be then used to
         // sort options ascending
         int max = 0;
         final List<StringBuffer> prefixList = new ArrayList<StringBuffer>();
@@ -885,7 +885,7 @@ public class HelpFormatter
      *
      * @return the StringBuffer with the rendered Options contents.
      */
-    protected StringBuffer renderWrappedText(final StringBuffer sb, final int width, 
+    protected StringBuffer renderWrappedText(final StringBuffer sb, final int width,
                                              int nextLineTabStop, String text)
     {
         int pos = findWrapPos(text, width, 0);
@@ -968,7 +968,7 @@ public class HelpFormatter
     /**
      * Finds the next text wrap position after <code>startPos</code> for the
      * text in <code>text</code> with the column width <code>width</code>.
-     * The wrap point is the last position before startPos+width having a 
+     * The wrap point is the last position before startPos+width having a
      * whitespace character (space, \n, \r). If there is no whitespace character
      * before startPos+width, it will return startPos+width.
      *

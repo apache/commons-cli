@@ -61,7 +61,7 @@ public class ValuesTest
                                        "-h", "val2",
                                        "-jkey=value",
                                        "-j", "key=value",
-                                       "-kkey1=value1", 
+                                       "-kkey1=value1",
                                        "-kkey2=value2",
                                        "-mkey=value"};
 
@@ -142,7 +142,7 @@ public class ValuesTest
 
     /**
      * jkeyes - commented out this test as the new architecture
-     * breaks this type of functionality.  I have left the test 
+     * breaks this type of functionality.  I have left the test
      * here in case I get a brainwave on how to resolve this.
      */
     /*
@@ -159,7 +159,7 @@ public class ValuesTest
             fail( "IndexOutOfBounds not caught" );
         }
         catch( IndexOutOfBoundsException exp ) {
-            
+
         }
 
         try {

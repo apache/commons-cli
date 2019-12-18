@@ -72,7 +72,7 @@ public class OptionTest
         assertEquals(0, a.getValuesList().size());
         assertEquals(2, b.getValues().length);
     }
-    
+
     @Test
     public void testHashCode() {
         assertNotEquals(Option.builder("test").build().hashCode(), Option.builder("test2").build().hashCode()) ;
@@ -154,12 +154,12 @@ public class OptionTest
         assertEquals(null, option.getValue(0));
 
         option.addValueForProcessing("foo");
-        
+
         assertEquals("foo", option.getValue());
         assertEquals("foo", option.getValue(0));
         assertEquals("foo", option.getValue("default"));
     }
-    
+
     @Test
     public void testBuilderMethods()
     {
@@ -195,7 +195,7 @@ public class OptionTest
         checkOption(Option.builder("a").desc("desc").type(Integer.class).build(),
             "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, Integer.class);
     }
-    
+
     @Test(expected=IllegalArgumentException.class)
     public void testBuilderInsufficientParams1()
     {
@@ -223,5 +223,5 @@ public class OptionTest
         assertEquals(valueSeparator, option.getValueSeparator());
         assertEquals(cls,  option.getType());
     }
-    
+
 }

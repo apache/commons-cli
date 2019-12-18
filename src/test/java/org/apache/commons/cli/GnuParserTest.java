@@ -35,7 +35,7 @@ public class GnuParserTest extends ParserTestCase
     public void testDoubleDash2() throws Exception
     {
     }
-    
+
     @Override @Test @Ignore("not supported by the GnuParser")
     public void testLongWithoutEqualSingleDash() throws Exception
     {
@@ -52,17 +52,17 @@ public class GnuParserTest extends ParserTestCase
     }
 
     @Override @Test @Ignore("not supported by the GnuParser")
-    public void testLongWithUnexpectedArgument1() throws Exception 
+    public void testLongWithUnexpectedArgument1() throws Exception
     {
     }
 
     @Override @Test @Ignore("not supported by the GnuParser")
-    public void testLongWithUnexpectedArgument2() throws Exception 
+    public void testLongWithUnexpectedArgument2() throws Exception
     {
     }
 
     @Override @Test @Ignore("not supported by the GnuParser")
-    public void testShortWithUnexpectedArgument() throws Exception 
+    public void testShortWithUnexpectedArgument() throws Exception
     {
     }
 

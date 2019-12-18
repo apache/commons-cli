@@ -33,7 +33,7 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-/** 
+/**
  * Test case for the PatternOptionBuilder class.
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes

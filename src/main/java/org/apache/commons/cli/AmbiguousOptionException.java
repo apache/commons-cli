@@ -58,7 +58,7 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
 
     /**
      * Build the exception message from the specified list of options.
-     * 
+     *
      * @param option
      * @param matchingOptions
      * @return
