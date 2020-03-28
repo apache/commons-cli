@@ -510,7 +510,7 @@ public class DefaultParser implements CommandLineParser
             if (option.acceptsArg())
             {
                 handleOption(option);
-                currentOption.addValueForProcessing(value);// Possible Dereference is currentOption is set to null
+                currentOption.addValueForProcessing(value);//TODO: Possible Dereference is currentOption is set to null
                 currentOption = null;
             }
             else
@@ -706,7 +706,7 @@ public class DefaultParser implements CommandLineParser
         {
             final OptionGroup group = options.getOptionGroup(option);
 
-            if (group.isRequired()) //Possible dereference if the option is not found
+            if (group.isRequired()) //TODO: Possible dereference if the option is not found
             {
                 expectedOpts.remove(group);
             }
