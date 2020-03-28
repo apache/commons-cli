@@ -17,6 +17,8 @@
 
 package org.apache.commons.cli;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.util.List;
 import java.util.Iterator;
 
@@ -37,6 +39,8 @@ public class MissingOptionException extends ParseException
      *
      * @param message the detail message
      */
+    //Suppressed the error because it is only used in below Constructor
+    @SuppressWarnings("initialization")
     public MissingOptionException(final String message)
     {
         super(message);
@@ -73,7 +77,7 @@ public class MissingOptionException extends ParseException
      * @param missingOptions the list of missing options and groups
      * @since 1.2
      */
-    private static String createMessage(final List<?> missingOptions)
+    private static @NonNull String createMessage(final List<?> missingOptions)
     {
         final StringBuilder buf = new StringBuilder("Missing required option");
         buf.append(missingOptions.size() == 1 ? "" : "s");

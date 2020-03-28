@@ -18,6 +18,7 @@
 package org.apache.commons.cli;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -48,7 +49,7 @@ public class DefaultParser implements CommandLineParser
     protected String currentToken;
 
     /** The last option parsed. */
-    protected Option currentOption;
+    protected @Nullable Option currentOption;
 
     /** Flag indicating if tokens should no longer be analyzed and simply added as arguments of the command line. */
     protected boolean skipParsing;
@@ -76,6 +77,8 @@ public class DefaultParser implements CommandLineParser
      * <code>-de</code> would enable both <code>debug</code> as well as
      * <code>extract</code> options.
      */
+    //Default constructor
+    @SuppressWarnings("initialization")
     public DefaultParser() {
         this.allowPartialMatching = true;
     }
@@ -99,6 +102,8 @@ public class DefaultParser implements CommandLineParser
      *
      * @param allowPartialMatching if partial matching of long options shall be enabled
      */
+    //Required attributes are initialized when using parse()
+    @SuppressWarnings("initialization")
     public DefaultParser(final boolean allowPartialMatching) {
         this.allowPartialMatching = allowPartialMatching;
     }
@@ -119,7 +124,7 @@ public class DefaultParser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    public CommandLine parse(final Options options, final String[] arguments, final Properties properties) throws ParseException
+    public CommandLine parse(final Options options, final String[] arguments, final @Nullable Properties properties) throws ParseException
     {
         return parse(options, arguments, properties, false);
     }
@@ -144,7 +149,9 @@ public class DefaultParser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      * while parsing the command line tokens.
      */
-    public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption)
+    //At line 160 current option is assigned null for parsing logic
+    @SuppressWarnings({"assignment", "argument"})
+    public CommandLine parse(final Options options, final String[] arguments, final @Nullable Properties properties, final boolean stopAtNonOption)
             throws ParseException
     {
         this.options = options;
@@ -156,6 +163,7 @@ public class DefaultParser implements CommandLineParser
         // clear the data from the groups
         for (final OptionGroup group : options.getOptionGroups())
         {
+            //data is to be cleared hence set null, hence suppressed argument
             group.setSelected(null);
         }
 
@@ -185,7 +193,9 @@ public class DefaultParser implements CommandLineParser
      *
      * @param properties The value properties to be processed.
      */
-    private void handleProperties(final Properties properties) throws ParseException
+    //On line 207 there will not be dereference, as the entry condition for loop restricts entry if no more elements available
+    @SuppressWarnings({"dereference", "assignment"})
+    private void handleProperties(final @Nullable Properties properties) throws ParseException
     {
         if (properties == null)
         {
@@ -227,7 +237,7 @@ public class DefaultParser implements CommandLineParser
                 }
 
                 handleOption(opt);
-                currentOption = null;
+                currentOption = null; // Here it is set null for parsing logic, hence suppressed assignment warning
             }
         }
     }
@@ -266,7 +276,7 @@ public class DefaultParser implements CommandLineParser
      * @param token the command line token to handle
      * @throws ParseException
      */
-    private void handleToken(final @NonNull String token) throws ParseException
+    @SuppressWarnings("dereference") private void handleToken(final @NonNull String token) throws ParseException
     {
         currentToken = token;
 
@@ -280,7 +290,7 @@ public class DefaultParser implements CommandLineParser
         }
         else if (currentOption != null && currentOption.acceptsArg() && isArgument(token))
         {
-            currentOption.addValueForProcessing(Util.stripLeadingAndTrailingQuotes(token));
+            currentOption.addValueForProcessing(Util.stripLeadingAndTrailingQuotes(token)); // Nullness check is performed in above condition, hence warnings suppressed
         }
         else if (token.startsWith("--"))
         {
@@ -500,7 +510,7 @@ public class DefaultParser implements CommandLineParser
             if (option.acceptsArg())
             {
                 handleOption(option);
-                currentOption.addValueForProcessing(value);
+                currentOption.addValueForProcessing(value);// Possible Dereference is currentOption is set to null
                 currentOption = null;
             }
             else
@@ -529,11 +539,12 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token the command line token to handle
      */
+    @SuppressWarnings("dereference")
     private void handleShortAndLongOption(final String token) throws ParseException
     {
         final String t = Util.stripLeadingHyphens(token);
 
-        final int pos = t.indexOf('=');
+        final int pos = t.indexOf('='); //Suppressign the warning, as stripLeadingHyphens(String) will return non null String if token is @NonNull
 
         if (t.length() == 1)
         {
@@ -626,13 +637,14 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    private String getLongPrefix(final String token)
+    @SuppressWarnings("dereference")
+    private @Nullable String getLongPrefix(final String token)
     {
         final String t = Util.stripLeadingHyphens(token);
 
         int i;
         String opt = null;
-        for (i = t.length() - 2; i > 1; i--)
+        for (i = t.length() - 2; i > 1; i--) // t is not null as token passed along the various calls is @NonNull
         {
             final String prefix = t.substring(0, i);
             if (options.hasLongOption(prefix))
@@ -694,7 +706,7 @@ public class DefaultParser implements CommandLineParser
         {
             final OptionGroup group = options.getOptionGroup(option);
 
-            if (group.isRequired())
+            if (group.isRequired()) //Possible dereference if the option is not found
             {
                 expectedOpts.remove(group);
             }

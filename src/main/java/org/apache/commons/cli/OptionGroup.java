@@ -18,6 +18,7 @@
 package org.apache.commons.cli;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -37,7 +38,9 @@ public class OptionGroup implements Serializable
     private final Map<String, Option> optionMap = new LinkedHashMap<String, Option>();
 
     /** the name of the selected option */
-    private String selected;
+    //Suppressed because an option is set while parsing, in DefaultParser at line 702
+    @SuppressWarnings("initialization")
+    private @Nullable String selected;
 
     /** specified whether this group is required */
     private boolean required;
@@ -61,6 +64,8 @@ public class OptionGroup implements Serializable
      * @return the names of the options in this group as a
      * <code>Collection</code>
      */
+    //We are sure to get a Collection<String> object as the keySet() gives required values
+    @SuppressWarnings("return")
     public Collection<String> getNames()
     {
         // the key set is the collection of names
@@ -108,7 +113,7 @@ public class OptionGroup implements Serializable
     /**
      * @return the selected option name
      */
-    public String getSelected()
+    public @Nullable String getSelected()
     {
         return selected;
     }

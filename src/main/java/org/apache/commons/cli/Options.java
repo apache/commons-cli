@@ -18,6 +18,7 @@
 package org.apache.commons.cli;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -108,7 +109,9 @@ public class Options implements Serializable
      * @return the resulting Options instance
      * @since 1.3
      */
-    public Options addOption(final String opt, final String description)
+    //Suppressed error as the long option can be null because opt should not be null
+    @SuppressWarnings("nullness")
+    public Options addOption(final @NonNull String opt, final String description)
     {
         addOption(opt, null, false, description);
         return this;
@@ -126,7 +129,9 @@ public class Options implements Serializable
      * @param description Self-documenting description
      * @return the resulting Options instance
      */
-    public Options addOption(final String opt, final boolean hasArg, final String description)
+    //Suppressed error as the long option can be null because opt should not be null
+    @SuppressWarnings("nullness")
+    public Options addOption(final @NonNull String opt, final boolean hasArg, final String description)
     {
         addOption(opt, null, hasArg, description);
         return this;
@@ -252,6 +257,8 @@ public class Options implements Serializable
      * @param opt short or long name of the {@link Option}
      * @return the option represented by opt
      */
+    // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
+    @SuppressWarnings("assignment")
     public Option getOption(@NonNull String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
@@ -271,6 +278,8 @@ public class Options implements Serializable
      * @return the options matching the partial name specified, or an empty list if none matches
      * @since 1.3
      */
+    // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
+    @SuppressWarnings("assignment")
     public List<String> getMatchingOptions(@NonNull String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
@@ -300,7 +309,9 @@ public class Options implements Serializable
      * @param opt short or long name of the {@link Option}
      * @return true if the named {@link Option} is a member of this {@link Options}
      */
-    public boolean hasOption(String opt)
+    // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
+    @SuppressWarnings("assignment")
+    public boolean hasOption(@NonNull String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
@@ -314,7 +325,9 @@ public class Options implements Serializable
      * @return true if the named {@link Option} is a member of this {@link Options}
      * @since 1.3
      */
-    public boolean hasLongOption(String opt)
+    // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
+    @SuppressWarnings("assignment")
+    public boolean hasLongOption(@NonNull String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
@@ -328,7 +341,9 @@ public class Options implements Serializable
      * @return true if the named {@link Option} is a member of this {@link Options}
      * @since 1.3
      */
-    public boolean hasShortOption(String opt)
+    // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
+    @SuppressWarnings("assignment")
+    public boolean hasShortOption(@NonNull String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
@@ -341,7 +356,7 @@ public class Options implements Serializable
      * @param opt the option whose OptionGroup is being queried.
      * @return the OptionGroup if <code>opt</code> is part of an OptionGroup, otherwise return null
      */
-    public OptionGroup getOptionGroup(final @NonNull Option opt)
+    public @Nullable OptionGroup getOptionGroup(final @NonNull Option opt)
     {
         return optionGroups.get(opt.getKey());
     }

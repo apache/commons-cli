@@ -17,6 +17,7 @@
 
 package org.apache.commons.cli;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
@@ -91,7 +92,7 @@ public class PatternOptionBuilder
      * @param ch the specified character
      * @return The class that <code>ch</code> represents
      */
-    public static Object getValueClass(final char ch)
+    public static @Nullable Object getValueClass(final char ch)
     {
         switch (ch)
         {

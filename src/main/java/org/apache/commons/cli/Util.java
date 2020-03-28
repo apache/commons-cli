@@ -33,7 +33,7 @@ final class Util
      *
      * @return the new String.
      */
-    static @Nullable String stripLeadingHyphens(final String str)
+    static @Nullable String stripLeadingHyphens(final @Nullable String str)
     {
         if (str == null)
         {

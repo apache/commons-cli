@@ -143,6 +143,8 @@ public class TypeHandler
      * @return the number represented by <code>str</code>
      * @throws ParseException if <code>str</code> is not a number
      */
+    //Message from exception will not be null
+    @SuppressWarnings("argument")
     public static Number createNumber(final String str) throws ParseException
     {
         try

@@ -18,6 +18,7 @@
 package org.apache.commons.cli;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -484,8 +485,8 @@ public class HelpFormatter
      * @param autoUsage whether to print an automatically generated
      * usage statement
      */
-    public void printHelp(final int width, final @NonNull String cmdLineSyntax, final String header,
-                          final Options options, final String footer, final boolean autoUsage)
+    public void printHelp(final int width, final @NonNull String cmdLineSyntax, final @Nullable String header,
+                          final Options options, final @Nullable String footer, final boolean autoUsage)
     {
         final PrintWriter pw = new PrintWriter(System.out);
 
@@ -538,8 +539,8 @@ public class HelpFormatter
      * @throws IllegalStateException if there is no room to print a line
      */
     public void printHelp(final PrintWriter pw, final int width, final @NonNull String cmdLineSyntax,
-                          final String header, final Options options, final int leftPad,
-                          final int descPad, final String footer, final boolean autoUsage)
+                          final @Nullable String header, final Options options, final int leftPad,
+                          final int descPad, final @Nullable String footer, final boolean autoUsage)
     {
         if (cmdLineSyntax == null || cmdLineSyntax.length() == 0)
         {

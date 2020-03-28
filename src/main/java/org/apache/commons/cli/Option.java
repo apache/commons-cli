@@ -17,6 +17,7 @@
 
 package org.apache.commons.cli;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.io.Serializable;
@@ -108,7 +109,9 @@ public class Option implements Cloneable, Serializable
      * @throws IllegalArgumentException if there are any non valid
      * Option characters in <code>opt</code>.
      */
-    public Option(final String opt, final String description) throws IllegalArgumentException
+    //Suppressed error as the long option can be null because opt should not be null
+    @SuppressWarnings("nullness")
+    public Option(final @NonNull String opt, final String description) throws IllegalArgumentException
     {
         this(opt, null, false, description);
     }
@@ -123,7 +126,9 @@ public class Option implements Cloneable, Serializable
      * @throws IllegalArgumentException if there are any non valid
      * Option characters in <code>opt</code>.
      */
-    public Option(final String opt, final boolean hasArg, final String description) throws IllegalArgumentException
+    //Suppressed error as the long option can be null because opt should not be null
+    @SuppressWarnings("nullness")
+    public Option(final @NonNull String opt, final boolean hasArg, final String description) throws IllegalArgumentException
     {
         this(opt, null, hasArg, description);
     }
@@ -519,7 +524,7 @@ public class Option implements Cloneable, Serializable
      * @return the value/first value of this Option or
      * <code>null</code> if there is no value.
      */
-    public String getValue()
+    public @Nullable String getValue()
     {
         return hasNoValues() ? null : values.get(0);
     }
@@ -536,7 +541,7 @@ public class Option implements Cloneable, Serializable
      * @throws IndexOutOfBoundsException if index is less than 1
      * or greater than the number of the values for this Option.
      */
-    public String getValue(final int index) throws IndexOutOfBoundsException
+    public @Nullable String getValue(final int index) throws IndexOutOfBoundsException
     {
         return hasNoValues() ? null : values.get(index);
     }
@@ -551,7 +556,7 @@ public class Option implements Cloneable, Serializable
      * @return the value/first value of this Option or the
      * <code>defaultValue</code> if there are no values.
      */
-    public String getValue(final String defaultValue)
+    public @NonNull String getValue(final @NonNull String defaultValue)
     {
         final String value = getValue();
 
@@ -565,7 +570,7 @@ public class Option implements Cloneable, Serializable
      * @return the values of this Option as a String array
      * or null if there are no values
      */
-    public String[] getValues()
+    public @Nullable String[] getValues()
     {
         return hasNoValues() ? null : values.toArray(new String[values.size()]);
     }
@@ -630,7 +635,7 @@ public class Option implements Cloneable, Serializable
     }
 
     @Override
-    public boolean equals(final Object o)
+    public boolean equals(final @Nullable Object o)
     {
         if (this == o)
         {
@@ -755,6 +760,7 @@ public class Option implements Cloneable, Serializable
      * @return a new {@link Builder} instance
      * @since 1.3
      */
+    // Was not able to figure out the solution for this error
     public static Builder builder()
     {
         return builder(null);
@@ -824,7 +830,9 @@ public class Option implements Cloneable, Serializable
          * @param opt short representation of the option
          * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
          */
-        private Builder(final @Nullable String opt) throws IllegalArgumentException
+        //This follows Builder pattern, and all options are seperately set, so suppressed initialization
+        @SuppressWarnings("initialization")
+        private Builder(final @NonNull String opt) throws IllegalArgumentException
         {
             OptionValidator.validateOption(opt);
             this.opt = opt;
@@ -836,7 +844,7 @@ public class Option implements Cloneable, Serializable
          * @param argName the display name for the argument value.
          * @return this builder, to allow method chaining
          */
-        public Builder argName(final String argName)
+        public Builder argName(final @NonNull String argName)
         {
             this.argName = argName;
             return this;
@@ -848,7 +856,7 @@ public class Option implements Cloneable, Serializable
          * @param description the description of the option.
          * @return this builder, to allow method chaining
          */
-        public Builder desc(final String description)
+        public Builder desc(final @NonNull String description)
         {
             this.description = description;
             return this;
@@ -860,7 +868,7 @@ public class Option implements Cloneable, Serializable
          * @param longOpt the long name of the Option
          * @return this builder, to allow method chaining
          */
-        public Builder longOpt(final String longOpt)
+        public Builder longOpt(final @NonNull String longOpt)
         {
             this.longOpt = longOpt;
             return this;
@@ -919,7 +927,7 @@ public class Option implements Cloneable, Serializable
          * @param type the type of the Option
          * @return this builder, to allow method chaining
          */
-        public Builder type(final Class<?> type)
+        public Builder type(final @Nullable Class<?> type)
         {
             this.type = type;
             return this;

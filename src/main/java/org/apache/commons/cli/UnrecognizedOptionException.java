@@ -37,6 +37,8 @@ public class UnrecognizedOptionException extends ParseException
      *
      * @param message the detail message
      */
+    //Only usage is in another constructor, and it initializes option
+    @SuppressWarnings("initialization")
     public UnrecognizedOptionException(final String message)
     {
         super(message);

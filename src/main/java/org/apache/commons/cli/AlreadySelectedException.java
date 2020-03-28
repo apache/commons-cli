@@ -40,6 +40,8 @@ public class AlreadySelectedException extends ParseException
      *
      * @param message the detail message
      */
+    //Suppressed the error because it is only used in below Constructor
+    @SuppressWarnings("initialization")
     public AlreadySelectedException(final String message)
     {
         super(message);

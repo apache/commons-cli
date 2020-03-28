@@ -64,7 +64,9 @@ public class CommandLine implements Serializable
      * @param opt the option to check.
      * @return true if set, false if not.
      * @since 1.5
+     *
      */
+    //Was not able to solve this error as using the resolveOption(String) at line 83 may return null, and may cause NullPointerException
     public boolean hasOption(final Option opt)
     {
         return options.contains(opt);
@@ -76,7 +78,7 @@ public class CommandLine implements Serializable
      * @param opt Short name of the option.
      * @return true if set, false if not.
      */
-    public boolean hasOption(final String opt)
+    public boolean hasOption(final @NonNull String opt)
     {
         return hasOption(resolveOption(opt));
     }
@@ -99,6 +101,8 @@ public class CommandLine implements Serializable
      * @return the type of this <code>Option</code>.
      * @deprecated due to System.err message. Instead use getParsedOptionValue(String)
      */
+    //Did not annotate deeprecated methods and files
+    @SuppressWarnings("return")
     @Deprecated
     public Object getOptionObject(final String opt)
     {
@@ -122,7 +126,7 @@ public class CommandLine implements Serializable
      * @see PatternOptionBuilder
      * @since 1.5
      */
-    public Object getParsedOptionValue(final Option option) throws ParseException
+    public @Nullable Object getParsedOptionValue(final Option option) throws ParseException
     {
         if (option == null)
         {
@@ -184,7 +188,7 @@ public class CommandLine implements Serializable
      * otherwise null.
      * @since 1.5
      */
-    public @Nullable String getOptionValue(final Option option)
+    public @Nullable String getOptionValue(final @Nullable Option option)
     {
         if (option == null)
         {
@@ -201,7 +205,7 @@ public class CommandLine implements Serializable
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public @Nullable String getOptionValue(final String opt)
+    public @Nullable String getOptionValue(final @NonNull String opt)
     {
         return getOptionValue(resolveOption(opt));
     }
@@ -213,6 +217,8 @@ public class CommandLine implements Serializable
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
      */
+    //valueoOf(char) will always give a non null String
+    @SuppressWarnings({"argument", "return"})
     public String getOptionValue(final char opt)
     {
         return getOptionValue(String.valueOf(opt));
@@ -248,7 +254,9 @@ public class CommandLine implements Serializable
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String @Nullable[] getOptionValues(final String opt)
+    //valueoOf(char) will always give a non null String
+    @SuppressWarnings({"argument", "return"})
+    public String[] getOptionValues(final String opt)
     {
         return getOptionValues(resolveOption(opt));
     }
@@ -259,7 +267,7 @@ public class CommandLine implements Serializable
      * @param opt short or long name of the option.
      * @return Canonicalized option.
      */
-    private @Nullable Option resolveOption(String opt)
+    private @Nullable Option resolveOption(@NonNull String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
         for (final Option option : options)
@@ -300,7 +308,7 @@ public class CommandLine implements Serializable
      * otherwise <code>defaultValue</code>.
      * @since 1.5
      */
-    public String getOptionValue(final Option option, final String defaultValue)
+    public String getOptionValue(final @Nullable Option option, final String defaultValue)
     {
         final String answer = getOptionValue(option);
         return (answer != null) ? answer : defaultValue;
