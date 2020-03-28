@@ -17,6 +17,8 @@
 
 package org.apache.commons.cli;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -185,7 +187,7 @@ public class Options implements Serializable
      * @param opt the option that is to be added
      * @return the resulting Options instance
      */
-    public Options addOption(final Option opt)
+    public Options addOption(final @NonNull Option opt)
     {
         final String key = opt.getKey();
 
@@ -250,7 +252,7 @@ public class Options implements Serializable
      * @param opt short or long name of the {@link Option}
      * @return the option represented by opt
      */
-    public Option getOption(String opt)
+    public Option getOption(@NonNull String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
@@ -269,7 +271,7 @@ public class Options implements Serializable
      * @return the options matching the partial name specified, or an empty list if none matches
      * @since 1.3
      */
-    public List<String> getMatchingOptions(String opt)
+    public List<String> getMatchingOptions(@NonNull String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
@@ -339,7 +341,7 @@ public class Options implements Serializable
      * @param opt the option whose OptionGroup is being queried.
      * @return the OptionGroup if <code>opt</code> is part of an OptionGroup, otherwise return null
      */
-    public OptionGroup getOptionGroup(final Option opt)
+    public OptionGroup getOptionGroup(final @NonNull Option opt)
     {
         return optionGroups.get(opt.getKey());
     }

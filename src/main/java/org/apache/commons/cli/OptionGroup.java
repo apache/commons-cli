@@ -17,6 +17,8 @@
 
 package org.apache.commons.cli;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
@@ -46,7 +48,7 @@ public class OptionGroup implements Serializable
      * @param option the option to add to this group
      * @return this option group with the option added
      */
-    public OptionGroup addOption(final Option option)
+    public OptionGroup addOption(final @NonNull Option option)
     {
         // key   - option name
         // value - the option

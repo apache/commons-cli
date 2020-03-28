@@ -17,6 +17,8 @@
 
 package org.apache.commons.cli;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -344,7 +346,7 @@ public class Option implements Cloneable, Serializable
      *
      * @return the display name for the argument value.
      */
-    public String getArgName()
+        public String getArgName()
     {
         return argName;
     }
@@ -822,7 +824,7 @@ public class Option implements Cloneable, Serializable
          * @param opt short representation of the option
          * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
          */
-        private Builder(final String opt) throws IllegalArgumentException
+        private Builder(final @Nullable String opt) throws IllegalArgumentException
         {
             OptionValidator.validateOption(opt);
             this.opt = opt;

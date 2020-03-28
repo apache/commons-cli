@@ -17,6 +17,8 @@
 
 package org.apache.commons.cli;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -401,7 +403,7 @@ public class HelpFormatter
      * @param cmdLineSyntax the syntax for this application
      * @param options the Options instance
      */
-    public void printHelp(final String cmdLineSyntax, final Options options)
+    public void printHelp(final @NonNull String cmdLineSyntax, final Options options)
     {
         printHelp(getWidth(), cmdLineSyntax, null, options, null, false);
     }
@@ -416,7 +418,7 @@ public class HelpFormatter
      * @param autoUsage whether to print an automatically generated
      * usage statement
      */
-    public void printHelp(final String cmdLineSyntax, final Options options, final boolean autoUsage)
+    public void printHelp(final @NonNull String cmdLineSyntax, final Options options, final boolean autoUsage)
     {
         printHelp(getWidth(), cmdLineSyntax, null, options, null, autoUsage);
     }
@@ -431,7 +433,7 @@ public class HelpFormatter
      * @param options the Options instance
      * @param footer the banner to display at the end of the help
      */
-    public void printHelp(final String cmdLineSyntax, final String header, final Options options, final String footer)
+    public void printHelp(final @NonNull String cmdLineSyntax, final String header, final Options options, final String footer)
     {
         printHelp(cmdLineSyntax, header, options, footer, false);
     }
@@ -448,7 +450,7 @@ public class HelpFormatter
      * @param autoUsage whether to print an automatically generated
      * usage statement
      */
-    public void printHelp(final String cmdLineSyntax, final String header, final Options options, final String footer, final boolean autoUsage)
+    public void printHelp(final @NonNull String cmdLineSyntax, final String header, final Options options, final String footer, final boolean autoUsage)
     {
         printHelp(getWidth(), cmdLineSyntax, header, options, footer, autoUsage);
     }
@@ -464,7 +466,7 @@ public class HelpFormatter
      * @param options the Options instance
      * @param footer the banner to display at the end of the help
      */
-    public void printHelp(final int width, final String cmdLineSyntax, final String header, final Options options, final String footer)
+    public void printHelp(final int width, final @NonNull String cmdLineSyntax, final String header, final Options options, final String footer)
     {
         printHelp(width, cmdLineSyntax, header, options, footer, false);
     }
@@ -482,7 +484,7 @@ public class HelpFormatter
      * @param autoUsage whether to print an automatically generated
      * usage statement
      */
-    public void printHelp(final int width, final String cmdLineSyntax, final String header,
+    public void printHelp(final int width, final @NonNull String cmdLineSyntax, final String header,
                           final Options options, final String footer, final boolean autoUsage)
     {
         final PrintWriter pw = new PrintWriter(System.out);
@@ -508,7 +510,7 @@ public class HelpFormatter
      *
      * @throws IllegalStateException if there is no room to print a line
      */
-    public void printHelp(final PrintWriter pw, final int width, final String cmdLineSyntax,
+    public void printHelp(final PrintWriter pw, final int width, final @NonNull String cmdLineSyntax,
                           final String header, final Options options, final int leftPad,
                           final int descPad, final String footer)
     {
@@ -535,7 +537,7 @@ public class HelpFormatter
      *
      * @throws IllegalStateException if there is no room to print a line
      */
-    public void printHelp(final PrintWriter pw, final int width, final String cmdLineSyntax,
+    public void printHelp(final PrintWriter pw, final int width, final @NonNull String cmdLineSyntax,
                           final String header, final Options options, final int leftPad,
                           final int descPad, final String footer, final boolean autoUsage)
     {

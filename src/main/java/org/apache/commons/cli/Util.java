@@ -17,6 +17,9 @@
 
 package org.apache.commons.cli;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Contains useful helper methods for classes within this package.
  */
@@ -30,7 +33,7 @@ final class Util
      *
      * @return the new String.
      */
-    static String stripLeadingHyphens(final String str)
+    static @Nullable String stripLeadingHyphens(final String str)
     {
         if (str == null)
         {
@@ -57,7 +60,7 @@ final class Util
      *
      * @return The string without the leading and trailing quotes.
      */
-    static String stripLeadingAndTrailingQuotes(String str)
+    static @NonNull String stripLeadingAndTrailingQuotes(@NonNull String str)
     {
         final int length = str.length();
         if (length > 1 && str.startsWith("\"") && str.endsWith("\"") && str.substring(1, length - 1).indexOf('"') == -1)
