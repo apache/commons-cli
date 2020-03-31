@@ -18,6 +18,7 @@
 package org.apache.commons.cli;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
 
 /**
  * Contains useful helper methods for classes within this package.
@@ -32,7 +33,7 @@ final class Util
      *
      * @return the new String.
      */
-    static @Nullable String stripLeadingHyphens(final @Nullable String str)
+    static @PolyNull String stripLeadingHyphens(final @PolyNull String str)
     {
         if (str == null)
         {

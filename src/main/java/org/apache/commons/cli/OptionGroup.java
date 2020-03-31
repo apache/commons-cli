@@ -38,7 +38,7 @@ public class OptionGroup implements Serializable
 
     /** the name of the selected option */
     //Suppressed because an option is set while parsing, in DefaultParser at line 702
-    @SuppressWarnings("initialization")
+    @SuppressWarnings("initialization.fields.uninitialized")
     private @Nullable String selected;
 
     /** specified whether this group is required */

@@ -40,7 +40,7 @@ public class MissingOptionException extends ParseException
      * @param message the detail message
      */
     //Suppressed the error because it is only used in below Constructor
-    @SuppressWarnings("initialization")
+    @SuppressWarnings("initialization.fields.uninitialized")
     public MissingOptionException(final String message)
     {
         super(message);

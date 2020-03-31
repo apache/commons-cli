@@ -76,8 +76,8 @@ public class DefaultParser implements CommandLineParser
      * <code>-de</code> would enable both <code>debug</code> as well as
      * <code>extract</code> options.
      */
-    //Default constructor
-    @SuppressWarnings("initialization")
+// Intended desing was setting boolean attributes first and later set other the fields in parse()
+    @SuppressWarnings("initialization.fields.uninitialized")
     public DefaultParser() {
         this.allowPartialMatching = true;
     }
@@ -102,7 +102,7 @@ public class DefaultParser implements CommandLineParser
      * @param allowPartialMatching if partial matching of long options shall be enabled
      */
     //Required attributes are initialized when using parse()
-    @SuppressWarnings("initialization")
+    @SuppressWarnings("initialization.fields.uninitialized")
     public DefaultParser(final boolean allowPartialMatching) {
         this.allowPartialMatching = allowPartialMatching;
     }
@@ -506,10 +506,10 @@ public class DefaultParser implements CommandLineParser
             final String key = options.hasLongOption(opt) ? opt : matchingOpts.get(0);
             final Option option = options.getOption(key);
 
-            if (option.acceptsArg())
+            if (option.acceptsArg()) //Possible Dereference of a @Nullable instance if option is not found in the map of options
             {
                 handleOption(option);
-                currentOption.addValueForProcessing(value);//TODO: Possible Dereference is currentOption is set to null
+                currentOption.addValueForProcessing(value);// Possible Dereference of a @Nullable instance is currentOption is set to null
                 currentOption = null;
             }
             else
@@ -538,12 +538,11 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token the command line token to handle
      */
-    @SuppressWarnings("dereference")
     private void handleShortAndLongOption(final String token) throws ParseException
     {
         final String t = Util.stripLeadingHyphens(token);
 
-        final int pos = t.indexOf('='); //Suppressign the warning, as stripLeadingHyphens(String) will return non null String if token is @NonNull
+        final int pos = t.indexOf('=');
 
         if (t.length() == 1)
         {
@@ -584,7 +583,7 @@ public class DefaultParser implements CommandLineParser
                 {
                     // -SV1 (-Dflag)
                     handleOption(options.getOption(t.substring(0, 1)));
-                    currentOption.addValueForProcessing(t.substring(1));
+                    currentOption.addValueForProcessing(t.substring(1)); //Possible Dereference of a @Nullable instance of current option
                     currentOption = null;
                 }
                 else
@@ -607,7 +606,7 @@ public class DefaultParser implements CommandLineParser
                 if (option != null && option.acceptsArg())
                 {
                     handleOption(option);
-                    currentOption.addValueForProcessing(value);
+                    currentOption.addValueForProcessing(value); //Possible Dereference of a @Nullable instance
                     currentOption = null;
                 }
                 else
@@ -619,7 +618,7 @@ public class DefaultParser implements CommandLineParser
             {
                 // -SV1=V2 (-Dkey=value)
                 handleOption(options.getOption(opt.substring(0, 1)));
-                currentOption.addValueForProcessing(opt.substring(1));
+                currentOption.addValueForProcessing(opt.substring(1)); //Possible Dereference of a @Nullable instance
                 currentOption.addValueForProcessing(value);
                 currentOption = null;
             }
@@ -636,14 +635,13 @@ public class DefaultParser implements CommandLineParser
      *
      * @param token
      */
-    @SuppressWarnings("dereference")
     private @Nullable String getLongPrefix(final String token)
     {
         final String t = Util.stripLeadingHyphens(token);
 
         int i;
         String opt = null;
-        for (i = t.length() - 2; i > 1; i--) // t is not null as token passed along the various calls is @NonNull
+        for (i = t.length() - 2; i > 1; i--)
         {
             final String prefix = t.substring(0, i);
             if (options.hasLongOption(prefix))
@@ -667,6 +665,7 @@ public class DefaultParser implements CommandLineParser
         return option != null && (option.getArgs() >= 2 || option.getArgs() == Option.UNLIMITED_VALUES);
     }
 
+//    This method can encounter null pointer exceptions because the callers can pass a null value which is direclty being dereferenced here without checks
     private void handleOption(Option option) throws ParseException
     {
         // check the previous option before handling the next one
@@ -705,7 +704,7 @@ public class DefaultParser implements CommandLineParser
         {
             final OptionGroup group = options.getOptionGroup(option);
 
-            if (group.isRequired()) //TODO: Possible dereference if the option is not found
+            if (group.isRequired()) // Possible Dereference of a @Nullable instance if the option is not found
             {
                 expectedOpts.remove(group);
             }
@@ -733,7 +732,7 @@ public class DefaultParser implements CommandLineParser
             if (options.hasLongOption(token))
             {
                 Option option = options.getOption(token);
-                matches.add(option.getLongOpt());
+                matches.add(option.getLongOpt()); //Possible Dereference of a @Nullable option
             }
 
             return matches;

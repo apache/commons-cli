@@ -38,7 +38,7 @@ public class MissingArgumentException extends ParseException
      * @param message the detail message
      */
     //This constructor is called from another constructor which initializes the option
-    @SuppressWarnings("initialization")
+    @SuppressWarnings("initialization.fields.uninitialized")
     public MissingArgumentException(final String message)
     {
         super(message);

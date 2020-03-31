@@ -694,8 +694,13 @@ public class HelpFormatter
             buff.append("--").append(option.getLongOpt());
         }
 
-        // if the Option has a value and a non blank argname
+        // if the Option has a value and a non blank
+//        Although if option.getArgName() == null is true and inner expression evaluates without checking 2nd part,
+//        there is no dereference but still below error is reported.
         if (option.hasArg() && (option.getArgName() == null || option.getArgName().length() != 0))
+//        HelpFormatter.java:698: error: [dereference.of.nullable] dereference of possibly-null reference option.getArgName()
+//        if (option.hasArg() && (option.getArgName() == null || option.getArgName().length() != 0))
+
         {
             buff.append(option.getOpt() == null ? longOptSeparator : " ");
             buff.append("<").append(option.getArgName() != null ? option.getArgName() : getArgName()).append(">");

@@ -108,8 +108,8 @@ public class Options implements Serializable
      * @return the resulting Options instance
      * @since 1.3
      */
-    //Suppressed error as the long option can be null because opt should not be null
-    @SuppressWarnings("nullness")
+    //Long options can be null as long as opt is specified, so the error is suppressed at line 115
+    @SuppressWarnings("argument.type.incompatible")
     public Options addOption(final String opt, final String description)
     {
         addOption(opt, null, false, description);
@@ -128,8 +128,8 @@ public class Options implements Serializable
      * @param description Self-documenting description
      * @return the resulting Options instance
      */
-    //Suppressed error as the long option can be null because opt should not be null
-    @SuppressWarnings("nullness")
+    //Long options can be null as long as opt is specified, so the error is suppressed at line
+    @SuppressWarnings("argument.type.incompatible")
     public Options addOption(final String opt, final boolean hasArg, final String description)
     {
         addOption(opt, null, hasArg, description);
@@ -256,9 +256,7 @@ public class Options implements Serializable
      * @param opt short or long name of the {@link Option}
      * @return the option represented by opt
      */
-    // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
-    @SuppressWarnings("assignment")
-    public Option getOption(String opt)
+    public @Nullable Option getOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
@@ -277,8 +275,7 @@ public class Options implements Serializable
      * @return the options matching the partial name specified, or an empty list if none matches
      * @since 1.3
      */
-    // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
-    @SuppressWarnings("assignment")
+    // stripLeadingHyphens will return non null string as opt is not null, hence at line 284, opt can be assigned
     public List<String> getMatchingOptions(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
@@ -308,8 +305,7 @@ public class Options implements Serializable
      * @param opt short or long name of the {@link Option}
      * @return true if the named {@link Option} is a member of this {@link Options}
      */
-    // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
-    @SuppressWarnings("assignment")
+    // stripLeadingHyphens will return non null string as opt is not null, hence at line 315, opt can be assigned
     public boolean hasOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
@@ -324,8 +320,7 @@ public class Options implements Serializable
      * @return true if the named {@link Option} is a member of this {@link Options}
      * @since 1.3
      */
-    // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
-    @SuppressWarnings("assignment")
+    // stripLeadingHyphens will return non null string as opt is not null, hence at line 331, opt can be assigned
     public boolean hasLongOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
@@ -340,8 +335,7 @@ public class Options implements Serializable
      * @return true if the named {@link Option} is a member of this {@link Options}
      * @since 1.3
      */
-    // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
-    @SuppressWarnings("assignment")
+    // stripLeadingHyphens will return non null string as opt is not null, hence at line 347, opt can be assigned
     public boolean hasShortOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);

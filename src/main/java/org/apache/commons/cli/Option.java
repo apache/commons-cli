@@ -57,7 +57,7 @@ public class Option implements Cloneable, Serializable
     private String longOpt;
 
     /** the name of the argument for this option */
-    private String argName;
+    private @Nullable String argName;
 
     /** description of the option */
     private String description;
@@ -72,7 +72,7 @@ public class Option implements Cloneable, Serializable
     private int numberOfArgs = UNINITIALIZED;
 
     /** the type of this Option */
-    private Class<?> type = String.class;
+    private @Nullable Class<?> type = String.class;
 
     /** the list of argument values **/
     private List<String> values = new ArrayList<String>();
@@ -108,8 +108,8 @@ public class Option implements Cloneable, Serializable
      * @throws IllegalArgumentException if there are any non valid
      * Option characters in <code>opt</code>.
      */
-    //Suppressed error as the long option can be null because opt should not be null
-    @SuppressWarnings("nullness")
+    // At line 115 second parameter can be null as it is longOption, as long as parameter opt stays @NonNull
+    @SuppressWarnings("argument.type.incompatible")
     public Option(final String opt, final String description) throws IllegalArgumentException
     {
         this(opt, null, false, description);
@@ -204,7 +204,7 @@ public class Option implements Cloneable, Serializable
      *
      * @return The type of this option
      */
-    public Object getType()
+    public @Nullable Object getType()
     {
         return type;
     }
@@ -350,7 +350,7 @@ public class Option implements Cloneable, Serializable
      *
      * @return the display name for the argument value.
      */
-        public String getArgName()
+        public @Nullable String getArgName()
     {
         return argName;
     }
@@ -569,7 +569,7 @@ public class Option implements Cloneable, Serializable
      * @return the values of this Option as a String array
      * or null if there are no values
      */
-    public @Nullable String[] getValues()
+    public String @Nullable[] getValues()
     {
         return hasNoValues() ? null : values.toArray(new String[values.size()]);
     }
@@ -759,7 +759,9 @@ public class Option implements Cloneable, Serializable
      * @return a new {@link Builder} instance
      * @since 1.3
      */
-    // Was not able to figure out the solution for this error
+    // Problematic method, does not initialize opt, but safety is ensured on client
+    // in the build() method of Option.Builder and IllegalArgumentException is thrown
+    @SuppressWarnings("argument.type.incompatible")
     public static Builder builder()
     {
         return builder(null);
@@ -817,7 +819,8 @@ public class Option implements Cloneable, Serializable
         private int numberOfArgs = UNINITIALIZED;
 
         /** the type of this Option */
-        private Class<?> type = String.class;
+        // it is required to set null if there are no parameters
+        private @Nullable Class<?> type = String.class;
 
         /** the character that is the value separator */
         private char valuesep;
@@ -829,8 +832,9 @@ public class Option implements Cloneable, Serializable
          * @param opt short representation of the option
          * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
          */
-        //This follows Builder pattern, and all options are seperately set, so suppressed initialization
-        @SuppressWarnings("initialization")
+        //This design choice is intended by them
+        //This follows Builder pattern, the built are seperately set with minimum required parameters, so suppressed initialization
+        @SuppressWarnings("initialization.fields.uninitialized")
         private Builder(final String opt) throws IllegalArgumentException
         {
             OptionValidator.validateOption(opt);

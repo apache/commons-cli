@@ -63,7 +63,7 @@ public class CommandLine implements Serializable
      * @return true if set, false if not.
      * @since 1.5
      */
-    public boolean hasOption(final Option opt)
+    public boolean hasOption(final @Nullable Option opt)
     {
         return options.contains(opt);
     }
@@ -97,10 +97,8 @@ public class CommandLine implements Serializable
      * @return the type of this <code>Option</code>.
      * @deprecated due to System.err message. Instead use getParsedOptionValue(String)
      */
-    //Did not annotate deeprecated methods and files
-    @SuppressWarnings("return")
     @Deprecated
-    public Object getOptionObject(final String opt)
+    public @Nullable Object getOptionObject(final String opt)
     {
         try
         {
@@ -122,7 +120,7 @@ public class CommandLine implements Serializable
      * @see PatternOptionBuilder
      * @since 1.5
      */
-    public @Nullable Object getParsedOptionValue(final Option option) throws ParseException
+    public @Nullable Object getParsedOptionValue(final @Nullable Option option) throws ParseException
     {
         if (option == null)
         {
@@ -145,7 +143,7 @@ public class CommandLine implements Serializable
      * @see PatternOptionBuilder
      * @since 1.2
      */
-    public Object getParsedOptionValue(final String opt) throws ParseException
+    public @Nullable Object getParsedOptionValue(final String opt) throws ParseException
     {
         return getParsedOptionValue(resolveOption(opt));
     }
@@ -159,7 +157,7 @@ public class CommandLine implements Serializable
      * @see PatternOptionBuilder
      * @since 1.5
      */
-    public Object getParsedOptionValue(final char opt) throws ParseException
+    public @Nullable Object getParsedOptionValue(final char opt) throws ParseException
     {
         return getParsedOptionValue(String.valueOf(opt));
     }
@@ -171,7 +169,7 @@ public class CommandLine implements Serializable
      * @param opt the name of the option.
      * @return the type of opt.
      */
-    public Object getOptionObject(final char opt)
+    public @Nullable Object getOptionObject(final char opt)
     {
         return getOptionObject(String.valueOf(opt));
     }
@@ -213,9 +211,7 @@ public class CommandLine implements Serializable
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    //valueoOf(char) will always give a non null String
-    @SuppressWarnings({"argument", "return"})
-    public String getOptionValue(final char opt)
+    public @Nullable String getOptionValue(final char opt)
     {
         return getOptionValue(String.valueOf(opt));
     }
@@ -250,9 +246,7 @@ public class CommandLine implements Serializable
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    //valueoOf(char) will always give a non null String
-    @SuppressWarnings({"argument", "return"})
-    public String[] getOptionValues(final String opt)
+    public String @Nullable[] getOptionValues(final String opt)
     {
         return getOptionValues(resolveOption(opt));
     }
@@ -289,7 +283,7 @@ public class CommandLine implements Serializable
      * @return Values of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public String[] getOptionValues(final char opt)
+    public String @Nullable[] getOptionValues(final char opt)
     {
         return getOptionValues(String.valueOf(opt));
     }
@@ -496,7 +490,7 @@ public class CommandLine implements Serializable
      *
      * @return an array of the processed {@link Option}s.
      */
-    public Option[] getOptions()
+    public @Nullable Option[] getOptions()
     {
         final Collection<Option> processed = options;
 
