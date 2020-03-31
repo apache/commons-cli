@@ -17,7 +17,6 @@
 
 package org.apache.commons.cli;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
@@ -60,7 +59,7 @@ final class Util
      *
      * @return The string without the leading and trailing quotes.
      */
-    static @NonNull String stripLeadingAndTrailingQuotes(@NonNull String str)
+    static String stripLeadingAndTrailingQuotes(String str)
     {
         final int length = str.length();
         if (length > 1 && str.startsWith("\"") && str.endsWith("\"") && str.substring(1, length - 1).indexOf('"') == -1)

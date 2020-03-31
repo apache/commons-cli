@@ -17,7 +17,6 @@
 
 package org.apache.commons.cli;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.ArrayList;
@@ -276,7 +275,7 @@ public class DefaultParser implements CommandLineParser
      * @param token the command line token to handle
      * @throws ParseException
      */
-    @SuppressWarnings("dereference") private void handleToken(final @NonNull String token) throws ParseException
+    @SuppressWarnings("dereference") private void handleToken(final String token) throws ParseException
     {
         currentToken = token;
 

@@ -17,7 +17,6 @@
 
 package org.apache.commons.cli;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.io.Serializable;
@@ -29,7 +28,6 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Represents list of arguments parsed against a {@link Options} descriptor.
  * Represents list of arguments parsed against a {@link Options} descriptor.
  * <p>
  * It allows querying of a boolean {@link #hasOption(String opt)},
@@ -64,9 +62,7 @@ public class CommandLine implements Serializable
      * @param opt the option to check.
      * @return true if set, false if not.
      * @since 1.5
-     *
      */
-    //Was not able to solve this error as using the resolveOption(String) at line 83 may return null, and may cause NullPointerException
     public boolean hasOption(final Option opt)
     {
         return options.contains(opt);
@@ -78,7 +74,7 @@ public class CommandLine implements Serializable
      * @param opt Short name of the option.
      * @return true if set, false if not.
      */
-    public boolean hasOption(final @NonNull String opt)
+    public boolean hasOption(final String opt)
     {
         return hasOption(resolveOption(opt));
     }
@@ -205,7 +201,7 @@ public class CommandLine implements Serializable
      * @return Value of the argument if option is set, and has an argument,
      * otherwise null.
      */
-    public @Nullable String getOptionValue(final @NonNull String opt)
+    public @Nullable String getOptionValue(final String opt)
     {
         return getOptionValue(resolveOption(opt));
     }
@@ -267,7 +263,7 @@ public class CommandLine implements Serializable
      * @param opt short or long name of the option.
      * @return Canonicalized option.
      */
-    private @Nullable Option resolveOption(@NonNull String opt)
+    private @Nullable Option resolveOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
         for (final Option option : options)
@@ -355,9 +351,9 @@ public class CommandLine implements Serializable
      *         even if the option doesn't exists.
      * @since 1.5
      */
-    public @NonNull Properties getOptionProperties(final Option option)
+    public Properties getOptionProperties(final Option option)
     {
-        final @NonNull Properties props = new Properties();
+        final Properties props = new Properties();
 
         for (final Option processedOption : options)
         {
@@ -393,7 +389,7 @@ public class CommandLine implements Serializable
      *         even if the option doesn't exists.
      * @since 1.2
      */
-    public @NonNull Properties getOptionProperties(final String opt)
+    public Properties getOptionProperties(final String opt)
     {
         final Properties props = new Properties();
 
@@ -469,7 +465,7 @@ public class CommandLine implements Serializable
      *
      * @param arg the unrecognized option/argument.
      */
-    protected void addArg(final @NonNull String arg)
+    protected void addArg(final String arg)
     {
         args.add(arg);
     }
@@ -479,7 +475,7 @@ public class CommandLine implements Serializable
      *
      * @param opt the processed option.
      */
-    protected void addOption(final @NonNull Option opt)
+    protected void addOption(final Option opt)
     {
         options.add(opt);
     }

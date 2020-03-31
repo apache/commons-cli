@@ -17,7 +17,6 @@
 
 package org.apache.commons.cli;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.io.Serializable;
@@ -111,7 +110,7 @@ public class Options implements Serializable
      */
     //Suppressed error as the long option can be null because opt should not be null
     @SuppressWarnings("nullness")
-    public Options addOption(final @NonNull String opt, final String description)
+    public Options addOption(final String opt, final String description)
     {
         addOption(opt, null, false, description);
         return this;
@@ -131,7 +130,7 @@ public class Options implements Serializable
      */
     //Suppressed error as the long option can be null because opt should not be null
     @SuppressWarnings("nullness")
-    public Options addOption(final @NonNull String opt, final boolean hasArg, final String description)
+    public Options addOption(final String opt, final boolean hasArg, final String description)
     {
         addOption(opt, null, hasArg, description);
         return this;
@@ -192,7 +191,7 @@ public class Options implements Serializable
      * @param opt the option that is to be added
      * @return the resulting Options instance
      */
-    public Options addOption(final @NonNull Option opt)
+    public Options addOption(final Option opt)
     {
         final String key = opt.getKey();
 
@@ -259,7 +258,7 @@ public class Options implements Serializable
      */
     // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
     @SuppressWarnings("assignment")
-    public Option getOption(@NonNull String opt)
+    public Option getOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
@@ -280,7 +279,7 @@ public class Options implements Serializable
      */
     // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
     @SuppressWarnings("assignment")
-    public List<String> getMatchingOptions(@NonNull String opt)
+    public List<String> getMatchingOptions(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
@@ -311,7 +310,7 @@ public class Options implements Serializable
      */
     // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
     @SuppressWarnings("assignment")
-    public boolean hasOption(@NonNull String opt)
+    public boolean hasOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
@@ -327,7 +326,7 @@ public class Options implements Serializable
      */
     // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
     @SuppressWarnings("assignment")
-    public boolean hasLongOption(@NonNull String opt)
+    public boolean hasLongOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
@@ -343,7 +342,7 @@ public class Options implements Serializable
      */
     // stripLeadingHyphens will return non null string as opt is not null, hence at line 263, opt can be assigned
     @SuppressWarnings("assignment")
-    public boolean hasShortOption(@NonNull String opt)
+    public boolean hasShortOption(String opt)
     {
         opt = Util.stripLeadingHyphens(opt);
 
@@ -356,7 +355,7 @@ public class Options implements Serializable
      * @param opt the option whose OptionGroup is being queried.
      * @return the OptionGroup if <code>opt</code> is part of an OptionGroup, otherwise return null
      */
-    public @Nullable OptionGroup getOptionGroup(final @NonNull Option opt)
+    public @Nullable OptionGroup getOptionGroup(final Option opt)
     {
         return optionGroups.get(opt.getKey());
     }
