@@ -193,7 +193,7 @@ public class DefaultParser implements CommandLineParser
      * @param properties The value properties to be processed.
      */
     //On line 207 there will not be dereference, as the entry condition for loop restricts entry if no more elements available
-    @SuppressWarnings({"dereference", "assignment"})
+    @SuppressWarnings({"dereference.of.nullable", "assignment.type.incompatible"})
     private void handleProperties(final @Nullable Properties properties) throws ParseException
     {
         if (properties == null)
@@ -275,7 +275,7 @@ public class DefaultParser implements CommandLineParser
      * @param token the command line token to handle
      * @throws ParseException
      */
-    @SuppressWarnings("dereference") private void handleToken(final String token) throws ParseException
+    @SuppressWarnings("dereference.of.nullable") private void handleToken(final String token) throws ParseException
     {
         currentToken = token;
 

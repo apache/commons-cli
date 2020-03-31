@@ -63,8 +63,11 @@ public class OptionGroup implements Serializable
      * @return the names of the options in this group as a
      * <code>Collection</code>
      */
-    //We are sure to get a Collection<String> object as the keySet() gives required values
-    @SuppressWarnings("return")
+//    OptionGroup.java:71: error: [return.type.incompatible] incompatible types in return.
+//        return optionMap.keySet();
+//                               ^
+//  type of expression: Set<@KeyFor("this.optionMap") String>
+//  method return type: Collection<String>
     public Collection<String> getNames()
     {
         // the key set is the collection of names

@@ -77,7 +77,7 @@ public class MissingOptionException extends ParseException
      * @param missingOptions the list of missing options and groups
      * @since 1.2
      */
-    private static @NonNull String createMessage(final List<?> missingOptions)
+    private static String createMessage(final List<?> missingOptions)
     {
         final StringBuilder buf = new StringBuilder("Missing required option");
         buf.append(missingOptions.size() == 1 ? "" : "s");
