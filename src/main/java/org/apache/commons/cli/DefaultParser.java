@@ -192,8 +192,8 @@ public class DefaultParser implements CommandLineParser
      *
      * @param properties The value properties to be processed.
      */
-    //On line 207 there will not be dereference, as the entry condition for loop restricts entry if no more elements available
-    @SuppressWarnings({"dereference.of.nullable", "assignment.type.incompatible"})
+    //On line 206 there will not be dereference, as the entry condition for loop restricts entry if no more elements available
+    @SuppressWarnings("dereference.of.nullable")
     private void handleProperties(final @Nullable Properties properties) throws ParseException
     {
         if (properties == null)
@@ -236,7 +236,7 @@ public class DefaultParser implements CommandLineParser
                 }
 
                 handleOption(opt);
-                currentOption = null; // Here it is set null for parsing logic, hence suppressed assignment warning
+                currentOption = null;
             }
         }
     }
