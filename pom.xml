@@ -173,6 +173,21 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>checker-qual</artifactId>
+      <version>3.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>jdk8</artifactId>
+      <version>3.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.errorprone</groupId>
+      <artifactId>javac</artifactId>
+      <version>9+181-r4173-1</version>
+    </dependency>
   </dependencies>
 
   <properties>
