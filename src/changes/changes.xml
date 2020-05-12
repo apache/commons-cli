@@ -47,6 +47,9 @@
       <action type="update" dev="ggregory" due-to="Mincong Huang">
         Docs: Replace OptionBuilder in usage page #30.
       </action>
+      <action type="update" dev="ggregory" due-to="dengliming">
+        Remove deprecated sudo setting. #36.
+      </action>
     </release>
 
     <release version="1.4" date="2017-03-09" description="New features and bug fixes">
