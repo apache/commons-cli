@@ -163,7 +163,7 @@ public class PatternOptionBuilderTest
     {
         final Options options = PatternOptionBuilder.parsePattern("g<");
         final CommandLineParser parser = new PosixParser();
-        final CommandLine line = parser.parse(options, new String[] { "-g", "src/test/resources/existing-readable.file" });
+        final CommandLine line = parser.parse(options, new String[] { "-g", "src/test/resources/org/apache/commons/cli/existing-readable.file" });
 
         final Object parsedReadableFileStream = line.getOptionObject("g");
 

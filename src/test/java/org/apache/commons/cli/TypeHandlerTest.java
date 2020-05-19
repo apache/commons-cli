@@ -114,7 +114,7 @@ public class TypeHandlerTest
     public void testCreateValueExistingFile()
             throws Exception
     {
-        FileInputStream result = TypeHandler.createValue("src/test/resources/existing-readable.file", PatternOptionBuilder.EXISTING_FILE_VALUE);
+        FileInputStream result = TypeHandler.createValue("src/test/resources/org/apache/commons/cli/existing-readable.file", PatternOptionBuilder.EXISTING_FILE_VALUE);
         assertNotNull(result);
     }
 
