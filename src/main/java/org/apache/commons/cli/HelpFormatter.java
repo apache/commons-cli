@@ -1083,6 +1083,7 @@ public class HelpFormatter
          *         the first argument is less than, equal to, or greater than the
          *         second.
          */
+        @Override
         public int compare(final Option opt1, final Option opt2)
         {
             return opt1.getKey().compareToIgnoreCase(opt2.getKey());

@@ -167,6 +167,7 @@ public class CommandLine implements Serializable
      * @param opt the name of the option.
      * @return the type of opt.
      */
+    @Deprecated
     public Object getOptionObject(final char opt)
     {
         return getOptionObject(String.valueOf(opt));

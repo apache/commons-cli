@@ -24,6 +24,7 @@ import org.junit.Test;
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class GnuParserTest extends ParserTestCase
 {
+    @Override
     @Before
     public void setUp()
     {

@@ -21,6 +21,7 @@ import org.junit.Before;
 
 public class DefaultParserTest extends ParserTestCase {
 
+    @Override
     @Before
     public void setUp() {
         super.setUp();

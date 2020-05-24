@@ -24,6 +24,7 @@ import org.junit.Test;
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class BasicParserTest extends ParserTestCase
 {
+    @Override
     @Before
     public void setUp()
     {

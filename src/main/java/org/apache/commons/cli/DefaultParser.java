@@ -101,6 +101,7 @@ public class DefaultParser implements CommandLineParser
         this.allowPartialMatching = allowPartialMatching;
     }
 
+    @Override
     public CommandLine parse(final Options options, final String[] arguments) throws ParseException
     {
         return parse(options, arguments, null);
@@ -122,6 +123,7 @@ public class DefaultParser implements CommandLineParser
         return parse(options, arguments, properties, false);
     }
 
+    @Override
     public CommandLine parse(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException
     {
         return parse(options, arguments, null, stopAtNonOption);
