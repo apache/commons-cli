@@ -50,7 +50,7 @@ public class PatternOptionBuilderTest
 
         assertEquals("flag a", "foo", line.getOptionValue("a"));
         assertEquals("string flag a", "foo", line.getOptionObject("a"));
-        assertEquals("object flag b", new Vector<Object>(), line.getOptionObject("b"));
+        assertEquals("object flag b", new Vector<>(), line.getOptionObject("b"));
         assertTrue("boolean true flag c", line.hasOption("c"));
         assertFalse("boolean false flag d", line.hasOption("d"));
         assertEquals("file flag e", new File("build.xml"), line.getOptionObject("e"));
@@ -61,7 +61,7 @@ public class PatternOptionBuilderTest
         // tests the char methods of CommandLine that delegate to the String methods
         assertEquals("flag a", "foo", line.getOptionValue('a'));
         assertEquals("string flag a", "foo", line.getOptionObject('a'));
-        assertEquals("object flag b", new Vector<Object>(), line.getOptionObject('b'));
+        assertEquals("object flag b", new Vector<>(), line.getOptionObject('b'));
         assertTrue("boolean true flag c", line.hasOption('c'));
         assertFalse("boolean false flag d", line.hasOption('d'));
         assertEquals("file flag e", new File("build.xml"), line.getOptionObject('e'));

@@ -716,7 +716,7 @@ public class DefaultParser implements CommandLineParser
         }
         else
         {
-            List<String> matches = new ArrayList<String>(1);
+            List<String> matches = new ArrayList<>(1);
             if (options.hasLongOption(token))
             {
                 Option option = options.getOption(token);

@@ -44,18 +44,18 @@ public class Options implements Serializable
     private static final long serialVersionUID = 1L;
 
     /** a map of the options with the character key */
-    private final Map<String, Option> shortOpts = new LinkedHashMap<String, Option>();
+    private final Map<String, Option> shortOpts = new LinkedHashMap<>();
 
     /** a map of the options with the long key */
-    private final Map<String, Option> longOpts = new LinkedHashMap<String, Option>();
+    private final Map<String, Option> longOpts = new LinkedHashMap<>();
 
     /** a map of the required options */
     // N.B. This can contain either a String (addOption) or an OptionGroup (addOptionGroup)
     // TODO this seems wrong
-    private final List<Object> requiredOpts = new ArrayList<Object>();
+    private final List<Object> requiredOpts = new ArrayList<>();
 
     /** a map of the option groups */
-    private final Map<String, OptionGroup> optionGroups = new LinkedHashMap<String, OptionGroup>();
+    private final Map<String, OptionGroup> optionGroups = new LinkedHashMap<>();
 
     /**
      * Add the specified option group.
@@ -91,7 +91,7 @@ public class Options implements Serializable
      */
     Collection<OptionGroup> getOptionGroups()
     {
-        return new HashSet<OptionGroup>(optionGroups.values());
+        return new HashSet<>(optionGroups.values());
     }
 
     /**
@@ -227,7 +227,7 @@ public class Options implements Serializable
      */
     List<Option> helpOptions()
     {
-        return new ArrayList<Option>(shortOpts.values());
+        return new ArrayList<>(shortOpts.values());
     }
 
     /**
@@ -273,7 +273,7 @@ public class Options implements Serializable
     {
         opt = Util.stripLeadingHyphens(opt);
 
-        final List<String> matchingOpts = new ArrayList<String>();
+        final List<String> matchingOpts = new ArrayList<>();
 
         // for a perfect match return the single option only
         if (longOpts.keySet().contains(opt))

@@ -49,7 +49,7 @@ public class GnuParser extends Parser
     @Override
     protected String[] flatten(final Options options, final String[] arguments, final boolean stopAtNonOption)
     {
-        final List<String> tokens = new ArrayList<String>();
+        final List<String> tokens = new ArrayList<>();
 
         boolean eatTheRest = false;
 

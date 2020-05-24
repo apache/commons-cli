@@ -32,7 +32,7 @@ public class OptionGroup implements Serializable
     private static final long serialVersionUID = 1L;
 
     /** hold the options */
-    private final Map<String, Option> optionMap = new LinkedHashMap<String, Option>();
+    private final Map<String, Option> optionMap = new LinkedHashMap<>();
 
     /** the name of the selected option */
     private String selected;
