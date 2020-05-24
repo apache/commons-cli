@@ -276,7 +276,7 @@ public class Options implements Serializable
         final List<String> matchingOpts = new ArrayList<>();
 
         // for a perfect match return the single option only
-        if (longOpts.keySet().contains(opt))
+        if (longOpts.containsKey(opt))
         {
             return Collections.singletonList(opt);
         }
