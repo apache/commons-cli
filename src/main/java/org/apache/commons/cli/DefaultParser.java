@@ -716,17 +716,14 @@ public class DefaultParser implements CommandLineParser
         {
             return options.getMatchingOptions(token);
         }
-        else
+        final List<String> matches = new ArrayList<>(1);
+        if (options.hasLongOption(token))
         {
-            final List<String> matches = new ArrayList<>(1);
-            if (options.hasLongOption(token))
-            {
-                final Option option = options.getOption(token);
-                matches.add(option.getLongOpt());
-            }
-
-            return matches;
+            final Option option = options.getOption(token);
+            matches.add(option.getLongOpt());
         }
+
+        return matches;
     }
 
     /**
