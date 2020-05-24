@@ -55,7 +55,7 @@ public class DefaultParser implements CommandLineParser
     protected List expectedOpts;
 
     /** Flag indicating if partial matching of long options is supported. */
-    private  boolean allowPartialMatching;
+    private final  boolean allowPartialMatching;
 
     /**
      * Creates a new DefaultParser instance with partial matching enabled.
@@ -718,10 +718,10 @@ public class DefaultParser implements CommandLineParser
         }
         else
         {
-            List<String> matches = new ArrayList<>(1);
+            final List<String> matches = new ArrayList<>(1);
             if (options.hasLongOption(token))
             {
-                Option option = options.getOption(token);
+                final Option option = options.getOption(token);
                 matches.add(option.getLongOpt());
             }
 
