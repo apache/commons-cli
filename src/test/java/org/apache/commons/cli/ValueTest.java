@@ -39,12 +39,13 @@ public class ValueTest
         opts.addOption("c", "c", false, "toggle -c");
         opts.addOption("d", "d", true, "set -d");
 
-        opts.addOption(OptionBuilder.hasOptionalArg().create('e'));
-        opts.addOption(OptionBuilder.hasOptionalArg().withLongOpt("fish").create());
-        opts.addOption(OptionBuilder.hasOptionalArgs().withLongOpt("gravy").create());
-        opts.addOption(OptionBuilder.hasOptionalArgs(2).withLongOpt("hide").create());
-        opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
-        opts.addOption(OptionBuilder.hasOptionalArgs().create('j'));
+
+        opts.addOption(Option.builder("e").optionalArg(true).hasArg().build());
+        opts.addOption(Option.builder().longOpt("fish").optionalArg(true).hasArg().build());
+        opts.addOption(Option.builder().longOpt("gravy").optionalArg(true).hasArgs().build());
+        opts.addOption(Option.builder().longOpt("hide").optionalArg(true).numberOfArgs(2).build());
+        opts.addOption(Option.builder("i").optionalArg(true).numberOfArgs(2).build());
+        opts.addOption(Option.builder("j").optionalArg(true).hasArgs().build());
 
         final String[] args = new String[] { "-a",
             "-b", "foo",

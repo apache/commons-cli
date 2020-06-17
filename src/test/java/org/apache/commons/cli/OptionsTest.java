@@ -76,12 +76,12 @@ public class OptionsTest
     @Test
     public void testHelpOptions()
     {
-        final Option longOnly1 = OptionBuilder.withLongOpt("long-only1").create();
-        final Option longOnly2 = OptionBuilder.withLongOpt("long-only2").create();
-        final Option shortOnly1 = OptionBuilder.create("1");
-        final Option shortOnly2 = OptionBuilder.create("2");
-        final Option bothA = OptionBuilder.withLongOpt("bothA").create("a");
-        final Option bothB = OptionBuilder.withLongOpt("bothB").create("b");
+        final Option longOnly1 = Option.builder().longOpt("long-only1").build();
+        final Option longOnly2 = Option.builder().longOpt("long-only2").build();
+        final Option shortOnly1 = Option.builder("1").build();
+        final Option shortOnly2 = Option.builder("2").build();
+        final Option bothA = Option.builder("a").longOpt("bothA").build();
+        final Option bothB = Option.builder("b").longOpt("bothB").build();
 
         final Options options = new Options();
         options.addOption(longOnly1);
@@ -109,7 +109,7 @@ public class OptionsTest
     public void testMissingOptionException() throws ParseException
     {
         final Options options = new Options();
-        options.addOption(OptionBuilder.isRequired().create("f"));
+        options.addOption(Option.builder("f").required().build());
         try
         {
             new PosixParser().parse(options, new String[0]);
@@ -125,8 +125,8 @@ public class OptionsTest
     public void testMissingOptionsException() throws ParseException
     {
         final Options options = new Options();
-        options.addOption(OptionBuilder.isRequired().create("f"));
-        options.addOption(OptionBuilder.isRequired().create("x"));
+        options.addOption(Option.builder("f").required().build());
+        options.addOption(Option.builder("x").required().build());
         try
         {
             new PosixParser().parse(options, new String[0]);
@@ -157,12 +157,12 @@ public class OptionsTest
         final Options options = new Options();
 
         final OptionGroup group1 = new OptionGroup();
-        group1.addOption(OptionBuilder.create('a'));
-        group1.addOption(OptionBuilder.create('b'));
+        group1.addOption(Option.builder("a").build());
+        group1.addOption(Option.builder("b").build());
 
         final OptionGroup group2 = new OptionGroup();
-        group2.addOption(OptionBuilder.create('x'));
-        group2.addOption(OptionBuilder.create('y'));
+        group2.addOption(Option.builder("x").build());
+        group2.addOption(Option.builder("y").build());
 
         options.addOptionGroup(group1);
         options.addOptionGroup(group2);
@@ -175,8 +175,8 @@ public class OptionsTest
     public void testGetMatchingOpts()
     {
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("version").create());
-        options.addOption(OptionBuilder.withLongOpt("verbose").create());
+        options.addOption(Option.builder().longOpt("version").build());
+        options.addOption(Option.builder().longOpt("verbose").build());
 
         assertTrue(options.getMatchingOptions("foo").isEmpty());
         assertEquals(1, options.getMatchingOptions("version").size());
