@@ -53,6 +53,9 @@
       <action type="update" dev="ggregory" due-to="Gary Gregory">
         Update junit:junit from 4.12 to 4.13.
       </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Update commons-parent from 48 to 51.
+      </action>
     </release>
 
     <release version="1.4" date="2017-03-09" description="New features and bug fixes">
