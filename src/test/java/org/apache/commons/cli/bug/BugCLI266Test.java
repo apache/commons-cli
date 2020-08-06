@@ -39,7 +39,7 @@ public class BugCLI266Test {
     @Test
     public void testOptionComparatorDefaultOrder() throws ParseException {
         final HelpFormatter formatter = new HelpFormatter();
-        final List<Option> options = new ArrayList<Option>(getOptions().getOptions());
+        final List<Option> options = new ArrayList<>(getOptions().getOptions());
         Collections.sort(options, formatter.getOptionComparator());
         int i = 0;
         for(final Option o: options) {

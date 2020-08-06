@@ -50,7 +50,7 @@ public class PatternOptionBuilderTest
 
         assertEquals("flag a", "foo", line.getOptionValue("a"));
         assertEquals("string flag a", "foo", line.getOptionObject("a"));
-        assertEquals("object flag b", new Vector<Object>(), line.getOptionObject("b"));
+        assertEquals("object flag b", new Vector<>(), line.getOptionObject("b"));
         assertTrue("boolean true flag c", line.hasOption("c"));
         assertFalse("boolean false flag d", line.hasOption("d"));
         assertEquals("file flag e", new File("build.xml"), line.getOptionObject("e"));
@@ -61,7 +61,7 @@ public class PatternOptionBuilderTest
         // tests the char methods of CommandLine that delegate to the String methods
         assertEquals("flag a", "foo", line.getOptionValue('a'));
         assertEquals("string flag a", "foo", line.getOptionObject('a'));
-        assertEquals("object flag b", new Vector<Object>(), line.getOptionObject('b'));
+        assertEquals("object flag b", new Vector<>(), line.getOptionObject('b'));
         assertTrue("boolean true flag c", line.hasOption('c'));
         assertFalse("boolean false flag d", line.hasOption('d'));
         assertEquals("file flag e", new File("build.xml"), line.getOptionObject('e'));
@@ -163,7 +163,7 @@ public class PatternOptionBuilderTest
     {
         final Options options = PatternOptionBuilder.parsePattern("g<");
         final CommandLineParser parser = new PosixParser();
-        final CommandLine line = parser.parse(options, new String[] { "-g", "src/test/resources/existing-readable.file" });
+        final CommandLine line = parser.parse(options, new String[] { "-g", "src/test/resources/org/apache/commons/cli/existing-readable.file" });
 
         final Object parsedReadableFileStream = line.getOptionObject("g");
 

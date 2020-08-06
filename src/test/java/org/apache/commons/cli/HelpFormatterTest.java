@@ -287,6 +287,7 @@ public class HelpFormatterTest
         final HelpFormatter helpFormatter = new HelpFormatter();
         helpFormatter.setOptionComparator(new Comparator<Option>()
         {
+            @Override
             public int compare(final Option opt1, final Option opt2)
             {
                 // reverses the functionality of the default comparator

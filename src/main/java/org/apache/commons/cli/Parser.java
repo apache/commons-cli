@@ -82,6 +82,7 @@ public abstract class Parser implements CommandLineParser
      * @throws ParseException if there are any problems encountered
      *                        while parsing the command line tokens.
      */
+    @Override
     public CommandLine parse(final Options options, final String[] arguments) throws ParseException
     {
         return parse(options, arguments, null, false);
@@ -117,6 +118,7 @@ public abstract class Parser implements CommandLineParser
      * @return the <code>CommandLine</code>
      * @throws ParseException if an error occurs when parsing the arguments.
      */
+    @Override
     public CommandLine parse(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException
     {
         return parse(options, arguments, null, stopAtNonOption);

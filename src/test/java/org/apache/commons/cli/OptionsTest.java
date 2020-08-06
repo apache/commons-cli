@@ -91,7 +91,7 @@ public class OptionsTest
         options.addOption(bothA);
         options.addOption(bothB);
 
-        final Collection<Option> allOptions = new ArrayList<Option>();
+        final Collection<Option> allOptions = new ArrayList<>();
         allOptions.add(longOnly1);
         allOptions.add(longOnly2);
         allOptions.add(shortOnly1);

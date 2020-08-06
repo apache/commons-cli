@@ -73,7 +73,7 @@ public class Option implements Cloneable, Serializable
     private Class<?> type = String.class;
 
     /** the list of argument values **/
-    private List<String> values = new ArrayList<String>();
+    private List<String> values = new ArrayList<>();
 
     /** the character that is the value separator */
     private char valuesep;
@@ -680,7 +680,7 @@ public class Option implements Cloneable, Serializable
         try
         {
             final Option option = (Option) super.clone();
-            option.values = new ArrayList<String>(values);
+            option.values = new ArrayList<>(values);
             return option;
         }
         catch (final CloneNotSupportedException cnse)

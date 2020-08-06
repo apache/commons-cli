@@ -26,6 +26,7 @@ import org.junit.Test;
  */
 public class PosixParserTest extends ParserTestCase
 {
+    @Override
     @SuppressWarnings("deprecation")
     @Before
     public void setUp()

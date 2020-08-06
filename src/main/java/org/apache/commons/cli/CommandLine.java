@@ -41,10 +41,10 @@ public class CommandLine implements Serializable
     private static final long serialVersionUID = 1L;
 
     /** the unrecognized options/arguments */
-    private final List<String> args = new LinkedList<String>();
+    private final List<String> args = new LinkedList<>();
 
     /** the processed options */
-    private final List<Option> options = new ArrayList<Option>();
+    private final List<Option> options = new ArrayList<>();
 
     /**
      * Creates a command line.
@@ -167,6 +167,7 @@ public class CommandLine implements Serializable
      * @param opt the name of the option.
      * @return the type of opt.
      */
+    @Deprecated
     public Object getOptionObject(final char opt)
     {
         return getOptionObject(String.valueOf(opt));
@@ -224,7 +225,7 @@ public class CommandLine implements Serializable
      */
     public String[] getOptionValues(final Option option)
     {
-        final List<String> values = new ArrayList<String>();
+        final List<String> values = new ArrayList<>();
 
         for (final Option processedOption : options)
         {
