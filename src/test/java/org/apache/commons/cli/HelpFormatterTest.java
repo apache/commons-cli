@@ -165,8 +165,8 @@ public class HelpFormatterTest
         final int descPad = 3;
         final String lpad = hf.createPadding(leftPad);
         final String dpad = hf.createPadding(descPad);
-        Options options = null;
-        String expected = null;
+        Options options;
+        String expected;
 
         options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa");
         expected = lpad + "-a" + dpad + "aaaa aaaa aaaa aaaa aaaa";
@@ -235,7 +235,7 @@ public class HelpFormatterTest
     public void testAutomaticUsage() throws Exception
     {
         final HelpFormatter hf = new HelpFormatter();
-        Options options = null;
+        Options options;
         String expected = "usage: app [-a]";
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         final PrintWriter pw = new PrintWriter(out);
