@@ -45,7 +45,7 @@ public class DisablePartialMatchingTest
     @Test
     public void testRegularPartialMatching() throws Exception
     {
-        CommandLineParser parser = new DefaultParser();
+        final CommandLineParser parser = new DefaultParser();
 
         final Options options = new Options();
 
@@ -54,7 +54,7 @@ public class DisablePartialMatchingTest
         options.addOption(new Option("o", "option", true, "Turn on option with argument."));
 
 
-        CommandLine line = parser.parse(options, new String[]{"-de", "--option=foobar"});
+        final CommandLine line = parser.parse(options, new String[]{"-de", "--option=foobar"});
 
         assertTrue("There should be an option debug in any case...", line.hasOption("debug"));
         assertFalse("There should not be an extract option because partial matching only selects debug", line.hasOption("extract"));
