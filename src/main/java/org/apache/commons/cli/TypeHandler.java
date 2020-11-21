@@ -237,7 +237,7 @@ public class TypeHandler
         {
             return new FileInputStream(str);
         }
-        catch (FileNotFoundException e)
+        catch (final FileNotFoundException e)
         {
             throw new ParseException("Unable to find file: " + str);
         }
