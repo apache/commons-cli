@@ -32,7 +32,7 @@ import java.util.List;
  * at least a short or a long-name.
  * <p>
  * <b>Note:</b> once an {@link Option} has been added to an instance
- * of {@link Options}, it's required flag may not be changed anymore.
+ * of {@link Options}, its required flag cannot be changed.
  *
  * @see org.apache.commons.cli.Options
  * @see org.apache.commons.cli.CommandLine
