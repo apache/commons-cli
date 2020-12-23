@@ -139,7 +139,7 @@ public class BugCLI162Test
         final String PMODES = _PMODE_IN + ", " + _PMODE_INOUT + ", " + _PMODE_OUT + ", " + _PMODE_UNK;
 
         // Options build
-        Options commandLineOptions;
+        final Options commandLineOptions;
         commandLineOptions = new Options();
         commandLineOptions.addOption(OPT_HELP, OPT_HELP_, false, "Prints help and quits");
         commandLineOptions.addOption(OPT_DRIVER, "driver", true, "JDBC driver class name");
