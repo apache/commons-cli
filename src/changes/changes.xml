@@ -68,6 +68,9 @@
      <action type="update" dev="ggregory" due-to="Elliotte Rusty Harold">
         Option Javadocs grammar nits #55.
       </action>
+     <action type="update" dev="ggregory" due-to="Arturo Bernal">
+        Minor Improvements #57.
+      </action>
     </release>
 
     <release version="1.4" date="2017-03-09" description="New features and bug fixes">
