@@ -1,0 +1,116 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# OPTION_TYPE
+# 
+# Optional; default is to use BOTH.
+# 
+# BOTH: use short and long options. The option must be specified (below) as
+# SHORT|LONG|BOTH.
+# SHORT: use short options only.
+# LONG: use long options only.
+# BOTH: use both types (both MUST be present).
+# 
+# OPTION_TYPE=BOTH
+# 
+# Note that is is possible to either use a single character or multiple
+# characters to specify short or long options, respectively, so long as the
+# definitions are consistent. Specifying a mix without using a separator will
+# produce an error.
+
+# 
+# 
+# 
+# 
+# HELP_COMMAND_NAME=
+
+# 
+# 
+# 
+# 
+# HELP_HEADER=
+
+# 
+# 
+# 
+# 
+# HELP_FOOTER=
+
+# 
+# 
+# 
+# 
+# HELP_OPTION_NAME=h/help
+
+# CLI definitions
+# 
+
+# 
+# Message to display if there are no arguments supplied.
+# 
+# ON_EMPTY=[message]
+# 
+# Example:
+# 
+# ON_EMPTY=No arguments supplied; try -h/--help
+# 
+# Will print "No arguments supplied; try -h/--help" when args[] is null or empty.
+# 
+
+option.help=h/help
+option.help.hasArg=false
+option.help.description=Display this help then quit.
+
+option.host=H/host
+option.host.hasArg=true
+option.host.argName=host
+option.host.type=url
+option.host.default=localhost
+option.host.description=Specify the host, use localhost if not set.
+
+option.port=p/port
+option.port.hasArg=true
+option.port.description=Port number to use. \
+    If not set, use port 8001.
+option.port.default=80
+option.port.type=int
+option.port.type.min=80
+option.port.type.max=65536
+
+option.path=P/paths
+option.path.hasArg=true
+option.path.description=Comma separated list of paths to test on the server. \
+    If spaces are contained within the arguments, surround with double quotes.
+option.path.type=list[string]
+
+option.path=c/config
+option.path.hasArg=true
+option.path.description=Configuration file to use.
+option.path.type=file
+option.path.type.fileType=file
+option.path.type.exist
+#option.path.type.notexist
+#option.path.type.create=true
+
+option.path=o/outputDir
+option.path.hasArg=true
+option.path.description=Directory to write results to; created if it doesn't exist.
+option.path.type=file
+option.path.type.fileType=dir
+option.path.type.create=true
+#option.path.type.notexist
+
