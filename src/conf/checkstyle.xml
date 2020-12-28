@@ -17,8 +17,8 @@ limitations under the License.
 -->
 
 <!DOCTYPE module PUBLIC
-    "-//Puppy Crawl//DTD Check Configuration 1.1//EN"
-    "http://www.puppycrawl.com/dtds/configuration_1_1.dtd">
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <!-- Checkstyle configuration that checks the commons-cli coding conventions -->
 
@@ -47,16 +47,16 @@ limitations under the License.
       <property name="eachLine" value="true"/>
     </module>
 
-    <module name="TreeWalker">
+    <module name="LineLength">
+        <property name="max" value="120"/>
+    </module>
 
-        <property name="cacheFile" value="${checkstyle.cache.file}"/>
+    <module name="TreeWalker">
 
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <module name="JavadocMethod">
             <property name="scope" value="public"/>
-            <property name="allowUndeclaredRTE" value="true"/>
-            <property name="allowMissingJavadoc" value="true"/>
         </module>
         <module name="JavadocType"/>
         <module name="JavadocVariable"/>
@@ -85,9 +85,6 @@ limitations under the License.
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
         <!--<module name="FileLength"/>-->
-        <module name="LineLength">
-            <property name="max" value="120"/>
-        </module>
         <module name="MethodLength"/>
         <module name="ParameterNumber">
             <property name="max" value="9"/>
@@ -134,9 +131,6 @@ limitations under the License.
         <module name="InnerAssignment"/>
         <module name="MagicNumber">
             <property name="ignoreNumbers" value="-1,0,1,2,3"/>
-        </module>
-        <module name="RedundantThrows">
-            <property name="allowUnchecked" value="true"/>
         </module>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
