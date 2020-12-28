@@ -43,4 +43,4 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
     - name: Build with Maven
-      run: mvn -V apache-rat:check package --file pom.xml --no-transfer-progress
+      run: mvn -V --file pom.xml --no-transfer-progress

@@ -194,7 +194,7 @@
   </properties>
 
   <build>
-    <defaultGoal>clean verify apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc</defaultGoal>
+    <defaultGoal>clean package apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc</defaultGoal>
     <plugins>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
