@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE suppressions PUBLIC "-//Puppy Crawl//DTD Suppressions 1.0//EN" "https://checkstyle.org/dtds/suppressions_1_0.dtd">
+<!DOCTYPE suppressions PUBLIC -//Checkstyle//DTD SuppressionFilter Configuration 1.0//EN "https://checkstyle.org/dtds/suppressions_1_0.dtd">
 <!--
    Licensed to the Apache Software Foundation (ASF) under one or more
    contributor license agreements.  See the NOTICE file distributed with
