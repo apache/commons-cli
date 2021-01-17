@@ -539,7 +539,7 @@ public class HelpFormatter
                           final String header, final Options options, final int leftPad,
                           final int descPad, final String footer, final boolean autoUsage)
     {
-        if (cmdLineSyntax == null || cmdLineSyntax.length() == 0)
+        if (cmdLineSyntax == null || cmdLineSyntax.isEmpty())
         {
             throw new IllegalArgumentException("cmdLineSyntax not provided");
         }
@@ -826,7 +826,7 @@ public class HelpFormatter
             if (option.hasArg())
             {
                 final String argName = option.getArgName();
-                if (argName != null && argName.length() == 0)
+                if (argName != null && argName.isEmpty())
                 {
                     // if the option has a blank argname
                     optBuf.append(' ');
@@ -1045,7 +1045,7 @@ public class HelpFormatter
      */
     protected String rtrim(final String s)
     {
-        if (s == null || s.length() == 0)
+        if (s == null || s.isEmpty())
         {
             return s;
         }
