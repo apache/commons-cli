@@ -73,7 +73,7 @@ public class OptionGroupTest
         assertTrue( "Confirm -d is NOT set", !cl.hasOption("d") );
         assertTrue( "Confirm -s is NOT set", !cl.hasOption("s") );
         assertTrue( "Confirm -c is NOT set", !cl.hasOption("c") );
-        assertTrue( "Confirm no extra args", cl.getArgList().size() == 0);
+        assertTrue( "Confirm no extra args", cl.getArgList().isEmpty());
     }
 
     @Test
@@ -88,7 +88,7 @@ public class OptionGroupTest
         assertTrue( "Confirm -d is NOT set", !cl.hasOption("d") );
         assertTrue( "Confirm -s is NOT set", !cl.hasOption("s") );
         assertTrue( "Confirm -c is NOT set", !cl.hasOption("c") );
-        assertTrue( "Confirm no extra args", cl.getArgList().size() == 0);
+        assertTrue( "Confirm no extra args", cl.getArgList().isEmpty());
     }
 
     @Test
@@ -103,7 +103,7 @@ public class OptionGroupTest
         assertTrue( "Confirm -d is NOT set", !cl.hasOption("d") );
         assertTrue( "Confirm -s is NOT set", !cl.hasOption("s") );
         assertTrue( "Confirm -c is NOT set", !cl.hasOption("c") );
-        assertTrue( "Confirm no extra args", cl.getArgList().size() == 0);
+        assertTrue( "Confirm no extra args", cl.getArgList().isEmpty());
     }
 
     @Test
@@ -118,7 +118,7 @@ public class OptionGroupTest
         assertTrue( "Confirm -d is NOT set", !cl.hasOption("d") );
         assertTrue( "Confirm -s is NOT set", !cl.hasOption("s") );
         assertTrue( "Confirm -c is NOT set", !cl.hasOption("c") );
-        assertTrue( "Confirm no extra args", cl.getArgList().size() == 0);
+        assertTrue( "Confirm no extra args", cl.getArgList().isEmpty());
     }
 
     @Test
@@ -133,7 +133,7 @@ public class OptionGroupTest
         assertTrue( "Confirm -d is NOT set", !cl.hasOption("d") );
         assertTrue( "Confirm -s is NOT set", !cl.hasOption("s") );
         assertTrue( "Confirm -c is NOT set", !cl.hasOption("c") );
-        assertTrue( "Confirm no extra args", cl.getArgList().size() == 0);
+        assertTrue( "Confirm no extra args", cl.getArgList().isEmpty());
     }
 
     @Test
@@ -198,7 +198,7 @@ public class OptionGroupTest
         assertTrue( "Confirm -d is NOT set", !cl.hasOption("d") );
         assertTrue( "Confirm -s is set", cl.hasOption("s") );
         assertTrue( "Confirm -c is NOT set", !cl.hasOption("c") );
-        assertTrue( "Confirm NO extra args", cl.getArgList().size() == 0);
+        assertTrue( "Confirm NO extra args", cl.getArgList().isEmpty());
     }
 
     @Test

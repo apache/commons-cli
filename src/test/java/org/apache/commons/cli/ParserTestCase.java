@@ -227,7 +227,7 @@ public abstract class ParserTestCase
 
         assertTrue("Confirm -b is set", cl.hasOption('b'));
         assertEquals("Confirm -b is set", "foo", cl.getOptionValue('b'));
-        assertTrue("Confirm no extra args: " + cl.getArgList().size(), cl.getArgList().size() == 0);
+        assertTrue("Confirm no extra args: " + cl.getArgList().size(), cl.getArgList().isEmpty());
     }
 
     @Test
@@ -676,7 +676,7 @@ public abstract class ParserTestCase
         assertTrue("Confirm -a is NOT set", !cl.hasOption("a"));
         assertTrue("Confirm -b is set", cl.hasOption("b"));
         assertTrue("Confirm arg of -b", cl.getOptionValue("b").equals("file"));
-        assertTrue("Confirm NO of extra args", cl.getArgList().size() == 0);
+        assertTrue("Confirm NO of extra args", cl.getArgList().isEmpty());
     }
 
     @Test
@@ -693,7 +693,7 @@ public abstract class ParserTestCase
         assertTrue("Confirm -a is set", cl.hasOption("a"));
         assertTrue("Confirm -b is set", cl.hasOption("b"));
         assertTrue("Confirm arg of -b", cl.getOptionValue("b").equals("file"));
-        assertTrue("Confirm NO of extra args", cl.getArgList().size() == 0);
+        assertTrue("Confirm NO of extra args", cl.getArgList().isEmpty());
     }
 
     @Test
