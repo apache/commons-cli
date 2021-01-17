@@ -693,7 +693,7 @@ public class HelpFormatter
         }
 
         // if the Option has a value and a non blank argname
-        if (option.hasArg() && (option.getArgName() == null || option.getArgName().length() != 0))
+        if (option.hasArg() && (option.getArgName() == null || !option.getArgName().isEmpty()))
         {
             buff.append(option.getOpt() == null ? longOptSeparator : " ");
             buff.append("<").append(option.getArgName() != null ? option.getArgName() : getArgName()).append(">");
