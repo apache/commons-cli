@@ -553,14 +553,14 @@ public class HelpFormatter
             printUsage(pw, width, cmdLineSyntax);
         }
 
-        if (header != null && header.trim().length() > 0)
+        if (header != null && !header.trim().isEmpty())
         {
             printWrapped(pw, width, header);
         }
 
         printOptions(pw, width, options, leftPad, descPad);
 
-        if (footer != null && footer.trim().length() > 0)
+        if (footer != null && !footer.trim().isEmpty())
         {
             printWrapped(pw, width, footer);
         }

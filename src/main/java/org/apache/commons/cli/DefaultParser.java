@@ -360,7 +360,7 @@ public class DefaultParser implements CommandLineParser
             return true;
         }
         // check for several concatenated short options
-        return optName.length() > 0 && options.hasShortOption(String.valueOf(optName.charAt(0)));
+        return !optName.isEmpty() && options.hasShortOption(String.valueOf(optName.charAt(0)));
     }
 
     /**
