@@ -493,7 +493,7 @@ public class CommandLine implements Serializable
     {
         final Collection<Option> processed = options;
 
-        // reinitialise array
+        // reinitialize array
         final Option[] optionsArray = new Option[processed.size()];
 
         // return the array

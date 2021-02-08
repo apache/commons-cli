@@ -158,7 +158,7 @@ public abstract class Parser implements CommandLineParser
             group.setSelected(null);
         }
 
-        // initialise members
+        // initialize members
         setOptions(options);
 
         cmd = new CommandLine();

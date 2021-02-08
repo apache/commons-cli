@@ -576,7 +576,7 @@ public class HelpFormatter
      */
     public void printUsage(final PrintWriter pw, final int width, final String app, final Options options)
     {
-        // initialise the string buffer
+        // initialize the string buffer
         final StringBuffer buff = new StringBuffer(getSyntaxPrefix()).append(app).append(" ");
 
         // create a list for processed option groups
