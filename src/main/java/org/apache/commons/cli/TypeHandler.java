@@ -40,7 +40,7 @@ public class TypeHandler
      *
      * @param str the command line value
      * @param obj the type of argument
-     * @return The instance of <code>obj</code> initialised with
+     * @return The instance of <code>obj</code> initialized with
      * the value of <code>str</code>.
      * @throws ParseException if the value creation for the given object type failed
      */
@@ -56,7 +56,7 @@ public class TypeHandler
      * @param str the command line value
      * @param clazz the class representing the type of argument
      * @param <T> type of argument
-     * @return The instance of <code>clazz</code> initialised with
+     * @return The instance of <code>clazz</code> initialized with
      * the value of <code>str</code>.
      * @throws ParseException if the value creation for the given class failed
      */
@@ -109,7 +109,7 @@ public class TypeHandler
       * Create an Object from the classname and empty constructor.
       *
       * @param classname the argument value
-      * @return the initialised object
+      * @return the initialized object
       * @throws ParseException if the class could not be found or the object could not be created
       */
     public static Object createObject(final String classname) throws ParseException
