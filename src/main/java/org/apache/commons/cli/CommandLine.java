@@ -55,7 +55,7 @@ public class CommandLine implements Serializable
     }
 
     /**
-     * Query to see if an option has been set.
+     * Tests to see if an option has been set.
      *
      * @param opt the option to check.
      * @return true if set, false if not.
@@ -67,7 +67,7 @@ public class CommandLine implements Serializable
     }
 
     /**
-     * Query to see if an option has been set.
+     * Tests to see if an option has been set.
      *
      * @param opt Short name of the option.
      * @return true if set, false if not.
@@ -78,7 +78,7 @@ public class CommandLine implements Serializable
     }
 
     /**
-     * Query to see if an option has been set.
+     * Tests to see if an option has been set.
      *
      * @param opt character name of the option.
      * @return true if set, false if not.
