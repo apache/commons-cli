@@ -93,14 +93,10 @@ public class OptionGroup implements Serializable
         // if no option has already been selected or the
         // same option is being reselected then set the
         // selected member variable
-        if (selected == null || selected.equals(option.getKey()))
-        {
-            selected = option.getKey();
-        }
-        else
-        {
+        if ((selected != null) && !selected.equals(option.getKey())) {
             throw new AlreadySelectedException(this, option);
         }
+        selected = option.getKey();
     }
 
     /**

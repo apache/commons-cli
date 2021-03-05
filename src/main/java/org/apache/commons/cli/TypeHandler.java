@@ -67,42 +67,39 @@ public class TypeHandler
         {
             return (T) str;
         }
-        else if (PatternOptionBuilder.OBJECT_VALUE == clazz)
+        if (PatternOptionBuilder.OBJECT_VALUE == clazz)
         {
             return (T) createObject(str);
         }
-        else if (PatternOptionBuilder.NUMBER_VALUE == clazz)
+        if (PatternOptionBuilder.NUMBER_VALUE == clazz)
         {
             return (T) createNumber(str);
         }
-        else if (PatternOptionBuilder.DATE_VALUE == clazz)
+        if (PatternOptionBuilder.DATE_VALUE == clazz)
         {
             return (T) createDate(str);
         }
-        else if (PatternOptionBuilder.CLASS_VALUE == clazz)
+        if (PatternOptionBuilder.CLASS_VALUE == clazz)
         {
             return (T) createClass(str);
         }
-        else if (PatternOptionBuilder.FILE_VALUE == clazz)
+        if (PatternOptionBuilder.FILE_VALUE == clazz)
         {
             return (T) createFile(str);
         }
-        else if (PatternOptionBuilder.EXISTING_FILE_VALUE == clazz)
+        if (PatternOptionBuilder.EXISTING_FILE_VALUE == clazz)
         {
             return (T) openFile(str);
         }
-        else if (PatternOptionBuilder.FILES_VALUE == clazz)
+        if (PatternOptionBuilder.FILES_VALUE == clazz)
         {
             return (T) createFiles(str);
         }
-        else if (PatternOptionBuilder.URL_VALUE == clazz)
+        if (PatternOptionBuilder.URL_VALUE == clazz)
         {
             return (T) createURL(str);
         }
-        else
-        {
-            throw new ParseException("Unable to handle the class: " + clazz);
-        }
+        throw new ParseException("Unable to handle the class: " + clazz);
     }
 
     /**

@@ -930,11 +930,11 @@ public abstract class ParserTestCase
     private CommandLine parse(final CommandLineParser parser, final Options opts, final String[] args, final Properties properties) throws ParseException {
         if (parser instanceof Parser) {
             return ((Parser) parser).parse(opts, args, properties);
-        } else if (parser instanceof DefaultParser) {
-            return ((DefaultParser) parser).parse(opts, args, properties);
-        } else {
-            throw new UnsupportedOperationException("Default options not supported by this parser");
         }
+        if (parser instanceof DefaultParser) {
+            return ((DefaultParser) parser).parse(opts, args, properties);
+        }
+        throw new UnsupportedOperationException("Default options not supported by this parser");
     }
 
     @Test

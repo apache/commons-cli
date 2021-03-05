@@ -40,7 +40,7 @@ final class Util
         {
             return str.substring(2);
         }
-        else if (str.startsWith("-"))
+        if (str.startsWith("-"))
         {
             return str.substring(1);
         }

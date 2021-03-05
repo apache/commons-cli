@@ -383,7 +383,7 @@ public class DefaultParser implements CommandLineParser
             // long or partial long options (--L, -L, --L=V, -L=V, --l, --l=V)
             return true;
         }
-        else if (getLongPrefix(token) != null && !token.startsWith("--"))
+        if (getLongPrefix(token) != null && !token.startsWith("--"))
         {
             // -LV
             return true;
@@ -759,20 +759,16 @@ public class DefaultParser implements CommandLineParser
         {
             final String ch = String.valueOf(token.charAt(i));
 
-            if (options.hasOption(ch))
-            {
-                handleOption(options.getOption(ch));
-
-                if (currentOption != null && token.length() != i + 1)
-                {
-                    // add the trail as an argument of the option
-                    currentOption.addValueForProcessing(token.substring(i + 1));
-                    break;
-                }
-            }
-            else
-            {
+            if (!options.hasOption(ch)) {
                 handleUnknownToken(stopAtNonOption && i > 1 ? token.substring(i) : token);
+                break;
+            }
+            handleOption(options.getOption(ch));
+
+            if (currentOption != null && token.length() != i + 1)
+            {
+                // add the trail as an argument of the option
+                currentOption.addValueForProcessing(token.substring(i + 1));
                 break;
             }
         }
