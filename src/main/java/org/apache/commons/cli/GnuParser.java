@@ -85,6 +85,6 @@ public class GnuParser extends Parser {
             }
         }
 
-        return tokens.toArray(new String[tokens.size()]);
+        return tokens.toArray(Util.EMPTY_STRING_ARRAY);
     }
 }
