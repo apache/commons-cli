@@ -247,6 +247,7 @@
             <!-- Should agree with config in build section -->
             <configuration>
               <excludes>
+                <exclude>.asf.yaml</exclude>
               </excludes>
             </configuration>
         </plugin>
@@ -300,6 +301,7 @@
         <!-- Should agree with config in build section -->
         <configuration>
           <excludes>
+            <exclude>.asf.yaml</exclude>
           </excludes>
         </configuration>
       </plugin>
