@@ -62,8 +62,8 @@
       <action type="update" dev="ggregory" due-to="Dependabot">
         Bump actions/checkout from v2.3.1 to v2.3.2 #46.
       </action>
-     <action type="update" dev="ggregory" due-to="Dependabot">
-        Bump actions/setup-java from v1.4.2 to v1.4.3 #50.
+     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+        Bump actions/setup-java from v1.4.2 to v2 #50.
       </action>
      <action type="update" dev="ggregory" due-to="Elliotte Rusty Harold">
         Option Javadocs grammar nits #55.
