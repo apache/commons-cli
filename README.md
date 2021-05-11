@@ -25,7 +25,7 @@
  | commons-build-plugin/trunk/src/main/resources/commons-xdoc-templates |
  +======================================================================+
  |                                                                      |
- | 1) Re-generate using: mvn commons:readme-md                          |
+ | 1) Re-generate using: mvn commons-build:readme-md                    |
  |                                                                      |
  | 2) Set the following properties in the component's pom:              |
  |    - commons.componentid (required, alphabetic, lower case)          |
@@ -54,7 +54,7 @@ Documentation
 -------------
 
 More information can be found on the [Apache Commons CLI homepage](https://commons.apache.org/proper/commons-cli).
-The [Javadoc](https://commons.apache.org/proper/commons-cli/javadocs/api-release) can be browsed.
+The [Javadoc](https://commons.apache.org/proper/commons-cli/apidocs) can be browsed.
 Questions related to the usage of Apache Commons CLI should be posted to the [user mailing list][ml].
 
 Where can I get the latest release?
