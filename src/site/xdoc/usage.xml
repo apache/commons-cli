@@ -218,11 +218,10 @@ Option find      = Option.builder( "find" )
           The last option to create is the Java property and it is also created
           using the OptionBuilder.
         </p>
-        <source>Option property  = OptionBuilder.withArgName( "property=value" )
-                                .hasArgs(2)
-                                .withValueSeparator()
-                                .withDescription( "use value for given property" )
-                                .create( "D" );</source>
+        <source>Option property  = Option.builder( "D" )
+                                .hasArgs()
+                                .valueSeparator('=')
+                                .build();</source>
 
           The map of properties specified by this option can later be retrieved by
           calling <code>getOptionProperties("D")</code> on the <code>CommandLine</code>.
@@ -358,11 +357,10 @@ options.addOption( "a", "all", false, "do not hide entries starting with ." );
 options.addOption( "A", "almost-all", false, "do not list implied . and .." );
 options.addOption( "b", "escape", false, "print octal escapes for nongraphic "
                                          + "characters" );
-options.addOption( OptionBuilder.withLongOpt( "block-size" )
-                                .withDescription( "use SIZE-byte blocks" )
+options.addOption( Option.builder("SIZE").longOpt( "block-size" )
+                                .desc( "use SIZE-byte blocks" )
                                 .hasArg()
-                                .withArgName("SIZE")
-                                .create() );
+                                .build() );
 options.addOption( "B", "ignore-backups", false, "do not list implied entried "
                                                  + "ending with ~");
 options.addOption( "c", false, "with -lt: sort by, and show, ctime (time of last " 
