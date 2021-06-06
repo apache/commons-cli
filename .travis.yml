@@ -18,7 +18,7 @@ language: java
 jdk:
   - openjdk8
   - openjdk11
-  - openjdk15
+  - openjdk16
   - openjdk-ea
 
 script:
