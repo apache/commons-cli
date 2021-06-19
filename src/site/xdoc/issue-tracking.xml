@@ -26,7 +26,7 @@ limitations under the License.
  | commons-build-plugin/trunk/src/main/resources/commons-xdoc-templates |
  +======================================================================+
  |                                                                      |
- | 1) Re-generate using: mvn commons:jira-page                          |
+ | 1) Re-generate using: mvn commons-build:jira-page                    |
  |                                                                      |
  | 2) Set the following properties in the component's pom:              |
  |    - commons.jira.id  (required, alphabetic, upper case)             |
@@ -43,15 +43,15 @@ limitations under the License.
 -->
 <document>
   <properties>
-    <title>Commons CLI Issue tracking</title>
-    <author email="dev@commons.apache.org">Commons Documentation Team</author>
+    <title>Apache Commons CLI Issue tracking</title>
+    <author email="dev@commons.apache.org">Apache Commons Documentation Team</author>
   </properties>
   <body>
 
-    <section name="Commons CLI Issue tracking">
+    <section name="Apache Commons CLI Issue tracking">
       <p>
-      Commons CLI uses <a href="https://issues.apache.org/jira/">ASF JIRA</a> for tracking issues.
-      See the <a href="https://issues.apache.org/jira/browse/CLI">Commons CLI JIRA project page</a>.
+      Apache Commons CLI uses <a href="https://issues.apache.org/jira/">ASF JIRA</a> for tracking issues.
+      See the <a href="https://issues.apache.org/jira/browse/CLI">Apache Commons CLI JIRA project page</a>.
       </p>
 
       <p>
@@ -63,7 +63,7 @@ limitations under the License.
 
       <p>
       If you would like to report a bug, or raise an enhancement request with
-      Commons CLI please do the following:
+      Apache Commons CLI please do the following:
       <ol>
         <li><a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;pid=12310463&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;status=1&amp;status=3&amp;status=4">Search existing open bugs</a>.
             If you find your issue listed then please add a comment with your details.</li>
@@ -80,21 +80,21 @@ limitations under the License.
       <ul>
         <li>the more information you provide, the better we can help you</li>
         <li>test cases are vital, particularly for any proposed enhancements</li>
-        <li>the developers of Commons CLI are all unpaid volunteers</li>
+        <li>the developers of Apache Commons CLI are all unpaid volunteers</li>
       </ul>
       </p>
 
       <p>
       For more information on subversion and creating patches see the
-      <a href="http://www.apache.org/dev/contributors.html">Apache Contributors Guide</a>.
+      <a href="https://www.apache.org/dev/contributors.html">Apache Contributors Guide</a>.
       </p>
 
       <p>
       You may also find these links useful:
       <ul>
-        <li><a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;pid=12310463&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;status=1&amp;status=3&amp;status=4">All Open Commons CLI bugs</a></li>
-        <li><a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;pid=12310463&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;status=5&amp;status=6">All Resolved Commons CLI bugs</a></li>
-        <li><a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;pid=12310463&amp;sorter/field=issuekey&amp;sorter/order=DESC">All Commons CLI bugs</a></li>
+        <li><a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;pid=12310463&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;status=1&amp;status=3&amp;status=4">All Open Apache Commons CLI bugs</a></li>
+        <li><a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;pid=12310463&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;status=5&amp;status=6">All Resolved Apache Commons CLI bugs</a></li>
+        <li><a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;pid=12310463&amp;sorter/field=issuekey&amp;sorter/order=DESC">All Apache Commons CLI bugs</a></li>
       </ul>
       </p>
     </section>
