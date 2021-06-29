@@ -35,6 +35,58 @@ public class HelpFormatterTest
     private static final String EOL = System.getProperty("line.separator");
 
     @Test
+    public void testHeaderNewline()
+    {
+        final HelpFormatter formatter = new HelpFormatter();
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final PrintWriter pw = new PrintWriter(out);
+
+        formatter.printHelp(
+            pw,
+            HelpFormatter.DEFAULT_WIDTH,
+            "test",
+            EOL,
+            new Options(),
+            HelpFormatter.DEFAULT_LEFT_PAD,
+            HelpFormatter.DEFAULT_DESC_PAD,
+            ""
+        );
+
+        String expected = "usage: test" + EOL +
+                          EOL +
+                          EOL;
+
+        pw.flush();
+        assertEquals("header newline", expected, out.toString());
+    }
+
+    @Test
+    public void testFooterNewline()
+    {
+        final HelpFormatter formatter = new HelpFormatter();
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final PrintWriter pw = new PrintWriter(out);
+
+        formatter.printHelp(
+            pw,
+            HelpFormatter.DEFAULT_WIDTH,
+            "test",
+            "",
+            new Options(),
+            HelpFormatter.DEFAULT_LEFT_PAD,
+            HelpFormatter.DEFAULT_DESC_PAD,
+            "\n"
+        );
+
+        String expected = "usage: test" + EOL +
+                          "\n" +
+                          EOL;
+
+        pw.flush();
+        assertEquals("footer newline", expected, out.toString());
+    }
+
+    @Test
     public void testFindWrapPos() throws Exception
     {
         final HelpFormatter hf = new HelpFormatter();
