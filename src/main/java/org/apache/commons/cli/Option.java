@@ -789,7 +789,7 @@ public class Option implements Cloneable, Serializable
     public static final class Builder
     {
         /** the name of the option */
-        private final String opt;
+        private String opt;
 
         /** description of the option */
         private String description;
@@ -849,6 +849,16 @@ public class Option implements Cloneable, Serializable
         public Builder desc(final String description)
         {
             this.description = description;
+            return this;
+        }
+
+        /**
+         * Sets the name of the option
+         *
+         * @param opt name of the option
+         */
+        public Builder opt(String opt) {
+            this.opt = opt;
             return this;
         }
 
