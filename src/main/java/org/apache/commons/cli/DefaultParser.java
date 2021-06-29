@@ -57,8 +57,12 @@ public class DefaultParser implements CommandLineParser
     /** Flag indicating if partial matching of long options is supported. */
     private final  boolean allowPartialMatching;
 
+    /** Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments. */
+    private final  boolean stripLeadingAndTrailingQuotes;
+
     /**
-     * Creates a new DefaultParser instance with partial matching enabled.
+     * Creates a new DefaultParser instance with partial matching and
+     * stripping of balanced leading and trailing double quotes from option arguments enabled.
      *
      * By "partial matching" we mean that given the following code:
      * <pre>
@@ -73,13 +77,19 @@ public class DefaultParser implements CommandLineParser
      * <code>"debug"</code> option. However, with "partial matching" disabled,
      * <code>-de</code> would enable both <code>debug</code> as well as
      * <code>extract</code> options.
+     * with "stripping of balanced leading and trailing double quotes from option arguments" turned
+     * on, the outermost balanced double quotes of option arguments values will be removed.
+     * ie.
+     * for <code>-o '"x"'</code> getValue() will return <code>x</code>, instead of <code>"x"</code>
      */
     public DefaultParser() {
         this.allowPartialMatching = true;
+        this.stripLeadingAndTrailingQuotes = true;
     }
 
     /**
-     * Create a new DefaultParser instance with the specified partial matching policy.
+     * Create a new DefaultParser instance with the specified partial matching policy and
+     * stripping of balanced leading and trailing double quotes from option arguments enabled.
      *
      * By "partial matching" we mean that given the following code:
      * <pre>
@@ -94,12 +104,47 @@ public class DefaultParser implements CommandLineParser
      * <code>"debug"</code> option. However, with "partial matching" disabled,
      * <code>-de</code> would enable both <code>debug</code> as well as
      * <code>extract</code> options.
-     *
+     * with "stripping of balanced leading and trailing double quotes from option arguments" turned
+     * on, the outermost balanced double quotes of option arguments values will be removed.
+     * ie.
+     * for <code>-o '"x"'</code> getValue() will return <code>x</code>, instead of <code>"x"</code>
      * @param allowPartialMatching if partial matching of long options shall be enabled
      */
     public DefaultParser(final boolean allowPartialMatching) {
         this.allowPartialMatching = allowPartialMatching;
+        this.stripLeadingAndTrailingQuotes = true;
     }
+
+    /**
+     * Create a new DefaultParser instance with the specified partial matching and quote
+     * stripping policy.
+     *
+     * By "partial matching" we mean that given the following code:
+     * <pre>
+     *     {@code
+     *          final Options options = new Options();
+     *      options.addOption(new Option("d", "debug", false, "Turn on debug."));
+     *      options.addOption(new Option("e", "extract", false, "Turn on extract."));
+     *      options.addOption(new Option("o", "option", true, "Turn on option with argument."));
+     *      }
+     * </pre>
+     * with "partial matching" turned on, <code>-de</code> only matches the
+     * <code>"debug"</code> option. However, with "partial matching" disabled,
+     * <code>-de</code> would enable both <code>debug</code> as well as
+     * <code>extract</code> options.
+     * with "stripping of balanced leading and trailing double quotes from option arguments" turned
+     * on, the outermost balanced double quotes of option arguments values will be removed.
+     * ie.
+     * for <code>-o '"x"'</code> getValue() will return <code>x</code>, instead of <code>"x"</code>
+     * @param allowPartialMatching if partial matching of long options shall be enabled
+     * @param stripLeadingAndTrailingQuotes if balanced outer double quoutes should be stripped
+     */
+    public DefaultParser(final boolean allowPartialMatching,
+            final boolean stripLeadingAndTrailingQuotes) {
+        this.allowPartialMatching = allowPartialMatching;
+        this.stripLeadingAndTrailingQuotes = stripLeadingAndTrailingQuotes;
+    }
+
 
     @Override
     public CommandLine parse(final Options options, final String[] arguments) throws ParseException
@@ -280,7 +325,7 @@ public class DefaultParser implements CommandLineParser
         }
         else if (currentOption != null && currentOption.acceptsArg() && isArgument(token))
         {
-            currentOption.addValueForProcessing(Util.stripLeadingAndTrailingQuotes(token));
+            currentOption.addValueForProcessing(conditionallyStripLeadingAndTrailingQuotes(token));
         }
         else if (token.startsWith("--"))
         {
@@ -771,6 +816,14 @@ public class DefaultParser implements CommandLineParser
                 currentOption.addValueForProcessing(token.substring(i + 1));
                 break;
             }
+        }
+    }
+
+    protected String conditionallyStripLeadingAndTrailingQuotes(final String token) {
+        if(stripLeadingAndTrailingQuotes) {
+            return Util.stripLeadingAndTrailingQuotes(token);
+        } else {
+            return token;
         }
     }
 }

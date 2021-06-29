@@ -22,6 +22,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -1104,5 +1105,62 @@ public abstract class ParserTestCase
         assertFalse(cmd.hasOption("b"));
         assertTrue(cmd.hasOption("x"));
         assertFalse(cmd.hasOption("y"));
+    }
+
+    @Test
+    public void testLongOptionWithEqualsQuoteHandling() throws Exception
+    {
+        assumeTrue(parser instanceof DefaultParser );
+        final String[] args = new String[] { "--bfile=\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile=arg keeps quotes", "\"quoted string\"", cl.getOptionValue("bfile"));
+    }
+
+    @Test
+    public void testShortOptionQuoteHandlingWithDefault() throws Exception
+    {
+        assumeTrue(parser instanceof DefaultParser );
+        final String[] args = new String[] { "-b", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm -b strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testShortOptionQuoteHandlingWithNoStrip() throws Exception
+    {
+        assumeTrue(parser instanceof DefaultParser );
+        parser = new DefaultParser(true, false);
+        final String[] args = new String[] { "-b", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm -b keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testLongOptionQuoteHandlingWithDefault() throws Exception
+    {
+        assumeTrue(parser instanceof DefaultParser );
+        final String[] args = new String[] { "--bfile", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile arg strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testLongOptionQuoteHandlingWithNoStrip() throws Exception
+    {
+        assumeTrue(parser instanceof DefaultParser );
+        parser = new DefaultParser(true, false);
+        final String[] args = new String[] { "--bfile", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile arg keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
     }
 }
