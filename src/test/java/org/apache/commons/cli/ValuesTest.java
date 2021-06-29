@@ -40,14 +40,14 @@ public class ValuesTest
         options.addOption("c", "c", false, "toggle -c");
         options.addOption("d", "d", true, "set -d");
 
-        options.addOption(OptionBuilder.withLongOpt("e").hasArgs().withDescription("set -e ").create('e'));
+        options.addOption(Option.builder("e").longOpt("e").hasArgs().desc("set -e").build());
         options.addOption("f", "f", false, "jk");
-        options.addOption(OptionBuilder.withLongOpt("g").hasArgs(2).withDescription("set -g").create('g'));
-        options.addOption(OptionBuilder.withLongOpt("h").hasArg().withDescription("set -h").create('h'));
-        options.addOption(OptionBuilder.withLongOpt("i").withDescription("set -i").create('i'));
-        options.addOption(OptionBuilder.withLongOpt("j").hasArgs().withDescription("set -j").withValueSeparator('=').create('j'));
-        options.addOption(OptionBuilder.withLongOpt("k").hasArgs().withDescription("set -k").withValueSeparator('=').create('k'));
-        options.addOption(OptionBuilder.withLongOpt("m").hasArgs().withDescription("set -m").withValueSeparator().create('m'));
+        options.addOption(Option.builder("g").longOpt("g").numberOfArgs(2).desc("set -g").build());
+        options.addOption(Option.builder("h").longOpt("h").hasArg().desc("set -h").build());
+        options.addOption(Option.builder("i").longOpt("i").desc("set -i").build());
+        options.addOption(Option.builder("j").longOpt("j").hasArgs().desc("set -j").valueSeparator('=').build());
+        options.addOption(Option.builder("k").longOpt("k").hasArgs().desc("set -k").valueSeparator('=').build());
+        options.addOption(Option.builder("m").longOpt("m").hasArgs().desc("set -m").valueSeparator().build());
 
         final String[] args = new String[] { "-a",
                                        "-b", "foo",

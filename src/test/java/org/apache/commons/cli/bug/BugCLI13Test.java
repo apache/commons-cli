@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
@@ -36,13 +35,9 @@ public class BugCLI13Test
     {
         final String debugOpt = "debug";
         @SuppressWarnings("static-access")
-        final
-        Option debug = OptionBuilder
-            .withArgName( debugOpt )
-            .withDescription( "turn on debugging" )
-            .withLongOpt( debugOpt )
-            .hasArg()
-            .create( 'd' );
+        final Option debug = Option.builder("d").longOpt(debugOpt).hasArg().argName(debugOpt)
+                            .desc("turn on debugging").build();
+
         final Options options = new Options();
         options.addOption( debug );
         final CommandLine commandLine = new PosixParser().parse( options, new String[]{"-d", "true"} );

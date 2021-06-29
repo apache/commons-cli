@@ -248,8 +248,8 @@ public class OptionGroupTest
     public void testGetNames()
     {
         final OptionGroup group = new OptionGroup();
-        group.addOption(OptionBuilder.create('a'));
-        group.addOption(OptionBuilder.create('b'));
+        group.addOption(Option.builder("a").build());
+        group.addOption(Option.builder("b").build());
 
         assertNotNull("null names", group.getNames());
         assertEquals(2, group.getNames().size());

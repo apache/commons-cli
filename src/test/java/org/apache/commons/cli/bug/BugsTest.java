@@ -33,7 +33,6 @@ import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -48,7 +47,7 @@ public class BugsTest
     public void test11457() throws Exception
     {
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("verbose").create());
+        options.addOption(Option.builder().longOpt("verbose").build());
         final String[] args = new String[]{"--verbose"};
 
         final CommandLineParser parser = new PosixParser();
@@ -61,8 +60,8 @@ public class BugsTest
     public void test11458() throws Exception
     {
         final Options options = new Options();
-        options.addOption( OptionBuilder.withValueSeparator( '=' ).hasArgs().create( 'D' ) );
-        options.addOption( OptionBuilder.withValueSeparator( ':' ).hasArgs().create( 'p' ) );
+        options.addOption( Option.builder("D").valueSeparator('=').hasArgs().build() );
+        options.addOption( Option.builder("p").valueSeparator(':').hasArgs().build() );
         final String[] args = new String[] { "-DJAVA_HOME=/opt/java" , "-pfile1:file2:file3" };
 
         final CommandLineParser parser = new PosixParser();
@@ -122,8 +121,8 @@ public class BugsTest
     {
         // Posix
         Options options = new Options();
-        options.addOption( OptionBuilder.hasOptionalArg().create( 'a' ) );
-        options.addOption( OptionBuilder.hasArg().create( 'b' ) );
+        options.addOption( Option.builder("a").hasArg().optionalArg(true).build() );
+        options.addOption( Option.builder("b").hasArg().build() );
         String[] args = new String[] { "-a", "-bvalue" };
 
         CommandLineParser parser = new PosixParser();
@@ -133,8 +132,8 @@ public class BugsTest
 
         // GNU
         options = new Options();
-        options.addOption( OptionBuilder.hasOptionalArg().create( 'a' ) );
-        options.addOption( OptionBuilder.hasArg().create( 'b' ) );
+        options.addOption( Option.builder("a").hasArg().optionalArg(true).build() );
+        options.addOption( Option.builder("b").hasArg().build() );
         args = new String[] { "-a", "-b", "value" };
 
         parser = new GnuParser();
@@ -204,14 +203,11 @@ public class BugsTest
     public void test13425() throws Exception
     {
         final Options options = new Options();
-        final Option oldpass = OptionBuilder.withLongOpt( "old-password" )
-            .withDescription( "Use this option to specify the old password" )
-            .hasArg()
-            .create( 'o' );
-        final Option newpass = OptionBuilder.withLongOpt( "new-password" )
-            .withDescription( "Use this option to specify the new password" )
-            .hasArg()
-            .create( 'n' );
+        final Option oldpass = Option.builder("o").longOpt("old-password").hasArg()
+                              .desc("Use this option to specify the old password").build();
+
+        final Option newpass = Option.builder("n").longOpt("new-password").hasArg()
+                              .desc("Use this option to specify the new password").build();
 
         final String[] args = {
             "-o",
@@ -235,7 +231,7 @@ public class BugsTest
     public void test13666() throws Exception
     {
         final Options options = new Options();
-        final Option dir = OptionBuilder.withDescription( "dir" ).hasArg().create( 'd' );
+        final Option dir = Option.builder("d").desc("dir").hasArg().build();
         options.addOption( dir );
 
         final PrintStream oldSystemOut = System.out;
@@ -312,7 +308,7 @@ public class BugsTest
     @Test
     public void test14786() throws Exception
     {
-        final Option o = OptionBuilder.isRequired().withDescription("test").create("test");
+        final Option o = Option.builder("test").required().desc("test").build();
         final Options opts = new Options();
         opts.addOption(o);
         opts.addOption(o);
@@ -348,7 +344,7 @@ public class BugsTest
     {
         final CommandLineParser parser = new PosixParser();
         final String[] args = new String[] { "-m", "\"Two Words\"" };
-        final Option m = OptionBuilder.hasArgs().create("m");
+        final Option m = Option.builder("m").hasArgs().build();
         final Options options = new Options();
         options.addOption( m );
         final CommandLine line = parser.parse( options, args );

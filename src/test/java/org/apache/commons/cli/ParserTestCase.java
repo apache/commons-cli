@@ -173,8 +173,8 @@ public abstract class ParserTestCase
     public void testDoubleDash2() throws Exception
     {
         final Options options = new Options();
-        options.addOption(OptionBuilder.hasArg().create('n'));
-        options.addOption(OptionBuilder.create('m'));
+        options.addOption(Option.builder("n").hasArg().build());
+        options.addOption(Option.builder("m").build());
 
         try
         {
@@ -291,7 +291,7 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-f=bar" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
+        options.addOption(Option.builder("f").longOpt("foo").hasArg().build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -304,7 +304,7 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-fbar" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
+        options.addOption(Option.builder("f").longOpt("foo").hasArg().build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -317,7 +317,7 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "--foo=bar" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
+        options.addOption(Option.builder("f").longOpt("foo").hasArg().build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -330,7 +330,7 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-foo=bar" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
+        options.addOption(Option.builder("f").longOpt("foo").hasArg().build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -343,7 +343,7 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-foobar" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
+        options.addOption(Option.builder("f").longOpt("foo").hasArg().build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -356,8 +356,8 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-b", "-foobar" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("foo").hasOptionalArg().create('f'));
-        options.addOption(OptionBuilder.withLongOpt("bar").hasOptionalArg().create('b'));
+        options.addOption(Option.builder("f").longOpt("foo").numberOfArgs(1).optionalArg(true).build());
+        options.addOption(Option.builder("b").longOpt("bar").numberOfArgs(1).optionalArg(true).build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -372,7 +372,7 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "--foobar" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
+        options.addOption(Option.builder("f").longOpt("foo").hasArg().build());
 
         final CommandLine cl = parser.parse(options, args, true);
 
@@ -385,7 +385,7 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "--foo=bar" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("foo").create('f'));
+        options.addOption(Option.builder("f").longOpt("foo").build());
 
         try
         {
@@ -406,7 +406,7 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-foobar" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("foo").create('f'));
+        options.addOption(Option.builder("f").longOpt("foo").build());
 
         try
         {
@@ -427,7 +427,7 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-f=bar" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("foo").create('f'));
+        options.addOption(Option.builder("f").longOpt("foo").build());
 
         try
         {
@@ -448,7 +448,7 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-Jsource=1.5", "-J", "target", "1.5", "foo" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withValueSeparator().hasArgs(2).create('J'));
+        options.addOption(Option.builder("J").valueSeparator().numberOfArgs(2).build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -471,7 +471,7 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-Dparam1", "-Dparam2=value2", "-D"};
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withValueSeparator().hasOptionalArgs(2).create('D'));
+        options.addOption(Option.builder("D").valueSeparator().numberOfArgs(2).optionalArg(true).build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -491,8 +491,8 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "--ver" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("version").create());
-        options.addOption(OptionBuilder.withLongOpt("help").create());
+        options.addOption(Option.builder().longOpt("version").build());
+        options.addOption(Option.builder().longOpt("help").build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -505,8 +505,8 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-ver" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("version").create());
-        options.addOption(OptionBuilder.withLongOpt("help").create());
+        options.addOption(Option.builder().longOpt("version").build());
+        options.addOption(Option.builder().longOpt("help").build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -519,8 +519,8 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "--ver=1" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("verbose").hasOptionalArg().create());
-        options.addOption(OptionBuilder.withLongOpt("help").create());
+        options.addOption(Option.builder().longOpt("verbose").numberOfArgs(1).optionalArg(true).build());
+        options.addOption(Option.builder().longOpt("help").build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -534,8 +534,8 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-ver=1" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("verbose").hasOptionalArg().create());
-        options.addOption(OptionBuilder.withLongOpt("help").create());
+        options.addOption(Option.builder().longOpt("verbose").numberOfArgs(1).optionalArg(true).build());
+        options.addOption(Option.builder().longOpt("help").build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -549,8 +549,8 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "--ver" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("version").create());
-        options.addOption(OptionBuilder.withLongOpt("verbose").create());
+        options.addOption(Option.builder().longOpt("version").build());
+        options.addOption(Option.builder().longOpt("verbose").build());
 
         boolean caught = false;
 
@@ -575,8 +575,8 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-ver" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("version").create());
-        options.addOption(OptionBuilder.withLongOpt("verbose").create());
+        options.addOption(Option.builder().longOpt("version").build());
+        options.addOption(Option.builder().longOpt("verbose").build());
 
         boolean caught = false;
 
@@ -601,8 +601,8 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "--ver=1" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("version").create());
-        options.addOption(OptionBuilder.withLongOpt("verbose").hasOptionalArg().create());
+        options.addOption(Option.builder().longOpt("version").build());
+        options.addOption(Option.builder().longOpt("verbose").numberOfArgs(1).optionalArg(true).build());
 
         boolean caught = false;
 
@@ -627,8 +627,8 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-ver=1" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("version").create());
-        options.addOption(OptionBuilder.withLongOpt("verbose").hasOptionalArg().create());
+        options.addOption(Option.builder().longOpt("version").build());
+        options.addOption(Option.builder().longOpt("verbose").numberOfArgs(1).optionalArg(true).build());
 
         boolean caught = false;
 
@@ -653,8 +653,8 @@ public abstract class ParserTestCase
         final String[] args = new String[] { "-ver" };
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("version").create());
-        options.addOption(OptionBuilder.hasArg().create('v'));
+        options.addOption(Option.builder().longOpt("version").build());
+        options.addOption(Option.builder("v").hasArg().build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -669,7 +669,7 @@ public abstract class ParserTestCase
 
         final Options options = new Options();
         options.addOption("a", "enable-a", false, null);
-        options.addOption(OptionBuilder.withLongOpt("bfile").hasArg().isRequired().create('b'));
+        options.addOption(Option.builder("b").longOpt("bfile").hasArg().required().build());
 
         final CommandLine cl = parser.parse(options,args);
 
@@ -686,7 +686,7 @@ public abstract class ParserTestCase
 
         final Options options = new Options();
         options.addOption("a", "enable-a", false, null);
-        options.addOption(OptionBuilder.withLongOpt("bfile").hasArg().isRequired().create('b'));
+        options.addOption(Option.builder("b").longOpt("bfile").hasArg().required().build());
 
         final CommandLine cl = parser.parse(options,args);
 
@@ -703,7 +703,7 @@ public abstract class ParserTestCase
 
         final Options options = new Options();
         options.addOption("a", "enable-a", false, null);
-        options.addOption(OptionBuilder.withLongOpt("bfile").hasArg().isRequired().create('b'));
+        options.addOption(Option.builder("b").longOpt("bfile").hasArg().required().build());
 
         try
         {
@@ -728,8 +728,8 @@ public abstract class ParserTestCase
 
         final Options options = new Options();
         options.addOption("a", "enable-a", false, null);
-        options.addOption(OptionBuilder.withLongOpt("bfile").hasArg().isRequired().create('b'));
-        options.addOption(OptionBuilder.withLongOpt("cfile").hasArg().isRequired().create('c'));
+        options.addOption(Option.builder("b").longOpt("bfile").hasArg().required().build());
+        options.addOption(Option.builder("c").longOpt("cfile").hasArg().required().build());
 
         try
         {
@@ -752,13 +752,13 @@ public abstract class ParserTestCase
     public void testMissingRequiredGroup() throws Exception
     {
         final OptionGroup group = new OptionGroup();
-        group.addOption(OptionBuilder.create("a"));
-        group.addOption(OptionBuilder.create("b"));
+        group.addOption(Option.builder("a").build());
+        group.addOption(Option.builder("b").build());
         group.setRequired(true);
 
         final Options options = new Options();
         options.addOptionGroup(group);
-        options.addOption(OptionBuilder.isRequired().create("c"));
+        options.addOption(Option.builder("c").required().build());
 
         try
         {
@@ -780,8 +780,8 @@ public abstract class ParserTestCase
     public void testOptionGroup() throws Exception
     {
         final OptionGroup group = new OptionGroup();
-        group.addOption(OptionBuilder.create("a"));
-        group.addOption(OptionBuilder.create("b"));
+        group.addOption(Option.builder("a").build());
+        group.addOption(Option.builder("b").build());
 
         final Options options = new Options();
         options.addOptionGroup(group);
@@ -795,8 +795,8 @@ public abstract class ParserTestCase
     public void testOptionGroupLong() throws Exception
     {
         final OptionGroup group = new OptionGroup();
-        group.addOption(OptionBuilder.withLongOpt("foo").create());
-        group.addOption(OptionBuilder.withLongOpt("bar").create());
+        group.addOption(Option.builder().longOpt("foo").build());
+        group.addOption(Option.builder().longOpt("bar").build());
 
         final Options options = new Options();
         options.addOptionGroup(group);
@@ -811,7 +811,7 @@ public abstract class ParserTestCase
     public void testReuseOptionsTwice() throws Exception
     {
         final Options opts = new Options();
-        opts.addOption(OptionBuilder.isRequired().create('v'));
+        opts.addOption(Option.builder("v").required().build());
 
         // first parsing
         parser.parse(opts, new String[] { "-v" });
@@ -915,8 +915,8 @@ public abstract class ParserTestCase
         final String[] args = new String[]{"-e", "one", "two", "-f", "alpha"};
 
         final Options options = new Options();
-        options.addOption(OptionBuilder.hasArgs().create("e"));
-        options.addOption(OptionBuilder.hasArgs().create("f"));
+        options.addOption(Option.builder("e").hasArgs().build());
+        options.addOption(Option.builder("f").hasArgs().build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -941,7 +941,7 @@ public abstract class ParserTestCase
     public void testPropertyOptionSingularValue() throws Exception
     {
         final Options opts = new Options();
-        opts.addOption(OptionBuilder.hasOptionalArgs(2).withLongOpt("hide").create());
+        opts.addOption(Option.builder().numberOfArgs(2).optionalArg(true).longOpt("hide").build());
 
         final Properties properties = new Properties();
         properties.setProperty( "hide", "seek" );
@@ -958,7 +958,7 @@ public abstract class ParserTestCase
         final Options opts = new Options();
         opts.addOption("a", false, "toggle -a");
         opts.addOption("c", "c", false, "toggle -c");
-        opts.addOption(OptionBuilder.hasOptionalArg().create('e'));
+        opts.addOption(Option.builder("e").numberOfArgs(1).optionalArg(true).build());
 
         Properties properties = new Properties();
         properties.setProperty("a", "true");
@@ -1016,7 +1016,7 @@ public abstract class ParserTestCase
     public void testPropertyOptionMultipleValues() throws Exception
     {
         final Options opts = new Options();
-        opts.addOption(OptionBuilder.hasArgs().withValueSeparator(',').create('k'));
+        opts.addOption(Option.builder("k").hasArgs().valueSeparator(',').build());
 
         final Properties properties = new Properties();
         properties.setProperty( "k", "one,two" );
@@ -1032,8 +1032,8 @@ public abstract class ParserTestCase
     public void testPropertyOverrideValues() throws Exception
     {
         final Options opts = new Options();
-        opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
-        opts.addOption(OptionBuilder.hasOptionalArgs().create('j'));
+        opts.addOption(Option.builder("i").numberOfArgs(2).optionalArg(true).build());
+        opts.addOption(Option.builder("j").numberOfArgs(1).optionalArg(true).build());
 
         final String[] args = new String[] { "-j", "found", "-i", "ink" };
 
@@ -1052,7 +1052,7 @@ public abstract class ParserTestCase
     public void testPropertyOptionRequired() throws Exception
     {
         final Options opts = new Options();
-        opts.addOption(OptionBuilder.isRequired().create("f"));
+        opts.addOption(Option.builder("f").required().build());
 
         final Properties properties = new Properties();
         properties.setProperty("f", "true");
