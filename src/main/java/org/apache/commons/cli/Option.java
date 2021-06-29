@@ -565,7 +565,7 @@ public class Option implements Cloneable, Serializable
      */
     public String[] getValues()
     {
-        return hasNoValues() ? null : values.toArray(new String[values.size()]);
+        return hasNoValues() ? null : values.toArray(Util.EMPTY_STRING_ARRAY);
     }
 
     /**
@@ -645,12 +645,7 @@ public class Option implements Cloneable, Serializable
         {
             return false;
         }
-        if (longOpt != null ? !longOpt.equals(option.longOpt) : option.longOpt != null)
-        {
-            return false;
-        }
-
-        return true;
+        return longOpt != null ? longOpt.equals(option.longOpt) : option.longOpt == null;
     }
 
     @Override

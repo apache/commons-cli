@@ -23,6 +23,11 @@ package org.apache.commons.cli;
 final class Util
 {
     /**
+     * An empty immutable {@code String} array.
+     */
+    public static final String[] EMPTY_STRING_ARRAY = new String[0];
+
+    /**
      * Remove the hyphens from the beginning of <code>str</code> and
      * return the new String.
      *

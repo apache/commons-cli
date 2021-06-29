@@ -383,13 +383,8 @@ public class DefaultParser implements CommandLineParser
             // long or partial long options (--L, -L, --L=V, -L=V, --l, --l=V)
             return true;
         }
-        if (getLongPrefix(token) != null && !token.startsWith("--"))
-        {
-            // -LV
-            return true;
-        }
-
-        return false;
+        // -LV
+        return getLongPrefix(token) != null && !token.startsWith("--");
     }
 
     /**

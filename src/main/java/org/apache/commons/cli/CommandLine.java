@@ -235,7 +235,7 @@ public class CommandLine implements Serializable
             }
         }
 
-        return values.isEmpty() ? null : values.toArray(new String[values.size()]);
+        return values.isEmpty() ? null : values.toArray(Util.EMPTY_STRING_ARRAY);
     }
 
     /**

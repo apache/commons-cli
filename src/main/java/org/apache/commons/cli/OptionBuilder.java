@@ -368,7 +368,7 @@ public final class OptionBuilder
      */
     public static Option create(final String opt) throws IllegalArgumentException
     {
-        Option option = null;
+        Option option;
         try
         {
             // create the option
