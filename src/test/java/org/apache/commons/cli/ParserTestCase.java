@@ -879,6 +879,24 @@ public abstract class ParserTestCase
     }
 
     @Test
+    public void testPresentComplementaryOption() throws ParseException
+    {
+        final String[] args = new String[] { "--test" };
+
+        boolean caught = false;
+        options.addOption(Option.builder().longOpt("test").argName("t").hasArg(false).requiresOptions(Arrays.asList("-c")).build());
+
+        try
+        {
+            parser.parse(options, args);
+        } catch (MissingComplementaryArgument ex) {
+            caught = true;
+        }
+
+        assertFalse("MissingComplementaryArgument isn't caught caught", caught);
+    }
+
+    @Test
     public void testStopBursting() throws Exception
     {
         final String[] args = new String[] { "-azc" };
