@@ -83,6 +83,9 @@
      <action type="update" dev="ggregory" due-to="Gary Gregory">
         Bump maven-checkstyle-plugin from 2.15 to 3.1.1 #41.
      </action>
+     <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump actions/cache from 2 to 2.1.5 #64.
+     </action>
     </release>
 
     <release version="1.4" date="2017-03-09" description="New features and bug fixes">
