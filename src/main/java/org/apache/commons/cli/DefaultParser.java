@@ -347,7 +347,7 @@ public class DefaultParser implements CommandLineParser
     private boolean isShortOption(final String token)
     {
         // short options (-S, -SV, -S=V, -SV1=V2, -S1S2)
-        if (!token.startsWith("-") || token.length() == 1)
+        if (token == null || !token.startsWith("-") || token.length() == 1)
         {
             return false;
         }
@@ -370,7 +370,7 @@ public class DefaultParser implements CommandLineParser
      */
     private boolean isLongOption(final String token)
     {
-        if (!token.startsWith("-") || token.length() == 1)
+        if (token == null || !token.startsWith("-") || token.length() == 1)
         {
             return false;
         }

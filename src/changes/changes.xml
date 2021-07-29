@@ -23,9 +23,14 @@
   <body>
 
     <release version="1.5" date="tba" description="tba">
+      <!-- FIX -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Fix NPE in DefaultParser.isLongOption(String).
+      </action>
       <action type="update" dev="britter" due-to="Krishna Mohan Rao Kandunoori" issue="CLI-279">
         @param or @return lines should end with a period in CommandLine.java
       </action>
+      <!-- ADD -->
       <action type="add" dev="chtompki" due-to="Rubin Simons" issue="CLI-217">
         Accommodate toggling partial matching in DefaultParser.
       </action>
@@ -41,6 +46,7 @@
       <action type="add" dev="ggregory" due-to="Alex Nordlund" issue="CLI-282">
         TypeHandler should throw ParseException for an unsupported class.
       </action>
+      <!-- UPDATE -->
       <action type="update" dev="ggregory" issue="CLI-294">
         Update Java from version 5 to 7.
       </action>
