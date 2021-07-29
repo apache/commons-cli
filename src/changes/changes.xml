@@ -57,7 +57,7 @@
         Remove deprecated sudo setting. #36.
       </action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">
-        Bump junit:junit from 4.12 to 4.13.1, #53.
+        Bump junit:junit from 4.12 to 4.13.2, #53, #60.
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
         Bump commons-parent from 48 to 51.
