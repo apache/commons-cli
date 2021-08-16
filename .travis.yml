@@ -26,3 +26,7 @@ script:
 
 after_success:
   - mvn clean test jacoco:report coveralls:report -Ptravis-jacoco --no-transfer-progress
+
+cache:
+  directories:
+  - $HOME/.m2
