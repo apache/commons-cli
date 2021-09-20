@@ -63,7 +63,7 @@
         Bump commons-parent from 48 to 51.
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
-        Bump maven-pmd-plugin from 3.12.0 to 3.14.0, #44, #54.
+        Bump maven-pmd-plugin from 3.12.0 to 3.15.0, #44, #54, #67.
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
         Bump actions/checkout from v2.3.1 to v2.3.2 #46.
