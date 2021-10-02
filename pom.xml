@@ -207,6 +207,10 @@
     <commons.encoding>utf-8</commons.encoding>
     <commons.checkstyle-plugin.version>3.1.2</commons.checkstyle-plugin.version>
     <commons.checkstyle.impl.version>9.0</commons.checkstyle.impl.version>
+    <commons.javadoc.version>3.3.1</commons.javadoc.version>
+    <commons.jacoco.version>0.8.7</commons.jacoco.version>
+    <commons.surefire-report.version>3.0.0-M5</commons.surefire-report.version>
+    <commons.surefire.version>3.0.0-M5</commons.surefire.version>
   </properties>
 
   <build>
