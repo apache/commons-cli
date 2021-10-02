@@ -33,6 +33,12 @@
       <action type="fix" dev="ggregory" due-to="Gary Gregory">
         Replace deprecated FindBugs with SpotBugs.
       </action>
+     <action type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">
+        Option Javadocs grammar nits #55.
+      </action>
+     <action type="fix" dev="ggregory" due-to="Arturo Bernal">
+        Minor Improvements #57.
+     </action>
       <!-- ADD -->
       <action type="add" dev="chtompki" due-to="Rubin Simons" issue="CLI-217">
         Accommodate toggling partial matching in DefaultParser.
@@ -74,12 +80,6 @@
      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
         Bump actions/setup-java from v1.4.2 to v2 #50.
       </action>
-     <action type="update" dev="ggregory" due-to="Elliotte Rusty Harold">
-        Option Javadocs grammar nits #55.
-      </action>
-     <action type="update" dev="ggregory" due-to="Arturo Bernal">
-        Minor Improvements #57.
-      </action>
      <action type="update" dev="ggregory" due-to="Dependabot">
         Bump maven-antrun-plugin from 1.7 to 3.0.0 #43.
      </action>
@@ -88,6 +88,9 @@
      </action>
      <action type="update" dev="ggregory" due-to="Dependabot">
         Bump actions/cache from 2 to 2.1.6 #64, #65.
+     </action>
+     <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump commons.animal-sniffer.version 1.19 -> 1.20.
      </action>
     </release>
 
