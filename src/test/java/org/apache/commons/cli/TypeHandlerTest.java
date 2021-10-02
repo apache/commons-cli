@@ -55,9 +55,10 @@ public class TypeHandlerTest {
 
     @Test
     public void testCreateValueExistingFile() throws Exception {
-        final FileInputStream result = TypeHandler.createValue("src/test/resources/org/apache/commons/cli/existing-readable.file",
-            PatternOptionBuilder.EXISTING_FILE_VALUE);
-        assertNotNull(result);
+        try (FileInputStream result = TypeHandler.createValue("src/test/resources/org/apache/commons/cli/existing-readable.file",
+            PatternOptionBuilder.EXISTING_FILE_VALUE)) {
+            assertNotNull(result);
+        }
     }
 
     @Test(expected = ParseException.class)

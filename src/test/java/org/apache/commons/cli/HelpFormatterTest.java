@@ -458,7 +458,7 @@ public class HelpFormatterTest {
         opts.addOption(optionC);
         final HelpFormatter helpFormatter = new HelpFormatter();
         final ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
-        try (final PrintWriter printWriter = new PrintWriter(bytesOut)) {
+        try (PrintWriter printWriter = new PrintWriter(bytesOut)) {
             helpFormatter.printUsage(printWriter, 80, "app", opts);
         }
         assertEquals("usage: app [-a] [-b] [-c]" + EOL, bytesOut.toString());

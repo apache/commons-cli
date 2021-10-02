@@ -412,7 +412,7 @@ public class Option implements Cloneable, Serializable {
      * @param value the value to add
      * @return always throws an {@link UnsupportedOperationException}
      * @throws UnsupportedOperationException always
-     * @deprecated
+     * @deprecated Unused.
      */
     @Deprecated
     public boolean addValue(final String value) {
