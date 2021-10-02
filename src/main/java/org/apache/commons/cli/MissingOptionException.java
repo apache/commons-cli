@@ -27,40 +27,6 @@ public class MissingOptionException extends ParseException {
     /** This exception {@code serialVersionUID}. */
     private static final long serialVersionUID = 8161889051578563249L;
 
-    /** The list of missing options and groups */
-    private List missingOptions;
-
-    /**
-     * Construct a new <code>MissingSelectedException</code> with the specified detail message.
-     *
-     * @param message the detail message
-     */
-    public MissingOptionException(final String message) {
-        super(message);
-    }
-
-    /**
-     * Constructs a new <code>MissingSelectedException</code> with the specified list of missing options.
-     *
-     * @param missingOptions the list of missing options and groups
-     * @since 1.2
-     */
-    public MissingOptionException(final List missingOptions) {
-        this(createMessage(missingOptions));
-        this.missingOptions = missingOptions;
-    }
-
-    /**
-     * Returns the list of options or option groups missing in the command line parsed.
-     *
-     * @return the missing options, consisting of String instances for simple options, and OptionGroup instances for
-     *         required option groups.
-     * @since 1.2
-     */
-    public List getMissingOptions() {
-        return missingOptions;
-    }
-
     /**
      * Build the exception message from the specified list of options.
      *
@@ -81,5 +47,39 @@ public class MissingOptionException extends ParseException {
         }
 
         return buf.toString();
+    }
+
+    /** The list of missing options and groups */
+    private List missingOptions;
+
+    /**
+     * Constructs a new <code>MissingSelectedException</code> with the specified list of missing options.
+     *
+     * @param missingOptions the list of missing options and groups
+     * @since 1.2
+     */
+    public MissingOptionException(final List missingOptions) {
+        this(createMessage(missingOptions));
+        this.missingOptions = missingOptions;
+    }
+
+    /**
+     * Construct a new <code>MissingSelectedException</code> with the specified detail message.
+     *
+     * @param message the detail message
+     */
+    public MissingOptionException(final String message) {
+        super(message);
+    }
+
+    /**
+     * Returns the list of options or option groups missing in the command line parsed.
+     *
+     * @return the missing options, consisting of String instances for simple options, and OptionGroup instances for
+     *         required option groups.
+     * @since 1.2
+     */
+    public List getMissingOptions() {
+        return missingOptions;
     }
 }

@@ -33,67 +33,7 @@ public class GnuParserTest extends ParserTestCase {
     @Override
     @Test
     @Ignore("not supported by the GnuParser")
-    public void testDoubleDash2() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the GnuParser")
-    public void testLongWithoutEqualSingleDash() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the GnuParser")
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the GnuParser (CLI-184)")
-    public void testNegativeOption() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the GnuParser")
-    public void testLongWithUnexpectedArgument1() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the GnuParser")
-    public void testLongWithUnexpectedArgument2() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the GnuParser")
-    public void testShortWithUnexpectedArgument() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the GnuParser")
-    public void testUnambiguousPartialLongOption1() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the GnuParser")
-    public void testUnambiguousPartialLongOption2() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the GnuParser")
-    public void testUnambiguousPartialLongOption3() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the GnuParser")
-    public void testUnambiguousPartialLongOption4() throws Exception {
     }
 
     @Override
@@ -123,25 +63,55 @@ public class GnuParserTest extends ParserTestCase {
     @Override
     @Test
     @Ignore("not supported by the GnuParser")
-    public void testPartialLongOptionSingleDash() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the GnuParser")
     public void testBursting() throws Exception {
     }
 
     @Override
     @Test
     @Ignore("not supported by the GnuParser")
-    public void testUnrecognizedOptionWithBursting() throws Exception {
+    public void testDoubleDash2() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
+    public void testLongWithoutEqualSingleDash() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
+    public void testLongWithUnexpectedArgument1() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
+    public void testLongWithUnexpectedArgument2() throws Exception {
     }
 
     @Override
     @Test
     @Ignore("not supported by the GnuParser")
     public void testMissingArgWithBursting() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser (CLI-184)")
+    public void testNegativeOption() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
+    public void testPartialLongOptionSingleDash() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
+    public void testShortWithUnexpectedArgument() throws Exception {
     }
 
     @Override
@@ -154,5 +124,35 @@ public class GnuParserTest extends ParserTestCase {
     @Test
     @Ignore("not supported by the GnuParser")
     public void testStopBursting2() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
+    public void testUnambiguousPartialLongOption1() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
+    public void testUnambiguousPartialLongOption2() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
+    public void testUnambiguousPartialLongOption3() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
+    public void testUnambiguousPartialLongOption4() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
+    public void testUnrecognizedOptionWithBursting() throws Exception {
     }
 }

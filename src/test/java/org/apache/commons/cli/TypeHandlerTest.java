@@ -29,50 +29,12 @@ import org.junit.Test;
 
 public class TypeHandlerTest {
 
-    @Test
-    public void testCreateValueString() throws Exception {
-        assertEquals("String", TypeHandler.createValue("String", PatternOptionBuilder.STRING_VALUE));
+    public static class Instantiable {
     }
 
-    @Test(expected = ParseException.class)
-    public void testCreateValueObject_unknownClass() throws Exception {
-        TypeHandler.createValue("unknown", PatternOptionBuilder.OBJECT_VALUE);
-    }
-
-    @Test(expected = ParseException.class)
-    public void testCreateValueObject_notInstantiableClass() throws Exception {
-        TypeHandler.createValue(NotInstantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE);
-    }
-
-    @Test
-    public void testCreateValueObject_InstantiableClass() throws Exception {
-        final Object result = TypeHandler.createValue(Instantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE);
-        assertTrue(result instanceof Instantiable);
-    }
-
-    @Test(expected = ParseException.class)
-    public void testCreateValueNumber_noNumber() throws Exception {
-        TypeHandler.createValue("not a number", PatternOptionBuilder.NUMBER_VALUE);
-    }
-
-    @Test
-    public void testCreateValueNumber_Double() throws Exception {
-        assertEquals(1.5d, TypeHandler.createValue("1.5", PatternOptionBuilder.NUMBER_VALUE));
-    }
-
-    @Test
-    public void testCreateValueNumber_Long() throws Exception {
-        assertEquals(Long.valueOf(15), TypeHandler.createValue("15", PatternOptionBuilder.NUMBER_VALUE));
-    }
-
-    @Test(expected = UnsupportedOperationException.class)
-    public void testCreateValueDate() throws Exception {
-        TypeHandler.createValue("what ever", PatternOptionBuilder.DATE_VALUE);
-    }
-
-    @Test(expected = ParseException.class)
-    public void testCreateValueClass_notFound() throws Exception {
-        TypeHandler.createValue("what ever", PatternOptionBuilder.CLASS_VALUE);
+    public static final class NotInstantiable {
+        private NotInstantiable() {
+        }
     }
 
     @Test
@@ -81,10 +43,14 @@ public class TypeHandlerTest {
         assertEquals(Instantiable.class, clazz);
     }
 
-    @Test
-    public void testCreateValueFile() throws Exception {
-        final File result = TypeHandler.createValue("some-file.txt", PatternOptionBuilder.FILE_VALUE);
-        assertEquals("some-file.txt", result.getName());
+    @Test(expected = ParseException.class)
+    public void testCreateValueClass_notFound() throws Exception {
+        TypeHandler.createValue("what ever", PatternOptionBuilder.CLASS_VALUE);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testCreateValueDate() throws Exception {
+        TypeHandler.createValue("what ever", PatternOptionBuilder.DATE_VALUE);
     }
 
     @Test
@@ -99,9 +65,56 @@ public class TypeHandlerTest {
         TypeHandler.createValue("non-existing.file", PatternOptionBuilder.EXISTING_FILE_VALUE);
     }
 
+    @Test
+    public void testCreateValueFile() throws Exception {
+        final File result = TypeHandler.createValue("some-file.txt", PatternOptionBuilder.FILE_VALUE);
+        assertEquals("some-file.txt", result.getName());
+    }
+
     @Test(expected = UnsupportedOperationException.class)
     public void testCreateValueFiles() throws Exception {
         TypeHandler.createValue("some.files", PatternOptionBuilder.FILES_VALUE);
+    }
+
+    @Test(expected = ParseException.class)
+    public void testCreateValueInteger_failure() throws Exception {
+        TypeHandler.createValue("just-a-string", Integer.class);
+    }
+
+    @Test
+    public void testCreateValueNumber_Double() throws Exception {
+        assertEquals(1.5d, TypeHandler.createValue("1.5", PatternOptionBuilder.NUMBER_VALUE));
+    }
+
+    @Test
+    public void testCreateValueNumber_Long() throws Exception {
+        assertEquals(Long.valueOf(15), TypeHandler.createValue("15", PatternOptionBuilder.NUMBER_VALUE));
+    }
+
+    @Test(expected = ParseException.class)
+    public void testCreateValueNumber_noNumber() throws Exception {
+        TypeHandler.createValue("not a number", PatternOptionBuilder.NUMBER_VALUE);
+    }
+
+    @Test
+    public void testCreateValueObject_InstantiableClass() throws Exception {
+        final Object result = TypeHandler.createValue(Instantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE);
+        assertTrue(result instanceof Instantiable);
+    }
+
+    @Test(expected = ParseException.class)
+    public void testCreateValueObject_notInstantiableClass() throws Exception {
+        TypeHandler.createValue(NotInstantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE);
+    }
+
+    @Test(expected = ParseException.class)
+    public void testCreateValueObject_unknownClass() throws Exception {
+        TypeHandler.createValue("unknown", PatternOptionBuilder.OBJECT_VALUE);
+    }
+
+    @Test
+    public void testCreateValueString() throws Exception {
+        assertEquals("String", TypeHandler.createValue("String", PatternOptionBuilder.STRING_VALUE));
     }
 
     @Test
@@ -114,18 +127,5 @@ public class TypeHandlerTest {
     @Test(expected = ParseException.class)
     public void testCreateValueURL_malformed() throws Exception {
         TypeHandler.createValue("malformed-url", PatternOptionBuilder.URL_VALUE);
-    }
-
-    @Test(expected = ParseException.class)
-    public void testCreateValueInteger_failure() throws Exception {
-        TypeHandler.createValue("just-a-string", Integer.class);
-    }
-
-    public static class Instantiable {
-    }
-
-    public static final class NotInstantiable {
-        private NotInstantiable() {
-        }
     }
 }

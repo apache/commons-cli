@@ -29,6 +29,18 @@ import org.junit.Test;
 public class CommandLineTest {
 
     @Test
+    public void testBuilder() throws Exception {
+        final CommandLine.Builder builder = new CommandLine.Builder();
+        builder.addArg("foo").addArg("bar");
+        builder.addOption(Option.builder("T").build());
+        final CommandLine cmd = builder.build();
+
+        assertEquals("foo", cmd.getArgs()[0]);
+        assertEquals("bar", cmd.getArgList().get(1));
+        assertEquals("T", cmd.getOptions()[0].getOpt());
+    }
+
+    @Test
     public void testGetOptionProperties() throws Exception {
         final String[] args = {"-Dparam1=value1", "-Dparam2=value2", "-Dparam3", "-Dparam4=value4", "-D", "--property", "foo=bar"};
 
@@ -139,17 +151,5 @@ public class CommandLineTest {
         final CommandLine cmd = parser.parse(options, new String[] {"-i", "123", "-f", "foo"});
         assertNull(cmd.getOptionValue((Option) null));
         assertNull(cmd.getParsedOptionValue((Option) null));
-    }
-
-    @Test
-    public void testBuilder() throws Exception {
-        final CommandLine.Builder builder = new CommandLine.Builder();
-        builder.addArg("foo").addArg("bar");
-        builder.addOption(Option.builder("T").build());
-        final CommandLine cmd = builder.build();
-
-        assertEquals("foo", cmd.getArgs()[0]);
-        assertEquals("bar", cmd.getArgList().get(1));
-        assertEquals("T", cmd.getOptions()[0].getOpt());
     }
 }

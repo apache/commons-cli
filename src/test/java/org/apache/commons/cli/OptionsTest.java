@@ -30,14 +30,11 @@ import org.junit.Test;
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class OptionsTest {
     @Test
-    public void testSimple() {
+    public void testDuplicateLong() {
         final Options opts = new Options();
-
-        opts.addOption("a", false, "toggle -a");
-        opts.addOption("b", true, "toggle -b");
-
-        assertTrue(opts.hasOption("a"));
-        assertTrue(opts.hasOption("b"));
+        opts.addOption("a", "--a", false, "toggle -a");
+        opts.addOption("a", "--a", false, "toggle -a*");
+        assertEquals("last one in wins", "toggle -a*", opts.getOption("a").getDescription());
     }
 
     @Test
@@ -50,22 +47,33 @@ public class OptionsTest {
     }
 
     @Test
-    public void testLong() {
-        final Options opts = new Options();
+    public void testGetMatchingOpts() {
+        final Options options = new Options();
+        options.addOption(OptionBuilder.withLongOpt("version").create());
+        options.addOption(OptionBuilder.withLongOpt("verbose").create());
 
-        opts.addOption("a", "--a", false, "toggle -a");
-        opts.addOption("b", "--b", true, "set -b");
-
-        assertTrue(opts.hasOption("a"));
-        assertTrue(opts.hasOption("b"));
+        assertTrue(options.getMatchingOptions("foo").isEmpty());
+        assertEquals(1, options.getMatchingOptions("version").size());
+        assertEquals(2, options.getMatchingOptions("ver").size());
     }
 
     @Test
-    public void testDuplicateLong() {
-        final Options opts = new Options();
-        opts.addOption("a", "--a", false, "toggle -a");
-        opts.addOption("a", "--a", false, "toggle -a*");
-        assertEquals("last one in wins", "toggle -a*", opts.getOption("a").getDescription());
+    public void testGetOptionsGroups() {
+        final Options options = new Options();
+
+        final OptionGroup group1 = new OptionGroup();
+        group1.addOption(OptionBuilder.create('a'));
+        group1.addOption(OptionBuilder.create('b'));
+
+        final OptionGroup group2 = new OptionGroup();
+        group2.addOption(OptionBuilder.create('x'));
+        group2.addOption(OptionBuilder.create('y'));
+
+        options.addOptionGroup(group1);
+        options.addOptionGroup(group2);
+
+        assertNotNull(options.getOptionGroups());
+        assertEquals(2, options.getOptionGroups().size());
     }
 
     @Test
@@ -100,6 +108,17 @@ public class OptionsTest {
     }
 
     @Test
+    public void testLong() {
+        final Options opts = new Options();
+
+        opts.addOption("a", "--a", false, "toggle -a");
+        opts.addOption("b", "--b", true, "set -b");
+
+        assertTrue(opts.hasOption("a"));
+        assertTrue(opts.hasOption("b"));
+    }
+
+    @Test
     public void testMissingOptionException() throws ParseException {
         final Options options = new Options();
         options.addOption(OptionBuilder.isRequired().create("f"));
@@ -125,6 +144,17 @@ public class OptionsTest {
     }
 
     @Test
+    public void testSimple() {
+        final Options opts = new Options();
+
+        opts.addOption("a", false, "toggle -a");
+        opts.addOption("b", true, "toggle -b");
+
+        assertTrue(opts.hasOption("a"));
+        assertTrue(opts.hasOption("b"));
+    }
+
+    @Test
     public void testToString() {
         final Options options = new Options();
         options.addOption("f", "foo", true, "Foo");
@@ -134,35 +164,5 @@ public class OptionsTest {
         assertNotNull("null string returned", s);
         assertTrue("foo option missing", s.toLowerCase().contains("foo"));
         assertTrue("bar option missing", s.toLowerCase().contains("bar"));
-    }
-
-    @Test
-    public void testGetOptionsGroups() {
-        final Options options = new Options();
-
-        final OptionGroup group1 = new OptionGroup();
-        group1.addOption(OptionBuilder.create('a'));
-        group1.addOption(OptionBuilder.create('b'));
-
-        final OptionGroup group2 = new OptionGroup();
-        group2.addOption(OptionBuilder.create('x'));
-        group2.addOption(OptionBuilder.create('y'));
-
-        options.addOptionGroup(group1);
-        options.addOptionGroup(group2);
-
-        assertNotNull(options.getOptionGroups());
-        assertEquals(2, options.getOptionGroups().size());
-    }
-
-    @Test
-    public void testGetMatchingOpts() {
-        final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("version").create());
-        options.addOption(OptionBuilder.withLongOpt("verbose").create());
-
-        assertTrue(options.getMatchingOptions("foo").isEmpty());
-        assertEquals(1, options.getMatchingOptions("version").size());
-        assertEquals(2, options.getMatchingOptions("ver").size());
     }
 }

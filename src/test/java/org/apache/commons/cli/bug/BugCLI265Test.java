@@ -53,12 +53,15 @@ public class BugCLI265Test {
     }
 
     @Test
-    public void shouldParseShortOptionWithValue() throws Exception {
-        final String[] shortOptionWithValue = {"-t1", "path/to/my/db"};
+    public void shouldParseConcatenatedShortOptions() throws Exception {
+        final String[] concatenatedShortOptions = {"-t1", "-ab"};
 
-        final CommandLine commandLine = parser.parse(options, shortOptionWithValue);
+        final CommandLine commandLine = parser.parse(options, concatenatedShortOptions);
 
-        assertEquals("path/to/my/db", commandLine.getOptionValue("t1"));
+        assertTrue(commandLine.hasOption("t1"));
+        assertNull(commandLine.getOptionValue("t1"));
+        assertTrue(commandLine.hasOption("a"));
+        assertTrue(commandLine.hasOption("b"));
         assertFalse(commandLine.hasOption("last"));
     }
 
@@ -74,15 +77,12 @@ public class BugCLI265Test {
     }
 
     @Test
-    public void shouldParseConcatenatedShortOptions() throws Exception {
-        final String[] concatenatedShortOptions = {"-t1", "-ab"};
+    public void shouldParseShortOptionWithValue() throws Exception {
+        final String[] shortOptionWithValue = {"-t1", "path/to/my/db"};
 
-        final CommandLine commandLine = parser.parse(options, concatenatedShortOptions);
+        final CommandLine commandLine = parser.parse(options, shortOptionWithValue);
 
-        assertTrue(commandLine.hasOption("t1"));
-        assertNull(commandLine.getOptionValue("t1"));
-        assertTrue(commandLine.hasOption("a"));
-        assertTrue(commandLine.hasOption("b"));
+        assertEquals("path/to/my/db", commandLine.getOptionValue("t1"));
         assertFalse(commandLine.hasOption("last"));
     }
 }

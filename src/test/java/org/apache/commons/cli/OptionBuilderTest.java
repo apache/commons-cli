@@ -27,6 +27,43 @@ import org.junit.Test;
 @SuppressWarnings("deprecation") // OptionBuilder is marked deprecated
 public class OptionBuilderTest {
     @Test
+    public void testBaseOptionCharOpt() {
+        final Option base = OptionBuilder.withDescription("option description").create('o');
+
+        assertEquals("o", base.getOpt());
+        assertEquals("option description", base.getDescription());
+        assertTrue(!base.hasArg());
+    }
+
+    @Test
+    public void testBaseOptionStringOpt() {
+        final Option base = OptionBuilder.withDescription("option description").create("o");
+
+        assertEquals("o", base.getOpt());
+        assertEquals("option description", base.getDescription());
+        assertTrue(!base.hasArg());
+    }
+
+    @Test
+    public void testBuilderIsResettedAlways() {
+        try {
+            OptionBuilder.withDescription("JUnit").create('"');
+            fail("IllegalArgumentException expected");
+        } catch (final IllegalArgumentException e) {
+            // expected
+        }
+        assertNull("we inherited a description", OptionBuilder.create('x').getDescription());
+
+        try {
+            OptionBuilder.withDescription("JUnit").create();
+            fail("IllegalArgumentException expected");
+        } catch (final IllegalArgumentException e) {
+            // expected
+        }
+        assertNull("we inherited a description", OptionBuilder.create('x').getDescription());
+    }
+
+    @Test
     public void testCompleteOption() {
         //@formatter:off
         final Option simple = OptionBuilder.withLongOpt("simple option")
@@ -45,6 +82,75 @@ public class OptionBuilderTest {
         assertTrue(simple.hasArg());
         assertTrue(simple.isRequired());
         assertTrue(simple.hasArgs());
+    }
+
+    @Test
+    public void testCreateIncompleteOption() {
+        try {
+            OptionBuilder.hasArg().create();
+            fail("Incomplete option should be rejected");
+        } catch (final IllegalArgumentException e) {
+            // expected
+
+            // implicitly reset the builder
+            OptionBuilder.create("opt");
+        }
+    }
+
+    @Test
+    public void testIllegalOptions() {
+        // bad single character option
+        try {
+            OptionBuilder.withDescription("option description").create('"');
+            fail("IllegalArgumentException not caught");
+        } catch (final IllegalArgumentException exp) {
+            // success
+        }
+
+        // bad character in option string
+        try {
+            OptionBuilder.create("opt`");
+            fail("IllegalArgumentException not caught");
+        } catch (final IllegalArgumentException exp) {
+            // success
+        }
+
+        // valid option
+        try {
+            OptionBuilder.create("opt");
+            // success
+        } catch (final IllegalArgumentException exp) {
+            fail("IllegalArgumentException caught");
+        }
+    }
+
+    @Test
+    public void testOptionArgNumbers() {
+        //@formatter:off
+        final Option opt = OptionBuilder.withDescription("option description")
+                                  .hasArgs(2)
+                                  .create('o');
+        //@formatter:on
+        assertEquals(2, opt.getArgs());
+    }
+
+    @Test
+    public void testSpecialOptChars() throws Exception {
+        // '?'
+        final Option opt1 = OptionBuilder.withDescription("help options").create('?');
+        assertEquals("?", opt1.getOpt());
+
+        // '@'
+        final Option opt2 = OptionBuilder.withDescription("read from stdin").create('@');
+        assertEquals("@", opt2.getOpt());
+
+        // ' '
+        try {
+            OptionBuilder.create(' ');
+            fail("IllegalArgumentException not caught");
+        } catch (final IllegalArgumentException e) {
+            // success
+        }
     }
 
     @Test
@@ -81,111 +187,5 @@ public class OptionBuilderTest {
         assertTrue(simple.hasArg());
         assertTrue(!simple.isRequired());
         assertTrue(!simple.hasArgs());
-    }
-
-    @Test
-    public void testBaseOptionCharOpt() {
-        final Option base = OptionBuilder.withDescription("option description").create('o');
-
-        assertEquals("o", base.getOpt());
-        assertEquals("option description", base.getDescription());
-        assertTrue(!base.hasArg());
-    }
-
-    @Test
-    public void testBaseOptionStringOpt() {
-        final Option base = OptionBuilder.withDescription("option description").create("o");
-
-        assertEquals("o", base.getOpt());
-        assertEquals("option description", base.getDescription());
-        assertTrue(!base.hasArg());
-    }
-
-    @Test
-    public void testSpecialOptChars() throws Exception {
-        // '?'
-        final Option opt1 = OptionBuilder.withDescription("help options").create('?');
-        assertEquals("?", opt1.getOpt());
-
-        // '@'
-        final Option opt2 = OptionBuilder.withDescription("read from stdin").create('@');
-        assertEquals("@", opt2.getOpt());
-
-        // ' '
-        try {
-            OptionBuilder.create(' ');
-            fail("IllegalArgumentException not caught");
-        } catch (final IllegalArgumentException e) {
-            // success
-        }
-    }
-
-    @Test
-    public void testOptionArgNumbers() {
-        //@formatter:off
-        final Option opt = OptionBuilder.withDescription("option description")
-                                  .hasArgs(2)
-                                  .create('o');
-        //@formatter:on
-        assertEquals(2, opt.getArgs());
-    }
-
-    @Test
-    public void testIllegalOptions() {
-        // bad single character option
-        try {
-            OptionBuilder.withDescription("option description").create('"');
-            fail("IllegalArgumentException not caught");
-        } catch (final IllegalArgumentException exp) {
-            // success
-        }
-
-        // bad character in option string
-        try {
-            OptionBuilder.create("opt`");
-            fail("IllegalArgumentException not caught");
-        } catch (final IllegalArgumentException exp) {
-            // success
-        }
-
-        // valid option
-        try {
-            OptionBuilder.create("opt");
-            // success
-        } catch (final IllegalArgumentException exp) {
-            fail("IllegalArgumentException caught");
-        }
-    }
-
-    @Test
-    public void testCreateIncompleteOption() {
-        try {
-            OptionBuilder.hasArg().create();
-            fail("Incomplete option should be rejected");
-        } catch (final IllegalArgumentException e) {
-            // expected
-
-            // implicitly reset the builder
-            OptionBuilder.create("opt");
-        }
-    }
-
-    @Test
-    public void testBuilderIsResettedAlways() {
-        try {
-            OptionBuilder.withDescription("JUnit").create('"');
-            fail("IllegalArgumentException expected");
-        } catch (final IllegalArgumentException e) {
-            // expected
-        }
-        assertNull("we inherited a description", OptionBuilder.create('x').getDescription());
-
-        try {
-            OptionBuilder.withDescription("JUnit").create();
-            fail("IllegalArgumentException expected");
-        } catch (final IllegalArgumentException e) {
-            // expected
-        }
-        assertNull("we inherited a description", OptionBuilder.create('x').getDescription());
     }
 }

@@ -60,8 +60,34 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testSingleOptionFromGroup() throws Exception {
-        final String[] args = {"-f"};
+    public void testGetNames() {
+        final OptionGroup group = new OptionGroup();
+        group.addOption(OptionBuilder.create('a'));
+        group.addOption(OptionBuilder.create('b'));
+
+        assertNotNull("null names", group.getNames());
+        assertEquals(2, group.getNames().size());
+        assertTrue(group.getNames().contains("a"));
+        assertTrue(group.getNames().contains("b"));
+    }
+
+    @Test
+    public void testNoOptionsExtraArgs() throws Exception {
+        final String[] args = {"arg1", "arg2"};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertTrue("Confirm -r is NOT set", !cl.hasOption("r"));
+        assertTrue("Confirm -f is NOT set", !cl.hasOption("f"));
+        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
+        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
+        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
+        assertTrue("Confirm TWO extra args", cl.getArgList().size() == 2);
+    }
+
+    @Test
+    public void testSingleLongOption() throws Exception {
+        final String[] args = {"--file"};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -88,22 +114,8 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testTwoValidOptions() throws Exception {
-        final String[] args = {"-r", "-f"};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertTrue("Confirm -r is set", cl.hasOption("r"));
-        assertTrue("Confirm -f is set", cl.hasOption("f"));
-        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
-        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
-        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
-        assertTrue("Confirm no extra args", cl.getArgList().isEmpty());
-    }
-
-    @Test
-    public void testSingleLongOption() throws Exception {
-        final String[] args = {"--file"};
+    public void testSingleOptionFromGroup() throws Exception {
+        final String[] args = {"-f"};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -116,44 +128,21 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testTwoValidLongOptions() throws Exception {
-        final String[] args = {"--revision", "--file"};
+    public void testToString() {
+        final OptionGroup group1 = new OptionGroup();
+        group1.addOption(new Option(null, "foo", false, "Foo"));
+        group1.addOption(new Option(null, "bar", false, "Bar"));
 
-        final CommandLine cl = parser.parse(options, args);
+        if (!"[--bar Bar, --foo Foo]".equals(group1.toString())) {
+            assertEquals("[--foo Foo, --bar Bar]", group1.toString());
+        }
 
-        assertTrue("Confirm -r is set", cl.hasOption("r"));
-        assertTrue("Confirm -f is set", cl.hasOption("f"));
-        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
-        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
-        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
-        assertTrue("Confirm no extra args", cl.getArgList().isEmpty());
-    }
+        final OptionGroup group2 = new OptionGroup();
+        group2.addOption(new Option("f", "foo", false, "Foo"));
+        group2.addOption(new Option("b", "bar", false, "Bar"));
 
-    @Test
-    public void testNoOptionsExtraArgs() throws Exception {
-        final String[] args = {"arg1", "arg2"};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertTrue("Confirm -r is NOT set", !cl.hasOption("r"));
-        assertTrue("Confirm -f is NOT set", !cl.hasOption("f"));
-        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
-        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
-        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
-        assertTrue("Confirm TWO extra args", cl.getArgList().size() == 2);
-    }
-
-    @Test
-    public void testTwoOptionsFromGroup() throws Exception {
-        final String[] args = {"-f", "-d"};
-
-        try {
-            parser.parse(options, args);
-            fail("two arguments from group not allowed");
-        } catch (final AlreadySelectedException e) {
-            assertNotNull("null option group", e.getOptionGroup());
-            assertEquals("selected option", "f", e.getOptionGroup().getSelected());
-            assertEquals("option", "d", e.getOption().getOpt());
+        if (!"[-b Bar, -f Foo]".equals(group2.toString())) {
+            assertEquals("[-f Foo, -b Bar]", group2.toString());
         }
     }
 
@@ -185,6 +174,20 @@ public class OptionGroupTest {
     }
 
     @Test
+    public void testTwoOptionsFromGroup() throws Exception {
+        final String[] args = {"-f", "-d"};
+
+        try {
+            parser.parse(options, args);
+            fail("two arguments from group not allowed");
+        } catch (final AlreadySelectedException e) {
+            assertNotNull("null option group", e.getOptionGroup());
+            assertEquals("selected option", "f", e.getOptionGroup().getSelected());
+            assertEquals("option", "d", e.getOption().getOpt());
+        }
+    }
+
+    @Test
     public void testTwoOptionsFromGroupWithProperties() throws Exception {
         final String[] args = {"-f"};
 
@@ -197,42 +200,39 @@ public class OptionGroupTest {
     }
 
     @Test
+    public void testTwoValidLongOptions() throws Exception {
+        final String[] args = {"--revision", "--file"};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertTrue("Confirm -r is set", cl.hasOption("r"));
+        assertTrue("Confirm -f is set", cl.hasOption("f"));
+        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
+        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
+        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
+        assertTrue("Confirm no extra args", cl.getArgList().isEmpty());
+    }
+
+    @Test
+    public void testTwoValidOptions() throws Exception {
+        final String[] args = {"-r", "-f"};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertTrue("Confirm -r is set", cl.hasOption("r"));
+        assertTrue("Confirm -f is set", cl.hasOption("f"));
+        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
+        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
+        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
+        assertTrue("Confirm no extra args", cl.getArgList().isEmpty());
+    }
+
+    @Test
     public void testValidLongOnlyOptions() throws Exception {
         final CommandLine cl1 = parser.parse(options, new String[] {"--export"});
         assertTrue("Confirm --export is set", cl1.hasOption("export"));
 
         final CommandLine cl2 = parser.parse(options, new String[] {"--import"});
         assertTrue("Confirm --import is set", cl2.hasOption("import"));
-    }
-
-    @Test
-    public void testToString() {
-        final OptionGroup group1 = new OptionGroup();
-        group1.addOption(new Option(null, "foo", false, "Foo"));
-        group1.addOption(new Option(null, "bar", false, "Bar"));
-
-        if (!"[--bar Bar, --foo Foo]".equals(group1.toString())) {
-            assertEquals("[--foo Foo, --bar Bar]", group1.toString());
-        }
-
-        final OptionGroup group2 = new OptionGroup();
-        group2.addOption(new Option("f", "foo", false, "Foo"));
-        group2.addOption(new Option("b", "bar", false, "Bar"));
-
-        if (!"[-b Bar, -f Foo]".equals(group2.toString())) {
-            assertEquals("[-f Foo, -b Bar]", group2.toString());
-        }
-    }
-
-    @Test
-    public void testGetNames() {
-        final OptionGroup group = new OptionGroup();
-        group.addOption(OptionBuilder.create('a'));
-        group.addOption(OptionBuilder.create('b'));
-
-        assertNotNull("null names", group.getNames());
-        assertEquals(2, group.getNames().size());
-        assertTrue(group.getNames().contains("a"));
-        assertTrue(group.getNames().contains("b"));
     }
 }

@@ -36,26 +36,38 @@ public class BugCLI266Test {
     private final List<String> insertedOrder = Arrays.asList("h", "d", "f", "x", "s", "p", "t", "w", "o");
     private final List<String> sortOrder = Arrays.asList("d", "f", "h", "o", "p", "s", "t", "w", "x");
 
-    @Test
-    public void testOptionComparatorDefaultOrder() throws ParseException {
-        final HelpFormatter formatter = new HelpFormatter();
-        final List<Option> options = new ArrayList<>(getOptions().getOptions());
-        Collections.sort(options, formatter.getOptionComparator());
-        int i = 0;
-        for (final Option o : options) {
-            Assert.assertEquals(o.getOpt(), sortOrder.get(i));
-            i++;
-        }
-    }
+    private void buildOptionsGroup(final Options options) {
+        final OptionGroup firstGroup = new OptionGroup();
+        final OptionGroup secondGroup = new OptionGroup();
+        firstGroup.setRequired(true);
+        secondGroup.setRequired(true);
 
-    @Test
-    public void testOptionComparatorInsertedOrder() throws ParseException {
-        final Collection<Option> options = getOptions().getOptions();
-        int i = 0;
-        for (final Option o : options) {
-            Assert.assertEquals(o.getOpt(), insertedOrder.get(i));
-            i++;
-        }
+        //@formatter:off
+        firstGroup.addOption(Option.builder("d")
+                .longOpt("db")
+                .hasArg()
+                .argName("table-name")
+                .build());
+        firstGroup.addOption(Option.builder("f")
+                .longOpt("flat-file")
+                .hasArg()
+                .argName("input.csv")
+                .build());
+        //@formatter:on
+        options.addOptionGroup(firstGroup);
+        //@formatter:off
+        secondGroup.addOption(Option.builder("x")
+                .hasArg()
+                .argName("arg1")
+                .build());
+        secondGroup.addOption(Option.builder("s")
+                .build());
+        secondGroup.addOption(Option.builder("p")
+                .hasArg()
+                .argName("arg1")
+                .build());
+        //@formatter:on
+        options.addOptionGroup(secondGroup);
     }
 
     private Options getOptions() {
@@ -92,37 +104,25 @@ public class BugCLI266Test {
         return options;
     }
 
-    private void buildOptionsGroup(final Options options) {
-        final OptionGroup firstGroup = new OptionGroup();
-        final OptionGroup secondGroup = new OptionGroup();
-        firstGroup.setRequired(true);
-        secondGroup.setRequired(true);
+    @Test
+    public void testOptionComparatorDefaultOrder() throws ParseException {
+        final HelpFormatter formatter = new HelpFormatter();
+        final List<Option> options = new ArrayList<>(getOptions().getOptions());
+        Collections.sort(options, formatter.getOptionComparator());
+        int i = 0;
+        for (final Option o : options) {
+            Assert.assertEquals(o.getOpt(), sortOrder.get(i));
+            i++;
+        }
+    }
 
-        //@formatter:off
-        firstGroup.addOption(Option.builder("d")
-                .longOpt("db")
-                .hasArg()
-                .argName("table-name")
-                .build());
-        firstGroup.addOption(Option.builder("f")
-                .longOpt("flat-file")
-                .hasArg()
-                .argName("input.csv")
-                .build());
-        //@formatter:on
-        options.addOptionGroup(firstGroup);
-        //@formatter:off
-        secondGroup.addOption(Option.builder("x")
-                .hasArg()
-                .argName("arg1")
-                .build());
-        secondGroup.addOption(Option.builder("s")
-                .build());
-        secondGroup.addOption(Option.builder("p")
-                .hasArg()
-                .argName("arg1")
-                .build());
-        //@formatter:on
-        options.addOptionGroup(secondGroup);
+    @Test
+    public void testOptionComparatorInsertedOrder() throws ParseException {
+        final Collection<Option> options = getOptions().getOptions();
+        int i = 0;
+        for (final Option o : options) {
+            Assert.assertEquals(o.getOpt(), insertedOrder.get(i));
+            i++;
+        }
     }
 }

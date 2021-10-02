@@ -32,21 +32,21 @@ public class MissingArgumentException extends ParseException {
     /**
      * Construct a new <code>MissingArgumentException</code> with the specified detail message.
      *
-     * @param message the detail message
-     */
-    public MissingArgumentException(final String message) {
-        super(message);
-    }
-
-    /**
-     * Construct a new <code>MissingArgumentException</code> with the specified detail message.
-     *
      * @param option the option requiring an argument
      * @since 1.2
      */
     public MissingArgumentException(final Option option) {
         this("Missing argument for option: " + option.getKey());
         this.option = option;
+    }
+
+    /**
+     * Construct a new <code>MissingArgumentException</code> with the specified detail message.
+     *
+     * @param message the detail message
+     */
+    public MissingArgumentException(final String message) {
+        super(message);
     }
 
     /**

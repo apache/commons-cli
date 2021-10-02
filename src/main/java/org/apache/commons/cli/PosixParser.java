@@ -43,12 +43,46 @@ public class PosixParser extends Parser {
     private Options options;
 
     /**
-     * Resets the members to their original state i.e. remove all of <code>tokens</code> entries and set
-     * <code>eatTheRest</code> to false.
+     * Breaks <code>token</code> into its constituent parts using the following algorithm.
+     *
+     * <ul>
+     * <li>ignore the first character ("<b>-</b>")</li>
+     * <li>for each remaining character check if an {@link Option} exists with that id.</li>
+     * <li>if an {@link Option} does exist then add that character prepended with "<b>-</b>" to the list of processed
+     * tokens.</li>
+     * <li>if the {@link Option} can have an argument value and there are remaining characters in the token then add the
+     * remaining characters as a token to the list of processed tokens.</li>
+     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> <code>stopAtNonOption</code> <b>IS</b> set then add the
+     * special token "<b>--</b>" followed by the remaining characters and also the remaining tokens directly to the
+     * processed tokens list.</li>
+     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> <code>stopAtNonOption</code> <b>IS NOT</b> set then add
+     * that character prepended with "<b>-</b>".</li>
+     * </ul>
+     *
+     * @param token The current token to be <b>burst</b>
+     * @param stopAtNonOption Specifies whether to stop processing at the first non-Option encountered.
      */
-    private void init() {
-        eatTheRest = false;
-        tokens.clear();
+    protected void burstToken(final String token, final boolean stopAtNonOption) {
+        for (int i = 1; i < token.length(); i++) {
+            final String ch = String.valueOf(token.charAt(i));
+
+            if (options.hasOption(ch)) {
+                tokens.add("-" + ch);
+                currentOption = options.getOption(ch);
+
+                if (currentOption.hasArg() && token.length() != i + 1) {
+                    tokens.add(token.substring(i + 1));
+
+                    break;
+                }
+            } else if (stopAtNonOption) {
+                processNonOptionToken(token.substring(i), true);
+                break;
+            } else {
+                tokens.add(token);
+                break;
+            }
+        }
     }
 
     /**
@@ -159,6 +193,15 @@ public class PosixParser extends Parser {
     }
 
     /**
+     * Resets the members to their original state i.e. remove all of <code>tokens</code> entries and set
+     * <code>eatTheRest</code> to false.
+     */
+    private void init() {
+        eatTheRest = false;
+        tokens.clear();
+    }
+
+    /**
      * Add the special token "<b>--</b>" and the current <code>value</code> to the processed tokens list. Then add all the
      * remaining <code>argument</code> values to the processed tokens list.
      *
@@ -196,48 +239,5 @@ public class PosixParser extends Parser {
         }
 
         tokens.add(token);
-    }
-
-    /**
-     * Breaks <code>token</code> into its constituent parts using the following algorithm.
-     *
-     * <ul>
-     * <li>ignore the first character ("<b>-</b>")</li>
-     * <li>for each remaining character check if an {@link Option} exists with that id.</li>
-     * <li>if an {@link Option} does exist then add that character prepended with "<b>-</b>" to the list of processed
-     * tokens.</li>
-     * <li>if the {@link Option} can have an argument value and there are remaining characters in the token then add the
-     * remaining characters as a token to the list of processed tokens.</li>
-     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> <code>stopAtNonOption</code> <b>IS</b> set then add the
-     * special token "<b>--</b>" followed by the remaining characters and also the remaining tokens directly to the
-     * processed tokens list.</li>
-     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> <code>stopAtNonOption</code> <b>IS NOT</b> set then add
-     * that character prepended with "<b>-</b>".</li>
-     * </ul>
-     *
-     * @param token The current token to be <b>burst</b>
-     * @param stopAtNonOption Specifies whether to stop processing at the first non-Option encountered.
-     */
-    protected void burstToken(final String token, final boolean stopAtNonOption) {
-        for (int i = 1; i < token.length(); i++) {
-            final String ch = String.valueOf(token.charAt(i));
-
-            if (options.hasOption(ch)) {
-                tokens.add("-" + ch);
-                currentOption = options.getOption(ch);
-
-                if (currentOption.hasArg() && token.length() != i + 1) {
-                    tokens.add(token.substring(i + 1));
-
-                    break;
-                }
-            } else if (stopAtNonOption) {
-                processNonOptionToken(token.substring(i), true);
-                break;
-            } else {
-                tokens.add(token);
-                break;
-            }
-        }
     }
 }

@@ -70,6 +70,29 @@ public class OptionGroup implements Serializable {
     }
 
     /**
+     * @return the selected option name
+     */
+    public String getSelected() {
+        return selected;
+    }
+
+    /**
+     * Returns whether this option group is required.
+     *
+     * @return whether this option group is required
+     */
+    public boolean isRequired() {
+        return required;
+    }
+
+    /**
+     * @param required specifies if this group is required
+     */
+    public void setRequired(final boolean required) {
+        this.required = required;
+    }
+
+    /**
      * Set the selected option of this group to <code>name</code>.
      *
      * @param option the option that is selected
@@ -89,29 +112,6 @@ public class OptionGroup implements Serializable {
             throw new AlreadySelectedException(this, option);
         }
         selected = option.getKey();
-    }
-
-    /**
-     * @return the selected option name
-     */
-    public String getSelected() {
-        return selected;
-    }
-
-    /**
-     * @param required specifies if this group is required
-     */
-    public void setRequired(final boolean required) {
-        this.required = required;
-    }
-
-    /**
-     * Returns whether this option group is required.
-     *
-     * @return whether this option group is required
-     */
-    public boolean isRequired() {
-        return required;
     }
 
     /**

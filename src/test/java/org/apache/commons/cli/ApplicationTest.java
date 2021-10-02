@@ -40,33 +40,6 @@ import org.junit.Test;
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class ApplicationTest {
-    @Test
-    public void testLs() throws Exception {
-        // create the command line parser
-        final CommandLineParser parser = new PosixParser();
-        final Options options = new Options();
-        options.addOption("a", "all", false, "do not hide entries starting with .");
-        options.addOption("A", "almost-all", false, "do not list implied . and ..");
-        options.addOption("b", "escape", false, "print octal escapes for nongraphic characters");
-        //@formatter:off
-        options.addOption(OptionBuilder.withLongOpt("block-size")
-                                        .withDescription("use SIZE-byte blocks")
-                                        .hasArg()
-                                        .withArgName("SIZE")
-                                        .create());
-        //@formatter:on
-        options.addOption("B", "ignore-backups", false, "do not list implied entried ending with ~");
-        options.addOption("c", false, "with -lt: sort by, and show, ctime (time of last modification of file status information) with "
-            + "-l:show ctime and sort by name otherwise: sort by ctime");
-        options.addOption("C", false, "list entries by columns");
-
-        final String[] args = {"--block-size=10"};
-
-        final CommandLine line = parser.parse(options, args);
-        assertTrue(line.hasOption("block-size"));
-        assertEquals(line.getOptionValue("block-size"), "10");
-    }
-
     /**
      * Ant test
      */
@@ -180,6 +153,33 @@ public class ApplicationTest {
 
         assertTrue(line.hasOption('e'));
         assertEquals("println 'hello'", line.getOptionValue('e'));
+    }
+
+    @Test
+    public void testLs() throws Exception {
+        // create the command line parser
+        final CommandLineParser parser = new PosixParser();
+        final Options options = new Options();
+        options.addOption("a", "all", false, "do not hide entries starting with .");
+        options.addOption("A", "almost-all", false, "do not list implied . and ..");
+        options.addOption("b", "escape", false, "print octal escapes for nongraphic characters");
+        //@formatter:off
+        options.addOption(OptionBuilder.withLongOpt("block-size")
+                                        .withDescription("use SIZE-byte blocks")
+                                        .hasArg()
+                                        .withArgName("SIZE")
+                                        .create());
+        //@formatter:on
+        options.addOption("B", "ignore-backups", false, "do not list implied entried ending with ~");
+        options.addOption("c", false, "with -lt: sort by, and show, ctime (time of last modification of file status information) with "
+            + "-l:show ctime and sort by name otherwise: sort by ctime");
+        options.addOption("C", false, "list entries by columns");
+
+        final String[] args = {"--block-size=10"};
+
+        final CommandLine line = parser.parse(options, args);
+        assertTrue(line.hasOption("block-size"));
+        assertEquals(line.getOptionValue("block-size"), "10");
     }
 
     /**

@@ -36,6 +36,16 @@ public class ArgumentIsOptionTest {
     }
 
     @Test
+    public void testOption() throws Exception {
+        final String[] args = {"-p"};
+
+        final CommandLine cl = parser.parse(options, args);
+        assertTrue("Confirm -p is set", cl.hasOption("p"));
+        assertFalse("Confirm -attr is not set", cl.hasOption("attr"));
+        assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
+    }
+
+    @Test
     public void testOptionAndOptionWithArgument() throws Exception {
         final String[] args = {"-p", "-attr", "p"};
 
@@ -54,16 +64,6 @@ public class ArgumentIsOptionTest {
         assertFalse("Confirm -p is set", cl.hasOption("p"));
         assertTrue("Confirm -attr is set", cl.hasOption("attr"));
         assertTrue("Confirm arg of -attr", cl.getOptionValue("attr").equals("p"));
-        assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
-    }
-
-    @Test
-    public void testOption() throws Exception {
-        final String[] args = {"-p"};
-
-        final CommandLine cl = parser.parse(options, args);
-        assertTrue("Confirm -p is set", cl.hasOption("p"));
-        assertFalse("Confirm -attr is not set", cl.hasOption("attr"));
         assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
     }
 }

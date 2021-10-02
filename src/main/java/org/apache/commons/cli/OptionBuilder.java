@@ -63,36 +63,59 @@ public final class OptionBuilder {
     }
 
     /**
-     * private constructor to prevent instances being created
-     */
-    private OptionBuilder() {
-        // hide the constructor
-    }
-
-    /**
-     * Resets the member variables to their default values.
-     */
-    private static void reset() {
-        description = null;
-        argName = null;
-        longopt = null;
-        type = String.class;
-        required = false;
-        numberOfArgs = Option.UNINITIALIZED;
-        optionalArg = false;
-        valuesep = (char) 0;
-    }
-
-    /**
-     * The next Option created will have the following long option value.
+     * Create an Option using the current settings
      *
-     * @param newLongopt the long option value
-     * @return the OptionBuilder instance
+     * @return the Option instance
+     * @throws IllegalArgumentException if <code>longOpt</code> has not been set.
      */
-    public static OptionBuilder withLongOpt(final String newLongopt) {
-        OptionBuilder.longopt = newLongopt;
+    public static Option create() throws IllegalArgumentException {
+        if (longopt == null) {
+            OptionBuilder.reset();
+            throw new IllegalArgumentException("must specify longopt");
+        }
 
-        return INSTANCE;
+        return create(null);
+    }
+
+    /**
+     * Create an Option using the current settings and with the specified Option <code>char</code>.
+     *
+     * @param opt the character representation of the Option
+     * @return the Option instance
+     * @throws IllegalArgumentException if <code>opt</code> is not a valid character. See Option.
+     */
+    public static Option create(final char opt) throws IllegalArgumentException {
+        return create(String.valueOf(opt));
+    }
+
+    /**
+     * Create an Option using the current settings and with the specified Option <code>char</code>.
+     *
+     * @param opt the <code>java.lang.String</code> representation of the Option
+     * @return the Option instance
+     * @throws IllegalArgumentException if <code>opt</code> is not a valid character. See Option.
+     */
+    public static Option create(final String opt) throws IllegalArgumentException {
+        Option option = null;
+        try {
+            // create the option
+            option = new Option(opt, description);
+
+            // set the option properties
+            option.setLongOpt(longopt);
+            option.setRequired(required);
+            option.setOptionalArg(optionalArg);
+            option.setArgs(numberOfArgs);
+            option.setType(type);
+            option.setValueSeparator(valuesep);
+            option.setArgName(argName);
+        } finally {
+            // reset the OptionBuilder properties
+            OptionBuilder.reset();
+        }
+
+        // return the Option instance
+        return option;
     }
 
     /**
@@ -114,86 +137,6 @@ public final class OptionBuilder {
      */
     public static OptionBuilder hasArg(final boolean hasArg) {
         OptionBuilder.numberOfArgs = hasArg ? 1 : Option.UNINITIALIZED;
-
-        return INSTANCE;
-    }
-
-    /**
-     * The next Option created will have the specified argument value name.
-     *
-     * @param name the name for the argument value
-     * @return the OptionBuilder instance
-     */
-    public static OptionBuilder withArgName(final String name) {
-        OptionBuilder.argName = name;
-
-        return INSTANCE;
-    }
-
-    /**
-     * The next Option created will be required.
-     *
-     * @return the OptionBuilder instance
-     */
-    public static OptionBuilder isRequired() {
-        OptionBuilder.required = true;
-
-        return INSTANCE;
-    }
-
-    /**
-     * The next Option created uses <code>sep</code> as a means to separate argument values.
-     * <p>
-     * <b>Example:</b>
-     *
-     * <pre>
-     * Option opt = OptionBuilder.withValueSeparator('=').create('D');
-     *
-     * String args = "-Dkey=value";
-     * CommandLine line = parser.parse(args);
-     * String propertyName = opt.getValue(0); // will be "key"
-     * String propertyValue = opt.getValue(1); // will be "value"
-     * </pre>
-     *
-     * @param sep The value separator to be used for the argument values.
-     *
-     * @return the OptionBuilder instance
-     */
-    public static OptionBuilder withValueSeparator(final char sep) {
-        OptionBuilder.valuesep = sep;
-
-        return INSTANCE;
-    }
-
-    /**
-     * The next Option created uses '<code>=</code>' as a means to separate argument values.
-     *
-     * <b>Example:</b>
-     *
-     * <pre>
-     * Option opt = OptionBuilder.withValueSeparator().create('D');
-     *
-     * CommandLine line = parser.parse(args);
-     * String propertyName = opt.getValue(0);
-     * String propertyValue = opt.getValue(1);
-     * </pre>
-     *
-     * @return the OptionBuilder instance
-     */
-    public static OptionBuilder withValueSeparator() {
-        OptionBuilder.valuesep = '=';
-
-        return INSTANCE;
-    }
-
-    /**
-     * The next Option created will be required if <code>required</code> is true.
-     *
-     * @param newRequired if true then the Option is required
-     * @return the OptionBuilder instance
-     */
-    public static OptionBuilder isRequired(final boolean newRequired) {
-        OptionBuilder.required = newRequired;
 
         return INSTANCE;
     }
@@ -259,29 +202,50 @@ public final class OptionBuilder {
     }
 
     /**
-     * The next Option created will have a value that will be an instance of <code>type</code>.
-     * <p>
-     * <b>Note:</b> this method is kept for binary compatibility and the input type is supposed to be a {@link Class}
-     * object.
+     * The next Option created will be required.
      *
-     * @param newType the type of the Options argument value
      * @return the OptionBuilder instance
-     * @deprecated since 1.3, use {@link #withType(Class)} instead
      */
-    @Deprecated
-    public static OptionBuilder withType(final Object newType) {
-        return withType((Class<?>) newType);
+    public static OptionBuilder isRequired() {
+        OptionBuilder.required = true;
+
+        return INSTANCE;
     }
 
     /**
-     * The next Option created will have a value that will be an instance of <code>type</code>.
+     * The next Option created will be required if <code>required</code> is true.
      *
-     * @param newType the type of the Options argument value
+     * @param newRequired if true then the Option is required
      * @return the OptionBuilder instance
-     * @since 1.3
      */
-    public static OptionBuilder withType(final Class<?> newType) {
-        OptionBuilder.type = newType;
+    public static OptionBuilder isRequired(final boolean newRequired) {
+        OptionBuilder.required = newRequired;
+
+        return INSTANCE;
+    }
+
+    /**
+     * Resets the member variables to their default values.
+     */
+    private static void reset() {
+        description = null;
+        argName = null;
+        longopt = null;
+        type = String.class;
+        required = false;
+        numberOfArgs = Option.UNINITIALIZED;
+        optionalArg = false;
+        valuesep = (char) 0;
+    }
+
+    /**
+     * The next Option created will have the specified argument value name.
+     *
+     * @param name the name for the argument value
+     * @return the OptionBuilder instance
+     */
+    public static OptionBuilder withArgName(final String name) {
+        OptionBuilder.argName = name;
 
         return INSTANCE;
     }
@@ -299,58 +263,94 @@ public final class OptionBuilder {
     }
 
     /**
-     * Create an Option using the current settings and with the specified Option <code>char</code>.
+     * The next Option created will have the following long option value.
      *
-     * @param opt the character representation of the Option
-     * @return the Option instance
-     * @throws IllegalArgumentException if <code>opt</code> is not a valid character. See Option.
+     * @param newLongopt the long option value
+     * @return the OptionBuilder instance
      */
-    public static Option create(final char opt) throws IllegalArgumentException {
-        return create(String.valueOf(opt));
+    public static OptionBuilder withLongOpt(final String newLongopt) {
+        OptionBuilder.longopt = newLongopt;
+
+        return INSTANCE;
     }
 
     /**
-     * Create an Option using the current settings
+     * The next Option created will have a value that will be an instance of <code>type</code>.
      *
-     * @return the Option instance
-     * @throws IllegalArgumentException if <code>longOpt</code> has not been set.
+     * @param newType the type of the Options argument value
+     * @return the OptionBuilder instance
+     * @since 1.3
      */
-    public static Option create() throws IllegalArgumentException {
-        if (longopt == null) {
-            OptionBuilder.reset();
-            throw new IllegalArgumentException("must specify longopt");
-        }
+    public static OptionBuilder withType(final Class<?> newType) {
+        OptionBuilder.type = newType;
 
-        return create(null);
+        return INSTANCE;
     }
 
     /**
-     * Create an Option using the current settings and with the specified Option <code>char</code>.
+     * The next Option created will have a value that will be an instance of <code>type</code>.
+     * <p>
+     * <b>Note:</b> this method is kept for binary compatibility and the input type is supposed to be a {@link Class}
+     * object.
      *
-     * @param opt the <code>java.lang.String</code> representation of the Option
-     * @return the Option instance
-     * @throws IllegalArgumentException if <code>opt</code> is not a valid character. See Option.
+     * @param newType the type of the Options argument value
+     * @return the OptionBuilder instance
+     * @deprecated since 1.3, use {@link #withType(Class)} instead
      */
-    public static Option create(final String opt) throws IllegalArgumentException {
-        Option option = null;
-        try {
-            // create the option
-            option = new Option(opt, description);
+    @Deprecated
+    public static OptionBuilder withType(final Object newType) {
+        return withType((Class<?>) newType);
+    }
 
-            // set the option properties
-            option.setLongOpt(longopt);
-            option.setRequired(required);
-            option.setOptionalArg(optionalArg);
-            option.setArgs(numberOfArgs);
-            option.setType(type);
-            option.setValueSeparator(valuesep);
-            option.setArgName(argName);
-        } finally {
-            // reset the OptionBuilder properties
-            OptionBuilder.reset();
-        }
+    /**
+     * The next Option created uses '<code>=</code>' as a means to separate argument values.
+     *
+     * <b>Example:</b>
+     *
+     * <pre>
+     * Option opt = OptionBuilder.withValueSeparator().create('D');
+     *
+     * CommandLine line = parser.parse(args);
+     * String propertyName = opt.getValue(0);
+     * String propertyValue = opt.getValue(1);
+     * </pre>
+     *
+     * @return the OptionBuilder instance
+     */
+    public static OptionBuilder withValueSeparator() {
+        OptionBuilder.valuesep = '=';
 
-        // return the Option instance
-        return option;
+        return INSTANCE;
+    }
+
+    /**
+     * The next Option created uses <code>sep</code> as a means to separate argument values.
+     * <p>
+     * <b>Example:</b>
+     *
+     * <pre>
+     * Option opt = OptionBuilder.withValueSeparator('=').create('D');
+     *
+     * String args = "-Dkey=value";
+     * CommandLine line = parser.parse(args);
+     * String propertyName = opt.getValue(0); // will be "key"
+     * String propertyValue = opt.getValue(1); // will be "value"
+     * </pre>
+     *
+     * @param sep The value separator to be used for the argument values.
+     *
+     * @return the OptionBuilder instance
+     */
+    public static OptionBuilder withValueSeparator(final char sep) {
+        OptionBuilder.valuesep = sep;
+
+        return INSTANCE;
+    }
+
+    /**
+     * private constructor to prevent instances being created
+     */
+    private OptionBuilder() {
+        // hide the constructor
     }
 }

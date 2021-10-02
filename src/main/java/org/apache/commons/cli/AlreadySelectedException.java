@@ -33,15 +33,6 @@ public class AlreadySelectedException extends ParseException {
     private Option option;
 
     /**
-     * Construct a new <code>AlreadySelectedException</code> with the specified detail message.
-     *
-     * @param message the detail message
-     */
-    public AlreadySelectedException(final String message) {
-        super(message);
-    }
-
-    /**
      * Construct a new <code>AlreadySelectedException</code> for the specified option group.
      *
      * @param group the option group already selected
@@ -55,13 +46,12 @@ public class AlreadySelectedException extends ParseException {
     }
 
     /**
-     * Returns the option group where another option has been selected.
+     * Construct a new <code>AlreadySelectedException</code> with the specified detail message.
      *
-     * @return the related option group
-     * @since 1.2
+     * @param message the detail message
      */
-    public OptionGroup getOptionGroup() {
-        return group;
+    public AlreadySelectedException(final String message) {
+        super(message);
     }
 
     /**
@@ -72,5 +62,15 @@ public class AlreadySelectedException extends ParseException {
      */
     public Option getOption() {
         return option;
+    }
+
+    /**
+     * Returns the option group where another option has been selected.
+     *
+     * @return the related option group
+     * @since 1.2
+     */
+    public OptionGroup getOptionGroup() {
+        return group;
     }
 }

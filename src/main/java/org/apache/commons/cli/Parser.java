@@ -40,17 +40,16 @@ public abstract class Parser implements CommandLineParser {
     /** list of required options strings */
     private List requiredOptions;
 
-    protected void setOptions(final Options options) {
-        this.options = options;
-        this.requiredOptions = new ArrayList(options.getRequiredOptions());
-    }
-
-    protected Options getOptions() {
-        return options;
-    }
-
-    protected List getRequiredOptions() {
-        return requiredOptions;
+    /**
+     * Throws a {@link MissingOptionException} if all of the required options are not present.
+     *
+     * @throws MissingOptionException if any of the required Options are not present.
+     */
+    protected void checkRequiredOptions() throws MissingOptionException {
+        // if there are required options that have not been processed
+        if (!getRequiredOptions().isEmpty()) {
+            throw new MissingOptionException(getRequiredOptions());
+        }
     }
 
     /**
@@ -64,6 +63,14 @@ public abstract class Parser implements CommandLineParser {
      */
     protected abstract String[] flatten(Options opts, String[] arguments, boolean stopAtNonOption) throws ParseException;
 
+    protected Options getOptions() {
+        return options;
+    }
+
+    protected List getRequiredOptions() {
+        return requiredOptions;
+    }
+
     /**
      * Parses the specified <code>arguments</code> based on the specified {@link Options}.
      *
@@ -75,21 +82,6 @@ public abstract class Parser implements CommandLineParser {
     @Override
     public CommandLine parse(final Options options, final String[] arguments) throws ParseException {
         return parse(options, arguments, null, false);
-    }
-
-    /**
-     * Parse the arguments according to the specified options and properties.
-     *
-     * @param options the specified Options
-     * @param arguments the command line arguments
-     * @param properties command line option name-value pairs
-     * @return the list of atomic option and value tokens
-     * @throws ParseException if there are any problems encountered while parsing the command line tokens.
-     *
-     * @since 1.1
-     */
-    public CommandLine parse(final Options options, final String[] arguments, final Properties properties) throws ParseException {
-        return parse(options, arguments, properties, false);
     }
 
     /**
@@ -106,6 +98,21 @@ public abstract class Parser implements CommandLineParser {
     @Override
     public CommandLine parse(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException {
         return parse(options, arguments, null, stopAtNonOption);
+    }
+
+    /**
+     * Parse the arguments according to the specified options and properties.
+     *
+     * @param options the specified Options
+     * @param arguments the command line arguments
+     * @param properties command line option name-value pairs
+     * @return the list of atomic option and value tokens
+     * @throws ParseException if there are any problems encountered while parsing the command line tokens.
+     *
+     * @since 1.1
+     */
+    public CommandLine parse(final Options options, final String[] arguments, final Properties properties) throws ParseException {
+        return parse(options, arguments, properties, false);
     }
 
     /**
@@ -207,66 +214,6 @@ public abstract class Parser implements CommandLineParser {
     }
 
     /**
-     * Sets the values of Options using the values in <code>properties</code>.
-     *
-     * @param properties The value properties to be processed.
-     * @throws ParseException if there are any problems encountered while processing the properties.
-     */
-    protected void processProperties(final Properties properties) throws ParseException {
-        if (properties == null) {
-            return;
-        }
-
-        for (final Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();) {
-            final String option = e.nextElement().toString();
-
-            final Option opt = options.getOption(option);
-            if (opt == null) {
-                throw new UnrecognizedOptionException("Default option wasn't defined", option);
-            }
-
-            // if the option is part of a group, check if another option of the group has been selected
-            final OptionGroup group = options.getOptionGroup(opt);
-            final boolean selected = group != null && group.getSelected() != null;
-
-            if (!cmd.hasOption(option) && !selected) {
-                // get the value from the properties instance
-                final String value = properties.getProperty(option);
-
-                if (opt.hasArg()) {
-                    if (opt.getValues() == null || opt.getValues().length == 0) {
-                        try {
-                            opt.addValueForProcessing(value);
-                        } catch (final RuntimeException exp) // NOPMD
-                        {
-                            // if we cannot add the value don't worry about it
-                        }
-                    }
-                } else if (!("yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value) || "1".equalsIgnoreCase(value))) {
-                    // if the value is not yes, true or 1 then don't add the
-                    // option to the CommandLine
-                    continue;
-                }
-
-                cmd.addOption(opt);
-                updateRequiredOptions(opt);
-            }
-        }
-    }
-
-    /**
-     * Throws a {@link MissingOptionException} if all of the required options are not present.
-     *
-     * @throws MissingOptionException if any of the required Options are not present.
-     */
-    protected void checkRequiredOptions() throws MissingOptionException {
-        // if there are required options that have not been processed
-        if (!getRequiredOptions().isEmpty()) {
-            throw new MissingOptionException(getRequiredOptions());
-        }
-    }
-
-    /**
      * Process the argument values for the specified Option <code>opt</code> using the values retrieved from the specified
      * iterator <code>iter</code>.
      *
@@ -330,6 +277,59 @@ public abstract class Parser implements CommandLineParser {
 
         // set the option on the command line
         cmd.addOption(opt);
+    }
+
+    /**
+     * Sets the values of Options using the values in <code>properties</code>.
+     *
+     * @param properties The value properties to be processed.
+     * @throws ParseException if there are any problems encountered while processing the properties.
+     */
+    protected void processProperties(final Properties properties) throws ParseException {
+        if (properties == null) {
+            return;
+        }
+
+        for (final Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();) {
+            final String option = e.nextElement().toString();
+
+            final Option opt = options.getOption(option);
+            if (opt == null) {
+                throw new UnrecognizedOptionException("Default option wasn't defined", option);
+            }
+
+            // if the option is part of a group, check if another option of the group has been selected
+            final OptionGroup group = options.getOptionGroup(opt);
+            final boolean selected = group != null && group.getSelected() != null;
+
+            if (!cmd.hasOption(option) && !selected) {
+                // get the value from the properties instance
+                final String value = properties.getProperty(option);
+
+                if (opt.hasArg()) {
+                    if (opt.getValues() == null || opt.getValues().length == 0) {
+                        try {
+                            opt.addValueForProcessing(value);
+                        } catch (final RuntimeException exp) // NOPMD
+                        {
+                            // if we cannot add the value don't worry about it
+                        }
+                    }
+                } else if (!("yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value) || "1".equalsIgnoreCase(value))) {
+                    // if the value is not yes, true or 1 then don't add the
+                    // option to the CommandLine
+                    continue;
+                }
+
+                cmd.addOption(opt);
+                updateRequiredOptions(opt);
+            }
+        }
+    }
+
+    protected void setOptions(final Options options) {
+        this.options = options;
+        this.requiredOptions = new ArrayList(options.getRequiredOptions());
     }
 
     /**

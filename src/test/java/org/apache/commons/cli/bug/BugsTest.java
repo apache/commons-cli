@@ -44,6 +44,31 @@ import org.junit.Test;
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugsTest {
     @Test
+    public void test11456() throws Exception {
+        // Posix
+        Options options = new Options();
+        options.addOption(OptionBuilder.hasOptionalArg().create('a'));
+        options.addOption(OptionBuilder.hasArg().create('b'));
+        String[] args = {"-a", "-bvalue"};
+
+        CommandLineParser parser = new PosixParser();
+
+        CommandLine cmd = parser.parse(options, args);
+        assertEquals(cmd.getOptionValue('b'), "value");
+
+        // GNU
+        options = new Options();
+        options.addOption(OptionBuilder.hasOptionalArg().create('a'));
+        options.addOption(OptionBuilder.hasArg().create('b'));
+        args = new String[] {"-a", "-b", "value"};
+
+        parser = new GnuParser();
+
+        cmd = parser.parse(options, args);
+        assertEquals(cmd.getOptionValue('b'), "value");
+    }
+
+    @Test
     public void test11457() throws Exception {
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("verbose").create());
@@ -109,31 +134,6 @@ public class BugsTest {
 
         cmd.getOptionValue("f", "default f");
         cmd.getOptionValue("m", "default m");
-    }
-
-    @Test
-    public void test11456() throws Exception {
-        // Posix
-        Options options = new Options();
-        options.addOption(OptionBuilder.hasOptionalArg().create('a'));
-        options.addOption(OptionBuilder.hasArg().create('b'));
-        String[] args = {"-a", "-bvalue"};
-
-        CommandLineParser parser = new PosixParser();
-
-        CommandLine cmd = parser.parse(options, args);
-        assertEquals(cmd.getOptionValue('b'), "value");
-
-        // GNU
-        options = new Options();
-        options.addOption(OptionBuilder.hasOptionalArg().create('a'));
-        options.addOption(OptionBuilder.hasArg().create('b'));
-        args = new String[] {"-a", "-b", "value"};
-
-        parser = new GnuParser();
-
-        cmd = parser.parse(options, args);
-        assertEquals(cmd.getOptionValue('b'), "value");
     }
 
     @Test
