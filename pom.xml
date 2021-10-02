@@ -96,6 +96,21 @@
       <id>chtompki</id>
       <email>chtompki@apache.org</email>
     </developer>
+    <developer>
+      <id>ggregory</id>
+      <name>Gary Gregory</name>
+      <email>ggregory at apache.org</email>
+      <url>https://www.garygregory.com</url>
+      <organization>The Apache Software Foundation</organization>
+      <organizationUrl>https://www.apache.org/</organizationUrl>      
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>America/New_York</timezone>
+      <properties>
+        <picUrl>https://people.apache.org/~ggregory/img/garydgregory80.png</picUrl>
+      </properties>
+    </developer>
   </developers>
 
   <contributors>
@@ -187,15 +202,72 @@
     <commons.jira.pid>12310463</commons.jira.pid>
     <!-- The RC version used in the staging repository URL. -->
     <commons.rc.version>RC1</commons.rc.version>
-
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-cli</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
+    <commons.checkstyle-plugin.version>3.1.2</commons.checkstyle-plugin.version>
+    <commons.checkstyle.impl.version>9.0</commons.checkstyle.impl.version>
   </properties>
 
   <build>
     <defaultGoal>clean package apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc</defaultGoal>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+            <groupId>org.apache.rat</groupId>
+            <artifactId>apache-rat-plugin</artifactId>
+            <version>${commons.rat.version}</version>
+            <!-- Should agree with config in build section -->
+            <configuration>
+              <excludes>
+                <exclude>.asf.yaml</exclude>
+              </excludes>
+            </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>${commons.checkstyle-plugin.version}</version>
+          <configuration>
+            <configLocation>${basedir}/src/conf/checkstyle.xml</configLocation>
+            <suppressionsLocation>${basedir}/src/conf/checkstyle-suppressions.xml</suppressionsLocation>
+            <enableRulesSummary>false</enableRulesSummary>
+            <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>com.puppycrawl.tools</groupId>
+              <artifactId>checkstyle</artifactId>
+              <version>${commons.checkstyle.impl.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>      
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>findbugs-maven-plugin</artifactId>
+          <version>${commons.findbugs.version}</version>
+          <configuration>
+            <threshold>Normal</threshold>
+            <effort>Default</effort>
+            <excludeFilterFile>${basedir}/src/conf/findbugs-exclude-filter.xml</excludeFilterFile>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-publish-plugin</artifactId>
+          <configuration>
+            <ignorePathsToDelete>
+              <ignorePathToDelete>javadocs**</ignorePathToDelete>
+            </ignorePathsToDelete>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
@@ -219,50 +291,6 @@
         </configuration>
       </plugin>
     </plugins>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-scm-publish-plugin</artifactId>
-          <configuration>
-            <ignorePathsToDelete>
-              <ignorePathToDelete>javadocs**</ignorePathToDelete>
-            </ignorePathsToDelete>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>${commons.checkstyle-plugin.version}</version>
-          <configuration>
-            <configLocation>${basedir}/src/conf/checkstyle.xml</configLocation>
-            <enableRulesSummary>false</enableRulesSummary>
-            <suppressionsLocation>${basedir}/src/conf/checkstyle-suppressions.xml</suppressionsLocation>
-          </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.rat</groupId>
-            <artifactId>apache-rat-plugin</artifactId>
-            <version>${commons.rat.version}</version>
-            <!-- Should agree with config in build section -->
-            <configuration>
-              <excludes>
-                <exclude>.asf.yaml</exclude>
-              </excludes>
-            </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>findbugs-maven-plugin</artifactId>
-          <version>${commons.findbugs.version}</version>
-          <configuration>
-            <threshold>Normal</threshold>
-            <effort>Default</effort>
-            <excludeFilterFile>${basedir}/src/conf/findbugs-exclude-filter.xml</excludeFilterFile>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
   </build>
 
   <reporting>
@@ -280,19 +308,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${commons.checkstyle-plugin.version}</version>
-        <configuration>
-          <configLocation>${basedir}/src/conf/checkstyle.xml</configLocation>
-          <enableRulesSummary>false</enableRulesSummary>
-          <suppressionsLocation>${basedir}/src/conf/checkstyle-suppressions.xml</suppressionsLocation>
-        </configuration>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>checkstyle</report>
-            </reports>
-          </reportSet>
-        </reportSets>
       </plugin>
       <plugin>
         <groupId>org.apache.rat</groupId>

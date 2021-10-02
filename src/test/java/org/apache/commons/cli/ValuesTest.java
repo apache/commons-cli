@@ -26,13 +26,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class ValuesTest
-{
+public class ValuesTest {
     private CommandLine cmd;
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         final Options options = new Options();
 
         options.addOption("a", false, "toggle -a");
@@ -49,30 +47,33 @@ public class ValuesTest
         options.addOption(OptionBuilder.withLongOpt("k").hasArgs().withDescription("set -k").withValueSeparator('=').create('k'));
         options.addOption(OptionBuilder.withLongOpt("m").hasArgs().withDescription("set -m").withValueSeparator().create('m'));
 
-        final String[] args = new String[] { "-a",
-                                       "-b", "foo",
-                                       "--c",
-                                       "--d", "bar",
-                                       "-e", "one", "two",
-                                       "-f",
-                                       "arg1", "arg2",
-                                       "-g", "val1", "val2" , "arg3",
-                                       "-h", "val1", "-i",
-                                       "-h", "val2",
-                                       "-jkey=value",
-                                       "-j", "key=value",
-                                       "-kkey1=value1",
-                                       "-kkey2=value2",
-                                       "-mkey=value"};
+        //@formatter:off
+        final String[] args = {
+            "-a",
+            "-b", "foo",
+            "--c",
+            "--d", "bar",
+            "-e", "one", "two",
+            "-f",
+            "arg1", "arg2",
+            "-g", "val1", "val2", "arg3",
+            "-h", "val1", "-i",
+            "-h", "val2",
+            "-jkey=value",
+            "-j", "key=value",
+            "-kkey1=value1",
+            "-kkey2=value2",
+            "-mkey=value"
+        };
+        //@formatter:on
 
         final CommandLineParser parser = new PosixParser();
 
-        cmd = parser.parse(options,args);
+        cmd = parser.parse(options, args);
     }
 
     @Test
-    public void testShortArgs()
-    {
+    public void testShortArgs() {
         assertTrue("Option a is not set", cmd.hasOption("a"));
         assertTrue("Option c is not set", cmd.hasOption("c"));
 
@@ -81,8 +82,7 @@ public class ValuesTest
     }
 
     @Test
-    public void testShortArgsWithValue()
-    {
+    public void testShortArgsWithValue() {
         assertTrue("Option b is not set", cmd.hasOption("b"));
         assertTrue(cmd.getOptionValue("b").equals("foo"));
         assertEquals(1, cmd.getOptionValues("b").length);
@@ -93,82 +93,65 @@ public class ValuesTest
     }
 
     @Test
-    public void testMultipleArgValues()
-    {
+    public void testMultipleArgValues() {
         assertTrue("Option e is not set", cmd.hasOption("e"));
-        assertArrayEquals(new String[] { "one", "two" }, cmd.getOptionValues("e"));
+        assertArrayEquals(new String[] {"one", "two"}, cmd.getOptionValues("e"));
     }
 
     @Test
-    public void testTwoArgValues()
-    {
+    public void testTwoArgValues() {
         assertTrue("Option g is not set", cmd.hasOption("g"));
-        assertArrayEquals(new String[] { "val1", "val2" }, cmd.getOptionValues("g"));
+        assertArrayEquals(new String[] {"val1", "val2"}, cmd.getOptionValues("g"));
     }
 
     @Test
-    public void testComplexValues()
-    {
+    public void testComplexValues() {
         assertTrue("Option i is not set", cmd.hasOption("i"));
         assertTrue("Option h is not set", cmd.hasOption("h"));
-        assertArrayEquals(new String[] { "val1", "val2" }, cmd.getOptionValues("h"));
+        assertArrayEquals(new String[] {"val1", "val2"}, cmd.getOptionValues("h"));
     }
 
     @Test
-    public void testExtraArgs()
-    {
-        assertArrayEquals("Extra args", new String[] { "arg1", "arg2", "arg3" }, cmd.getArgs());
+    public void testExtraArgs() {
+        assertArrayEquals("Extra args", new String[] {"arg1", "arg2", "arg3"}, cmd.getArgs());
     }
 
     @Test
-    public void testCharSeparator()
-    {
+    public void testCharSeparator() {
         // tests the char methods of CommandLine that delegate to the String methods
         assertTrue("Option j is not set", cmd.hasOption("j"));
         assertTrue("Option j is not set", cmd.hasOption('j'));
-        assertArrayEquals(new String[] { "key", "value", "key", "value" }, cmd.getOptionValues("j"));
-        assertArrayEquals(new String[] { "key", "value", "key", "value" }, cmd.getOptionValues('j'));
+        assertArrayEquals(new String[] {"key", "value", "key", "value"}, cmd.getOptionValues("j"));
+        assertArrayEquals(new String[] {"key", "value", "key", "value"}, cmd.getOptionValues('j'));
 
         assertTrue("Option k is not set", cmd.hasOption("k"));
         assertTrue("Option k is not set", cmd.hasOption('k'));
-        assertArrayEquals(new String[] { "key1", "value1", "key2", "value2" }, cmd.getOptionValues("k"));
-        assertArrayEquals(new String[] { "key1", "value1", "key2", "value2" }, cmd.getOptionValues('k'));
+        assertArrayEquals(new String[] {"key1", "value1", "key2", "value2"}, cmd.getOptionValues("k"));
+        assertArrayEquals(new String[] {"key1", "value1", "key2", "value2"}, cmd.getOptionValues('k'));
 
         assertTrue("Option m is not set", cmd.hasOption("m"));
         assertTrue("Option m is not set", cmd.hasOption('m'));
-        assertArrayEquals(new String[] { "key", "value" }, cmd.getOptionValues("m"));
-        assertArrayEquals(new String[] { "key", "value" }, cmd.getOptionValues('m'));
+        assertArrayEquals(new String[] {"key", "value"}, cmd.getOptionValues("m"));
+        assertArrayEquals(new String[] {"key", "value"}, cmd.getOptionValues('m'));
     }
 
     /**
-     * jkeyes - commented out this test as the new architecture
-     * breaks this type of functionality.  I have left the test
-     * here in case I get a brainwave on how to resolve this.
+     * jkeyes - commented out this test as the new architecture breaks this type of functionality. I have left the test here
+     * in case I get a brainwave on how to resolve this.
      */
     /*
-    public void testGetValue()
-    {
-        // the 'm' option
-        assertTrue( _option.getValues().length == 2 );
-        assertEquals( _option.getValue(), "key" );
-        assertEquals( _option.getValue( 0 ), "key" );
-        assertEquals( _option.getValue( 1 ), "value" );
-
-        try {
-            assertEquals( _option.getValue( 2 ), "key" );
-            fail( "IndexOutOfBounds not caught" );
-        }
-        catch( IndexOutOfBoundsException exp ) {
-
-        }
-
-        try {
-            assertEquals( _option.getValue( -1 ), "key" );
-            fail( "IndexOutOfBounds not caught" );
-        }
-        catch( IndexOutOfBoundsException exp ) {
-
-        }
-    }
-    */
+     * public void testGetValue() { // the 'm' option assertTrue(_option.getValues().length == 2); assertEquals(
+     * _option.getValue(), "key"); assertEquals(_option.getValue(0), "key"); assertEquals(_option.getValue(1),
+     * "value");
+     *
+     * try { assertEquals(_option.getValue(2), "key"); fail("IndexOutOfBounds not caught"); } catch(
+     * IndexOutOfBoundsException exp) {
+     *
+     * }
+     *
+     * try { assertEquals(_option.getValue(-1), "key"); fail("IndexOutOfBounds not caught"); } catch(
+     * IndexOutOfBoundsException exp) {
+     *
+     * } }
+     */
 }

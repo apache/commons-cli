@@ -24,59 +24,66 @@ import org.junit.Test;
 /**
  * Test case for the PosixParser.
  */
-public class PosixParserTest extends ParserTestCase
-{
+public class PosixParserTest extends ParserTestCase {
     @Override
     @SuppressWarnings("deprecation")
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         super.setUp();
         parser = new PosixParser();
     }
 
-    @Override @Test @Ignore("not supported by the PosixParser")
-    public void testDoubleDash2() throws Exception
-    {
+    @Override
+    @Test
+    @Ignore("not supported by the PosixParser")
+    public void testDoubleDash2() throws Exception {
     }
 
-    @Override @Test @Ignore("not supported by the PosixParser")
-    public void testLongWithoutEqualSingleDash() throws Exception
-    {
+    @Override
+    @Test
+    @Ignore("not supported by the PosixParser")
+    public void testLongWithoutEqualSingleDash() throws Exception {
     }
 
-    @Override @Test @Ignore("not supported by the PosixParser")
-    public void testAmbiguousLongWithoutEqualSingleDash() throws Exception
-    {
+    @Override
+    @Test
+    @Ignore("not supported by the PosixParser")
+    public void testAmbiguousLongWithoutEqualSingleDash() throws Exception {
     }
 
-    @Override @Test @Ignore("not supported by the PosixParser (CLI-184)")
-    public void testNegativeOption() throws Exception
-    {
+    @Override
+    @Test
+    @Ignore("not supported by the PosixParser (CLI-184)")
+    public void testNegativeOption() throws Exception {
     }
 
-    @Override @Test @Ignore("not supported by the PosixParser")
-    public void testLongWithUnexpectedArgument1() throws Exception
-    {
+    @Override
+    @Test
+    @Ignore("not supported by the PosixParser")
+    public void testLongWithUnexpectedArgument1() throws Exception {
     }
 
-    @Override @Test @Ignore("not supported by the PosixParser")
-    public void testLongWithEqualSingleDash() throws Exception
-    {
+    @Override
+    @Test
+    @Ignore("not supported by the PosixParser")
+    public void testLongWithEqualSingleDash() throws Exception {
     }
 
-    @Override @Test @Ignore("not supported by the PosixParser")
-    public void testShortWithEqual() throws Exception
-    {
+    @Override
+    @Test
+    @Ignore("not supported by the PosixParser")
+    public void testShortWithEqual() throws Exception {
     }
 
-    @Override @Test @Ignore("not supported by the PosixParser")
-    public void testUnambiguousPartialLongOption4() throws Exception
-    {
+    @Override
+    @Test
+    @Ignore("not supported by the PosixParser")
+    public void testUnambiguousPartialLongOption4() throws Exception {
     }
 
-    @Override @Test @Ignore("not supported by the PosixParser")
-    public void testAmbiguousPartialLongOption4() throws Exception
-    {
+    @Override
+    @Test
+    @Ignore("not supported by the PosixParser")
+    public void testAmbiguousPartialLongOption4() throws Exception {
     }
 }

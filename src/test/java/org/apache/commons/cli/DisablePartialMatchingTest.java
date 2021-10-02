@@ -17,15 +17,14 @@
 
 package org.apache.commons.cli;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public class DisablePartialMatchingTest
-{
+public class DisablePartialMatchingTest {
     @Test
-    public void testDisablePartialMatching() throws Exception
-    {
+    public void testDisablePartialMatching() throws Exception {
         final CommandLineParser parser = new DefaultParser(false);
 
         final Options options = new Options();
@@ -34,7 +33,7 @@ public class DisablePartialMatchingTest
         options.addOption(new Option("e", "extract", false, "Turn on extract."));
         options.addOption(new Option("o", "option", true, "Turn on option with argument."));
 
-        final CommandLine line = parser.parse(options, new String[]{"-de", "--option=foobar"});
+        final CommandLine line = parser.parse(options, new String[] {"-de", "--option=foobar"});
 
         assertTrue("There should be an option debug in any case...", line.hasOption("debug"));
         assertTrue("There should be an extract option because partial matching is off", line.hasOption("extract"));
@@ -42,8 +41,7 @@ public class DisablePartialMatchingTest
     }
 
     @Test
-    public void testRegularPartialMatching() throws Exception
-    {
+    public void testRegularPartialMatching() throws Exception {
         final CommandLineParser parser = new DefaultParser();
 
         final Options options = new Options();
@@ -52,8 +50,7 @@ public class DisablePartialMatchingTest
         options.addOption(new Option("e", "extract", false, "Turn on extract."));
         options.addOption(new Option("o", "option", true, "Turn on option with argument."));
 
-
-        final CommandLine line = parser.parse(options, new String[]{"-de", "--option=foobar"});
+        final CommandLine line = parser.parse(options, new String[] {"-de", "--option=foobar"});
 
         assertTrue("There should be an option debug in any case...", line.hasOption("debug"));
         assertFalse("There should not be an extract option because partial matching only selects debug", line.hasOption("extract"));

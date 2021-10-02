@@ -28,11 +28,9 @@ import org.junit.Test;
 /**
  * https://issues.apache.org/jira/browse/CLI-18
  */
-public class BugCLI18Test
-{
+public class BugCLI18Test {
     @Test
-    public void testCLI18()
-    {
+    public void testCLI18() {
         final Options options = new Options();
         options.addOption(new Option("a", "aaa", false, "aaaaaaa"));
         options.addOption(new Option(null, "bbb", false, "bbbbbbb dksh fkshd fkhs dkfhsdk fhskd hksdks dhfowehfsdhfkjshf skfhkshf sf jkshfk sfh skfh skf f"));
@@ -41,6 +39,8 @@ public class BugCLI18Test
         final HelpFormatter formatter = new HelpFormatter();
         final StringWriter out = new StringWriter();
 
-        formatter.printHelp(new PrintWriter(out), 80, "foobar", "dsfkfsh kdh hsd hsdh fkshdf ksdh fskdh fsdh fkshfk sfdkjhskjh fkjh fkjsh khsdkj hfskdhf skjdfh ksf khf s", options, 2, 2, "blort j jgj j jg jhghjghjgjhgjhg jgjhgj jhg jhg hjg jgjhghjg jhg hjg jhgjg jgjhghjg jg jgjhgjgjg jhg jhgjh" + '\r' + '\n' + "rarrr", true);
+        formatter.printHelp(new PrintWriter(out), 80, "foobar",
+            "dsfkfsh kdh hsd hsdh fkshdf ksdh fskdh fsdh fkshfk sfdkjhskjh fkjh fkjsh khsdkj hfskdhf skjdfh ksf khf s", options, 2, 2,
+            "blort j jgj j jg jhghjghjgjhgjhg jgjhgj jhg jhg hjg jgjhghjg jhg hjg jhgjg jgjhghjg jg jgjhgjgjg jhg jhgjh" + '\r' + '\n' + "rarrr", true);
     }
 }

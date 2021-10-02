@@ -31,33 +31,29 @@ import org.junit.Test;
  * https://issues.apache.org/jira/browse/CLI-148
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI148Test
-{
+public class BugCLI148Test {
     private Options options;
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         options = new Options();
         options.addOption(OptionBuilder.hasArg().create('t'));
         options.addOption(OptionBuilder.hasArg().create('s'));
     }
 
     @Test
-    public void testWorkaround1() throws Exception
-    {
+    public void testWorkaround1() throws Exception {
         final CommandLineParser parser = new PosixParser();
-        final String[] args = new String[]{ "-t-something" };
+        final String[] args = {"-t-something"};
 
         final CommandLine commandLine = parser.parse(options, args);
         assertEquals("-something", commandLine.getOptionValue('t'));
     }
 
     @Test
-    public void testWorkaround2() throws Exception
-    {
+    public void testWorkaround2() throws Exception {
         final CommandLineParser parser = new PosixParser();
-        final String[] args = new String[]{ "-t", "\"-something\"" };
+        final String[] args = {"-t", "\"-something\""};
 
         final CommandLine commandLine = parser.parse(options, args);
         assertEquals("-something", commandLine.getOptionValue('t'));

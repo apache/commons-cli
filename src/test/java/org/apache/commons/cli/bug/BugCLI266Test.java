@@ -17,6 +17,12 @@
 
 package org.apache.commons.cli.bug;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
@@ -25,16 +31,10 @@ import org.apache.commons.cli.ParseException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 public class BugCLI266Test {
 
-    private final List<String> insertedOrder  =   Arrays.asList("h", "d", "f", "x", "s", "p", "t", "w", "o");
-    private final List<String> sortOrder      =   Arrays.asList("d", "f", "h", "o", "p", "s", "t", "w", "x");
+    private final List<String> insertedOrder = Arrays.asList("h", "d", "f", "x", "s", "p", "t", "w", "o");
+    private final List<String> sortOrder = Arrays.asList("d", "f", "h", "o", "p", "s", "t", "w", "x");
 
     @Test
     public void testOptionComparatorDefaultOrder() throws ParseException {
@@ -42,7 +42,7 @@ public class BugCLI266Test {
         final List<Option> options = new ArrayList<>(getOptions().getOptions());
         Collections.sort(options, formatter.getOptionComparator());
         int i = 0;
-        for(final Option o: options) {
+        for (final Option o : options) {
             Assert.assertEquals(o.getOpt(), sortOrder.get(i));
             i++;
         }
@@ -52,7 +52,7 @@ public class BugCLI266Test {
     public void testOptionComparatorInsertedOrder() throws ParseException {
         final Collection<Option> options = getOptions().getOptions();
         int i = 0;
-        for(final Option o: options) {
+        for (final Option o : options) {
             Assert.assertEquals(o.getOpt(), insertedOrder.get(i));
             i++;
         }
@@ -60,14 +60,17 @@ public class BugCLI266Test {
 
     private Options getOptions() {
         final Options options = new Options();
+        //@formatter:off
         final Option help = Option.builder("h")
                 .longOpt("help")
                 .desc("Prints this help message")
                 .build();
+        //@formatter:on
         options.addOption(help);
 
         buildOptionsGroup(options);
 
+        //@formatter:off
         final Option t = Option.builder("t")
                 .required()
                 .hasArg()
@@ -82,6 +85,7 @@ public class BugCLI266Test {
                 .hasArg()
                 .argName("directory")
                 .build();
+        //@formatter:on
         options.addOption(t);
         options.addOption(w);
         options.addOption(o);
@@ -94,6 +98,7 @@ public class BugCLI266Test {
         firstGroup.setRequired(true);
         secondGroup.setRequired(true);
 
+        //@formatter:off
         firstGroup.addOption(Option.builder("d")
                 .longOpt("db")
                 .hasArg()
@@ -104,8 +109,9 @@ public class BugCLI266Test {
                 .hasArg()
                 .argName("input.csv")
                 .build());
+        //@formatter:on
         options.addOptionGroup(firstGroup);
-
+        //@formatter:off
         secondGroup.addOption(Option.builder("x")
                 .hasArg()
                 .argName("arg1")
@@ -116,6 +122,7 @@ public class BugCLI266Test {
                 .hasArg()
                 .argName("arg1")
                 .build());
+        //@formatter:on
         options.addOptionGroup(secondGroup);
     }
 }

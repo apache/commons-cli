@@ -17,150 +17,115 @@
 
 package org.apache.commons.cli;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
-public class TypeHandlerTest
-{
+public class TypeHandlerTest {
 
     @Test
-    public void testCreateValueString()
-        throws Exception
-    {
+    public void testCreateValueString() throws Exception {
         assertEquals("String", TypeHandler.createValue("String", PatternOptionBuilder.STRING_VALUE));
     }
 
     @Test(expected = ParseException.class)
-    public void testCreateValueObject_unknownClass()
-        throws Exception
-    {
+    public void testCreateValueObject_unknownClass() throws Exception {
         TypeHandler.createValue("unknown", PatternOptionBuilder.OBJECT_VALUE);
     }
 
     @Test(expected = ParseException.class)
-    public void testCreateValueObject_notInstantiableClass()
-        throws Exception
-    {
+    public void testCreateValueObject_notInstantiableClass() throws Exception {
         TypeHandler.createValue(NotInstantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE);
     }
 
     @Test
-    public void testCreateValueObject_InstantiableClass()
-        throws Exception
-    {
+    public void testCreateValueObject_InstantiableClass() throws Exception {
         final Object result = TypeHandler.createValue(Instantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE);
         assertTrue(result instanceof Instantiable);
     }
 
     @Test(expected = ParseException.class)
-    public void testCreateValueNumber_noNumber()
-        throws Exception
-    {
+    public void testCreateValueNumber_noNumber() throws Exception {
         TypeHandler.createValue("not a number", PatternOptionBuilder.NUMBER_VALUE);
     }
 
     @Test
-    public void testCreateValueNumber_Double()
-        throws Exception
-    {
+    public void testCreateValueNumber_Double() throws Exception {
         assertEquals(1.5d, TypeHandler.createValue("1.5", PatternOptionBuilder.NUMBER_VALUE));
     }
 
     @Test
-    public void testCreateValueNumber_Long()
-        throws Exception
-    {
+    public void testCreateValueNumber_Long() throws Exception {
         assertEquals(Long.valueOf(15), TypeHandler.createValue("15", PatternOptionBuilder.NUMBER_VALUE));
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void testCreateValueDate()
-        throws Exception
-    {
+    public void testCreateValueDate() throws Exception {
         TypeHandler.createValue("what ever", PatternOptionBuilder.DATE_VALUE);
     }
 
     @Test(expected = ParseException.class)
-    public void testCreateValueClass_notFound()
-        throws Exception
-    {
+    public void testCreateValueClass_notFound() throws Exception {
         TypeHandler.createValue("what ever", PatternOptionBuilder.CLASS_VALUE);
     }
 
     @Test
-    public void testCreateValueClass()
-        throws Exception
-    {
+    public void testCreateValueClass() throws Exception {
         final Object clazz = TypeHandler.createValue(Instantiable.class.getName(), PatternOptionBuilder.CLASS_VALUE);
         assertEquals(Instantiable.class, clazz);
     }
 
     @Test
-    public void testCreateValueFile()
-            throws Exception
-    {
+    public void testCreateValueFile() throws Exception {
         final File result = TypeHandler.createValue("some-file.txt", PatternOptionBuilder.FILE_VALUE);
         assertEquals("some-file.txt", result.getName());
     }
 
     @Test
-    public void testCreateValueExistingFile()
-            throws Exception
-    {
-        final FileInputStream result = TypeHandler.createValue("src/test/resources/org/apache/commons/cli/existing-readable.file", PatternOptionBuilder.EXISTING_FILE_VALUE);
+    public void testCreateValueExistingFile() throws Exception {
+        final FileInputStream result = TypeHandler.createValue("src/test/resources/org/apache/commons/cli/existing-readable.file",
+            PatternOptionBuilder.EXISTING_FILE_VALUE);
         assertNotNull(result);
     }
 
     @Test(expected = ParseException.class)
-    public void testCreateValueExistingFile_nonExistingFile()
-            throws Exception
-    {
+    public void testCreateValueExistingFile_nonExistingFile() throws Exception {
         TypeHandler.createValue("non-existing.file", PatternOptionBuilder.EXISTING_FILE_VALUE);
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void testCreateValueFiles()
-            throws Exception
-    {
+    public void testCreateValueFiles() throws Exception {
         TypeHandler.createValue("some.files", PatternOptionBuilder.FILES_VALUE);
     }
 
     @Test
-    public void testCreateValueURL()
-            throws Exception
-    {
+    public void testCreateValueURL() throws Exception {
         final String urlString = "https://commons.apache.org";
         final URL result = TypeHandler.createValue(urlString, PatternOptionBuilder.URL_VALUE);
         assertEquals(urlString, result.toString());
     }
 
     @Test(expected = ParseException.class)
-    public void testCreateValueURL_malformed()
-            throws Exception
-    {
+    public void testCreateValueURL_malformed() throws Exception {
         TypeHandler.createValue("malformed-url", PatternOptionBuilder.URL_VALUE);
     }
 
     @Test(expected = ParseException.class)
-    public void testCreateValueInteger_failure()
-            throws Exception
-    {
+    public void testCreateValueInteger_failure() throws Exception {
         TypeHandler.createValue("just-a-string", Integer.class);
     }
 
-    public static class Instantiable
-    {
+    public static class Instantiable {
     }
 
-    public static class NotInstantiable
-    {
-        private NotInstantiable() {}
+    public static final class NotInstantiable {
+        private NotInstantiable() {
+        }
     }
 }

@@ -20,28 +20,22 @@ package org.apache.commons.cli;
 /**
  * Contains useful helper methods for classes within this package.
  */
-final class Util
-{
+final class Util {
     /**
-     * Remove the hyphens from the beginning of <code>str</code> and
-     * return the new String.
+     * Remove the hyphens from the beginning of <code>str</code> and return the new String.
      *
      * @param str The string from which the hyphens should be removed.
      *
      * @return the new String.
      */
-    static String stripLeadingHyphens(final String str)
-    {
-        if (str == null)
-        {
+    static String stripLeadingHyphens(final String str) {
+        if (str == null) {
             return null;
         }
-        if (str.startsWith("--"))
-        {
+        if (str.startsWith("--")) {
             return str.substring(2);
         }
-        if (str.startsWith("-"))
-        {
+        if (str.startsWith("-")) {
             return str.substring(1);
         }
 
@@ -49,19 +43,15 @@ final class Util
     }
 
     /**
-     * Remove the leading and trailing quotes from <code>str</code>.
-     * E.g. if str is '"one two"', then 'one two' is returned.
+     * Remove the leading and trailing quotes from <code>str</code>. E.g. if str is '"one two"', then 'one two' is returned.
      *
-     * @param str The string from which the leading and trailing quotes
-     * should be removed.
+     * @param str The string from which the leading and trailing quotes should be removed.
      *
      * @return The string without the leading and trailing quotes.
      */
-    static String stripLeadingAndTrailingQuotes(String str)
-    {
+    static String stripLeadingAndTrailingQuotes(String str) {
         final int length = str.length();
-        if (length > 1 && str.startsWith("\"") && str.endsWith("\"") && str.substring(1, length - 1).indexOf('"') == -1)
-        {
+        if (length > 1 && str.startsWith("\"") && str.endsWith("\"") && str.substring(1, length - 1).indexOf('"') == -1) {
             str = str.substring(1, length - 1);
         }
 

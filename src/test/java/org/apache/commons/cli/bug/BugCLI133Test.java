@@ -27,8 +27,7 @@ import org.apache.commons.cli.PosixParser;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI133Test
-{
+public class BugCLI133Test {
     @Test
     public void testOrder() throws ParseException {
         final Option optionA = new Option("a", "first");
@@ -36,6 +35,6 @@ public class BugCLI133Test
         opts.addOption(optionA);
         final PosixParser posixParser = new PosixParser();
         final CommandLine line = posixParser.parse(opts, null);
-        assertFalse(line.hasOption((String)null));
+        assertFalse(line.hasOption((String) null));
     }
 }

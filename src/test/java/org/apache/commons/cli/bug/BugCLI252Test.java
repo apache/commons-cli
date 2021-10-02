@@ -28,12 +28,12 @@ public class BugCLI252Test {
 
     @Test
     public void testExactOptionNameMatch() throws ParseException {
-        new DefaultParser().parse(getOptions(), new String[]{"--prefix"});
+        new DefaultParser().parse(getOptions(), new String[] {"--prefix"});
     }
 
     @Test(expected = AmbiguousOptionException.class)
     public void testAmbiquousOptionName() throws ParseException {
-        new DefaultParser().parse(getOptions(), new String[]{"--pref"});
+        new DefaultParser().parse(getOptions(), new String[] {"--pref"});
     }
 
     private Options getOptions() {

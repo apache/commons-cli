@@ -24,27 +24,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class ArgumentIsOptionTest
-{
-    private Options options = null;
-    private CommandLineParser parser = null;
+public class ArgumentIsOptionTest {
+
+    private Options options;
+    private CommandLineParser parser;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         options = new Options().addOption("p", false, "Option p").addOption("attr", true, "Option accepts argument");
-
         parser = new PosixParser();
     }
 
     @Test
-    public void testOptionAndOptionWithArgument() throws Exception
-    {
-        final String[] args = new String[]{
-                "-p",
-                "-attr",
-                "p"
-        };
+    public void testOptionAndOptionWithArgument() throws Exception {
+        final String[] args = {"-p", "-attr", "p"};
 
         final CommandLine cl = parser.parse(options, args);
         assertTrue("Confirm -p is set", cl.hasOption("p"));
@@ -54,27 +47,19 @@ public class ArgumentIsOptionTest
     }
 
     @Test
-    public void testOptionWithArgument() throws Exception
-    {
-        final String[] args = new String[]{
-                "-attr",
-                "p"
-        };
+    public void testOptionWithArgument() throws Exception {
+        final String[] args = {"-attr", "p"};
 
         final CommandLine cl = parser.parse(options, args);
         assertFalse("Confirm -p is set", cl.hasOption("p"));
         assertTrue("Confirm -attr is set", cl.hasOption("attr"));
-        assertTrue("Confirm arg of -attr",
-                cl.getOptionValue("attr").equals("p"));
+        assertTrue("Confirm arg of -attr", cl.getOptionValue("attr").equals("p"));
         assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
     }
 
     @Test
-    public void testOption() throws Exception
-    {
-        final String[] args = new String[]{
-                "-p"
-        };
+    public void testOption() throws Exception {
+        final String[] args = {"-p"};
 
         final CommandLine cl = parser.parse(options, args);
         assertTrue("Confirm -p is set", cl.hasOption("p"));

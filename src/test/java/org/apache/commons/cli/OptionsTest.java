@@ -28,11 +28,9 @@ import java.util.Collection;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class OptionsTest
-{
+public class OptionsTest {
     @Test
-    public void testSimple()
-    {
+    public void testSimple() {
         final Options opts = new Options();
 
         opts.addOption("a", false, "toggle -a");
@@ -43,8 +41,7 @@ public class OptionsTest
     }
 
     @Test
-    public void testDuplicateSimple()
-    {
+    public void testDuplicateSimple() {
         final Options opts = new Options();
         opts.addOption("a", false, "toggle -a");
         opts.addOption("a", true, "toggle -a*");
@@ -53,8 +50,7 @@ public class OptionsTest
     }
 
     @Test
-    public void testLong()
-    {
+    public void testLong() {
         final Options opts = new Options();
 
         opts.addOption("a", "--a", false, "toggle -a");
@@ -65,8 +61,7 @@ public class OptionsTest
     }
 
     @Test
-    public void testDuplicateLong()
-    {
+    public void testDuplicateLong() {
         final Options opts = new Options();
         opts.addOption("a", "--a", false, "toggle -a");
         opts.addOption("a", "--a", false, "toggle -a*");
@@ -74,8 +69,7 @@ public class OptionsTest
     }
 
     @Test
-    public void testHelpOptions()
-    {
+    public void testHelpOptions() {
         final Option longOnly1 = OptionBuilder.withLongOpt("long-only1").create();
         final Option longOnly2 = OptionBuilder.withLongOpt("long-only2").create();
         final Option shortOnly1 = OptionBuilder.create("1");
@@ -106,41 +100,32 @@ public class OptionsTest
     }
 
     @Test
-    public void testMissingOptionException() throws ParseException
-    {
+    public void testMissingOptionException() throws ParseException {
         final Options options = new Options();
         options.addOption(OptionBuilder.isRequired().create("f"));
-        try
-        {
+        try {
             new PosixParser().parse(options, new String[0]);
             fail("Expected MissingOptionException to be thrown");
-        }
-        catch (final MissingOptionException e)
-        {
+        } catch (final MissingOptionException e) {
             assertEquals("Missing required option: f", e.getMessage());
         }
     }
 
     @Test
-    public void testMissingOptionsException() throws ParseException
-    {
+    public void testMissingOptionsException() throws ParseException {
         final Options options = new Options();
         options.addOption(OptionBuilder.isRequired().create("f"));
         options.addOption(OptionBuilder.isRequired().create("x"));
-        try
-        {
+        try {
             new PosixParser().parse(options, new String[0]);
             fail("Expected MissingOptionException to be thrown");
-        }
-        catch (final MissingOptionException e)
-        {
+        } catch (final MissingOptionException e) {
             assertEquals("Missing required options: f, x", e.getMessage());
         }
     }
 
     @Test
-    public void testToString()
-    {
+    public void testToString() {
         final Options options = new Options();
         options.addOption("f", "foo", true, "Foo");
         options.addOption("b", "bar", false, "Bar");
@@ -152,8 +137,7 @@ public class OptionsTest
     }
 
     @Test
-    public void testGetOptionsGroups()
-    {
+    public void testGetOptionsGroups() {
         final Options options = new Options();
 
         final OptionGroup group1 = new OptionGroup();
@@ -172,8 +156,7 @@ public class OptionsTest
     }
 
     @Test
-    public void testGetMatchingOpts()
-    {
+    public void testGetMatchingOpts() {
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("version").create());
         options.addOption(OptionBuilder.withLongOpt("verbose").create());

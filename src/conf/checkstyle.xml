@@ -24,7 +24,6 @@ limitations under the License.
 
 <module name="Checker">
     <property name="localeLanguage" value="en"/>
-    <property name="severity" value="warning"/>
 
     <!-- Checks that a package.html file exists for each package.     -->
     <!-- See http://checkstyle.sourceforge.net/config_javadoc.html#JavadocPackage -->
@@ -38,26 +37,18 @@ limitations under the License.
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
     <module name="Translation"/>
 
-    <!-- Exceptions -->
-    <module name="SuppressionFilter">
-        <property name="file" value="${checkstyle.suppressions.file}"/>
-    </module>
-
     <module name="FileTabCharacter">
       <property name="eachLine" value="true"/>
     </module>
 
     <module name="LineLength">
-        <property name="max" value="120"/>
+        <property name="max" value="160"/>
     </module>
 
     <module name="TreeWalker">
 
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-        <module name="JavadocMethod">
-            <property name="scope" value="public"/>
-        </module>
         <module name="JavadocType"/>
         <module name="JavadocVariable"/>
 
@@ -90,13 +81,11 @@ limitations under the License.
             <property name="max" value="9"/>
         </module>
 
-
         <!-- Checks for whitespace                               -->
         <!-- See http://checkstyle.sf.net/config_whitespace.html -->
         <module name="EmptyForIteratorPad"/>
         <module name="NoWhitespaceAfter"/>
         <module name="NoWhitespaceBefore"/>
-        <module name="OperatorWrap"/>
         <module name="ParenPad"/>
 
         <module name="WhitespaceAfter"/>
@@ -115,13 +104,7 @@ limitations under the License.
         <module name="EmptyBlock">
             <property name="option" value="text"/>        
         </module>
-        <module name="LeftCurly">
-            <property name="option" value="nl"/>
-        </module>
         <module name="NeedBraces"/>
-        <module name="RightCurly">
-            <property name="option" value="alone"/>
-        </module>
 
         <!-- Checks for common coding problems               -->
         <!-- See http://checkstyle.sf.net/config_coding.html -->

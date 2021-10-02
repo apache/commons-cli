@@ -25,8 +25,7 @@ import java.util.Iterator;
  *
  * @since 1.3
  */
-public class AmbiguousOptionException extends UnrecognizedOptionException
-{
+public class AmbiguousOptionException extends UnrecognizedOptionException {
     /**
      * This exception {@code serialVersionUID}.
      */
@@ -38,21 +37,20 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
     /**
      * Constructs a new AmbiguousOptionException.
      *
-     * @param option          the partial option name
+     * @param option the partial option name
      * @param matchingOptions the options matching the name
      */
-    public AmbiguousOptionException(final String option, final Collection<String> matchingOptions)
-    {
+    public AmbiguousOptionException(final String option, final Collection<String> matchingOptions) {
         super(createMessage(option, matchingOptions), option);
         this.matchingOptions = matchingOptions;
     }
 
     /**
      * Returns the options matching the partial name.
+     *
      * @return a collection of options matching the name
      */
-    public Collection<String> getMatchingOptions()
-    {
+    public Collection<String> getMatchingOptions() {
         return matchingOptions;
     }
 
@@ -63,20 +61,17 @@ public class AmbiguousOptionException extends UnrecognizedOptionException
      * @param matchingOptions
      * @return
      */
-    private static String createMessage(final String option, final Collection<String> matchingOptions)
-    {
+    private static String createMessage(final String option, final Collection<String> matchingOptions) {
         final StringBuilder buf = new StringBuilder("Ambiguous option: '");
         buf.append(option);
         buf.append("'  (could be: ");
 
         final Iterator<String> it = matchingOptions.iterator();
-        while (it.hasNext())
-        {
+        while (it.hasNext()) {
             buf.append("'");
             buf.append(it.next());
             buf.append("'");
-            if (it.hasNext())
-            {
+            if (it.hasNext()) {
                 buf.append(", ");
             }
         }

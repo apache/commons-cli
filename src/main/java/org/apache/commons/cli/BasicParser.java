@@ -18,32 +18,31 @@
 package org.apache.commons.cli;
 
 /**
- * The class BasicParser provides a very simple implementation of
- * the {@link Parser#flatten(Options,String[],boolean) flatten} method.
+ * The class BasicParser provides a very simple implementation of the {@link Parser#flatten(Options,String[],boolean)
+ * flatten} method.
  *
  * @deprecated since 1.3, use the {@link DefaultParser} instead
  */
 @Deprecated
-public class BasicParser extends Parser
-{
+public class BasicParser extends Parser {
     /**
-     * <p>A simple implementation of {@link Parser}'s abstract
-     * {@link Parser#flatten(Options, String[], boolean) flatten} method.</p>
+     * <p>
+     * A simple implementation of {@link Parser}'s abstract {@link Parser#flatten(Options, String[], boolean) flatten}
+     * method.
+     * </p>
      *
-     * <p><b>Note:</b> <code>options</code> and <code>stopAtNonOption</code>
-     * are not used in this <code>flatten</code> method.</p>
+     * <p>
+     * <b>Note:</b> <code>options</code> and <code>stopAtNonOption</code> are not used in this <code>flatten</code> method.
+     * </p>
      *
      * @param options The command line {@link Options}
      * @param arguments The command line arguments to be parsed
-     * @param stopAtNonOption Specifies whether to stop flattening
-     * when an non option is found.
+     * @param stopAtNonOption Specifies whether to stop flattening when an non option is found.
      * @return The <code>arguments</code> String array.
      */
     @Override
-    protected String[] flatten(@SuppressWarnings("unused") final Options options,
-            final String[] arguments,
-            @SuppressWarnings("unused") final boolean stopAtNonOption)
-    {
+    protected String[] flatten(@SuppressWarnings("unused") final Options options, final String[] arguments,
+        @SuppressWarnings("unused") final boolean stopAtNonOption) {
         // just echo the arguments
         return arguments;
     }
