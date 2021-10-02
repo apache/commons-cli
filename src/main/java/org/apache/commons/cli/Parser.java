@@ -329,7 +329,7 @@ public abstract class Parser implements CommandLineParser {
 
     protected void setOptions(final Options options) {
         this.options = options;
-        this.requiredOptions = new ArrayList(options.getRequiredOptions());
+        this.requiredOptions = new ArrayList<>(options.getRequiredOptions());
     }
 
     /**

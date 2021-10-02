@@ -29,7 +29,7 @@ import org.junit.Test;
 public class CommandLineTest {
 
     @Test
-    public void testBuilder() throws Exception {
+    public void testBuilder() {
         final CommandLine.Builder builder = new CommandLine.Builder();
         builder.addArg("foo").addArg("bar");
         builder.addOption(Option.builder("T").build());

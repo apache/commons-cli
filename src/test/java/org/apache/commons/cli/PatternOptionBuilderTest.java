@@ -49,7 +49,7 @@ public class PatternOptionBuilderTest {
     }
 
     @Test
-    public void testEmptyPattern() throws Exception {
+    public void testEmptyPattern() {
         final Options options = PatternOptionBuilder.parsePattern("");
         assertTrue(options.getOptions().isEmpty());
     }

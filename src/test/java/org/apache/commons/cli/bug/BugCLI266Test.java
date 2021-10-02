@@ -27,7 +27,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -105,7 +104,7 @@ public class BugCLI266Test {
     }
 
     @Test
-    public void testOptionComparatorDefaultOrder() throws ParseException {
+    public void testOptionComparatorDefaultOrder() {
         final HelpFormatter formatter = new HelpFormatter();
         final List<Option> options = new ArrayList<>(getOptions().getOptions());
         Collections.sort(options, formatter.getOptionComparator());
@@ -117,7 +116,7 @@ public class BugCLI266Test {
     }
 
     @Test
-    public void testOptionComparatorInsertedOrder() throws ParseException {
+    public void testOptionComparatorInsertedOrder() {
         final Collection<Option> options = getOptions().getOptions();
         int i = 0;
         for (final Option o : options) {

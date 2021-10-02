@@ -84,10 +84,6 @@ public class BugCLI162Test {
 
     private static final String OPT_SQL_L = "sql";
 
-    private static final String OPT_SQL_SPLIT_DEFAULT = "###";
-
-    private static final String OPT_SQL_SPLIT_L = "splitSql";
-
     private static final String OPT_STACK_TRACE = "t";
 
     private static final String OPT_TIMING = "g";
@@ -113,7 +109,7 @@ public class BugCLI162Test {
     private StringWriter sw;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         formatter = new HelpFormatter();
         sw = new StringWriter();
     }

@@ -578,7 +578,7 @@ public class DefaultParser implements CommandLineParser {
         this.stopAtNonOption = stopAtNonOption;
         skipParsing = false;
         currentOption = null;
-        expectedOpts = new ArrayList(options.getRequiredOptions());
+        expectedOpts = new ArrayList<>(options.getRequiredOptions());
 
         // clear the data from the groups
         for (final OptionGroup group : options.getOptionGroups()) {

@@ -41,7 +41,7 @@ public class BugCLI265Test {
     private Options options;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         parser = new DefaultParser();
 
         final Option optionT1 = Option.builder("t1").hasArg().numberOfArgs(1).optionalArg(true).argName("t1_path").build();

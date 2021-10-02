@@ -63,7 +63,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void testAutomaticUsage() throws Exception {
+    public void testAutomaticUsage() {
         final HelpFormatter hf = new HelpFormatter();
         Options options;
         String expected = "usage: app [-a]";
@@ -101,7 +101,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void testFindWrapPos() throws Exception {
+    public void testFindWrapPos() {
         final HelpFormatter hf = new HelpFormatter();
 
         String text = "This is a test.";
@@ -148,7 +148,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void testHelpWithLongOptSeparator() throws Exception {
+    public void testHelpWithLongOptSeparator() {
         final Options options = new Options();
         options.addOption("f", true, "the file");
         options.addOption(Option.builder("s").longOpt("size").desc("the size").hasArg().argName("SIZE").build());
@@ -329,7 +329,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void testPrintOptions() throws Exception {
+    public void testPrintOptions() {
         final StringBuffer sb = new StringBuffer();
         final HelpFormatter hf = new HelpFormatter();
         final int leftPad = 1;
@@ -458,9 +458,9 @@ public class HelpFormatterTest {
         opts.addOption(optionC);
         final HelpFormatter helpFormatter = new HelpFormatter();
         final ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
-        final PrintWriter printWriter = new PrintWriter(bytesOut);
-        helpFormatter.printUsage(printWriter, 80, "app", opts);
-        printWriter.close();
+        try (final PrintWriter printWriter = new PrintWriter(bytesOut)) {
+            helpFormatter.printUsage(printWriter, 80, "app", opts);
+        }
         assertEquals("usage: app [-a] [-b] [-c]" + EOL, bytesOut.toString());
     }
 
@@ -565,7 +565,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void testUsageWithLongOptSeparator() throws Exception {
+    public void testUsageWithLongOptSeparator() {
         final Options options = new Options();
         options.addOption("f", true, "the file");
         options.addOption(Option.builder("s").longOpt("size").desc("the size").hasArg().argName("SIZE").build());
