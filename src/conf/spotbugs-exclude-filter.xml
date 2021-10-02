@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
    Licensed to the Apache Software Foundation (ASF) under one or more
    contributor license agreements.  See the NOTICE file distributed with
@@ -15,20 +15,35 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
+<FindBugsFilter xmlns="https://github.com/spotbugs/filter/3.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
 
-<!--
-  This file contains some false positive bugs detected by findbugs. Their
-  false positive nature has been analyzed individually and they have been
-  put here to instruct findbugs it must ignore them.
--->
-<FindBugsFilter>
-
-  <!--  default encoding is intended when writing to System.out -->
   <Match>
     <Class name="org.apache.commons.cli.HelpFormatter" />
     <Method name="printHelp"
-            params="int,java.lang.String,java.lang.String,org.apache.commons.cli.Options,java.lang.String,boolean" returns="void" />
+      params="int,java.lang.String,java.lang.String,org.apache.commons.cli.Options,java.lang.String,boolean"
+      returns="void" />
     <Bug pattern="DM_DEFAULT_ENCODING" />
   </Match>
 
+  <Match>
+    <!-- Note: OptionBuilder is deprecated. -->
+    <Class name="org.apache.commons.cli.OptionBuilder" />
+    <Method name="withType"
+      params="java.lang.Class"
+      returns="org.apache.commons.cli.OptionBuilder" />
+    <Bug pattern="EI_EXPOSE_STATIC_REP2" />
+  </Match>
+
+  <Match>
+    <!-- TODO ? -->
+    <Bug pattern="EI_EXPOSE_REP" />
+  </Match>
+  
+  <Match>
+    <!-- TODO ? -->
+    <Bug pattern="EI_EXPOSE_REP2" />
+  </Match>
+  
 </FindBugsFilter>

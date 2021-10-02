@@ -211,10 +211,12 @@
     <commons.jacoco.version>0.8.7</commons.jacoco.version>
     <commons.surefire-report.version>3.0.0-M5</commons.surefire-report.version>
     <commons.surefire.version>3.0.0-M5</commons.surefire.version>
+    <spotbugs.plugin.version>4.4.1</spotbugs.plugin.version>
+    <spotbugs.impl.version>4.4.1</spotbugs.impl.version>
   </properties>
 
   <build>
-    <defaultGoal>clean package apache-rat:check clirr:check checkstyle:check findbugs:check javadoc:javadoc</defaultGoal>
+    <defaultGoal>clean package apache-rat:check clirr:check checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -246,16 +248,21 @@
             </dependency>
           </dependencies>
         </plugin>      
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>findbugs-maven-plugin</artifactId>
-          <version>${commons.findbugs.version}</version>
-          <configuration>
-            <threshold>Normal</threshold>
-            <effort>Default</effort>
-            <excludeFilterFile>${basedir}/src/conf/findbugs-exclude-filter.xml</excludeFilterFile>
-          </configuration>
-        </plugin>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbugs.plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>${spotbugs.impl.version}</version>
+         </dependency>
+        </dependencies>
+        <configuration>
+          <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
+        </configuration>
+      </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-scm-publish-plugin</artifactId>
@@ -271,6 +278,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -312,6 +323,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.apache.rat</groupId>
