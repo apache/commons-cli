@@ -36,8 +36,8 @@
             <item name="Getting started"      href="/introduction.html"/>
             <item name="Usage scenarios"      href="/usage.html"/>
             <item name="Option properties"    href="/properties.html"/>
-            <item name="Javadoc (Current ${project.version})"        href="/apidocs/index.html"/>
-            <item name="Javadoc (1.4)"      href="/javadocs/api-release/index.html"/>
+            <item name="Javadoc"              href="/apidocs/index.html"/>
+            <item name="Javadoc Archive"      href="https://javadoc.io/doc/commons-cli/commons-cli/latest/index.html"/>
         </menu>
 
     </body>
