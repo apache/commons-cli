@@ -146,7 +146,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Returns a list of matching option strings for the given token, depending on the selected partial matching policy.
+     * Gets a list of matching option strings for the given token, depending on the selected partial matching policy.
      *
      * @param token the token (may contain leading dashes)
      * @return the list of matching option strings or an empty list if no matching option could be found

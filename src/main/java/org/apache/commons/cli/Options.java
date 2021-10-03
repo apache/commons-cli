@@ -187,7 +187,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Returns the options with a long name starting with the name specified.
+     * Gets the options with a long name starting with the name specified.
      *
      * @param opt the partial name of the option
      * @return the options matching the partial name specified, or an empty list if none matches
@@ -213,7 +213,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Retrieve the {@link Option} matching the long or short name specified.
+     * Gets the {@link Option} matching the long or short name specified.
      *
      * <p>
      * The leading hyphens in the name are ignored (up to 2).
@@ -233,7 +233,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Returns the OptionGroup the {@code opt} belongs to.
+     * Gets the OptionGroup the {@code opt} belongs to.
      *
      * @param opt the option whose OptionGroup is being queried.
      * @return the OptionGroup if {@code opt} is part of an OptionGroup, otherwise return null
@@ -243,7 +243,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Lists the OptionGroups that are members of this Options instance.
+     * Gets the OptionGroups that are members of this Options instance.
      *
      * @return a Collection of OptionGroup instances.
      */
@@ -252,7 +252,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Retrieve a read-only list of options in this set
+     * Gets a read-only list of options in this set
      *
      * @return read-only Collection of {@link Option} objects in this descriptor
      */
@@ -261,7 +261,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Returns the required options.
+     * Gets the required options.
      *
      * @return read-only List of required options
      */

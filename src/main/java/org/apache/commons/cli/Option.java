@@ -493,7 +493,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the number of argument values this Option can take.
+     * Gets the number of argument values this Option can take.
      *
      * <p>
      * A value equal to the constant {@link #UNINITIALIZED} (= -1) indicates the number of arguments has not been specified.
@@ -510,7 +510,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Retrieve the self-documenting description of this Option
+     * Gets the self-documenting description of this Option
      *
      * @return The string description of this option
      */
@@ -519,7 +519,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the id of this Option. This is only set when the Option shortOpt is a single character. This is used for
+     * Gets the id of this Option. This is only set when the Option shortOpt is a single character. This is used for
      * switch statements.
      *
      * @return the id of this Option
@@ -529,7 +529,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the 'unique' Option identifier.
+     * Gets the 'unique' Option identifier.
      *
      * @return the 'unique' Option identifier
      */
@@ -539,7 +539,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Retrieve the long name of this Option.
+     * Gets the long name of this Option.
      *
      * @return Long name of this option, or null, if there is no long name
      */
@@ -548,7 +548,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Retrieve the name of this Option.
+     * Gets the name of this Option.
      *
      * It is this String which can be used with {@link CommandLine#hasOption(String opt)} and
      * {@link CommandLine#getOptionValue(String opt)} to check for existence and argument.
@@ -560,7 +560,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Retrieve the type of this Option.
+     * Gets the type of this Option.
      *
      * @return The type of this option
      */
@@ -569,7 +569,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the specified value of this Option or {@code null} if there is no value.
+     * Gets the specified value of this Option or {@code null} if there is no value.
      *
      * @return the value/first value of this Option or {@code null} if there is no value.
      */
@@ -578,7 +578,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the specified value of this Option or {@code null} if there is no value.
+     * Gets the specified value of this Option or {@code null} if there is no value.
      *
      * @param index The index of the value to be returned.
      *
@@ -591,7 +591,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the value/first value of this Option or the {@code defaultValue} if there is no value.
+     * Gets the value/first value of this Option or the {@code defaultValue} if there is no value.
      *
      * @param defaultValue The value to be returned if there is no value.
      *
@@ -604,7 +604,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Return the values of this Option as a String array or null if there are no values
+     * Gets the values of this Option as a String array or null if there are no values
      *
      * @return the values of this Option as a String array or null if there are no values
      */
@@ -613,7 +613,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the value separator character.
+     * Gets the value separator character.
      *
      * @return the value separator character.
      */
@@ -622,6 +622,8 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
+     * Gets the values of this Option as a List or null if there are no values.
+     *
      * @return the values of this Option as a List or null if there are no values
      */
     public List<String> getValuesList() {

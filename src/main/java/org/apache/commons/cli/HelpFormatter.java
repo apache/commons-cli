@@ -312,7 +312,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Returns the 'argName'.
+     * Gets the 'argName'.
      *
      * @return the 'argName'
      */
@@ -321,7 +321,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Returns the 'descPadding'.
+     * Gets the 'descPadding'.
      *
      * @return the 'descPadding'
      */
@@ -330,7 +330,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Returns the 'leftPadding'.
+     * Gets the 'leftPadding'.
      *
      * @return the 'leftPadding'
      */
@@ -339,7 +339,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Returns the 'longOptPrefix'.
+     * Gets the 'longOptPrefix'.
      *
      * @return the 'longOptPrefix'
      */
@@ -348,7 +348,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Returns the separator displayed between a long option and its value.
+     * Gets the separator displayed between a long option and its value.
      *
      * @return the separator
      * @since 1.3
@@ -358,7 +358,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Returns the 'newLine'.
+     * Gets the 'newLine'.
      *
      * @return the 'newLine'
      */
@@ -378,7 +378,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Returns the 'optPrefix'.
+     * Gets the 'optPrefix'.
      *
      * @return the 'optPrefix'
      */
@@ -387,7 +387,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Returns the 'syntaxPrefix'.
+     * Gets the 'syntaxPrefix'.
      *
      * @return the 'syntaxPrefix'
      */
@@ -396,7 +396,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Returns the 'width'.
+     * Gets the 'width'.
      *
      * @return the 'width'
      */

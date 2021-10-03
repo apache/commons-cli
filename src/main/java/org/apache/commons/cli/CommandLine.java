@@ -218,7 +218,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Returns an array of the processed {@link Option}s.
+     * Gets an array of the processed {@link Option}s.
      *
      * @return an array of the processed {@link Option}s.
      */

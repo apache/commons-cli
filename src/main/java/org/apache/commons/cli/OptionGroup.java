@@ -77,7 +77,7 @@ public class OptionGroup implements Serializable {
     }
 
     /**
-     * Returns whether this option group is required.
+     * Tests whether this option group is required.
      *
      * @return whether this option group is required
      */
