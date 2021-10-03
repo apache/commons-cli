@@ -30,7 +30,7 @@ import java.util.Date;
  */
 public class TypeHandler {
     /**
-     * Returns the class whose name is <code>classname</code>.
+     * Returns the class whose name is {@code classname}.
      *
      * @param classname the class name
      * @return The class if it is found
@@ -45,12 +45,12 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the date represented by <code>str</code>.
+     * Returns the date represented by {@code str}.
      * <p>
      * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
      *
      * @param str the date string
-     * @return The date if <code>str</code> is a valid date string, otherwise return null.
+     * @return The date if {@code str} is a valid date string, otherwise return null.
      * @throws UnsupportedOperationException always
      */
     public static Date createDate(final String str) {
@@ -58,22 +58,22 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the File represented by <code>str</code>.
+     * Returns the File represented by {@code str}.
      *
      * @param str the File location
-     * @return The file represented by <code>str</code>.
+     * @return The file represented by {@code str}.
      */
     public static File createFile(final String str) {
         return new File(str);
     }
 
     /**
-     * Returns the File[] represented by <code>str</code>.
+     * Returns the File[] represented by {@code str}.
      * <p>
      * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
      *
      * @param str the paths to the files
-     * @return The File[] represented by <code>str</code>.
+     * @return The File[] represented by {@code str}.
      * @throws UnsupportedOperationException always
      */
     public static File[] createFiles(final String str) {
@@ -86,8 +86,8 @@ public class TypeHandler {
      * Create a number from a String. If a . is present, it creates a Double, otherwise a Long.
      *
      * @param str the value
-     * @return the number represented by <code>str</code>
-     * @throws ParseException if <code>str</code> is not a number
+     * @return the number represented by {@code str}
+     * @throws ParseException if {@code str} is not a number
      */
     public static Number createNumber(final String str) throws ParseException {
         try {
@@ -124,11 +124,11 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the URL represented by <code>str</code>.
+     * Returns the URL represented by {@code str}.
      *
      * @param str the URL string
-     * @return The URL in <code>str</code> is well-formed
-     * @throws ParseException if the URL in <code>str</code> is not well-formed
+     * @return The URL in {@code str} is well-formed
+     * @throws ParseException if the URL in {@code str} is not well-formed
      */
     public static URL createURL(final String str) throws ParseException {
         try {
@@ -139,12 +139,12 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the <code>Object</code> of type <code>clazz</code> with the value of <code>str</code>.
+     * Returns the {@code Object} of type {@code clazz} with the value of {@code str}.
      *
      * @param str the command line value
      * @param clazz the class representing the type of argument
      * @param <T> type of argument
-     * @return The instance of <code>clazz</code> initialized with the value of <code>str</code>.
+     * @return The instance of {@code clazz} initialized with the value of {@code str}.
      * @throws ParseException if the value creation for the given class failed
      */
     @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
@@ -180,11 +180,11 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the <code>Object</code> of type <code>obj</code> with the value of <code>str</code>.
+     * Returns the {@code Object} of type {@code obj} with the value of {@code str}.
      *
      * @param str the command line value
      * @param obj the type of argument
-     * @return The instance of <code>obj</code> initialized with the value of <code>str</code>.
+     * @return The instance of {@code obj} initialized with the value of {@code str}.
      * @throws ParseException if the value creation for the given object type failed
      */
     public static Object createValue(final String str, final Object obj) throws ParseException {
@@ -192,10 +192,10 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the opened FileInputStream represented by <code>str</code>.
+     * Returns the opened FileInputStream represented by {@code str}.
      *
      * @param str the file location
-     * @return The file input stream represented by <code>str</code>.
+     * @return The file input stream represented by {@code str}.
      * @throws ParseException if the file is not exist or not readable
      */
     public static FileInputStream openFile(final String str) throws ParseException {

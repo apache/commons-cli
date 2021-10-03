@@ -32,13 +32,13 @@ public class BasicParser extends Parser {
      * </p>
      *
      * <p>
-     * <b>Note:</b> <code>options</code> and <code>stopAtNonOption</code> are not used in this <code>flatten</code> method.
+     * <b>Note:</b> {@code options} and {@code stopAtNonOption} are not used in this {@code flatten} method.
      * </p>
      *
      * @param options The command line {@link Options}
      * @param arguments The command line arguments to be parsed
      * @param stopAtNonOption Specifies whether to stop flattening when an non option is found.
-     * @return The <code>arguments</code> String array.
+     * @return The {@code arguments} String array.
      */
     @Override
     protected String[] flatten(@SuppressWarnings("unused") final Options options, final String[] arguments,

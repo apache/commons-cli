@@ -43,7 +43,7 @@ public class PosixParser extends Parser {
     private Options options;
 
     /**
-     * Breaks <code>token</code> into its constituent parts using the following algorithm.
+     * Breaks {@code token} into its constituent parts using the following algorithm.
      *
      * <ul>
      * <li>ignore the first character ("<b>-</b>")</li>
@@ -52,10 +52,10 @@ public class PosixParser extends Parser {
      * tokens.</li>
      * <li>if the {@link Option} can have an argument value and there are remaining characters in the token then add the
      * remaining characters as a token to the list of processed tokens.</li>
-     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> <code>stopAtNonOption</code> <b>IS</b> set then add the
+     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS</b> set then add the
      * special token "<b>--</b>" followed by the remaining characters and also the remaining tokens directly to the
      * processed tokens list.</li>
-     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> <code>stopAtNonOption</code> <b>IS NOT</b> set then add
+     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS NOT</b> set then add
      * that character prepended with "<b>-</b>".</li>
      * </ul>
      *
@@ -94,26 +94,26 @@ public class PosixParser extends Parser {
      * The following are the rules used by this flatten method.
      * </p>
      * <ol>
-     * <li>if <code>stopAtNonOption</code> is <b>true</b> then do not burst anymore of <code>arguments</code> entries, just
-     * add each successive entry without further processing. Otherwise, ignore <code>stopAtNonOption</code>.</li>
-     * <li>if the current <code>arguments</code> entry is "<b>--</b>" just add the entry to the list of processed
+     * <li>if {@code stopAtNonOption} is <b>true</b> then do not burst anymore of {@code arguments} entries, just
+     * add each successive entry without further processing. Otherwise, ignore {@code stopAtNonOption}.</li>
+     * <li>if the current {@code arguments} entry is "<b>--</b>" just add the entry to the list of processed
      * tokens</li>
-     * <li>if the current <code>arguments</code> entry is "<b>-</b>" just add the entry to the list of processed tokens</li>
-     * <li>if the current <code>arguments</code> entry is two characters in length and the first character is "<b>-</b>"
+     * <li>if the current {@code arguments} entry is "<b>-</b>" just add the entry to the list of processed tokens</li>
+     * <li>if the current {@code arguments} entry is two characters in length and the first character is "<b>-</b>"
      * then check if this is a valid {@link Option} id. If it is a valid id, then add the entry to the list of processed
-     * tokens and set the current {@link Option} member. If it is not a valid id and <code>stopAtNonOption</code> is true,
+     * tokens and set the current {@link Option} member. If it is not a valid id and {@code stopAtNonOption} is true,
      * then the remaining entries are copied to the list of processed tokens. Otherwise, the current entry is ignored.</li>
-     * <li>if the current <code>arguments</code> entry is more than two characters in length and the first character is
+     * <li>if the current {@code arguments} entry is more than two characters in length and the first character is
      * "<b>-</b>" then we need to burst the entry to determine its constituents. For more information on the bursting
      * algorithm see {@link PosixParser#burstToken(String, boolean) burstToken}.</li>
-     * <li>if the current <code>arguments</code> entry is not handled by any of the previous rules, then the entry is added
+     * <li>if the current {@code arguments} entry is not handled by any of the previous rules, then the entry is added
      * to the list of processed tokens.</li>
      * </ol>
      *
      * @param options The command line {@link Options}
      * @param arguments The command line arguments to be parsed
      * @param stopAtNonOption Specifies whether to stop flattening when an non option is found.
-     * @return The flattened <code>arguments</code> String array.
+     * @return The flattened {@code arguments} String array.
      */
     @Override
     protected String[] flatten(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException {
@@ -193,8 +193,8 @@ public class PosixParser extends Parser {
     }
 
     /**
-     * Resets the members to their original state i.e. remove all of <code>tokens</code> entries and set
-     * <code>eatTheRest</code> to false.
+     * Resets the members to their original state i.e. remove all of {@code tokens} entries and set
+     * {@code eatTheRest} to false.
      */
     private void init() {
         eatTheRest = false;
@@ -202,8 +202,8 @@ public class PosixParser extends Parser {
     }
 
     /**
-     * Add the special token "<b>--</b>" and the current <code>value</code> to the processed tokens list. Then add all the
-     * remaining <code>argument</code> values to the processed tokens list.
+     * Add the special token "<b>--</b>" and the current {@code value} to the processed tokens list. Then add all the
+     * remaining {@code argument} values to the processed tokens list.
      *
      * @param value The current token
      */
@@ -218,11 +218,11 @@ public class PosixParser extends Parser {
 
     /**
      * <p>
-     * If an {@link Option} exists for <code>token</code> then add the token to the processed list.
+     * If an {@link Option} exists for {@code token} then add the token to the processed list.
      * </p>
      *
      * <p>
-     * If an {@link Option} does not exist and <code>stopAtNonOption</code> is set then add the remaining tokens to the
+     * If an {@link Option} does not exist and {@code stopAtNonOption} is set then add the remaining tokens to the
      * processed tokens list directly.
      * </p>
      *

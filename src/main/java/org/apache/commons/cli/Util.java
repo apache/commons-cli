@@ -22,7 +22,7 @@ package org.apache.commons.cli;
  */
 final class Util {
     /**
-     * Remove the leading and trailing quotes from <code>str</code>. E.g. if str is '"one two"', then 'one two' is returned.
+     * Remove the leading and trailing quotes from {@code str}. E.g. if str is '"one two"', then 'one two' is returned.
      *
      * @param str The string from which the leading and trailing quotes should be removed.
      *
@@ -38,7 +38,7 @@ final class Util {
     }
 
     /**
-     * Remove the hyphens from the beginning of <code>str</code> and return the new String.
+     * Remove the hyphens from the beginning of {@code str} and return the new String.
      *
      * @param str The string from which the hyphens should be removed.
      *

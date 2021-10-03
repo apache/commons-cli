@@ -33,7 +33,7 @@ public class AlreadySelectedException extends ParseException {
     private Option option;
 
     /**
-     * Construct a new <code>AlreadySelectedException</code> for the specified option group.
+     * Construct a new {@code AlreadySelectedException} for the specified option group.
      *
      * @param group the option group already selected
      * @param option the option that triggered the exception
@@ -46,7 +46,7 @@ public class AlreadySelectedException extends ParseException {
     }
 
     /**
-     * Construct a new <code>AlreadySelectedException</code> with the specified detail message.
+     * Construct a new {@code AlreadySelectedException} with the specified detail message.
      *
      * @param message the detail message
      */

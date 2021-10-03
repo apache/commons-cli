@@ -104,10 +104,10 @@ public class PatternOptionBuilder {
     public static final Class<URL> URL_VALUE = URL.class;
 
     /**
-     * Retrieve the class that <code>ch</code> represents.
+     * Retrieve the class that {@code ch} represents.
      *
      * @param ch the specified character
-     * @return The class that <code>ch</code> represents
+     * @return The class that {@code ch} represents
      */
     public static Object getValueClass(final char ch) {
         switch (ch) {
@@ -135,17 +135,17 @@ public class PatternOptionBuilder {
     }
 
     /**
-     * Returns whether <code>ch</code> is a value code, i.e. whether it represents a class in a pattern.
+     * Returns whether {@code ch} is a value code, i.e. whether it represents a class in a pattern.
      *
      * @param ch the specified character
-     * @return true if <code>ch</code> is a value code, otherwise false.
+     * @return true if {@code ch} is a value code, otherwise false.
      */
     public static boolean isValueCode(final char ch) {
         return ch == '@' || ch == ':' || ch == '%' || ch == '+' || ch == '#' || ch == '<' || ch == '>' || ch == '*' || ch == '/' || ch == '!';
     }
 
     /**
-     * Returns the {@link Options} instance represented by <code>pattern</code>.
+     * Returns the {@link Options} instance represented by {@code pattern}.
      *
      * @param pattern the pattern string
      * @return The {@link Options} instance

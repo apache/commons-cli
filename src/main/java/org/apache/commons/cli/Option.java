@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class Option implements Cloneable, Serializable {
     /**
-     * A nested builder class to create <code>Option</code> instances using descriptive methods.
+     * A nested builder class to create {@code Option} instances using descriptive methods.
      * <p>
      * Example usage:
      *
@@ -76,7 +76,7 @@ public class Option implements Cloneable, Serializable {
         private char valuesep;
 
         /**
-         * Constructs a new <code>Builder</code> with the minimum required parameters for an <code>Option</code> instance.
+         * Constructs a new {@code Builder} with the minimum required parameters for an {@code Option} instance.
          *
          * @param opt short representation of the option
          * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
@@ -226,7 +226,7 @@ public class Option implements Cloneable, Serializable {
         }
 
         /**
-         * The Option will use <code>sep</code> as a means to separate argument values.
+         * The Option will use {@code sep} as a means to separate argument values.
          * <p>
          * <b>Example:</b>
          *
@@ -335,7 +335,7 @@ public class Option implements Cloneable, Serializable {
      * @param hasArg specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      *
-     * @throws IllegalArgumentException if there are any non valid Option characters in <code>opt</code>.
+     * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}.
      */
     public Option(final String opt, final boolean hasArg, final String description) throws IllegalArgumentException {
         this(opt, null, hasArg, description);
@@ -347,7 +347,7 @@ public class Option implements Cloneable, Serializable {
      * @param opt short representation of the option
      * @param description describes the function of the option
      *
-     * @throws IllegalArgumentException if there are any non valid Option characters in <code>opt</code>.
+     * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}.
      */
     public Option(final String opt, final String description) throws IllegalArgumentException {
         this(opt, null, false, description);
@@ -361,7 +361,7 @@ public class Option implements Cloneable, Serializable {
      * @param hasArg specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      *
-     * @throws IllegalArgumentException if there are any non valid Option characters in <code>opt</code>.
+     * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}.
      */
     public Option(final String opt, final String longOpt, final boolean hasArg, final String description) throws IllegalArgumentException {
         // ensure that the option is valid
@@ -569,20 +569,20 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the specified value of this Option or <code>null</code> if there is no value.
+     * Returns the specified value of this Option or {@code null} if there is no value.
      *
-     * @return the value/first value of this Option or <code>null</code> if there is no value.
+     * @return the value/first value of this Option or {@code null} if there is no value.
      */
     public String getValue() {
         return hasNoValues() ? null : values.get(0);
     }
 
     /**
-     * Returns the specified value of this Option or <code>null</code> if there is no value.
+     * Returns the specified value of this Option or {@code null} if there is no value.
      *
      * @param index The index of the value to be returned.
      *
-     * @return the specified value of this Option or <code>null</code> if there is no value.
+     * @return the specified value of this Option or {@code null} if there is no value.
      *
      * @throws IndexOutOfBoundsException if index is less than 1 or greater than the number of the values for this Option.
      */
@@ -591,11 +591,11 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the value/first value of this Option or the <code>defaultValue</code> if there is no value.
+     * Returns the value/first value of this Option or the {@code defaultValue} if there is no value.
      *
      * @param defaultValue The value to be returned if there is no value.
      *
-     * @return the value/first value of this Option or the <code>defaultValue</code> if there are no values.
+     * @return the value/first value of this Option or the {@code defaultValue} if there are no values.
      */
     public String getValue(final String defaultValue) {
         final String value = getValue();

@@ -31,8 +31,8 @@ public class GnuParser extends Parser {
     /**
      * This flatten method does so using the following rules:
      * <ol>
-     * <li>If an {@link Option} exists for the first character of the <code>arguments</code> entry <b>AND</b> an
-     * {@link Option} does not exist for the whole <code>argument</code> then add the first character as an option to the
+     * <li>If an {@link Option} exists for the first character of the {@code arguments} entry <b>AND</b> an
+     * {@link Option} does not exist for the whole {@code argument} then add the first character as an option to the
      * processed tokens list e.g. "-D" and add the rest of the entry to the also.</li>
      * <li>Otherwise just add the token to the processed tokens list.</li>
      * </ol>

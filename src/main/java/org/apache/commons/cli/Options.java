@@ -233,10 +233,10 @@ public class Options implements Serializable {
     }
 
     /**
-     * Returns the OptionGroup the <code>opt</code> belongs to.
+     * Returns the OptionGroup the {@code opt} belongs to.
      *
      * @param opt the option whose OptionGroup is being queried.
-     * @return the OptionGroup if <code>opt</code> is part of an OptionGroup, otherwise return null
+     * @return the OptionGroup if {@code opt} is part of an OptionGroup, otherwise return null
      */
     public OptionGroup getOptionGroup(final Option opt) {
         return optionGroups.get(opt.getKey());

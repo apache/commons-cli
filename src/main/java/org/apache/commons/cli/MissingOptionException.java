@@ -53,7 +53,7 @@ public class MissingOptionException extends ParseException {
     private List missingOptions;
 
     /**
-     * Constructs a new <code>MissingSelectedException</code> with the specified list of missing options.
+     * Constructs a new {@code MissingSelectedException} with the specified list of missing options.
      *
      * @param missingOptions the list of missing options and groups
      * @since 1.2
@@ -64,7 +64,7 @@ public class MissingOptionException extends ParseException {
     }
 
     /**
-     * Construct a new <code>MissingSelectedException</code> with the specified detail message.
+     * Construct a new {@code MissingSelectedException} with the specified detail message.
      *
      * @param message the detail message
      */

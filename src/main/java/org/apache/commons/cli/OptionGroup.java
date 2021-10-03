@@ -40,7 +40,7 @@ public class OptionGroup implements Serializable {
     private boolean required;
 
     /**
-     * Add the specified <code>Option</code> to this group.
+     * Add the specified {@code Option} to this group.
      *
      * @param option the option to add to this group
      * @return this option group with the option added
@@ -54,7 +54,7 @@ public class OptionGroup implements Serializable {
     }
 
     /**
-     * @return the names of the options in this group as a <code>Collection</code>
+     * @return the names of the options in this group as a {@code Collection}
      */
     public Collection<String> getNames() {
         // the key set is the collection of names
@@ -62,7 +62,7 @@ public class OptionGroup implements Serializable {
     }
 
     /**
-     * @return the options in this group as a <code>Collection</code>
+     * @return the options in this group as a {@code Collection}
      */
     public Collection<Option> getOptions() {
         // the values are the collection of options
@@ -93,7 +93,7 @@ public class OptionGroup implements Serializable {
     }
 
     /**
-     * Set the selected option of this group to <code>name</code>.
+     * Set the selected option of this group to {@code name}.
      *
      * @param option the option that is selected
      * @throws AlreadySelectedException if an option from this group has already been selected.

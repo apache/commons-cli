@@ -67,7 +67,7 @@ public class HelpFormatter {
     // --------------------------------------------------------------- Constants
 
     /**
-     * This class implements the <code>Comparator</code> interface for comparing Options.
+     * This class implements the {@code Comparator} interface for comparing Options.
      */
     private static class OptionComparator implements Comparator<Option>, Serializable {
         /** The serial version UID. */
@@ -253,7 +253,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Return a String of padding of length <code>len</code>.
+     * Return a String of padding of length {@code len}.
      *
      * @param len The length of the String of padding to create.
      *
@@ -267,8 +267,8 @@ public class HelpFormatter {
     }
 
     /**
-     * Finds the next text wrap position after <code>startPos</code> for the text in <code>text</code> with the column width
-     * <code>width</code>. The wrap point is the last position before startPos+width having a whitespace character (space,
+     * Finds the next text wrap position after {@code startPos} for the text in {@code text} with the column width
+     * {@code width}. The wrap point is the last position before startPos+width having a whitespace character (space,
      * \n, \r). If there is no whitespace character before startPos+width, it will return startPos+width.
      *
      * @param text The text being searched for the wrap position
@@ -405,7 +405,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for <code>options</code> with the specified command line syntax. This method prints help information
+     * Print the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param width the number of characters to be displayed on each line
@@ -419,7 +419,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for <code>options</code> with the specified command line syntax. This method prints help information
+     * Print the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param width the number of characters to be displayed on each line
@@ -438,7 +438,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for <code>options</code> with the specified command line syntax.
+     * Print the help for {@code options} with the specified command line syntax.
      *
      * @param pw the writer to which the help will be written
      * @param width the number of characters to be displayed on each line
@@ -457,7 +457,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for <code>options</code> with the specified command line syntax.
+     * Print the help for {@code options} with the specified command line syntax.
      *
      * @param pw the writer to which the help will be written
      * @param width the number of characters to be displayed on each line
@@ -495,7 +495,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for <code>options</code> with the specified command line syntax. This method prints help information
+     * Print the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param cmdLineSyntax the syntax for this application
@@ -506,7 +506,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for <code>options</code> with the specified command line syntax. This method prints help information
+     * Print the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param cmdLineSyntax the syntax for this application
@@ -518,7 +518,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for <code>options</code> with the specified command line syntax. This method prints help information
+     * Print the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param cmdLineSyntax the syntax for this application
@@ -531,7 +531,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for <code>options</code> with the specified command line syntax. This method prints help information
+     * Print the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param cmdLineSyntax the syntax for this application

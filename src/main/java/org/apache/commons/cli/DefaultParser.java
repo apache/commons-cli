@@ -35,8 +35,8 @@ public class DefaultParser implements CommandLineParser {
     protected Options options;
 
     /**
-     * Flag indicating how unrecognized tokens are handled. <code>true</code> to stop the parsing and add the remaining
-     * tokens to the args list. <code>false</code> to throw an exception.
+     * Flag indicating how unrecognized tokens are handled. {@code true} to stop the parsing and add the remaining
+     * tokens to the args list. {@code false} to throw an exception.
      */
     protected boolean stopAtNonOption;
 
@@ -70,8 +70,8 @@ public class DefaultParser implements CommandLineParser {
      * }
      * </pre>
      *
-     * with "partial matching" turned on, <code>-de</code> only matches the <code>"debug"</code> option. However, with
-     * "partial matching" disabled, <code>-de</code> would enable both <code>debug</code> as well as <code>extract</code>
+     * with "partial matching" turned on, {@code -de} only matches the {@code "debug"} option. However, with
+     * "partial matching" disabled, {@code -de} would enable both {@code debug} as well as {@code extract}
      * options.
      */
     public DefaultParser() {
@@ -93,8 +93,8 @@ public class DefaultParser implements CommandLineParser {
      * }
      * </pre>
      *
-     * with "partial matching" turned on, <code>-de</code> only matches the <code>"debug"</code> option. However, with
-     * "partial matching" disabled, <code>-de</code> would enable both <code>debug</code> as well as <code>extract</code>
+     * with "partial matching" turned on, {@code -de} only matches the {@code "debug"} option. However, with
+     * "partial matching" disabled, {@code -de} would enable both {@code debug} as well as {@code extract}
      * options.
      *
      * @param allowPartialMatching if partial matching of long options shall be enabled
@@ -165,7 +165,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Breaks <code>token</code> into its constituent parts using the following algorithm.
+     * Breaks {@code token} into its constituent parts using the following algorithm.
      *
      * <ul>
      * <li>ignore the first character ("<b>-</b>")</li>
@@ -174,10 +174,10 @@ public class DefaultParser implements CommandLineParser {
      * tokens.</li>
      * <li>if the {@link Option} can have an argument value and there are remaining characters in the token then add the
      * remaining characters as a token to the list of processed tokens.</li>
-     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> <code>stopAtNonOption</code> <b>IS</b> set then add the
+     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS</b> set then add the
      * special token "<b>--</b>" followed by the remaining characters and also the remaining tokens directly to the
      * processed tokens list.</li>
-     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> <code>stopAtNonOption</code> <b>IS NOT</b> set then add
+     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS NOT</b> set then add
      * that character prepended with "<b>-</b>".</li>
      * </ul>
      *
@@ -287,7 +287,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Sets the values of Options using the values in <code>properties</code>.
+     * Sets the values of Options using the values in {@code properties}.
      *
      * @param properties The value properties to be processed.
      */
@@ -565,8 +565,8 @@ public class DefaultParser implements CommandLineParser {
      * @param options the specified Options
      * @param arguments the command line arguments
      * @param properties command line option name-value pairs
-     * @param stopAtNonOption if <code>true</code> an unrecognized argument stops the parsing and the remaining arguments
-     *        are added to the {@link CommandLine}s args list. If <code>false</code> an unrecognized argument triggers a
+     * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments
+     *        are added to the {@link CommandLine}s args list. If {@code false} an unrecognized argument triggers a
      *        ParseException.
      *
      * @return the list of atomic option and value tokens
