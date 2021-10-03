@@ -21,41 +21,47 @@ package org.apache.commons.cli;
  * Thrown when more than one option in an option group has been provided.
  */
 public class AlreadySelectedException extends ParseException {
+
     /**
      * This exception {@code serialVersionUID}.
      */
     private static final long serialVersionUID = 3674381532418544760L;
 
     /** The option group selected. */
-    private OptionGroup group;
+    private final OptionGroup group;
 
     /** The option that triggered the exception. */
-    private Option option;
+    private final Option option;
 
     /**
-     * Construct a new {@code AlreadySelectedException} for the specified option group.
+     * Constructs a new {@code AlreadySelectedException} for the specified option group.
      *
      * @param group the option group already selected
      * @param option the option that triggered the exception
      * @since 1.2
      */
     public AlreadySelectedException(final OptionGroup group, final Option option) {
-        this("The option '" + option.getKey() + "' was specified but an option from this group " + "has already been selected: '" + group.getSelected() + "'");
+        this("The option '" + option.getKey() + "' was specified but an option from this group " + "has already been selected: '" + group.getSelected() + "'",
+            group, option);
+    }
+
+    private AlreadySelectedException(final String message, final OptionGroup group, final Option option) {
+        super(message);
         this.group = group;
         this.option = option;
     }
 
     /**
-     * Construct a new {@code AlreadySelectedException} with the specified detail message.
+     * Constructs a new {@code AlreadySelectedException} with the specified detail message.
      *
      * @param message the detail message
      */
     public AlreadySelectedException(final String message) {
-        super(message);
+        this(message, null, null);
     }
 
     /**
-     * Returns the option that was added to the group and triggered the exception.
+     * Gets the option that was added to the group and triggered the exception.
      *
      * @return the related option
      * @since 1.2
@@ -65,7 +71,7 @@ public class AlreadySelectedException extends ParseException {
     }
 
     /**
-     * Returns the option group where another option has been selected.
+     * Gets the option group where another option has been selected.
      *
      * @return the related option group
      * @since 1.2
