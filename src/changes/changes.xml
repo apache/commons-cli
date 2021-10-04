@@ -95,6 +95,9 @@
      <action type="update" dev="ggregory" due-to="Gary Gregory">
         Bump commons.animal-sniffer.version 1.19 -> 1.20.
      </action>
+     <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump maven-bundle-plugin 5.1.1 -> 5.1.2.
+     </action>
     </release>
 
     <release version="1.4" date="2017-03-09" description="New features and bug fixes">
