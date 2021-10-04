@@ -15,7 +15,6 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-
 <document>
   <properties>
     <title>Apache Commons CLI Release Notes</title>
@@ -73,30 +72,33 @@
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
         Bump commons-parent from 48 to 52.
-      </action>
-      <action type="update" dev="ggregory" due-to="Dependabot">
-        Bump maven-pmd-plugin from 3.12.0 to 3.15.0, #44, #54, #67.
-      </action>
-      <action type="update" dev="ggregory" due-to="Dependabot">
-        Bump actions/checkout from v2.3.1 to v2.3.2 #46.
-      </action>
+     </action>
+     <action type="update" dev="ggregory" due-to="Dependabot">
+       Bump maven-pmd-plugin from 3.12.0 to 3.15.0, #44, #54, #67.
+     </action>
+     <action type="update" dev="ggregory" due-to="Dependabot">
+       Bump actions/checkout from v2.3.1 to v2.3.2 #46.
+     </action>
      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
-        Bump actions/setup-java from v1.4.2 to v2 #50.
+       Bump actions/setup-java from v1.4.2 to v2 #50.
       </action>
      <action type="update" dev="ggregory" due-to="Dependabot">
-        Bump maven-antrun-plugin from 1.7 to 3.0.0 #43.
+       Bump maven-antrun-plugin from 1.7 to 3.0.0 #43.
      </action>
      <action type="update" dev="ggregory" due-to="Gary Gregory">
-        Bump maven-checkstyle-plugin from 2.15 to 3.1.1 #41.
+       Bump maven-checkstyle-plugin from 2.15 to 3.1.1 #41.
      </action>
      <action type="update" dev="ggregory" due-to="Dependabot">
-        Bump actions/cache from 2 to 2.1.6 #64, #65.
+       Bump actions/cache from 2 to 2.1.6 #64, #65.
      </action>
      <action type="update" dev="ggregory" due-to="Gary Gregory">
-        Bump commons.animal-sniffer.version 1.19 -> 1.20.
+       Bump commons.animal-sniffer.version 1.19 -> 1.20.
      </action>
      <action type="update" dev="ggregory" due-to="Gary Gregory">
-        Bump maven-bundle-plugin 5.1.1 -> 5.1.2.
+       Bump maven-bundle-plugin 5.1.1 -> 5.1.2.
+     </action>
+     <action type="update" dev="ggregory" due-to="Gary Gregory">
+       Bump biz.aQute.bndlib.version 5.1.2 -> 5.3.0.
      </action>
     </release>
 
