@@ -48,14 +48,15 @@ public class Option implements Cloneable, Serializable {
      * @since 1.3
      */
     public static final class Builder {
+
         /** the name of the option */
-        private final String opt;
+        private final String option;
 
         /** description of the option */
         private String description;
 
         /** the long representation of the option */
-        private String longOpt;
+        private String longOption;
 
         /** the name of the argument for this option */
         private String argName;
@@ -67,23 +68,23 @@ public class Option implements Cloneable, Serializable {
         private boolean optionalArg;
 
         /** the number of argument values this option can have */
-        private int numberOfArgs = UNINITIALIZED;
+        private int argCount = UNINITIALIZED;
 
         /** the type of this Option */
         private Class<?> type = String.class;
 
         /** the character that is the value separator */
-        private char valuesep;
+        private char valueSeparator;
 
         /**
          * Constructs a new {@code Builder} with the minimum required parameters for an {@code Option} instance.
          *
-         * @param opt short representation of the option
+         * @param option short representation of the option
          * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
          */
-        private Builder(final String opt) throws IllegalArgumentException {
-            OptionValidator.validateOption(opt);
-            this.opt = opt;
+        private Builder(final String option) throws IllegalArgumentException {
+            OptionValidator.validateOption(option);
+            this.option = option;
         }
 
         /**
@@ -104,7 +105,7 @@ public class Option implements Cloneable, Serializable {
          * @throws IllegalArgumentException if neither {@code opt} or {@code longOpt} has been set
          */
         public Option build() {
-            if (opt == null && longOpt == null) {
+            if (option == null && longOption == null) {
                 throw new IllegalArgumentException("Either opt or longOpt must be specified");
             }
             return new Option(this);
@@ -138,7 +139,7 @@ public class Option implements Cloneable, Serializable {
          */
         public Builder hasArg(final boolean hasArg) {
             // set to UNINITIALIZED when no arg is specified to be compatible with OptionBuilder
-            numberOfArgs = hasArg ? 1 : Option.UNINITIALIZED;
+            argCount = hasArg ? 1 : Option.UNINITIALIZED;
             return this;
         }
 
@@ -148,7 +149,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder, to allow method chaining
          */
         public Builder hasArgs() {
-            numberOfArgs = Option.UNLIMITED_VALUES;
+            argCount = Option.UNLIMITED_VALUES;
             return this;
         }
 
@@ -159,7 +160,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder, to allow method chaining
          */
         public Builder longOpt(final String longOpt) {
-            this.longOpt = longOpt;
+            this.longOption = longOpt;
             return this;
         }
 
@@ -170,7 +171,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder, to allow method chaining
          */
         public Builder numberOfArgs(final int numberOfArgs) {
-            this.numberOfArgs = numberOfArgs;
+            this.argCount = numberOfArgs;
             return this;
         }
 
@@ -245,7 +246,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder, to allow method chaining
          */
         public Builder valueSeparator(final char sep) {
-            valuesep = sep;
+            valueSeparator = sep;
             return this;
         }
     }
@@ -319,13 +320,13 @@ public class Option implements Cloneable, Serializable {
     private Option(final Builder builder) {
         this.argName = builder.argName;
         this.description = builder.description;
-        this.longOpt = builder.longOpt;
-        this.numberOfArgs = builder.numberOfArgs;
-        this.opt = builder.opt;
+        this.longOpt = builder.longOption;
+        this.numberOfArgs = builder.argCount;
+        this.opt = builder.option;
         this.optionalArg = builder.optionalArg;
         this.required = builder.required;
         this.type = builder.type;
-        this.valuesep = builder.valuesep;
+        this.valuesep = builder.valueSeparator;
     }
 
     /**
