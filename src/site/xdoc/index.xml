@@ -62,10 +62,11 @@ usage: ls
     </section>
 
     <section name="CLI 2?">
-      <p>Commons CLI 1.0 was formed from the merger of ideas and code from three different libraries -
-      Werken, Avalon and Optz. In dealing with the bugs and the feature requests a freshly designed and not
-      backwards compatible CLI 2 was created in 2004, but never finished or released. </p>
-
+      <p>
+        Commons CLI 1.0 was formed from the merger of ideas and code from three different libraries -
+        Werken, Avalon and Optz. In dealing with the bugs and the feature requests a freshly designed and not
+        backwards compatible CLI 2 was created in 2004, but never finished or released.
+      </p>
       <p>The current plan is to continue to maintain the 1.x line. The CLI2 work may be found in the Commons Sandbox. </p>
     </section>
 
@@ -78,12 +79,8 @@ usage: ls
         The Javadoc API documents are available online:
       </p>
       <ul>
-        <li><a href="javadocs/api-release/index.html">CLI 1.4 (current release)</a></li>
-        <li><a href="javadocs/api-1.3.1/index.html">CLI 1.3.1</a></li>
-        <li><a href="javadocs/api-1.3/index.html">CLI 1.3</a></li>
-        <li><a href="javadocs/api-1.2/index.html">CLI 1.2</a></li>
-        <li><a href="javadocs/api-1.1/index.html">CLI 1.1</a></li>
-        <li><a href="javadocs/api-1.0/index.html">CLI 1.0</a></li>
+        <li><a href="/apidocs/index.html">Javadoc latest</a></li>
+        <li><a href="https://javadoc.io/doc/commons-cli/commons-cli/latest/index.html">Javadoc archives</a></li>
       </ul>
       <p>
         The <a href="scm.html">source repository</a> can be
@@ -93,10 +90,9 @@ usage: ls
 
     <section name="Releases">
       <p>
-        The latest version is v1.4 -
-        <a href="https://commons.apache.org/cli/download_cli.cgi">Download now!</a>
+        <a href="https://commons.apache.org/cli/download_cli.cgi">Download</a> the latest version. 
         <br/>
-        The <a href="release_1_4.html">release notes</a> are also available.
+        The <a href="/changes-report.html">release notes</a> are also available.
       </p>
       <p>
         For previous releases, see the <a href="https://archive.apache.org/dist/commons/cli/">Apache Archive</a>.
@@ -104,12 +100,16 @@ usage: ls
     </section>
 
     <section name="Support">
-      <p>The <a href="mail-lists.html">commons mailing lists</a> act as the main support forum. The user list
-      is suitable for most library usage queries. The dev list is intended for the development discussion. Please
-      remember that the lists are shared between all commons components, so prefix your email subject by
-      <code>[cli]</code>.</p>
+      <p>
+        The <a href="mail-lists.html">commons mailing lists</a> act as the main support forum. The user list
+        is suitable for most library usage queries. The dev list is intended for the development discussion. Please
+        remember that the lists are shared between all commons components, so prefix your email subject by
+        <code>[cli]</code>.
+      </p>
 
-      <p>Issues may be reported via the <a href="issue-tracking.html">ASF JIRA</a>.</p>
+      <p>
+        Issues may be reported via the <a href="issue-tracking.html">ASF JIRA</a>.
+      </p>
     </section>
 
   </body>
