@@ -34,11 +34,11 @@
         Commons CLI supports different types of options:
       </p>
       <ul>
-        <li>POSIX like options (ie. <code>tar -zxvf foo.tar.gz</code>)</li>
-        <li>GNU like long options (ie. <code>du --human-readable --max-depth=1</code>)</li>
-        <li>Java like properties (ie. <code>java -Djava.awt.headless=true -Djava.net.useSystemProxies=true Foo</code>)</li>
-        <li>Short options with value attached (ie. <code>gcc -O2 foo.c</code>)</li>
-        <li>long options with single hyphen (ie. <code>ant -projecthelp</code>)</li>
+        <li>POSIX like options, for example<code>tar -zxvf foo.tar.gz</code></li>
+        <li>GNU like long options, for example<code>du --human-readable --max-depth=1</code></li>
+        <li>Java like properties, for example<code>java -Djava.awt.headless=true -Djava.net.useSystemProxies=true Foo</code></li>
+        <li>Short options with value attached, for example<code>gcc -O2 foo.c</code></li>
+        <li>long options with single hyphen, for example<code>ant -projecthelp</code></li>
       </ul>
       <p>
         A typical help message displayed by Commons CLI looks like this:
