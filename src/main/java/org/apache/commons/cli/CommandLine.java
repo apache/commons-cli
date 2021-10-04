@@ -454,11 +454,7 @@ public class CommandLine implements Serializable {
     private Option resolveOption(String opt) {
         opt = Util.stripLeadingHyphens(opt);
         for (final Option option : options) {
-            if (opt.equals(option.getOpt())) {
-                return option;
-            }
-
-            if (opt.equals(option.getLongOpt())) {
+            if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt())) {
                 return option;
             }
 

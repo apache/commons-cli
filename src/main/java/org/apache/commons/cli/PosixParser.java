@@ -66,20 +66,20 @@ public class PosixParser extends Parser {
         for (int i = 1; i < token.length(); i++) {
             final String ch = String.valueOf(token.charAt(i));
 
-            if (options.hasOption(ch)) {
-                tokens.add("-" + ch);
-                currentOption = options.getOption(ch);
-
-                if (currentOption.hasArg() && token.length() != i + 1) {
-                    tokens.add(token.substring(i + 1));
-
-                    break;
+            if (!options.hasOption(ch)) {
+                if (stopAtNonOption) {
+                    processNonOptionToken(token.substring(i), true);
+                } else {
+                    tokens.add(token);
                 }
-            } else if (stopAtNonOption) {
-                processNonOptionToken(token.substring(i), true);
                 break;
-            } else {
-                tokens.add(token);
+            }
+            tokens.add("-" + ch);
+            currentOption = options.getOption(ch);
+
+            if (currentOption.hasArg() && token.length() != i + 1) {
+                tokens.add(token.substring(i + 1));
+
                 break;
             }
         }
