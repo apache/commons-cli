@@ -265,7 +265,7 @@ public class CommandLine implements Serializable {
             return null;
         }
         final String[] values = getOptionValues(option);
-        return (values == null) ? null : values[0];
+        return values == null ? null : values[0];
     }
 
     /**
@@ -278,7 +278,7 @@ public class CommandLine implements Serializable {
      */
     public String getOptionValue(final Option option, final String defaultValue) {
         final String answer = getOptionValue(option);
-        return (answer != null) ? answer : defaultValue;
+        return answer != null ? answer : defaultValue;
     }
 
     /**

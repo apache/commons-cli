@@ -600,7 +600,7 @@ public class Option implements Cloneable, Serializable {
     public String getValue(final String defaultValue) {
         final String value = getValue();
 
-        return (value != null) ? value : defaultValue;
+        return value != null ? value : defaultValue;
     }
 
     /**
