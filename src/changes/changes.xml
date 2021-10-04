@@ -86,7 +86,10 @@
        Bump maven-antrun-plugin from 1.7 to 3.0.0 #43.
      </action>
      <action type="update" dev="ggregory" due-to="Gary Gregory">
-       Bump maven-checkstyle-plugin from 2.15 to 3.1.1 #41.
+       Bump maven-checkstyle-plugin from 2.15 to 3.1.2 #41.
+     </action>
+     <action type="update" dev="ggregory" due-to="Gary Gregory">
+       Bump checkstyle to 9.0.1 #68.
      </action>
      <action type="update" dev="ggregory" due-to="Dependabot">
        Bump actions/cache from 2 to 2.1.6 #64, #65.
