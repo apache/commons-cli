@@ -224,6 +224,8 @@
     <clirr.skip>true</clirr.skip>
     <findbugs.skip>true</findbugs.skip>
     <japicmp.skip>false</japicmp.skip>
+    <commons.releaseManagerName>Gary Gregory</commons.releaseManagerName>
+    <commons.releaseManagerKey>86fdc7e2a11262cb</commons.releaseManagerKey>
   </properties>
 
   <build>
