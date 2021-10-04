@@ -87,10 +87,10 @@ public class HelpFormatter {
         }
     }
 
-    /** default number of characters per line */
+    /** Default number of characters per line */
     public static final int DEFAULT_WIDTH = 74;
 
-    /** default padding to the left of each line */
+    /** Default padding to the left of each line */
     public static final int DEFAULT_LEFT_PAD = 1;
 
     /** number of space characters to be prefixed to each description line */
@@ -99,10 +99,10 @@ public class HelpFormatter {
     /** The string to display at the beginning of the usage statement */
     public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
 
-    /** default prefix for shortOpts */
+    /** Default prefix for shortOpts */
     public static final String DEFAULT_OPT_PREFIX = "-";
 
-    /** default prefix for long Option */
+    /** Default prefix for long Option */
     public static final String DEFAULT_LONG_OPT_PREFIX = "--";
 
     /**
@@ -112,7 +112,7 @@ public class HelpFormatter {
      **/
     public static final String DEFAULT_LONG_OPT_SEPARATOR = " ";
 
-    /** default name for an argument */
+    /** Default name for an argument */
     public static final String DEFAULT_ARG_NAME = "arg";
 
     /**
