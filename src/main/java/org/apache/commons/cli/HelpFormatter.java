@@ -64,7 +64,6 @@ import java.util.List;
  * </pre>
  */
 public class HelpFormatter {
-    // --------------------------------------------------------------- Constants
 
     /**
      * This class implements the {@code Comparator} interface for comparing Options.
@@ -863,8 +862,6 @@ public class HelpFormatter {
     public void setLeftPadding(final int padding) {
         this.defaultLeftPad = padding;
     }
-
-    // --------------------------------------------------------------- Protected
 
     /**
      * Sets the 'longOptPrefix'.
