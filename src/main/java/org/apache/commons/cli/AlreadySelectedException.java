@@ -45,12 +45,6 @@ public class AlreadySelectedException extends ParseException {
             group, option);
     }
 
-    private AlreadySelectedException(final String message, final OptionGroup group, final Option option) {
-        super(message);
-        this.group = group;
-        this.option = option;
-    }
-
     /**
      * Constructs a new {@code AlreadySelectedException} with the specified detail message.
      *
@@ -58,6 +52,12 @@ public class AlreadySelectedException extends ParseException {
      */
     public AlreadySelectedException(final String message) {
         this(message, null, null);
+    }
+
+    private AlreadySelectedException(final String message, final OptionGroup group, final Option option) {
+        super(message);
+        this.group = group;
+        this.option = option;
     }
 
     /**
