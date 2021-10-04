@@ -96,7 +96,7 @@ public class HelpFormatter {
     /** number of space characters to be prefixed to each description line */
     public static final int DEFAULT_DESC_PAD = 3;
 
-    /** the string to display at the beginning of the usage statement */
+    /** The string to display at the beginning of the usage statement */
     public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
 
     /** default prefix for shortOpts */

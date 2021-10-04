@@ -49,16 +49,16 @@ public class Option implements Cloneable, Serializable {
      */
     public static final class Builder {
 
-        /** the name of the option */
+        /** The name of the option */
         private final String option;
 
         /** description of the option */
         private String description;
 
-        /** the long representation of the option */
+        /** The long representation of the option */
         private String longOption;
 
-        /** the name of the argument for this option */
+        /** The name of the argument for this option */
         private String argName;
 
         /** specifies whether this option is required to be present */
@@ -67,13 +67,13 @@ public class Option implements Cloneable, Serializable {
         /** specifies whether the argument value of this Option is optional */
         private boolean optionalArg;
 
-        /** the number of argument values this option can have */
+        /** The number of argument values this option can have */
         private int argCount = UNINITIALIZED;
 
-        /** the type of this Option */
+        /** The type of this Option */
         private Class<?> type = String.class;
 
-        /** the character that is the value separator */
+        /** The character that is the value separator */
         private char valueSeparator;
 
         /**
@@ -282,13 +282,13 @@ public class Option implements Cloneable, Serializable {
         return new Builder(opt);
     }
 
-    /** the name of the option */
+    /** The name of the option */
     private final String opt;
 
-    /** the long representation of the option */
+    /** The long representation of the option */
     private String longOpt;
 
-    /** the name of the argument for this option */
+    /** The name of the argument for this option */
     private String argName;
 
     /** description of the option */
@@ -300,16 +300,16 @@ public class Option implements Cloneable, Serializable {
     /** specifies whether the argument value of this Option is optional */
     private boolean optionalArg;
 
-    /** the number of argument values this option can have */
+    /** The number of argument values this option can have */
     private int numberOfArgs = UNINITIALIZED;
 
-    /** the type of this Option */
+    /** The type of this Option */
     private Class<?> type = String.class;
 
-    /** the list of argument values **/
+    /** The list of argument values **/
     private List<String> values = new ArrayList<>();
 
-    /** the character that is the value separator */
+    /** The character that is the value separator */
     private char valuesep;
 
     /**

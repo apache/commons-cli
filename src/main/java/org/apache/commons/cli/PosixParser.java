@@ -39,7 +39,7 @@ public class PosixParser extends Parser {
     /** holder for the current option */
     private Option currentOption;
 
-    /** the command line Options */
+    /** The command line Options */
     private Options options;
 
     /**

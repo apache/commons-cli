@@ -77,10 +77,10 @@ public class CommandLine implements Serializable {
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
-    /** the unrecognized options/arguments */
+    /** The unrecognized options/arguments */
     private final List<String> args = new LinkedList<>();
 
-    /** the processed options */
+    /** The processed options */
     private final List<Option> options = new ArrayList<>();
 
     /**

@@ -42,7 +42,7 @@ public final class OptionBuilder {
     /** is required? */
     private static boolean required;
 
-    /** the number of arguments */
+    /** The number of arguments */
     private static int numberOfArgs = Option.UNINITIALIZED;
 
     /** option type */

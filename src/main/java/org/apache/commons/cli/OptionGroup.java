@@ -33,7 +33,7 @@ public class OptionGroup implements Serializable {
     /** hold the options */
     private final Map<String, Option> optionMap = new LinkedHashMap<>();
 
-    /** the name of the selected option */
+    /** The name of the selected option */
     private String selected;
 
     /** specified whether this group is required */
