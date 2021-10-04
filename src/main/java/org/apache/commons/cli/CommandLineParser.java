@@ -22,8 +22,9 @@ package org.apache.commons.cli;
  * {@link Options} specified and return a {@link CommandLine}.
  */
 public interface CommandLineParser {
+
     /**
-     * Parse the arguments according to the specified options.
+     * Parses the arguments according to the specified options.
      *
      * @param options the specified Options
      * @param arguments the command line arguments
@@ -34,7 +35,7 @@ public interface CommandLineParser {
     CommandLine parse(Options options, String[] arguments) throws ParseException;
 
     /**
-     * Parse the arguments according to the specified options and properties.
+     * Parses the arguments according to the specified options and properties.
      *
      * @param options the specified Options
      * @param arguments the command line arguments
@@ -50,7 +51,7 @@ public interface CommandLineParser {
      */
 
     /**
-     * Parse the arguments according to the specified options.
+     * Parses the arguments according to the specified options.
      *
      * @param options the specified Options
      * @param arguments the command line arguments
@@ -64,7 +65,7 @@ public interface CommandLineParser {
     CommandLine parse(Options options, String[] arguments, boolean stopAtNonOption) throws ParseException;
 
     /**
-     * Parse the arguments according to the specified options and properties.
+     * Parses the arguments according to the specified options and properties.
      *
      * @param options the specified Options
      * @param arguments the command line arguments
