@@ -25,7 +25,7 @@ final class Util {
     /**
      * An empty immutable {@code String} array.
      */
-    static final String[] EMPTY_STRING_ARRAY = new String[0];
+    static final String[] EMPTY_STRING_ARRAY = {};
 
     /**
      * Remove the leading and trailing quotes from {@code str}. E.g. if str is '"one two"', then 'one two' is returned.
