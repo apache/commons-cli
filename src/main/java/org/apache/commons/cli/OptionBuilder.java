@@ -30,31 +30,32 @@ package org.apache.commons.cli;
  */
 @Deprecated
 public final class OptionBuilder {
-    /** long option */
-    private static String longopt;
 
-    /** option description */
+    /** Long option */
+    private static String longOption;
+
+    /** Option description */
     private static String description;
 
-    /** argument name */
+    /** Argument name */
     private static String argName;
 
-    /** is required? */
+    /** Is required? */
     private static boolean required;
 
     /** The number of arguments */
-    private static int numberOfArgs = Option.UNINITIALIZED;
+    private static int argCount = Option.UNINITIALIZED;
 
-    /** option type */
+    /** Option type */
     private static Class<?> type;
 
-    /** option can have an optional argument value */
+    /** Option can have an optional argument value */
     private static boolean optionalArg;
 
-    /** value separator for argument value */
-    private static char valuesep;
+    /** Value separator for argument value */
+    private static char valueSeparator;
 
-    /** option builder instance */
+    /** Option builder instance */
     private static final OptionBuilder INSTANCE = new OptionBuilder();
 
     static {
@@ -63,13 +64,13 @@ public final class OptionBuilder {
     }
 
     /**
-     * Create an Option using the current settings
+     * Creates an Option using the current settings
      *
      * @return the Option instance
      * @throws IllegalArgumentException if {@code longOpt} has not been set.
      */
     public static Option create() throws IllegalArgumentException {
-        if (longopt == null) {
+        if (longOption == null) {
             OptionBuilder.reset();
             throw new IllegalArgumentException("must specify longopt");
         }
@@ -78,7 +79,7 @@ public final class OptionBuilder {
     }
 
     /**
-     * Create an Option using the current settings and with the specified Option {@code char}.
+     * Creates an Option using the current settings and with the specified Option {@code char}.
      *
      * @param opt the character representation of the Option
      * @return the Option instance
@@ -89,7 +90,7 @@ public final class OptionBuilder {
     }
 
     /**
-     * Create an Option using the current settings and with the specified Option {@code char}.
+     * Creates an Option using the current settings and with the specified Option {@code char}.
      *
      * @param opt the {@code java.lang.String} representation of the Option
      * @return the Option instance
@@ -102,12 +103,12 @@ public final class OptionBuilder {
             option = new Option(opt, description);
 
             // set the option properties
-            option.setLongOpt(longopt);
+            option.setLongOpt(longOption);
             option.setRequired(required);
             option.setOptionalArg(optionalArg);
-            option.setArgs(numberOfArgs);
+            option.setArgs(argCount);
             option.setType(type);
-            option.setValueSeparator(valuesep);
+            option.setValueSeparator(valueSeparator);
             option.setArgName(argName);
         } finally {
             // reset the OptionBuilder properties
@@ -124,7 +125,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder hasArg() {
-        OptionBuilder.numberOfArgs = 1;
+        OptionBuilder.argCount = 1;
 
         return INSTANCE;
     }
@@ -136,7 +137,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder hasArg(final boolean hasArg) {
-        OptionBuilder.numberOfArgs = hasArg ? 1 : Option.UNINITIALIZED;
+        OptionBuilder.argCount = hasArg ? 1 : Option.UNINITIALIZED;
 
         return INSTANCE;
     }
@@ -147,7 +148,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder hasArgs() {
-        OptionBuilder.numberOfArgs = Option.UNLIMITED_VALUES;
+        OptionBuilder.argCount = Option.UNLIMITED_VALUES;
 
         return INSTANCE;
     }
@@ -159,7 +160,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder hasArgs(final int num) {
-        OptionBuilder.numberOfArgs = num;
+        OptionBuilder.argCount = num;
 
         return INSTANCE;
     }
@@ -170,7 +171,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder hasOptionalArg() {
-        OptionBuilder.numberOfArgs = 1;
+        OptionBuilder.argCount = 1;
         OptionBuilder.optionalArg = true;
 
         return INSTANCE;
@@ -182,7 +183,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder hasOptionalArgs() {
-        OptionBuilder.numberOfArgs = Option.UNLIMITED_VALUES;
+        OptionBuilder.argCount = Option.UNLIMITED_VALUES;
         OptionBuilder.optionalArg = true;
 
         return INSTANCE;
@@ -195,7 +196,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder hasOptionalArgs(final int numArgs) {
-        OptionBuilder.numberOfArgs = numArgs;
+        OptionBuilder.argCount = numArgs;
         OptionBuilder.optionalArg = true;
 
         return INSTANCE;
@@ -230,12 +231,12 @@ public final class OptionBuilder {
     private static void reset() {
         description = null;
         argName = null;
-        longopt = null;
+        longOption = null;
         type = String.class;
         required = false;
-        numberOfArgs = Option.UNINITIALIZED;
+        argCount = Option.UNINITIALIZED;
         optionalArg = false;
-        valuesep = (char) 0;
+        valueSeparator = (char) 0;
     }
 
     /**
@@ -269,7 +270,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder withLongOpt(final String newLongopt) {
-        OptionBuilder.longopt = newLongopt;
+        OptionBuilder.longOption = newLongopt;
 
         return INSTANCE;
     }
@@ -318,7 +319,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder withValueSeparator() {
-        OptionBuilder.valuesep = '=';
+        OptionBuilder.valueSeparator = '=';
 
         return INSTANCE;
     }
@@ -342,7 +343,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder withValueSeparator(final char sep) {
-        OptionBuilder.valuesep = sep;
+        OptionBuilder.valueSeparator = sep;
 
         return INSTANCE;
     }

@@ -60,7 +60,7 @@ final class OptionValidator {
     static String validate(final String option) throws IllegalArgumentException {
         // if opt is NULL do not check further
         if (option == null) {
-            return option;
+            return null;
         }
 
         // handle the single character opt
