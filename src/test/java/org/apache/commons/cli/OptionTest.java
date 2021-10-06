@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -143,7 +144,7 @@ public class OptionTest {
         option.setArgs(Option.UNLIMITED_VALUES);
 
         assertEquals("default", option.getValue("default"));
-        assertEquals(null, option.getValue(0));
+        assertNull(option.getValue(0));
 
         option.addValueForProcessing("foo");
 

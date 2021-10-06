@@ -17,6 +17,7 @@
 
 package org.apache.commons.cli;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -42,7 +43,7 @@ public class ArgumentIsOptionTest {
         final CommandLine cl = parser.parse(options, args);
         assertTrue("Confirm -p is set", cl.hasOption("p"));
         assertFalse("Confirm -attr is not set", cl.hasOption("attr"));
-        assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
+        assertEquals("Confirm all arguments recognized", 0, cl.getArgs().length);
     }
 
     @Test
@@ -52,8 +53,8 @@ public class ArgumentIsOptionTest {
         final CommandLine cl = parser.parse(options, args);
         assertTrue("Confirm -p is set", cl.hasOption("p"));
         assertTrue("Confirm -attr is set", cl.hasOption("attr"));
-        assertTrue("Confirm arg of -attr", cl.getOptionValue("attr").equals("p"));
-        assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
+        assertEquals("Confirm arg of -attr", "p", cl.getOptionValue("attr"));
+        assertEquals("Confirm all arguments recognized", 0, cl.getArgs().length);
     }
 
     @Test
@@ -63,7 +64,7 @@ public class ArgumentIsOptionTest {
         final CommandLine cl = parser.parse(options, args);
         assertFalse("Confirm -p is set", cl.hasOption("p"));
         assertTrue("Confirm -attr is set", cl.hasOption("attr"));
-        assertTrue("Confirm arg of -attr", cl.getOptionValue("attr").equals("p"));
-        assertTrue("Confirm all arguments recognized", cl.getArgs().length == 0);
+        assertEquals("Confirm arg of -attr", "p", cl.getOptionValue("attr"));
+        assertEquals("Confirm all arguments recognized", 0, cl.getArgs().length);
     }
 }

@@ -18,6 +18,7 @@
 package org.apache.commons.cli.bug;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -316,7 +317,7 @@ public class BugsTest {
         options.addOption("c", "conflict", true, "conflict option");
         final CommandLine line = parser.parse(options, cliArgs);
         assertEquals(line.getOptionValue('z'), "c");
-        assertTrue(!line.hasOption("c"));
+        assertFalse(line.hasOption("c"));
     }
 
     @Test

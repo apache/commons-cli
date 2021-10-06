@@ -18,6 +18,7 @@
 package org.apache.commons.cli;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -77,12 +78,12 @@ public class OptionGroupTest {
 
         final CommandLine cl = parser.parse(options, args);
 
-        assertTrue("Confirm -r is NOT set", !cl.hasOption("r"));
-        assertTrue("Confirm -f is NOT set", !cl.hasOption("f"));
-        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
-        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
-        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
-        assertTrue("Confirm TWO extra args", cl.getArgList().size() == 2);
+        assertFalse("Confirm -r is NOT set", cl.hasOption("r"));
+        assertFalse("Confirm -f is NOT set", cl.hasOption("f"));
+        assertFalse("Confirm -d is NOT set", cl.hasOption("d"));
+        assertFalse("Confirm -s is NOT set", cl.hasOption("s"));
+        assertFalse("Confirm -c is NOT set", cl.hasOption("c"));
+        assertEquals("Confirm TWO extra args", 2, cl.getArgList().size());
     }
 
     @Test
@@ -91,11 +92,11 @@ public class OptionGroupTest {
 
         final CommandLine cl = parser.parse(options, args);
 
-        assertTrue("Confirm -r is NOT set", !cl.hasOption("r"));
+        assertFalse("Confirm -r is NOT set", cl.hasOption("r"));
         assertTrue("Confirm -f is set", cl.hasOption("f"));
-        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
-        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
-        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
+        assertFalse("Confirm -d is NOT set", cl.hasOption("d"));
+        assertFalse("Confirm -s is NOT set", cl.hasOption("s"));
+        assertFalse("Confirm -c is NOT set", cl.hasOption("c"));
         assertTrue("Confirm no extra args", cl.getArgList().isEmpty());
     }
 
@@ -106,10 +107,10 @@ public class OptionGroupTest {
         final CommandLine cl = parser.parse(options, args);
 
         assertTrue("Confirm -r is set", cl.hasOption("r"));
-        assertTrue("Confirm -f is NOT set", !cl.hasOption("f"));
-        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
-        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
-        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
+        assertFalse("Confirm -f is NOT set", cl.hasOption("f"));
+        assertFalse("Confirm -d is NOT set", cl.hasOption("d"));
+        assertFalse("Confirm -s is NOT set", cl.hasOption("s"));
+        assertFalse("Confirm -c is NOT set", cl.hasOption("c"));
         assertTrue("Confirm no extra args", cl.getArgList().isEmpty());
     }
 
@@ -119,11 +120,11 @@ public class OptionGroupTest {
 
         final CommandLine cl = parser.parse(options, args);
 
-        assertTrue("Confirm -r is NOT set", !cl.hasOption("r"));
+        assertFalse("Confirm -r is NOT set", cl.hasOption("r"));
         assertTrue("Confirm -f is set", cl.hasOption("f"));
-        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
-        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
-        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
+        assertFalse("Confirm -d is NOT set", cl.hasOption("d"));
+        assertFalse("Confirm -s is NOT set", cl.hasOption("s"));
+        assertFalse("Confirm -c is NOT set", cl.hasOption("c"));
         assertTrue("Confirm no extra args", cl.getArgList().isEmpty());
     }
 
@@ -165,11 +166,11 @@ public class OptionGroupTest {
         final String[] args = {"-f", "-s"};
 
         final CommandLine cl = parser.parse(options, args);
-        assertTrue("Confirm -r is NOT set", !cl.hasOption("r"));
+        assertFalse("Confirm -r is NOT set", cl.hasOption("r"));
         assertTrue("Confirm -f is set", cl.hasOption("f"));
-        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
+        assertFalse("Confirm -d is NOT set", cl.hasOption("d"));
         assertTrue("Confirm -s is set", cl.hasOption("s"));
-        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
+        assertFalse("Confirm -c is NOT set", cl.hasOption("c"));
         assertTrue("Confirm NO extra args", cl.getArgList().isEmpty());
     }
 
@@ -196,7 +197,7 @@ public class OptionGroupTest {
 
         final CommandLine cl = parser.parse(options, args, properties);
         assertTrue(cl.hasOption("f"));
-        assertTrue(!cl.hasOption("d"));
+        assertFalse(cl.hasOption("d"));
     }
 
     @Test
@@ -207,9 +208,9 @@ public class OptionGroupTest {
 
         assertTrue("Confirm -r is set", cl.hasOption("r"));
         assertTrue("Confirm -f is set", cl.hasOption("f"));
-        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
-        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
-        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
+        assertFalse("Confirm -d is NOT set", cl.hasOption("d"));
+        assertFalse("Confirm -s is NOT set", cl.hasOption("s"));
+        assertFalse("Confirm -c is NOT set", cl.hasOption("c"));
         assertTrue("Confirm no extra args", cl.getArgList().isEmpty());
     }
 
@@ -221,9 +222,9 @@ public class OptionGroupTest {
 
         assertTrue("Confirm -r is set", cl.hasOption("r"));
         assertTrue("Confirm -f is set", cl.hasOption("f"));
-        assertTrue("Confirm -d is NOT set", !cl.hasOption("d"));
-        assertTrue("Confirm -s is NOT set", !cl.hasOption("s"));
-        assertTrue("Confirm -c is NOT set", !cl.hasOption("c"));
+        assertFalse("Confirm -d is NOT set", cl.hasOption("d"));
+        assertFalse("Confirm -s is NOT set", cl.hasOption("s"));
+        assertFalse("Confirm -c is NOT set", cl.hasOption("c"));
         assertTrue("Confirm no extra args", cl.getArgList().isEmpty());
     }
 

@@ -18,6 +18,7 @@
 package org.apache.commons.cli;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
@@ -559,7 +560,7 @@ public class HelpFormatterTest {
     public void testRtrim() {
         final HelpFormatter formatter = new HelpFormatter();
 
-        assertEquals(null, formatter.rtrim(null));
+        assertNull(formatter.rtrim(null));
         assertEquals("", formatter.rtrim(""));
         assertEquals("  foo", formatter.rtrim("  foo  "));
     }
