@@ -38,8 +38,8 @@
      <action type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">
         Option Javadocs grammar nits #55.
       </action>
-     <action type="fix" dev="ggregory" due-to="Arturo Bernal">
-        Minor Improvements #57.
+     <action type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">
+        Minor Improvements #57, #61.
      </action>
       <!-- ADD -->
       <action type="add" dev="chtompki" due-to="Rubin Simons" issue="CLI-217">
