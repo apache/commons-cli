@@ -20,6 +20,7 @@ package org.apache.commons.cli;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Describes a single command-line option. It maintains information regarding the short-name of the option, the
@@ -461,22 +462,15 @@ public class Option implements Cloneable, Serializable {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(obj instanceof Option)) {
             return false;
         }
-
-        final Option option = (Option) o;
-
-        if ((this.option != null ? !this.option.equals(option.option) : option.option != null)
-            || (longOption != null ? !longOption.equals(option.longOption) : option.longOption != null)) {
-            return false;
-        }
-
-        return true;
+        Option other = (Option) obj;
+        return Objects.equals(longOption, other.longOption) && Objects.equals(option, other.option);
     }
 
     /**
@@ -655,10 +649,7 @@ public class Option implements Cloneable, Serializable {
 
     @Override
     public int hashCode() {
-        int result;
-        result = option != null ? option.hashCode() : 0;
-        result = 31 * result + (longOption != null ? longOption.hashCode() : 0);
-        return result;
+        return Objects.hash(longOption, option);
     }
 
     /**
