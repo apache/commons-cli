@@ -83,8 +83,7 @@ public class Option implements Cloneable, Serializable {
          * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
          */
         private Builder(final String option) throws IllegalArgumentException {
-            OptionValidator.validateOption(option);
-            this.option = option;
+            this.option = OptionValidator.validate(option);
         }
 
         /**
@@ -332,44 +331,42 @@ public class Option implements Cloneable, Serializable {
     /**
      * Creates an Option using the specified parameters.
      *
-     * @param opt short representation of the option
+     * @param option short representation of the option
      * @param hasArg specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      *
      * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}.
      */
-    public Option(final String opt, final boolean hasArg, final String description) throws IllegalArgumentException {
-        this(opt, null, hasArg, description);
+    public Option(final String option, final boolean hasArg, final String description) throws IllegalArgumentException {
+        this(option, null, hasArg, description);
     }
 
     /**
      * Creates an Option using the specified parameters. The option does not take an argument.
      *
-     * @param opt short representation of the option
+     * @param option short representation of the option
      * @param description describes the function of the option
      *
      * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}.
      */
-    public Option(final String opt, final String description) throws IllegalArgumentException {
-        this(opt, null, false, description);
+    public Option(final String option, final String description) throws IllegalArgumentException {
+        this(option, null, false, description);
     }
 
     /**
      * Creates an Option using the specified parameters.
      *
-     * @param opt short representation of the option
-     * @param longOpt the long representation of the option
+     * @param option short representation of the option
+     * @param longOption the long representation of the option
      * @param hasArg specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      *
      * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}.
      */
-    public Option(final String opt, final String longOpt, final boolean hasArg, final String description) throws IllegalArgumentException {
+    public Option(final String option, final String longOption, final boolean hasArg, final String description) throws IllegalArgumentException {
         // ensure that the option is valid
-        OptionValidator.validateOption(opt);
-
-        this.opt = opt;
-        this.longOpt = longOpt;
+        this.opt = OptionValidator.validate(option);
+        this.longOpt = longOption;
 
         // if hasArg is set then the number of arguments is 1
         if (hasArg) {

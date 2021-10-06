@@ -54,31 +54,30 @@ final class OptionValidator {
      * <p>
      * In case {@code opt} is {@code null} no further validation is performed.
      *
-     * @param opt The option string to validate, may be null
+     * @param option The option string to validate, may be null
      * @throws IllegalArgumentException if the Option is not valid.
      */
-    static void validateOption(final String opt) throws IllegalArgumentException {
+    static String validate(final String option) throws IllegalArgumentException {
         // if opt is NULL do not check further
-        if (opt == null) {
-            return;
+        if (option == null) {
+            return option;
         }
 
         // handle the single character opt
-        if (opt.length() == 1) {
-            final char ch = opt.charAt(0);
+        if (option.length() == 1) {
+            final char ch = option.charAt(0);
 
             if (!isValidOpt(ch)) {
                 throw new IllegalArgumentException("Illegal option name '" + ch + "'");
             }
-        }
-
-        // handle the multi character opt
-        else {
-            for (final char ch : opt.toCharArray()) {
+        } else {
+            // handle the multi character opt
+            for (final char ch : option.toCharArray()) {
                 if (!isValidChar(ch)) {
-                    throw new IllegalArgumentException("The option '" + opt + "' contains an illegal " + "character : '" + ch + "'");
+                    throw new IllegalArgumentException("The option '" + option + "' contains an illegal " + "character : '" + ch + "'");
                 }
             }
         }
+        return option;
     }
 }
