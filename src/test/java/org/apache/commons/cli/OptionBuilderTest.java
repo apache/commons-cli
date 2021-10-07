@@ -18,6 +18,7 @@
 package org.apache.commons.cli;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -32,7 +33,7 @@ public class OptionBuilderTest {
 
         assertEquals("o", base.getOpt());
         assertEquals("option description", base.getDescription());
-        assertTrue(!base.hasArg());
+        assertFalse(base.hasArg());
     }
 
     @Test
@@ -41,7 +42,7 @@ public class OptionBuilderTest {
 
         assertEquals("o", base.getOpt());
         assertEquals("option description", base.getDescription());
-        assertTrue(!base.hasArg());
+        assertFalse(base.hasArg());
     }
 
     @Test
@@ -185,7 +186,7 @@ public class OptionBuilderTest {
         assertEquals("this is a dimple option", simple.getDescription());
         assertEquals(String.class, simple.getType());
         assertTrue(simple.hasArg());
-        assertTrue(!simple.isRequired());
-        assertTrue(!simple.hasArgs());
+        assertFalse(simple.isRequired());
+        assertFalse(simple.hasArgs());
     }
 }

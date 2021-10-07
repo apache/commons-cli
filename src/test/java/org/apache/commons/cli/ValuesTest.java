@@ -121,11 +121,11 @@ public class ValuesTest {
     @Test
     public void testShortArgsWithValue() {
         assertTrue("Option b is not set", cmd.hasOption("b"));
-        assertTrue(cmd.getOptionValue("b").equals("foo"));
+        assertEquals("foo", cmd.getOptionValue("b"));
         assertEquals(1, cmd.getOptionValues("b").length);
 
         assertTrue("Option d is not set", cmd.hasOption("d"));
-        assertTrue(cmd.getOptionValue("d").equals("bar"));
+        assertEquals("bar", cmd.getOptionValue("d"));
         assertEquals(1, cmd.getOptionValues("d").length);
     }
 
