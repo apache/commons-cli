@@ -41,6 +41,9 @@
      <action type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">
         Minor Improvements #57, #61.
      </action>
+     <action type="fix" dev="ggregory" due-to="Arturo Bernal">
+        Replace JUnit asserts by simpler but equivalent calls. #69.
+     </action>
       <!-- ADD -->
       <action type="add" dev="chtompki" due-to="Rubin Simons" issue="CLI-217">
         Accommodate toggling partial matching in DefaultParser.
