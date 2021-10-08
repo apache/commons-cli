@@ -55,6 +55,9 @@ public class DefaultParser implements CommandLineParser {
     /** Flag indicating if partial matching of long options is supported. */
     private final boolean allowPartialMatching;
 
+    /** Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments. */
+    private final boolean stripLeadingAndTrailingQuotes;
+
     /**
      * Creates a new DefaultParser instance with partial matching enabled.
      *
@@ -76,6 +79,7 @@ public class DefaultParser implements CommandLineParser {
      */
     public DefaultParser() {
         this.allowPartialMatching = true;
+        this.stripLeadingAndTrailingQuotes = true;
     }
 
     /**
@@ -101,6 +105,20 @@ public class DefaultParser implements CommandLineParser {
      */
     public DefaultParser(final boolean allowPartialMatching) {
         this.allowPartialMatching = allowPartialMatching;
+        this.stripLeadingAndTrailingQuotes = true;
+    }
+
+    /**
+     * Create a new DefaultParser instance with the specified partial matching and quote
+     * stripping policy.
+     *
+     * @param allowPartialMatching if partial matching of long options shall be enabled
+     * @param stripLeadingAndTrailingQuotes if balanced outer double quoutes should be stripped
+     */
+    private DefaultParser(final boolean allowPartialMatching,
+            final boolean stripLeadingAndTrailingQuotes) {
+        this.allowPartialMatching = allowPartialMatching;
+        this.stripLeadingAndTrailingQuotes = stripLeadingAndTrailingQuotes;
     }
 
     /**
@@ -415,7 +433,7 @@ public class DefaultParser implements CommandLineParser {
         } else if ("--".equals(token)) {
             skipParsing = true;
         } else if (currentOption != null && currentOption.acceptsArg() && isArgument(token)) {
-            currentOption.addValueForProcessing(Util.stripLeadingAndTrailingQuotes(token));
+            currentOption.addValueForProcessing(conditionallyStripLeadingAndTrailingQuotes(token));
         } else if (token.startsWith("--")) {
             handleLongOption(token);
         } else if (token.startsWith("-") && !"-".equals(token)) {
@@ -623,6 +641,121 @@ public class DefaultParser implements CommandLineParser {
             }
 
             group.setSelected(option);
+        }
+    }
+
+    /**
+     * Strip balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
+     *
+     * @param token a string
+     * @return token with the quotes stripped (if set)
+     */
+    protected String conditionallyStripLeadingAndTrailingQuotes(final String token) {
+        if (stripLeadingAndTrailingQuotes) {
+            return Util.stripLeadingAndTrailingQuotes(token);
+        } else {
+            return token;
+        }
+    }
+
+    /**
+     * Returns a {@link Builder} to create an {@link DefaultParser} using descriptive
+     * methods.
+     *
+     * @return a new {@link Builder} instance
+     * @since 1.5
+     */
+    public static Builder builder()
+    {
+        return new Builder();
+    }
+
+    /**
+     * A nested builder class to create <code>DefaultParser</code> instances
+     * using descriptive methods.
+     * <p>
+     * Example usage:
+     * <pre>
+     * DefaultParser parser = Option.builder()
+     *     .setAllowPartialMatching(false)
+     *     .setStripLeadingAndTrailingQuotes(false)
+     *     .build();
+     * </pre>
+     *
+     * @since 1.5
+     */
+    public static final class Builder
+    {
+
+        /** Flag indicating if partial matching of long options is supported. */
+        private boolean allowPartialMatching = true;
+
+        /** Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments. */
+        private boolean stripLeadingAndTrailingQuotes = true;
+
+        /**
+         * Constructs a new <code>Builder</code> for a <code>DefaultParser</code> instance.
+         *
+         * Both allowPartialMatching and stripLeadingAndTrailingQuotes are true by default,
+         * mimicking the argument-less constructor.
+         */
+        private Builder()
+        {
+        }
+
+        /**
+         * Sets if partial matching of long options is supported.
+         *
+         * By "partial matching" we mean that given the following code:
+         *
+         * <pre>
+         * {
+         *     &#64;code
+         *     final Options options = new Options();
+         *     options.addOption(new Option("d", "debug", false, "Turn on debug."));
+         *     options.addOption(new Option("e", "extract", false, "Turn on extract."));
+         *     options.addOption(new Option("o", "option", true, "Turn on option with argument."));
+         * }
+         * </pre>
+         *
+         * with "partial matching" turned on, {@code -de} only matches the {@code "debug"} option. However, with
+         * "partial matching" disabled, {@code -de} would enable both {@code debug} as well as {@code extract}
+         *
+         * @param allowPartialMatching whether to allow partial matching of long options
+         * @return this builder, to allow method chaining
+         */
+        public Builder setAllowPartialMatching(final boolean allowPartialMatching)
+        {
+            this.allowPartialMatching = allowPartialMatching;
+            return this;
+        }
+
+        /**
+         * Sets if balanced leading and trailing double quotes should be stripped from option arguments.
+         *
+         * with "stripping of balanced leading and trailing double quotes from option arguments" turned
+         * on, the outermost balanced double quotes of option arguments values will be removed.
+         * ie.
+         * for <code>-o '"x"'</code> getValue() will return <code>x</code>, instead of <code>"x"</code>
+         *
+         * @param stripLeadingAndTrailingQuotes whether balanced leading and trailing double quotes should be stripped from option arguments.
+         * @return this builder, to allow method chaining
+         */
+        public Builder setStripLeadingAndTrailingQuotes(final boolean stripLeadingAndTrailingQuotes)
+        {
+            this.stripLeadingAndTrailingQuotes = stripLeadingAndTrailingQuotes;
+            return this;
+        }
+
+        /**
+         * Constructs an DefaultParser with the values declared by this {@link Builder}.
+         *
+         * @return the new {@link DefaultParser}
+         */
+        public DefaultParser build()
+        {
+            return new DefaultParser(allowPartialMatching, stripLeadingAndTrailingQuotes);
+
         }
     }
 }
