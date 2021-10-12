@@ -17,7 +17,10 @@
 
 package org.apache.commons.cli;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
+import org.junit.Test;
 
 public class DefaultParserTest extends ParserTestCase {
 
@@ -26,5 +29,95 @@ public class DefaultParserTest extends ParserTestCase {
     public void setUp() {
         super.setUp();
         parser = new DefaultParser();
+    }
+
+    @Override
+    @Test
+    public void testShortOptionConcatenatedQuoteHandling() throws Exception {
+        final String[] args = new String[] {"-b\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        //This is behaviour is not consistent with the other parsers, but is required for backwards compatibility
+        assertEquals("Confirm -b\"arg\" keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
+    }
+
+    @Override
+    @Test
+    public void testLongOptionWithEqualsQuoteHandling() throws Exception {
+        final String[] args = new String[] {"--bfile=\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile=\"arg\" strips quotes",  "\"quoted string\"", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testShortOptionQuoteHandlingWithStrip() throws Exception {
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).build();
+        final String[] args = new String[] {"-b", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm -b \"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testShortOptionQuoteHandlingWithoutStrip() throws Exception {
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
+        final String[] args = new String[] {"-b", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm -b \"arg\" keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testLongOptionQuoteHandlingWithStrip() throws Exception {
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).build();
+        final String[] args = new String[] {"--bfile", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile \"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testLongOptionQuoteHandlingWithoutStrip() throws Exception {
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
+        final String[] args = new String[] {"--bfile", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile \"arg\" keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testLongOptionWithEqualsQuoteHandlingWithStrip() throws Exception {
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).build();
+        final String[] args = new String[] {"--bfile=\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile=\"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testLongOptionWithEqualsQuoteHandlingWithoutStrip() throws Exception {
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
+        final String[] args = new String[] {"--bfile=\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile=\"arg\" keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testBuilder() throws Exception {
+        parser = DefaultParser.builder()
+                .setStripLeadingAndTrailingQuotes(false)
+                .setAllowPartialMatching(false)
+                .build();
+        assertEquals(DefaultParser.class, parser.getClass());
     }
 }

@@ -23,7 +23,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -957,6 +956,42 @@ public abstract class ParserTestCase {
     }
 
     @Test
+    public void testShortOptionQuoteHandling() throws Exception {
+        final String[] args = new String[] {"-b", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm -b \"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testLongOptionQuoteHandling() throws Exception {
+        final String[] args = new String[] {"--bfile", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile \"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testLongOptionWithEqualsQuoteHandling() throws Exception {
+        final String[] args = new String[] {"--bfile=\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile=\"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testShortOptionConcatenatedQuoteHandling() throws Exception {
+        final String[] args = new String[] {"-b\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm -b\"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
     public void testWithRequiredOption() throws Exception {
         final String[] args = {"-b", "file"};
 
@@ -972,71 +1007,4 @@ public abstract class ParserTestCase {
         assertTrue("Confirm NO of extra args", cl.getArgList().isEmpty());
     }
 
-
-    @Test
-    public void testLongOptionWithEqualsQuoteHandling() throws Exception
-    {
-        assumeTrue(parser instanceof DefaultParser);
-        final String[] args = new String[] {"--bfile=\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals("Confirm --bfile=arg keeps quotes", "\"quoted string\"", cl.getOptionValue("bfile"));
-    }
-
-    @Test
-    public void testShortOptionQuoteHandlingWithDefault() throws Exception
-    {
-        assumeTrue(parser instanceof DefaultParser);
-        final String[] args = new String[] {"-b", "\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals("Confirm -b strips quotes",  "quoted string", cl.getOptionValue("b"));
-    }
-
-    @Test
-    public void testShortOptionQuoteHandlingWithNoStrip() throws Exception
-    {
-        assumeTrue(parser instanceof DefaultParser);
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
-        final String[] args = new String[] {"-b", "\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals("Confirm -b keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
-    }
-
-    @Test
-    public void testLongOptionQuoteHandlingWithDefault() throws Exception
-    {
-        assumeTrue(parser instanceof DefaultParser);
-        final String[] args = new String[] {"--bfile", "\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals("Confirm --bfile arg strips quotes",  "quoted string", cl.getOptionValue("b"));
-    }
-
-    @Test
-    public void testLongOptionQuoteHandlingWithNoStrip() throws Exception
-    {
-        assumeTrue(parser instanceof DefaultParser);
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
-        final String[] args = new String[] {"--bfile", "\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals("Confirm --bfile arg keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
-    }
-
-    @Test
-    public void testBuilder() throws Exception
-    {
-        assumeTrue(parser instanceof DefaultParser);
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
-        assertTrue(parser instanceof DefaultParser);
-        parser = DefaultParser.builder().setAllowPartialMatching(false).build();
-        assertTrue(parser instanceof DefaultParser);
-    }
 }
