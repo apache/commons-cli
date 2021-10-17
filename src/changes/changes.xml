@@ -41,8 +41,8 @@
      <action type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">
         Minor Improvements #57, #61.
      </action>
-     <action type="fix" dev="ggregory" due-to="Arturo Bernal">
-        Replace JUnit asserts by simpler but equivalent calls. #69.
+     <action type="fix" dev="ggregory" due-to="stoty" issue="CLI-254">
+        Input "test" gets parsed as test, quotes die #58.
      </action>
       <!-- ADD -->
       <action type="add" dev="chtompki" due-to="Rubin Simons" issue="CLI-217">
