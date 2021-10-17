@@ -656,9 +656,8 @@ public class DefaultParser implements CommandLineParser {
     private String stripLeadingAndTrailingQuotesDefaultOff(final String token) {
         if (stripLeadingAndTrailingQuotes != null && stripLeadingAndTrailingQuotes) {
             return Util.stripLeadingAndTrailingQuotes(token);
-        } else {
-            return token;
         }
+        return token;
     }
 
     /**
@@ -671,9 +670,8 @@ public class DefaultParser implements CommandLineParser {
     private String stripLeadingAndTrailingQuotesDefaultOn(final String token) {
         if (stripLeadingAndTrailingQuotes == null || stripLeadingAndTrailingQuotes) {
             return Util.stripLeadingAndTrailingQuotes(token);
-        } else {
-            return token;
         }
+        return token;
     }
 
     /**
