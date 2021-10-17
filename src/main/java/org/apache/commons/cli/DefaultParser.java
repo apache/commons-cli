@@ -28,6 +28,7 @@ import java.util.Properties;
  * @since 1.3
  */
 public class DefaultParser implements CommandLineParser {
+
     /** The command-line instance. */
     protected CommandLine cmd;
 
@@ -123,7 +124,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Throw a {@link MissingArgumentException} if the current option didn't receive the number of arguments expected.
+     * Throws a {@link MissingArgumentException} if the current option didn't receive the number of arguments expected.
      */
     private void checkRequiredArgs() throws ParseException {
         if (currentOption != null && currentOption.requiresArg()) {
@@ -144,7 +145,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Search for a prefix that is the long name of an option (-Xmx512m)
+     * Searches for a prefix that is the long name of an option (-Xmx512m)
      *
      * @param token
      */
@@ -421,7 +422,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Handle any command line token.
+     * Handles any command line token.
      *
      * @param token the command line token to handle
      * @throws ParseException
@@ -467,7 +468,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Returns true is the token is a valid argument.
+     * Tests if the token is a valid argument.
      *
      * @param token
      */
@@ -476,7 +477,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Check if the specified token is a Java-like property (-Dkey=value).
+     * Tests if the specified token is a Java-like property (-Dkey=value).
      */
     private boolean isJavaProperty(final String token) {
         final String opt = token.substring(0, 1);
@@ -486,7 +487,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Tells if the token looks like a long option.
+     * Tests if the token looks like a long option.
      *
      * @param token
      */
@@ -511,7 +512,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Check if the token is a negative number.
+     * Tests if the token is a negative number.
      *
      * @param token
      */
@@ -525,7 +526,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Tells if the token looks like an option.
+     * Tests if the token looks like an option.
      *
      * @param token
      */
@@ -534,7 +535,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Tells if the token looks like a short option.
+     * Tests if the token looks like a short option.
      *
      * @param token
      */
@@ -565,7 +566,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Parse the arguments according to the specified options and properties.
+     * Parses the arguments according to the specified options and properties.
      *
      * @param options the specified Options
      * @param arguments the command line arguments
@@ -579,7 +580,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Parse the arguments according to the specified options and properties.
+     * Parses the arguments according to the specified options and properties.
      *
      * @param options the specified Options
      * @param arguments the command line arguments
@@ -646,7 +647,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Strip balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
+     * Strips balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
      * If stripLeadingAndTrailingQuotes is null, then do not strip
      *
      * @param token a string
@@ -661,7 +662,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Strip balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
+     * Strips balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
      * If stripLeadingAndTrailingQuotes is null, then do not strip
      *
      * @param token a string
@@ -676,7 +677,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Returns a {@link Builder} to create an {@link DefaultParser} using descriptive
+     * Creates a new {@link Builder} to create an {@link DefaultParser} using descriptive
      * methods.
      *
      * @return a new {@link Builder} instance
