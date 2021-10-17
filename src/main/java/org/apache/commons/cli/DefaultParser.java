@@ -686,7 +686,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * A nested builder class to create <code>DefaultParser</code> instances
+     * A nested builder class to create {@code DefaultParser} instances
      * using descriptive methods.
      *
      * Example usage:
@@ -708,7 +708,7 @@ public class DefaultParser implements CommandLineParser {
         private Boolean stripLeadingAndTrailingQuotes;
 
         /**
-         * Constructs a new <code>Builder</code> for a <code>DefaultParser</code> instance.
+         * Constructs a new {@code Builder} for a {@code DefaultParser} instance.
          *
          * Both allowPartialMatching and stripLeadingAndTrailingQuotes are true by default,
          * mimicking the argument-less constructor.
@@ -748,7 +748,7 @@ public class DefaultParser implements CommandLineParser {
          *
          * If "stripping of balanced leading and trailing double quotes from option arguments" is true,
          * the outermost balanced double quotes of option arguments values will be removed.
-         * For example, <code>-o '"x"'</code> getValue() will return <code>x</code>, instead of <code>"x"</code>
+         * For example, {@code -o '"x"'} getValue() will return {@code x}, instead of {@code "x"}
          *
          * If "stripping of balanced leading and trailing double quotes from option arguments" is null,
          * then quotes will be stripped from option values separated by space from the option, but
