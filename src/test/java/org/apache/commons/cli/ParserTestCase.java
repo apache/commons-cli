@@ -956,6 +956,42 @@ public abstract class ParserTestCase {
     }
 
     @Test
+    public void testShortOptionQuoteHandling() throws Exception {
+        final String[] args = new String[] {"-b", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm -b \"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testLongOptionQuoteHandling() throws Exception {
+        final String[] args = new String[] {"--bfile", "\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile \"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testLongOptionWithEqualsQuoteHandling() throws Exception {
+        final String[] args = new String[] {"--bfile=\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm --bfile=\"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
+    public void testShortOptionConcatenatedQuoteHandling() throws Exception {
+        final String[] args = new String[] {"-b\"quoted string\""};
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("Confirm -b\"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+    }
+
+    @Test
     public void testWithRequiredOption() throws Exception {
         final String[] args = {"-b", "file"};
 
@@ -970,4 +1006,5 @@ public abstract class ParserTestCase {
         assertEquals("Confirm arg of -b", "file", cl.getOptionValue("b"));
         assertTrue("Confirm NO of extra args", cl.getArgList().isEmpty());
     }
+
 }

@@ -173,4 +173,16 @@ public class BasicParserTest extends ParserTestCase {
     @Ignore("not supported by the BasicParser")
     public void testUnrecognizedOptionWithBursting() throws Exception {
     }
+
+    @Override
+    @Test
+    @Ignore("not supported by the BasicParser")
+    public void testShortOptionConcatenatedQuoteHandling() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the BasicParser")
+    public void testLongOptionWithEqualsQuoteHandling() throws Exception {
+    }
 }
