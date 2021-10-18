@@ -75,6 +75,12 @@ public class BasicParserTest extends ParserTestCase {
     @Override
     @Test
     @Ignore("not supported by the BasicParser")
+    public void testLongOptionWithEqualsQuoteHandling() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the BasicParser")
     public void testLongWithEqualDoubleDash() throws Exception {
     }
 
@@ -118,6 +124,12 @@ public class BasicParserTest extends ParserTestCase {
     @Test
     @Ignore("not supported by the BasicParser")
     public void testPropertiesOption2() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the BasicParser")
+    public void testShortOptionConcatenatedQuoteHandling() throws Exception {
     }
 
     @Override
@@ -172,17 +184,5 @@ public class BasicParserTest extends ParserTestCase {
     @Test
     @Ignore("not supported by the BasicParser")
     public void testUnrecognizedOptionWithBursting() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the BasicParser")
-    public void testShortOptionConcatenatedQuoteHandling() throws Exception {
-    }
-
-    @Override
-    @Test
-    @Ignore("not supported by the BasicParser")
-    public void testLongOptionWithEqualsQuoteHandling() throws Exception {
     }
 }

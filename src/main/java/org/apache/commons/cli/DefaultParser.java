@@ -29,6 +29,106 @@ import java.util.Properties;
  */
 public class DefaultParser implements CommandLineParser {
 
+    /**
+     * A nested builder class to create {@code DefaultParser} instances
+     * using descriptive methods.
+     *
+     * Example usage:
+     * <pre>
+     * DefaultParser parser = Option.builder()
+     *     .setAllowPartialMatching(false)
+     *     .setStripLeadingAndTrailingQuotes(false)
+     *     .build();
+     * </pre>
+     *
+     * @since 1.5
+     */
+    public static final class Builder {
+
+        /** Flag indicating if partial matching of long options is supported. */
+        private boolean allowPartialMatching = true;
+
+        /** Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments. */
+        private Boolean stripLeadingAndTrailingQuotes;
+
+        /**
+         * Constructs a new {@code Builder} for a {@code DefaultParser} instance.
+         *
+         * Both allowPartialMatching and stripLeadingAndTrailingQuotes are true by default,
+         * mimicking the argument-less constructor.
+         */
+        private Builder() {
+        }
+
+        /**
+         * Builds an DefaultParser with the values declared by this {@link Builder}.
+         *
+         * @return the new {@link DefaultParser}
+         * @since 1.5
+         */
+        public DefaultParser build() {
+            return new DefaultParser(allowPartialMatching, stripLeadingAndTrailingQuotes);
+        }
+
+        /**
+         * Sets if partial matching of long options is supported.
+         *
+         * By "partial matching" we mean that given the following code:
+         *
+         * <pre>
+         * {
+         *     &#64;code
+         *     final Options options = new Options();
+         *     options.addOption(new Option("d", "debug", false, "Turn on debug."));
+         *     options.addOption(new Option("e", "extract", false, "Turn on extract."));
+         *     options.addOption(new Option("o", "option", true, "Turn on option with argument."));
+         * }
+         * </pre>
+         *
+         * If "partial matching" is turned on, {@code -de} only matches the {@code "debug"} option. However, with
+         * "partial matching" disabled, {@code -de} would enable both {@code debug} as well as {@code extract}
+         *
+         * @param allowPartialMatching whether to allow partial matching of long options
+         * @return this builder, to allow method chaining
+         * @since 1.5
+         */
+        public Builder setAllowPartialMatching(final boolean allowPartialMatching) {
+            this.allowPartialMatching = allowPartialMatching;
+            return this;
+        }
+
+        /**
+         * Sets if balanced leading and trailing double quotes should be stripped from option arguments.
+         *
+         * If "stripping of balanced leading and trailing double quotes from option arguments" is true,
+         * the outermost balanced double quotes of option arguments values will be removed.
+         * For example, {@code -o '"x"'} getValue() will return {@code x}, instead of {@code "x"}
+         *
+         * If "stripping of balanced leading and trailing double quotes from option arguments" is null,
+         * then quotes will be stripped from option values separated by space from the option, but
+         * kept in other cases, which is the historic behaviour.
+         *
+         * @param stripLeadingAndTrailingQuotes whether balanced leading and trailing double quotes should be stripped from option arguments.
+         * @return this builder, to allow method chaining
+         * @since 1.5
+         */
+        public Builder setStripLeadingAndTrailingQuotes(final Boolean stripLeadingAndTrailingQuotes) {
+            this.stripLeadingAndTrailingQuotes = stripLeadingAndTrailingQuotes;
+            return this;
+        }
+    }
+
+    /**
+     * Creates a new {@link Builder} to create an {@link DefaultParser} using descriptive
+     * methods.
+     *
+     * @return a new {@link Builder} instance
+     * @since 1.5
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
     /** The command-line instance. */
     protected CommandLine cmd;
 
@@ -625,28 +725,6 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Removes the option or its group from the list of expected elements.
-     *
-     * @param option
-     */
-    private void updateRequiredOptions(final Option option) throws AlreadySelectedException {
-        if (option.isRequired()) {
-            expectedOpts.remove(option.getKey());
-        }
-
-        // if the option is in an OptionGroup make that option the selected option of the group
-        if (options.getOptionGroup(option) != null) {
-            final OptionGroup group = options.getOptionGroup(option);
-
-            if (group.isRequired()) {
-                expectedOpts.remove(group);
-            }
-
-            group.setSelected(option);
-        }
-    }
-
-    /**
      * Strips balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
      * If stripLeadingAndTrailingQuotes is null, then do not strip
      *
@@ -675,102 +753,24 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Creates a new {@link Builder} to create an {@link DefaultParser} using descriptive
-     * methods.
+     * Removes the option or its group from the list of expected elements.
      *
-     * @return a new {@link Builder} instance
-     * @since 1.5
+     * @param option
      */
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    /**
-     * A nested builder class to create {@code DefaultParser} instances
-     * using descriptive methods.
-     *
-     * Example usage:
-     * <pre>
-     * DefaultParser parser = Option.builder()
-     *     .setAllowPartialMatching(false)
-     *     .setStripLeadingAndTrailingQuotes(false)
-     *     .build();
-     * </pre>
-     *
-     * @since 1.5
-     */
-    public static final class Builder {
-
-        /** Flag indicating if partial matching of long options is supported. */
-        private boolean allowPartialMatching = true;
-
-        /** Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments. */
-        private Boolean stripLeadingAndTrailingQuotes;
-
-        /**
-         * Constructs a new {@code Builder} for a {@code DefaultParser} instance.
-         *
-         * Both allowPartialMatching and stripLeadingAndTrailingQuotes are true by default,
-         * mimicking the argument-less constructor.
-         */
-        private Builder() {
+    private void updateRequiredOptions(final Option option) throws AlreadySelectedException {
+        if (option.isRequired()) {
+            expectedOpts.remove(option.getKey());
         }
 
-        /**
-         * Sets if partial matching of long options is supported.
-         *
-         * By "partial matching" we mean that given the following code:
-         *
-         * <pre>
-         * {
-         *     &#64;code
-         *     final Options options = new Options();
-         *     options.addOption(new Option("d", "debug", false, "Turn on debug."));
-         *     options.addOption(new Option("e", "extract", false, "Turn on extract."));
-         *     options.addOption(new Option("o", "option", true, "Turn on option with argument."));
-         * }
-         * </pre>
-         *
-         * If "partial matching" is turned on, {@code -de} only matches the {@code "debug"} option. However, with
-         * "partial matching" disabled, {@code -de} would enable both {@code debug} as well as {@code extract}
-         *
-         * @param allowPartialMatching whether to allow partial matching of long options
-         * @return this builder, to allow method chaining
-         * @since 1.5
-         */
-        public Builder setAllowPartialMatching(final boolean allowPartialMatching) {
-            this.allowPartialMatching = allowPartialMatching;
-            return this;
-        }
+        // if the option is in an OptionGroup make that option the selected option of the group
+        if (options.getOptionGroup(option) != null) {
+            final OptionGroup group = options.getOptionGroup(option);
 
-        /**
-         * Sets if balanced leading and trailing double quotes should be stripped from option arguments.
-         *
-         * If "stripping of balanced leading and trailing double quotes from option arguments" is true,
-         * the outermost balanced double quotes of option arguments values will be removed.
-         * For example, {@code -o '"x"'} getValue() will return {@code x}, instead of {@code "x"}
-         *
-         * If "stripping of balanced leading and trailing double quotes from option arguments" is null,
-         * then quotes will be stripped from option values separated by space from the option, but
-         * kept in other cases, which is the historic behaviour.
-         *
-         * @param stripLeadingAndTrailingQuotes whether balanced leading and trailing double quotes should be stripped from option arguments.
-         * @return this builder, to allow method chaining
-         * @since 1.5
-         */
-        public Builder setStripLeadingAndTrailingQuotes(final Boolean stripLeadingAndTrailingQuotes) {
-            this.stripLeadingAndTrailingQuotes = stripLeadingAndTrailingQuotes;
-            return this;
-        }
+            if (group.isRequired()) {
+                expectedOpts.remove(group);
+            }
 
-        /**
-         * Builds an DefaultParser with the values declared by this {@link Builder}.
-         *
-         * @return the new {@link DefaultParser}
-         * @since 1.5
-         */
-        public DefaultParser build() {
-            return new DefaultParser(allowPartialMatching, stripLeadingAndTrailingQuotes);
+            group.setSelected(option);
         }
     }
 }
