@@ -957,7 +957,7 @@ public abstract class ParserTestCase {
 
     @Test
     public void testShortOptionQuoteHandling() throws Exception {
-        final String[] args = new String[] {"-b", "\"quoted string\""};
+        final String[] args = {"-b", "\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -966,7 +966,7 @@ public abstract class ParserTestCase {
 
     @Test
     public void testLongOptionQuoteHandling() throws Exception {
-        final String[] args = new String[] {"--bfile", "\"quoted string\""};
+        final String[] args = {"--bfile", "\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -975,7 +975,7 @@ public abstract class ParserTestCase {
 
     @Test
     public void testLongOptionWithEqualsQuoteHandling() throws Exception {
-        final String[] args = new String[] {"--bfile=\"quoted string\""};
+        final String[] args = {"--bfile=\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -984,7 +984,7 @@ public abstract class ParserTestCase {
 
     @Test
     public void testShortOptionConcatenatedQuoteHandling() throws Exception {
-        final String[] args = new String[] {"-b\"quoted string\""};
+        final String[] args = {"-b\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 

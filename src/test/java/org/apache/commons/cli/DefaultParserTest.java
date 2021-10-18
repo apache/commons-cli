@@ -34,7 +34,7 @@ public class DefaultParserTest extends ParserTestCase {
     @Override
     @Test
     public void testShortOptionConcatenatedQuoteHandling() throws Exception {
-        final String[] args = new String[] {"-b\"quoted string\""};
+        final String[] args = {"-b\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -45,7 +45,7 @@ public class DefaultParserTest extends ParserTestCase {
     @Override
     @Test
     public void testLongOptionWithEqualsQuoteHandling() throws Exception {
-        final String[] args = new String[] {"--bfile=\"quoted string\""};
+        final String[] args = {"--bfile=\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -55,7 +55,7 @@ public class DefaultParserTest extends ParserTestCase {
     @Test
     public void testShortOptionQuoteHandlingWithStrip() throws Exception {
         parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).build();
-        final String[] args = new String[] {"-b", "\"quoted string\""};
+        final String[] args = {"-b", "\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -65,7 +65,7 @@ public class DefaultParserTest extends ParserTestCase {
     @Test
     public void testShortOptionQuoteHandlingWithoutStrip() throws Exception {
         parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
-        final String[] args = new String[] {"-b", "\"quoted string\""};
+        final String[] args = {"-b", "\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -75,7 +75,7 @@ public class DefaultParserTest extends ParserTestCase {
     @Test
     public void testLongOptionQuoteHandlingWithStrip() throws Exception {
         parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).build();
-        final String[] args = new String[] {"--bfile", "\"quoted string\""};
+        final String[] args = {"--bfile", "\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -85,7 +85,7 @@ public class DefaultParserTest extends ParserTestCase {
     @Test
     public void testLongOptionQuoteHandlingWithoutStrip() throws Exception {
         parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
-        final String[] args = new String[] {"--bfile", "\"quoted string\""};
+        final String[] args = {"--bfile", "\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -95,7 +95,7 @@ public class DefaultParserTest extends ParserTestCase {
     @Test
     public void testLongOptionWithEqualsQuoteHandlingWithStrip() throws Exception {
         parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).build();
-        final String[] args = new String[] {"--bfile=\"quoted string\""};
+        final String[] args = {"--bfile=\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -105,7 +105,7 @@ public class DefaultParserTest extends ParserTestCase {
     @Test
     public void testLongOptionWithEqualsQuoteHandlingWithoutStrip() throws Exception {
         parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
-        final String[] args = new String[] {"--bfile=\"quoted string\""};
+        final String[] args = {"--bfile=\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
 

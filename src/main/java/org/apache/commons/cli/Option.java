@@ -462,14 +462,14 @@ public class Option implements Cloneable, Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
         if (!(obj instanceof Option)) {
             return false;
         }
-        Option other = (Option) obj;
+        final Option other = (Option) obj;
         return Objects.equals(longOption, other.longOption) && Objects.equals(option, other.option);
     }
 
