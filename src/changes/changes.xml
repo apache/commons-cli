@@ -35,15 +35,15 @@
       <action type="fix" dev="ggregory" due-to="Gary Gregory">
         Replace CLIRR with JApiCmp.
       </action>
-     <action type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">
+      <action type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">
         Option Javadocs grammar nits #55.
       </action>
-     <action type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">
+      <action type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">
         Minor Improvements #57, #61.
-     </action>
-     <action type="fix" dev="ggregory" due-to="stoty" issue="CLI-254">
+      </action>
+      <action type="fix" dev="ggregory" due-to="stoty" issue="CLI-254">
         Input "test" gets parsed as test, quotes die #58.
-     </action>
+      </action>
       <!-- ADD -->
       <action type="add" dev="chtompki" due-to="Rubin Simons" issue="CLI-217">
         Accommodate toggling partial matching in DefaultParser.
