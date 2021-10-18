@@ -21,11 +21,11 @@
 
   <properties>
     <author email="dev@commons.apache.org">commons-dev</author>
-    <title>Introduction</title>
+    <title>Introducing Apache Commons CLI</title>
   </properties>
 
   <body>
-    <section name="Introduction">
+    <section name="Introducing Apache Commons CLI">
       <p>
         There are three stages to command line processing.  They are the
         definition, parsing and interrogation stages.  The following 
@@ -33,7 +33,7 @@
         to implement them with CLI.
       </p>
     </section>
-    <section name="Definition Stage">
+    <section name="The Definition Stage">
       <p>
         Each command line must define the set of options that will be used 
         to define the interface to the application.
@@ -57,7 +57,7 @@
         instance.
       </p>
     </section>
-    <section name="Parsing Stage">
+    <section name="The Parsing Stage">
       <p>
         The parsing stage is where the text passed into the 
         application via the command line is processed.  The text is 
@@ -78,7 +78,7 @@
         instance.
       </p>
     </section>
-    <section name="Interrogation Stage">
+    <section name="The Interrogation Stage">
       <p>
         The interrogation stage is where the application queries the
         <code>CommandLine</code> to decide what execution branch to

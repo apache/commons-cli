@@ -21,11 +21,11 @@
 
   <properties>
     <author email="dev@commons.apache.org">commons-dev</author>
-    <title>Usage Scenarios</title>
+    <title>Using Apache Commons CLI</title>
   </properties>
 
   <body>
-    <section name="Usage Scenarios">
+    <section name="Using Apache Commons CLI">
       <p>
         The following sections describe some example scenarios on how to 
         use CLI in applications.
@@ -43,7 +43,7 @@
           also printed.
         </p>
       </subsection>
-      <subsection name="Create the Options">
+      <subsection name="Creating the Options">
         <p>
           An <a href="api-release/org/apache/commons/cli/Options.html">
           Options</a> object must be created and the <code>Option</code> must be 
@@ -92,7 +92,7 @@ else {
 }</source>
         <p>
           <h4>Note.</h4>
-          As of version 1.5-SNAPSHOT (as of 7/31/2017), the
+          As of version 1.5, the
           <code>DefaultParser</code>'s constructor now has an override with
           the signature <code>DefaultParser(final boolean allowPartialMatching)</code>.
           Given the following code:
@@ -139,9 +139,8 @@ else {
       </subsection>
     </section>
 
-    <section name="Ant Example">
+    <section name="Using Ant as an Example">
       <p>
-        One of the most ubiquitous Java applications 
         <a href="http://ant.apache.org/">Ant</a> will be used
         here to illustrate how to create the <code>Options</code> required.  The following
         is the help output for Ant.
@@ -162,7 +161,7 @@ else {
   -D&lt;property>=&lt;value&gt;   use value for given property
   -find &lt;file&gt;           search for buildfile towards the root of the
                          filesystem and use it</source>
-      <subsection name="Boolean Options">
+      <subsection name="Defining Boolean Options">
         <p>
           Lets create the boolean options for the application as they
           are the easiest to create.  For clarity the constructors for
@@ -177,7 +176,7 @@ Option debug = new Option("debug", "print debugging information");
 Option emacs = new Option("emacs",
                            "produce logging information without adornments");</source>
       </subsection>
-      <subsection name="Argument Options">
+      <subsection name="Defining Argument Options">
         <p> 
           The argument options are created using the <code>Option#Builder</code>.
         </p>
@@ -213,22 +212,21 @@ Option find      = Option.builde("find")
                                 + "root of the filesystem and use it")
                          .build();</source>
       </subsection>
-      <subsection name="Java Property Option">
+      <subsection name="Defining Java Property Option">
         <p>
           The last option to create is the Java property and it is also created
           using the OptionBuilder.
         </p>
-        <source>Option property  = OptionBuilder.withArgName("property=value")
-                                .hasArgs(2)
-                                .withValueSeparator()
-                                .withDescription("use value for given property")
-                                .create("D");</source>
+        <source>Option property  = Option property  = Option.builder("D")
+                                .hasArgs()
+                                .valueSeparator('=')
+                                .build();</source>
 
           The map of properties specified by this option can later be retrieved by
           calling <code>getOptionProperties("D")</code> on the <code>CommandLine</code>.
 
       </subsection>
-      <subsection name="Create the Options">
+      <subsection name="Creating the Options">
         <p>
           Now that we have created each 
           <a href="api-release/org/apache/commons/cli/Option.html">Option</a> we need
@@ -258,7 +256,7 @@ options.addOption(property);</source>
           parse the command line arguments.
         </p>
       </subsection>
-      <subsection name="Create the Parser">
+      <subsection name="Creating the Parser">
         <p>
           We now need to create a <code>CommandLineParser</code>. This will parse the command
           line arguments, using the rules specified by the <code>Options</code> and
@@ -289,7 +287,7 @@ if(line.hasOption("buildfile")) {
     this.buildfile = line.getOptionValue("buildfile");
 }</source>
       </subsection>
-      <subsection name="Usage/Help">
+      <subsection name="Displaying Usage and Help">
         <p>
           CLI also provides the means to automatically generate usage
           and help information.  This is achieved with the
@@ -324,7 +322,7 @@ formatter.printHelp("ant", options);</source>
       </subsection>
     </section>
 
-    <section name="ls Example">
+    <section name="Creating an ls Example">
       <p>
         One of the most widely used command line applications in the *nix world
         is <code>ls</code>. Due to the large number of options required for <code>ls</code> 
@@ -337,7 +335,7 @@ Sort entries alphabetically if none of -cftuSUX nor --sort.
 
 -a, --all                  do not hide entries starting with .
 -A, --almost-all           do not list implied . and ..
--b, --escape               print octal escapes for nongraphic characters
+-b, --escape               print octal escapes for non-graphic characters
     --block-size=SIZE      use SIZE-byte blocks
 -B, --ignore-backups       do not list implied entries ending with ~
 -c                         with -lt: sort by, and show, ctime (time of last
@@ -356,14 +354,13 @@ CommandLineParser parser = new DefaultParser();
 Options options = new Options();
 options.addOption("a", "all", false, "do not hide entries starting with .");
 options.addOption("A", "almost-all", false, "do not list implied . and ..");
-options.addOption("b", "escape", false, "print octal escapes for nongraphic "
+options.addOption("b", "escape", false, "print octal escapes for non-graphic "
                                          + "characters");
-options.addOption(OptionBuilder.withLongOpt("block-size")
-                                .withDescription("use SIZE-byte blocks")
+options.addOption(Option.builder("SIZE").longOpt("block-size")
+                                .desc("use SIZE-byte blocks")
                                 .hasArg()
-                                .withArgName("SIZE")
-                                .create());
-options.addOption("B", "ignore-backups", false, "do not list implied entried "
+                                .build());
+options.addOption("B", "ignore-backups", false, "do not list implied entries "
                                                  + "ending with ~");
 options.addOption("c", false, "with -lt: sort by, and show, ctime (time of last " 
                                + "modification of file status information) with "

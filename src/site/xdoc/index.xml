@@ -20,12 +20,12 @@
 <document>
 
   <properties>
-    <title>Home</title>
+    <title>Apache Commons CLI</title>
     <author email="dev@commons.apache.org">commons-dev</author>
   </properties>
 
   <body>
-    <section name="Commons CLI">
+    <section name="Apache Commons CLI">
       <p>
         The Apache Commons CLI library provides an API for parsing command line options passed to programs.
         It's also able to print help messages detailing the options available for a command line tool.
@@ -59,15 +59,6 @@ usage: ls
       <p>
         Check out the <a href="introduction.html">introduction</a> page for a detailed presentation.
       </p>
-    </section>
-
-    <section name="CLI 2?">
-      <p>
-        Commons CLI 1.0 was formed from the merger of ideas and code from three different libraries -
-        Werken, Avalon and Optz. In dealing with the bugs and the feature requests a freshly designed and not
-        backwards compatible CLI 2 was created in 2004, but never finished or released.
-      </p>
-      <p>The current plan is to continue to maintain the 1.x line. The CLI2 work may be found in the Commons Sandbox. </p>
     </section>
 
     <section name="Documentation">
@@ -110,6 +101,15 @@ usage: ls
       <p>
         Issues may be reported via the <a href="issue-tracking.html">ASF JIRA</a>.
       </p>
+    </section>
+
+    <section name="CLI 2?">
+      <p>
+        Commons CLI 1.0 was formed from the merger of ideas and code from three different libraries -
+        Werken, Avalon and Optz. In dealing with the bugs and the feature requests a freshly designed and not
+        backwards compatible CLI 2 was created in 2004, but never finished or released.
+      </p>
+      <p>The current plan is to continue to maintain the 1.x line. The CLI2 work may be found in the Commons Sandbox. </p>
     </section>
 
   </body>
