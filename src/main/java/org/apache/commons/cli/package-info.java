@@ -16,6 +16,6 @@
  */
 
 /**
- * Apache Commons CLI provides a simple API for presenting, processing and validating a command line interface.
+ * Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
  */
 package org.apache.commons.cli;

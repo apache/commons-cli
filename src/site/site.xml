@@ -15,9 +15,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project name="Commons CLI">
+<project name="Apache Commons CLI">
     <bannerRight>
-        <name>Commons CLI</name>
+        <name>Apache Commons CLI</name>
         <src>/images/logo.png</src>
         <href>/index.html</href>
     </bannerRight>
@@ -34,10 +34,10 @@
 
         <menu name="User Guide">
             <item name="Getting started"      href="/introduction.html"/>
-            <item name="Usage scenarios"      href="/usage.html"/>
+            <item name="Using CLI"            href="/usage.html"/>
             <item name="Option properties"    href="/properties.html"/>
-            <item name="Javadoc (Current ${project.version})"        href="/apidocs/index.html"/>
-            <item name="Javadoc (1.4)"      href="/javadocs/api-release/index.html"/>
+            <item name="Javadoc"              href="/apidocs/index.html"/>
+            <item name="Javadoc Archive"      href="https://javadoc.io/doc/commons-cli/commons-cli/latest/index.html"/>
         </menu>
 
     </body>

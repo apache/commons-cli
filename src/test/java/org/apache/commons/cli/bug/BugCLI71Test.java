@@ -30,8 +30,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI71Test
-{
+public class BugCLI71Test {
     private Options options;
     private CommandLineParser parser;
 
@@ -39,11 +38,11 @@ public class BugCLI71Test
     public void setUp() {
         options = new Options();
 
-        final Option algorithm = new Option("a" , "algo", true, "the algorithm which it to perform executing");
+        final Option algorithm = new Option("a", "algo", true, "the algorithm which it to perform executing");
         algorithm.setArgName("algorithm name");
         options.addOption(algorithm);
 
-        final Option key = new Option("k" , "key", true, "the key the setted algorithm uses to process");
+        final Option key = new Option("k", "key", true, "the key the setted algorithm uses to process");
         algorithm.setArgName("value");
         options.addOption(key);
 
@@ -52,41 +51,41 @@ public class BugCLI71Test
 
     @Test
     public void testBasic() throws Exception {
-        final String[] args = new String[] { "-a", "Caesar", "-k", "A" };
-        final CommandLine line = parser.parse( options, args);
-        assertEquals( "Caesar", line.getOptionValue("a") );
-        assertEquals( "A", line.getOptionValue("k") );
+        final String[] args = {"-a", "Caesar", "-k", "A"};
+        final CommandLine line = parser.parse(options, args);
+        assertEquals("Caesar", line.getOptionValue("a"));
+        assertEquals("A", line.getOptionValue("k"));
     }
 
     @Test
-    public void testMistakenArgument() throws Exception {
-        String[] args = new String[] { "-a", "Caesar", "-k", "A" };
-        CommandLine line = parser.parse( options, args);
-        args = new String[] { "-a", "Caesar", "-k", "a" };
-        line = parser.parse( options, args);
-        assertEquals( "Caesar", line.getOptionValue("a") );
-        assertEquals( "a", line.getOptionValue("k") );
+    public void testGetsDefaultIfOptional() throws Exception {
+        final String[] args = {"-k", "-a", "Caesar"};
+        options.getOption("k").setOptionalArg(true);
+        final CommandLine line = parser.parse(options, args);
+
+        assertEquals("Caesar", line.getOptionValue("a"));
+        assertEquals("a", line.getOptionValue('k', "a"));
     }
 
     @Test
     public void testLackOfError() throws Exception {
-        final String[] args = new String[] { "-k", "-a",  "Caesar" };
+        final String[] args = {"-k", "-a", "Caesar"};
         try {
-            parser.parse( options, args);
+            parser.parse(options, args);
             fail("MissingArgumentException expected");
-        } catch(final MissingArgumentException e) {
+        } catch (final MissingArgumentException e) {
             assertEquals("option missing an argument", "k", e.getOption().getOpt());
         }
     }
 
     @Test
-    public void testGetsDefaultIfOptional() throws Exception {
-        final String[] args = new String[] { "-k", "-a", "Caesar" };
-        options.getOption("k").setOptionalArg(true);
-        final CommandLine line = parser.parse( options, args);
-
-        assertEquals( "Caesar", line.getOptionValue("a") );
-        assertEquals( "a", line.getOptionValue('k', "a") );
+    public void testMistakenArgument() throws Exception {
+        String[] args = {"-a", "Caesar", "-k", "A"};
+        CommandLine line = parser.parse(options, args);
+        args = new String[] {"-a", "Caesar", "-k", "a"};
+        line = parser.parse(options, args);
+        assertEquals("Caesar", line.getOptionValue("a"));
+        assertEquals("a", line.getOptionValue("k"));
     }
 
 }

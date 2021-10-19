@@ -21,11 +21,11 @@
 
   <properties>
     <author email="dev@commons.apache.org">commons-dev</author>
-    <title>Usage Scenarios</title>
+    <title>Using Apache Commons CLI</title>
   </properties>
 
   <body>
-    <section name="Usage Scenarios">
+    <section name="Using Apache Commons CLI">
       <p>
         The following sections describe some example scenarios on how to 
         use CLI in applications.
@@ -43,7 +43,7 @@
           also printed.
         </p>
       </subsection>
-      <subsection name="Create the Options">
+      <subsection name="Creating the Options">
         <p>
           An <a href="api-release/org/apache/commons/cli/Options.html">
           Options</a> object must be created and the <code>Option</code> must be 
@@ -74,7 +74,7 @@ options.addOption("t", false, "display current time");</source>
           <code>DefaultParser</code>.
         </p>
         <source>CommandLineParser parser = new DefaultParser();
-CommandLine cmd = parser.parse( options, args);</source>
+CommandLine cmd = parser.parse(options, args);</source>
         <p>
           Now we need to check if the <code>t</code> option is present.  To do
           this we will interrogate the 
@@ -92,7 +92,7 @@ else {
 }</source>
         <p>
           <h4>Note.</h4>
-          As of version 1.5-SNAPSHOT (as of 7/31/2017), the
+          As of version 1.5, the
           <code>DefaultParser</code>'s constructor now has an override with
           the signature <code>DefaultParser(final boolean allowPartialMatching)</code>.
           Given the following code:
@@ -139,9 +139,8 @@ else {
       </subsection>
     </section>
 
-    <section name="Ant Example">
+    <section name="Using Ant as an Example">
       <p>
-        One of the most ubiquitous Java applications 
         <a href="http://ant.apache.org/">Ant</a> will be used
         here to illustrate how to create the <code>Options</code> required.  The following
         is the help output for Ant.
@@ -162,73 +161,72 @@ else {
   -D&lt;property>=&lt;value&gt;   use value for given property
   -find &lt;file&gt;           search for buildfile towards the root of the
                          filesystem and use it</source>
-      <subsection name="Boolean Options">
+      <subsection name="Defining Boolean Options">
         <p>
           Lets create the boolean options for the application as they
           are the easiest to create.  For clarity the constructors for
           <code>Option</code> are used here.
         </p>
-        <source>Option help = new Option( "help", "print this message" );
-Option projecthelp = new Option( "projecthelp", "print project help information" );
-Option version = new Option( "version", "print the version information and exit" );
-Option quiet = new Option( "quiet", "be extra quiet" );
-Option verbose = new Option( "verbose", "be extra verbose" );
-Option debug = new Option( "debug", "print debugging information" );
-Option emacs = new Option( "emacs",
-                           "produce logging information without adornments" );</source>
+        <source>Option help = new Option("help", "print this message");
+Option projecthelp = new Option("projecthelp", "print project help information");
+Option version = new Option("version", "print the version information and exit");
+Option quiet = new Option("quiet", "be extra quiet");
+Option verbose = new Option("verbose", "be extra verbose");
+Option debug = new Option("debug", "print debugging information");
+Option emacs = new Option("emacs",
+                           "produce logging information without adornments");</source>
       </subsection>
-      <subsection name="Argument Options">
+      <subsection name="Defining Argument Options">
         <p> 
           The argument options are created using the <code>Option#Builder</code>.
         </p>
-        <source>Option logfile   = Option.builder( "logfile" )
-                         .argName( "file" )
+        <source>Option logfile   = Option.builder("logfile")
+                         .argName("file")
                          .hasArg()
-                         .desc(  "use given file for log" )
+                         .desc("use given file for log")
                          .build();
 
-Option logger    = Option.builder( "logger" )
-                         .argName( "classname" )
+Option logger    = Option.builder("logger")
+                         .argName("classname")
                          .hasArg()
-                         .desc( "the class which it to perform logging" )
+                         .desc("the class which it to perform logging")
                          .build();
 
-Option listener  = Option.builder( "listener" )
-                         .argName( "classname" )
+Option listener  = Option.builder("listener")
+                         .argName("classname")
                          .hasArg()
-                         .desc( "add an instance of class as "
-                                + "a project listener" )
+                         .desc("add an instance of class as "
+                                + "a project listener")
                          .build();
 
-Option buildfile = Option.builder( "buildfile" )
-                         .argName( "file" )
+Option buildfile = Option.builder("buildfile")
+                         .argName("file")
                          .hasArg()
-                         .desc(  "use given buildfile" )
+                         .desc("use given buildfile")
                          .build();
 
-Option find      = Option.builder( "find" )
-                         .argName( "file" )
+Option find      = Option.builde("find")
+                         .argName("file")
                          .hasArg()
-                         .desc( "search for buildfile towards the "
-                                + "root of the filesystem and use it" )
+                         .desc("search for buildfile towards the "
+                                + "root of the filesystem and use it")
                          .build();</source>
       </subsection>
-      <subsection name="Java Property Option">
+      <subsection name="Defining Java Property Option">
         <p>
           The last option to create is the Java property and it is also created
           using the OptionBuilder.
         </p>
-        <source>Option property  = OptionBuilder.withArgName( "property=value" )
-                                .hasArgs(2)
-                                .withValueSeparator()
-                                .withDescription( "use value for given property" )
-                                .create( "D" );</source>
+        <source>Option property  = Option property  = Option.builder("D")
+                                .hasArgs()
+                                .valueSeparator('=')
+                                .build();</source>
 
           The map of properties specified by this option can later be retrieved by
           calling <code>getOptionProperties("D")</code> on the <code>CommandLine</code>.
 
       </subsection>
-      <subsection name="Create the Options">
+      <subsection name="Creating the Options">
         <p>
           Now that we have created each 
           <a href="api-release/org/apache/commons/cli/Option.html">Option</a> we need
@@ -240,40 +238,40 @@ Option find      = Option.builder( "find" )
         </p>
         <source>Options options = new Options();
 
-options.addOption( help );
-options.addOption( projecthelp );
-options.addOption( version );
-options.addOption( quiet );
-options.addOption( verbose );
-options.addOption( debug );
-options.addOption( emacs );
-options.addOption( logfile );
-options.addOption( logger );
-options.addOption( listener );
-options.addOption( buildfile );
-options.addOption( find );
-options.addOption( property );</source>
+options.addOption(help);
+options.addOption(projecthelp);
+options.addOption(version);
+options.addOption(quiet);
+options.addOption(verbose);
+options.addOption(debug);
+options.addOption(emacs);
+options.addOption(logfile);
+options.addOption(logger);
+options.addOption(listener);
+options.addOption(buildfile);
+options.addOption(find);
+options.addOption(property);</source>
         <p>
           All the preperation is now complete and we are now ready to
           parse the command line arguments.
         </p>
       </subsection>
-      <subsection name="Create the Parser">
+      <subsection name="Creating the Parser">
         <p>
           We now need to create a <code>CommandLineParser</code>. This will parse the command
           line arguments, using the rules specified by the <code>Options</code> and
           return an instance of <a href="api-release/org/apache/commons/cli/CommandLine.html">CommandLine</a>.
         </p>
-        <source>public static void main( String[] args ) {
+        <source>public static void main(String[] args) {
     // create the parser
     CommandLineParser parser = new DefaultParser();
     try {
         // parse the command line arguments
-        CommandLine line = parser.parse( options, args );
+        CommandLine line = parser.parse(options, args);
     }
-    catch( ParseException exp ) {
+    catch (ParseException exp) {
         // oops, something went wrong
-        System.err.println( "Parsing failed.  Reason: " + exp.getMessage() );
+        System.err.println("Parsing failed.  Reason: " + exp.getMessage());
     }
 }</source>
       </subsection>
@@ -284,12 +282,12 @@ options.addOption( property );</source>
           the <code>getOptionValue</code> method.
         </p>
         <source>// has the buildfile argument been passed?
-if( line.hasOption( "buildfile" ) ) {
+if(line.hasOption("buildfile")) {
     // initialise the member variable
-    this.buildfile = line.getOptionValue( "buildfile" );
+    this.buildfile = line.getOptionValue("buildfile");
 }</source>
       </subsection>
-      <subsection name="Usage/Help">
+      <subsection name="Displaying Usage and Help">
         <p>
           CLI also provides the means to automatically generate usage
           and help information.  This is achieved with the
@@ -298,7 +296,7 @@ if( line.hasOption( "buildfile" ) ) {
         </p>
         <source>// automatically generate the help statement
 HelpFormatter formatter = new HelpFormatter();
-formatter.printHelp( "ant", options );</source>
+formatter.printHelp("ant", options);</source>
         <p>
           When executed the following output is produced:
         </p>
@@ -318,13 +316,13 @@ formatter.printHelp( "ant", options );</source>
 -version                print the version information and exit</source>
         <p>
           If you also require to have a usage statement printed 
-          then calling <code>formatter.printHelp( "ant", options, true )</code>
+          then calling <code>formatter.printHelp("ant", options, true)</code>
           will generate a usage statment as well as the help information.
         </p>
       </subsection>
     </section>
 
-    <section name="ls Example">
+    <section name="Creating an ls Example">
       <p>
         One of the most widely used command line applications in the *nix world
         is <code>ls</code>. Due to the large number of options required for <code>ls</code> 
@@ -337,7 +335,7 @@ Sort entries alphabetically if none of -cftuSUX nor --sort.
 
 -a, --all                  do not hide entries starting with .
 -A, --almost-all           do not list implied . and ..
--b, --escape               print octal escapes for nongraphic characters
+-b, --escape               print octal escapes for non-graphic characters
     --block-size=SIZE      use SIZE-byte blocks
 -B, --ignore-backups       do not list implied entries ending with ~
 -c                         with -lt: sort by, and show, ctime (time of last
@@ -354,37 +352,36 @@ CommandLineParser parser = new DefaultParser();
 
 // create the Options
 Options options = new Options();
-options.addOption( "a", "all", false, "do not hide entries starting with ." );
-options.addOption( "A", "almost-all", false, "do not list implied . and .." );
-options.addOption( "b", "escape", false, "print octal escapes for nongraphic "
-                                         + "characters" );
-options.addOption( OptionBuilder.withLongOpt( "block-size" )
-                                .withDescription( "use SIZE-byte blocks" )
+options.addOption("a", "all", false, "do not hide entries starting with .");
+options.addOption("A", "almost-all", false, "do not list implied . and ..");
+options.addOption("b", "escape", false, "print octal escapes for non-graphic "
+                                         + "characters");
+options.addOption(Option.builder("SIZE").longOpt("block-size")
+                                .desc("use SIZE-byte blocks")
                                 .hasArg()
-                                .withArgName("SIZE")
-                                .create() );
-options.addOption( "B", "ignore-backups", false, "do not list implied entried "
+                                .build());
+options.addOption("B", "ignore-backups", false, "do not list implied entries "
                                                  + "ending with ~");
-options.addOption( "c", false, "with -lt: sort by, and show, ctime (time of last " 
+options.addOption("c", false, "with -lt: sort by, and show, ctime (time of last " 
                                + "modification of file status information) with "
                                + "-l:show ctime and sort by name otherwise: sort "
-                               + "by ctime" );
-options.addOption( "C", false, "list entries by columns" );
+                               + "by ctime");
+options.addOption("C", false, "list entries by columns");
 
 String[] args = new String[]{ "--block-size=10" };
 
 try {
     // parse the command line arguments
-    CommandLine line = parser.parse( options, args );
+    CommandLine line = parser.parse(options, args);
 
     // validate that block-size has been set
-    if( line.hasOption( "block-size" ) ) {
+    if (line.hasOption("block-size")) {
         // print the value of block-size
-        System.out.println( line.getOptionValue( "block-size" ) );
+        System.out.println(line.getOptionValue("block-size"));
     }
 }
-catch( ParseException exp ) {
-    System.out.println( "Unexpected exception:" + exp.getMessage() );
+catch (ParseException exp) {
+    System.out.println("Unexpected exception:" + exp.getMessage());
 }</source>
     </section>
   </body>

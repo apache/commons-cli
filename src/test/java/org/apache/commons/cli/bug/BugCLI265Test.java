@@ -17,18 +17,18 @@
 
 package org.apache.commons.cli.bug;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Test for CLI-265.
@@ -41,7 +41,7 @@ public class BugCLI265Test {
     private Options options;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         parser = new DefaultParser();
 
         final Option optionT1 = Option.builder("t1").hasArg().numberOfArgs(1).optionalArg(true).argName("t1_path").build();
@@ -53,18 +53,21 @@ public class BugCLI265Test {
     }
 
     @Test
-    public void shouldParseShortOptionWithValue() throws Exception {
-        final String[] shortOptionWithValue = new String[]{"-t1", "path/to/my/db"};
+    public void shouldParseConcatenatedShortOptions() throws Exception {
+        final String[] concatenatedShortOptions = {"-t1", "-ab"};
 
-        final CommandLine commandLine = parser.parse(options, shortOptionWithValue);
+        final CommandLine commandLine = parser.parse(options, concatenatedShortOptions);
 
-        assertEquals("path/to/my/db", commandLine.getOptionValue("t1"));
+        assertTrue(commandLine.hasOption("t1"));
+        assertNull(commandLine.getOptionValue("t1"));
+        assertTrue(commandLine.hasOption("a"));
+        assertTrue(commandLine.hasOption("b"));
         assertFalse(commandLine.hasOption("last"));
     }
 
     @Test
     public void shouldParseShortOptionWithoutValue() throws Exception {
-        final String[] twoShortOptions = new String[]{"-t1", "-last"};
+        final String[] twoShortOptions = {"-t1", "-last"};
 
         final CommandLine commandLine = parser.parse(options, twoShortOptions);
 
@@ -74,15 +77,12 @@ public class BugCLI265Test {
     }
 
     @Test
-    public void shouldParseConcatenatedShortOptions() throws Exception {
-        final String[] concatenatedShortOptions = new String[] { "-t1", "-ab" };
+    public void shouldParseShortOptionWithValue() throws Exception {
+        final String[] shortOptionWithValue = {"-t1", "path/to/my/db"};
 
-        final CommandLine commandLine = parser.parse(options, concatenatedShortOptions);
+        final CommandLine commandLine = parser.parse(options, shortOptionWithValue);
 
-        assertTrue(commandLine.hasOption("t1"));
-        assertNull(commandLine.getOptionValue("t1"));
-        assertTrue(commandLine.hasOption("a"));
-        assertTrue(commandLine.hasOption("b"));
+        assertEquals("path/to/my/db", commandLine.getOptionValue("t1"));
         assertFalse(commandLine.hasOption("last"));
     }
 }

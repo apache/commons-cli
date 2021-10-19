@@ -15,17 +15,36 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-
 <document>
   <properties>
     <title>Apache Commons CLI Release Notes</title>
   </properties>
   <body>
 
-    <release version="1.5" date="tba" description="tba">
-      <action type="update" dev="britter" due-to="Krishna Mohan Rao Kandunoori" issue="CLI-279">
+    <release version="1.5" date="tba" description="New features and bug fixes (Java 7)">
+      <!-- FIX -->
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">
+        Fix NPE in DefaultParser.isLongOption(String).
+      </action>
+      <action type="fix" dev="britter" due-to="Krishna Mohan Rao Kandunoori" issue="CLI-279">
         @param or @return lines should end with a period in CommandLine.java
       </action>
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">
+        Replace deprecated FindBugs with SpotBugs.
+      </action>
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">
+        Replace CLIRR with JApiCmp.
+      </action>
+      <action type="fix" dev="ggregory" due-to="Elliotte Rusty Harold">
+        Option Javadocs grammar nits #55.
+      </action>
+      <action type="fix" dev="ggregory" due-to="Arturo Bernal, Gary Gregory">
+        Minor Improvements #57, #61.
+      </action>
+      <action type="fix" dev="ggregory" due-to="stoty" issue="CLI-254">
+        Input "test" gets parsed as test, quotes die #58.
+      </action>
+      <!-- ADD -->
       <action type="add" dev="chtompki" due-to="Rubin Simons" issue="CLI-217">
         Accommodate toggling partial matching in DefaultParser.
       </action>
@@ -41,12 +60,58 @@
       <action type="add" dev="ggregory" due-to="Alex Nordlund" issue="CLI-282">
         TypeHandler should throw ParseException for an unsupported class.
       </action>
+      <!-- UPDATE -->
       <action type="update" dev="ggregory" issue="CLI-294">
         Update Java from version 5 to 7.
       </action>
       <action type="update" dev="ggregory" due-to="Mincong Huang">
         Docs: Replace OptionBuilder in usage page #30.
       </action>
+      <action type="update" dev="ggregory" due-to="dengliming">
+        Remove deprecated sudo setting. #36.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">
+        Bump junit:junit from 4.12 to 4.13.2, #53, #60.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump commons-parent from 48 to 52.
+     </action>
+     <action type="update" dev="ggregory" due-to="Dependabot">
+       Bump maven-pmd-plugin from 3.12.0 to 3.15.0, #44, #54, #67.
+     </action>
+     <action type="update" dev="ggregory" due-to="Dependabot">
+       Bump actions/checkout from v2.3.1 to v2.3.5 #46, #72.
+     </action>
+     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+       Bump actions/setup-java from v1.4.2 to v2 #50.
+      </action>
+     <action type="update" dev="ggregory" due-to="Dependabot">
+       Bump maven-antrun-plugin from 1.7 to 3.0.0 #43.
+     </action>
+     <action type="update" dev="ggregory" due-to="Gary Gregory">
+       Bump maven-checkstyle-plugin from 2.15 to 3.1.2 #41.
+     </action>
+     <action type="update" dev="ggregory" due-to="Gary Gregory">
+       Bump checkstyle to 9.0.1 #68.
+     </action>
+     <action type="update" dev="ggregory" due-to="Dependabot">
+       Bump actions/cache from 2 to 2.1.6 #64, #65.
+     </action>
+     <action type="update" dev="ggregory" due-to="Gary Gregory">
+       Bump commons.animal-sniffer.version 1.19 -> 1.20.
+     </action>
+     <action type="update" dev="ggregory" due-to="Gary Gregory">
+       Bump maven-bundle-plugin 5.1.1 -> 5.1.2.
+     </action>
+     <action type="update" dev="ggregory" due-to="Gary Gregory">
+       Bump biz.aQute.bndlib.version 5.1.2 -> 5.3.0.
+     </action>
+     <action type="update" dev="ggregory" due-to="Dependabot">
+       Bump spotbugs from 4.4.1 to 4.4.2 #70.
+     </action>
+     <action type="update" dev="ggregory" due-to="Dependabot">
+       Bump spotbugs-maven-plugin from 4.4.1 to 4.4.2.1 #71.
+     </action>
     </release>
 
     <release version="1.4" date="2017-03-09" description="New features and bug fixes">

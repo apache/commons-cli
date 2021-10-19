@@ -25,7 +25,7 @@
  | commons-build-plugin/trunk/src/main/resources/commons-xdoc-templates |
  +======================================================================+
  |                                                                      |
- | 1) Re-generate using: mvn commons:readme-md                          |
+ | 1) Re-generate using: mvn commons-build:readme-md                    |
  |                                                                      |
  | 2) Set the following properties in the component's pom:              |
  |    - commons.componentid (required, alphabetic, lower case)          |
@@ -43,18 +43,19 @@
 Apache Commons CLI
 ===================
 
-[![Build Status](https://travis-ci.org/apache/commons-cli.svg)](https://travis-ci.org/apache/commons-cli)
+[![Travis-CI Status](https://travis-ci.org/apache/commons-cli.svg)](https://travis-ci.org/apache/commons-cli)
+[![GitHub Actions Status](https://github.com/apache/commons-cli/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-cli/actions)
 [![Coverage Status](https://coveralls.io/repos/apache/commons-cli/badge.svg)](https://coveralls.io/r/apache/commons-cli)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/badge.svg)](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/)
-[![Javadocs](https://javadoc.io/badge/commons-cli/commons-cli/1.4.svg)](https://javadoc.io/doc/commons-cli/commons-cli/1.4)
+[![Javadocs](https://javadoc.io/badge/commons-cli/commons-cli/1.5.svg)](https://javadoc.io/doc/commons-cli/commons-cli/1.5)
 
-Apache Commons CLI provides a simple API for presenting, processing and validating a command line interface.
+Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
 
 Documentation
 -------------
 
 More information can be found on the [Apache Commons CLI homepage](https://commons.apache.org/proper/commons-cli).
-The [Javadoc](https://commons.apache.org/proper/commons-cli/javadocs/api-release) can be browsed.
+The [Javadoc](https://commons.apache.org/proper/commons-cli/apidocs) can be browsed.
 Questions related to the usage of Apache Commons CLI should be posted to the [user mailing list][ml].
 
 Where can I get the latest release?
@@ -67,7 +68,7 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>commons-cli</groupId>
   <artifactId>commons-cli</artifactId>
-  <version>1.4</version>
+  <version>1.5</version>
 </dependency>
 ```
 

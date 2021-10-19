@@ -29,27 +29,27 @@ import org.apache.commons.cli.PosixParser;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI13Test
-{
+public class BugCLI13Test {
+
     @Test
-    public void testCLI13() throws ParseException
-    {
+    public void testCLI13() throws ParseException {
         final String debugOpt = "debug";
         @SuppressWarnings("static-access")
-        final
-        Option debug = OptionBuilder
-            .withArgName( debugOpt )
-            .withDescription( "turn on debugging" )
-            .withLongOpt( debugOpt )
+        //@formatter:off
+        final Option debug = OptionBuilder
+            .withArgName(debugOpt)
+            .withDescription("turn on debugging")
+            .withLongOpt(debugOpt)
             .hasArg()
-            .create( 'd' );
+            .create('d');
+        //@formatter:on
         final Options options = new Options();
-        options.addOption( debug );
-        final CommandLine commandLine = new PosixParser().parse( options, new String[]{"-d", "true"} );
+        options.addOption(debug);
+        final CommandLine commandLine = new PosixParser().parse(options, new String[] {"-d", "true"});
 
-        assertEquals("true", commandLine.getOptionValue( debugOpt ));
-        assertEquals("true", commandLine.getOptionValue( 'd' ));
-        assertTrue(commandLine.hasOption( 'd'));
-        assertTrue(commandLine.hasOption( debugOpt));
+        assertEquals("true", commandLine.getOptionValue(debugOpt));
+        assertEquals("true", commandLine.getOptionValue('d'));
+        assertTrue(commandLine.hasOption('d'));
+        assertTrue(commandLine.hasOption(debugOpt));
     }
 }

@@ -21,11 +21,11 @@
 
   <properties>
     <author email="dev@commons.apache.org">commons-dev</author>
-    <title>Option Properties</title>
+    <title>Defining Option Properties</title>
   </properties>
 
   <body>
-    <section name="Option Properties">
+    <section name="Defining Option Properties">
       <p>
         The following are the properties that each 
         <a href="api-release/org/apache/commons/cli/Option.html">Option</a> has.  All of these

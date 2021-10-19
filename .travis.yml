@@ -14,17 +14,15 @@
 # limitations under the License.
 
 language: java
-sudo: false
 
 jdk:
   - openjdk8
   - openjdk11
-  - openjdk12
-  - openjdk13
+  - openjdk16
   - openjdk-ea
 
 script:
-  - mvn
+  - mvn -V --no-transfer-progress
 
 after_success:
-  - mvn clean test jacoco:report coveralls:report -Ptravis-jacoco
+  - mvn clean test jacoco:report coveralls:report -Ptravis-jacoco --no-transfer-progress

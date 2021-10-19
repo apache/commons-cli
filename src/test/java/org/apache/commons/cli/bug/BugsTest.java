@@ -18,6 +18,7 @@
 package org.apache.commons.cli.bug;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -42,14 +43,37 @@ import org.apache.commons.cli.PosixParser;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugsTest
-{
+public class BugsTest {
     @Test
-    public void test11457() throws Exception
-    {
+    public void test11456() throws Exception {
+        // Posix
+        Options options = new Options();
+        options.addOption(OptionBuilder.hasOptionalArg().create('a'));
+        options.addOption(OptionBuilder.hasArg().create('b'));
+        String[] args = {"-a", "-bvalue"};
+
+        CommandLineParser parser = new PosixParser();
+
+        CommandLine cmd = parser.parse(options, args);
+        assertEquals(cmd.getOptionValue('b'), "value");
+
+        // GNU
+        options = new Options();
+        options.addOption(OptionBuilder.hasOptionalArg().create('a'));
+        options.addOption(OptionBuilder.hasArg().create('b'));
+        args = new String[] {"-a", "-b", "value"};
+
+        parser = new GnuParser();
+
+        cmd = parser.parse(options, args);
+        assertEquals(cmd.getOptionValue('b'), "value");
+    }
+
+    @Test
+    public void test11457() throws Exception {
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("verbose").create());
-        final String[] args = new String[]{"--verbose"};
+        final String[] args = {"--verbose"};
 
         final CommandLineParser parser = new PosixParser();
 
@@ -58,12 +82,11 @@ public class BugsTest
     }
 
     @Test
-    public void test11458() throws Exception
-    {
+    public void test11458() throws Exception {
         final Options options = new Options();
-        options.addOption( OptionBuilder.withValueSeparator( '=' ).hasArgs().create( 'D' ) );
-        options.addOption( OptionBuilder.withValueSeparator( ':' ).hasArgs().create( 'p' ) );
-        final String[] args = new String[] { "-DJAVA_HOME=/opt/java" , "-pfile1:file2:file3" };
+        options.addOption(OptionBuilder.withValueSeparator('=').hasArgs().create('D'));
+        options.addOption(OptionBuilder.withValueSeparator(':').hasArgs().create('p'));
+        final String[] args = {"-DJAVA_HOME=/opt/java", "-pfile1:file2:file3"};
 
         final CommandLineParser parser = new PosixParser();
 
@@ -81,33 +104,30 @@ public class BugsTest
         assertEquals(values[2], "file3");
 
         final Iterator<Option> iter = cmd.iterator();
-        while (iter.hasNext())
-        {
+        while (iter.hasNext()) {
             final Option opt = iter.next();
-            switch (opt.getId())
-            {
-                case 'D':
-                    assertEquals(opt.getValue(0), "JAVA_HOME");
-                    assertEquals(opt.getValue(1), "/opt/java");
-                    break;
-                case 'p':
-                    assertEquals(opt.getValue(0), "file1");
-                    assertEquals(opt.getValue(1), "file2");
-                    assertEquals(opt.getValue(2), "file3");
-                    break;
-                default:
-                    fail("-D option not found");
+            switch (opt.getId()) {
+            case 'D':
+                assertEquals(opt.getValue(0), "JAVA_HOME");
+                assertEquals(opt.getValue(1), "/opt/java");
+                break;
+            case 'p':
+                assertEquals(opt.getValue(0), "file1");
+                assertEquals(opt.getValue(1), "file2");
+                assertEquals(opt.getValue(2), "file3");
+                break;
+            default:
+                fail("-D option not found");
             }
         }
     }
 
     @Test
-    public void test11680() throws Exception
-    {
+    public void test11680() throws Exception {
         final Options options = new Options();
         options.addOption("f", true, "foobar");
         options.addOption("m", true, "missing");
-        final String[] args = new String[]{"-f", "foo"};
+        final String[] args = {"-f", "foo"};
 
         final CommandLineParser parser = new PosixParser();
 
@@ -118,46 +138,19 @@ public class BugsTest
     }
 
     @Test
-    public void test11456() throws Exception
-    {
-        // Posix
-        Options options = new Options();
-        options.addOption( OptionBuilder.hasOptionalArg().create( 'a' ) );
-        options.addOption( OptionBuilder.hasArg().create( 'b' ) );
-        String[] args = new String[] { "-a", "-bvalue" };
-
-        CommandLineParser parser = new PosixParser();
-
-        CommandLine cmd = parser.parse( options, args );
-        assertEquals( cmd.getOptionValue( 'b' ), "value" );
-
-        // GNU
-        options = new Options();
-        options.addOption( OptionBuilder.hasOptionalArg().create( 'a' ) );
-        options.addOption( OptionBuilder.hasArg().create( 'b' ) );
-        args = new String[] { "-a", "-b", "value" };
-
-        parser = new GnuParser();
-
-        cmd = parser.parse( options, args );
-        assertEquals( cmd.getOptionValue( 'b' ), "value" );
-    }
-
-    @Test
-    public void test12210() throws Exception
-    {
+    public void test12210() throws Exception {
         // create the main options object which will handle the first parameter
         final Options mainOptions = new Options();
-        // There can be 2 main exclusive options:  -exec|-rep
+        // There can be 2 main exclusive options: -exec|-rep
 
         // Therefore, place them in an option group
 
-        String[] argv = new String[] { "-exec", "-exec_opt1", "-exec_opt2" };
+        String[] argv = {"-exec", "-exec_opt1", "-exec_opt2"};
         final OptionGroup grp = new OptionGroup();
 
-        grp.addOption(new Option("exec",false,"description for this option"));
+        grp.addOption(new Option("exec", false, "description for this option"));
 
-        grp.addOption(new Option("rep",false,"description for this option"));
+        grp.addOption(new Option("rep", false, "description for this option"));
 
         mainOptions.addOptionGroup(grp);
 
@@ -179,68 +172,59 @@ public class BugsTest
         // first parse the main options to see what the user has specified
         // We set stopAtNonOption to true so it does not touch the remaining
         // options
-        CommandLine cmd = parser.parse(mainOptions,argv,true);
+        CommandLine cmd = parser.parse(mainOptions, argv, true);
         // get the remaining options...
         argv = cmd.getArgs();
 
-        if(cmd.hasOption("exec"))
-        {
-            cmd = parser.parse(execOptions,argv,false);
+        if (cmd.hasOption("exec")) {
+            cmd = parser.parse(execOptions, argv, false);
             // process the exec_op1 and exec_opt2...
-            assertTrue( cmd.hasOption("exec_opt1") );
-            assertTrue( cmd.hasOption("exec_opt2") );
-        }
-        else if(cmd.hasOption("rep"))
-        {
-            cmd = parser.parse(repOptions,argv,false);
+            assertTrue(cmd.hasOption("exec_opt1"));
+            assertTrue(cmd.hasOption("exec_opt2"));
+        } else if (cmd.hasOption("rep")) {
+            cmd = parser.parse(repOptions, argv, false);
             // process the rep_op1 and rep_opt2...
-        }
-        else {
-            fail( "exec option not found" );
+        } else {
+            fail("exec option not found");
         }
     }
 
     @Test
-    public void test13425() throws Exception
-    {
+    public void test13425() throws Exception {
         final Options options = new Options();
-        final Option oldpass = OptionBuilder.withLongOpt( "old-password" )
-            .withDescription( "Use this option to specify the old password" )
+        //@formatter:off
+        final Option oldpass = OptionBuilder.withLongOpt("old-password")
+            .withDescription("Use this option to specify the old password")
             .hasArg()
-            .create( 'o' );
-        final Option newpass = OptionBuilder.withLongOpt( "new-password" )
-            .withDescription( "Use this option to specify the new password" )
+            .create('o');
+        final Option newpass = OptionBuilder.withLongOpt("new-password")
+            .withDescription("Use this option to specify the new password")
             .hasArg()
-            .create( 'n' );
+            .create('n');
+        //@formatter:on
 
-        final String[] args = {
-            "-o",
-            "-n",
-            "newpassword"
-        };
+        final String[] args = {"-o", "-n", "newpassword"};
 
-        options.addOption( oldpass );
-        options.addOption( newpass );
+        options.addOption(oldpass);
+        options.addOption(newpass);
 
         final Parser parser = new PosixParser();
 
         try {
-            parser.parse( options, args );
-            fail( "MissingArgumentException not caught." );
-        } catch( final MissingArgumentException expected ) {
+            parser.parse(options, args);
+            fail("MissingArgumentException not caught.");
+        } catch (final MissingArgumentException expected) {
         }
     }
 
     @Test
-    public void test13666() throws Exception
-    {
+    public void test13666() throws Exception {
         final Options options = new Options();
-        final Option dir = OptionBuilder.withDescription( "dir" ).hasArg().create( 'd' );
-        options.addOption( dir );
+        final Option dir = OptionBuilder.withDescription("dir").hasArg().create('d');
+        options.addOption(dir);
 
         final PrintStream oldSystemOut = System.out;
-        try
-        {
+        try {
             final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             final PrintStream print = new PrintStream(bytes);
 
@@ -252,66 +236,60 @@ public class BugsTest
             System.setOut(new PrintStream(bytes));
 
             final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp( "dir", options );
+            formatter.printHelp("dir", options);
 
-            assertEquals("usage: dir"+eol+" -d <arg>   dir"+eol,bytes.toString());
-        }
-        finally
-        {
+            assertEquals("usage: dir" + eol + " -d <arg>   dir" + eol, bytes.toString());
+        } finally {
             System.setOut(oldSystemOut);
         }
     }
 
     @Test
-    public void test13935() throws Exception
-    {
+    public void test13935() throws Exception {
         final OptionGroup directions = new OptionGroup();
 
-        final Option left = new Option( "l", "left", false, "go left" );
-        final Option right = new Option( "r", "right", false, "go right" );
-        final Option straight = new Option( "s", "straight", false, "go straight" );
-        final Option forward = new Option( "f", "forward", false, "go forward" );
-        forward.setRequired( true );
+        final Option left = new Option("l", "left", false, "go left");
+        final Option right = new Option("r", "right", false, "go right");
+        final Option straight = new Option("s", "straight", false, "go straight");
+        final Option forward = new Option("f", "forward", false, "go forward");
+        forward.setRequired(true);
 
-        directions.addOption( left );
-        directions.addOption( right );
-        directions.setRequired( true );
+        directions.addOption(left);
+        directions.addOption(right);
+        directions.setRequired(true);
 
         final Options opts = new Options();
-        opts.addOptionGroup( directions );
-        opts.addOption( straight );
+        opts.addOptionGroup(directions);
+        opts.addOption(straight);
 
         final CommandLineParser parser = new PosixParser();
 
-        String[] args = new String[] {  };
+        String[] args = {};
         try {
             parser.parse(opts, args);
             fail("Expected ParseException");
-        }
-        catch (final ParseException expected) {
+        } catch (final ParseException expected) {
         }
 
-        args = new String[] { "-s" };
+        args = new String[] {"-s"};
         try {
             parser.parse(opts, args);
             fail("Expected ParseException");
-        }
-        catch (final ParseException expected) {
+        } catch (final ParseException expected) {
         }
 
-        args = new String[] { "-s", "-l" };
+        args = new String[] {"-s", "-l"};
         CommandLine line = parser.parse(opts, args);
         assertNotNull(line);
 
-        opts.addOption( forward );
-        args = new String[] { "-s", "-l", "-f" };
+        opts.addOption(forward);
+        args = new String[] {"-s", "-l", "-f"};
         line = parser.parse(opts, args);
         assertNotNull(line);
     }
 
     @Test
-    public void test14786() throws Exception
-    {
+    public void test14786() throws Exception {
         final Option o = OptionBuilder.isRequired().withDescription("test").create("test");
         final Options opts = new Options();
         opts.addOption(o);
@@ -319,59 +297,56 @@ public class BugsTest
 
         final CommandLineParser parser = new GnuParser();
 
-        final String[] args = new String[] { "-test" };
+        final String[] args = {"-test"};
 
-        final CommandLine line = parser.parse( opts, args );
-        assertTrue( line.hasOption( "test" ) );
+        final CommandLine line = parser.parse(opts, args);
+        assertTrue(line.hasOption("test"));
     }
 
     @Test
-    public void test15046() throws Exception
-    {
+    public void test15046() throws Exception {
         final CommandLineParser parser = new PosixParser();
-        final String[] CLI_ARGS = new String[] {"-z", "c"};
+        final String[] cliArgs = {"-z", "c"};
 
         final Options options = new Options();
         options.addOption(new Option("z", "timezone", true, "affected option"));
 
-        parser.parse(options, CLI_ARGS);
+        parser.parse(options, cliArgs);
 
-        //now add conflicting option
+        // now add conflicting option
         options.addOption("c", "conflict", true, "conflict option");
-        final CommandLine line = parser.parse(options, CLI_ARGS);
-        assertEquals( line.getOptionValue('z'), "c" );
-        assertTrue( !line.hasOption("c") );
+        final CommandLine line = parser.parse(options, cliArgs);
+        assertEquals(line.getOptionValue('z'), "c");
+        assertFalse(line.hasOption("c"));
     }
 
     @Test
-    public void test15648() throws Exception
-    {
+    public void test15648() throws Exception {
         final CommandLineParser parser = new PosixParser();
-        final String[] args = new String[] { "-m", "\"Two Words\"" };
+        final String[] args = {"-m", "\"Two Words\""};
         final Option m = OptionBuilder.hasArgs().create("m");
         final Options options = new Options();
-        options.addOption( m );
-        final CommandLine line = parser.parse( options, args );
-        assertEquals( "Two Words", line.getOptionValue( "m" ) );
+        options.addOption(m);
+        final CommandLine line = parser.parse(options, args);
+        assertEquals("Two Words", line.getOptionValue("m"));
     }
 
     @Test
-    public void test31148() throws ParseException
-    {
-        final Option multiArgOption = new Option("o","option with multiple args");
+    public void test31148() throws ParseException {
+        final Option multiArgOption = new Option("o", "option with multiple args");
         multiArgOption.setArgs(1);
 
         final Options options = new Options();
         options.addOption(multiArgOption);
 
         final Parser parser = new PosixParser();
-        final String[] args = new String[]{};
+        final String[] args = {};
         final Properties props = new Properties();
-        props.setProperty("o","ovalue");
-        final CommandLine cl = parser.parse(options,args,props);
+        props.setProperty("o", "ovalue");
+        final CommandLine cl = parser.parse(options, args, props);
 
         assertTrue(cl.hasOption('o'));
-        assertEquals("ovalue",cl.getOptionValue('o'));
+        assertEquals("ovalue", cl.getOptionValue('o'));
     }
 
 }
