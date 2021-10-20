@@ -32,7 +32,7 @@ public class DefaultParserTest extends ParserTestCase {
     }
 
     @Test
-    public void testBuilder() throws Exception {
+    public void testBuilder() {
         parser = DefaultParser.builder()
                 .setStripLeadingAndTrailingQuotes(false)
                 .setAllowPartialMatching(false)
