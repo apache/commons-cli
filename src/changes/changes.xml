@@ -107,7 +107,7 @@
        Bump maven-bundle-plugin 5.1.1 -> 5.1.2.
      </action>
      <action type="update" dev="ggregory" due-to="Gary Gregory">
-       Bump biz.aQute.bndlib.version 5.1.2 -> 5.3.0.
+       Bump biz.aQute.bndlib.version 5.1.2 -> 6.0.0.
      </action>
      <action type="update" dev="ggregory" due-to="Dependabot">
        Bump spotbugs from 4.4.1 to 4.4.2 #70.
