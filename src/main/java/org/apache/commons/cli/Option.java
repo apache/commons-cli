@@ -88,18 +88,6 @@ public class Option implements Cloneable, Serializable {
         }
 
         /**
-         * Sets the name of the Option.
-         *
-         * @param opt the name of the Option
-         * @return this builder, to allow method chaining
-         * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
-         */
-        public Builder opt(String opt) throws IllegalArgumentException {
-            this.option = OptionValidator.validate(opt);
-            return this;
-        }
-
-        /**
          * Sets the display name for the argument value.
          *
          * @param argName the display name for the argument value.
@@ -184,6 +172,19 @@ public class Option implements Cloneable, Serializable {
          */
         public Builder numberOfArgs(final int numberOfArgs) {
             this.argCount = numberOfArgs;
+            return this;
+        }
+
+        /**
+         * Sets the name of the Option.
+         *
+         * @param option the name of the Option
+         * @return this builder, to allow method chaining
+         * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
+         * @since 1.5
+         */
+        public Builder option(String option) throws IllegalArgumentException {
+            this.option = OptionValidator.validate(option);
             return this;
         }
 
