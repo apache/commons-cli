@@ -51,7 +51,7 @@ public class Option implements Cloneable, Serializable {
     public static final class Builder {
 
         /** The name of the option */
-        private final String option;
+        private String option;
 
         /** description of the option */
         private String description;
@@ -85,6 +85,18 @@ public class Option implements Cloneable, Serializable {
          */
         private Builder(final String option) throws IllegalArgumentException {
             this.option = OptionValidator.validate(option);
+        }
+
+        /**
+         * Sets the name of the Option.
+         *
+         * @param opt the name of the Option
+         * @return this builder, to allow method chaining
+         * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
+         */
+        public Builder opt(String opt) throws IllegalArgumentException {
+            this.option = OptionValidator.validate(opt);
+            return this;
         }
 
         /**
