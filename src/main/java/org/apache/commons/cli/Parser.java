@@ -31,7 +31,7 @@ import java.util.Properties;
  */
 @Deprecated
 public abstract class Parser implements CommandLineParser {
-    /** commandline instance */
+    /** CommandLine instance */
     protected CommandLine cmd;
 
     /** current Options */
