@@ -60,7 +60,7 @@
       <action type="add" dev="ggregory" due-to="Alex Nordlund" issue="CLI-282">
         TypeHandler should throw ParseException for an unsupported class.
       </action>
-      <action type="add" dev="ggregory" due-to="waso, Gary Gregory">
+      <action type="add" dev="ggregory" due-to="Waldemar Sojka, Gary Gregory">
         Added setter for Builder.option #33.
       </action>
       <!-- UPDATE -->
