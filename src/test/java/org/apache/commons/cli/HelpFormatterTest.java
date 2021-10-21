@@ -294,6 +294,62 @@ public class HelpFormatterTest {
     }
 
     @Test
+    public void testPrintHelpNewlineFooter()
+    {
+        final HelpFormatter formatter = new HelpFormatter();
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final PrintWriter pw = new PrintWriter(out);
+
+        final Options options = new Options();
+        options.addOption("a", "b");
+
+        formatter.printHelp(
+            pw,
+            80,
+            "test" + EOL,
+            "header" + EOL,
+            options,
+            0,
+            0,
+            EOL
+        );
+        final String expected = "usage: test" + EOL +
+                          "header" + EOL +
+                          "-ab" + EOL +
+                          EOL;
+        pw.flush();
+        assertEquals("footer newline", expected, out.toString());
+    }
+
+    @Test
+    public void testPrintHelpNewlineHeader()
+    {
+        final HelpFormatter formatter = new HelpFormatter();
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final PrintWriter pw = new PrintWriter(out);
+
+        final Options options = new Options();
+        options.addOption("a", "b");
+
+        formatter.printHelp(
+            pw,
+            80,
+            "test" + EOL,
+            EOL,
+            options,
+            0,
+            0,
+            "footer" + EOL
+        );
+        String expected = "usage: test" + EOL +
+                          EOL +
+                          "-ab" + EOL +
+                          "footer" + EOL;
+        pw.flush();
+        assertEquals("header newline", expected, out.toString());
+    }
+
+    @Test
     public void testPrintHelpWithEmptySyntax() {
         final HelpFormatter formatter = new HelpFormatter();
         try {
