@@ -109,6 +109,8 @@ public class OptionTest {
             String.class);
         checkOption(Option.builder("a").desc("desc").type(Integer.class).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator,
             Integer.class);
+        checkOption(Option.builder().option("a").desc("desc").type(Integer.class).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false,
+                defaultSeparator, Integer.class);
     }
 
     @Test
