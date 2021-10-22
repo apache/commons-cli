@@ -294,8 +294,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void testPrintHelpNewlineFooter()
-    {
+    public void testPrintHelpNewlineFooter() {
         final HelpFormatter formatter = new HelpFormatter();
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         final PrintWriter pw = new PrintWriter(out);
@@ -322,8 +321,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void testPrintHelpNewlineHeader()
-    {
+    public void testPrintHelpNewlineHeader() {
         final HelpFormatter formatter = new HelpFormatter();
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
         final PrintWriter pw = new PrintWriter(out);

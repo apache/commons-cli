@@ -310,8 +310,7 @@ public abstract class Parser implements CommandLineParser {
                     if (opt.getValues() == null || opt.getValues().length == 0) {
                         try {
                             opt.addValueForProcessing(value);
-                        } catch (final RuntimeException exp) // NOPMD
-                        {
+                        } catch (final RuntimeException exp) { // NOPMD
                             // if we cannot add the value don't worry about it
                         }
                     }
