@@ -43,6 +43,9 @@
       <action type="fix" dev="ggregory" due-to="stoty" issue="CLI-254">
         Input "test" gets parsed as test, quotes die #58.
       </action>
+      <action type="fix" dev="ggregory" due-to="MrQubo, Gary Gregory" issue="CLI-287">
+        Allow whitespace-only header and footer #26.
+      </action>
       <!-- ADD -->
       <action type="add" dev="chtompki" due-to="Rubin Simons" issue="CLI-217">
         Accommodate toggling partial matching in DefaultParser.
