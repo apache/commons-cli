@@ -29,18 +29,22 @@ import java.util.Objects;
  * <p>
  * An Option is not created independently, but is created through an instance of {@link Options}. An Option is required
  * to have at least a short or a long-name.
+ * </p>
  * <p>
  * <b>Note:</b> once an {@link Option} has been added to an instance of {@link Options}, its required flag cannot be
  * changed.
+ * </p>
  *
  * @see org.apache.commons.cli.Options
  * @see org.apache.commons.cli.CommandLine
  */
 public class Option implements Cloneable, Serializable {
+
     /**
      * A nested builder class to create {@code Option} instances using descriptive methods.
      * <p>
      * Example usage:
+     * </p>
      *
      * <pre>
      * Option option = Option.builder("a").required(true).longOpt("arg-name").build();
@@ -84,7 +88,7 @@ public class Option implements Cloneable, Serializable {
          * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
          */
         private Builder(final String option) throws IllegalArgumentException {
-            this.option = OptionValidator.validate(option);
+            option(option);
         }
 
         /**
@@ -243,6 +247,7 @@ public class Option implements Cloneable, Serializable {
          * The Option will use {@code sep} as a means to separate argument values.
          * <p>
          * <b>Example:</b>
+         * </p>
          *
          * <pre>
          * Option opt = Option.builder("D").hasArgs().valueSeparator('=').build();
@@ -286,13 +291,13 @@ public class Option implements Cloneable, Serializable {
     /**
      * Returns a {@link Builder} to create an {@link Option} using descriptive methods.
      *
-     * @param opt short representation of the option
+     * @param option short representation of the option
      * @return a new {@link Builder} instance
      * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
      * @since 1.3
      */
-    public static Builder builder(final String opt) {
-        return new Builder(opt);
+    public static Builder builder(final String option) {
+        return new Builder(option);
     }
 
     /** The name of the option. */
@@ -835,6 +840,7 @@ public class Option implements Cloneable, Serializable {
      * <p>
      * <b>Note:</b> this method is kept for binary compatibility and the input type is supposed to be a {@link Class}
      * object.
+     * </p>
      *
      * @param type the type of this Option
      * @deprecated since 1.3, use {@link #setType(Class)} instead
