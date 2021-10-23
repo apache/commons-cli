@@ -185,7 +185,7 @@ public class Option implements Cloneable, Serializable {
          * @param option the name of the Option
          * @return this builder, to allow method chaining
          * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}
-         * @since 1.5
+         * @since 1.5.0
          */
         public Builder option(String option) throws IllegalArgumentException {
             this.option = OptionValidator.validate(option);

@@ -41,7 +41,7 @@ public class DefaultParser implements CommandLineParser {
      *     .build();
      * </pre>
      *
-     * @since 1.5
+     * @since 1.5.0
      */
     public static final class Builder {
 
@@ -64,7 +64,7 @@ public class DefaultParser implements CommandLineParser {
          * Builds an DefaultParser with the values declared by this {@link Builder}.
          *
          * @return the new {@link DefaultParser}
-         * @since 1.5
+         * @since 1.5.0
          */
         public DefaultParser build() {
             return new DefaultParser(allowPartialMatching, stripLeadingAndTrailingQuotes);
@@ -90,7 +90,7 @@ public class DefaultParser implements CommandLineParser {
          *
          * @param allowPartialMatching whether to allow partial matching of long options
          * @return this builder, to allow method chaining
-         * @since 1.5
+         * @since 1.5.0
          */
         public Builder setAllowPartialMatching(final boolean allowPartialMatching) {
             this.allowPartialMatching = allowPartialMatching;
@@ -110,7 +110,7 @@ public class DefaultParser implements CommandLineParser {
          *
          * @param stripLeadingAndTrailingQuotes whether balanced leading and trailing double quotes should be stripped from option arguments.
          * @return this builder, to allow method chaining
-         * @since 1.5
+         * @since 1.5.0
          */
         public Builder setStripLeadingAndTrailingQuotes(final Boolean stripLeadingAndTrailingQuotes) {
             this.stripLeadingAndTrailingQuotes = stripLeadingAndTrailingQuotes;
@@ -123,7 +123,7 @@ public class DefaultParser implements CommandLineParser {
      * methods.
      *
      * @return a new {@link Builder} instance
-     * @since 1.5
+     * @since 1.5.0
      */
     public static Builder builder() {
         return new Builder();

@@ -167,7 +167,7 @@ public class CommandLine implements Serializable {
      *
      * @param option name of the option.
      * @return The Properties mapped by the option, never {@code null} even if the option doesn't exists.
-     * @since 1.5
+     * @since 1.5.0
      */
     public Properties getOptionProperties(final Option option) {
         final Properties props = new Properties();
@@ -258,7 +258,7 @@ public class CommandLine implements Serializable {
      *
      * @param option the name of the option.
      * @return Value of the argument if option is set, and has an argument, otherwise null.
-     * @since 1.5
+     * @since 1.5.0
      */
     public String getOptionValue(final Option option) {
         if (option == null) {
@@ -274,7 +274,7 @@ public class CommandLine implements Serializable {
      * @param option name of the option.
      * @param defaultValue is the default value to be returned if the option is not specified.
      * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
-     * @since 1.5
+     * @since 1.5.0
      */
     public String getOptionValue(final Option option, final String defaultValue) {
         final String answer = getOptionValue(option);
@@ -317,7 +317,7 @@ public class CommandLine implements Serializable {
      *
      * @param option string name of the option.
      * @return Values of the argument if option is set, and has an argument, otherwise null.
-     * @since 1.5
+     * @since 1.5.0
      */
     public String[] getOptionValues(final Option option) {
         final List<String> values = new ArrayList<>();
@@ -348,7 +348,7 @@ public class CommandLine implements Serializable {
      * @return the value parsed into a particular object.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
-     * @since 1.5
+     * @since 1.5.0
      */
     public Object getParsedOptionValue(final char opt) throws ParseException {
         return getParsedOptionValue(String.valueOf(opt));
@@ -361,7 +361,7 @@ public class CommandLine implements Serializable {
      * @return the value parsed into a particular object.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
-     * @since 1.5
+     * @since 1.5.0
      */
     public Object getParsedOptionValue(final Option option) throws ParseException {
         if (option == null) {
@@ -420,7 +420,7 @@ public class CommandLine implements Serializable {
      *
      * @param opt the option to check.
      * @return true if set, false if not.
-     * @since 1.5
+     * @since 1.5.0
      */
     public boolean hasOption(final Option opt) {
         return options.contains(opt);

@@ -20,7 +20,7 @@
     <title>Apache Commons CLI Release Notes</title>
   </properties>
   <body>
-    <release version="1.5" date="tba" description="New features and bug fixes (Java 7)">
+    <release version="1.5.0" date="tba" description="New features and bug fixes (Java 7)">
       <!-- FIX -->
       <action type="fix" dev="ggregory" due-to="Gary Gregory">
         Fix NPE in DefaultParser.isLongOption(String).
