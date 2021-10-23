@@ -65,6 +65,9 @@
       <action type="add" dev="ggregory" due-to="Waldemar Sojka, Gary Gregory">
         Added setter for Builder.option #33.
       </action>
+      <action type="add" dev="ggregory" due-to="Waldemar Sojka, Gary Gregory">
+        Add Option unit tests #76.
+      </action>
       <!-- UPDATE -->
       <action type="update" dev="ggregory" issue="CLI-294">
         Update Java from version 5 to 7.
