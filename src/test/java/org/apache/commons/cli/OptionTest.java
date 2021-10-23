@@ -81,6 +81,26 @@ public class OptionTest {
         Option.builder(null).desc("desc").build();
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testBuilderInvalidOptionName1() {
+        Option.builder().option("invalid?");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testBuilderInvalidOptionName2() {
+        Option.builder().option("invalid@");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testBuilderInvalidOptionName3() {
+        Option.builder("invalid?");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testBuilderInvalidOptionName4() {
+        Option.builder("invalid@");
+    }
+
     @Test
     public void testBuilderMethods() {
         final char defaultSeparator = (char) 0;
