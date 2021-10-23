@@ -339,7 +339,7 @@ public class HelpFormatterTest {
             0,
             "footer" + EOL
         );
-        String expected = "usage: test" + EOL +
+        final String expected = "usage: test" + EOL +
                           EOL +
                           "-ab" + EOL +
                           "footer" + EOL;
