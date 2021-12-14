@@ -218,7 +218,7 @@
     <commons.felix.version>5.1.2</commons.felix.version>
     <biz.aQute.bndlib.version>6.0.0</biz.aQute.bndlib.version>
     <spotbugs.plugin.version>4.4.2.2</spotbugs.plugin.version>
-    <spotbugs.impl.version>4.4.2</spotbugs.impl.version>
+    <spotbugs.impl.version>4.5.2</spotbugs.impl.version>
     <commons.animal-sniffer.version>1.20</commons.animal-sniffer.version>
     <commons.japicmp.version>0.15.3</commons.japicmp.version>
     <clirr.skip>true</clirr.skip>
