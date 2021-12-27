@@ -105,7 +105,7 @@
        Bump checkstyle to 9.0.1 #68.
      </action>
      <action type="update" dev="ggregory" due-to="Dependabot">
-       Bump actions/cache from 2 to 2.1.6 #64, #65.
+       Bump actions/cache from 2 to 2.1.7 #64, #65, #81.
      </action>
      <action type="update" dev="ggregory" due-to="Gary Gregory">
        Bump commons.animal-sniffer.version 1.19 -> 1.20.
