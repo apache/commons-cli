@@ -43,7 +43,6 @@
 Apache Commons CLI
 ===================
 
-[![Travis-CI Status](https://travis-ci.org/apache/commons-cli.svg)](https://travis-ci.org/apache/commons-cli)
 [![GitHub Actions Status](https://github.com/apache/commons-cli/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-cli/actions)
 [![Coverage Status](https://coveralls.io/repos/apache/commons-cli/badge.svg)](https://coveralls.io/r/apache/commons-cli)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/)
