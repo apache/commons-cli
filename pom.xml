@@ -210,7 +210,7 @@
     <commons.encoding>utf-8</commons.encoding>
     <commons.checkstyle-plugin.version>3.1.2</commons.checkstyle-plugin.version>
     <commons.checkstyle.impl.version>9.2.1</commons.checkstyle.impl.version>
-    <commons.javadoc.version>3.3.1</commons.javadoc.version>
+    <commons.javadoc.version>3.3.2</commons.javadoc.version>
     <commons.javadoc.java.link>${commons.javadoc7.java.link}</commons.javadoc.java.link>
     <commons.jacoco.version>0.8.7</commons.jacoco.version>
     <commons.surefire-report.version>3.0.0-M5</commons.surefire-report.version>
