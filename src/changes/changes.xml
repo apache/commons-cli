@@ -117,7 +117,7 @@
        Bump biz.aQute.bndlib.version 5.1.2 -> 6.0.0.
      </action>
      <action type="update" dev="ggregory" due-to="Dependabot">
-       Bump spotbugs from 4.4.1 to 4.4.2 #70.
+       Bump spotbugs from 4.4.1 to 4.5.3 #70, #88.
      </action>
      <action type="update" dev="ggregory" due-to="Dependabot">
        Bump spotbugs-maven-plugin from 4.4.1 to 4.5.2.0 #71, #85.
