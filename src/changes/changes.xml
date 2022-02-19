@@ -122,6 +122,9 @@
      <action type="update" dev="ggregory" due-to="Dependabot">
        Bump spotbugs-maven-plugin from 4.4.1 to 4.5.2.0 #71, #85.
      </action>
+     <action type="update" dev="ggregory" due-to="Dependabot">
+       Bump maven-javadoc-plugin from 3.3.1 to 3.3.2, #91.
+     </action>
     </release>
 
     <release version="1.4" date="2017-03-09" description="New features and bug fixes">
