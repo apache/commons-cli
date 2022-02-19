@@ -47,6 +47,7 @@ Apache Commons CLI
 [![Coverage Status](https://coveralls.io/repos/apache/commons-cli/badge.svg)](https://coveralls.io/r/apache/commons-cli)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/)
 [![Javadocs](https://javadoc.io/badge/commons-cli/commons-cli/1.5.0.svg)](https://javadoc.io/doc/commons-cli/commons-cli/1.5.0)
+[![CodeQL](https://github.com/apache/commons-cli/workflows/CodeQL/badge.svg)](https://github.com/apache/commons-cli/actions?query=workflow%3ACodeQL)
 
 Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
 
