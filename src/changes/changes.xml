@@ -120,7 +120,7 @@
         Bump spotbugs from 4.4.1 to 4.5.3 #70, #88.
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
-        Bump spotbugs-maven-plugin from 4.4.1 to 4.5.2.0 #71, #85.
+        Bump spotbugs-maven-plugin from 4.4.1 to 4.5.3.0 #71, #85, #87.
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
         Bump maven-javadoc-plugin from 3.3.1 to 3.3.2, #91.
