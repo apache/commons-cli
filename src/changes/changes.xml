@@ -21,6 +21,10 @@
   </properties>
   <body>
     <release version="1.6" date="tbd" description="New features and bug fixes">
+      <!-- UPDATES -->
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">
+        Bump spotbugs from 4.5.3 to 4.6.0 #96
+      </action>
     </release>
     <release version="1.5.0" date="10-23-2021" description="New features and bug fixes (Java 7).">
       <!-- FIX -->
