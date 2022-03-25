@@ -28,6 +28,9 @@
       <action type="fix" dev="ggregory" due-to="Dependabot">
         Bump actions/cache from 2.1.7 to 3 #97.
       </action>
+      <action type="fix" dev="ggregory" due-to="Dependabot">
+        Bump spotbugs-maven-plugin from 4.5.3.0 to 4.6.0.0 #98.
+      </action>
     </release>
     <release version="1.5.0" date="10-23-2021" description="New features and bug fixes (Java 7).">
       <!-- FIX -->
