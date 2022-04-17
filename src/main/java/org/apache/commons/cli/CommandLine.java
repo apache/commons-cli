@@ -25,6 +25,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
+import static org.apache.commons.cli.Util.EMPTY_STRING_ARRAY;
+
 /**
  * Represents list of arguments parsed against a {@link Options} descriptor.
  * <p>
@@ -328,7 +330,7 @@ public class CommandLine implements Serializable {
             }
         }
 
-        return values.isEmpty() ? null : values.toArray(new String[values.size()]);
+        return values.isEmpty() ? null : values.toArray(EMPTY_STRING_ARRAY);
     }
 
     /**
