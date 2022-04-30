@@ -21,6 +21,10 @@
   </properties>
   <body>
     <release version="1.6" date="tbd" description="New features and bug fixes">
+      <!-- ADD -->
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+        Add github/codeql-action.
+      </action>
       <!-- UPDATES -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
         Bump actions/cache from 2.1.7 to 3.0.2 #97.
