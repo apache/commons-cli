@@ -415,7 +415,7 @@ public class Option implements Cloneable, Serializable {
      */
     private void add(final String value) {
         if (!acceptsArg()) {
-            throw new RuntimeException("Cannot add value, list full.");
+            throw new IllegalArgumentException("Cannot add value, list full.");
         }
 
         // store value
@@ -444,7 +444,7 @@ public class Option implements Cloneable, Serializable {
      */
     void addValueForProcessing(final String value) {
         if (argCount == UNINITIALIZED) {
-            throw new RuntimeException("NO_ARGS_ALLOWED");
+            throw new IllegalArgumentException("NO_ARGS_ALLOWED");
         }
         processValue(value);
     }
@@ -475,7 +475,7 @@ public class Option implements Cloneable, Serializable {
             option.values = new ArrayList<>(values);
             return option;
         } catch (final CloneNotSupportedException cnse) {
-            throw new RuntimeException("A CloneNotSupportedException was thrown: " + cnse.getMessage());
+            throw new IllegalStateException("A CloneNotSupportedException was thrown: " + cnse.getMessage());
         }
     }
 
