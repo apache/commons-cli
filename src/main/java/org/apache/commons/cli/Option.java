@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static org.apache.commons.cli.Util.EMPTY_STRING_ARRAY;
+
 /**
  * Describes a single command-line option. It maintains information regarding the short-name of the option, the
  * long-name, if any exists, a flag indicating if an argument is required for this option, and a self-documenting
@@ -617,7 +619,7 @@ public class Option implements Cloneable, Serializable {
      * @return the values of this Option as a String array or null if there are no values
      */
     public String[] getValues() {
-        return hasNoValues() ? null : values.toArray(new String[values.size()]);
+        return hasNoValues() ? null : values.toArray(EMPTY_STRING_ARRAY);
     }
 
     /**
