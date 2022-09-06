@@ -43,6 +43,9 @@
         Bump actions/cache from 2.1.7 to 3.0.8 #97.
       </action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump actions/checkout from 3 to 3.0.2.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
         Bump actions/setup-java from 2 to 3.
       </action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">
