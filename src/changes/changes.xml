@@ -69,6 +69,9 @@
       <action type="update" dev="ggregory" due-to="Gary Gregory">
         Bump jacoco-maven-plugin from 0.8.7 to 0.8.8.
       </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 #121.
+      </action>
     </release>
     <release version="1.5.0" date="10-23-2021" description="New features and bug fixes (Java 7).">
       <!-- FIX -->
