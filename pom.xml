@@ -220,7 +220,7 @@
     <spotbugs.plugin.version>4.7.2.0</spotbugs.plugin.version>
     <spotbugs.impl.version>4.7.2</spotbugs.impl.version>
     <commons.animal-sniffer.version>1.20</commons.animal-sniffer.version>
-    <commons.japicmp.version>0.15.3</commons.japicmp.version>
+    <commons.japicmp.version>0.16.0</commons.japicmp.version>
     <findbugs.skip>true</findbugs.skip>
     <japicmp.skip>false</japicmp.skip>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
