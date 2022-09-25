@@ -183,9 +183,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.2</version>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -221,6 +220,7 @@
     <spotbugs.impl.version>4.7.2</spotbugs.impl.version>
     <commons.animal-sniffer.version>1.20</commons.animal-sniffer.version>
     <commons.japicmp.version>0.16.0</commons.japicmp.version>
+    <commons.junit.version>5.9.1</commons.junit.version>
     <findbugs.skip>true</findbugs.skip>
     <japicmp.skip>false</japicmp.skip>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
