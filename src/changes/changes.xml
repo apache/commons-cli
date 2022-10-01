@@ -46,7 +46,7 @@
         Bump actions/checkout from 3 to 3.0.2.
       </action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">
-        Bump actions/setup-java from 2 to 3.
+        Bump actions/setup-java from 2 to 3.5.1.
       </action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">
         Bump spotbugs from 4.5.3 to 4.7.2 #96, #107, #113, #125.
