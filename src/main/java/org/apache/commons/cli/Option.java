@@ -17,12 +17,12 @@
 
 package org.apache.commons.cli;
 
+import static org.apache.commons.cli.Util.EMPTY_STRING_ARRAY;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static org.apache.commons.cli.Util.EMPTY_STRING_ARRAY;
 
 /**
  * Describes a single command-line option. It maintains information regarding the short-name of the option, the
@@ -279,6 +279,9 @@ public class Option implements Cloneable, Serializable {
 
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
+
+    /** Empty array. */
+    static final Option[] EMPTY_ARRAY = {};
 
     /**
      * Returns a {@link Builder} to create an {@link Option} using descriptive methods.

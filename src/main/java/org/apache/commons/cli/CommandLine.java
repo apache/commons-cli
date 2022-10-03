@@ -17,15 +17,14 @@
 
 package org.apache.commons.cli;
 
+import static org.apache.commons.cli.Util.EMPTY_STRING_ARRAY;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
-
-import static org.apache.commons.cli.Util.EMPTY_STRING_ARRAY;
 
 /**
  * Represents list of arguments parsed against a {@link Options} descriptor.
@@ -125,11 +124,7 @@ public class CommandLine implements Serializable {
      * @return remaining items passed in but not parsed as an array.
      */
     public String[] getArgs() {
-        final String[] answer = new String[args.size()];
-
-        args.toArray(answer);
-
-        return answer;
+        return args.toArray(Util.EMPTY_STRING_ARRAY);
     }
 
     /**
@@ -225,13 +220,7 @@ public class CommandLine implements Serializable {
      * @return an array of the processed {@link Option}s.
      */
     public Option[] getOptions() {
-        final Collection<Option> processed = options;
-
-        // reinitialize array
-        final Option[] optionsArray = new Option[processed.size()];
-
-        // return the array
-        return processed.toArray(optionsArray);
+        return options.toArray(Option.EMPTY_ARRAY);
     }
 
     /**
