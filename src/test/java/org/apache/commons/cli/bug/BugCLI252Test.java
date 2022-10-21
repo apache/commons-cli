@@ -24,6 +24,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class BugCLI252Test {
 
     private Options getOptions() {
@@ -33,9 +35,11 @@ public class BugCLI252Test {
         return options;
     }
 
-    @Test(expected = AmbiguousOptionException.class)
-    public void testAmbiquousOptionName() throws ParseException {
-        new DefaultParser().parse(getOptions(), new String[] {"--pref"});
+    @Test
+    public void testAmbiquousOptionName() {
+        assertThrows(AmbiguousOptionException.class, () ->
+                new DefaultParser().parse(getOptions(), new String[]{"--pref"})
+        );
     }
 
     @Test
