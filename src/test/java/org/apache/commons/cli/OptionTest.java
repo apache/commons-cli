@@ -17,6 +17,7 @@
 
 package org.apache.commons.cli;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -27,6 +28,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class OptionTest {
+
     private static class DefaultOption extends Option {
         private static final long serialVersionUID = 1L;
 
@@ -71,34 +73,40 @@ public class OptionTest {
         assertEquals(cls, option.getType());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInsufficientParams1() {
-        Option.builder().desc("desc").build();
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder().desc("desc").build());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInsufficientParams2() {
-        Option.builder(null).desc("desc").build();
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder(null).desc("desc").build());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInvalidOptionName1() {
-        Option.builder().option("invalid?");
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder().option("invalid?"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInvalidOptionName2() {
-        Option.builder().option("invalid@");
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder().option("invalid@"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInvalidOptionName3() {
-        Option.builder("invalid?");
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder("invalid?"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInvalidOptionName4() {
-        Option.builder("invalid@");
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder("invalid@"));
     }
 
     @Test
