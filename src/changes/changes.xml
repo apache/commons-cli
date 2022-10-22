@@ -39,6 +39,9 @@
         Add github/codeql-action.
       </action>
       <!-- UPDATES -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump Java from 7 to 8.
+      </action>
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
         Bump actions/cache from 2.1.7 to 3.0.10 #97, #130, #132.
       </action>
