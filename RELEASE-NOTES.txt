@@ -243,7 +243,7 @@ BUG FIXES
 =========
 
 o CLI-137: The number of arguments defined for an option specifies the
-           arguments per occurence of the option and not for all occurences.
+           arguments per occurence of the option and not for all occurrences.
 o CLI-164: PosixParser no longer ignores unrecognized short options.
 o CLI-163: PosixParser no longer stops the bursting process of a token if
            stopAtNonOption is enabled and a non option character is
