@@ -556,7 +556,7 @@ public class DefaultParser implements CommandLineParser {
      *
      * @param token the command line token to handle
      */
-    private void handleUnknownToken(final String token) throws ParseException {
+    protected void handleUnknownToken(final String token) throws ParseException {
         if (token.startsWith("-") && token.length() > 1 && !stopAtNonOption) {
             throw new UnrecognizedOptionException("Unrecognized option: " + token, token);
         }
