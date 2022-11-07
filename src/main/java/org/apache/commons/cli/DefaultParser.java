@@ -106,7 +106,7 @@ public class DefaultParser implements CommandLineParser {
          *
          * If "stripping of balanced leading and trailing double quotes from option arguments" is null,
          * then quotes will be stripped from option values separated by space from the option, but
-         * kept in other cases, which is the historic behaviour.
+         * kept in other cases, which is the historic behavior.
          *
          * @param stripLeadingAndTrailingQuotes whether balanced leading and trailing double quotes should be stripped from option arguments.
          * @return this builder, to allow method chaining
@@ -157,7 +157,7 @@ public class DefaultParser implements CommandLineParser {
     private final boolean allowPartialMatching;
 
     /** Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments.
-     * null represents the historic arbitrary behaviour */
+     * null represents the historic arbitrary behavior */
     private final Boolean stripLeadingAndTrailingQuotes;
 
     /**
