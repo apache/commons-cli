@@ -17,6 +17,7 @@
 
 package org.apache.commons.cli;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -43,14 +44,16 @@ public class TypeHandlerTest {
         assertEquals(Instantiable.class, clazz);
     }
 
-    @Test(expected = ParseException.class)
-    public void testCreateValueClass_notFound() throws Exception {
-        TypeHandler.createValue("what ever", PatternOptionBuilder.CLASS_VALUE);
+    @Test
+    public void testCreateValueClass_notFound() {
+        assertThrows(ParseException.class, () ->
+                TypeHandler.createValue("what ever", PatternOptionBuilder.CLASS_VALUE));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void testCreateValueDate() throws Exception {
-        TypeHandler.createValue("what ever", PatternOptionBuilder.DATE_VALUE);
+    @Test
+    public void testCreateValueDate() {
+        assertThrows(UnsupportedOperationException.class, () ->
+                TypeHandler.createValue("what ever", PatternOptionBuilder.DATE_VALUE));
     }
 
     @Test
@@ -61,9 +64,10 @@ public class TypeHandlerTest {
         }
     }
 
-    @Test(expected = ParseException.class)
-    public void testCreateValueExistingFile_nonExistingFile() throws Exception {
-        TypeHandler.createValue("non-existing.file", PatternOptionBuilder.EXISTING_FILE_VALUE);
+    @Test
+    public void testCreateValueExistingFile_nonExistingFile() {
+        assertThrows(ParseException.class, () ->
+                TypeHandler.createValue("non-existing.file", PatternOptionBuilder.EXISTING_FILE_VALUE));
     }
 
     @Test
@@ -72,14 +76,16 @@ public class TypeHandlerTest {
         assertEquals("some-file.txt", result.getName());
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void testCreateValueFiles() throws Exception {
-        TypeHandler.createValue("some.files", PatternOptionBuilder.FILES_VALUE);
+    @Test
+    public void testCreateValueFiles() {
+        assertThrows(UnsupportedOperationException.class, () ->
+                TypeHandler.createValue("some.files", PatternOptionBuilder.FILES_VALUE));
     }
 
-    @Test(expected = ParseException.class)
-    public void testCreateValueInteger_failure() throws Exception {
-        TypeHandler.createValue("just-a-string", Integer.class);
+    @Test
+    public void testCreateValueInteger_failure() {
+        assertThrows(ParseException.class, () ->
+                TypeHandler.createValue("just-a-string", Integer.class));
     }
 
     @Test
@@ -92,9 +98,10 @@ public class TypeHandlerTest {
         assertEquals(Long.valueOf(15), TypeHandler.createValue("15", PatternOptionBuilder.NUMBER_VALUE));
     }
 
-    @Test(expected = ParseException.class)
-    public void testCreateValueNumber_noNumber() throws Exception {
-        TypeHandler.createValue("not a number", PatternOptionBuilder.NUMBER_VALUE);
+    @Test
+    public void testCreateValueNumber_noNumber() {
+        assertThrows(ParseException.class, () ->
+                TypeHandler.createValue("not a number", PatternOptionBuilder.NUMBER_VALUE));
     }
 
     @Test
@@ -103,14 +110,16 @@ public class TypeHandlerTest {
         assertTrue(result instanceof Instantiable);
     }
 
-    @Test(expected = ParseException.class)
-    public void testCreateValueObject_notInstantiableClass() throws Exception {
-        TypeHandler.createValue(NotInstantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE);
+    @Test
+    public void testCreateValueObject_notInstantiableClass() {
+        assertThrows(ParseException.class, () ->
+                TypeHandler.createValue(NotInstantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE));
     }
 
-    @Test(expected = ParseException.class)
-    public void testCreateValueObject_unknownClass() throws Exception {
-        TypeHandler.createValue("unknown", PatternOptionBuilder.OBJECT_VALUE);
+    @Test
+    public void testCreateValueObject_unknownClass() {
+        assertThrows(ParseException.class, () ->
+                TypeHandler.createValue("unknown", PatternOptionBuilder.OBJECT_VALUE));
     }
 
     @Test
@@ -125,8 +134,10 @@ public class TypeHandlerTest {
         assertEquals(urlString, result.toString());
     }
 
-    @Test(expected = ParseException.class)
-    public void testCreateValueURL_malformed() throws Exception {
-        TypeHandler.createValue("malformed-url", PatternOptionBuilder.URL_VALUE);
+    @Test
+    public void testCreateValueURL_malformed() {
+        assertThrows(ParseException.class, () ->
+                TypeHandler.createValue("malformed-url", PatternOptionBuilder.URL_VALUE));
     }
+
 }
