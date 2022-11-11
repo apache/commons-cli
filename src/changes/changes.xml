@@ -55,7 +55,7 @@
         Bump spotbugs from 4.5.3 to 4.7.3 #96, #107, #113, #125, #138.
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
-        Bump spotbugs-maven-plugin from 4.5.3.0 to 4.7.2.0 #98, #108, #115, #117, #126.
+        Bump spotbugs-maven-plugin from 4.5.3.0 to 4.7.3.0 #98, #108, #115, #117, #126, #145.
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
         Bump commons-parent from 52 to 54 #100, #128.
