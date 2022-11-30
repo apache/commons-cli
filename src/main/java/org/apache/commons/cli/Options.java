@@ -225,11 +225,8 @@ public class Options implements Serializable {
     public Option getOption(String opt) {
         opt = Util.stripLeadingHyphens(opt);
 
-        if (shortOpts.containsKey(opt)) {
-            return shortOpts.get(opt);
-        }
-
-        return longOpts.get(opt);
+        final Option option = shortOpts.get(opt);
+        return option != null ? option : longOpts.get(opt);
     }
 
     /**
