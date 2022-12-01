@@ -217,8 +217,6 @@
     <commons.javadoc.version>3.4.1</commons.javadoc.version>
     <commons.javadoc.java.link>${commons.javadoc7.java.link}</commons.javadoc.java.link>
     <commons.jacoco.version>0.8.8</commons.jacoco.version>
-    <commons.surefire-report.version>3.0.0-M5</commons.surefire-report.version>
-    <commons.surefire.version>3.0.0-M5</commons.surefire.version>
     <commons.felix.version>5.1.2</commons.felix.version>
     <spotbugs.plugin.version>4.7.3.0</spotbugs.plugin.version>
     <spotbugs.impl.version>4.7.3</spotbugs.impl.version>
