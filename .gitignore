@@ -17,4 +17,9 @@ site-content
 /.classpath
 /.project
 /.settings/
-/commons-cli.iml
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.ipr
+*.iml
