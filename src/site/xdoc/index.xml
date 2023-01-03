@@ -70,7 +70,7 @@ usage: ls
         The Javadoc API documents are available online:
       </p>
       <ul>
-        <li><a href="/apidocs/index.html">Javadoc latest</a></li>
+        <li><a href="apidocs/index.html">Javadoc latest</a></li>
         <li><a href="https://javadoc.io/doc/commons-cli/commons-cli/latest/index.html">Javadoc archives</a></li>
       </ul>
       <p>
@@ -83,7 +83,7 @@ usage: ls
       <p>
         <a href="https://commons.apache.org/cli/download_cli.cgi">Download</a> the latest version. 
         <br/>
-        The <a href="/changes-report.html">release notes</a> are also available.
+        The <a href="changes-report.html">release notes</a> are also available.
       </p>
       <p>
         For previous releases, see the <a href="https://archive.apache.org/dist/commons/cli/">Apache Archive</a>.
