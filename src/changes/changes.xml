@@ -31,8 +31,11 @@
       <action type="update" dev="ggregory" due-to="Gary Gregory">
         Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 474-478] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION
       </action>
-      <action type="update" dev="ggregory" due-to="Arturo Bernal">
+      <action type="update" dev="ggregory" due-to="Ken Dombeck">
         Use EMPTY_STRING_ARRAY constant. #102.
+      </action>
+      <action type="update" dev="ggregory" due-to="Arturo Bernal">
+        Fix site links that are broken #155.
       </action>
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
