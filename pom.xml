@@ -212,7 +212,7 @@
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-cli</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
-    <commons.checkstyle.impl.version>9.3</commons.checkstyle.impl.version>
+    <commons.checkstyle.impl.version>10.6.0</commons.checkstyle.impl.version>
     <commons.javadoc.java.link>${commons.javadoc7.java.link}</commons.javadoc.java.link>
     <commons.felix.version>5.1.2</commons.felix.version>
     <spotbugs.plugin.version>4.7.3.0</spotbugs.plugin.version>
