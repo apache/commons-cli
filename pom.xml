@@ -221,7 +221,6 @@
     <spotbugs.plugin.version>4.7.3.0</spotbugs.plugin.version>
     <spotbugs.impl.version>4.7.3</spotbugs.impl.version>
     <commons.japicmp.version>0.16.0</commons.japicmp.version>
-    <commons.junit.version>5.9.1</commons.junit.version>
     <findbugs.skip>true</findbugs.skip>
     <japicmp.skip>false</japicmp.skip>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
