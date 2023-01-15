@@ -61,7 +61,7 @@ o           Bump spotbugs-maven-plugin from 4.4.1 to 4.4.2.2 #71. Thanks to Depe
 Historical list of changes: https://commons.apache.org/proper/commons-cli/changes-report.html
 
 For complete information on Apache Commons CLI, including instructions on how to submit bug reports,
-patches, or suggestions for improvement, see the Apache Apache Commons CLI website:
+patches, or suggestions for improvement, see the Apache Commons CLI website:
 
 https://commons.apache.org/proper/commons-cli/
 
