@@ -212,7 +212,6 @@
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-cli</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
-    <commons.checkstyle.impl.version>9.3</commons.checkstyle.impl.version>
     <commons.javadoc.java.link>${commons.javadoc7.java.link}</commons.javadoc.java.link>
     <spotbugs.plugin.version>4.7.3.0</spotbugs.plugin.version>
     <spotbugs.impl.version>4.7.3</spotbugs.impl.version>
@@ -240,20 +239,12 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>${commons.checkstyle-plugin.version}</version>
           <configuration>
             <configLocation>${basedir}/src/conf/checkstyle.xml</configLocation>
             <suppressionsLocation>${basedir}/src/conf/checkstyle-suppressions.xml</suppressionsLocation>
             <enableRulesSummary>false</enableRulesSummary>
             <includeTestSourceDirectory>true</includeTestSourceDirectory>
           </configuration>
-          <dependencies>
-            <dependency>
-              <groupId>com.puppycrawl.tools</groupId>
-              <artifactId>checkstyle</artifactId>
-              <version>${commons.checkstyle.impl.version}</version>
-            </dependency>
-          </dependencies>
         </plugin>      
       <plugin>
         <groupId>com.github.spotbugs</groupId>
