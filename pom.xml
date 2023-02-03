@@ -212,7 +212,6 @@
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-cli</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
-    <commons.javadoc.java.link>${commons.javadoc7.java.link}</commons.javadoc.java.link>
     <spotbugs.plugin.version>4.7.3.0</spotbugs.plugin.version>
     <spotbugs.impl.version>4.7.3</spotbugs.impl.version>
     <findbugs.skip>true</findbugs.skip>
@@ -289,18 +288,6 @@
             <descriptor>src/assembly/src.xml</descriptor>
           </descriptors>
           <tarLongFileMode>gnu</tarLongFileMode>
-        </configuration>
-      </plugin>
-      <!--
-        Fix for https://bugs.openjdk.java.net/browse/JDK-8212233
-        which is addressed in maven-javadoc-plugin:3.1.0, see https://issues.apache.org/jira/browse/MJAVADOC-562
-      -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${commons.javadoc.version}</version>
-        <configuration>
-          <source>7</source>
         </configuration>
       </plugin>
       <plugin>
