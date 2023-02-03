@@ -212,8 +212,6 @@
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-cli</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
-    <spotbugs.plugin.version>4.7.3.0</spotbugs.plugin.version>
-    <spotbugs.impl.version>4.7.3</spotbugs.impl.version>
     <findbugs.skip>true</findbugs.skip>
     <japicmp.skip>false</japicmp.skip>
     <commons.releaseManagerName>Rob Tompkins</commons.releaseManagerName>
@@ -248,14 +246,6 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>${spotbugs.plugin.version}</version>
-        <dependencies>
-          <dependency>
-            <groupId>com.github.spotbugs</groupId>
-            <artifactId>spotbugs</artifactId>
-            <version>${spotbugs.impl.version}</version>
-         </dependency>
-        </dependencies>
         <configuration>
           <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
