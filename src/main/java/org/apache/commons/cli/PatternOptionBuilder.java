@@ -170,7 +170,6 @@ public class PatternOptionBuilder {
                     options.addOption(option);
                     required = false;
                     type = null;
-                    opt = ' ';
                 }
 
                 opt = ch;
