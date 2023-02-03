@@ -37,6 +37,9 @@
       <action type="update" dev="ggregory" due-to="Arturo Bernal">
         Fix site links that are broken #155.
       </action>
+      <action type="update" dev="ggregory" due-to="Arturo Bernal">
+        Use Math.max() #111.
+      </action>
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
         Add github/codeql-action.
