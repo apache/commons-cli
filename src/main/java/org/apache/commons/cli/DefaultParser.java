@@ -271,18 +271,18 @@ public class DefaultParser implements CommandLineParser {
      * @param token the token (may contain leading dashes)
      * @return the list of matching option strings or an empty list if no matching option could be found
      */
-    private List<String> getMatchingLongOptions(final String token) {
-        if (allowPartialMatching) {
-            return options.getMatchingOptions(token);
-        }
-        final List<String> matches = new ArrayList<>(1);
-        if (options.hasLongOption(token)) {
-            final Option option = options.getOption(token);
-            matches.add(option.getLongOpt());
-        }
-
-        return matches;
-    }
+//    private List<String> getMatchingLongOptions(final String token) {
+//        if (allowPartialMatching) {
+//            return options.getMatchingOptions(token);
+//        }
+//        final List<String> matches = new ArrayList<>(1);
+//        if (options.hasLongOption(token)) {
+//            final Option option = options.getOption(token);
+//            matches.add(option.getLongOpt());
+//        }
+//
+//        return matches;
+//    }
 
     /**
      * Breaks {@code token} into its constituent parts using the following algorithm.
@@ -351,7 +351,7 @@ public class DefaultParser implements CommandLineParser {
 
         final String opt = token.substring(0, pos);
 
-        final List<String> matchingOpts = getMatchingLongOptions(opt);
+        final List<String> matchingOpts = options.getMatchingOptions(opt);
         if (matchingOpts.isEmpty()) {
             handleUnknownToken(currentToken);
         } else if (matchingOpts.size() > 1 && !options.hasLongOption(opt)) {
@@ -378,7 +378,7 @@ public class DefaultParser implements CommandLineParser {
      * @param token the command line token to handle
      */
     private void handleLongOptionWithoutEqual(final String token) throws ParseException {
-        final List<String> matchingOpts = getMatchingLongOptions(token);
+        final List<String> matchingOpts = options.getMatchingLongOptions(token,allowPartialMatching);
         if (matchingOpts.isEmpty()) {
             handleUnknownToken(currentToken);
         } else if (matchingOpts.size() > 1 && !options.hasLongOption(token)) {
@@ -472,7 +472,7 @@ public class DefaultParser implements CommandLineParser {
             // no equal sign found (-xxx)
             if (options.hasShortOption(t)) {
                 handleOption(options.getOption(t));
-            } else if (!getMatchingLongOptions(t).isEmpty()) {
+            } else if (!options.getMatchingLongOptions(t,allowPartialMatching).isEmpty()) {
                 // -L or -l
                 handleLongOptionWithoutEqual(token);
             } else {
@@ -591,15 +591,14 @@ public class DefaultParser implements CommandLineParser {
      *
      * @param token
      */
-    private boolean isLongOption(final String token) {
+    private boolean isLongOption(final String token,Options options) {
         if (token == null || !token.startsWith("-") || token.length() == 1) {
             return false;
         }
-
         final int pos = token.indexOf("=");
         final String t = pos == -1 ? token : token.substring(0, pos);
 
-        if (!getMatchingLongOptions(t).isEmpty()) {
+        if (!options.getMatchingLongOptions(t,allowPartialMatching).isEmpty()) {
             // long or partial long options (--L, -L, --L=V, -L=V, --l, --l=V)
             return true;
         }
@@ -631,7 +630,7 @@ public class DefaultParser implements CommandLineParser {
      * @param token
      */
     private boolean isOption(final String token) {
-        return isLongOption(token) || isShortOption(token);
+        return isLongOption(token,options) || isShortOption(token);
     }
 
     /**

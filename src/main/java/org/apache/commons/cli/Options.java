@@ -193,6 +193,19 @@ public class Options implements Serializable {
      * @return the options matching the partial name specified, or an empty list if none matches
      * @since 1.3
      */
+
+    public List<String> getMatchingLongOptions(final String token,Boolean allowPartialMatching ) {
+        if (allowPartialMatching) {
+            return getMatchingOptions(token);
+        }
+        final List<String> matches = new ArrayList<>(1);
+        if (hasLongOption(token)) {
+            final Option option = getOption(token);
+            matches.add(option.getLongOpt());
+        }
+
+        return matches;
+    }
     public List<String> getMatchingOptions(String opt) {
         opt = Util.stripLeadingHyphens(opt);
 
