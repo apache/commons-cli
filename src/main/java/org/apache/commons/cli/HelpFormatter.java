@@ -186,6 +186,14 @@ public class HelpFormatter {
      */
     protected Comparator<Option> optionComparator = new OptionComparator();
 
+    public boolean OptionHasBlanArgument(Option option)
+    {
+        boolean isOptionArgumentValid =(option.hasArg() &&
+                (option.getArgName() == null
+                        || !option.getArgName().isEmpty()));
+        return  isOptionArgumentValid;
+    }
+
     /** The separator displayed between the long option and its value. */
     private String longOptSeparator = DEFAULT_LONG_OPT_SEPARATOR;
 
@@ -208,7 +216,7 @@ public class HelpFormatter {
         }
 
         // if the Option has a value and a non blank argname
-        if (option.hasArg() && (option.getArgName() == null || !option.getArgName().isEmpty())) {
+        if (OptionHasBlanArgument(option)) {
             buff.append(option.getOpt() == null ? longOptSeparator : " ");
             buff.append("<").append(option.getArgName() != null ? option.getArgName() : getArgName()).append(">");
         }
