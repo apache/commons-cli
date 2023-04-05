@@ -830,17 +830,16 @@ public class HelpFormatter {
      * @return The String of without the trailing padding
      */
     protected String rtrim(final String s) {
+        String trimmedString=" ";
         if (s == null || s.isEmpty()) {
             return s;
         }
-
         int pos = s.length();
-
         while (pos > 0 && Character.isWhitespace(s.charAt(pos - 1))) {
             --pos;
         }
-
-        return s.substring(0, pos);
+        trimmedString=s.substring(0, pos);
+        return trimmedString;
     }
 
     /**
