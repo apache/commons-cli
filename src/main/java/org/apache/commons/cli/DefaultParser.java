@@ -265,24 +265,7 @@ public class DefaultParser implements CommandLineParser {
         return opt;
     }
 
-    /**
-     * Gets a list of matching option strings for the given token, depending on the selected partial matching policy.
-     *
-     * @param token the token (may contain leading dashes)
-     * @return the list of matching option strings or an empty list if no matching option could be found
-     */
-//    private List<String> getMatchingLongOptions(final String token) {
-//        if (allowPartialMatching) {
-//            return options.getMatchingOptions(token);
-//        }
-//        final List<String> matches = new ArrayList<>(1);
-//        if (options.hasLongOption(token)) {
-//            final Option option = options.getOption(token);
-//            matches.add(option.getLongOpt());
-//        }
-//
-//        return matches;
-//    }
+
 
     /**
      * Breaks {@code token} into its constituent parts using the following algorithm.

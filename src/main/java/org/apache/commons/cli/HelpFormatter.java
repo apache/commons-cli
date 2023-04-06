@@ -719,11 +719,11 @@ public class HelpFormatter {
             max = Math.max(optBuf.length(), max);
         }
 
-        int x = 0;
+        int optionIndex = 0;
 
         for (final Iterator<Option> it = optList.iterator(); it.hasNext();) {
             final Option option = it.next();
-            final StringBuilder optBuf = new StringBuilder(prefixList.get(x++).toString());
+            final StringBuilder optBuf = new StringBuilder(prefixList.get(optionIndex++).toString());
 
             if (optBuf.length() < max) {
                 optBuf.append(createPadding(max - optBuf.length()));
