@@ -358,11 +358,11 @@ public class CommandLine implements Serializable {
         if (option == null) {
             return null;
         }
-        final String res = getOptionValue(option);
-        if (res == null) {
+        final String optionIndex = getOptionValue(option);
+        if (optionIndex == null) {
             return null;
         }
-        return TypeHandler.createValue(res, option.getType());
+        return TypeHandler.createValue(optionIndex, option.getType());
     }
 
     /**
