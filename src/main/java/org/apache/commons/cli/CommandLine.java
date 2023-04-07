@@ -158,8 +158,8 @@ public class CommandLine implements Serializable {
 
     /**
      * Retrieve the map of values associated to the option. This is convenient for options specifying Java properties like
-     * <code>-Dparam1=value1
-     * -Dparam2=value2</code>. The first argument of the option is the key, and the 2nd argument is the value. If the option
+     * <code>-param1=value1
+     * -param2=value2</code>. The first argument of the option is the key, and the 2nd argument is the value. If the option
      * has only one argument ({@code -Dfoo}) it is considered as a boolean flag and the value is {@code "true"}.
      *
      * @param option name of the option.
@@ -187,8 +187,8 @@ public class CommandLine implements Serializable {
 
     /**
      * Retrieve the map of values associated to the option. This is convenient for options specifying Java properties like
-     * <code>-Dparam1=value1
-     * -Dparam2=value2</code>. The first argument of the option is the key, and the 2nd argument is the value. If the option
+     * <code>-param1=value1
+     * -param2=value2</code>. The first argument of the option is the key, and the 2nd argument is the value. If the option
      * has only one argument ({@code -Dfoo}) it is considered as a boolean flag and the value is {@code "true"}.
      *
      * @param opt name of the option.
@@ -210,7 +210,6 @@ public class CommandLine implements Serializable {
                 }
             }
         }
-
         return props;
     }
 

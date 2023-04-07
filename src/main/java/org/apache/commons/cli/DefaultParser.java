@@ -261,7 +261,6 @@ public class DefaultParser implements CommandLineParser {
                 break;
             }
         }
-
         return opt;
     }
 
@@ -290,7 +289,6 @@ public class DefaultParser implements CommandLineParser {
     protected void handleConcatenatedOptions(final String token) throws ParseException {
         for (int i = 1; i < token.length(); i++) {
             final String ch = String.valueOf(token.charAt(i));
-
             if (!options.hasOption(ch)) {
                 handleUnknownToken(stopAtNonOption && i > 1 ? token.substring(i) : token);
                 break;

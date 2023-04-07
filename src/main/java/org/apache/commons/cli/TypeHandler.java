@@ -36,107 +36,13 @@ public class TypeHandler {
      * @return The class if it is found
      * @throws ParseException if the class could not be found
      */
-    public static Class<?> createClass(final String classname) throws ParseException {
-        try {
-            return Class.forName(classname);
-        } catch (final ClassNotFoundException e) {
-            throw new ParseException("Unable to find the class: " + classname);
-        }
-    }
-
-    /**
-     * Returns the date represented by {@code str}.
-     * <p>
-     * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
-     *
-     * @param str the date string
-     * @return The date if {@code str} is a valid date string, otherwise return null.
-     * @throws UnsupportedOperationException always
-     */
-    public static Date createDate(final String str) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    /**
-     * Returns the File represented by {@code str}.
-     *
-     * @param str the File location
-     * @return The file represented by {@code str}.
-     */
-    public static File createFile(final String str) {
-        return new File(str);
-    }
-
-    /**
-     * Returns the File[] represented by {@code str}.
-     * <p>
-     * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
-     *
-     * @param str the paths to the files
-     * @return The File[] represented by {@code str}.
-     * @throws UnsupportedOperationException always
-     */
-    public static File[] createFiles(final String str) {
-        // to implement/port:
-        // return FileW.findFiles(str);
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    /**
-     * Create a number from a String. If a . is present, it creates a Double, otherwise a Long.
-     *
-     * @param str the value
-     * @return the number represented by {@code str}
-     * @throws ParseException if {@code str} is not a number
-     */
-    public static Number createNumber(final String str) throws ParseException {
-        try {
-            if (str.indexOf('.') != -1) {
-                return Double.valueOf(str);
-            }
-            return Long.valueOf(str);
-        } catch (final NumberFormatException e) {
-            throw new ParseException(e.getMessage());
-        }
-    }
-
-    /**
-     * Create an Object from the classname and empty constructor.
-     *
-     * @param classname the argument value
-     * @return the initialized object
-     * @throws ParseException if the class could not be found or the object could not be created
-     */
-    public static Object createObject(final String classname) throws ParseException {
-        final Class<?> cl;
-
-        try {
-            cl = Class.forName(classname);
-        } catch (final ClassNotFoundException cnfe) {
-            throw new ParseException("Unable to find the class: " + classname);
-        }
-
-        try {
-            return cl.newInstance();
-        } catch (final Exception e) {
-            throw new ParseException(e.getClass().getName() + "; Unable to create an instance of: " + classname);
-        }
-    }
-
-    /**
-     * Returns the URL represented by {@code str}.
-     *
-     * @param str the URL string
-     * @return The URL in {@code str} is well-formed
-     * @throws ParseException if the URL in {@code str} is not well-formed
-     */
-    public static URL createURL(final String str) throws ParseException {
-        try {
-            return new URL(str);
-        } catch (final MalformedURLException e) {
-            throw new ParseException("Unable to parse the URL: " + str);
-        }
-    }
+//    public static Class<?> createClass(final String classname) throws ParseException {
+//        try {
+//            return Class.forName(classname);
+//        } catch (final ClassNotFoundException e) {
+//            throw new ParseException("Unable to find the class: " + classname);
+//        }
+//    }
 
     /**
      * Returns the {@code Object} of type {@code clazz} with the value of {@code str}.
@@ -149,34 +55,38 @@ public class TypeHandler {
      */
     @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
     public static <T> T createValue(final String str, final Class<T> clazz) throws ParseException {
+        OptionValue optionValue = null;
         if (PatternOptionBuilder.STRING_VALUE == clazz) {
             return (T) str;
         }
         if (PatternOptionBuilder.OBJECT_VALUE == clazz) {
-            return (T) createObject(str);
+            optionValue = new createDifferentObject();
         }
         if (PatternOptionBuilder.NUMBER_VALUE == clazz) {
-            return (T) createNumber(str);
+            optionValue =new createDifferentnumber();
         }
         if (PatternOptionBuilder.DATE_VALUE == clazz) {
-            return (T) createDate(str);
+            optionValue = new createDifferentDate();
         }
         if (PatternOptionBuilder.CLASS_VALUE == clazz) {
-            return (T) createClass(str);
+            optionValue = new createDifferentClass();
         }
         if (PatternOptionBuilder.FILE_VALUE == clazz) {
-            return (T) createFile(str);
+            optionValue = new createDifferentFile();
         }
         if (PatternOptionBuilder.EXISTING_FILE_VALUE == clazz) {
-            return (T) openFile(str);
+            optionValue = new createOpenFile();
         }
         if (PatternOptionBuilder.FILES_VALUE == clazz) {
-            return (T) createFiles(str);
+            optionValue =new createDifferentNewFiles();
         }
         if (PatternOptionBuilder.URL_VALUE == clazz) {
-            return (T) createURL(str);
+            optionValue = new createDifferentURL();
         }
-        throw new ParseException("Unable to handle the class: " + clazz);
+        if(optionValue==null)
+            throw new ParseException("Unable to handle the class: " + clazz);
+        else
+            return (T) optionValue.createDifferentValue(str);
     }
 
     /**
