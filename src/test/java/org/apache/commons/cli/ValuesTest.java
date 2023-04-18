@@ -144,12 +144,12 @@ public class ValuesTest {
      * _option.getValue(), "key"); assertEquals(_option.getValue(0), "key"); assertEquals(_option.getValue(1),
      * "value");
      *
-     * try { assertEquals(_option.getValue(2), "key"); fail("IndexOutOfBounds not caught"); } catch(
+     * try { assertEquals(_option.getValue(2), "key"); fail("IndexOutOfBounds not caught"); } catch (
      * IndexOutOfBoundsException exp) {
      *
      * }
      *
-     * try { assertEquals(_option.getValue(-1), "key"); fail("IndexOutOfBounds not caught"); } catch(
+     * try { assertEquals(_option.getValue(-1), "key"); fail("IndexOutOfBounds not caught"); } catch (
      * IndexOutOfBoundsException exp) {
      *
      * } }
