@@ -22,7 +22,7 @@
     <title>Apache Commons CLI Release Notes</title>
   </properties>
   <body>
-    <release version="1.6" date="tbd" description="New features and bug fixes">
+    <release version="1.6" date="2023-MM-DD" description="New features and bug fixes">
       <!-- FIX -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">
         Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 417-423] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION
@@ -67,7 +67,7 @@
         Bump spotbugs-maven-plugin from 4.5.3.0 to 4.7.3.0 #98, #108, #115, #117, #126, #145.
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
-        Bump commons-parent from 52 to 56 #100, #128, #151, #158.
+        Bump commons-parent from 52 to 58 #100, #128, #151, #158.
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
         Bump maven-antrun-plugin from 3.0.0 to 3.1.0 #103.
