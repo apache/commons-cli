@@ -43,6 +43,9 @@
         Use Math.max() #111. 
         Delete unused assignment #112.
       </action>
+      <action dev="ggregory" type="fix" due-to="step-security-bot, Gary Gregory">
+        [StepSecurity] ci: Harden GitHub Actions #176.
+      </action>
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
         Add github/codeql-action.
