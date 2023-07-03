@@ -22,7 +22,7 @@
     <title>Apache Commons CLI Release Notes</title>
   </properties>
   <body>
-    <release version="1.6" date="2023-MM-DD" description="New features and bug fixes">
+    <release version="1.6.0" date="2023-MM-DD" description="New features and bug fixes">
       <!-- FIX -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">
         Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 417-423] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION
