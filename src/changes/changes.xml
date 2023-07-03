@@ -46,6 +46,9 @@
       <action dev="ggregory" type="fix" due-to="step-security-bot, Gary Gregory">
         [StepSecurity] ci: Harden GitHub Actions #176.
       </action>
+      <action dev="ggregory" type="fix" due-to="Alexander Veit, Gary Gregory" issue="CLI-318">
+        Inconsistent date format in changes report.
+      </action>
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
         Add github/codeql-action.
@@ -94,7 +97,7 @@
         Update JUnit 4 to 5 vintage.
       </action>
     </release>
-    <release version="1.5.0" date="10-23-2021" description="New features and bug fixes (Java 7).">
+    <release version="1.5.0" date="2021-10-23" description="New features and bug fixes (Java 7).">
       <!-- FIX -->
       <action type="fix" dev="ggregory" due-to="Gary Gregory">
         Fix NPE in DefaultParser.isLongOption(String).
