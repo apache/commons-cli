@@ -479,8 +479,8 @@ public class Option implements Cloneable, Serializable {
             final Option option = (Option) super.clone();
             option.values = new ArrayList<>(values);
             return option;
-        } catch (final CloneNotSupportedException cnse) {
-            throw new IllegalStateException("A CloneNotSupportedException was thrown: " + cnse.getMessage());
+        } catch (final CloneNotSupportedException e) {
+            throw new UnsupportedOperationException(e.getMessage(), e);
         }
     }
 
