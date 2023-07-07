@@ -17,14 +17,14 @@
 
 package org.apache.commons.cli.bug;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.apache.commons.cli.AmbiguousOptionException;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BugCLI252Test {
 
