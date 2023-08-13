@@ -75,6 +75,20 @@ public abstract class ParserTestCase {
         assertEquals("bar", cl.getOptionValue("foo"));
     }
 
+    public void testAmbiguousLongWithoutEqualSingleDash2() throws Exception {
+        final String[] args = {"-b", "-foobar"};
+
+        final Options options = new Options();
+        options.addOption(Option.builder().option("f").longOpt("foo").optionalArg(true).build());
+        options.addOption(Option.builder().option("b").longOpt("bar").optionalArg(false).build());
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertTrue(cl.hasOption("b"));
+        assertTrue(cl.hasOption("f"));
+        assertEquals("bar", cl.getOptionValue("foo"));
+    }
+
     @Test
     public void testAmbiguousPartialLongOption1() throws Exception {
         final String[] args = {"--ver"};
@@ -471,7 +485,7 @@ public abstract class ParserTestCase {
         assertEquals("Confirm arg of -b", "file", cl.getOptionValue("b"));
         assertTrue("Confirm NO of extra args", cl.getArgList().isEmpty());
     }
-
+    
     @Test
     public void testOptionGroup() throws Exception {
         final OptionGroup group = new OptionGroup();
