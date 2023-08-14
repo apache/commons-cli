@@ -439,16 +439,17 @@ public class CommandLine implements Serializable {
     /**
      * Retrieves the option object given the long or short option as a String
      *
-     * @param opt short or long name of the option.
+     * @param opt short or long name of the option, may be null.
      * @return Canonicalized option.
      */
-    private Option resolveOption(String opt) {
-        opt = Util.stripLeadingHyphens(opt);
-        for (final Option option : options) {
-            if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt())) {
-                return option;
+    private Option resolveOption(final String opt) {
+        final String actual = Util.stripLeadingHyphens(opt);
+        if (actual != null) {
+            for (final Option option : options) {
+                if (actual.equals(option.getOpt()) || actual.equals(option.getLongOpt())) {
+                    return option;
+                }
             }
-
         }
         return null;
     }

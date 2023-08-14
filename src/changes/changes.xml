@@ -49,6 +49,9 @@
       <action dev="ggregory" type="fix" due-to="Alexander Veit, Gary Gregory" issue="CLI-318">
         Inconsistent date format in changes report.
       </action>
+      <action dev="ggregory" type="fix" due-to="Dilraj Singh, Gary Gregory" issue="CLI-283">
+        Fix NPE in CommandLine.resolveOption(String).
+      </action>
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
         Add github/codeql-action.
