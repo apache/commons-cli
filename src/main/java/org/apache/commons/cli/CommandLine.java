@@ -35,19 +35,21 @@ import java.util.Properties;
  * Additionally, any left-over or unrecognized arguments, are available for further processing.
  */
 public class CommandLine implements Serializable {
+
     /**
      * A nested builder class to create {@code CommandLine} instance using descriptive methods.
      *
      * @since 1.4
      */
     public static final class Builder {
+
         /**
          * CommandLine that is being build by this Builder.
          */
         private final CommandLine commandLine = new CommandLine();
 
         /**
-         * Add left-over unrecognized option/argument.
+         * Adds left-over unrecognized option/argument.
          *
          * @param arg the unrecognized option/argument.
          *
@@ -59,7 +61,7 @@ public class CommandLine implements Serializable {
         }
 
         /**
-         * Add an option to the command line. The values of the option are stored.
+         * Adds an option to the command line. The values of the option are stored.
          *
          * @param opt the processed option.
          *
@@ -92,7 +94,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Add left-over unrecognized option/argument.
+     * Adds left-over unrecognized option/argument.
      *
      * @param arg the unrecognized option/argument.
      */
@@ -101,7 +103,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Add an option to the command line. The values of the option are stored.
+     * Adds an option to the command line. The values of the option are stored.
      *
      * @param opt the processed option.
      */
@@ -110,7 +112,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieve any left-over non-recognized options and arguments
+     * Gets any left-over non-recognized options and arguments
      *
      * @return remaining items passed in but not parsed as a {@code List}.
      */
@@ -119,7 +121,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieve any left-over non-recognized options and arguments
+     * Gets any left-over non-recognized options and arguments
      *
      * @return remaining items passed in but not parsed as an array.
      */
@@ -128,7 +130,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Return the {@code Object} type of this {@code Option}.
+     * Gets the {@code Object} type of this {@code Option}.
      *
      * @deprecated due to System.err message. Instead use getParsedOptionValue(char)
      * @param opt the name of the option.
@@ -140,7 +142,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Return the {@code Object} type of this {@code Option}.
+     * Gets the {@code Object} type of this {@code Option}.
      *
      * @param opt the name of the option.
      * @return the type of this {@code Option}.
@@ -157,7 +159,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieve the map of values associated to the option. This is convenient for options specifying Java properties like
+     * Gets the map of values associated to the option. This is convenient for options specifying Java properties like
      * <code>-Dparam1=value1
      * -Dparam2=value2</code>. The first argument of the option is the key, and the 2nd argument is the value. If the option
      * has only one argument ({@code -Dfoo}) it is considered as a boolean flag and the value is {@code "true"}.
@@ -186,7 +188,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieve the map of values associated to the option. This is convenient for options specifying Java properties like
+     * Gets the map of values associated to the option. This is convenient for options specifying Java properties like
      * <code>-Dparam1=value1
      * -Dparam2=value2</code>. The first argument of the option is the key, and the 2nd argument is the value. If the option
      * has only one argument ({@code -Dfoo}) it is considered as a boolean flag and the value is {@code "true"}.
@@ -224,7 +226,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieve the first argument, if any, of this option.
+     * Gets the first argument, if any, of this option.
      *
      * @param opt the character name of the option.
      * @return Value of the argument if option is set, and has an argument, otherwise null.
@@ -234,7 +236,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieve the argument, if any, of an option.
+     * Gets the argument, if any, of an option.
      *
      * @param opt character name of the option
      * @param defaultValue is the default value to be returned if the option is not specified.
@@ -245,7 +247,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieve the first argument, if any, of this option.
+     * Gets the first argument, if any, of this option.
      *
      * @param option the name of the option.
      * @return Value of the argument if option is set, and has an argument, otherwise null.
@@ -260,7 +262,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieve the first argument, if any, of an option.
+     * Gets the first argument, if any, of an option.
      *
      * @param option name of the option.
      * @param defaultValue is the default value to be returned if the option is not specified.
@@ -273,7 +275,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieve the first argument, if any, of this option.
+     * Gets the first argument, if any, of this option.
      *
      * @param opt the name of the option.
      * @return Value of the argument if option is set, and has an argument, otherwise null.
@@ -283,7 +285,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieve the first argument, if any, of an option.
+     * Gets the first argument, if any, of an option.
      *
      * @param opt name of the option.
      * @param defaultValue is the default value to be returned if the option is not specified.
@@ -294,7 +296,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieves the array of values, if any, of an option.
+     * Gets the array of values, if any, of an option.
      *
      * @param opt character name of the option.
      * @return Values of the argument if option is set, and has an argument, otherwise null.
@@ -304,7 +306,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieves the array of values, if any, of an option.
+     * Gets the array of values, if any, of an option.
      *
      * @param option string name of the option.
      * @return Values of the argument if option is set, and has an argument, otherwise null.
@@ -323,7 +325,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Retrieves the array of values, if any, of an option.
+     * Gets the array of values, if any, of an option.
      *
      * @param opt string name of the option.
      * @return Values of the argument if option is set, and has an argument, otherwise null.
@@ -333,7 +335,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Return a version of this {@code Option} converted to a particular type.
+     * Gets a version of this {@code Option} converted to a particular type.
      *
      * @param opt the name of the option.
      * @return the value parsed into a particular object.
@@ -346,7 +348,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Return a version of this {@code Option} converted to a particular type.
+     * Gets a version of this {@code Option} converted to a particular type.
      *
      * @param option the name of the option.
      * @return the value parsed into a particular object.
@@ -366,7 +368,7 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Return a version of this {@code Option} converted to a particular type.
+     * Gets a version of this {@code Option} converted to a particular type.
      *
      * @param opt the name of the option.
      * @return the value parsed into a particular object.
