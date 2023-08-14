@@ -108,7 +108,9 @@ public class CommandLine implements Serializable {
      * @param opt the processed option.
      */
     protected void addOption(final Option opt) {
-        options.add(opt);
+        if (opt != null) {
+            options.add(opt);
+        }
     }
 
     /**
