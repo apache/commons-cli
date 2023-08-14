@@ -41,9 +41,22 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testBuilderNulls() {
+    public void testBuilderNullArgs() {
+        final CommandLine.Builder builder = new CommandLine.Builder();
+        builder.addArg(null).addArg(null);
+        builder.addOption(Option.builder("T").build());
+        final CommandLine cmd = builder.build();
+
+        assertEquals(0, cmd.getArgs().length);
+        assertEquals("T", cmd.getOptions()[0].getOpt());
+    }
+
+    @Test
+    public void testBuilderNullOption() {
         final CommandLine.Builder builder = new CommandLine.Builder();
         builder.addArg("foo").addArg("bar");
+        builder.addOption(null);
+        builder.addOption(null);
         builder.addOption(null);
         final CommandLine cmd = builder.build();
 

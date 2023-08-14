@@ -99,7 +99,9 @@ public class CommandLine implements Serializable {
      * @param arg the unrecognized option/argument.
      */
     protected void addArg(final String arg) {
-        args.add(arg);
+        if (arg != null) {
+            args.add(arg);
+        }
     }
 
     /**

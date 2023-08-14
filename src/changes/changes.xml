@@ -55,6 +55,9 @@
       <action dev="ggregory" type="fix" due-to="Dilraj Singh, Gary Gregory" issue="CLI-283">
         CommandLine.addOption(Option) should not allow a null Option.
       </action>
+      <action dev="ggregory" type="fix" due-to="Gary Gregory" issue="CLI-283">
+        CommandLine.addArgs(String) should not allow a null String.
+      </action>
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
         Add github/codeql-action.
