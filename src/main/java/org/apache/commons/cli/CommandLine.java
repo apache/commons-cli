@@ -72,6 +72,11 @@ public class CommandLine implements Serializable {
             return this;
         }
 
+        /**
+         * Returns the new instance.
+         *
+         * @return the new instance.
+         */
         public CommandLine build() {
             return commandLine;
         }

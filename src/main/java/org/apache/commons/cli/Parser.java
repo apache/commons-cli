@@ -63,10 +63,20 @@ public abstract class Parser implements CommandLineParser {
      */
     protected abstract String[] flatten(Options opts, String[] arguments, boolean stopAtNonOption) throws ParseException;
 
+    /**
+     * Gets the options.
+     *
+     * @return the options.
+     */
     protected Options getOptions() {
         return options;
     }
 
+    /**
+     * Gets the required options.
+     *
+     * @return the required options.
+     */
     protected List getRequiredOptions() {
         return requiredOptions;
     }
@@ -326,6 +336,11 @@ public abstract class Parser implements CommandLineParser {
         }
     }
 
+    /**
+     * Sets the options.
+     *
+     * @param options the options.
+     */
     protected void setOptions(final Options options) {
         this.options = options;
         this.requiredOptions = new ArrayList<>(options.getRequiredOptions());
