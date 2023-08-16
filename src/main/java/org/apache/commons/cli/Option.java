@@ -173,11 +173,11 @@ public class Option implements Cloneable, Serializable {
         /**
          * Sets the number of argument values the Option can take.
          *
-         * @param numberOfArgs the number of argument values
+         * @param argCount the number of argument values
          * @return this builder, to allow method chaining
          */
-        public Builder numberOfArgs(final int numberOfArgs) {
-            this.argCount = numberOfArgs;
+        public Builder numberOfArgs(final int argCount) {
+            this.argCount = argCount;
             return this;
         }
 
@@ -197,11 +197,11 @@ public class Option implements Cloneable, Serializable {
         /**
          * Sets whether the Option can have an optional argument.
          *
-         * @param isOptional specifies whether the Option can have an optional argument.
+         * @param optionalArg specifies whether the Option can have an optional argument.
          * @return this builder, to allow method chaining
          */
-        public Builder optionalArg(final boolean isOptional) {
-            this.optionalArg = isOptional;
+        public Builder optionalArg(final boolean optionalArg) {
+            this.optionalArg = optionalArg;
             return this;
         }
 
@@ -262,11 +262,11 @@ public class Option implements Cloneable, Serializable {
          * String propertyValue = line.getOptionValues("D")[1]; // will be "value"
          * </pre>
          *
-         * @param sep The value separator.
+         * @param valueSeparator The value separator.
          * @return this builder, to allow method chaining
          */
-        public Builder valueSeparator(final char sep) {
-            valueSeparator = sep;
+        public Builder valueSeparator(final char valueSeparator) {
+            this.valueSeparator = valueSeparator;
             return this;
         }
     }
