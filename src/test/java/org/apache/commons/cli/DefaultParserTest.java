@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DefaultParserTest extends ParserTestCase {
+public class DefaultParserTest extends AbstractParserTestCase {
 
     @Override
     @Before

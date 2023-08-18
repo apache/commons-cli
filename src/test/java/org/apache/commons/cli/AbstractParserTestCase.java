@@ -34,7 +34,7 @@ import org.junit.Test;
 /**
  * Abstract test case testing common parser features.
  */
-public abstract class ParserTestCase {
+public abstract class AbstractParserTestCase {
     protected CommandLineParser parser;
 
     protected Options options;

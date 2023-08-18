@@ -22,7 +22,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class GnuParserTest extends ParserTestCase {
+public class GnuParserTest extends AbstractParserTestCase {
     @Override
     @Before
     public void setUp() {
