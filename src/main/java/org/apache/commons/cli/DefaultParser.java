@@ -580,7 +580,7 @@ public class DefaultParser implements CommandLineParser {
      * Tests if the specified token is a Java-like property (-Dkey=value).
      */
     private boolean isJavaProperty(final String token) {
-        final String opt = token.substring(0, 1);
+        final String opt = token.isEmpty() ? null : token.substring(0, 1);
         final Option option = options.getOption(opt);
 
         return option != null && (option.getArgs() >= 2 || option.getArgs() == Option.UNLIMITED_VALUES);
