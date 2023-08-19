@@ -39,6 +39,12 @@ public class BasicParserTest extends AbstractParserTestCase {
     @Override
     @Test
     @Ignore("not supported by the BasicParser")
+    public void testAmbiguousLongWithoutEqualSingleDash2() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the BasicParser")
     public void testAmbiguousPartialLongOption1() throws Exception {
     }
 

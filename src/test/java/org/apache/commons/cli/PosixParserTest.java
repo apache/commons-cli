@@ -42,6 +42,12 @@ public class PosixParserTest extends AbstractParserTestCase {
     @Override
     @Test
     @Ignore("not supported by the PosixParser")
+    public void testAmbiguousLongWithoutEqualSingleDash2() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the PosixParser")
     public void testAmbiguousPartialLongOption4() throws Exception {
     }
 

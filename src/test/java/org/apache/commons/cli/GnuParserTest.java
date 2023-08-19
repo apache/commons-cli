@@ -39,6 +39,12 @@ public class GnuParserTest extends AbstractParserTestCase {
     @Override
     @Test
     @Ignore("not supported by the GnuParser")
+    public void testAmbiguousLongWithoutEqualSingleDash2() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
     public void testAmbiguousPartialLongOption1() throws Exception {
     }
 
