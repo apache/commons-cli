@@ -58,8 +58,11 @@
       <action dev="ggregory" type="fix" due-to="Gary Gregory" issue="CLI-283">
         CommandLine.addArgs(String) should not allow a null String.
       </action>
-      <action dev="ggregory" type="fix" due-to="Gary Gregory" issue="CLI-303">
+      <action dev="ggregory" type="fix" due-to="Julian Schilling, Gary Gregory" issue="CLI-303">
         Site docs: "Usage Scenarios" refers to deprecated methods.
+      </action>
+      <action dev="ggregory" type="fix" due-to="Philippe Bastiani, Sruteesh Kumar Paramata, Gary Gregory" issue="CLI-317">
+        NullPointerException thrown by CommandLineParser.parse().
       </action>
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
