@@ -131,7 +131,7 @@ public class OptionTest {
             String.class);
         checkOption(Option.builder("a").desc("desc").optionalArg(false).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator,
             String.class);
-        checkOption(Option.builder("a").desc("desc").optionalArg(true).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, true, defaultSeparator,
+        checkOption(Option.builder("a").desc("desc").optionalArg(true).build(), "a", "desc", null, 1, null, false, true, defaultSeparator,
             String.class);
         checkOption(Option.builder("a").desc("desc").valueSeparator(':').build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, ':',
             String.class);

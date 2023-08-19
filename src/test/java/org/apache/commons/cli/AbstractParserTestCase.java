@@ -75,12 +75,13 @@ public abstract class AbstractParserTestCase {
         assertEquals("bar", cl.getOptionValue("foo"));
     }
 
+    @Test
     public void testAmbiguousLongWithoutEqualSingleDash2() throws Exception {
         final String[] args = {"-b", "-foobar"};
 
         final Options options = new Options();
-        options.addOption(Option.builder().option("f").longOpt("foo").optionalArg(true).build());
-        options.addOption(Option.builder().option("b").longOpt("bar").optionalArg(false).build());
+        options.addOption(Option.builder().longOpt("foo").option("f").optionalArg(true).build());
+        options.addOption(Option.builder().longOpt("bar").option("b").optionalArg(false).build());
 
         final CommandLine cl = parser.parse(options, args);
 

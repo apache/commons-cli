@@ -201,6 +201,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder, to allow method chaining
          */
         public Builder optionalArg(final boolean optionalArg) {
+            this.argCount = optionalArg ? 1 : UNINITIALIZED;
             this.optionalArg = optionalArg;
             return this;
         }
