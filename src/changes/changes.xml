@@ -58,6 +58,9 @@
       <action dev="ggregory" type="fix" due-to="Gary Gregory" issue="CLI-283">
         CommandLine.addArgs(String) should not allow a null String.
       </action>
+      <action dev="ggregory" type="fix" due-to="Gary Gregory" issue="CLI-303">
+        Site docs: "Usage Scenarios" refers to deprecated methods.
+      </action>
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
         Add github/codeql-action.

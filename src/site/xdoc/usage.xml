@@ -180,32 +180,32 @@ Option emacs = new Option("emacs",
         <p> 
           The argument options are created using the <code>Option#Builder</code>.
         </p>
-        <source>Option logfile   = Option.builder("logfile")
+        <source>Option logFile = Option.builder("logfile")
                          .argName("file")
                          .hasArg()
                          .desc("use given file for log")
                          .build();
 
-Option logger    = Option.builder("logger")
+Option logger = Option.builder("logger")
                          .argName("classname")
                          .hasArg()
                          .desc("the class which it to perform logging")
                          .build();
 
-Option listener  = Option.builder("listener")
+Option listener = Option.builder("listener")
                          .argName("classname")
                          .hasArg()
                          .desc("add an instance of class as "
                                 + "a project listener")
                          .build();
 
-Option buildfile = Option.builder("buildfile")
+Option buildFile = Option.builder("buildfile")
                          .argName("file")
                          .hasArg()
                          .desc("use given buildfile")
                          .build();
 
-Option find      = Option.builde("find")
+Option find = Option.builde("find")
                          .argName("file")
                          .hasArg()
                          .desc("search for buildfile towards the "
@@ -215,7 +215,7 @@ Option find      = Option.builde("find")
       <subsection name="Defining Java Property Option">
         <p>
           The last option to create is the Java property and it is also created
-          using the OptionBuilder.
+          using the Option class' Builder.
         </p>
         <source>Option property  = Option property  = Option.builder("D")
                                 .hasArgs()
@@ -282,7 +282,7 @@ options.addOption(property);</source>
           the <code>getOptionValue</code> method.
         </p>
         <source>// has the buildfile argument been passed?
-if(line.hasOption("buildfile")) {
+if (line.hasOption("buildfile")) {
     // initialise the member variable
     this.buildfile = line.getOptionValue("buildfile");
 }</source>
