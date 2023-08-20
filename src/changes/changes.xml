@@ -64,6 +64,9 @@
       <action dev="ggregory" type="fix" due-to="Philippe Bastiani, Sruteesh Kumar Paramata, Gary Gregory" issue="CLI-317">
         NullPointerException thrown by CommandLineParser.parse().
       </action>
+      <action dev="HUNG LU" type="fix" due-to=" Dominik Stadler, HUNG LU, Sruteesh Kumar Paramata" issue="CLI-313">
+        StringIndexOutOfBoundsException thrown by CommandLineParser.parse().
+      </action>
       <!-- ADD -->
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
         Add github/codeql-action.
