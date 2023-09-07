@@ -90,8 +90,8 @@
       <action type="update" dev="ggregory" due-to="Dependabot">
         Bump spotbugs-maven-plugin from 4.5.3.0 to 4.7.3.0 #98, #108, #115, #117, #126, #145.
       </action>
-      <action type="update" dev="ggregory" due-to="Dependabot">
-        Bump commons-parent from 52 to 61 #100, #128, #151, #158.
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+        Bump commons-parent from 52 to 62 #100, #128, #151, #158.
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
         Bump maven-antrun-plugin from 3.0.0 to 3.1.0 #103.
