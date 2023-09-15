@@ -148,12 +148,12 @@ public class HelpFormatter {
     public String defaultSyntaxPrefix = DEFAULT_SYNTAX_PREFIX;
 
     /**
-     * the new line string
-     *
-     * @deprecated Scope will be made private for next major version - use get/setNewLine methods instead.
-     */
+    * the new line string
+    *
+    * @deprecated Scope will be made private for next major version - use get/setNewLine methods instead.
+    */
     @Deprecated
-    public String defaultNewLine = System.getProperty("line.separator");
+    public String defaultNewLine = System.lineSeparator();
 
     /**
      * the shortOpt prefix

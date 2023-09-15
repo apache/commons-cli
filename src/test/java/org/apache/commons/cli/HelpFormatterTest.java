@@ -24,7 +24,6 @@ import static org.junit.Assert.fail;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Comparator;
 
 import org.junit.Test;
 
@@ -32,7 +31,7 @@ import org.junit.Test;
  * Test case for the HelpFormatter class.
  */
 public class HelpFormatterTest {
-    private static final String EOL = System.getProperty("line.separator");
+    private static final String EOL = System.lineSeparator();
 
     @Test
     public void testAccessors() {
@@ -271,7 +270,7 @@ public class HelpFormatterTest {
         mOptions.addOption(configFile);
 
         final HelpFormatter formatter = new HelpFormatter();
-        final String eol = System.getProperty("line.separator");
+        final String eol = System.lineSeparator();
         final StringWriter out = new StringWriter();
         formatter.printHelp(new PrintWriter(out), 80, "commandline", "header", mOptions, 2, 2, "footer", true);
         //@formatter:off
@@ -470,13 +469,7 @@ public class HelpFormatterTest {
         opts.addOption(new Option("c", "third"));
 
         final HelpFormatter helpFormatter = new HelpFormatter();
-        helpFormatter.setOptionComparator(new Comparator<Option>() {
-            @Override
-            public int compare(final Option opt1, final Option opt2) {
-                // reverses the functionality of the default comparator
-                return opt2.getKey().compareToIgnoreCase(opt1.getKey());
-            }
-        });
+        helpFormatter.setOptionComparator((opt1, opt2) -> opt2.getKey().compareToIgnoreCase(opt1.getKey()));
 
         final StringWriter out = new StringWriter();
         helpFormatter.printUsage(new PrintWriter(out), 80, "app", opts);

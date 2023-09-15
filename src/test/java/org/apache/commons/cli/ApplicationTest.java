@@ -227,7 +227,7 @@ public class ApplicationTest {
         //@formatter:on
 
         final HelpFormatter hf = new HelpFormatter();
-        final String eol = System.getProperty("line.separator");
+        final String eol = System.lineSeparator();
         final StringWriter out = new StringWriter();
         hf.printHelp(new PrintWriter(out), 60, cmdLine, null, options, HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, null, false);
         //@formatter:off

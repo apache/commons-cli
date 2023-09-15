@@ -486,7 +486,7 @@ public abstract class AbstractParserTestCase {
         assertEquals("Confirm arg of -b", "file", cl.getOptionValue("b"));
         assertTrue("Confirm NO of extra args", cl.getArgList().isEmpty());
     }
-    
+
     @Test
     public void testOptionGroup() throws Exception {
         final OptionGroup group = new OptionGroup();
@@ -1021,12 +1021,12 @@ public abstract class AbstractParserTestCase {
         assertEquals("Confirm arg of -b", "file", cl.getOptionValue("b"));
         assertTrue("Confirm NO of extra args", cl.getArgList().isEmpty());
     }
-    
+
     @Test(expected = UnrecognizedOptionException.class)
     public void testAmbiguousArgParsing() throws Exception {
         final String[] args = {"-=-"};
         final Options options = new Options();
-        
+
         final CommandLine cl = parser.parse(options, args);
     }
 }
