@@ -117,7 +117,7 @@ public class TypeHandler {
         }
 
         try {
-            return cl.newInstance();
+            return cl.getConstructor().newInstance();
         } catch (final Exception e) {
             throw new ParseException(e.getClass().getName() + "; Unable to create an instance of: " + classname);
         }
