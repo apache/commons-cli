@@ -29,7 +29,7 @@ import org.junit.Test;
 
 public class OptionTest {
 
-    private static class DefaultOption extends Option {
+    private static final class DefaultOption extends Option {
         private static final long serialVersionUID = 1L;
 
         private final String defaultValue;
@@ -45,7 +45,7 @@ public class OptionTest {
         }
     }
 
-    private static class TestOption extends Option {
+    private static final class TestOption extends Option {
         private static final long serialVersionUID = 1L;
 
         TestOption(final String opt, final boolean hasArg, final String description) throws IllegalArgumentException {
