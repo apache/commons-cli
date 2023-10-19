@@ -101,25 +101,25 @@ public class TypeHandler {
     }
 
     /**
-     * Create an Object from the classname and empty constructor.
+     * Create an Object from the class name and empty constructor.
      *
-     * @param classname the argument value
+     * @param className the argument value
      * @return the initialized object
      * @throws ParseException if the class could not be found or the object could not be created
      */
-    public static Object createObject(final String classname) throws ParseException {
+    public static Object createObject(final String className) throws ParseException {
         final Class<?> cl;
 
         try {
-            cl = Class.forName(classname);
+            cl = Class.forName(className);
         } catch (final ClassNotFoundException cnfe) {
-            throw new ParseException("Unable to find the class: " + classname);
+            throw new ParseException("Unable to find the class: " + className);
         }
 
         try {
             return cl.getConstructor().newInstance();
         } catch (final Exception e) {
-            throw new ParseException(e.getClass().getName() + "; Unable to create an instance of: " + classname);
+            throw new ParseException(e.getClass().getName() + "; Unable to create an instance of: " + className);
         }
     }
 
