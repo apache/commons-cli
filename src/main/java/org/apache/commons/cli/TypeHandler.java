@@ -32,15 +32,15 @@ public class TypeHandler {
     /**
      * Returns the class whose name is {@code classname}.
      *
-     * @param classname the class name
+     * @param className the class name
      * @return The class if it is found
      * @throws ParseException if the class could not be found
      */
-    public static Class<?> createClass(final String classname) throws ParseException {
+    public static Class<?> createClass(final String className) throws ParseException {
         try {
-            return Class.forName(classname);
+            return Class.forName(className);
         } catch (final ClassNotFoundException e) {
-            throw new ParseException("Unable to find the class: " + classname);
+            throw new ParseException("Unable to find the class: " + className);
         }
     }
 
