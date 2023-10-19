@@ -197,7 +197,7 @@ public class ApplicationTest {
                 addOption("f", "whatis", false, "equivalent to whatis.").
                 addOption("k", "apropos", false, "equivalent to apropos.").
                 addOption("w", "location", false, "print physical location of man page(s).").
-                addOption("l", "local-file", false, "interpret 'page' argument(s) as local filename(s)").
+                addOption("l", "local-file", false, "interpret 'page' argument(s) as local filen ame(s)").
                 addOption("u", "update", false, "force a cache consistency check.").
                 //FIXME - should generate -r,--prompt string
                 addOption("r", "prompt", true, "provide 'less' pager with prompt.").
@@ -248,7 +248,7 @@ public class ApplicationTest {
                         " -h,--help                 show this usage message." + eol +
                         " -k,--apropos              equivalent to apropos." + eol +
                         " -l,--local-file           interpret 'page' argument(s) as" + eol +
-                        "                           local filename(s)" + eol +
+                        "                           local file name(s)" + eol +
                         " -L,--locale <arg>         define the locale for this" + eol +
                         "                           particular man search." + eol +
                         " -M,--manpath <arg>        set search path for manual pages" + eol +
