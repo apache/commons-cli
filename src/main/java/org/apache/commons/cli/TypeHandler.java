@@ -30,7 +30,7 @@ import java.util.Date;
  */
 public class TypeHandler {
     /**
-     * Returns the class whose name is {@code classname}.
+     * Returns the class whose name is {@code className}.
      *
      * @param className the class name
      * @return The class if it is found

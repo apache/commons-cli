@@ -34,15 +34,15 @@ import java.util.Date;
  * </tr>
  * <tr>
  * <td>b@</td>
- * <td>-b [classname]</td>
+ * <td>-b [class name]</td>
  * </tr>
  * <tr>
  * <td>c&gt;</td>
- * <td>-c [filename]</td>
+ * <td>-c [file name]</td>
  * </tr>
  * <tr>
  * <td>d+</td>
- * <td>-d [classname] (creates object via empty constructor)</td>
+ * <td>-d [class name] (creates object via empty constructor)</td>
  * </tr>
  * <tr>
  * <td>e%</td>
@@ -50,7 +50,7 @@ import java.util.Date;
  * </tr>
  * <tr>
  * <td>f/</td>
- * <td>-f [url]</td>
+ * <td>-f [URL]</td>
  * </tr>
  * <tr>
  * <td>g:</td>
