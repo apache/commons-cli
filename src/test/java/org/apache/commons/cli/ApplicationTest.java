@@ -197,7 +197,7 @@ public class ApplicationTest {
                 addOption("f", "whatis", false, "equivalent to whatis.").
                 addOption("k", "apropos", false, "equivalent to apropos.").
                 addOption("w", "location", false, "print physical location of man page(s).").
-                addOption("l", "local-file", false, "interpret 'page' argument(s) as local filen ame(s)").
+                addOption("l", "local-file", false, "interpret 'page' argument(s) as local file name(s)").
                 addOption("u", "update", false, "force a cache consistency check.").
                 //FIXME - should generate -r,--prompt string
                 addOption("r", "prompt", true, "provide 'less' pager with prompt.").
