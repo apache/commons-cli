@@ -83,7 +83,7 @@ public class TypeHandler {
     }
 
     /**
-     * Create a number from a String. If a . is present, it creates a Double, otherwise a Long.
+     * Create a number from a String. If a '.' is present, it creates a Double, otherwise a Long.
      *
      * @param str the value
      * @return the number represented by {@code str}
