@@ -43,11 +43,11 @@
 Apache Commons CLI
 ===================
 
-[![GitHub Actions Status](https://github.com/apache/commons-cli/workflows/Java%20CI/badge.svg)](https://github.com/apache/commons-cli/actions)
+[![Java CI](https://github.com/apache/commons-cli/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-cli/actions/workflows/maven.yml)
 [![Coverage Status](https://codecov.io/gh/apache/commons-cli/branch/master/graph/badge.svg)](https://app.codecov.io/gh/apache/commons-cli/branch/master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/?gav=true)
 [![Javadocs](https://javadoc.io/badge/commons-cli/commons-cli/1.5.0.svg)](https://javadoc.io/doc/commons-cli/commons-cli/1.5.0)
-[![CodeQL](https://github.com/apache/commons-cli/workflows/CodeQL/badge.svg)](https://github.com/apache/commons-cli/actions/workflows/codeql-analysis.yml?query=workflow%3ACodeQL)
+[![CodeQL](https://github.com/apache/commons-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-cli/actions/workflows/codeql-analysis.yml)
 
 Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
 
