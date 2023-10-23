@@ -24,7 +24,7 @@ import org.junit.Test;
 /**
  * Test case for the PosixParser.
  */
-public class PosixParserTest extends ParserTestCase {
+public class PosixParserTest extends AbstractParserTestCase {
     @Override
     @SuppressWarnings("deprecation")
     @Before
@@ -37,6 +37,12 @@ public class PosixParserTest extends ParserTestCase {
     @Test
     @Ignore("not supported by the PosixParser")
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the PosixParser")
+    public void testAmbiguousLongWithoutEqualSingleDash2() throws Exception {
     }
 
     @Override

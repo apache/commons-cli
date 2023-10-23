@@ -17,6 +17,8 @@
 
 package org.apache.commons.cli;
 
+import static org.apache.commons.cli.Util.EMPTY_STRING_ARRAY;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -171,11 +173,11 @@ public class Option implements Cloneable, Serializable {
         /**
          * Sets the number of argument values the Option can take.
          *
-         * @param numberOfArgs the number of argument values
+         * @param argCount the number of argument values
          * @return this builder, to allow method chaining
          */
-        public Builder numberOfArgs(final int numberOfArgs) {
-            this.argCount = numberOfArgs;
+        public Builder numberOfArgs(final int argCount) {
+            this.argCount = argCount;
             return this;
         }
 
@@ -195,11 +197,12 @@ public class Option implements Cloneable, Serializable {
         /**
          * Sets whether the Option can have an optional argument.
          *
-         * @param isOptional specifies whether the Option can have an optional argument.
+         * @param optionalArg specifies whether the Option can have an optional argument.
          * @return this builder, to allow method chaining
          */
-        public Builder optionalArg(final boolean isOptional) {
-            this.optionalArg = isOptional;
+        public Builder optionalArg(final boolean optionalArg) {
+            this.argCount = optionalArg ? 1 : UNINITIALIZED;
+            this.optionalArg = optionalArg;
             return this;
         }
 
@@ -260,11 +263,11 @@ public class Option implements Cloneable, Serializable {
          * String propertyValue = line.getOptionValues("D")[1]; // will be "value"
          * </pre>
          *
-         * @param sep The value separator.
+         * @param valueSeparator The value separator.
          * @return this builder, to allow method chaining
          */
-        public Builder valueSeparator(final char sep) {
-            valueSeparator = sep;
+        public Builder valueSeparator(final char valueSeparator) {
+            this.valueSeparator = valueSeparator;
             return this;
         }
     }
@@ -277,6 +280,9 @@ public class Option implements Cloneable, Serializable {
 
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
+
+    /** Empty array. */
+    static final Option[] EMPTY_ARRAY = {};
 
     /**
      * Returns a {@link Builder} to create an {@link Option} using descriptive methods.
@@ -415,7 +421,7 @@ public class Option implements Cloneable, Serializable {
      */
     private void add(final String value) {
         if (!acceptsArg()) {
-            throw new RuntimeException("Cannot add value, list full.");
+            throw new IllegalArgumentException("Cannot add value, list full.");
         }
 
         // store value
@@ -444,7 +450,7 @@ public class Option implements Cloneable, Serializable {
      */
     void addValueForProcessing(final String value) {
         if (argCount == UNINITIALIZED) {
-            throw new RuntimeException("NO_ARGS_ALLOWED");
+            throw new IllegalArgumentException("NO_ARGS_ALLOWED");
         }
         processValue(value);
     }
@@ -474,8 +480,8 @@ public class Option implements Cloneable, Serializable {
             final Option option = (Option) super.clone();
             option.values = new ArrayList<>(values);
             return option;
-        } catch (final CloneNotSupportedException cnse) {
-            throw new RuntimeException("A CloneNotSupportedException was thrown: " + cnse.getMessage());
+        } catch (final CloneNotSupportedException e) {
+            throw new UnsupportedOperationException(e.getMessage(), e);
         }
     }
 
@@ -617,7 +623,7 @@ public class Option implements Cloneable, Serializable {
      * @return the values of this Option as a String array or null if there are no values
      */
     public String[] getValues() {
-        return hasNoValues() ? null : values.toArray(new String[values.size()]);
+        return hasNoValues() ? null : values.toArray(EMPTY_STRING_ARRAY);
     }
 
     /**

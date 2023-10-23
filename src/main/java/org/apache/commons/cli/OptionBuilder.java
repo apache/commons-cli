@@ -97,7 +97,7 @@ public final class OptionBuilder {
      * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
      */
     public static Option create(final String opt) throws IllegalArgumentException {
-        Option option = null;
+        Option option;
         try {
             // create the option
             option = new Option(opt, description);

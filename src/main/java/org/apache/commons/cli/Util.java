@@ -28,10 +28,9 @@ final class Util {
     static final String[] EMPTY_STRING_ARRAY = {};
 
     /**
-     * Remove the leading and trailing quotes from {@code str}. E.g. if str is '"one two"', then 'one two' is returned.
+     * Removes the leading and trailing quotes from {@code str}. E.g. if str is '"one two"', then 'one two' is returned.
      *
      * @param str The string from which the leading and trailing quotes should be removed.
-     *
      * @return The string without the leading and trailing quotes.
      */
     static String stripLeadingAndTrailingQuotes(String str) {
@@ -44,10 +43,9 @@ final class Util {
     }
 
     /**
-     * Remove the hyphens from the beginning of {@code str} and return the new String.
+     * Removes the hyphens from the beginning of {@code str} and return the new String.
      *
      * @param str The string from which the hyphens should be removed.
-     *
      * @return the new String.
      */
     static String stripLeadingHyphens(final String str) {

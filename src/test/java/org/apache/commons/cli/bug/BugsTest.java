@@ -20,6 +20,7 @@ package org.apache.commons.cli.bug;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -135,6 +136,9 @@ public class BugsTest {
 
         cmd.getOptionValue("f", "default f");
         cmd.getOptionValue("m", "default m");
+        //
+        assertNull(cmd.getOptionValue((String) null, null));
+        assertEquals("default", cmd.getOptionValue((String) null, "default"));
     }
 
     @Test

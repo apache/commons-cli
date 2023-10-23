@@ -41,6 +41,31 @@ public class CommandLineTest {
     }
 
     @Test
+    public void testBuilderNullArgs() {
+        final CommandLine.Builder builder = new CommandLine.Builder();
+        builder.addArg(null).addArg(null);
+        builder.addOption(Option.builder("T").build());
+        final CommandLine cmd = builder.build();
+
+        assertEquals(0, cmd.getArgs().length);
+        assertEquals("T", cmd.getOptions()[0].getOpt());
+    }
+
+    @Test
+    public void testBuilderNullOption() {
+        final CommandLine.Builder builder = new CommandLine.Builder();
+        builder.addArg("foo").addArg("bar");
+        builder.addOption(null);
+        builder.addOption(null);
+        builder.addOption(null);
+        final CommandLine cmd = builder.build();
+
+        assertEquals("foo", cmd.getArgs()[0]);
+        assertEquals("bar", cmd.getArgList().get(1));
+        assertEquals(0, cmd.getOptions().length);
+    }
+
+    @Test
     public void testGetOptionProperties() throws Exception {
         final String[] args = {"-Dparam1=value1", "-Dparam2=value2", "-Dparam3", "-Dparam4=value4", "-D", "--property", "foo=bar"};
 

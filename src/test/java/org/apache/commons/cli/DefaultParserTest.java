@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DefaultParserTest extends ParserTestCase {
+public class DefaultParserTest extends AbstractParserTestCase {
 
     @Override
     @Before
@@ -97,7 +97,7 @@ public class DefaultParserTest extends ParserTestCase {
 
         final CommandLine cl = parser.parse(options, args);
 
-        //This is behaviour is not consistent with the other parsers, but is required for backwards compatibility
+        //This is behavior is not consistent with the other parsers, but is required for backwards compatibility
         assertEquals("Confirm -b\"arg\" keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
     }
 

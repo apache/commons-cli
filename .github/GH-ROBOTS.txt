@@ -13,17 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-github:
-  description: Apache Commons CLI
-  homepage: http://commons.apache.org/cli/
-
-notifications:
-    commits:      commits@commons.apache.org
-    issues:       issues@commons.apache.org
-    pullrequests: issues@commons.apache.org
-    jira_options: link label
-    jobs:         notifications@commons.apache.org
-    issues_bot_dependabot: notifications@commons.apache.org
-    pullrequests_bot_dependabot: notifications@commons.apache.org
-    issues_bot_codecov-commenter: notifications@commons.apache.org
-    pullrequests_bot_codecov-commenter: notifications@commons.apache.org
+# Keeps on creating FUD PRs in test code
+# Does not follow Apache disclosure policies
+User-agent: JLLeitschuh/security-research
+Disallow: *

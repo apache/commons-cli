@@ -34,7 +34,7 @@ import org.junit.Test;
 /**
  * Abstract test case testing common parser features.
  */
-public abstract class ParserTestCase {
+public abstract class AbstractParserTestCase {
     protected CommandLineParser parser;
 
     protected Options options;
@@ -67,6 +67,21 @@ public abstract class ParserTestCase {
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("foo").hasOptionalArg().create('f'));
         options.addOption(OptionBuilder.withLongOpt("bar").hasOptionalArg().create('b'));
+
+        final CommandLine cl = parser.parse(options, args);
+
+        assertTrue(cl.hasOption("b"));
+        assertTrue(cl.hasOption("f"));
+        assertEquals("bar", cl.getOptionValue("foo"));
+    }
+
+    @Test
+    public void testAmbiguousLongWithoutEqualSingleDash2() throws Exception {
+        final String[] args = {"-b", "-foobar"};
+
+        final Options options = new Options();
+        options.addOption(Option.builder().longOpt("foo").option("f").optionalArg(true).build());
+        options.addOption(Option.builder().longOpt("bar").option("b").optionalArg(false).build());
 
         final CommandLine cl = parser.parse(options, args);
 
@@ -1007,4 +1022,11 @@ public abstract class ParserTestCase {
         assertTrue("Confirm NO of extra args", cl.getArgList().isEmpty());
     }
 
+    @Test(expected = UnrecognizedOptionException.class)
+    public void testAmbiguousArgParsing() throws Exception {
+        final String[] args = {"-=-"};
+        final Options options = new Options();
+
+        final CommandLine cl = parser.parse(options, args);
+    }
 }

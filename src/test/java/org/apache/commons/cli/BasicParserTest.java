@@ -22,7 +22,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BasicParserTest extends ParserTestCase {
+public class BasicParserTest extends AbstractParserTestCase {
     @Override
     @Before
     public void setUp() {
@@ -34,6 +34,12 @@ public class BasicParserTest extends ParserTestCase {
     @Test
     @Ignore("not supported by the BasicParser")
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the BasicParser")
+    public void testAmbiguousLongWithoutEqualSingleDash2() throws Exception {
     }
 
     @Override

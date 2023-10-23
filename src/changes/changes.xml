@@ -15,12 +15,107 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<document>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <properties>
     <title>Apache Commons CLI Release Notes</title>
   </properties>
   <body>
-    <release version="1.5.0" date="tba" description="New features and bug fixes (Java 7).">
+    <release version="1.6.0" date="2023-10-23" description="New features and bug fixes">
+      <!-- FIX -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 417-423] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 446-450] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 474-478] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION
+      </action>
+      <action type="update" dev="ggregory" due-to="Ken Dombeck">
+        Use EMPTY_STRING_ARRAY constant. #102.
+      </action>
+      <action type="update" dev="ggregory" due-to="Arturo Bernal">
+        Fix site links that are broken #155.
+      </action>
+      <action type="update" dev="ggregory" due-to="Arturo Bernal">
+        Use Math.max() #111. 
+        Delete unused assignment #112.
+      </action>
+      <action dev="ggregory" type="fix" due-to="step-security-bot, Gary Gregory">
+        [StepSecurity] ci: Harden GitHub Actions #176.
+      </action>
+      <action dev="ggregory" type="fix" due-to="Alexander Veit, Gary Gregory" issue="CLI-318">
+        Inconsistent date format in changes report.
+      </action>
+      <action dev="ggregory" type="fix" due-to="Dilraj Singh, Gary Gregory" issue="CLI-283">
+        Fix NPE in CommandLine.resolveOption(String).
+      </action>
+      <action dev="ggregory" type="fix" due-to="Dilraj Singh, Gary Gregory" issue="CLI-283">
+        CommandLine.addOption(Option) should not allow a null Option.
+      </action>
+      <action dev="ggregory" type="fix" due-to="Gary Gregory" issue="CLI-283">
+        CommandLine.addArgs(String) should not allow a null String.
+      </action>
+      <action dev="ggregory" type="fix" due-to="Julian Schilling, Gary Gregory" issue="CLI-303">
+        Site docs: "Usage Scenarios" refers to deprecated methods.
+      </action>
+      <action dev="ggregory" type="fix" due-to="Philippe Bastiani, Sruteesh Kumar Paramata, Gary Gregory" issue="CLI-317">
+        NullPointerException thrown by CommandLineParser.parse().
+      </action>
+      <action dev="ggregory" type="fix" due-to="Dominik Stadler, HUNG LU, Sruteesh Kumar Paramata" issue="CLI-313">
+        StringIndexOutOfBoundsException thrown by CommandLineParser.parse().
+      </action>
+      <!-- ADD -->
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+        Add github/codeql-action.
+      </action>
+      <!-- UPDATES -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump Java from 7 to 8.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+        Bump actions/cache from 2.1.7 to 3.0.10 #97, #130, #132.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">
+        Bump actions/checkout from 3 to 3.1.0 #133.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump actions/setup-java from 2 to 3.6.0 #136.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">
+        Bump spotbugs from 4.5.3 to 4.7.3 #96, #107, #113, #125, #138.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump spotbugs-maven-plugin from 4.5.3.0 to 4.7.3.0 #98, #108, #115, #117, #126, #145.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+        Bump commons-parent from 52 to 64 #100, #128, #151, #158.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump maven-antrun-plugin from 3.0.0 to 3.1.0 #103.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump maven-javadoc-plugin from 3.3.2 to 3.4.1 #105, #120.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump maven-pmd-plugin from 3.16.0 to 3.19.0 #110, #124.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump jacoco-maven-plugin from 0.8.7 to 0.8.8.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 #121.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump japicmp-maven-plugin from 0.15.4 to 0.16.0.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Update JUnit 4 to 5 vintage.
+      </action>
+    </release>
+    <release version="1.5.0" date="2021-10-23" description="New features and bug fixes (Java 7).">
       <!-- FIX -->
       <action type="fix" dev="ggregory" due-to="Gary Gregory">
         Fix NPE in DefaultParser.isLongOption(String).
@@ -83,43 +178,46 @@
       </action>
       <action type="update" dev="ggregory" due-to="Dependabot">
         Bump commons-parent from 48 to 52.
-     </action>
-     <action type="update" dev="ggregory" due-to="Dependabot">
-       Bump maven-pmd-plugin from 3.12.0 to 3.15.0, #44, #54, #67.
-     </action>
-     <action type="update" dev="ggregory" due-to="Dependabot">
-       Bump actions/checkout from v2.3.1 to v2.3.5 #46, #72.
-     </action>
-     <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
-       Bump actions/setup-java from v1.4.2 to v2 #50.
       </action>
-     <action type="update" dev="ggregory" due-to="Dependabot">
-       Bump maven-antrun-plugin from 1.7 to 3.0.0 #43.
-     </action>
-     <action type="update" dev="ggregory" due-to="Gary Gregory">
-       Bump maven-checkstyle-plugin from 2.15 to 3.1.2 #41.
-     </action>
-     <action type="update" dev="ggregory" due-to="Gary Gregory">
-       Bump checkstyle to 9.0.1 #68.
-     </action>
-     <action type="update" dev="ggregory" due-to="Dependabot">
-       Bump actions/cache from 2 to 2.1.6 #64, #65.
-     </action>
-     <action type="update" dev="ggregory" due-to="Gary Gregory">
-       Bump commons.animal-sniffer.version 1.19 -> 1.20.
-     </action>
-     <action type="update" dev="ggregory" due-to="Gary Gregory">
-       Bump maven-bundle-plugin 5.1.1 -> 5.1.2.
-     </action>
-     <action type="update" dev="ggregory" due-to="Gary Gregory">
-       Bump biz.aQute.bndlib.version 5.1.2 -> 6.0.0.
-     </action>
-     <action type="update" dev="ggregory" due-to="Dependabot">
-       Bump spotbugs from 4.4.1 to 4.4.2 #70.
-     </action>
-     <action type="update" dev="ggregory" due-to="Dependabot">
-       Bump spotbugs-maven-plugin from 4.4.1 to 4.4.2.2 #71.
-     </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump maven-pmd-plugin from 3.12.0 to 3.16.0, #44, #54, #67, #92.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump actions/checkout from 2.3.1 to 3 #46, #72, #78, #93.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">
+        Bump actions/setup-java from v1.4.2 to v2 #50.
+       </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump maven-antrun-plugin from 1.7 to 3.0.0 #43.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump maven-checkstyle-plugin from 2.15 to 3.1.2 #41.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump checkstyle to 9.3 #68, #86, #90.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump actions/cache from 2 to 2.1.7 #64, #65, #81.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump commons.animal-sniffer.version 1.19 -> 1.20.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump maven-bundle-plugin 5.1.1 -> 5.1.2.
+      </action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">
+        Bump biz.aQute.bndlib.version 5.1.2 -> 6.0.0.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump spotbugs from 4.4.1 to 4.5.3 #70, #88.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump spotbugs-maven-plugin from 4.4.1 to 4.5.3.0 #71, #85, #87.
+      </action>
+      <action type="update" dev="ggregory" due-to="Dependabot">
+        Bump maven-javadoc-plugin from 3.3.1 to 3.3.2, #91.
+      </action>
     </release>
 
     <release version="1.4" date="2017-03-09" description="New features and bug fixes">

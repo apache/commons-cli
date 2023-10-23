@@ -197,7 +197,7 @@ public class ApplicationTest {
                 addOption("f", "whatis", false, "equivalent to whatis.").
                 addOption("k", "apropos", false, "equivalent to apropos.").
                 addOption("w", "location", false, "print physical location of man page(s).").
-                addOption("l", "local-file", false, "interpret 'page' argument(s) as local filename(s)").
+                addOption("l", "local-file", false, "interpret 'page' argument(s) as local file name(s)").
                 addOption("u", "update", false, "force a cache consistency check.").
                 //FIXME - should generate -r,--prompt string
                 addOption("r", "prompt", true, "provide 'less' pager with prompt.").
@@ -215,7 +215,7 @@ public class ApplicationTest {
                 //FIXME - should generate -S,--sections list
                 addOption("S", "sections", true, "use colon separated section list.").
                 //FIXME - should generate -m,--systems system
-                addOption("m", "systems", true, "search for man pages from other unix system(s).").
+                addOption("m", "systems", true, "search for man pages from other Unix system(s).").
                 //FIXME - should generate -L,--locale locale
                 addOption("L", "locale", true, "define the locale for this particular man search.").
                 //FIXME - should generate -p,--preprocessor string
@@ -227,7 +227,7 @@ public class ApplicationTest {
         //@formatter:on
 
         final HelpFormatter hf = new HelpFormatter();
-        final String eol = System.getProperty("line.separator");
+        final String eol = System.lineSeparator();
         final StringWriter out = new StringWriter();
         hf.printHelp(new PrintWriter(out), 60, cmdLine, null, options, HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, null, false);
         //@formatter:off
@@ -248,13 +248,13 @@ public class ApplicationTest {
                         " -h,--help                 show this usage message." + eol +
                         " -k,--apropos              equivalent to apropos." + eol +
                         " -l,--local-file           interpret 'page' argument(s) as" + eol +
-                        "                           local filename(s)" + eol +
+                        "                           local file name(s)" + eol +
                         " -L,--locale <arg>         define the locale for this" + eol +
                         "                           particular man search." + eol +
                         " -M,--manpath <arg>        set search path for manual pages" + eol +
                         "                           to 'path'." + eol +
                         " -m,--systems <arg>        search for man pages from other" + eol +
-                        "                           unix system(s)." + eol +
+                        "                           Unix system(s)." + eol +
                         " -P,--pager <arg>          use program 'pager' to display" + eol +
                         "                           output." + eol +
                         " -p,--preprocessor <arg>   string indicates which" + eol +

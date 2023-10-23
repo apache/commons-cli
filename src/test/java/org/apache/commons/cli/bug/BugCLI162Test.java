@@ -33,7 +33,7 @@ import org.junit.Test;
 
 public class BugCLI162Test {
     /** Constant for the line separator. */
-    private static final String CR = System.getProperty("line.separator");
+    private static final String CR = System.lineSeparator();
 
     // Constants used for options
     private static final String OPT = "-";

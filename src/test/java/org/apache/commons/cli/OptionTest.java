@@ -23,11 +23,13 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.Test;
 
 public class OptionTest {
-    private static class DefaultOption extends Option {
+
+    private static final class DefaultOption extends Option {
         private static final long serialVersionUID = 1L;
 
         private final String defaultValue;
@@ -43,7 +45,7 @@ public class OptionTest {
         }
     }
 
-    private static class TestOption extends Option {
+    private static final class TestOption extends Option {
         private static final long serialVersionUID = 1L;
 
         TestOption(final String opt, final boolean hasArg, final String description) throws IllegalArgumentException {
@@ -71,34 +73,40 @@ public class OptionTest {
         assertEquals(cls, option.getType());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInsufficientParams1() {
-        Option.builder().desc("desc").build();
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder().desc("desc").build());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInsufficientParams2() {
-        Option.builder(null).desc("desc").build();
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder(null).desc("desc").build());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInvalidOptionName1() {
-        Option.builder().option("invalid?");
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder().option("invalid?"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInvalidOptionName2() {
-        Option.builder().option("invalid@");
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder().option("invalid@"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInvalidOptionName3() {
-        Option.builder("invalid?");
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder("invalid?"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testBuilderInvalidOptionName4() {
-        Option.builder("invalid@");
+        assertThrows(IllegalArgumentException.class, () ->
+                Option.builder("invalid@"));
     }
 
     @Test
@@ -123,7 +131,7 @@ public class OptionTest {
             String.class);
         checkOption(Option.builder("a").desc("desc").optionalArg(false).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator,
             String.class);
-        checkOption(Option.builder("a").desc("desc").optionalArg(true).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, true, defaultSeparator,
+        checkOption(Option.builder("a").desc("desc").optionalArg(true).build(), "a", "desc", null, 1, null, false, true, defaultSeparator,
             String.class);
         checkOption(Option.builder("a").desc("desc").valueSeparator(':').build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, ':',
             String.class);

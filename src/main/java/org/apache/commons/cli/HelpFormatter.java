@@ -68,7 +68,7 @@ public class HelpFormatter {
     /**
      * This class implements the {@code Comparator} interface for comparing Options.
      */
-    private static class OptionComparator implements Comparator<Option>, Serializable {
+    private static final class OptionComparator implements Comparator<Option>, Serializable {
         /** The serial version UID. */
         private static final long serialVersionUID = 5305467873966684014L;
 
@@ -148,12 +148,12 @@ public class HelpFormatter {
     public String defaultSyntaxPrefix = DEFAULT_SYNTAX_PREFIX;
 
     /**
-     * the new line string
-     *
-     * @deprecated Scope will be made private for next major version - use get/setNewLine methods instead.
-     */
+    * the new line string
+    *
+    * @deprecated Scope will be made private for next major version - use get/setNewLine methods instead.
+    */
     @Deprecated
-    public String defaultNewLine = System.getProperty("line.separator");
+    public String defaultNewLine = System.lineSeparator();
 
     /**
      * the shortOpt prefix
@@ -708,7 +708,7 @@ public class HelpFormatter {
             }
 
             prefixList.add(optBuf);
-            max = optBuf.length() > max ? optBuf.length() : max;
+            max = Math.max(optBuf.length(), max);
         }
 
         int x = 0;

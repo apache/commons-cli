@@ -22,7 +22,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class GnuParserTest extends ParserTestCase {
+public class GnuParserTest extends AbstractParserTestCase {
     @Override
     @Before
     public void setUp() {
@@ -34,6 +34,12 @@ public class GnuParserTest extends ParserTestCase {
     @Test
     @Ignore("not supported by the GnuParser")
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception {
+    }
+
+    @Override
+    @Test
+    @Ignore("not supported by the GnuParser")
+    public void testAmbiguousLongWithoutEqualSingleDash2() throws Exception {
     }
 
     @Override
