@@ -93,7 +93,7 @@ public class OptionGroup implements Serializable {
     }
 
     /**
-     * Set the selected option of this group to {@code name}.
+     * Sets the selected option of this group to {@code name}.
      *
      * @param option the option that is selected
      * @throws AlreadySelectedException if an option from this group has already been selected.

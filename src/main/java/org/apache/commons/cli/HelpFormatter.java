@@ -872,7 +872,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Set the separator displayed between a long option and its value. Ensure that the separator specified is supported by
+     * Sets the separator displayed between a long option and its value. Ensure that the separator specified is supported by
      * the parser used, typically ' ' or '='.
      *
      * @param longOptSeparator the separator, typically ' ' or '='.
@@ -892,7 +892,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Set the comparator used to sort the options when they output in help text. Passing in a null comparator will keep the
+     * Sets the comparator used to sort the options when they output in help text. Passing in a null comparator will keep the
      * options in the order they were declared.
      *
      * @param comparator the {@link Comparator} to use for sorting the options
