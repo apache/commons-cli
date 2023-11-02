@@ -78,7 +78,7 @@ for working with the command line arguments and options.
 
 Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
 
-New features and bug fixes (Java 7).
+New features and bug fixes (Java 7 or above).
 
 Changes in this version include:
 
