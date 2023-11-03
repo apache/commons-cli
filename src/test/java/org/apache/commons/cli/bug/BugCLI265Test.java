@@ -53,7 +53,7 @@ public class BugCLI265Test {
     }
 
     @Test
-    public void shouldParseConcatenatedShortOptions() throws Exception {
+    public void testShouldParseConcatenatedShortOptions() throws Exception {
         final String[] concatenatedShortOptions = {"-t1", "-ab"};
 
         final CommandLine commandLine = parser.parse(options, concatenatedShortOptions);
@@ -66,7 +66,7 @@ public class BugCLI265Test {
     }
 
     @Test
-    public void shouldParseShortOptionWithoutValue() throws Exception {
+    public void testShouldParseShortOptionWithoutValue() throws Exception {
         final String[] twoShortOptions = {"-t1", "-last"};
 
         final CommandLine commandLine = parser.parse(options, twoShortOptions);
@@ -77,7 +77,7 @@ public class BugCLI265Test {
     }
 
     @Test
-    public void shouldParseShortOptionWithValue() throws Exception {
+    public void testShouldParseShortOptionWithValue() throws Exception {
         final String[] shortOptionWithValue = {"-t1", "path/to/my/db"};
 
         final CommandLine commandLine = parser.parse(options, shortOptionWithValue);
