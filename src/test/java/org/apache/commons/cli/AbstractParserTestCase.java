@@ -60,6 +60,14 @@ public abstract class AbstractParserTestCase {
         //@formatter:on
     }
 
+    @Test(expected = UnrecognizedOptionException.class)
+    public void testAmbiguousArgParsing() throws Exception {
+        final String[] args = {"-=-"};
+        final Options options = new Options();
+
+        final CommandLine cl = parser.parse(options, args);
+    }
+
     @Test
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception {
         final String[] args = {"-b", "-foobar"};
@@ -1020,13 +1028,5 @@ public abstract class AbstractParserTestCase {
         assertTrue("Confirm -b is set", cl.hasOption("b"));
         assertEquals("Confirm arg of -b", "file", cl.getOptionValue("b"));
         assertTrue("Confirm NO of extra args", cl.getArgList().isEmpty());
-    }
-
-    @Test(expected = UnrecognizedOptionException.class)
-    public void testAmbiguousArgParsing() throws Exception {
-        final String[] args = {"-=-"};
-        final Options options = new Options();
-
-        final CommandLine cl = parser.parse(options, args);
     }
 }
