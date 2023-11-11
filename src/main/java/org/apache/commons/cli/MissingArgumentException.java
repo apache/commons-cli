@@ -30,7 +30,7 @@ public class MissingArgumentException extends ParseException {
     private Option option;
 
     /**
-     * Construct a new {@code MissingArgumentException} with the specified detail message.
+     * Constructs a new {@code MissingArgumentException} with the specified detail message.
      *
      * @param option the option requiring an argument
      * @since 1.2
@@ -41,7 +41,7 @@ public class MissingArgumentException extends ParseException {
     }
 
     /**
-     * Construct a new {@code MissingArgumentException} with the specified detail message.
+     * Constructs a new {@code MissingArgumentException} with the specified detail message.
      *
      * @param message the detail message
      */

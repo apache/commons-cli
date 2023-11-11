@@ -64,7 +64,7 @@ public class MissingOptionException extends ParseException {
     }
 
     /**
-     * Construct a new {@code MissingSelectedException} with the specified detail message.
+     * Constructs a new {@code MissingSelectedException} with the specified detail message.
      *
      * @param message the detail message
      */
