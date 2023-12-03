@@ -22,6 +22,8 @@
     <title>Apache Commons CLI Release Notes</title>
   </properties>
   <body>
+    <release version="1.7.0" date="202Y-MM-DD" description="New features and bug fixes">
+    </release>
     <release version="1.6.0" date="2023-10-23" description="New features and bug fixes">
       <!-- FIX -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">
