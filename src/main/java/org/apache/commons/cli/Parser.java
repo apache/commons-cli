@@ -34,10 +34,10 @@ public abstract class Parser implements CommandLineParser {
     /** CommandLine instance */
     protected CommandLine cmd;
 
-    /** current Options */
+    /** Current Options */
     private Options options;
 
-    /** list of required options strings */
+    /** List of required options strings */
     private List requiredOptions;
 
     /**

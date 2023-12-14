@@ -30,13 +30,13 @@ public class OptionGroup implements Serializable {
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
-    /** hold the options */
+    /** Hold the options */
     private final Map<String, Option> optionMap = new LinkedHashMap<>();
 
     /** The name of the selected option */
     private String selected;
 
-    /** specified whether this group is required */
+    /** Specified whether this group is required */
     private boolean required;
 
     /**

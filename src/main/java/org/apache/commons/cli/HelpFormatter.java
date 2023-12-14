@@ -93,7 +93,7 @@ public class HelpFormatter {
     /** Default padding to the left of each line */
     public static final int DEFAULT_LEFT_PAD = 1;
 
-    /** number of space characters to be prefixed to each description line */
+    /** Number of space characters to be prefixed to each description line */
     public static final int DEFAULT_DESC_PAD = 3;
 
     /** The string to display at the beginning of the usage statement */

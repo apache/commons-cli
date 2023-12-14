@@ -30,13 +30,13 @@ import java.util.List;
  */
 @Deprecated
 public class PosixParser extends Parser {
-    /** holder for flattened tokens */
+    /** Holder for flattened tokens */
     private final List<String> tokens = new ArrayList<>();
 
-    /** specifies if bursting should continue */
+    /** Specifies if bursting should continue */
     private boolean eatTheRest;
 
-    /** holder for the current option */
+    /** Holder for the current option */
     private Option currentOption;
 
     /** The command line Options */

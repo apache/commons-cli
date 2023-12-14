@@ -59,7 +59,7 @@ public class Option implements Cloneable, Serializable {
         /** The name of the option */
         private String option;
 
-        /** description of the option */
+        /** Description of the option */
         private String description;
 
         /** The long representation of the option */
@@ -68,10 +68,10 @@ public class Option implements Cloneable, Serializable {
         /** The name of the argument for this option */
         private String argName;
 
-        /** specifies whether this option is required to be present */
+        /** Specifies whether this option is required to be present */
         private boolean required;
 
-        /** specifies whether the argument value of this Option is optional */
+        /** Specifies whether the argument value of this Option is optional */
         private boolean optionalArg;
 
         /** The number of argument values this option can have */

@@ -40,18 +40,18 @@ public class Options implements Serializable {
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
-    /** a map of the options with the character key */
+    /** A map of the options with the character key */
     private final Map<String, Option> shortOpts = new LinkedHashMap<>();
 
-    /** a map of the options with the long key */
+    /** A map of the options with the long key */
     private final Map<String, Option> longOpts = new LinkedHashMap<>();
 
-    /** a map of the required options */
+    /** A map of the required options */
     // N.B. This can contain either a String (addOption) or an OptionGroup (addOptionGroup)
     // TODO this seems wrong
     private final List<Object> requiredOpts = new ArrayList<>();
 
-    /** a map of the option groups */
+    /** A map of the option groups */
     private final Map<String, OptionGroup> optionGroups = new LinkedHashMap<>();
 
     /**
