@@ -92,7 +92,7 @@ public final class OptionBuilder {
     /**
      * Creates an Option using the current settings and with the specified Option {@code char}.
      *
-     * @param opt the {@code java.lang.String} representation of the Option
+     * @param opt the {@code String} representation of the Option
      * @return the Option instance
      * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
      */
