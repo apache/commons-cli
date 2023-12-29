@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
-import java.text.DateFormat;
 import java.util.Date;
 
 import org.junit.Test;
@@ -62,7 +61,7 @@ public class TypeHandlerTest {
     public void testCreateValueDate() throws Exception {
         Date d = new Date(1023400137000L);
         Date d2 = TypeHandler.createValue("Thu Jun 06 17:48:57 EDT 2002", PatternOptionBuilder.DATE_VALUE);
-        assertEquals( d, d2 );
+        assertEquals(d, d2);
     }
 
     

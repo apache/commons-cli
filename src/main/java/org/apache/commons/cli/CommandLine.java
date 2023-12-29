@@ -351,8 +351,9 @@ public class CommandLine implements Serializable {
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.5.0
+     * @param <T> The return type for the method.
      */
-    public Object getParsedOptionValue(final char opt) throws ParseException {
+    public <T> T getParsedOptionValue(final char opt) throws ParseException {
         return getParsedOptionValue(String.valueOf(opt));
     }
 
@@ -364,16 +365,10 @@ public class CommandLine implements Serializable {
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.5.0
+     * @param <T> The return type for the method.
      */
-    public Object getParsedOptionValue(final Option option) throws ParseException {
-        if (option == null) {
-            return null;
-        }
-        final String res = getOptionValue(option);
-        if (res == null) {
-            return null;
-        }
-        return TypeHandler.createValue(res, option.getType());
+    public <T> T getParsedOptionValue(final Option option) throws ParseException {
+        return  getParsedOptionValue(option, null);
     }
 
     /**
@@ -384,9 +379,63 @@ public class CommandLine implements Serializable {
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.2
+     * @param <T> The return type for the method.
      */
-    public Object getParsedOptionValue(final String opt) throws ParseException {
+    public <T> T getParsedOptionValue(final String opt) throws ParseException {
         return getParsedOptionValue(resolveOption(opt));
+    }
+    
+    /**
+     * Gets a version of this {@code Option} converted to a particular type.
+     *
+     * @param opt the name of the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @return the value parsed into a particular object.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.7
+     * @param <T> The return type for the method.
+     */
+    public <T> T getParsedOptionValue(final char opt, T defaultValue) throws ParseException {
+        return getParsedOptionValue(String.valueOf(opt), defaultValue);
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to a particular type.
+     *
+     * @param option the name of the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @return the value parsed into a particular object.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.7
+     * @param <T> The return type for the method.
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getParsedOptionValue(final Option option, T defaultValue) throws ParseException {
+        if (option == null) {
+            return null;
+        }
+        final String res = getOptionValue(option);
+        if (res == null) {
+            return defaultValue;
+        }
+        return (T) TypeHandler.createValue(res, (Class<?>) option.getType());
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to a particular type.
+     *
+     * @param opt the name of the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @return the value parsed into a particular object.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.7
+     * @param <T> The return type for the method.
+     */
+    public <T> T getParsedOptionValue(final String opt, T defaultValue) throws ParseException {
+        return getParsedOptionValue(resolveOption(opt), defaultValue);
     }
 
     /**

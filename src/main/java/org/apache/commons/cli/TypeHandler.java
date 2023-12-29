@@ -20,11 +20,10 @@ package org.apache.commons.cli;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.beanutils.ConversionException;
-import org.apache.commons.beanutils.ConvertUtilsBean;
+import org.apache.commons.beanutils.ConvertUtilsBean2;
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.beanutils.converters.ConverterFacade;
 import org.apache.commons.beanutils.converters.DateConverter;
@@ -37,10 +36,16 @@ import org.apache.commons.cli.converters.SimpleConverter;
  */
 public class TypeHandler {
 
-    private static ConvertUtilsBean convertUtils;
+    /**
+     * The conversion utilities from BeanUtils.
+     */
+    private static ConvertUtilsBean2 convertUtils;
 
+    /**
+     * Setup the convertUtils object
+     */
     static {
-        convertUtils = new ConvertUtilsBean();
+        convertUtils = new ConvertUtilsBean2();
         convertUtils.register(true, true, 0);
         /*
          * this can not be a ternary because the unboxing operations will result in it
@@ -59,7 +64,7 @@ public class TypeHandler {
         };
         convertUtils.register(new SimpleConverter<>(fn, Number.class), Number.class);
 
-        Func<Object> fo = (str) -> {
+        Func<Object> fo = str -> {
                 final Class<?> cl;
 
                 try {
@@ -238,7 +243,7 @@ public class TypeHandler {
      *                            value of {@code str}.
      * @throws     ParseException if the value creation for the given object type
      *                            failed
-     * @deprecated                use createValue(str, Class<?>);
+     * @deprecated                use {@link #createValue(String, Class)};
      */
     @Deprecated // (since="1.7")
     public static Object createValue(final String str, final Object obj) throws ParseException {

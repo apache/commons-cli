@@ -25,10 +25,19 @@ import org.apache.commons.beanutils.converters.AbstractConverter;
  * @param <T> The type of object the converter will return.
  */
 public class SimpleConverter<T> extends AbstractConverter {
-
+    /**
+     * The Func to convert string values.
+     */
     private final Func<? extends T> func;
+    /**
+     * The class type of the object that is returned.
+     */
     private final Class<T> type;
 
+    /**
+     * @param func the Func instance to use to convert values.
+     * @param type the Type that this Converter returns.
+     */
     public SimpleConverter(Func<? extends T> func, Class<T> type) {
         this.func = func;
         this.type = type;

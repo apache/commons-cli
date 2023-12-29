@@ -153,7 +153,6 @@ public class PatternOptionBuilderTest {
             // expected
         }
 
-        // DATES NOT SUPPORTED YET
         assertEquals("date flag z", new Date(1023400137000L), line.getOptionObject('z'));
 
     }

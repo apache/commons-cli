@@ -18,11 +18,17 @@ package org.apache.commons.cli.converters;
 
 /**
  * The definition of the functional interface to call when doing a conversion.
- * Like Function<String,T> but can throw an Exception.
+ * Like {@code Function<String,T>} but can throw an Exception.
  *
  * @param <T> The return type for the function.
  */
 @FunctionalInterface
 public interface Func<T> {
+    /**
+     * Applies the conversion function to the String argument.
+     * @param str the String to convert
+     * @return the Object from the conversion.
+     * @throws Exception on error.
+     */
     T apply(String str) throws Exception;
 }
