@@ -25,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
+import java.text.DateFormat;
+import java.util.Date;
 
 import org.junit.Test;
 
@@ -51,11 +53,22 @@ public class TypeHandlerTest {
     }
 
     @Test
-    public void testCreateValueDate() {
-        assertThrows(UnsupportedOperationException.class, () ->
+    public void testBadValueDate() {
+        assertThrows(ParseException.class, () ->
                 TypeHandler.createValue("what ever", PatternOptionBuilder.DATE_VALUE));
     }
 
+    @Test
+    public void testCreateValueDate() throws Exception {
+        Date d = new Date();
+        DateFormat fmt = DateFormat.getDateInstance(DateFormat.SHORT);
+        String s = fmt.format(d);
+        d = fmt.parse(s);
+        Date d2 = TypeHandler.createValue(s, PatternOptionBuilder.DATE_VALUE);
+        assertEquals( d, d2 );
+    }
+
+    
     @Test
     public void testCreateValueExistingFile() throws Exception {
         try (FileInputStream result = TypeHandler.createValue("src/test/resources/org/apache/commons/cli/existing-readable.file",

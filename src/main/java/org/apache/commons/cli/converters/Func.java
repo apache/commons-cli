@@ -14,28 +14,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-
-package org.apache.commons.cli;
+package org.apache.commons.cli.converters;
 
 /**
- * Base for Exceptions thrown during parsing of a command-line.
+ * The definition of the functional interface to call when doing a conversion.
+ * Like Function<String,T> but can throw an Exception.
+ *
+ * @param <T> The return type for the function.
  */
-public class ParseException extends Exception {
-    /**
-     * This exception {@code serialVersionUID}.
-     */
-    private static final long serialVersionUID = 9112808380089253192L;
-
-    /**
-     * Constructs a new {@code ParseException} with the specified detail message.
-     *
-     * @param message the detail message
-     */
-    public ParseException(final String message) {
-        super(message);
-    }
-    
-    public ParseException(final Exception e) {
-        super(e);
-    }
+@FunctionalInterface
+public interface Func<T> {
+    T apply(String str) throws Exception;
 }
