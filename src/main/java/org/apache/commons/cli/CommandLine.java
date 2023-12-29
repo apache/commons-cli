@@ -31,8 +31,10 @@ import java.util.Properties;
  * <p>
  * It allows querying of a boolean {@link #hasOption(String opt)}, in addition to retrieving the
  * {@link #getOptionValue(String opt)} for options requiring arguments.
+ * </p>
  * <p>
  * Additionally, any left-over or unrecognized arguments, are available for further processing.
+ * </p>
  */
 public class CommandLine implements Serializable {
 
