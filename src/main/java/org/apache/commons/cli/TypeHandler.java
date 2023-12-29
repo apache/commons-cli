@@ -20,6 +20,7 @@ package org.apache.commons.cli;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.beanutils.ConversionException;
@@ -81,8 +82,20 @@ public class TypeHandler {
 
         // fixup date parsing
         DateConverter dc = new DateConverter();
-        dc.setUseLocaleFormat(true);
+        // should match "Thu Jun 06 17:48:57 EDT 2002"
+        dc.setPattern("EEE MMM dd HH:mm:ss zzz yyyy");
         convertUtils.register(new ConverterFacade(dc), Date.class);
+    }
+    
+    /**
+     * Registers a Converter for a class so that the class can be returned as the value of the command line option.
+     * Note: the converter will override any existing converter for the class.
+     *
+     * @param converter The converter to associate with the class.
+     * @param clazz the class that the converter handles.
+     */
+    public static void register(Converter converter, Class<?> clazz) {
+        convertUtils.register(converter, clazz);
     }
 
     /**

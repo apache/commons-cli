@@ -60,11 +60,8 @@ public class TypeHandlerTest {
 
     @Test
     public void testCreateValueDate() throws Exception {
-        Date d = new Date();
-        DateFormat fmt = DateFormat.getDateInstance(DateFormat.SHORT);
-        String s = fmt.format(d);
-        d = fmt.parse(s);
-        Date d2 = TypeHandler.createValue(s, PatternOptionBuilder.DATE_VALUE);
+        Date d = new Date(1023400137000L);
+        Date d2 = TypeHandler.createValue("Thu Jun 06 17:48:57 EDT 2002", PatternOptionBuilder.DATE_VALUE);
         assertEquals( d, d2 );
     }
 

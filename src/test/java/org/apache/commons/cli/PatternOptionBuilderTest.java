@@ -154,12 +154,8 @@ public class PatternOptionBuilderTest {
         }
 
         // DATES NOT SUPPORTED YET
-        try {
-            assertEquals("date flag z", new Date(1023400137276L), line.getOptionObject('z'));
-            fail("Date is not supported yet, should have failed");
-        } catch (final UnsupportedOperationException uoe) {
-            // expected
-        }
+        assertEquals("date flag z", new Date(1023400137000L), line.getOptionObject('z'));
+
     }
 
     @Test
