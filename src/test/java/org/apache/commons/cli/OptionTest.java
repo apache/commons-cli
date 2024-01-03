@@ -54,8 +54,12 @@ public class OptionTest {
 
         @Override
         public boolean addValue(final String value) {
+            try {
             addValueForProcessing(value);
             return true;
+            } catch (ParseException e) {
+                throw new RuntimeException( e );
+            }
         }
     }
 
@@ -169,7 +173,7 @@ public class OptionTest {
     }
 
     @Test
-    public void testGetValue() {
+    public void testGetValue() throws ParseException {
         final Option option = new Option("f", null);
         option.setArgs(Option.UNLIMITED_VALUES);
 

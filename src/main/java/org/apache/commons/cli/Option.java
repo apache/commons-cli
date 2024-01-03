@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.cli.converters.Converter;
+import org.apache.commons.cli.converters.Verifier;
+
 /**
  * Describes a single command-line option. It maintains information regarding the short-name of the option, the
  * long-name, if any exists, a flag indicating if an argument is required for this option, and a self-documenting
@@ -82,6 +85,12 @@ public class Option implements Cloneable, Serializable {
 
         /** The character that is the value separator */
         private char valueSeparator;
+        
+        /** The converter to convert to type **/
+        private Converter<?> converter = null;
+        
+        /** The verifier to verify string is valid for option */
+        private Verifier verifier = null;
 
         /**
          * Constructs a new {@code Builder} with the minimum required parameters for an {@code Option} instance.
@@ -234,6 +243,12 @@ public class Option implements Cloneable, Serializable {
          */
         public Builder type(final Class<?> type) {
             this.type = type;
+            if (verifier == null) {
+                verifier = TypeHandler.getVerifier(type);
+            }
+            if (converter == null) {
+                converter = TypeHandler.getConverter(type);
+            }
             return this;
         }
 
@@ -268,6 +283,16 @@ public class Option implements Cloneable, Serializable {
          */
         public Builder valueSeparator(final char valueSeparator) {
             this.valueSeparator = valueSeparator;
+            return this;
+        }
+        
+        public Builder converter(Converter<?> converter) {
+            this.converter = converter;
+            return this;
+        }
+        
+        public Builder verifier(Verifier verifier) {
+            this.verifier = verifier;
             return this;
         }
     }
@@ -335,6 +360,10 @@ public class Option implements Cloneable, Serializable {
 
     /** The character that is the value separator. */
     private char valuesep;
+    
+    private Converter<?> converter = Converter.DEFAULT;
+    
+    private Verifier verifier = Verifier.DEFAULT;
 
     /**
      * Private constructor used by the nested Builder class.
@@ -351,6 +380,8 @@ public class Option implements Cloneable, Serializable {
         this.required = builder.required;
         this.type = builder.type;
         this.valuesep = builder.valueSeparator;
+        this.converter = builder.converter == null ? Converter.DEFAULT : builder.converter;
+        this.verifier = builder.verifier == null ? Verifier.DEFAULT : builder.verifier;
     }
 
     /**
@@ -419,9 +450,13 @@ public class Option implements Cloneable, Serializable {
      *
      * @since 1.0.1
      */
-    private void add(final String value) {
+    private void add(final String value) throws ParseException {
         if (!acceptsArg()) {
             throw new IllegalArgumentException("Cannot add value, list full.");
+        }
+
+        if (!verifier.test(value)) {
+            throw new ParseException(String.format("'%s' is not a valid input string for option '%s'", value, option));
         }
 
         // store value
@@ -448,7 +483,7 @@ public class Option implements Cloneable, Serializable {
      *
      * @param value is a/the value of this Option
      */
-    void addValueForProcessing(final String value) {
+    void addValueForProcessing(final String value) throws ParseException {
         if (argCount == UNINITIALIZED) {
             throw new IllegalArgumentException("NO_ARGS_ALLOWED");
         }
@@ -729,7 +764,7 @@ public class Option implements Cloneable, Serializable {
      *
      * @since 1.0.1
      */
-    private void processValue(String value) {
+    private void processValue(String value) throws ParseException {
         // this Option has a separator character
         if (hasValueSeparator()) {
             // get the separator character
@@ -839,6 +874,12 @@ public class Option implements Cloneable, Serializable {
      */
     public void setType(final Class<?> type) {
         this.type = type;
+        if (verifier == null || verifier == Verifier.DEFAULT) {
+            verifier = TypeHandler.getVerifier(type);
+        }
+        if (converter == null || converter == Converter.DEFAULT) {
+            converter = TypeHandler.getConverter(type);
+        }
     }
 
     /**
@@ -863,6 +904,38 @@ public class Option implements Cloneable, Serializable {
      */
     public void setValueSeparator(final char sep) {
         this.valuesep = sep;
+    }
+    
+    /**
+     * Gets the value to type converter.
+     * @return the value to type converter
+     */
+    public Converter getConverter() {
+        return converter;
+    }
+
+    /**
+     * Sets the value to type converter.
+     * @param converter The converter to convert the string value to the type.
+     */
+    public void setConverter(Converter converter) {
+        this.converter = converter;
+    }
+
+    /**
+     * Gets the value verifier.
+     * @return the value verifier.
+     */
+    public Verifier getVerifier() {
+        return verifier;
+    }
+
+    /**
+     * Sets the value verifier to verify that a string value is the proper form to be converted to a string.
+     * @param verifier the Verifier to use.
+     */
+    public void setVerifier(Verifier verifier) {
+        this.verifier = verifier;
     }
 
     /**

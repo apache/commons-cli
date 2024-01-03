@@ -19,8 +19,12 @@ package org.apache.commons.cli;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Date;
+
+import org.apache.commons.cli.converters.Converter;
+import org.apache.commons.cli.converters.Verifier;
 
 /**
  * Allows Options to be created from a single String. The pattern contains various single character flags and via an
@@ -102,14 +106,25 @@ public class PatternOptionBuilder {
 
     /** URL class */
     public static final Class<URL> URL_VALUE = URL.class;
+    
+    static final Converter<?> NOT_IMPLEMENTED = s -> {throw new UnsupportedOperationException("Not yet implemented");};
+    
+    static {
+        TypeHandler.register(PatternOptionBuilder.FILES_VALUE, NOT_IMPLEMENTED, null);
+    }
 
     /**
      * Retrieve the class that {@code ch} represents.
      *
      * @param ch the specified character
      * @return The class that {@code ch} represents
+     * @deprecated use {@link #getValueType(char)}
      */
     public static Object getValueClass(final char ch) {
+        return getValueType(ch);
+    }
+    
+    public static Class<?> getValueType(final char ch) {
         switch (ch) {
         case '@':
             return PatternOptionBuilder.OBJECT_VALUE;
@@ -134,6 +149,15 @@ public class PatternOptionBuilder {
         return null;
     }
 
+    public static Converter<?> getConverter(final char ch) {
+        return TypeHandler.getConverter(getValueType(ch));
+    }
+    
+    public static Verifier getVerifier(final char ch) {
+        return TypeHandler.getVerifier(getValueType(ch));
+    }
+
+    
     /**
      * Returns whether {@code ch} is a value code, i.e. whether it represents a class in a pattern.
      *
@@ -154,6 +178,8 @@ public class PatternOptionBuilder {
         char opt = ' ';
         boolean required = false;
         Class<?> type = null;
+        Converter<?> converter = Converter.DEFAULT;
+        Verifier verifier = Verifier.DEFAULT;
 
         final Options options = new Options();
 
@@ -164,19 +190,24 @@ public class PatternOptionBuilder {
             // details about it
             if (!isValueCode(ch)) {
                 if (opt != ' ') {
-                    final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type).build();
+                    final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type)
+                            .converter(converter).verifier(verifier).build();
 
                     // we have a previous one to deal with
                     options.addOption(option);
                     required = false;
                     type = null;
+                    converter = Converter.DEFAULT;
+                    verifier = Verifier.DEFAULT;
                 }
 
                 opt = ch;
             } else if (ch == '!') {
                 required = true;
             } else {
-                type = (Class<?>) getValueClass(ch);
+                type = getValueType(ch);
+                converter = getConverter(ch);
+                verifier = getVerifier(ch);
             }
         }
 

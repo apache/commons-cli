@@ -417,10 +417,12 @@ public class CommandLine implements Serializable {
             return null;
         }
         final String res = getOptionValue(option);
-        if (res == null) {
-            return defaultValue;
+
+        try {
+            return res == null ? defaultValue : (T) option.getConverter().apply(res);
+        } catch (Exception e) {
+            throw ParseException.wrap(e);
         }
-        return (T) TypeHandler.createValue(res, (Class<?>) option.getType());
     }
 
     /**

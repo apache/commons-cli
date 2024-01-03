@@ -23,6 +23,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -79,15 +80,17 @@ public class PatternOptionBuilderTest {
     public void testNumberPattern() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("n%d%x%");
         final CommandLineParser parser = new PosixParser();
-        final CommandLine line = parser.parse(options, new String[] {"-n", "1", "-d", "2.1", "-x", "3,5"});
+        // 3,5 fails validation.
+        assertThrows(ParseException.class, () -> parser.parse(options, new String[] {"-n", "1", "-d", "2.1", "-x", "3,5"}));
 
+        CommandLine line = parser.parse(options, new String[] {"-n", "1", "-d", "2.1", "-x", "3.5"});
         assertEquals("n object class", Long.class, line.getOptionObject("n").getClass());
         assertEquals("n value", Long.valueOf(1), line.getOptionObject("n"));
 
         assertEquals("d object class", Double.class, line.getOptionObject("d").getClass());
         assertEquals("d value", Double.valueOf(2.1), line.getOptionObject("d"));
 
-        assertNull("x object", line.getOptionObject("x"));
+        assertEquals("x object", Double.valueOf(3.5), line.getOptionObject("x"));
     }
 
     @Test

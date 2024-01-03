@@ -19,88 +19,93 @@ package org.apache.commons.cli;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.commons.beanutils.ConversionException;
-import org.apache.commons.beanutils.ConvertUtilsBean2;
-import org.apache.commons.beanutils.Converter;
-import org.apache.commons.beanutils.converters.ConverterFacade;
-import org.apache.commons.beanutils.converters.DateConverter;
-import org.apache.commons.cli.converters.Func;
-import org.apache.commons.cli.converters.SimpleConverter;
+import org.apache.commons.cli.converters.Converter;
+import org.apache.commons.cli.converters.Verifier;
 
 /**
- * TypeHandler will handles the configuration of the Option type processing using
- * the Commons BeanUtils ConvertUtilsBean class.
+ * This is a temporary implementation. TypeHandler will handle the pluggableness
+ * of OptionTypes and it will direct all of these types of conversion
+ * functionalities to ConvertUtils component in Commons already. BeanUtils I
+ * think.
  */
 public class TypeHandler {
 
-    /**
-     * The conversion utilities from BeanUtils.
-     */
-    private static ConvertUtilsBean2 convertUtils;
+    private static Map<Class<?>, Converter<?>> converterMap = new HashMap<>();
+    private static Map<Class<?>, Verifier> verifierMap = new HashMap<>();
 
-    /**
-     * Setup the convertUtils object
-     */
     static {
-        convertUtils = new ConvertUtilsBean2();
-        convertUtils.register(true, true, 0);
-        /*
-         * this can not be a ternary because the unboxing operations will result in it
-         * always being a Double.
-         * https://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.25-300-A
-         */
-        Func<Number> fn = new Func<Number>() {
-
-            @Override
-            public Number apply(String str) throws ConversionException {
-                if (str.indexOf('.') == -1) {
-                    return Long.valueOf(str);
-                }
-                return Double.valueOf(str);
-            }
-        };
-        convertUtils.register(new SimpleConverter<>(fn, Number.class), Number.class);
-
-        Func<Object> fo = str -> {
-                final Class<?> cl;
-
-                try {
-                    cl = Class.forName(str);
-                } catch (final ClassNotFoundException cnfe) {
-                    throw new ConversionException("Unable to find the class: " + str);
-                }
-
-                try {
-                    return cl.getConstructor().newInstance();
-                } catch (final Exception e) {
-                    throw new ConversionException(e.getClass().getName() + "; Unable to create an instance of: " + str);
-                }
-            };
-        convertUtils.register(new SimpleConverter<>(fo, Object.class), Object.class);
-
-        convertUtils.register(
-                new SimpleConverter<>(str -> new FileInputStream(str), FileInputStream.class),
-                FileInputStream.class);
-
-        // fixup date parsing
-        DateConverter dc = new DateConverter();
-        // should match "Thu Jun 06 17:48:57 EDT 2002"
-        dc.setPattern("EEE MMM dd HH:mm:ss zzz yyyy");
-        convertUtils.register(new ConverterFacade(dc), Date.class);
+        resetConverters();
+        resetVerifiers();
     }
-    
-    /**
-     * Registers a Converter for a class so that the class can be returned as the value of the command line option.
-     * Note: the converter will override any existing converter for the class.
-     *
-     * @param converter The converter to associate with the class.
-     * @param clazz the class that the converter handles.
-     */
-    public static void register(Converter converter, Class<?> clazz) {
-        convertUtils.register(converter, clazz);
+
+    public static void resetConverters() {
+        converterMap.clear();
+        converterMap.put(Object.class, Converter.OBJECT);
+        converterMap.put(Class.class, Converter.CLASS);
+        converterMap.put(Date.class, Converter.DATE);
+        converterMap.put(File.class, Converter.FILE);
+        converterMap.put(Number.class, Converter.NUMBER);
+        converterMap.put(URL.class, Converter.URL);
+        converterMap.put(FileInputStream.class, s -> new FileInputStream(s));
+        converterMap.put(Long.class, Long::parseLong);
+        converterMap.put(Integer.class, Integer::parseInt);
+        converterMap.put(Short.class, Short::parseShort);
+        converterMap.put(Byte.class, Byte::parseByte);
+        converterMap.put(Character.class, s -> s.charAt(0));
+        converterMap.put(Double.class, Double::parseDouble);
+        converterMap.put(Float.class, Float::parseFloat);
+        converterMap.put(BigInteger.class, s -> new BigInteger(s));
+        converterMap.put(BigDecimal.class, s -> new BigDecimal(s));
+    }
+
+    public static void resetVerifiers() {
+        verifierMap.clear();
+        verifierMap.put(Object.class, Verifier.CLASS);
+        verifierMap.put(Class.class, Verifier.CLASS);
+        verifierMap.put(Number.class, Verifier.NUMBER);
+
+        Verifier intVerifier = s -> s.matches("-?\\d+");
+        verifierMap.put(Long.class, intVerifier);
+        verifierMap.put(Integer.class, intVerifier);
+        verifierMap.put(Short.class, intVerifier);
+        verifierMap.put(Byte.class, intVerifier);
+
+        verifierMap.put(Double.class, Verifier.NUMBER);
+        verifierMap.put(Float.class, Verifier.NUMBER);
+        verifierMap.put(BigInteger.class, intVerifier);
+        verifierMap.put(BigDecimal.class, Verifier.NUMBER);
+    }
+
+    public static void register(Class<?> clazz, Converter<?> converter, Verifier verifier) {
+        if (converter == null) {
+            converterMap.remove(clazz);
+        } else {
+            converterMap.put(clazz, converter);
+        }
+
+        if (verifier == null) {
+            verifierMap.remove(clazz);
+        } else {
+            verifierMap.put(clazz, verifier);
+        }
+    }
+
+    public static Converter<?> getConverter(Class<?> clazz) {
+        Converter<?> converter = converterMap.get(clazz);
+        return converter == null ? Converter.DEFAULT : converter;
+    }
+
+    public static Verifier getVerifier(Class<?> clazz) {
+        Verifier verifier = verifierMap.get(clazz);
+        return verifier == null ? Verifier.DEFAULT : verifier;
     }
 
     /**
@@ -109,9 +114,9 @@ public class TypeHandler {
      * @param      className      the class name
      * @return                    The class if it is found
      * @throws     ParseException if the class could not be found
-     * @deprecated                use createValue(className,Class.class)
+     * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // (since="1.7")
+    @Deprecated // sinze 1.7
     public static Class<?> createClass(final String className) throws ParseException {
         return createValue(className, Class.class);
     }
@@ -120,15 +125,18 @@ public class TypeHandler {
      * Returns the date represented by {@code str}. <p> This method is not yet
      * implemented and always throws an {@link UnsupportedOperationException}.
      *
-     * @param      str                           the date string
-     * @return                                   The date if {@code str} is a valid
-     *                                           date string, otherwise return null.
-     * @throws     UnsupportedOperationException always
-     * @deprecated                               use createValue(str, Date.class);
+     * @param      str the date string
+     * @return         The date if {@code str} is a valid date string, otherwise
+     *                 return null.
+     * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // (since="1.7")
+    @Deprecated // sinze 1.7
     public static Date createDate(final String str) {
-        return createValueNoException(str, Date.class);
+        try {
+            return createValue(str, Date.class);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -136,21 +144,28 @@ public class TypeHandler {
      *
      * @param      str the File location
      * @return         The file represented by {@code str}.
-     * @deprecated     use createValue(str, File.class);
+     * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // (since="1.7")
+    @Deprecated // sinze 1.7
     public static File createFile(final String str) {
-        return createValueNoException(str, File.class);
+        try {
+            return createValue(str, File.class);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Returns the File[] represented by {@code str}. <p> This method is not yet
      * implemented and always throws an {@link UnsupportedOperationException}.
      *
-     * @param  str the paths to the files
-     * @return     The File[] represented by {@code str}.
+     * @param      str                           the paths to the files
+     * @return                                   The File[] represented by
+     *                                           {@code str}.
+     * @throws     UnsupportedOperationException always
+     * @deprecated                               with no replacement
      */
-    @Deprecated // (since="1.7")
+    @Deprecated // sinze 1.7
     public static File[] createFiles(final String str) {
         // to implement/port:
         // return FileW.findFiles(str);
@@ -164,9 +179,8 @@ public class TypeHandler {
      * @param      str            the value
      * @return                    the number represented by {@code str}
      * @throws     ParseException if {@code str} is not a number
-     * @deprecated                use createValue(str, Number.class);
      */
-    @Deprecated // (since="1.7")
+    @Deprecated // sinze 1.7
     public static Number createNumber(final String str) throws ParseException {
         return createValue(str, Number.class);
     }
@@ -178,9 +192,9 @@ public class TypeHandler {
      * @return                    the initialized object
      * @throws     ParseException if the class could not be found or the object
      *                            could not be created
-     * @deprecated                use createValue(str, Object.class);
+     * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // (since="1.7")
+    @Deprecated // sinze 1.7
     public static Object createObject(final String className) throws ParseException {
         return createValue(className, Object.class);
     }
@@ -191,19 +205,11 @@ public class TypeHandler {
      * @param      str            the URL string
      * @return                    The URL in {@code str} is well-formed
      * @throws     ParseException if the URL in {@code str} is not well-formed
-     * @deprecated                use createValue(str, URL.class);
+     * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // (since="1.7")
+    @Deprecated // sinze 1.7
     public static URL createURL(final String str) throws ParseException {
         return createValue(str, URL.class);
-    }
-
-    private static <T> T createValueNoException(final String str, Class<T> clazz) {
-        try {
-            return createValue(str, clazz);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -218,19 +224,11 @@ public class TypeHandler {
      * @throws ParseException if the value creation for the given class failed
      */
     @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
-    public static <T> T createValue(final String str, Class<T> clazz) throws ParseException {
-        //  BeanUtils convertUtils handles File[] but looks for the string to parse into file names.
-        if (PatternOptionBuilder.FILES_VALUE == clazz) {
-            return (T) createFiles(str);
-        }
-        Converter converter = convertUtils.lookup(String.class, clazz);
-        if (converter == null) {
-            throw new ParseException(String.format("No registered converter for %s found", clazz));
-        }
+    public static <T> T createValue(final String str, final Class<T> clazz) throws ParseException {
         try {
-            return converter.convert(clazz, str);
-        } catch (ConversionException e) {
-            throw new ParseException(e);
+            return (T) getConverter(clazz).apply(str);
+        } catch (Exception e) {
+            throw ParseException.wrap(e);
         }
     }
 
@@ -243,9 +241,9 @@ public class TypeHandler {
      *                            value of {@code str}.
      * @throws     ParseException if the value creation for the given object type
      *                            failed
-     * @deprecated                use {@link #createValue(String, Class)};
+     * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // (since="1.7")
+    @Deprecated // since 1.7
     public static Object createValue(final String str, final Object obj) throws ParseException {
         return createValue(str, (Class<?>) obj);
     }
@@ -256,9 +254,9 @@ public class TypeHandler {
      * @param      str            the file location
      * @return                    The file input stream represented by {@code str}.
      * @throws     ParseException if the file is not exist or not readable
-     * @deprecated                use createValue(str, URL.class);
+     * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // (since="1.7")
+    @Deprecated // since 1.7
     public static FileInputStream openFile(final String str) throws ParseException {
         return createValue(str, FileInputStream.class);
     }

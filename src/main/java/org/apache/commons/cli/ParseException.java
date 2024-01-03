@@ -21,11 +21,33 @@ package org.apache.commons.cli;
  * Base for Exceptions thrown during parsing of a command-line.
  */
 public class ParseException extends Exception {
+
     /**
      * This exception {@code serialVersionUID}.
      */
     private static final long serialVersionUID = 9112808380089253192L;
 
+    /**
+     * Converts any exception except UnsupportedOperationException to a ParseException.
+     * if {@code e} is an instance of ParseException it is  returned, otherwise a ParseException is 
+     * created that wraps it.
+     * <p>
+     * Note: UnsupportedOperationExceptions are not wrapped.  This is to solve a legacy expected exception problem and will  be 
+     * removed in the future.</p> 
+     * @param e the exception to convert.
+     * @return the ParseException.
+     * @throws UnsupportedOperationException due to legacy expectations.  Will be removed in the future.
+     */
+    public static ParseException wrap(final Exception e) throws UnsupportedOperationException {
+        if (e instanceof UnsupportedOperationException) {
+            throw (UnsupportedOperationException)e;
+        }
+        
+        if (e instanceof ParseException) {
+            return (ParseException) e;
+        }
+        return new ParseException(e);
+    }
     /**
      * Constructs a new {@code ParseException} with the specified detail message.
      *
@@ -38,4 +60,9 @@ public class ParseException extends Exception {
     public ParseException(final Exception e) {
         super(e);
     }
+    
+    public ParseException(String message, Throwable e) {
+        super(message, e);
+    }
+
 }
