@@ -19,7 +19,6 @@ package org.apache.commons.cli;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Date;
 
@@ -107,7 +106,10 @@ public class PatternOptionBuilder {
     /** URL class */
     public static final Class<URL> URL_VALUE = URL.class;
     
-    static final Converter<?> NOT_IMPLEMENTED = s -> {throw new UnsupportedOperationException("Not yet implemented");};
+    /** The converter to use for Unimplemented data types */
+    static final Converter<?> NOT_IMPLEMENTED = s -> { 
+        throw new UnsupportedOperationException("Not yet implemented");
+    };
     
     static {
         TypeHandler.register(PatternOptionBuilder.FILES_VALUE, NOT_IMPLEMENTED, null);

@@ -87,10 +87,10 @@ public class Option implements Cloneable, Serializable {
         private char valueSeparator;
         
         /** The converter to convert to type **/
-        private Converter<?> converter = null;
+        private Converter<?> converter;
         
         /** The verifier to verify string is valid for option */
-        private Verifier verifier = null;
+        private Verifier verifier;
 
         /**
          * Constructs a new {@code Builder} with the minimum required parameters for an {@code Option} instance.
@@ -361,8 +361,10 @@ public class Option implements Cloneable, Serializable {
     /** The character that is the value separator. */
     private char valuesep;
     
+    /** The converter for this option */
     private Converter<?> converter = Converter.DEFAULT;
     
+    /** The verifier for this option */
     private Verifier verifier = Verifier.DEFAULT;
 
     /**
@@ -910,7 +912,7 @@ public class Option implements Cloneable, Serializable {
      * Gets the value to type converter.
      * @return the value to type converter
      */
-    public Converter getConverter() {
+    public Converter<?> getConverter() {
         return converter;
     }
 
@@ -918,7 +920,7 @@ public class Option implements Cloneable, Serializable {
      * Sets the value to type converter.
      * @param converter The converter to convert the string value to the type.
      */
-    public void setConverter(Converter converter) {
+    public void setConverter(Converter<?> converter) {
         this.converter = converter;
     }
 

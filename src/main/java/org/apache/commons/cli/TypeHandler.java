@@ -19,7 +19,6 @@ package org.apache.commons.cli;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
@@ -38,7 +37,10 @@ import org.apache.commons.cli.converters.Verifier;
  */
 public class TypeHandler {
 
+    /** Map of classes to converters. */
     private static Map<Class<?>, Converter<?>> converterMap = new HashMap<>();
+    
+    /** Map of classes to verifiers. */
     private static Map<Class<?>, Verifier> verifierMap = new HashMap<>();
 
     static {

@@ -40,7 +40,7 @@ public class ParseException extends Exception {
      */
     public static ParseException wrap(final Exception e) throws UnsupportedOperationException {
         if (e instanceof UnsupportedOperationException) {
-            throw (UnsupportedOperationException)e;
+            throw (UnsupportedOperationException) e;
         }
         
         if (e instanceof ParseException) {

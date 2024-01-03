@@ -29,29 +29,29 @@ public interface Verifier {
     /**
      * Default verifier. Always returns {@code true}.
      */
-    static final Verifier DEFAULT = (s) -> true;
+    Verifier DEFAULT = s -> true;
 
     /**
      * The Regex Pattern for the number matching.
      */
-    static Pattern NUMBER_PATTERN = Pattern.compile("-?([0-9]*\\.)?([0-9]+)$");
+    Pattern NUMBER_PATTERN = Pattern.compile("-?([0-9]*\\.)?([0-9]+)$");
 
     /**
      * Verifies that a number is either a valid real number (e.g. may have a decimal
      * point).
      */
-    static final Verifier NUMBER = s -> NUMBER_PATTERN.matcher(s).matches();
+    Verifier NUMBER = s -> NUMBER_PATTERN.matcher(s).matches();
 
     /**
      * The Regex Pattern that matches valid class names.
      */
-    static Pattern CLAZZ_PATTERN = Pattern.compile(
+    Pattern CLAZZ_PATTERN = Pattern.compile(
             "\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*(\\.\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)*");
 
     /**
      * Verifies that a class name is valid.
      */
-    static final Verifier CLASS = s -> CLAZZ_PATTERN.matcher(s).matches();
+    Verifier CLASS = s -> CLAZZ_PATTERN.matcher(s).matches();
 
     /**
      * Applies the verification function to the String argument.

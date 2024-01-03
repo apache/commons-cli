@@ -109,8 +109,8 @@ public final class OptionBuilder {
             option.setOptionalArg(optionalArg);
             option.setArgs(argCount);
             option.setType(type);
-            option.setConverter( TypeHandler.getConverter(type));
-            option.setVerifier( TypeHandler.getVerifier(type));
+            option.setConverter(TypeHandler.getConverter(type));
+            option.setVerifier(TypeHandler.getVerifier(type));
             option.setValueSeparator(valueSeparator);
             option.setArgName(argName);
         } finally {

@@ -58,7 +58,7 @@ public class OptionTest {
             addValueForProcessing(value);
             return true;
             } catch (ParseException e) {
-                throw new RuntimeException( e );
+                throw new RuntimeException(e);
             }
         }
     }

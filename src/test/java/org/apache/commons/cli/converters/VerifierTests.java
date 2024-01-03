@@ -32,12 +32,12 @@ public class VerifierTests {
     @Test
     public void numberTests() {
         // test good numbers
-        for (String s : new String[] { "123", "12.3", "-123", "-12.3", ".3", "-.3" }) {
+        for (String s : new String[] {"123", "12.3", "-123", "-12.3", ".3", "-.3"}) {
             assertTrue(Verifier.NUMBER.test(s), s);
         }
-        
-     // test bad numbers
-        for (String s : new String[] { "0x5F", "2,3", "1.2.3"}) {
+
+        // test bad numbers
+        for (String s : new String[] {"0x5F", "2,3", "1.2.3"}) {
             assertFalse(Verifier.NUMBER.test(s), s);
         }
     }
@@ -54,32 +54,32 @@ public class VerifierTests {
         assertTrue(Verifier.CLASS.test(this.getClass().getTypeName()), this.getClass().getTypeName());
 
         // test bad prefixes
-        for (String s : new String[] { "1", "-", "." }) {
+        for (String s : new String[] {"1", "-", "."}) {
             assertFalse(Verifier.CLASS.test(s + testName), s + testName);
         }
 
         // test good prefixes
-        for (String s : new String[] { "$" }) {
+        for (String s : new String[] {"$"}) {
             assertTrue(Verifier.CLASS.test(s + testName), s + testName);
         }
 
         // test bad suffixes
-        for (String s : new String[] { "-", "." }) {
+        for (String s : new String[] {"-", "."}) {
             assertFalse(Verifier.CLASS.test(testName + s), testName + s);
         }
 
         // test good suffixes
-        for (String s : new String[] { "1", "$" }) {
+        for (String s : new String[] {"1", "$"}) {
             assertTrue(Verifier.CLASS.test(testName + s), testName + s);
         }
 
         // test bad infixes
-        for (String s : new String[] { "..", "-" }) {
+        for (String s : new String[] {"..", "-"}) {
             assertFalse(Verifier.CLASS.test("foo" + s + "bar"), "foo" + s + "bar");
         }
 
         // test good infixes
-        for (String s : new String[] { "$", "_" }) {
+        for (String s : new String[] {"$", "_"}) {
             assertTrue(Verifier.CLASS.test("foo" + s + "bar"), "foo" + s + "bar");
         }
     }
