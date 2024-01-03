@@ -30,19 +30,13 @@ import java.util.Date;
 @FunctionalInterface
 public interface Converter<T> {
 
-    /**
-     * The default converter. Does nothing.
-     */
+    /** The default converter. Does nothing. */
     Converter<?> DEFAULT = s -> s;
 
-    /**
-     * Class name converter. Calls {@code Class.forName}.
-     */
+    /** Class name converter. Calls {@code Class.forName}. */
     Converter<Class<?>> CLASS = s -> Class.forName(s);
 
-    /**
-     * File name converter. Calls @{code new File(s)}
-     */
+    /** File name converter. Calls @{code new File(s)} */
     Converter<File> FILE = s -> new File(s);
 
     /**
@@ -63,22 +57,11 @@ public interface Converter<T> {
      */
     Converter<Object> OBJECT = s -> CLASS.apply(s).getConstructor().newInstance();
 
-    /**
-     * Creates a URL. Calls {@code new URL(s)}.
-     */
+    /** Creates a URL. Calls {@code new URL(s)}. */
     Converter<URL> URL = s -> new URL(s);
 
-    /**
-     * The simple date format used for the Date conversion. Format is: "EEE MMM dd
-     * HH:mm:ss zzz yyyy"
-     */
-    SimpleDateFormat DATE_FMT = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-
-    /**
-     * Converts to a date using the {@code DATE_FMT}.
-     * @see #DATE_FMT
-     */
-    Converter<Date> DATE = s -> DATE_FMT.parse(s);
+    /** Converts to a date using the format string Form "EEE MMM dd HH:mm:ss zzz yyyy". */
+    Converter<Date> DATE = s -> new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(s);
 
     /**
      * Applies the conversion function to the String argument.

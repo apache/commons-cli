@@ -362,10 +362,10 @@ public class Option implements Cloneable, Serializable {
     private char valuesep;
     
     /** The converter for this option */
-    private Converter<?> converter = Converter.DEFAULT;
+    private transient Converter<?> converter = Converter.DEFAULT;
     
     /** The verifier for this option */
-    private Verifier verifier = Verifier.DEFAULT;
+    private transient Verifier verifier = Verifier.DEFAULT;
 
     /**
      * Private constructor used by the nested Builder class.
@@ -382,8 +382,8 @@ public class Option implements Cloneable, Serializable {
         this.required = builder.required;
         this.type = builder.type;
         this.valuesep = builder.valueSeparator;
-        this.converter = builder.converter == null ? Converter.DEFAULT : builder.converter;
-        this.verifier = builder.verifier == null ? Verifier.DEFAULT : builder.verifier;
+        this.converter = builder.converter;
+        this.verifier = builder.verifier;
     }
 
     /**
@@ -457,7 +457,7 @@ public class Option implements Cloneable, Serializable {
             throw new IllegalArgumentException("Cannot add value, list full.");
         }
 
-        if (!verifier.test(value)) {
+        if (!getVerifier().test(value)) {
             throw new ParseException(String.format("'%s' is not a valid input string for option '%s'", value, option));
         }
 
@@ -876,12 +876,6 @@ public class Option implements Cloneable, Serializable {
      */
     public void setType(final Class<?> type) {
         this.type = type;
-        if (verifier == null || verifier == Verifier.DEFAULT) {
-            verifier = TypeHandler.getVerifier(type);
-        }
-        if (converter == null || converter == Converter.DEFAULT) {
-            converter = TypeHandler.getConverter(type);
-        }
     }
 
     /**
@@ -913,7 +907,7 @@ public class Option implements Cloneable, Serializable {
      * @return the value to type converter
      */
     public Converter<?> getConverter() {
-        return converter;
+        return converter == null ? TypeHandler.getConverter(type) : converter;
     }
 
     /**
@@ -929,7 +923,7 @@ public class Option implements Cloneable, Serializable {
      * @return the value verifier.
      */
     public Verifier getVerifier() {
-        return verifier;
+        return verifier == null ? TypeHandler.getVerifier(type) : verifier;
     }
 
     /**
