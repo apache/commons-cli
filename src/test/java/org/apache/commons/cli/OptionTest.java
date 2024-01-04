@@ -25,6 +25,14 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import org.apache.commons.cli.converters.Converter;
+import org.apache.commons.cli.converters.Verifier;
 import org.junit.Test;
 
 public class OptionTest {
@@ -34,7 +42,8 @@ public class OptionTest {
 
         private final String defaultValue;
 
-        DefaultOption(final String opt, final String description, final String defaultValue) throws IllegalArgumentException {
+        DefaultOption(final String opt, final String description, final String defaultValue)
+                throws IllegalArgumentException {
             super(opt, true, description);
             this.defaultValue = defaultValue;
         }
@@ -55,16 +64,17 @@ public class OptionTest {
         @Override
         public boolean addValue(final String value) {
             try {
-            addValueForProcessing(value);
-            return true;
+                addValueForProcessing(value);
+                return true;
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    private static void checkOption(final Option option, final String opt, final String description, final String longOpt, final int numArgs,
-        final String argName, final boolean required, final boolean optionalArg, final char valueSeparator, final Class<?> cls) {
+    private static void checkOption(final Option option, final String opt, final String description,
+            final String longOpt, final int numArgs, final String argName, final boolean required,
+            final boolean optionalArg, final char valueSeparator, final Class<?> cls) {
         assertEquals(opt, option.getOpt());
         assertEquals(description, option.getDescription());
         assertEquals(longOpt, option.getLongOpt());
@@ -79,70 +89,69 @@ public class OptionTest {
 
     @Test
     public void testBuilderInsufficientParams1() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder().desc("desc").build());
+        assertThrows(IllegalArgumentException.class, () -> Option.builder().desc("desc").build());
     }
 
     @Test
     public void testBuilderInsufficientParams2() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder(null).desc("desc").build());
+        assertThrows(IllegalArgumentException.class, () -> Option.builder(null).desc("desc").build());
     }
 
     @Test
     public void testBuilderInvalidOptionName1() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder().option("invalid?"));
+        assertThrows(IllegalArgumentException.class, () -> Option.builder().option("invalid?"));
     }
 
     @Test
     public void testBuilderInvalidOptionName2() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder().option("invalid@"));
+        assertThrows(IllegalArgumentException.class, () -> Option.builder().option("invalid@"));
     }
 
     @Test
     public void testBuilderInvalidOptionName3() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder("invalid?"));
+        assertThrows(IllegalArgumentException.class, () -> Option.builder("invalid?"));
     }
 
     @Test
     public void testBuilderInvalidOptionName4() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder("invalid@"));
+        assertThrows(IllegalArgumentException.class, () -> Option.builder("invalid@"));
     }
 
     @Test
     public void testBuilderMethods() {
         final char defaultSeparator = (char) 0;
 
-        checkOption(Option.builder("a").desc("desc").build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
-        checkOption(Option.builder("a").desc("desc").build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
-        checkOption(Option.builder("a").desc("desc").longOpt("aaa").build(), "a", "desc", "aaa", Option.UNINITIALIZED, null, false, false, defaultSeparator,
-            String.class);
-        checkOption(Option.builder("a").desc("desc").hasArg(true).build(), "a", "desc", null, 1, null, false, false, defaultSeparator, String.class);
-        checkOption(Option.builder("a").desc("desc").hasArg(false).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator,
-            String.class);
-        checkOption(Option.builder("a").desc("desc").hasArg(true).build(), "a", "desc", null, 1, null, false, false, defaultSeparator, String.class);
-        checkOption(Option.builder("a").desc("desc").numberOfArgs(3).build(), "a", "desc", null, 3, null, false, false, defaultSeparator, String.class);
-        checkOption(Option.builder("a").desc("desc").required(true).build(), "a", "desc", null, Option.UNINITIALIZED, null, true, false, defaultSeparator,
-            String.class);
-        checkOption(Option.builder("a").desc("desc").required(false).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator,
-            String.class);
+        checkOption(Option.builder("a").desc("desc").build(), "a", "desc", null, Option.UNINITIALIZED, null, false,
+                false, defaultSeparator, String.class);
+        checkOption(Option.builder("a").desc("desc").build(), "a", "desc", null, Option.UNINITIALIZED, null, false,
+                false, defaultSeparator, String.class);
+        checkOption(Option.builder("a").desc("desc").longOpt("aaa").build(), "a", "desc", "aaa", Option.UNINITIALIZED,
+                null, false, false, defaultSeparator, String.class);
+        checkOption(Option.builder("a").desc("desc").hasArg(true).build(), "a", "desc", null, 1, null, false, false,
+                defaultSeparator, String.class);
+        checkOption(Option.builder("a").desc("desc").hasArg(false).build(), "a", "desc", null, Option.UNINITIALIZED,
+                null, false, false, defaultSeparator, String.class);
+        checkOption(Option.builder("a").desc("desc").hasArg(true).build(), "a", "desc", null, 1, null, false, false,
+                defaultSeparator, String.class);
+        checkOption(Option.builder("a").desc("desc").numberOfArgs(3).build(), "a", "desc", null, 3, null, false, false,
+                defaultSeparator, String.class);
+        checkOption(Option.builder("a").desc("desc").required(true).build(), "a", "desc", null, Option.UNINITIALIZED,
+                null, true, false, defaultSeparator, String.class);
+        checkOption(Option.builder("a").desc("desc").required(false).build(), "a", "desc", null, Option.UNINITIALIZED,
+                null, false, false, defaultSeparator, String.class);
 
-        checkOption(Option.builder("a").desc("desc").argName("arg1").build(), "a", "desc", null, Option.UNINITIALIZED, "arg1", false, false, defaultSeparator,
-            String.class);
-        checkOption(Option.builder("a").desc("desc").optionalArg(false).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator,
-            String.class);
-        checkOption(Option.builder("a").desc("desc").optionalArg(true).build(), "a", "desc", null, 1, null, false, true, defaultSeparator,
-            String.class);
-        checkOption(Option.builder("a").desc("desc").valueSeparator(':').build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, ':',
-            String.class);
-        checkOption(Option.builder("a").desc("desc").type(Integer.class).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator,
-            Integer.class);
-        checkOption(Option.builder().option("a").desc("desc").type(Integer.class).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false,
-                defaultSeparator, Integer.class);
+        checkOption(Option.builder("a").desc("desc").argName("arg1").build(), "a", "desc", null, Option.UNINITIALIZED,
+                "arg1", false, false, defaultSeparator, String.class);
+        checkOption(Option.builder("a").desc("desc").optionalArg(false).build(), "a", "desc", null,
+                Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class);
+        checkOption(Option.builder("a").desc("desc").optionalArg(true).build(), "a", "desc", null, 1, null, false, true,
+                defaultSeparator, String.class);
+        checkOption(Option.builder("a").desc("desc").valueSeparator(':').build(), "a", "desc", null,
+                Option.UNINITIALIZED, null, false, false, ':', String.class);
+        checkOption(Option.builder("a").desc("desc").type(Integer.class).build(), "a", "desc", null,
+                Option.UNINITIALIZED, null, false, false, defaultSeparator, Integer.class);
+        checkOption(Option.builder().option("a").desc("desc").type(Integer.class).build(), "a", "desc", null,
+                Option.UNINITIALIZED, null, false, false, defaultSeparator, Integer.class);
     }
 
     @Test
@@ -225,7 +234,8 @@ public class OptionTest {
     public void testHashCode() {
         assertNotEquals(Option.builder("test").build().hashCode(), Option.builder("test2").build().hashCode());
         assertNotEquals(Option.builder("test").build().hashCode(), Option.builder().longOpt("test").build().hashCode());
-        assertNotEquals(Option.builder("test").build().hashCode(), Option.builder("test").longOpt("long test").build().hashCode());
+        assertNotEquals(Option.builder("test").build().hashCode(),
+                Option.builder("test").longOpt("long test").build().hashCode());
     }
 
     @Test
@@ -236,4 +246,44 @@ public class OptionTest {
         assertEquals(DefaultOption.class, clone.getClass());
     }
 
+    private Option roundTrip(Option o) throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(o);
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        return (Option) ois.readObject();
+    }
+
+    @Test
+    public void testSerialization() throws IOException, ClassNotFoundException {
+
+        Option o = Option.builder("o").type(TypeHandlerTest.Instantiable.class).build();
+        assertEquals(Converter.DEFAULT, o.getConverter());
+        assertEquals(Verifier.DEFAULT, o.getVerifier());
+        Option o2 = roundTrip(o);
+        assertEquals(Converter.DEFAULT, o2.getConverter());
+        assertEquals(Verifier.DEFAULT, o2.getVerifier());
+
+        // verify unregistered class converters and verifiers get reset to default.
+        o.setConverter(Converter.DATE);
+        o.setVerifier(Verifier.NUMBER);
+        o2 = roundTrip(o);
+        assertEquals(Converter.DEFAULT, o2.getConverter());
+        assertEquals(Verifier.DEFAULT, o2.getVerifier());
+
+        // verify registered class converters and verifiers do not get reset to default.
+        try {
+            TypeHandler.register(TypeHandlerTest.Instantiable.class, Converter.URL, Verifier.CLASS);
+            // verify earlier values still set.
+            assertEquals(Converter.DATE, o.getConverter());
+            assertEquals(Verifier.NUMBER, o.getVerifier());
+            o2 = roundTrip(o);
+            // verify set to registered values
+            assertEquals(Converter.URL, o2.getConverter());
+            assertEquals(Verifier.CLASS, o2.getVerifier());
+        } finally {
+            TypeHandler.register(TypeHandlerTest.Instantiable.class, null, null);
+        }
+    }
 }

@@ -37,10 +37,20 @@ public interface Verifier {
     Pattern NUMBER_PATTERN = Pattern.compile("-?([0-9]*\\.)?([0-9]+)$");
 
     /**
-     * Verifies that a number is either a valid real number (e.g. may have a decimal
-     * point).
+     * Verifies that a number string is either a valid real number (e.g. may have a decimal
+     * point) or an integer.
      */
     Verifier NUMBER = s -> NUMBER_PATTERN.matcher(s).matches();
+    
+    /**
+     * The Regex Pattern for the integer matching.
+     */
+    Pattern INTEGER_PATTERN = Pattern.compile("-?\\d+");
+
+    /**
+     * Verifies that a number string is an integer.
+     */
+    Verifier INTEGER = s -> INTEGER_PATTERN.matcher(s).matches();
 
     /**
      * The Regex Pattern that matches valid class names.

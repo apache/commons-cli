@@ -30,12 +30,21 @@ import org.apache.commons.cli.converters.Converter;
 import org.apache.commons.cli.converters.Verifier;
 
 /**
- * This is a temporary implementation. TypeHandler will handle the pluggableness
- * of OptionTypes and it will direct all of these types of conversion
- * functionalities to ConvertUtils component in Commons already. BeanUtils I
- * think.
+ * TypeHandler will handle the pluggable conversion and verification of 
+ * Option types.  It handles the mapping of classes to bot converters and verifiers.
+ * It provides the default conversion and verification methods when converters and verifiers
+ * are not explicitly set.
+ * <p>
+ * If Options are serialized and deserialized their converters and verifiers will revert to the 
+ * defaults defined in this class.  To correctly de-serialize Options with custom converters and/or
+ * verifiers, using the default serialization methods, this class should be properly configured with the custom
+ * converters and verifiers for the specific class.
+ * </p>
  */
 public class TypeHandler {
+    
+    /** Value of hex conversion of strings */
+    private static final int HEX_RADIX = 16;
 
     /** Map of classes to converters. */
     private static Map<Class<?>, Converter<?>> converterMap = new HashMap<>();
@@ -47,7 +56,10 @@ public class TypeHandler {
         resetConverters();
         resetVerifiers();
     }
-
+    
+    /**
+     * Resets the registered Converters to the default state.
+     */
     public static void resetConverters() {
         converterMap.clear();
         converterMap.put(Object.class, Converter.OBJECT);
@@ -61,31 +73,61 @@ public class TypeHandler {
         converterMap.put(Integer.class, Integer::parseInt);
         converterMap.put(Short.class, Short::parseShort);
         converterMap.put(Byte.class, Byte::parseByte);
-        converterMap.put(Character.class, s -> s.charAt(0));
+        converterMap.put(Character.class, s -> {
+            if (s.startsWith("\\u")) {
+                return Character.toChars(Integer.parseInt(s.substring(2), HEX_RADIX))[0];
+            } else {
+                return s.charAt(0);
+            } });
         converterMap.put(Double.class, Double::parseDouble);
         converterMap.put(Float.class, Float::parseFloat);
         converterMap.put(BigInteger.class, s -> new BigInteger(s));
         converterMap.put(BigDecimal.class, s -> new BigDecimal(s));
     }
+    
+    /**
+     * Unregisters all Converters.
+     */
+    public static void noConverters() {
+        converterMap.clear();
+    }
 
+    /**
+     * Resets the registered Verifiers to the default state.
+     */
     public static void resetVerifiers() {
         verifierMap.clear();
         verifierMap.put(Object.class, Verifier.CLASS);
         verifierMap.put(Class.class, Verifier.CLASS);
         verifierMap.put(Number.class, Verifier.NUMBER);
 
-        Verifier intVerifier = s -> s.matches("-?\\d+");
-        verifierMap.put(Long.class, intVerifier);
-        verifierMap.put(Integer.class, intVerifier);
-        verifierMap.put(Short.class, intVerifier);
-        verifierMap.put(Byte.class, intVerifier);
+        verifierMap.put(Long.class, Verifier.INTEGER);
+        verifierMap.put(Integer.class, Verifier.INTEGER);
+        verifierMap.put(Short.class, Verifier.INTEGER);
+        verifierMap.put(Byte.class, Verifier.INTEGER);
 
         verifierMap.put(Double.class, Verifier.NUMBER);
         verifierMap.put(Float.class, Verifier.NUMBER);
-        verifierMap.put(BigInteger.class, intVerifier);
+        verifierMap.put(BigInteger.class, Verifier.INTEGER);
         verifierMap.put(BigDecimal.class, Verifier.NUMBER);
     }
 
+    /**
+     * Unregisters all Verifiers.
+     */
+    public static void noVerifiers() {
+        verifierMap.clear();
+    }
+
+    /**
+     * Registers a Converter and Verifier for a Class.  If @code converter} or 
+     * {@code verifier} are null their respective registrations are cleared for {@code clazz}, and 
+     * defaults will be used in processing.
+     * 
+     * @param clazz the Class to register the Converter and Verifier to.
+     * @param converter The Converter to associate with Class.  May be null.
+     * @param verifier The Verifier to associate with Class.  May be null.
+     */
     public static void register(Class<?> clazz, Converter<?> converter, Verifier verifier) {
         if (converter == null) {
             converterMap.remove(clazz);
@@ -100,11 +142,21 @@ public class TypeHandler {
         }
     }
 
+    /**
+     * Gets the converter for the the Class. Never null.
+     * @param clazz The Class to get the Converter for.
+     * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
+     */
     public static Converter<?> getConverter(Class<?> clazz) {
         Converter<?> converter = converterMap.get(clazz);
         return converter == null ? Converter.DEFAULT : converter;
     }
 
+    /**
+     * Gets the verifier for the Class. Never null.
+     * @param clazz the Class to get the Verifier for.
+     * @return the registered verifier if any, {@link Verifier#DEFAULT} otherwise.
+     */
     public static Verifier getVerifier(Class<?> clazz) {
         Verifier verifier = verifierMap.get(clazz);
         return verifier == null ? Verifier.DEFAULT : verifier;
@@ -223,7 +275,7 @@ public class TypeHandler {
      * @param  <T>            type of argument
      * @return                The instance of {@code clazz} initialized with the
      *                        value of {@code str}.
-     * @throws ParseException if the value creation for the given class failed
+     * @throws ParseException if the value creation for the given class threw an exception.
      */
     @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
     public static <T> T createValue(final String str, final Class<T> clazz) throws ParseException {

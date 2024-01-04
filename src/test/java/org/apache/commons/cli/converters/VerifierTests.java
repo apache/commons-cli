@@ -43,6 +43,22 @@ public class VerifierTests {
     }
 
     /**
+     * Verifies integer formats
+     */
+    @Test
+    public void integerTests() {
+        // test good numbers
+        for (String s : new String[] {"123", "-123"}) {
+            assertTrue(Verifier.INTEGER.test(s), s);
+        }
+
+        // test bad numbers
+        for (String s : new String[] {"12.3", "-12.3", ".3", "-.3", "0x5F", "2,3", "1.2.3"}) {
+            assertFalse(Verifier.INTEGER.test(s), s);
+        }
+    }
+
+    /**
      * Verifies class names
      */
     @Test

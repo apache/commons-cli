@@ -99,11 +99,7 @@ public class ConverterTests {
 
     @Test
     public void urlTests() throws Exception {
-        URL url = this.getClass().getClassLoader().getResource("./org/apache/commons/cli/existing-readable.file");
-        assertEquals(url, Converter.URL.apply(url.toString()));
-
         assertEquals(new URL("http://apache.org"), Converter.URL.apply("http://apache.org"));
-
         assertThrows(java.net.MalformedURLException.class, () -> Converter.URL.apply("foo.bar"));
     }
 

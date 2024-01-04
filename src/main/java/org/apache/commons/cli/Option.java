@@ -243,12 +243,6 @@ public class Option implements Cloneable, Serializable {
          */
         public Builder type(final Class<?> type) {
             this.type = type;
-            if (verifier == null) {
-                verifier = TypeHandler.getVerifier(type);
-            }
-            if (converter == null) {
-                converter = TypeHandler.getConverter(type);
-            }
             return this;
         }
 
@@ -285,12 +279,24 @@ public class Option implements Cloneable, Serializable {
             this.valueSeparator = valueSeparator;
             return this;
         }
-        
+
+        /**
+         * Sets the converter for the option.
+         * <p>Note: see {@link TypeHandler} for serialization discussion.</p>
+         * @param converter the Converter to use.
+         * @return this builder, to allow method chaining.
+         */
         public Builder converter(Converter<?> converter) {
             this.converter = converter;
             return this;
         }
         
+        /**
+         * Sets the verifier for the option.
+         * <p>Note: see {@link TypeHandler} for serialization discussion.</p>
+         * @param verifier the Verifier to use.
+         * @return this builder, to allow method chaining.
+         */
         public Builder verifier(Verifier verifier) {
             this.verifier = verifier;
             return this;
@@ -361,11 +367,11 @@ public class Option implements Cloneable, Serializable {
     /** The character that is the value separator. */
     private char valuesep;
     
-    /** The converter for this option */
-    private transient Converter<?> converter = Converter.DEFAULT;
+    /** The explicit converter for this option.  May be null */
+    private transient Converter<?> converter;
     
-    /** The verifier for this option */
-    private transient Verifier verifier = Verifier.DEFAULT;
+    /** The explicit verifier for this option. May be null */
+    private transient Verifier verifier;
 
     /**
      * Private constructor used by the nested Builder class.

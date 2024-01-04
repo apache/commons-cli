@@ -126,6 +126,12 @@ public class PatternOptionBuilder {
         return getValueType(ch);
     }
     
+    /**
+     * Retrieve the class that {@code ch} represents.
+     *
+     * @param ch the specified character
+     * @return The class that {@code ch} represents
+     */
     public static Class<?> getValueType(final char ch) {
         switch (ch) {
         case '@':
@@ -151,15 +157,6 @@ public class PatternOptionBuilder {
         return null;
     }
 
-    public static Converter<?> getConverter(final char ch) {
-        return TypeHandler.getConverter(getValueType(ch));
-    }
-    
-    public static Verifier getVerifier(final char ch) {
-        return TypeHandler.getVerifier(getValueType(ch));
-    }
-
-    
     /**
      * Returns whether {@code ch} is a value code, i.e. whether it represents a class in a pattern.
      *
@@ -208,8 +205,8 @@ public class PatternOptionBuilder {
                 required = true;
             } else {
                 type = getValueType(ch);
-                converter = getConverter(ch);
-                verifier = getVerifier(ch);
+                converter = TypeHandler.getConverter(getValueType(ch));
+                verifier = TypeHandler.getVerifier(getValueType(ch));
             }
         }
 
