@@ -20,13 +20,14 @@ import java.io.File;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.function.Function;
 
 /**
  * The definition of the functional interface to call when doing a conversion.
  * Like {@code Function<String,T>} but can throw an Exception.
  *
  * @param <T> The return type for the function.
- * @since 1.7
+ * @since 1.7.0
  */
 @FunctionalInterface
 public interface Converter<T> {

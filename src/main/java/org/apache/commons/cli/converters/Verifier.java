@@ -16,15 +16,16 @@
  */
 package org.apache.commons.cli.converters;
 
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 /**
  * The definition of the functional interface to call when verifying a string
  * for input Like {@code Predicate<String>} but can throw a RuntimeException.
- * @since 1.7
+ * @since 1.7.0
  */
 @FunctionalInterface
-public interface Verifier {
+public interface Verifier extends Predicate<String> {
 
     /**
      * Default verifier. Always returns {@code true}.
@@ -37,11 +38,11 @@ public interface Verifier {
     Pattern NUMBER_PATTERN = Pattern.compile("-?([0-9]*\\.)?([0-9]+)$");
 
     /**
-     * Verifies that a number string is either a valid real number (e.g. may have a decimal
-     * point) or an integer.
+     * Verifies that a number string is either a valid real number (e.g. may have a
+     * decimal point) or an integer.
      */
     Verifier NUMBER = s -> NUMBER_PATTERN.matcher(s).matches();
-    
+
     /**
      * The Regex Pattern for the integer matching.
      */

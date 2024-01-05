@@ -393,7 +393,7 @@ public class CommandLine implements Serializable {
      * @return the value parsed into a particular object.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
-     * @since 1.7
+     * @since 1.7.0
      * @param <T> The return type for the method.
      */
     public <T> T getParsedOptionValue(final char opt, T defaultValue) throws ParseException {
@@ -408,7 +408,7 @@ public class CommandLine implements Serializable {
      * @return the value parsed into a particular object.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
-     * @since 1.7
+     * @since 1.7.0
      * @param <T> The return type for the method.
      */
     @SuppressWarnings("unchecked")
@@ -433,7 +433,7 @@ public class CommandLine implements Serializable {
      * @return the value parsed into a particular object.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
-     * @since 1.7
+     * @since 1.7.0
      * @param <T> The return type for the method.
      */
     public <T> T getParsedOptionValue(final String opt, T defaultValue) throws ParseException {

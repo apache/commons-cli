@@ -285,7 +285,7 @@ public class Option implements Cloneable, Serializable {
          * <p>Note: see {@link TypeHandler} for serialization discussion.</p>
          * @param converter the Converter to use.
          * @return this builder, to allow method chaining.
-         * @since 1.7
+         * @since 1.7.0
          */
         public Builder converter(Converter<?> converter) {
             this.converter = converter;
@@ -297,7 +297,7 @@ public class Option implements Cloneable, Serializable {
          * <p>Note: see {@link TypeHandler} for serialization discussion.</p>
          * @param verifier the Verifier to use.
          * @return this builder, to allow method chaining.
-         * @since 1.7
+         * @since 1.7.0
          */
         public Builder verifier(Verifier verifier) {
             this.verifier = verifier;
@@ -915,7 +915,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the value to type converter.
      * @return the value to type converter
-     * @since 1.7
+     * @since 1.7.0
      */
     public Converter<?> getConverter() {
         return converter == null ? TypeHandler.getConverter(type) : converter;
@@ -924,7 +924,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Sets the value to type converter.
      * @param converter The converter to convert the string value to the type.
-     * @since 1.7
+     * @since 1.7.0
      */
     public void setConverter(Converter<?> converter) {
         this.converter = converter;
@@ -933,7 +933,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the value verifier.
      * @return the value verifier.
-     * @since 1.7
+     * @since 1.7.0
      */
     public Verifier getVerifier() {
         return verifier == null ? TypeHandler.getVerifier(type) : verifier;
@@ -942,7 +942,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Sets the value verifier to verify that a string value is the proper form to be converted to a string.
      * @param verifier the Verifier to use.
-     * @since 1.7
+     * @since 1.7.0
      */
     public void setVerifier(Verifier verifier) {
         this.verifier = verifier;
