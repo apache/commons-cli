@@ -285,6 +285,7 @@ public class Option implements Cloneable, Serializable {
          * <p>Note: see {@link TypeHandler} for serialization discussion.</p>
          * @param converter the Converter to use.
          * @return this builder, to allow method chaining.
+         * @since 1.7
          */
         public Builder converter(Converter<?> converter) {
             this.converter = converter;
@@ -296,6 +297,7 @@ public class Option implements Cloneable, Serializable {
          * <p>Note: see {@link TypeHandler} for serialization discussion.</p>
          * @param verifier the Verifier to use.
          * @return this builder, to allow method chaining.
+         * @since 1.7
          */
         public Builder verifier(Verifier verifier) {
             this.verifier = verifier;
@@ -458,13 +460,13 @@ public class Option implements Cloneable, Serializable {
      *
      * @since 1.0.1
      */
-    private void add(final String value) throws ParseException {
+    private void add(final String value) {
         if (!acceptsArg()) {
             throw new IllegalArgumentException("Cannot add value, list full.");
         }
 
         if (!getVerifier().test(value)) {
-            throw new ParseException(String.format("'%s' is not a valid input string for option '%s'", value, option));
+            throw new IllegalArgumentException(String.format("'%s' is not a valid input string for option '%s'", value, option));
         }
 
         // store value
@@ -491,7 +493,7 @@ public class Option implements Cloneable, Serializable {
      *
      * @param value is a/the value of this Option
      */
-    void addValueForProcessing(final String value) throws ParseException {
+    void addValueForProcessing(final String value) {
         if (argCount == UNINITIALIZED) {
             throw new IllegalArgumentException("NO_ARGS_ALLOWED");
         }
@@ -738,6 +740,8 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
+     * Returns whether this Option can have an optional argument.
+     * 
      * @return whether this Option can have an optional argument
      */
     public boolean hasOptionalArg() {
@@ -772,7 +776,7 @@ public class Option implements Cloneable, Serializable {
      *
      * @since 1.0.1
      */
-    private void processValue(String value) throws ParseException {
+    private void processValue(String value) {
         // this Option has a separator character
         if (hasValueSeparator()) {
             // get the separator character
@@ -911,6 +915,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the value to type converter.
      * @return the value to type converter
+     * @since 1.7
      */
     public Converter<?> getConverter() {
         return converter == null ? TypeHandler.getConverter(type) : converter;
@@ -919,6 +924,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Sets the value to type converter.
      * @param converter The converter to convert the string value to the type.
+     * @since 1.7
      */
     public void setConverter(Converter<?> converter) {
         this.converter = converter;
@@ -927,6 +933,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the value verifier.
      * @return the value verifier.
+     * @since 1.7
      */
     public Verifier getVerifier() {
         return verifier == null ? TypeHandler.getVerifier(type) : verifier;
@@ -935,6 +942,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Sets the value verifier to verify that a string value is the proper form to be converted to a string.
      * @param verifier the Verifier to use.
+     * @since 1.7
      */
     public void setVerifier(Verifier verifier) {
         this.verifier = verifier;

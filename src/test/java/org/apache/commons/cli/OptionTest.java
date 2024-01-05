@@ -63,12 +63,8 @@ public class OptionTest {
 
         @Override
         public boolean addValue(final String value) {
-            try {
-                addValueForProcessing(value);
-                return true;
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            addValueForProcessing(value);
+            return true;
         }
     }
 

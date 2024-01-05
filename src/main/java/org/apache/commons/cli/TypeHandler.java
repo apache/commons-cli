@@ -59,6 +59,7 @@ public class TypeHandler {
     
     /**
      * Resets the registered Converters to the default state.
+     * @since 1.7
      */
     public static void resetConverters() {
         converterMap.clear();
@@ -87,6 +88,7 @@ public class TypeHandler {
     
     /**
      * Unregisters all Converters.
+     * @since 1.7
      */
     public static void noConverters() {
         converterMap.clear();
@@ -94,6 +96,7 @@ public class TypeHandler {
 
     /**
      * Resets the registered Verifiers to the default state.
+     * @since 1.7
      */
     public static void resetVerifiers() {
         verifierMap.clear();
@@ -114,6 +117,7 @@ public class TypeHandler {
 
     /**
      * Unregisters all Verifiers.
+     * @since 1.7
      */
     public static void noVerifiers() {
         verifierMap.clear();
@@ -127,6 +131,7 @@ public class TypeHandler {
      * @param clazz the Class to register the Converter and Verifier to.
      * @param converter The Converter to associate with Class.  May be null.
      * @param verifier The Verifier to associate with Class.  May be null.
+     * @since 1.7
      */
     public static void register(Class<?> clazz, Converter<?> converter, Verifier verifier) {
         if (converter == null) {
@@ -146,6 +151,7 @@ public class TypeHandler {
      * Gets the converter for the the Class. Never null.
      * @param clazz The Class to get the Converter for.
      * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
+     * @since 1.7
      */
     public static Converter<?> getConverter(Class<?> clazz) {
         Converter<?> converter = converterMap.get(clazz);
@@ -156,6 +162,7 @@ public class TypeHandler {
      * Gets the verifier for the Class. Never null.
      * @param clazz the Class to get the Verifier for.
      * @return the registered verifier if any, {@link Verifier#DEFAULT} otherwise.
+     * @since 1.7
      */
     public static Verifier getVerifier(Class<?> clazz) {
         Verifier verifier = verifierMap.get(clazz);
@@ -170,7 +177,7 @@ public class TypeHandler {
      * @throws     ParseException if the class could not be found
      * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // sinze 1.7
+    @Deprecated // since 1.7
     public static Class<?> createClass(final String className) throws ParseException {
         return createValue(className, Class.class);
     }
@@ -184,7 +191,7 @@ public class TypeHandler {
      *                 return null.
      * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // sinze 1.7
+    @Deprecated // since 1.7
     public static Date createDate(final String str) {
         try {
             return createValue(str, Date.class);
@@ -200,7 +207,7 @@ public class TypeHandler {
      * @return         The file represented by {@code str}.
      * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // sinze 1.7
+    @Deprecated // since 1.7
     public static File createFile(final String str) {
         try {
             return createValue(str, File.class);
@@ -219,7 +226,7 @@ public class TypeHandler {
      * @throws     UnsupportedOperationException always
      * @deprecated                               with no replacement
      */
-    @Deprecated // sinze 1.7
+    @Deprecated // since 1.7
     public static File[] createFiles(final String str) {
         // to implement/port:
         // return FileW.findFiles(str);
@@ -234,7 +241,7 @@ public class TypeHandler {
      * @return                    the number represented by {@code str}
      * @throws     ParseException if {@code str} is not a number
      */
-    @Deprecated // sinze 1.7
+    @Deprecated // since 1.7
     public static Number createNumber(final String str) throws ParseException {
         return createValue(str, Number.class);
     }
@@ -248,7 +255,7 @@ public class TypeHandler {
      *                            could not be created
      * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // sinze 1.7
+    @Deprecated // since 1.7
     public static Object createObject(final String className) throws ParseException {
         return createValue(className, Object.class);
     }
@@ -261,7 +268,7 @@ public class TypeHandler {
      * @throws     ParseException if the URL in {@code str} is not well-formed
      * @deprecated     use {@link #createValue(String, Class)}
      */
-    @Deprecated // sinze 1.7
+    @Deprecated // since 1.7
     public static URL createURL(final String str) throws ParseException {
         return createValue(str, URL.class);
     }
