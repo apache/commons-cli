@@ -26,6 +26,7 @@ import java.util.Date;
  * Like {@code Function<String,T>} but can throw an Exception.
  *
  * @param <T> The return type for the function.
+ * @since 1.7
  */
 @FunctionalInterface
 public interface Converter<T> {

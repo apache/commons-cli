@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 /**
  * The definition of the functional interface to call when verifying a string
  * for input Like {@code Predicate<String>} but can throw a RuntimeException.
- * 
+ * @since 1.7
  */
 @FunctionalInterface
 public interface Verifier {
