@@ -193,22 +193,18 @@ public class Options implements Serializable {
      * @return the options matching the partial name specified, or an empty list if none matches
      * @since 1.3
      */
-    public List<String> getMatchingOptions(String opt) {
-        opt = Util.stripLeadingHyphens(opt);
-
+    public List<String> getMatchingOptions(final String opt) {
+        final String clean = Util.stripLeadingHyphens(opt);
         final List<String> matchingOpts = new ArrayList<>();
-
         // for a perfect match return the single option only
-        if (longOpts.containsKey(opt)) {
-            return Collections.singletonList(opt);
+        if (longOpts.containsKey(clean)) {
+            return Collections.singletonList(clean);
         }
-
         for (final String longOpt : longOpts.keySet()) {
-            if (longOpt.startsWith(opt)) {
+            if (longOpt.startsWith(clean)) {
                 matchingOpts.add(longOpt);
             }
         }
-
         return matchingOpts;
     }
 
@@ -222,11 +218,10 @@ public class Options implements Serializable {
      * @param opt short or long name of the {@link Option}
      * @return the option represented by opt
      */
-    public Option getOption(String opt) {
-        opt = Util.stripLeadingHyphens(opt);
-
-        final Option option = shortOpts.get(opt);
-        return option != null ? option : longOpts.get(opt);
+    public Option getOption(final String opt) {
+        final String clean = Util.stripLeadingHyphens(opt);
+        final Option option = shortOpts.get(clean);
+        return option != null ? option : longOpts.get(clean);
     }
 
     /**
@@ -273,10 +268,9 @@ public class Options implements Serializable {
      * @return true if the named {@link Option} is a member of this {@link Options}
      * @since 1.3
      */
-    public boolean hasLongOption(String opt) {
-        opt = Util.stripLeadingHyphens(opt);
-
-        return longOpts.containsKey(opt);
+    public boolean hasLongOption(final String opt) {
+        final String clean = Util.stripLeadingHyphens(opt);
+        return longOpts.containsKey(clean);
     }
 
     /**
@@ -285,10 +279,9 @@ public class Options implements Serializable {
      * @param opt short or long name of the {@link Option}
      * @return true if the named {@link Option} is a member of this {@link Options}
      */
-    public boolean hasOption(String opt) {
-        opt = Util.stripLeadingHyphens(opt);
-
-        return shortOpts.containsKey(opt) || longOpts.containsKey(opt);
+    public boolean hasOption(final String opt) {
+        final String clean = Util.stripLeadingHyphens(opt);
+        return shortOpts.containsKey(clean) || longOpts.containsKey(clean);
     }
 
     /**
@@ -298,10 +291,9 @@ public class Options implements Serializable {
      * @return true if the named {@link Option} is a member of this {@link Options}
      * @since 1.3
      */
-    public boolean hasShortOption(String opt) {
-        opt = Util.stripLeadingHyphens(opt);
-
-        return shortOpts.containsKey(opt);
+    public boolean hasShortOption(final String opt) {
+        final String clean = Util.stripLeadingHyphens(opt);
+        return shortOpts.containsKey(clean);
     }
 
     /**
@@ -321,13 +313,11 @@ public class Options implements Serializable {
     @Override
     public String toString() {
         final StringBuilder buf = new StringBuilder();
-
         buf.append("[ Options: [ short ");
         buf.append(shortOpts.toString());
         buf.append(" ] [ long ");
         buf.append(longOpts);
         buf.append(" ]");
-
         return buf.toString();
     }
 }

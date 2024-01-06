@@ -141,7 +141,8 @@ public abstract class Parser implements CommandLineParser {
      *
      * @since 1.1
      */
-    public CommandLine parse(final Options options, String[] arguments, final Properties properties, final boolean stopAtNonOption) throws ParseException {
+    public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption)
+            throws ParseException {
         // clear out the data in options in case it's been used before (CLI-71)
         for (final Option opt : options.helpOptions()) {
             opt.clearValues();
@@ -159,11 +160,7 @@ public abstract class Parser implements CommandLineParser {
 
         boolean eatTheRest = false;
 
-        if (arguments == null) {
-            arguments = new String[0];
-        }
-
-        final List<String> tokenList = Arrays.asList(flatten(getOptions(), arguments, stopAtNonOption));
+        final List<String> tokenList = Arrays.asList(flatten(getOptions(), arguments == null ? new String[0] : arguments, stopAtNonOption));
 
         final ListIterator<String> iterator = tokenList.listIterator();
 

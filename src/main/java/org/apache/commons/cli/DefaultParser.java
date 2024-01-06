@@ -389,18 +389,18 @@ public class DefaultParser implements CommandLineParser {
         }
     }
 
-    private void handleOption(Option option) throws ParseException {
+    private void handleOption(final Option option) throws ParseException {
         // check the previous option before handling the next one
         checkRequiredArgs();
 
-        option = (Option) option.clone();
+        final Option copy = (Option) option.clone();
 
-        updateRequiredOptions(option);
+        updateRequiredOptions(copy);
 
-        cmd.addOption(option);
+        cmd.addOption(copy);
 
-        if (option.hasArg()) {
-            currentOption = option;
+        if (copy.hasArg()) {
+            currentOption = copy;
         } else {
             currentOption = null;
         }
