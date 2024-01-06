@@ -62,12 +62,10 @@ public class Options implements Serializable {
      */
     public Options addOption(final Option opt) {
         final String key = opt.getKey();
-
         // add it to the long option list
         if (opt.hasLongOpt()) {
             longOpts.put(opt.getLongOpt(), opt);
         }
-
         // if the option is required add it to the required list
         if (opt.isRequired()) {
             if (requiredOpts.contains(key)) {
@@ -75,9 +73,7 @@ public class Options implements Serializable {
             }
             requiredOpts.add(key);
         }
-
         shortOpts.put(key, opt);
-
         return this;
     }
 
@@ -143,17 +139,14 @@ public class Options implements Serializable {
         if (group.isRequired()) {
             requiredOpts.add(group);
         }
-
         for (final Option option : group.getOptions()) {
             // an Option cannot be required if it is in an
             // OptionGroup, either the group is required or
             // nothing is required
             option.setRequired(false);
             addOption(option);
-
             optionGroups.put(option.getKey(), group);
         }
-
         return this;
     }
 
