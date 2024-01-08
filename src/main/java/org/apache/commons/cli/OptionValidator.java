@@ -23,6 +23,27 @@ package org.apache.commons.cli;
  * @since 1.1
  */
 final class OptionValidator {
+    /* package private for testing access */
+    /** The array of additional characters allowed as the first character in the option but not in the rest of the option */
+    static final char[] ADDITIONAL_OPTION_CHARS = {'?', '@'};
+    /** The array of additional characters allowed in the rest of the option but not in the first position */
+    static final char[] ADDITIONAL_LONG_CHARS = {'-'};
+
+    /** 
+     * Checks the char array for a matching char.
+     * @param ary the array to search
+     * @param c the char to look for.
+     * @return {@code true} if {@code c} was in {@code ary}, {@code false} otherwise. 
+     */
+    private static boolean search(char[] ary, char c) {
+        for (char a : ary) {
+            if (a == c) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     /**
      * Returns whether the specified character is a valid character.
      *
@@ -30,7 +51,7 @@ final class OptionValidator {
      * @return true if {@code c} is a letter.
      */
     private static boolean isValidChar(final char c) {
-        return Character.isJavaIdentifierPart(c);
+        return Character.isJavaIdentifierPart(c) || search(ADDITIONAL_LONG_CHARS, c);
     }
 
     /**
@@ -40,7 +61,7 @@ final class OptionValidator {
      * @return true if {@code c} is a letter, '?' or '@', otherwise false.
      */
     private static boolean isValidOpt(final char c) {
-        return isValidChar(c) || c == '?' || c == '@';
+        return Character.isJavaIdentifierPart(c) || search(ADDITIONAL_OPTION_CHARS, c);
     }
 
     /**
@@ -63,18 +84,16 @@ final class OptionValidator {
             return null;
         }
 
-        // handle the single character opt
-        if (option.length() == 1) {
-            final char ch = option.charAt(0);
-
-            if (!isValidOpt(ch)) {
-                throw new IllegalArgumentException("Illegal option name '" + ch + "'");
-            }
-        } else {
-            // handle the multi character opt
-            for (final char ch : option.toCharArray()) {
-                if (!isValidChar(ch)) {
-                    throw new IllegalArgumentException("The option '" + option + "' contains an illegal " + "character : '" + ch + "'");
+        char[] chars = option.toCharArray();
+        
+        if (!isValidOpt(chars[0])) {
+            throw new IllegalArgumentException("Illegal option name '" + chars[0] + "'");
+        }
+        // handle the multi-character opt
+        if (option.length() > 1) {
+            for (int i = 1; i < chars.length; i++) {
+                if (!isValidChar(chars[i])) {
+                    throw new IllegalArgumentException("The option '" + option + "' contains an illegal " + "character : '" + chars[i] + "'");
                 }
             }
         }
