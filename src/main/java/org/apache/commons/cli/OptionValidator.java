@@ -35,7 +35,7 @@ final class OptionValidator {
      * @param c the char to look for.
      * @return {@code true} if {@code c} was in {@code ary}, {@code false} otherwise. 
      */
-    private static boolean search(char[] ary, char c) {
+    private static boolean search(final char[] ary, final char c) {
         for (char a : ary) {
             if (a == c) {
                 return true;
