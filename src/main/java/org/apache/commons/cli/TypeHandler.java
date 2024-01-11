@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import org.apache.commons.cli.converters.Converter;
 import org.apache.commons.cli.converters.Verifier;
@@ -50,7 +51,7 @@ public class TypeHandler {
     private static Map<Class<?>, Converter<?>> converterMap = new HashMap<>();
     
     /** Map of classes to verifiers. */
-    private static Map<Class<?>, Verifier> verifierMap = new HashMap<>();
+    private static Map<Class<?>, Predicate<String>> verifierMap = new HashMap<>();
 
     static {
         resetConverters();
@@ -133,7 +134,7 @@ public class TypeHandler {
      * @param verifier The Verifier to associate with Class.  May be null.
      * @since 1.7.0
      */
-    public static void register(Class<?> clazz, Converter<?> converter, Verifier verifier) {
+    public static void register(Class<?> clazz, Converter<?> converter, Predicate<String> verifier) {
         if (converter == null) {
             converterMap.remove(clazz);
         } else {
@@ -164,8 +165,8 @@ public class TypeHandler {
      * @return the registered verifier if any, {@link Verifier#DEFAULT} otherwise.
      * @since 1.7.0
      */
-    public static Verifier getVerifier(Class<?> clazz) {
-        Verifier verifier = verifierMap.get(clazz);
+    public static Predicate<String> getVerifier(Class<?> clazz) {
+        Predicate<String> verifier = verifierMap.get(clazz);
         return verifier == null ? Verifier.DEFAULT : verifier;
     }
 

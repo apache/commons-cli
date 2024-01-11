@@ -23,9 +23,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import org.apache.commons.cli.converters.Converter;
-import org.apache.commons.cli.converters.Verifier;
 
 /**
  * Describes a single command-line option. It maintains information regarding the short-name of the option, the
@@ -90,7 +90,7 @@ public class Option implements Cloneable, Serializable {
         private Converter<?> converter;
         
         /** The verifier to verify string is valid for option */
-        private Verifier verifier;
+        private Predicate<String> verifier;
 
         /**
          * Constructs a new {@code Builder} with the minimum required parameters for an {@code Option} instance.
@@ -299,7 +299,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder, to allow method chaining.
          * @since 1.7.0
          */
-        public Builder verifier(Verifier verifier) {
+        public Builder verifier(Predicate<String> verifier) {
             this.verifier = verifier;
             return this;
         }
@@ -373,7 +373,7 @@ public class Option implements Cloneable, Serializable {
     private transient Converter<?> converter;
     
     /** The explicit verifier for this option. May be null */
-    private transient Verifier verifier;
+    private transient Predicate<String> verifier;
 
     /**
      * Private constructor used by the nested Builder class.
@@ -935,7 +935,7 @@ public class Option implements Cloneable, Serializable {
      * @return the value verifier.
      * @since 1.7.0
      */
-    public Verifier getVerifier() {
+    public Predicate<String> getVerifier() {
         return verifier == null ? TypeHandler.getVerifier(type) : verifier;
     }
 
@@ -944,7 +944,7 @@ public class Option implements Cloneable, Serializable {
      * @param verifier the Verifier to use.
      * @since 1.7.0
      */
-    public void setVerifier(Verifier verifier) {
+    public void setVerifier(Predicate<String> verifier) {
         this.verifier = verifier;
     }
 

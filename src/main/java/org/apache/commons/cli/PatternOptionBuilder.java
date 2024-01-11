@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
 import java.util.Date;
+import java.util.function.Predicate;
 
 import org.apache.commons.cli.converters.Converter;
 import org.apache.commons.cli.converters.Verifier;
@@ -178,7 +179,7 @@ public class PatternOptionBuilder {
         boolean required = false;
         Class<?> type = null;
         Converter<?> converter = Converter.DEFAULT;
-        Verifier verifier = Verifier.DEFAULT;
+        Predicate<String> verifier = Verifier.DEFAULT;
 
         final Options options = new Options();
 

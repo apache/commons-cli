@@ -16,60 +16,78 @@
  */
 package org.apache.commons.cli.converters;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * The definition of the functional interface to call when verifying a string
  * for input Like {@code Predicate<String>} but can throw a RuntimeException.
  * @since 1.7.0
  */
-@FunctionalInterface
-public interface Verifier extends Predicate<String> {
+public final class Verifier {
+    
+    private  Verifier() { 
+        // do not instantiate
+    }
 
     /**
      * Default verifier. Always returns {@code true}.
      */
-    Verifier DEFAULT = s -> true;
+    public static final Predicate<String> DEFAULT = s -> true;
 
     /**
      * The Regex Pattern for the number matching.
      */
-    Pattern NUMBER_PATTERN = Pattern.compile("-?([0-9]*\\.)?([0-9]+)$");
+    public static final Pattern NUMBER_PATTERN = Pattern.compile("-?([0-9]*\\.)?([0-9]+)$");
 
     /**
      * Verifies that a number string is either a valid real number (e.g. may have a
      * decimal point) or an integer.
      */
-    Verifier NUMBER = s -> NUMBER_PATTERN.matcher(s).matches();
+    public static final Predicate<String> NUMBER = s -> NUMBER_PATTERN.matcher(s).matches();
 
     /**
      * The Regex Pattern for the integer matching.
      */
-    Pattern INTEGER_PATTERN = Pattern.compile("-?\\d+");
+    public static final Pattern INTEGER_PATTERN = Pattern.compile("-?\\d+");
 
     /**
      * Verifies that a number string is an integer.
      */
-    Verifier INTEGER = s -> INTEGER_PATTERN.matcher(s).matches();
+    public static final Predicate<String> INTEGER = s -> INTEGER_PATTERN.matcher(s).matches();
 
     /**
      * The Regex Pattern that matches valid class names.
      */
-    Pattern CLAZZ_PATTERN = Pattern.compile(
+    public static final Pattern CLAZZ_PATTERN = Pattern.compile(
             "\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*(\\.\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)*");
 
     /**
      * Verifies that a class name is valid.
      */
-    Verifier CLASS = s -> CLAZZ_PATTERN.matcher(s).matches();
+    public static final Predicate<String> CLASS = s -> CLAZZ_PATTERN.matcher(s).matches();
 
     /**
-     * Applies the verification function to the String argument.
-     * @param  str              the String to convert
-     * @return                  {@code true} if the string is valid, {@code false}
-     *                          otherwise.
-     * @throws RuntimeException on error.
+     * Constructs a {@code Predicate<String>} from an exemplar of an Enum. For
+     * example {@code new EnumVerifier(java.time.format.TextStyle.FULL)} would
+     * create an {@code Predicate<String>} that would accept the names for any of
+     * the {@code java.time.format.TextStyle} values.
+     * @param exemplar One of the values from the accepted Enum.
+     * @return A {@code Predicate<String>} that matches the Enum names.
      */
-    boolean test(String str) throws RuntimeException;
+    public static Predicate<String> enumVerifier(Enum<?> exemplar) {
+        return new Predicate<String>() {
+            /** The list of valid names */
+            private final List<String> names = Arrays.stream(exemplar.getDeclaringClass().getEnumConstants())
+                    .map(t -> ((Enum<?>) t).name()).collect(Collectors.toList());
+            @Override
+            public boolean test(String str) throws RuntimeException {
+                return names.contains(str);
+            }
+        };
+    }
+
 }

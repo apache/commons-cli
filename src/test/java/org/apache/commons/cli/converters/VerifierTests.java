@@ -16,10 +16,19 @@
  */
 package org.apache.commons.cli.converters;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Tests for standard Verifiers.
@@ -98,5 +107,30 @@ public class VerifierTests {
         for (String s : new String[] {"$", "_"}) {
             assertTrue(Verifier.CLASS.test("foo" + s + "bar"), "foo" + s + "bar");
         }
+    }
+    
+    enum MyEnum {
+        ONE, Two, three, someothernumber
+    }
+
+    private Predicate<String> underTest = Verifier.enumVerifier(MyEnum.Two);
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("testData")
+    public void test(String str, boolean expected) {
+        assertEquals(expected, underTest.test(str));
+    }
+
+    private static Stream<Arguments> testData() {
+        List<Arguments> lst = new ArrayList<>();
+
+        lst.add(Arguments.of("ONE", true));
+        lst.add(Arguments.of("one", false));
+        lst.add(Arguments.of("Two", true));
+        lst.add(Arguments.of("three", true));
+        lst.add(Arguments.of("someothernumber", true));
+        lst.add(Arguments.of("NonValue", false));
+
+        return lst.stream();
     }
 }
