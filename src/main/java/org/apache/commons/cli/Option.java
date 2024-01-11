@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-import org.apache.commons.cli.converters.Converter;
-
 /**
  * Describes a single command-line option. It maintains information regarding the short-name of the option, the
  * long-name, if any exists, a flag indicating if an argument is required for this option, and a self-documenting

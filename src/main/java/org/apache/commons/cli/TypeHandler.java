@@ -27,9 +27,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import org.apache.commons.cli.converters.Converter;
-import org.apache.commons.cli.converters.Verifier;
-
 /**
  * TypeHandler will handle the pluggable conversion and verification of 
  * Option types.  It handles the mapping of classes to bot converters and verifiers.

@@ -23,9 +23,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.function.Predicate;
 
-import org.apache.commons.cli.converters.Converter;
-import org.apache.commons.cli.converters.Verifier;
-
 /**
  * Allows Options to be created from a single String. The pattern contains various single character flags and via an
  * optional punctuation character, their expected type.
