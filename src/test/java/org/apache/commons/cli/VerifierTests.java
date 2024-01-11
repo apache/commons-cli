@@ -117,7 +117,7 @@ public class VerifierTests {
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("testData")
-    public void test(String str, boolean expected) {
+    public void test(final String str, final boolean expected) {
         assertEquals(expected, underTest.test(str));
     }
 

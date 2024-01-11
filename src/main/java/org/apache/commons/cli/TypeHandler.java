@@ -25,7 +25,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Predicate;
 
 /**
  * TypeHandler will handle the pluggable conversion and verification of 
@@ -46,13 +45,9 @@ public class TypeHandler {
 
     /** Map of classes to converters. */
     private static Map<Class<?>, Converter<?>> converterMap = new HashMap<>();
-    
-    /** Map of classes to verifiers. */
-    private static Map<Class<?>, Predicate<String>> verifierMap = new HashMap<>();
 
     static {
         resetConverters();
-        resetVerifiers();
     }
     
     /**
@@ -93,55 +88,18 @@ public class TypeHandler {
     }
 
     /**
-     * Resets the registered Verifiers to the default state.
-     * @since 1.7.0
-     */
-    public static void resetVerifiers() {
-        verifierMap.clear();
-        verifierMap.put(Object.class, Verifier.CLASS);
-        verifierMap.put(Class.class, Verifier.CLASS);
-        verifierMap.put(Number.class, Verifier.NUMBER);
-
-        verifierMap.put(Long.class, Verifier.INTEGER);
-        verifierMap.put(Integer.class, Verifier.INTEGER);
-        verifierMap.put(Short.class, Verifier.INTEGER);
-        verifierMap.put(Byte.class, Verifier.INTEGER);
-
-        verifierMap.put(Double.class, Verifier.NUMBER);
-        verifierMap.put(Float.class, Verifier.NUMBER);
-        verifierMap.put(BigInteger.class, Verifier.INTEGER);
-        verifierMap.put(BigDecimal.class, Verifier.NUMBER);
-    }
-
-    /**
-     * Unregisters all Verifiers.
-     * @since 1.7.0
-     */
-    public static void noVerifiers() {
-        verifierMap.clear();
-    }
-
-    /**
-     * Registers a Converter and Verifier for a Class.  If @code converter} or 
-     * {@code verifier} are null their respective registrations are cleared for {@code clazz}, and 
-     * defaults will be used in processing.
+     * Registers a Converter for a Class.  If @code converter} is null registration is cleared for {@code clazz}, and 
+     * no converter will be used in processing.
      * 
      * @param clazz the Class to register the Converter and Verifier to.
      * @param converter The Converter to associate with Class.  May be null.
-     * @param verifier The Verifier to associate with Class.  May be null.
      * @since 1.7.0
      */
-    public static void register(Class<?> clazz, Converter<?> converter, Predicate<String> verifier) {
+    public static void register(final Class<?> clazz, final Converter<?> converter) {
         if (converter == null) {
             converterMap.remove(clazz);
         } else {
             converterMap.put(clazz, converter);
-        }
-
-        if (verifier == null) {
-            verifierMap.remove(clazz);
-        } else {
-            verifierMap.put(clazz, verifier);
         }
     }
 
@@ -151,20 +109,9 @@ public class TypeHandler {
      * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
      * @since 1.7.0
      */
-    public static Converter<?> getConverter(Class<?> clazz) {
+    public static Converter<?> getConverter(final Class<?> clazz) {
         Converter<?> converter = converterMap.get(clazz);
         return converter == null ? Converter.DEFAULT : converter;
-    }
-
-    /**
-     * Gets the verifier for the Class. Never null.
-     * @param clazz the Class to get the Verifier for.
-     * @return the registered verifier if any, {@link Verifier#DEFAULT} otherwise.
-     * @since 1.7.0
-     */
-    public static Predicate<String> getVerifier(Class<?> clazz) {
-        Predicate<String> verifier = verifierMap.get(clazz);
-        return verifier == null ? Verifier.DEFAULT : verifier;
     }
 
     /**

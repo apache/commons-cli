@@ -110,7 +110,14 @@ public class PatternOptionBuilder {
     };
     
     static {
-        TypeHandler.register(PatternOptionBuilder.FILES_VALUE, NOT_IMPLEMENTED, null);
+        registerTypes();
+    }
+
+    /**
+     * Registers custom {@code Converter}s with the {@code TypeHandler}. 
+     */
+    public static void registerTypes() {
+        TypeHandler.register(PatternOptionBuilder.FILES_VALUE, NOT_IMPLEMENTED);
     }
 
     /**
@@ -204,7 +211,6 @@ public class PatternOptionBuilder {
             } else {
                 type = getValueType(ch);
                 converter = TypeHandler.getConverter(getValueType(ch));
-                verifier = TypeHandler.getVerifier(getValueType(ch));
             }
         }
 

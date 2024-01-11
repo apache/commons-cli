@@ -285,7 +285,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder, to allow method chaining.
          * @since 1.7.0
          */
-        public Builder converter(Converter<?> converter) {
+        public Builder converter(final Converter<?> converter) {
             this.converter = converter;
             return this;
         }
@@ -297,7 +297,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder, to allow method chaining.
          * @since 1.7.0
          */
-        public Builder verifier(Predicate<String> verifier) {
+        public Builder verifier(final Predicate<String> verifier) {
             this.verifier = verifier;
             return this;
         }
@@ -925,7 +925,7 @@ public class Option implements Cloneable, Serializable {
      * @param converter The converter to convert the string value to the type.
      * @since 1.7.0
      */
-    public void setConverter(Converter<?> converter) {
+    public void setConverter(final Converter<?> converter) {
         this.converter = converter;
     }
 
@@ -935,7 +935,7 @@ public class Option implements Cloneable, Serializable {
      * @since 1.7.0
      */
     public Predicate<String> getVerifier() {
-        return verifier == null ? TypeHandler.getVerifier(type) : verifier;
+        return verifier == null ? Verifier.DEFAULT : verifier;
     }
 
     /**
@@ -943,7 +943,7 @@ public class Option implements Cloneable, Serializable {
      * @param verifier the Verifier to use.
      * @since 1.7.0
      */
-    public void setVerifier(Predicate<String> verifier) {
+    public void setVerifier(final Predicate<String> verifier) {
         this.verifier = verifier;
     }
 

@@ -38,7 +38,7 @@ public class ConverterTests {
 
     @ParameterizedTest
     @MethodSource("numberTestParameters")
-    public void numberTests(String str, Number expected) throws Exception {
+    public void numberTests(final String str, final Number expected) throws Exception {
         if (expected != null) {
             assertEquals(expected, Converter.NUMBER.apply(str));
         } else {
@@ -72,7 +72,7 @@ public class ConverterTests {
         assertNotNull(Converter.CLASS.apply(this.getClass().getTypeName()), this.getClass().getTypeName());
 
         assertThrows(ClassNotFoundException.class, () -> Converter.CLASS.apply("foo.bar"));
-        assertNotNull(Converter.CLASS.apply(TestClass.class.getName()));
+        assertNotNull(Converter.CLASS.apply(AClassWithoutADefaultConstructor.class.getName()));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class ConverterTests {
         assertNotNull(Converter.OBJECT.apply(this.getClass().getTypeName()), this.getClass().getTypeName());
 
         assertThrows(ClassNotFoundException.class, () -> Converter.OBJECT.apply("foo.bar"));
-        assertThrows(NoSuchMethodException.class, () -> Converter.OBJECT.apply(TestClass.class.getName()));
+        assertThrows(NoSuchMethodException.class, () -> Converter.OBJECT.apply(AClassWithoutADefaultConstructor.class.getName()));
     }
 
     @Test
@@ -111,8 +111,8 @@ public class ConverterTests {
     }
 
     // A class without a default constructor.
-    public class TestClass {
-        public TestClass(int i) {
+    public class AClassWithoutADefaultConstructor {
+        public AClassWithoutADefaultConstructor(final int i) {
         }
     }
 }

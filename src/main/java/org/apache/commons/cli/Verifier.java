@@ -78,13 +78,13 @@ public final class Verifier {
      * @param exemplar One of the values from the accepted Enum.
      * @return A {@code Predicate<String>} that matches the Enum names.
      */
-    public static Predicate<String> enumVerifier(Enum<?> exemplar) {
+    public static Predicate<String> enumVerifier(final Enum<?> exemplar) {
         return new Predicate<String>() {
             /** The list of valid names */
             private final List<String> names = Arrays.stream(exemplar.getDeclaringClass().getEnumConstants())
                     .map(t -> ((Enum<?>) t).name()).collect(Collectors.toList());
             @Override
-            public boolean test(String str) throws RuntimeException {
+            public boolean test(final String str) throws RuntimeException {
                 return names.contains(str);
             }
         };

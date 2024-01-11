@@ -398,7 +398,7 @@ public class CommandLine implements Serializable {
      * @since 1.7.0
      * @param <T> The return type for the method.
      */
-    public <T> T getParsedOptionValue(final char opt, T defaultValue) throws ParseException {
+    public <T> T getParsedOptionValue(final char opt, final T defaultValue) throws ParseException {
         return getParsedOptionValue(String.valueOf(opt), defaultValue);
     }
 
@@ -414,7 +414,7 @@ public class CommandLine implements Serializable {
      * @param <T> The return type for the method.
      */
     @SuppressWarnings("unchecked")
-    public <T> T getParsedOptionValue(final Option option, T defaultValue) throws ParseException {
+    public <T> T getParsedOptionValue(final Option option, final T defaultValue) throws ParseException {
         if (option == null) {
             return null;
         }
@@ -438,7 +438,7 @@ public class CommandLine implements Serializable {
      * @since 1.7.0
      * @param <T> The return type for the method.
      */
-    public <T> T getParsedOptionValue(final String opt, T defaultValue) throws ParseException {
+    public <T> T getParsedOptionValue(final String opt, final T defaultValue) throws ParseException {
         return getParsedOptionValue(resolveOption(opt), defaultValue);
     }
 

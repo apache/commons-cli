@@ -239,7 +239,7 @@ public class OptionTest {
     }
 
 
-    private Option roundTrip(Option o) throws IOException, ClassNotFoundException {
+    private Option roundTrip(final Option o) throws IOException, ClassNotFoundException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(o);
@@ -267,16 +267,16 @@ public class OptionTest {
 
         // verify registered class converters and verifiers do not get reset to default.
         try {
-            TypeHandler.register(TypeHandlerTest.Instantiable.class, Converter.URL, Verifier.CLASS);
+            TypeHandler.register(TypeHandlerTest.Instantiable.class, Converter.URL);
             // verify earlier values still set.
             assertEquals(Converter.DATE, o.getConverter());
             assertEquals(Verifier.NUMBER, o.getVerifier());
             o2 = roundTrip(o);
-            // verify set to registered values
+            // verify set to registered value
             assertEquals(Converter.URL, o2.getConverter());
-            assertEquals(Verifier.CLASS, o2.getVerifier());
+            assertEquals(Verifier.DEFAULT, o2.getVerifier());
         } finally {
-            TypeHandler.register(TypeHandlerTest.Instantiable.class, null, null);
+            TypeHandler.register(TypeHandlerTest.Instantiable.class, null);
         }
     }
 }
