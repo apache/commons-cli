@@ -774,14 +774,15 @@ public class Option implements Cloneable, Serializable {
      *
      * @since 1.0.1
      */
-    private void processValue(String value) {
+    private void processValue(final String value) {
+        String add = value;
         // this Option has a separator character
         if (hasValueSeparator()) {
             // get the separator character
             final char sep = getValueSeparator();
 
             // store the index for the value separator
-            int index = value.indexOf(sep);
+            int index = add.indexOf(sep);
 
             // while there are more value separators
             while (index != -1) {
@@ -791,18 +792,18 @@ public class Option implements Cloneable, Serializable {
                 }
 
                 // store
-                add(value.substring(0, index));
+                add(add.substring(0, index));
 
                 // parse
-                value = value.substring(index + 1);
+                add = add.substring(index + 1);
 
                 // get new index
-                index = value.indexOf(sep);
+                index = add.indexOf(sep);
             }
         }
 
         // store the actual value or the last value that has been parsed
-        add(value);
+        add(add);
     }
 
     /**

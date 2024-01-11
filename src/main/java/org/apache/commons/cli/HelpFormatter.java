@@ -749,39 +749,41 @@ public class HelpFormatter {
      *
      * @return the StringBuffer with the rendered Options contents.
      */
-    protected StringBuffer renderWrappedText(final StringBuffer sb, final int width, int nextLineTabStop, String text) {
-        int pos = findWrapPos(text, width, 0);
+    protected StringBuffer renderWrappedText(final StringBuffer sb, final int width, final int nextLineTabStop, final String text) {
+        String render = text;
+        int nextLineTabStopPos = nextLineTabStop;
+        int pos = findWrapPos(render, width, 0);
 
         if (pos == -1) {
-            sb.append(rtrim(text));
+            sb.append(rtrim(render));
 
             return sb;
         }
-        sb.append(rtrim(text.substring(0, pos))).append(getNewLine());
+        sb.append(rtrim(render.substring(0, pos))).append(getNewLine());
 
-        if (nextLineTabStop >= width) {
+        if (nextLineTabStopPos >= width) {
             // stops infinite loop happening
-            nextLineTabStop = 1;
+            nextLineTabStopPos = 1;
         }
 
         // all following lines must be padded with nextLineTabStop space characters
-        final String padding = createPadding(nextLineTabStop);
+        final String padding = createPadding(nextLineTabStopPos);
 
         while (true) {
-            text = padding + text.substring(pos).trim();
-            pos = findWrapPos(text, width, 0);
+            render = padding + render.substring(pos).trim();
+            pos = findWrapPos(render, width, 0);
 
             if (pos == -1) {
-                sb.append(text);
+                sb.append(render);
 
                 return sb;
             }
 
-            if (text.length() > width && pos == nextLineTabStop - 1) {
+            if (render.length() > width && pos == nextLineTabStopPos - 1) {
                 pos = width;
             }
 
-            sb.append(rtrim(text.substring(0, pos))).append(getNewLine());
+            sb.append(rtrim(render.substring(0, pos))).append(getNewLine());
         }
     }
 
