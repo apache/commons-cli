@@ -360,8 +360,8 @@ public class BugCLI162Test {
                 "                             with the -u option. You can obfuscate the" + CR +
                 "                             password with" + CR +
                 "                             org.mortbay.jetty.security.Password, see" + CR +
-                "                             https://docs.codehaus.org/display/JETTY/Securi" + CR +
-                "                             ng+Passwords" + CR +
+                "                             https://docs.codehaus.org/display/JETTY/Secur" + CR +
+                "                             ing+Passwords" + CR +
                 " -s,--sql <arg>              Runs SQL or {call stored_procedure(?, ?)} or" + CR +
                 "                             {?=call function(?, ?)}" + CR +
                 " -t,--printStack             Prints stack traces on errors" + CR +
