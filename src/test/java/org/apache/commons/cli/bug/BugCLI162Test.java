@@ -212,7 +212,7 @@ public class BugCLI162Test {
                             + OPT
                             + OPT_USER
                             + " option. You can obfuscate the password with org.mortbay.jetty.security.Password,"
-                            + " see http://docs.codehaus.org/display/JETTY/Securing+Passwords");
+                            + " see https://docs.codehaus.org/display/JETTY/Securing+Passwords");
         //@formatter:on
         commandLineOptions.addOption(OPT_SQL, OPT_SQL_L, true, "Runs SQL or {call stored_procedure(?, ?)} or {?=call function(?, ?)}");
         commandLineOptions.addOption(OPT_FILE_SFMD, "sfmd", true, "Writes a SFMD file for the given SQL");
@@ -360,7 +360,7 @@ public class BugCLI162Test {
                 "                             with the -u option. You can obfuscate the" + CR +
                 "                             password with" + CR +
                 "                             org.mortbay.jetty.security.Password, see" + CR +
-                "                             http://docs.codehaus.org/display/JETTY/Securi" + CR +
+                "                             https://docs.codehaus.org/display/JETTY/Securi" + CR +
                 "                             ng+Passwords" + CR +
                 " -s,--sql <arg>              Runs SQL or {call stored_procedure(?, ?)} or" + CR +
                 "                             {?=call function(?, ?)}" + CR +

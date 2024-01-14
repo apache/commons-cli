@@ -21,7 +21,7 @@ package org.apache.commons.cli;
  * OptionBuilder allows the user to create Options using descriptive methods.
  * <p>
  * Details on the Builder pattern can be found at
- * <a href="http://c2.com/cgi-bin/wiki?BuilderPattern">http://c2.com/cgi-bin/wiki?BuilderPattern</a>.
+ * <a href="https://c2.com/cgi-bin/wiki?BuilderPattern">https://c2.com/cgi-bin/wiki?BuilderPattern</a>.
  * <p>
  * This class is NOT thread safe. See <a href="https://issues.apache.org/jira/browse/CLI-209">CLI-209</a>
  *

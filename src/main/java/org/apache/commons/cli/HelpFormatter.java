@@ -44,7 +44,7 @@ import java.util.List;
  * options.addOption(OptionBuilder.withLongOpt("help").create('h'));
  *
  * String header = "Do something useful with an input file\n\n";
- * String footer = "\nPlease report issues at http://example.com/issues";
+ * String footer = "\nPlease report issues at https://example.com/issues";
  *
  * HelpFormatter formatter = new HelpFormatter();
  * formatter.printHelp("myapp", header, options, footer, true);
@@ -60,7 +60,7 @@ import java.util.List;
  *  -h,--help
  *  -v,--version       Print the version of the application
  *
- * Please report issues at http://example.com/issues
+ * Please report issues at https://example.com/issues
  * </pre>
  */
 public class HelpFormatter {
