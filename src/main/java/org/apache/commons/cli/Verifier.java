@@ -41,7 +41,7 @@ public final class Verifier {
     /**
      * The Regex Pattern for the number matching.
      */
-    public static final Pattern NUMBER_PATTERN = Pattern.compile("-?([0-9]*\\.)?([0-9]+)$");
+    public static final Pattern NUMBER_PATTERN = Pattern.compile("[-+]?(\\d*\\.)?(\\d+)$");
 
     /**
      * Verifies that a number string is either a valid real number (e.g. may have a
@@ -52,7 +52,7 @@ public final class Verifier {
     /**
      * The Regex Pattern for the integer matching.
      */
-    public static final Pattern INTEGER_PATTERN = Pattern.compile("-?\\d+");
+    public static final Pattern INTEGER_PATTERN = Pattern.compile("[-+]?\\d+");
 
     /**
      * Verifies that a number string is an integer.
