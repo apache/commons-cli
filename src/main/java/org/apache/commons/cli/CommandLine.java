@@ -24,7 +24,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
+import java.util.function.Supplier;
 
 /**
  * Represents list of arguments parsed against a {@link Options} descriptor.
@@ -254,6 +256,18 @@ public class CommandLine implements Serializable {
      * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
      */
     public String getOptionValue(final char opt, final String defaultValue) {
+        return getOptionValue(String.valueOf(opt), ()->defaultValue);
+    }
+
+    /**
+     * Gets the argument, if any, of an option.
+     *
+     * @param opt character name of the option
+     * @param defaultValue is a supplier for the default value to be returned if the option is not specified.
+     * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
+     * @since 1.7.0
+     */
+    public String getOptionValue(final char opt, final Supplier<String> defaultValue) {
         return getOptionValue(String.valueOf(opt), defaultValue);
     }
 
@@ -281,10 +295,22 @@ public class CommandLine implements Serializable {
      * @since 1.5.0
      */
     public String getOptionValue(final Option option, final String defaultValue) {
-        final String answer = getOptionValue(option);
-        return answer != null ? answer : defaultValue;
+        return getOptionValue(option, ()->defaultValue);
     }
 
+    /**
+     * Gets the first argument, if any, of an option.
+     *
+     * @param option name of the option.
+     * @param defaultValue is a supplier for the default value to be returned if the option is not specified.
+     * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
+     * @since 1.7.0
+     */
+    public String getOptionValue(final Option option, final Supplier<String> defaultValue) {
+        final String answer = getOptionValue(option);
+        return answer != null ? answer : defaultValue.get();
+    }
+    
     /**
      * Gets the first argument, if any, of this option.
      *
@@ -303,9 +329,22 @@ public class CommandLine implements Serializable {
      * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
      */
     public String getOptionValue(final String opt, final String defaultValue) {
+        return getOptionValue(resolveOption(opt), ()->defaultValue);
+    }
+
+    /**
+     * Gets the first argument, if any, of an option.
+     *
+     * @param opt name of the option.
+     * @param defaultValue is a supplier for the default value to be returned if the option is not specified.
+     * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
+     * @since 1.7.0
+     */
+    public String getOptionValue(final String opt, final Supplier<String> defaultValue) {
         return getOptionValue(resolveOption(opt), defaultValue);
     }
 
+    
     /**
      * Gets the array of values, if any, of an option.
      *

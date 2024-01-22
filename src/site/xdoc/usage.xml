@@ -384,5 +384,93 @@ catch (ParseException exp) {
     System.out.println("Unexpected exception:" + exp.getMessage());
 }</source>
     </section>
+    <section name="Converting (Parsing) Option Values">
+        <p>
+            By in most cases the values on the command line are retrieved as Strings via the 
+            <code>commandLine.getOptionValue(key)</code> command.  However, it is possible for
+            the CLI library to convert the string into a different object.  For example to specify 
+            that the "count" option should reutrn an Integer the following code could be used:
+        </p>
+        <source>
+        public static void main(String[] args) {
+            Option count = Option.builder("count")
+                          .hasArg()
+                          .desc("the number of things")
+                          .type(Integer.class)
+                          .build();
+            Options options = new Options().addOption(cound);
+            // create the parser
+            CommandLineParser parser = new DefaultParser();
+            try {
+                // parse the command line arguments
+                CommandLine line = parser.parse(options, args);
+            }
+            catch (ParseException exp) {
+                // oops, something went wrong
+                System.err.println("Parsing failed.  Reason: " + exp.getMessage());
+            }
+            
+            try {
+                Integer value = line.getParsedOptionValue(count);
+                System.out.format("The value is %s\m", value );
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }</source>
+        <p>
+            The value types natively supported by commons-cli are:
+            <ul>
+                <li>Object.class - The string value must be the name of a class with a no argument constructor</li>
+                <li>Class.class - The string value must be the name of a class</li>
+                <li>Date.class - The string value must be a date parsable by <code>new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")</code></li>
+                <li>File.class - The string value is the name of the file.</li>
+                <li>Number.class - The string value is a number representation can can be converted into an Integer or a Double.</li>
+                <li>URL.class - The string value is the textual representation of a URL</li>
+                <li>FileInputStream.class - The string value is passed to <code>new FileInputStream(s)</code>.</li>
+                <li>Long.class - The string value is a valid argument to <code>Long.parseLong()</code>.</li>
+                <li>Integer.class - The string value is a valid argument to <code>Integer.parseInt()</code>.</li>
+                <li>Short.class - The string value is a valid argument to <code>Short.parseShort()</code>.</li>
+                <li>Byte.class - The string value is a valid argument to <code>Byte.parseByte()</code>.</li>
+                <li>Character.class - The string value is either a UTF-8 encoding for a character (e.g. "\\u0124") or the first character from the String."</li>
+                <li>Double.class - The string value is a valid argument to <code>Double.parseDouble()</code>.</li>
+                <li>Float.class - The string value is a valid argument to <code>Float.parseFloat()</code>.</li>
+                <li>BigInteger.class - The string value is a valid argument to <code>new BigInteger(s)</code>.</li>
+                <li>BigDecimal.class - The string value is a valid argument to <code>new BigDecimal(s)</code>.</li>
+            </ul>
+            Additional types may be added to the automatic parsing system by calling <code>TypeHandler.register(Class&lt;T&gt; clazz, Converter&lt;T&gt; converter)</code>.
+            The <code>Class&lt;T&gt;</code> can be any defined class.  The converter is a function that takes a <code>String</code> argument and returns an instance of 
+            the class.  Any expection thrown by the constructor will be caught and reported as a <code>ParseException</code>
+        </p>
+        <p>
+            Conversions can be specified without using the <code>TypeHandler</code> class by specifying the converter 
+            directly during the option build.  For example: 
+            <source>
+                Option fooOpt = Option.builder("foo")
+                          .hasArg()
+                          .desc("the foo arg")
+                          .converter((s) -> new Foo(s))
+                          .build();
+            </source>
+            The above will create an option that passes the string value to the Foo constructor when <code>commandLine.getParsedOptionValue(fooOpt)</code> is called.
+        </p>
+    </section>
+    <section name="Restricting values">
+        <p>
+            Acceptable values for options may be specified by using <code>Option.Builder.verifier()</code> to specify a <code>java.util.function.Predicate</code>
+            to verify the input text.  There are a few examples in the <code>Verifier</code> source file.  Verifier also provides a method to construct a verifier 
+            to test <code>enum</code> values.  For example:
+           <source>
+               public enum MyEnum {ONE, TWO, THREE};
+
+               Option enumOpt = Option.builder("enumValue")
+                          .hasArg()
+                          .desc("the enum arg")
+                          .varifier(Verifier.enumVerifier(MyEnum.ONE))
+                          .build();
+            </source>
+            The above will create an option that verifies any argument passed to <code>enumOpt</code> matches a name from <code>MyEnum</code>.  
+            The initial verification occures when the option string is set during the execution of <code>CommandLine line = parser.parse(options, args)</code>.
+        </p>
+    </section>
   </body>
 </document>
