@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Properties;
 import java.util.function.Supplier;
 
@@ -256,7 +255,7 @@ public class CommandLine implements Serializable {
      * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
      */
     public String getOptionValue(final char opt, final String defaultValue) {
-        return getOptionValue(String.valueOf(opt), ()->defaultValue);
+        return getOptionValue(String.valueOf(opt), () -> defaultValue);
     }
 
     /**
@@ -295,7 +294,7 @@ public class CommandLine implements Serializable {
      * @since 1.5.0
      */
     public String getOptionValue(final Option option, final String defaultValue) {
-        return getOptionValue(option, ()->defaultValue);
+        return getOptionValue(option, () -> defaultValue);
     }
 
     /**
@@ -329,7 +328,7 @@ public class CommandLine implements Serializable {
      * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
      */
     public String getOptionValue(final String opt, final String defaultValue) {
-        return getOptionValue(resolveOption(opt), ()->defaultValue);
+        return getOptionValue(resolveOption(opt), () -> defaultValue);
     }
 
     /**

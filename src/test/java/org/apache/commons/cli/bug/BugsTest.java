@@ -137,7 +137,7 @@ public class BugsTest {
         cmd.getOptionValue("f", "default f");
         cmd.getOptionValue("m", "default m");
         //
-        assertNull(cmd.getOptionValue((String) null, (String)null));
+        assertNull(cmd.getOptionValue((String) null, (String) null));
         assertEquals("default", cmd.getOptionValue((String) null, "default"));
     }
 
