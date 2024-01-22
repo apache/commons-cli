@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -125,6 +126,9 @@ public class TypeHandlerTest {
     }
 
     private static Stream<Arguments> createValueTestParameters() {
+        // forse the PatternOptionBuilder to load / modify the TypeHandler table.
+        Class<?> ignore = PatternOptionBuilder.FILES_VALUE;
+        // reset the type handler table.
         TypeHandler.resetConverters();
         List<Arguments> lst = new ArrayList<>();
 
@@ -140,6 +144,8 @@ public class TypeHandlerTest {
             lst.add(Arguments.of("non-existing.file", PatternOptionBuilder.EXISTING_FILE_VALUE, ParseException.class));
 
             lst.add(Arguments.of("some-file.txt", PatternOptionBuilder.FILE_VALUE, new File("some-file.txt")));
+            
+            lst.add(Arguments.of("some-path.txt", Path.class, new File("some-path.txt").toPath()));
 
             // the PatternOptionBUilder.FILES_VALUE is not registered so it should just return the string
             lst.add(Arguments.of("some.files", PatternOptionBuilder.FILES_VALUE, "some.files"));

@@ -424,6 +424,7 @@ catch (ParseException exp) {
                 <li>Class.class - The string value must be the name of a class</li>
                 <li>Date.class - The string value must be a date parsable by <code>new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")</code></li>
                 <li>File.class - The string value is the name of the file.</li>
+                <li>Path.class - The string value is the name of a Path.</li>
                 <li>Number.class - The string value is a number representation can can be converted into an Integer or a Double.</li>
                 <li>URL.class - The string value is the textual representation of a URL</li>
                 <li>FileInputStream.class - The string value is passed to <code>new FileInputStream(s)</code>.</li>

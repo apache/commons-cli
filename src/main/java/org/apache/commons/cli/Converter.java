@@ -18,6 +18,7 @@ package org.apache.commons.cli;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,6 +40,9 @@ public interface Converter<T> {
 
     /** File name converter. Calls @{code new File(s)} */
     Converter<File> FILE = s -> new File(s);
+
+    /** Path converter. Calls @{code new Path(s)} */
+    Converter<Path> PATH = s -> new File(s).toPath();
 
     /**
      * Number converter. Converts to a Double if a decimal point ('.') is in the

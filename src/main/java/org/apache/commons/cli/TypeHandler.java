@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +61,7 @@ public class TypeHandler {
         converterMap.put(Class.class, Converter.CLASS);
         converterMap.put(Date.class, Converter.DATE);
         converterMap.put(File.class, Converter.FILE);
+        converterMap.put(Path.class, Converter.PATH);
         converterMap.put(Number.class, Converter.NUMBER);
         converterMap.put(URL.class, Converter.URL);
         converterMap.put(FileInputStream.class, s -> new FileInputStream(s));
