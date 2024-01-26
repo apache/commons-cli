@@ -31,12 +31,12 @@ final class OptionValidator {
 
     /** 
      * Checks the char array for a matching char.
-     * @param ary the array to search
+     * @param chars the char array to search
      * @param c the char to look for.
      * @return {@code true} if {@code c} was in {@code ary}, {@code false} otherwise. 
      */
-    private static boolean search(final char[] ary, final char c) {
-        for (char a : ary) {
+    private static boolean search(final char[] chars, final char c) {
+        for (char a : chars) {
             if (a == c) {
                 return true;
             }
@@ -46,9 +46,20 @@ final class OptionValidator {
     
     /**
      * Returns whether the specified character is a valid character.
-     *
+     * A character is valid if any of the following conditions are true:
+     * <ul>
+     * <li>it is a letter</li>
+     * <li>it is a currency symbol (such as '$')</li>
+     * <li>it is a connecting punctuation character (such as '_')</li>
+     * <li>it is a digit</li>
+     * <li>it is a numeric letter (such as a Roman numeral character)</li>
+     * <li>it is a combining mark</li>
+     * <li>it is a non-spacing mark</li>
+     * <li>isIdentifierIgnorable returns true for the character</li>
+     * <li>it is a hyphen/dash ('-')</li>
+     * </ul>
      * @param c the character to validate
-     * @return true if {@code c} is a letter.
+     * @return true if {@code c} is a valid character letter. 
      */
     private static boolean isValidChar(final char c) {
         return Character.isJavaIdentifierPart(c) || search(ADDITIONAL_LONG_CHARS, c);
@@ -56,7 +67,18 @@ final class OptionValidator {
 
     /**
      * Returns whether the specified character is a valid Option.
-     *
+     * A character is valid if any of the following conditions are true:
+     * <ul>
+     * <li>it is a letter</li>
+     * <li>it is a currency symbol (such as '$')</li>
+     * <li>it is a connecting punctuation character (such as '_')</li>
+     * <li>it is a digit</li>
+     * <li>it is a numeric letter (such as a Roman numeral character)</li>
+     * <li>it is a combining mark</li>
+     * <li>it is a non-spacing mark</li>
+     * <li>isIdentifierIgnorable returns true for the character</li>
+     * <li>it is a question mark or 'at' sign ('?' or '@')</li>
+     * </ul>
      * @param c the option to validate
      * @return true if {@code c} is a letter, '?' or '@', otherwise false.
      */
@@ -70,15 +92,28 @@ final class OptionValidator {
      *
      * <ul>
      * <li>a single character {@code opt} that is either ' '(special case), '?', '@' or a letter</li>
-     * <li>a multi character {@code opt} that only contains letters.</li>
+     * <li>a multi character {@code opt} that only contains valid characters</li>
      * </ul>
-     * <p>
+     * </p><p>
+     * A character is valid if any of the following conditions are true:
+     * <ul>
+     * <li>it is a letter</li>
+     * <li>it is a currency symbol (such as '$')</li>
+     * <li>it is a connecting punctuation character (such as '_')</li>
+     * <li>it is a digit</li>
+     * <li>it is a numeric letter (such as a Roman numeral character)</li>
+     * <li>it is a combining mark</li>
+     * <li>it is a non-spacing mark</li>
+     * <li>isIdentifierIgnorable returns true for the character</li>
+     * <li>it is a hyphen/dash ('-')</li>
+     * </ul>
+     * </p><p>
      * In case {@code opt} is {@code null} no further validation is performed.
      *
      * @param option The option string to validate, may be null
      * @throws IllegalArgumentException if the Option is not valid.
      */
-    static String validate(final String option) throws IllegalArgumentException {
+    static String valid3ate(final String option) throws IllegalArgumentException {
         // if opt is NULL do not check further
         if (option == null) {
             return null;
