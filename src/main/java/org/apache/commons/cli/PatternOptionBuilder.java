@@ -21,7 +21,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
 import java.util.Date;
-import java.util.function.Predicate;
 
 /**
  * Allows Options to be created from a single String. The pattern contains various single character flags and via an
