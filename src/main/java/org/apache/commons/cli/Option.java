@@ -86,9 +86,6 @@ public class Option implements Cloneable, Serializable {
         
         /** The converter to convert to type **/
         private Converter<?> converter;
-        
-        /** The verifier to verify string is valid for option */
-        private Predicate<String> verifier;
 
         /**
          * Constructs a new {@code Builder} with the minimum required parameters for an {@code Option} instance.
@@ -290,17 +287,6 @@ public class Option implements Cloneable, Serializable {
             return this;
         }
         
-        /**
-         * Sets the verifier for the option.
-         * <p>Note: see {@link TypeHandler} for serialization discussion.</p>
-         * @param verifier the Verifier to use.
-         * @return this builder, to allow method chaining.
-         * @since 1.7.0
-         */
-        public Builder verifier(final Predicate<String> verifier) {
-            this.verifier = verifier;
-            return this;
-        }
     }
 
     /** Specifies the number of argument values has not been specified */
@@ -369,9 +355,6 @@ public class Option implements Cloneable, Serializable {
     
     /** The explicit converter for this option.  May be null */
     private transient Converter<?> converter;
-    
-    /** The explicit verifier for this option. May be null */
-    private transient Predicate<String> verifier;
 
     /**
      * Private constructor used by the nested Builder class.
@@ -389,7 +372,6 @@ public class Option implements Cloneable, Serializable {
         this.type = builder.type;
         this.valuesep = builder.valueSeparator;
         this.converter = builder.converter;
-        this.verifier = builder.verifier;
     }
 
     /**
@@ -462,11 +444,6 @@ public class Option implements Cloneable, Serializable {
         if (!acceptsArg()) {
             throw new IllegalArgumentException("Cannot add value, list full.");
         }
-
-        if (!getVerifier().test(value)) {
-            throw new IllegalArgumentException(String.format("'%s' is not a valid input string for option '%s'", value, option));
-        }
-
         // store value
         values.add(value);
     }
@@ -927,24 +904,6 @@ public class Option implements Cloneable, Serializable {
      */
     public void setConverter(final Converter<?> converter) {
         this.converter = converter;
-    }
-
-    /**
-     * Gets the value verifier.
-     * @return the value verifier.
-     * @since 1.7.0
-     */
-    public Predicate<String> getVerifier() {
-        return verifier == null ? Verifier.DEFAULT : verifier;
-    }
-
-    /**
-     * Sets the value verifier to verify that a string value is the proper form to be converted to a string.
-     * @param verifier the Verifier to use.
-     * @since 1.7.0
-     */
-    public void setVerifier(final Predicate<String> verifier) {
-        this.verifier = verifier;
     }
 
     /**

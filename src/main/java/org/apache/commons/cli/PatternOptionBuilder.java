@@ -183,7 +183,6 @@ public class PatternOptionBuilder {
         boolean required = false;
         Class<?> type = null;
         Converter<?> converter = Converter.DEFAULT;
-        Predicate<String> verifier = Verifier.DEFAULT;
 
         final Options options = new Options();
 
@@ -195,14 +194,13 @@ public class PatternOptionBuilder {
             if (!isValueCode(ch)) {
                 if (opt != ' ') {
                     final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type)
-                            .converter(converter).verifier(verifier).build();
+                            .converter(converter).build();
 
                     // we have a previous one to deal with
                     options.addOption(option);
                     required = false;
                     type = null;
                     converter = Converter.DEFAULT;
-                    verifier = Verifier.DEFAULT;
                 }
 
                 opt = ch;

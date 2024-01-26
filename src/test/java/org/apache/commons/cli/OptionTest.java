@@ -253,28 +253,22 @@ public class OptionTest {
 
         Option o = Option.builder("o").type(TypeHandlerTest.Instantiable.class).build();
         assertEquals(Converter.DEFAULT, o.getConverter());
-        assertEquals(Verifier.DEFAULT, o.getVerifier());
         Option o2 = roundTrip(o);
         assertEquals(Converter.DEFAULT, o2.getConverter());
-        assertEquals(Verifier.DEFAULT, o2.getVerifier());
 
         // verify unregistered class converters and verifiers get reset to default.
         o.setConverter(Converter.DATE);
-        o.setVerifier(Verifier.NUMBER);
         o2 = roundTrip(o);
         assertEquals(Converter.DEFAULT, o2.getConverter());
-        assertEquals(Verifier.DEFAULT, o2.getVerifier());
 
         // verify registered class converters and verifiers do not get reset to default.
         try {
             TypeHandler.register(TypeHandlerTest.Instantiable.class, Converter.URL);
             // verify earlier values still set.
             assertEquals(Converter.DATE, o.getConverter());
-            assertEquals(Verifier.NUMBER, o.getVerifier());
             o2 = roundTrip(o);
             // verify set to registered value
             assertEquals(Converter.URL, o2.getConverter());
-            assertEquals(Verifier.DEFAULT, o2.getVerifier());
         } finally {
             TypeHandler.register(TypeHandlerTest.Instantiable.class, null);
         }

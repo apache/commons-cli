@@ -110,7 +110,6 @@ public final class OptionBuilder {
             option.setArgs(argCount);
             option.setType(type);
             option.setConverter(TypeHandler.getConverter(type));
-            option.setVerifier(Verifier.DEFAULT);
             option.setValueSeparator(valueSeparator);
             option.setArgName(argName);
         } finally {
