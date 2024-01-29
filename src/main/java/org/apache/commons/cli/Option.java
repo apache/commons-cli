@@ -82,7 +82,7 @@ public class Option implements Cloneable, Serializable {
 
         /** The character that is the value separator */
         private char valueSeparator;
-        
+
         /** The converter to convert to type **/
         private Converter<?> converter;
 
@@ -285,7 +285,7 @@ public class Option implements Cloneable, Serializable {
             this.valueSeparator = valueSeparator;
             return this;
         }
-        
+
     }
 
     /** Specifies the number of argument values has not been specified */
@@ -351,7 +351,7 @@ public class Option implements Cloneable, Serializable {
 
     /** The character that is the value separator. */
     private char valuesep;
-    
+
     /** The explicit converter for this option.  May be null */
     private transient Converter<?> converter;
 
@@ -724,7 +724,7 @@ public class Option implements Cloneable, Serializable {
 
     /**
      * Returns whether this Option can have an optional argument.
-     * 
+     *
      * @return whether this Option can have an optional argument
      */
     public boolean hasOptionalArg() {
@@ -880,7 +880,7 @@ public class Option implements Cloneable, Serializable {
     public void setType(final Class<?> type) {
         this.type = type;
     }
-    
+
     /**
      * Sets the type of this Option.
      * <p>

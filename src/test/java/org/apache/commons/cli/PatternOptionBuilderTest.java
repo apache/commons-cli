@@ -88,7 +88,7 @@ public class PatternOptionBuilderTest {
         // 3,5 fails validation.
         //assertThrows(ParseException.class, () -> parser.parse(options, new String[] {"-n", "1", "-d", "2.1", "-x", "3,5"}));
 
-        CommandLine line = parser.parse(options, new String[] {"-n", "1", "-d", "2.1", "-x", "3,5"});
+        final CommandLine line = parser.parse(options, new String[] {"-n", "1", "-d", "2.1", "-x", "3,5"});
         assertEquals("n object class", Long.class, line.getOptionObject("n").getClass());
         assertEquals("n value", Long.valueOf(1), line.getOptionObject("n"));
 

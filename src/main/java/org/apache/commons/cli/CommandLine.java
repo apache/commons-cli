@@ -309,7 +309,7 @@ public class CommandLine implements Serializable {
         final String answer = getOptionValue(option);
         return answer != null ? answer : defaultValue.get();
     }
-    
+
     /**
      * Gets the first argument, if any, of this option.
      *
@@ -343,7 +343,7 @@ public class CommandLine implements Serializable {
         return getOptionValue(resolveOption(opt), defaultValue);
     }
 
-    
+
     /**
      * Gets the array of values, if any, of an option.
      *
@@ -425,7 +425,7 @@ public class CommandLine implements Serializable {
     public <T> T getParsedOptionValue(final Option option) throws ParseException {
         return  getParsedOptionValue(option, null);
     }
-    
+
     /**
      * Gets a version of this {@code Option} converted to a particular type.
      *
@@ -446,7 +446,7 @@ public class CommandLine implements Serializable {
 
         try {
             return res == null ? defaultValue : (T) option.getConverter().apply(res);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw ParseException.wrap(e);
         }
     }

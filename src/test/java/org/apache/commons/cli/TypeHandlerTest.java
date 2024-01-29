@@ -63,10 +63,10 @@ public class TypeHandlerTest {
 
     private static Stream<Arguments> createValueTestParameters() {
         // forse the PatternOptionBuilder to load / modify the TypeHandler table.
-        Class<?> ignore = PatternOptionBuilder.FILES_VALUE;
+        final Class<?> ignore = PatternOptionBuilder.FILES_VALUE;
         // reset the type handler table.
         TypeHandler.resetConverters();
-        List<Arguments> lst = new ArrayList<>();
+        final List<Arguments> lst = new ArrayList<>();
 
         try {
             lst.add(Arguments.of(Instantiable.class.getName(), PatternOptionBuilder.CLASS_VALUE, Instantiable.class));
@@ -80,7 +80,7 @@ public class TypeHandlerTest {
             lst.add(Arguments.of("non-existing.file", PatternOptionBuilder.EXISTING_FILE_VALUE, ParseException.class));
 
             lst.add(Arguments.of("some-file.txt", PatternOptionBuilder.FILE_VALUE, new File("some-file.txt")));
-            
+
             lst.add(Arguments.of("some-path.txt", Path.class, new File("some-path.txt").toPath()));
 
             // the PatternOptionBUilder.FILES_VALUE is not registered so it should just return the string
@@ -89,7 +89,7 @@ public class TypeHandlerTest {
             lst.add(Arguments.of("just-a-string", Integer.class, ParseException.class));
             lst.add(Arguments.of("5", Integer.class, 5));
             lst.add(Arguments.of("5.5", Integer.class, ParseException.class));
-            lst.add(Arguments.of(Long.valueOf(Long.MAX_VALUE).toString(), Integer.class, ParseException.class));
+            lst.add(Arguments.of(Long.toString(Long.MAX_VALUE), Integer.class, ParseException.class));
 
             lst.add(Arguments.of("just-a-string", Long.class, ParseException.class));
             lst.add(Arguments.of("5", Long.class, 5L));
@@ -98,12 +98,12 @@ public class TypeHandlerTest {
             lst.add(Arguments.of("just-a-string", Short.class, ParseException.class));
             lst.add(Arguments.of("5", Short.class, (short) 5));
             lst.add(Arguments.of("5.5", Short.class, ParseException.class));
-            lst.add(Arguments.of(Integer.valueOf(Integer.MAX_VALUE).toString(), Short.class, ParseException.class));
+            lst.add(Arguments.of(Integer.toString(Integer.MAX_VALUE), Short.class, ParseException.class));
 
             lst.add(Arguments.of("just-a-string", Byte.class, ParseException.class));
             lst.add(Arguments.of("5", Byte.class, (byte) 5));
             lst.add(Arguments.of("5.5", Byte.class, ParseException.class));
-            lst.add(Arguments.of(Short.valueOf(Short.MAX_VALUE).toString(), Byte.class, ParseException.class));
+            lst.add(Arguments.of(Short.toString(Short.MAX_VALUE), Byte.class, ParseException.class));
 
             lst.add(Arguments.of("just-a-string", Character.class, 'j'));
             lst.add(Arguments.of("5", Character.class, '5'));
@@ -117,7 +117,7 @@ public class TypeHandlerTest {
             lst.add(Arguments.of("just-a-string", Float.class, ParseException.class));
             lst.add(Arguments.of("5", Float.class, 5f));
             lst.add(Arguments.of("5.5", Float.class, 5.5f));
-            lst.add(Arguments.of(Double.valueOf(Double.MAX_VALUE).toString(), Float.class, Float.POSITIVE_INFINITY));
+            lst.add(Arguments.of(Double.toString(Double.MAX_VALUE), Float.class, Float.POSITIVE_INFINITY));
 
             lst.add(Arguments.of("just-a-string", BigInteger.class, ParseException.class));
             lst.add(Arguments.of("5", BigInteger.class, new BigInteger("5")));
@@ -144,7 +144,7 @@ public class TypeHandlerTest {
 
             return lst.stream();
 
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new RuntimeException(e);
         }
 
@@ -169,7 +169,7 @@ public class TypeHandlerTest {
             assertNotNull(result);
         }
     }
-    
+
     @Test
     public void testNoConverters() {
         assertEquals(Converter.NUMBER, TypeHandler.getConverter(Number.class));

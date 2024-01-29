@@ -80,11 +80,11 @@ public class OptionTest {
     }
 
     private Option roundTrip(final Option o) throws IOException, ClassNotFoundException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(o);
-        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(bais);
+        final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        final ObjectInputStream ois = new ObjectInputStream(bais);
         return (Option) ois.readObject();
     }
 
@@ -243,7 +243,7 @@ public class OptionTest {
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException {
 
-        Option o = Option.builder("o").type(TypeHandlerTest.Instantiable.class).build();
+        final Option o = Option.builder("o").type(TypeHandlerTest.Instantiable.class).build();
         assertEquals(Converter.DEFAULT, o.getConverter());
         Option o2 = roundTrip(o);
         assertEquals(Converter.DEFAULT, o2.getConverter());

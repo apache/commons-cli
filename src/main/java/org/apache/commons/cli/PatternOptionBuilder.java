@@ -102,12 +102,12 @@ public class PatternOptionBuilder {
 
     /** URL class */
     public static final Class<URL> URL_VALUE = URL.class;
-    
+
     /** The converter to use for Unimplemented data types */
-    static final Converter<?> NOT_IMPLEMENTED = s -> { 
+    static final Converter<?> NOT_IMPLEMENTED = s -> {
         throw new UnsupportedOperationException("Not yet implemented");
     };
-    
+
     static {
         registerTypes();
     }
@@ -155,7 +155,7 @@ public class PatternOptionBuilder {
 
         return null;
     }
-    
+
     /**
      * Returns whether {@code ch} is a value code, i.e. whether it represents a class in a pattern.
      *
@@ -217,7 +217,7 @@ public class PatternOptionBuilder {
     }
 
     /**
-     * Registers custom {@code Converter}s with the {@code TypeHandler}. 
+     * Registers custom {@code Converter}s with the {@code TypeHandler}.
      * @since 1.7.0
      */
     public static void registerTypes() {

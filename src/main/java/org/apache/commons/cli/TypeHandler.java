@@ -28,19 +28,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TypeHandler will handle the pluggable conversion and verification of 
+ * TypeHandler will handle the pluggable conversion and verification of
  * Option types.  It handles the mapping of classes to bot converters and verifiers.
  * It provides the default conversion and verification methods when converters and verifiers
  * are not explicitly set.
  * <p>
- * If Options are serialized and deserialized their converters and verifiers will revert to the 
+ * If Options are serialized and deserialized their converters and verifiers will revert to the
  * defaults defined in this class.  To correctly de-serialize Options with custom converters and/or
  * verifiers, using the default serialization methods, this class should be properly configured with the custom
  * converters and verifiers for the specific class.
  * </p>
  */
 public class TypeHandler {
-    
+
     /** Value of hex conversion of strings */
     private static final int HEX_RADIX = 16;
 
@@ -50,7 +50,7 @@ public class TypeHandler {
     static {
         resetConverters();
     }
-    
+
     /**
      * Returns the class whose name is {@code className}.
      *
@@ -63,7 +63,7 @@ public class TypeHandler {
     public static Class<?> createClass(final String className) throws ParseException {
         return createValue(className, Class.class);
     }
-    
+
     /**
      * Returns the date represented by {@code str}.
      * <p>
@@ -77,7 +77,7 @@ public class TypeHandler {
     public static Date createDate(final String str) {
         try {
             return createValue(str, Date.class);
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             throw new RuntimeException(e);
         }
     }
@@ -93,7 +93,7 @@ public class TypeHandler {
     public static File createFile(final String str) {
         try {
             return createValue(str, File.class);
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             throw new RuntimeException(e);
         }
     }
@@ -166,7 +166,7 @@ public class TypeHandler {
     public static <T> T createValue(final String str, final Class<T> clazz) throws ParseException {
         try {
             return (T) getConverter(clazz).apply(str);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw ParseException.wrap(e);
         }
     }
@@ -192,7 +192,7 @@ public class TypeHandler {
      * @since 1.7.0
      */
     public static Converter<?> getConverter(final Class<?> clazz) {
-        Converter<?> converter = converterMap.get(clazz);
+        final Converter<?> converter = converterMap.get(clazz);
         return converter == null ? Converter.DEFAULT : converter;
     }
 
@@ -218,9 +218,9 @@ public class TypeHandler {
     }
 
     /**
-     * Registers a Converter for a Class. If @code converter} is null registration is cleared for {@code clazz}, and 
+     * Registers a Converter for a Class. If @code converter} is null registration is cleared for {@code clazz}, and
      * no converter will be used in processing.
-     * 
+     *
      * @param clazz the Class to register the Converter and Verifier to.
      * @param converter The Converter to associate with Class.  May be null.
      * @since 1.7.0
@@ -246,7 +246,7 @@ public class TypeHandler {
         converterMap.put(Path.class, Converter.PATH);
         converterMap.put(Number.class, Converter.NUMBER);
         converterMap.put(URL.class, Converter.URL);
-        converterMap.put(FileInputStream.class, s -> new FileInputStream(s));
+        converterMap.put(FileInputStream.class, FileInputStream::new);
         converterMap.put(Long.class, Long::parseLong);
         converterMap.put(Integer.class, Integer::parseInt);
         converterMap.put(Short.class, Short::parseShort);
@@ -254,12 +254,11 @@ public class TypeHandler {
         converterMap.put(Character.class, s -> {
             if (s.startsWith("\\u")) {
                 return Character.toChars(Integer.parseInt(s.substring(2), HEX_RADIX))[0];
-            } else {
-                return s.charAt(0);
-            } });
+            }
+            return s.charAt(0); });
         converterMap.put(Double.class, Double::parseDouble);
         converterMap.put(Float.class, Float::parseFloat);
-        converterMap.put(BigInteger.class, s -> new BigInteger(s));
-        converterMap.put(BigDecimal.class, s -> new BigDecimal(s));
+        converterMap.put(BigInteger.class, BigInteger::new);
+        converterMap.put(BigDecimal.class, BigDecimal::new);
     }
 }

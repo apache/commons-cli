@@ -43,7 +43,7 @@ public class ConverterTests {
     }
 
     private static Stream<Arguments> numberTestParameters() {
-        List<Arguments> lst = new ArrayList<>();
+        final List<Arguments> lst = new ArrayList<>();
 
         lst.add(Arguments.of("123", Long.valueOf("123")));
         lst.add(Arguments.of("12.3", Double.valueOf("12.3")));
@@ -75,7 +75,7 @@ public class ConverterTests {
     public void dateTests() throws Exception {
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("whatever"));
 
-        Date d = new Date(1023400137000L);
+        final Date d = new Date(1023400137000L);
         assertEquals(d, Converter.DATE.apply("Thu Jun 06 17:48:57 EDT 2002"));
 
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("Jun 06 17:48:57 EDT 2002"));
@@ -83,8 +83,8 @@ public class ConverterTests {
 
     @Test
     public void fileTests() throws Exception {
-        URL url = this.getClass().getClassLoader().getResource("./org/apache/commons/cli/existing-readable.file");
-        String fileName = url.toString().substring("file:".length());
+        final URL url = this.getClass().getClassLoader().getResource("./org/apache/commons/cli/existing-readable.file");
+        final String fileName = url.toString().substring("file:".length());
         assertNotNull(Converter.FILE.apply(fileName));
     }
 

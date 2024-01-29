@@ -36,10 +36,10 @@ public interface Converter<T> {
     Converter<?> DEFAULT = s -> s;
 
     /** Class name converter. Calls {@code Class.forName}. */
-    Converter<Class<?>> CLASS = s -> Class.forName(s);
+    Converter<Class<?>> CLASS = Class::forName;
 
     /** File name converter. Calls @{code new File(s)} */
-    Converter<File> FILE = s -> new File(s);
+    Converter<File> FILE = File::new;
 
     /** Path converter. Calls @{code new Path(s)} */
     Converter<Path> PATH = s -> new File(s).toPath();
@@ -63,7 +63,7 @@ public interface Converter<T> {
     Converter<Object> OBJECT = s -> CLASS.apply(s).getConstructor().newInstance();
 
     /** Creates a URL. Calls {@code new URL(s)}. */
-    Converter<URL> URL = s -> new URL(s);
+    Converter<URL> URL = java.net.URL::new;
 
     /** Converts to a date using the format string Form "EEE MMM dd HH:mm:ss zzz yyyy". */
     Converter<Date> DATE = s -> new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(s);
