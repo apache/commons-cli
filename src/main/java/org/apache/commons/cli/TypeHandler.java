@@ -68,6 +68,7 @@ public class TypeHandler {
      * Returns the date represented by {@code str}.
      * <p>
      * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
+     * </p>
      *
      * @param str the date string
      * @return The date if {@code str} is a valid date string, otherwise return null.
@@ -99,8 +100,11 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the File[] represented by {@code str}.
-     * <p> This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
+     * Creates the File[] represented by {@code str}.
+     *
+     * <p>
+     * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
+     * <p>
      *
      * @param str the paths to the files
      * @return The File[] represented by {@code str}.
@@ -115,7 +119,7 @@ public class TypeHandler {
     }
 
     /**
-     * Create a number from a String. If a '.' is present, it creates a Double, otherwise a Long.
+     * Creates a number from a String. If a '.' is present, it creates a Double, otherwise a Long.
      *
      * @param str the value
      * @return the number represented by {@code str}
@@ -127,7 +131,7 @@ public class TypeHandler {
     }
 
     /**
-     * Create an Object from the class name and empty constructor.
+     * Creates an Object from the class name and empty constructor.
      *
      * @param className the argument value
      * @return the initialized object
@@ -140,7 +144,7 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the URL represented by {@code str}.
+     * Creates the URL represented by {@code str}.
      *
      * @param str the URL string
      * @return The URL in {@code str} is well-formed
@@ -153,7 +157,7 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the @code Object} of type {@code clazz} with the value of
+     * Creates the @code Object} of type {@code clazz} with the value of
      * {@code str}.
      *
      * @param str the command line value
@@ -172,7 +176,7 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the {@code Object} of type {@code obj} with the value of {@code str}.
+     * Creates the {@code Object} of type {@code obj} with the value of {@code str}.
      *
      * @param str the command line value
      * @param obj the type of argument
@@ -187,6 +191,7 @@ public class TypeHandler {
 
     /**
      * Gets the converter for the the Class. Never null.
+     *
      * @param clazz The Class to get the Converter for.
      * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
      * @since 1.7.0
@@ -198,6 +203,7 @@ public class TypeHandler {
 
     /**
      * Unregisters all Converters.
+     *
      * @since 1.7.0
      */
     public static void noConverters() {
@@ -235,6 +241,7 @@ public class TypeHandler {
 
     /**
      * Resets the registered Converters to the default state.
+     *
      * @since 1.7.0
      */
     public static void resetConverters() {
