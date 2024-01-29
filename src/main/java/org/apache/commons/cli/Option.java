@@ -82,6 +82,9 @@ public class Option implements Cloneable, Serializable {
 
         /** The character that is the value separator */
         private char valueSeparator;
+        
+        /** The converter to convert to type **/
+        private Converter<?> converter;
 
         /**
          * Constructs a new {@code Builder} with the minimum required parameters for an {@code Option} instance.
@@ -270,6 +273,19 @@ public class Option implements Cloneable, Serializable {
             this.valueSeparator = valueSeparator;
             return this;
         }
+
+        /**
+         * Sets the converter for the option.
+         * <p>Note: see {@link TypeHandler} for serialization discussion.</p>
+         * @param converter the Converter to use.
+         * @return this builder, to allow method chaining.
+         * @since 1.7.0
+         */
+        public Builder converter(final Converter<?> converter) {
+            this.converter = converter;
+            return this;
+        }
+        
     }
 
     /** Specifies the number of argument values has not been specified */
@@ -335,6 +351,9 @@ public class Option implements Cloneable, Serializable {
 
     /** The character that is the value separator. */
     private char valuesep;
+    
+    /** The explicit converter for this option.  May be null */
+    private transient Converter<?> converter;
 
     /**
      * Private constructor used by the nested Builder class.
@@ -351,6 +370,7 @@ public class Option implements Cloneable, Serializable {
         this.required = builder.required;
         this.type = builder.type;
         this.valuesep = builder.valueSeparator;
+        this.converter = builder.converter;
     }
 
     /**
@@ -423,7 +443,6 @@ public class Option implements Cloneable, Serializable {
         if (!acceptsArg()) {
             throw new IllegalArgumentException("Cannot add value, list full.");
         }
-
         // store value
         values.add(value);
     }
@@ -695,6 +714,8 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
+     * Returns whether this Option can have an optional argument.
+     * 
      * @return whether this Option can have an optional argument
      */
     public boolean hasOptionalArg() {
@@ -864,6 +885,24 @@ public class Option implements Cloneable, Serializable {
      */
     public void setValueSeparator(final char sep) {
         this.valuesep = sep;
+    }
+    
+    /**
+     * Gets the value to type converter.
+     * @return the value to type converter
+     * @since 1.7.0
+     */
+    public Converter<?> getConverter() {
+        return converter == null ? TypeHandler.getConverter(type) : converter;
+    }
+
+    /**
+     * Sets the value to type converter.
+     * @param converter The converter to convert the string value to the type.
+     * @since 1.7.0
+     */
+    public void setConverter(final Converter<?> converter) {
+        this.converter = converter;
     }
 
     /**

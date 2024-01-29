@@ -31,6 +31,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -38,6 +39,11 @@ import org.junit.Test;
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class PatternOptionBuilderTest {
+    @BeforeClass
+    public static void setup() {
+        PatternOptionBuilder.registerTypes();
+    }
+
     @Test
     public void testClassPattern() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("c+d+");
@@ -79,8 +85,10 @@ public class PatternOptionBuilderTest {
     public void testNumberPattern() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("n%d%x%");
         final CommandLineParser parser = new PosixParser();
-        final CommandLine line = parser.parse(options, new String[] {"-n", "1", "-d", "2.1", "-x", "3,5"});
+        // 3,5 fails validation.
+        //assertThrows(ParseException.class, () -> parser.parse(options, new String[] {"-n", "1", "-d", "2.1", "-x", "3,5"}));
 
+        CommandLine line = parser.parse(options, new String[] {"-n", "1", "-d", "2.1", "-x", "3,5"});
         assertEquals("n object class", Long.class, line.getOptionObject("n").getClass());
         assertEquals("n value", Long.valueOf(1), line.getOptionObject("n"));
 
@@ -153,13 +161,8 @@ public class PatternOptionBuilderTest {
             // expected
         }
 
-        // DATES NOT SUPPORTED YET
-        try {
-            assertEquals("date flag z", new Date(1023400137276L), line.getOptionObject('z'));
-            fail("Date is not supported yet, should have failed");
-        } catch (final UnsupportedOperationException uoe) {
-            // expected
-        }
+        assertEquals("date flag z", new Date(1023400137000L), line.getOptionObject('z'));
+
     }
 
     @Test

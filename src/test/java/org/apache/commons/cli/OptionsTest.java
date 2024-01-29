@@ -49,8 +49,10 @@ public class OptionsTest {
     @Test
     public void testGetMatchingOpts() {
         final Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt("version").create());
-        options.addOption(OptionBuilder.withLongOpt("verbose").create());
+        OptionBuilder.withLongOpt("version");
+        options.addOption(OptionBuilder.create());
+        OptionBuilder.withLongOpt("verbose");
+        options.addOption(OptionBuilder.create());
 
         assertTrue(options.getMatchingOptions("foo").isEmpty());
         assertEquals(1, options.getMatchingOptions("version").size());
@@ -78,12 +80,16 @@ public class OptionsTest {
 
     @Test
     public void testHelpOptions() {
-        final Option longOnly1 = OptionBuilder.withLongOpt("long-only1").create();
-        final Option longOnly2 = OptionBuilder.withLongOpt("long-only2").create();
+        OptionBuilder.withLongOpt("long-only1");
+        final Option longOnly1 = OptionBuilder.create();
+        OptionBuilder.withLongOpt("long-only2");
+        final Option longOnly2 = OptionBuilder.create();
         final Option shortOnly1 = OptionBuilder.create("1");
         final Option shortOnly2 = OptionBuilder.create("2");
-        final Option bothA = OptionBuilder.withLongOpt("bothA").create("a");
-        final Option bothB = OptionBuilder.withLongOpt("bothB").create("b");
+        OptionBuilder.withLongOpt("bothA");
+        final Option bothA = OptionBuilder.create("a");
+        OptionBuilder.withLongOpt("bothB");
+        final Option bothB = OptionBuilder.create("b");
 
         final Options options = new Options();
         options.addOption(longOnly1);
@@ -121,7 +127,8 @@ public class OptionsTest {
     @Test
     public void testMissingOptionException() throws ParseException {
         final Options options = new Options();
-        options.addOption(OptionBuilder.isRequired().create("f"));
+        OptionBuilder.isRequired();
+        options.addOption(OptionBuilder.create("f"));
         try {
             new PosixParser().parse(options, new String[0]);
             fail("Expected MissingOptionException to be thrown");
@@ -133,8 +140,10 @@ public class OptionsTest {
     @Test
     public void testMissingOptionsException() throws ParseException {
         final Options options = new Options();
-        options.addOption(OptionBuilder.isRequired().create("f"));
-        options.addOption(OptionBuilder.isRequired().create("x"));
+        OptionBuilder.isRequired();
+        options.addOption(OptionBuilder.create("f"));
+        OptionBuilder.isRequired();
+        options.addOption(OptionBuilder.create("x"));
         try {
             new PosixParser().parse(options, new String[0]);
             fail("Expected MissingOptionException to be thrown");

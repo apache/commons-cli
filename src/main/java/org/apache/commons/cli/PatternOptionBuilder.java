@@ -102,14 +102,44 @@ public class PatternOptionBuilder {
 
     /** URL class */
     public static final Class<URL> URL_VALUE = URL.class;
+    
+    /** The converter to use for Unimplemented data types */
+    static final Converter<?> NOT_IMPLEMENTED = s -> { 
+        throw new UnsupportedOperationException("Not yet implemented");
+    };
+    
+    static {
+        registerTypes();
+    }
+
+    /**
+     * Registers custom {@code Converter}s with the {@code TypeHandler}. 
+     * @since 1.7.0
+     */
+    public static void registerTypes() {
+        TypeHandler.register(PatternOptionBuilder.FILES_VALUE, NOT_IMPLEMENTED);
+    }
 
     /**
      * Retrieve the class that {@code ch} represents.
      *
      * @param ch the specified character
      * @return The class that {@code ch} represents
+     * @deprecated use {@link #getValueType(char)}
      */
+    @Deprecated // since="1.7.0"
     public static Object getValueClass(final char ch) {
+        return getValueType(ch);
+    }
+    
+    /**
+     * Retrieve the class that {@code ch} represents.
+     *
+     * @param ch the specified character
+     * @return The class that {@code ch} represents
+     * @since 1.7.0
+     */
+    public static Class<?> getValueType(final char ch) {
         switch (ch) {
         case '@':
             return PatternOptionBuilder.OBJECT_VALUE;
@@ -154,6 +184,7 @@ public class PatternOptionBuilder {
         char opt = ' ';
         boolean required = false;
         Class<?> type = null;
+        Converter<?> converter = Converter.DEFAULT;
 
         final Options options = new Options();
 
@@ -164,19 +195,22 @@ public class PatternOptionBuilder {
             // details about it
             if (!isValueCode(ch)) {
                 if (opt != ' ') {
-                    final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type).build();
+                    final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type)
+                            .converter(converter).build();
 
                     // we have a previous one to deal with
                     options.addOption(option);
                     required = false;
                     type = null;
+                    converter = Converter.DEFAULT;
                 }
 
                 opt = ch;
             } else if (ch == '!') {
                 required = true;
             } else {
-                type = (Class<?>) getValueClass(ch);
+                type = getValueType(ch);
+                converter = TypeHandler.getConverter(getValueType(ch));
             }
         }
 
