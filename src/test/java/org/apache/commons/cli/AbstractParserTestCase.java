@@ -23,6 +23,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,12 +61,11 @@ public abstract class AbstractParserTestCase {
         //@formatter:on
     }
 
-    @Test(expected = UnrecognizedOptionException.class)
     public void testAmbiguousArgParsing() throws Exception {
-        final String[] args = {"-=-"};
+        final String[] args = { "-=-" };
         final Options options = new Options();
 
-        final CommandLine cl = parser.parse(options, args);
+        assertThrows(UnrecognizedOptionException.class, () -> parser.parse(options, args));
     }
 
     @Test
