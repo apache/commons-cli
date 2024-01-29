@@ -45,7 +45,7 @@ public class TypeHandler {
     private static final int HEX_RADIX = 16;
 
     /** Map of classes to converters. */
-    private static Map<Class<?>, Converter<?>> converterMap = new HashMap<>();
+    private static Map<Class<?>, Converter<?, ?>> converterMap = new HashMap<>();
 
     static {
         resetConverters();
@@ -166,7 +166,7 @@ public class TypeHandler {
     public static <T> T createValue(final String str, final Class<T> clazz) throws ParseException {
         try {
             return (T) getConverter(clazz).apply(str);
-        } catch (final Exception e) {
+        } catch (final Throwable e) {
             throw ParseException.wrap(e);
         }
     }
@@ -191,8 +191,8 @@ public class TypeHandler {
      * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
      * @since 1.7.0
      */
-    public static Converter<?> getConverter(final Class<?> clazz) {
-        final Converter<?> converter = converterMap.get(clazz);
+    public static Converter<?, ?> getConverter(final Class<?> clazz) {
+        final Converter<?, ?> converter = converterMap.get(clazz);
         return converter == null ? Converter.DEFAULT : converter;
     }
 
@@ -225,7 +225,7 @@ public class TypeHandler {
      * @param converter The Converter to associate with Class.  May be null.
      * @since 1.7.0
      */
-    public static void register(final Class<?> clazz, final Converter<?> converter) {
+    public static void register(final Class<?> clazz, final Converter<?, ?> converter) {
         if (converter == null) {
             converterMap.remove(clazz);
         } else {

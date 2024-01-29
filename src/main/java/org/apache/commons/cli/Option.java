@@ -84,7 +84,7 @@ public class Option implements Cloneable, Serializable {
         private char valueSeparator;
 
         /** The converter to convert to type **/
-        private Converter<?> converter;
+        private Converter<?, ?> converter;
 
         /**
          * Constructs a new {@code Builder} with the minimum required parameters for an {@code Option} instance.
@@ -127,7 +127,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder, to allow method chaining.
          * @since 1.7.0
          */
-        public Builder converter(final Converter<?> converter) {
+        public Builder converter(final Converter<?, ?> converter) {
             this.converter = converter;
             return this;
         }
@@ -353,7 +353,7 @@ public class Option implements Cloneable, Serializable {
     private char valuesep;
 
     /** The explicit converter for this option.  May be null */
-    private transient Converter<?> converter;
+    private transient Converter<?, ?> converter;
 
     /**
      * Private constructor used by the nested Builder class.
@@ -547,7 +547,7 @@ public class Option implements Cloneable, Serializable {
      * @return the value to type converter
      * @since 1.7.0
      */
-    public Converter<?> getConverter() {
+    public Converter<?, ?> getConverter() {
         return converter == null ? TypeHandler.getConverter(type) : converter;
     }
 
@@ -830,7 +830,7 @@ public class Option implements Cloneable, Serializable {
      * @param converter The converter to convert the string value to the type.
      * @since 1.7.0
      */
-    public void setConverter(final Converter<?> converter) {
+    public void setConverter(final Converter<?, ?> converter) {
         this.converter = converter;
     }
 

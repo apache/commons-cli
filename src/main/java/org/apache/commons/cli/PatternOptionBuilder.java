@@ -104,7 +104,7 @@ public class PatternOptionBuilder {
     public static final Class<URL> URL_VALUE = URL.class;
 
     /** The converter to use for Unimplemented data types */
-    static final Converter<?> NOT_IMPLEMENTED = s -> {
+    static final Converter<?, UnsupportedOperationException> NOT_IMPLEMENTED = s -> {
         throw new UnsupportedOperationException("Not yet implemented");
     };
 
@@ -176,7 +176,7 @@ public class PatternOptionBuilder {
         char opt = ' ';
         boolean required = false;
         Class<?> type = null;
-        Converter<?> converter = Converter.DEFAULT;
+        Converter<?, ?> converter = Converter.DEFAULT;
 
         final Options options = new Options();
 

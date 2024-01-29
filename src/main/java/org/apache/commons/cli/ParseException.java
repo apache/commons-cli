@@ -39,7 +39,7 @@ public class ParseException extends Exception {
      * @throws UnsupportedOperationException due to legacy expectations.  Will be removed in the future.
      * @since 1.7.0
      */
-    public static ParseException wrap(final Exception e) throws UnsupportedOperationException {
+    public static ParseException wrap(final Throwable e) throws UnsupportedOperationException {
         if (e instanceof UnsupportedOperationException) {
             throw (UnsupportedOperationException) e;
         }
@@ -53,7 +53,7 @@ public class ParseException extends Exception {
      * Constructs a new {@code ParseException} wrapping the specified exception.
      * @param e the Exception to wrap.
      */
-    public ParseException(final Exception e) {
+    public ParseException(final Throwable e) {
         super(e);
     }
 

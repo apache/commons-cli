@@ -446,7 +446,7 @@ public class CommandLine implements Serializable {
 
         try {
             return res == null ? defaultValue : (T) option.getConverter().apply(res);
-        } catch (final Exception e) {
+        } catch (final Throwable e) {
             throw ParseException.wrap(e);
         }
     }

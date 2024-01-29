@@ -17,7 +17,9 @@
 package org.apache.commons.cli;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,28 +29,36 @@ import java.util.Date;
  * Like {@code Function<String,T>} but can throw an Exception.
  *
  * @param <T> The return type for the function.
+ * @param <E> The kind of thrown exception or error.
  * @since 1.7.0
  */
 @FunctionalInterface
-public interface Converter<T> {
+public interface Converter<T, E extends Throwable> {
+    // See also Apache Commons Lang FailableFunction
 
-    /** The default converter. Does nothing. */
-    Converter<?> DEFAULT = s -> s;
+    /**
+     * The default converter. Does nothing.
+     */
+    Converter<?, RuntimeException> DEFAULT = s -> s;
 
-    /** Class name converter. Calls {@code Class.forName}. */
-    Converter<Class<?>> CLASS = Class::forName;
+    /**
+     * Class name converter. Calls {@code Class.forName}.
+     */
+    Converter<Class<?>, ClassNotFoundException> CLASS = Class::forName;
 
-    /** File name converter. Calls @{code new File(s)} */
-    Converter<File> FILE = File::new;
+    /**
+     * File name converter. Calls @{code new File(s)}.
+     */
+    Converter<File, NullPointerException> FILE = File::new;
 
     /** Path converter. Calls @{code new Path(s)} */
-    Converter<Path> PATH = s -> new File(s).toPath();
+    Converter<Path, InvalidPathException> PATH = s -> new File(s).toPath();
 
     /**
      * Number converter. Converts to a Double if a decimal point ('.') is in the
      * string or a Long otherwise.
      */
-    Converter<Number> NUMBER = s -> {
+    Converter<Number, NumberFormatException> NUMBER = s -> {
         if (s.indexOf('.') != -1) {
             return Double.valueOf(s);
         }
@@ -60,19 +70,23 @@ public interface Converter<T> {
      * to find the class and then call the default constructor.
      * @see #CLASS
      */
-    Converter<Object> OBJECT = s -> CLASS.apply(s).getConstructor().newInstance();
+    Converter<Object, ReflectiveOperationException> OBJECT = s -> CLASS.apply(s).getConstructor().newInstance();
 
-    /** Creates a URL. Calls {@code new URL(s)}. */
-    Converter<URL> URL = java.net.URL::new;
+    /** 
+     * Creates a URL. Calls {@code new URL(s)}.
+     */
+    Converter<URL, MalformedURLException> URL = java.net.URL::new;
 
-    /** Converts to a date using the format string Form "EEE MMM dd HH:mm:ss zzz yyyy". */
-    Converter<Date> DATE = s -> new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(s);
+    /**
+     * Converts to a date using the format string Form "EEE MMM dd HH:mm:ss zzz yyyy".
+     */
+    Converter<Date, java.text.ParseException> DATE = s -> new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(s);
 
     /**
      * Applies the conversion function to the String argument.
      * @param  str       the String to convert
      * @return           the Object from the conversion.
-     * @throws Exception on error.
+     * @throws E on error.
      */
-    T apply(String str) throws Exception;
+    T apply(String str) throws E;
 }
