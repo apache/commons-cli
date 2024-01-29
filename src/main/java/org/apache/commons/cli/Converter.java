@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -52,9 +53,9 @@ public interface Converter<T, E extends Throwable> {
     Converter<File, NullPointerException> FILE = File::new;
 
     /**
-     * Path converter. Calls {@code new File(s).toPath()}.
+     * Path converter. Calls {@link Paths#get(java.net.URI)}.
      */
-    Converter<Path, InvalidPathException> PATH = s -> new File(s).toPath();
+    Converter<Path, InvalidPathException> PATH = Paths::get;
 
     /**
      * Number converter. Converts to a Double if a decimal point ('.') is in the
