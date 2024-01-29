@@ -54,75 +54,11 @@ public class TypeHandlerTest {
         }
     }
 
-    /* proof of equality for later tests */
-    @Test
-    public void testnstantiableEquals() {
-        assertEquals(new Instantiable(), new Instantiable());
-    }
-
     /** Used for Class and Object negative creation tests */
     public static final class NotInstantiable {
         private NotInstantiable() {
         }
 
-    }
-
-    @Test
-    public void testRegister() {
-        assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
-        try {
-            TypeHandler.register(NotInstantiable.class, Converter.DATE);
-            assertEquals(Converter.DATE, TypeHandler.getConverter(NotInstantiable.class));
-        } finally {
-            TypeHandler.register(NotInstantiable.class, null);
-            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
-        }
-    }
-
-    @Test
-    public void testResetConverters() {
-        assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
-        try {
-            TypeHandler.register(NotInstantiable.class, Converter.DATE);
-            assertEquals(Converter.DATE, TypeHandler.getConverter(NotInstantiable.class));
-            TypeHandler.resetConverters();
-            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
-            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
-        } finally {
-            TypeHandler.register(NotInstantiable.class, null);
-        }
-    }
-    
-    @Test
-    public void testNoConverters() {
-        assertEquals(Converter.NUMBER, TypeHandler.getConverter(Number.class));
-        try {
-            TypeHandler.noConverters();
-            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(Number.class));
-        } finally {
-            TypeHandler.resetConverters();
-            assertEquals(Converter.NUMBER, TypeHandler.getConverter(Number.class));
-        }
-    }
-
-    @Test
-    public void testCreateValueExistingFile() throws Exception {
-        try (FileInputStream result = TypeHandler.createValue(
-                "src/test/resources/org/apache/commons/cli/existing-readable.file",
-                PatternOptionBuilder.EXISTING_FILE_VALUE)) {
-            assertNotNull(result);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    @ParameterizedTest(name = "{0} as {1}")
-    @MethodSource("createValueTestParameters")
-    public void createValueTests(final String str, final Class<?> type, final Object expected) throws Exception {
-        if (expected instanceof Class<?> && Throwable.class.isAssignableFrom((Class<?>) expected)) {
-            assertThrows((Class<Throwable>) expected, () -> TypeHandler.createValue(str, type));
-        } else {
-            assertEquals(expected, TypeHandler.createValue(str, type));
-        }
     }
 
     private static Stream<Arguments> createValueTestParameters() {
@@ -212,5 +148,69 @@ public class TypeHandlerTest {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @SuppressWarnings("unchecked")
+    @ParameterizedTest(name = "{0} as {1}")
+    @MethodSource("createValueTestParameters")
+    public void createValueTests(final String str, final Class<?> type, final Object expected) throws Exception {
+        if (expected instanceof Class<?> && Throwable.class.isAssignableFrom((Class<?>) expected)) {
+            assertThrows((Class<Throwable>) expected, () -> TypeHandler.createValue(str, type));
+        } else {
+            assertEquals(expected, TypeHandler.createValue(str, type));
+        }
+    }
+
+    @Test
+    public void testCreateValueExistingFile() throws Exception {
+        try (FileInputStream result = TypeHandler.createValue(
+                "src/test/resources/org/apache/commons/cli/existing-readable.file",
+                PatternOptionBuilder.EXISTING_FILE_VALUE)) {
+            assertNotNull(result);
+        }
+    }
+    
+    @Test
+    public void testNoConverters() {
+        assertEquals(Converter.NUMBER, TypeHandler.getConverter(Number.class));
+        try {
+            TypeHandler.noConverters();
+            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(Number.class));
+        } finally {
+            TypeHandler.resetConverters();
+            assertEquals(Converter.NUMBER, TypeHandler.getConverter(Number.class));
+        }
+    }
+
+    /* proof of equality for later tests */
+    @Test
+    public void testnstantiableEquals() {
+        assertEquals(new Instantiable(), new Instantiable());
+    }
+
+    @Test
+    public void testRegister() {
+        assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
+        try {
+            TypeHandler.register(NotInstantiable.class, Converter.DATE);
+            assertEquals(Converter.DATE, TypeHandler.getConverter(NotInstantiable.class));
+        } finally {
+            TypeHandler.register(NotInstantiable.class, null);
+            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
+        }
+    }
+
+    @Test
+    public void testResetConverters() {
+        assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
+        try {
+            TypeHandler.register(NotInstantiable.class, Converter.DATE);
+            assertEquals(Converter.DATE, TypeHandler.getConverter(NotInstantiable.class));
+            TypeHandler.resetConverters();
+            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
+            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
+        } finally {
+            TypeHandler.register(NotInstantiable.class, null);
+        }
     }
 }

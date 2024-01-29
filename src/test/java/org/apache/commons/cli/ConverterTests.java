@@ -36,13 +36,9 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 public class ConverterTests {
 
-    @ParameterizedTest
-    @MethodSource("numberTestParameters")
-    public void numberTests(final String str, final Number expected) throws Exception {
-        if (expected != null) {
-            assertEquals(expected, Converter.NUMBER.apply(str));
-        } else {
-            assertThrows(NumberFormatException.class, () -> Converter.NUMBER.apply(str));
+    // A class without a default constructor.
+    public class AClassWithoutADefaultConstructor {
+        public AClassWithoutADefaultConstructor(final int i) {
         }
     }
 
@@ -76,6 +72,33 @@ public class ConverterTests {
     }
 
     @Test
+    public void dateTests() throws Exception {
+        assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("whatever"));
+
+        Date d = new Date(1023400137000L);
+        assertEquals(d, Converter.DATE.apply("Thu Jun 06 17:48:57 EDT 2002"));
+
+        assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("Jun 06 17:48:57 EDT 2002"));
+    }
+
+    @Test
+    public void fileTests() throws Exception {
+        URL url = this.getClass().getClassLoader().getResource("./org/apache/commons/cli/existing-readable.file");
+        String fileName = url.toString().substring("file:".length());
+        assertNotNull(Converter.FILE.apply(fileName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("numberTestParameters")
+    public void numberTests(final String str, final Number expected) throws Exception {
+        if (expected != null) {
+            assertEquals(expected, Converter.NUMBER.apply(str));
+        } else {
+            assertThrows(NumberFormatException.class, () -> Converter.NUMBER.apply(str));
+        }
+    }
+
+    @Test
     public void objectTests() throws Exception {
         assertNotNull(Converter.OBJECT.apply(this.getClass().getName()), this.getClass().getName());
         assertNotNull(Converter.OBJECT.apply(this.getClass().getCanonicalName()), this.getClass().getCanonicalName());
@@ -88,31 +111,8 @@ public class ConverterTests {
     }
 
     @Test
-    public void dateTests() throws Exception {
-        assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("whatever"));
-
-        Date d = new Date(1023400137000L);
-        assertEquals(d, Converter.DATE.apply("Thu Jun 06 17:48:57 EDT 2002"));
-
-        assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("Jun 06 17:48:57 EDT 2002"));
-    }
-
-    @Test
     public void urlTests() throws Exception {
         assertEquals(new URL("http://apache.org"), Converter.URL.apply("http://apache.org"));
         assertThrows(java.net.MalformedURLException.class, () -> Converter.URL.apply("foo.bar"));
-    }
-
-    @Test
-    public void fileTests() throws Exception {
-        URL url = this.getClass().getClassLoader().getResource("./org/apache/commons/cli/existing-readable.file");
-        String fileName = url.toString().substring("file:".length());
-        assertNotNull(Converter.FILE.apply(fileName));
-    }
-
-    // A class without a default constructor.
-    public class AClassWithoutADefaultConstructor {
-        public AClassWithoutADefaultConstructor(final int i) {
-        }
     }
 }

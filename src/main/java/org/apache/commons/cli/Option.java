@@ -121,6 +121,18 @@ public class Option implements Cloneable, Serializable {
         }
 
         /**
+         * Sets the converter for the option.
+         * <p>Note: see {@link TypeHandler} for serialization discussion.</p>
+         * @param converter the Converter to use.
+         * @return this builder, to allow method chaining.
+         * @since 1.7.0
+         */
+        public Builder converter(final Converter<?> converter) {
+            this.converter = converter;
+            return this;
+        }
+
+        /**
          * Sets the description for this option.
          *
          * @param description the description of the option.
@@ -271,18 +283,6 @@ public class Option implements Cloneable, Serializable {
          */
         public Builder valueSeparator(final char valueSeparator) {
             this.valueSeparator = valueSeparator;
-            return this;
-        }
-
-        /**
-         * Sets the converter for the option.
-         * <p>Note: see {@link TypeHandler} for serialization discussion.</p>
-         * @param converter the Converter to use.
-         * @return this builder, to allow method chaining.
-         * @since 1.7.0
-         */
-        public Builder converter(final Converter<?> converter) {
-            this.converter = converter;
             return this;
         }
         
@@ -540,6 +540,15 @@ public class Option implements Cloneable, Serializable {
      */
     public int getArgs() {
         return argCount;
+    }
+
+    /**
+     * Gets the value to type converter.
+     * @return the value to type converter
+     * @since 1.7.0
+     */
+    public Converter<?> getConverter() {
+        return converter == null ? TypeHandler.getConverter(type) : converter;
     }
 
     /**
@@ -817,6 +826,15 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
+     * Sets the value to type converter.
+     * @param converter The converter to convert the string value to the type.
+     * @since 1.7.0
+     */
+    public void setConverter(final Converter<?> converter) {
+        this.converter = converter;
+    }
+
+    /**
      * Sets the self-documenting description of this Option
      *
      * @param description The description of this option
@@ -862,7 +880,7 @@ public class Option implements Cloneable, Serializable {
     public void setType(final Class<?> type) {
         this.type = type;
     }
-
+    
     /**
      * Sets the type of this Option.
      * <p>
@@ -885,24 +903,6 @@ public class Option implements Cloneable, Serializable {
      */
     public void setValueSeparator(final char sep) {
         this.valuesep = sep;
-    }
-    
-    /**
-     * Gets the value to type converter.
-     * @return the value to type converter
-     * @since 1.7.0
-     */
-    public Converter<?> getConverter() {
-        return converter == null ? TypeHandler.getConverter(type) : converter;
-    }
-
-    /**
-     * Sets the value to type converter.
-     * @param converter The converter to convert the string value to the type.
-     * @since 1.7.0
-     */
-    public void setConverter(final Converter<?> converter) {
-        this.converter = converter;
     }
 
     /**

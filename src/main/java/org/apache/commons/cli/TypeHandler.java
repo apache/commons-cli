@@ -52,71 +52,6 @@ public class TypeHandler {
     }
     
     /**
-     * Resets the registered Converters to the default state.
-     * @since 1.7.0
-     */
-    public static void resetConverters() {
-        converterMap.clear();
-        converterMap.put(Object.class, Converter.OBJECT);
-        converterMap.put(Class.class, Converter.CLASS);
-        converterMap.put(Date.class, Converter.DATE);
-        converterMap.put(File.class, Converter.FILE);
-        converterMap.put(Path.class, Converter.PATH);
-        converterMap.put(Number.class, Converter.NUMBER);
-        converterMap.put(URL.class, Converter.URL);
-        converterMap.put(FileInputStream.class, s -> new FileInputStream(s));
-        converterMap.put(Long.class, Long::parseLong);
-        converterMap.put(Integer.class, Integer::parseInt);
-        converterMap.put(Short.class, Short::parseShort);
-        converterMap.put(Byte.class, Byte::parseByte);
-        converterMap.put(Character.class, s -> {
-            if (s.startsWith("\\u")) {
-                return Character.toChars(Integer.parseInt(s.substring(2), HEX_RADIX))[0];
-            } else {
-                return s.charAt(0);
-            } });
-        converterMap.put(Double.class, Double::parseDouble);
-        converterMap.put(Float.class, Float::parseFloat);
-        converterMap.put(BigInteger.class, s -> new BigInteger(s));
-        converterMap.put(BigDecimal.class, s -> new BigDecimal(s));
-    }
-    
-    /**
-     * Unregisters all Converters.
-     * @since 1.7.0
-     */
-    public static void noConverters() {
-        converterMap.clear();
-    }
-
-    /**
-     * Registers a Converter for a Class. If @code converter} is null registration is cleared for {@code clazz}, and 
-     * no converter will be used in processing.
-     * 
-     * @param clazz the Class to register the Converter and Verifier to.
-     * @param converter The Converter to associate with Class.  May be null.
-     * @since 1.7.0
-     */
-    public static void register(final Class<?> clazz, final Converter<?> converter) {
-        if (converter == null) {
-            converterMap.remove(clazz);
-        } else {
-            converterMap.put(clazz, converter);
-        }
-    }
-
-    /**
-     * Gets the converter for the the Class. Never null.
-     * @param clazz The Class to get the Converter for.
-     * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
-     * @since 1.7.0
-     */
-    public static Converter<?> getConverter(final Class<?> clazz) {
-        Converter<?> converter = converterMap.get(clazz);
-        return converter == null ? Converter.DEFAULT : converter;
-    }
-
-    /**
      * Returns the class whose name is {@code className}.
      *
      * @param className the class name
@@ -128,7 +63,7 @@ public class TypeHandler {
     public static Class<?> createClass(final String className) throws ParseException {
         return createValue(className, Class.class);
     }
-
+    
     /**
      * Returns the date represented by {@code str}.
      * <p>
@@ -251,6 +186,25 @@ public class TypeHandler {
     }
 
     /**
+     * Gets the converter for the the Class. Never null.
+     * @param clazz The Class to get the Converter for.
+     * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
+     * @since 1.7.0
+     */
+    public static Converter<?> getConverter(final Class<?> clazz) {
+        Converter<?> converter = converterMap.get(clazz);
+        return converter == null ? Converter.DEFAULT : converter;
+    }
+
+    /**
+     * Unregisters all Converters.
+     * @since 1.7.0
+     */
+    public static void noConverters() {
+        converterMap.clear();
+    }
+
+    /**
      * Returns the opened FileInputStream represented by {@code str}.
      *
      * @param str the file location
@@ -261,5 +215,51 @@ public class TypeHandler {
     @Deprecated // since 1.7.0
     public static FileInputStream openFile(final String str) throws ParseException {
         return createValue(str, FileInputStream.class);
+    }
+
+    /**
+     * Registers a Converter for a Class. If @code converter} is null registration is cleared for {@code clazz}, and 
+     * no converter will be used in processing.
+     * 
+     * @param clazz the Class to register the Converter and Verifier to.
+     * @param converter The Converter to associate with Class.  May be null.
+     * @since 1.7.0
+     */
+    public static void register(final Class<?> clazz, final Converter<?> converter) {
+        if (converter == null) {
+            converterMap.remove(clazz);
+        } else {
+            converterMap.put(clazz, converter);
+        }
+    }
+
+    /**
+     * Resets the registered Converters to the default state.
+     * @since 1.7.0
+     */
+    public static void resetConverters() {
+        converterMap.clear();
+        converterMap.put(Object.class, Converter.OBJECT);
+        converterMap.put(Class.class, Converter.CLASS);
+        converterMap.put(Date.class, Converter.DATE);
+        converterMap.put(File.class, Converter.FILE);
+        converterMap.put(Path.class, Converter.PATH);
+        converterMap.put(Number.class, Converter.NUMBER);
+        converterMap.put(URL.class, Converter.URL);
+        converterMap.put(FileInputStream.class, s -> new FileInputStream(s));
+        converterMap.put(Long.class, Long::parseLong);
+        converterMap.put(Integer.class, Integer::parseInt);
+        converterMap.put(Short.class, Short::parseShort);
+        converterMap.put(Byte.class, Byte::parseByte);
+        converterMap.put(Character.class, s -> {
+            if (s.startsWith("\\u")) {
+                return Character.toChars(Integer.parseInt(s.substring(2), HEX_RADIX))[0];
+            } else {
+                return s.charAt(0);
+            } });
+        converterMap.put(Double.class, Double::parseDouble);
+        converterMap.put(Float.class, Float::parseFloat);
+        converterMap.put(BigInteger.class, s -> new BigInteger(s));
+        converterMap.put(BigDecimal.class, s -> new BigDecimal(s));
     }
 }

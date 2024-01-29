@@ -79,6 +79,15 @@ public class OptionTest {
         assertEquals(cls, option.getType());
     }
 
+    private Option roundTrip(final Option o) throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(o);
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        return (Option) ois.readObject();
+    }
+
     @Test
     public void testBuilderInsufficientParams1() {
         assertThrows(IllegalArgumentException.class, () ->
@@ -230,23 +239,6 @@ public class OptionTest {
         assertNotEquals(Option.builder("test").build().hashCode(), Option.builder("test").longOpt("long test").build().hashCode());
     }
 
-    @Test
-    public void testSubclass() {
-        final Option option = new DefaultOption("f", "file", "myfile.txt");
-        final Option clone = (Option) option.clone();
-        assertEquals("myfile.txt", clone.getValue());
-        assertEquals(DefaultOption.class, clone.getClass());
-    }
-
-
-    private Option roundTrip(final Option o) throws IOException, ClassNotFoundException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
-        oos.writeObject(o);
-        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(bais);
-        return (Option) ois.readObject();
-    }
 
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException {
@@ -272,5 +264,13 @@ public class OptionTest {
         } finally {
             TypeHandler.register(TypeHandlerTest.Instantiable.class, null);
         }
+    }
+
+    @Test
+    public void testSubclass() {
+        final Option option = new DefaultOption("f", "file", "myfile.txt");
+        final Option clone = (Option) option.clone();
+        assertEquals("myfile.txt", clone.getValue());
+        assertEquals(DefaultOption.class, clone.getClass());
     }
 }

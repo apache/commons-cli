@@ -50,19 +50,19 @@ public class ParseException extends Exception {
         return new ParseException(e);
     }
     /**
+     * Constructs a new {@code ParseException} wrapping the specified exception. 
+     * @param e the Exception to wrap.
+     */
+    public ParseException(final Exception e) {
+        super(e);
+    }
+    
+    /**
      * Constructs a new {@code ParseException} with the specified detail message.
      *
      * @param message the detail message
      */
     public ParseException(final String message) {
         super(message);
-    }
-    
-    /**
-     * Constructs a new {@code ParseException} wrapping the specified exception. 
-     * @param e the Exception to wrap.
-     */
-    public ParseException(final Exception e) {
-        super(e);
     }
 }

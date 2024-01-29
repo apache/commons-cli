@@ -400,34 +400,6 @@ public class CommandLine implements Serializable {
     /**
      * Gets a version of this {@code Option} converted to a particular type.
      *
-     * @param option the name of the option.
-     * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
-     * @throws ParseException if there are problems turning the option value into the desired type
-     * @see PatternOptionBuilder
-     * @since 1.5.0
-     */
-    public <T> T getParsedOptionValue(final Option option) throws ParseException {
-        return  getParsedOptionValue(option, null);
-    }
-
-    /**
-     * Gets a version of this {@code Option} converted to a particular type.
-     *
-     * @param opt the name of the option.
-     * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
-     * @throws ParseException if there are problems turning the option value into the desired type
-     * @see PatternOptionBuilder
-     * @since 1.2
-     */
-    public <T> T getParsedOptionValue(final String opt) throws ParseException {
-        return getParsedOptionValue(resolveOption(opt));
-    }
-    
-    /**
-     * Gets a version of this {@code Option} converted to a particular type.
-     *
      * @param opt the name of the option.
      * @param defaultValue the default value to return if opt is not set.
      * @param <T> The return type for the method.
@@ -440,6 +412,20 @@ public class CommandLine implements Serializable {
         return getParsedOptionValue(String.valueOf(opt), defaultValue);
     }
 
+    /**
+     * Gets a version of this {@code Option} converted to a particular type.
+     *
+     * @param option the name of the option.
+     * @param <T> The return type for the method.
+     * @return the value parsed into a particular object.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.5.0
+     */
+    public <T> T getParsedOptionValue(final Option option) throws ParseException {
+        return  getParsedOptionValue(option, null);
+    }
+    
     /**
      * Gets a version of this {@code Option} converted to a particular type.
      *
@@ -463,6 +449,20 @@ public class CommandLine implements Serializable {
         } catch (Exception e) {
             throw ParseException.wrap(e);
         }
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to a particular type.
+     *
+     * @param opt the name of the option.
+     * @param <T> The return type for the method.
+     * @return the value parsed into a particular object.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.2
+     */
+    public <T> T getParsedOptionValue(final String opt) throws ParseException {
+        return getParsedOptionValue(resolveOption(opt));
     }
 
     /**

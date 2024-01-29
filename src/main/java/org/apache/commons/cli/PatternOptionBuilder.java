@@ -113,14 +113,6 @@ public class PatternOptionBuilder {
     }
 
     /**
-     * Registers custom {@code Converter}s with the {@code TypeHandler}. 
-     * @since 1.7.0
-     */
-    public static void registerTypes() {
-        TypeHandler.register(PatternOptionBuilder.FILES_VALUE, NOT_IMPLEMENTED);
-    }
-
-    /**
      * Retrieve the class that {@code ch} represents.
      *
      * @param ch the specified character
@@ -131,7 +123,7 @@ public class PatternOptionBuilder {
     public static Object getValueClass(final char ch) {
         return getValueType(ch);
     }
-    
+
     /**
      * Retrieve the class that {@code ch} represents.
      *
@@ -163,7 +155,7 @@ public class PatternOptionBuilder {
 
         return null;
     }
-
+    
     /**
      * Returns whether {@code ch} is a value code, i.e. whether it represents a class in a pattern.
      *
@@ -222,5 +214,13 @@ public class PatternOptionBuilder {
         }
 
         return options;
+    }
+
+    /**
+     * Registers custom {@code Converter}s with the {@code TypeHandler}. 
+     * @since 1.7.0
+     */
+    public static void registerTypes() {
+        TypeHandler.register(PatternOptionBuilder.FILES_VALUE, NOT_IMPLEMENTED);
     }
 }
