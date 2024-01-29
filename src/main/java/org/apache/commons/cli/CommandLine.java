@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.function.Supplier;
 
 /**
  * Represents list of arguments parsed against a {@link Options} descriptor.
@@ -254,6 +255,18 @@ public class CommandLine implements Serializable {
      * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
      */
     public String getOptionValue(final char opt, final String defaultValue) {
+        return getOptionValue(String.valueOf(opt), () -> defaultValue);
+    }
+
+    /**
+     * Gets the argument, if any, of an option.
+     *
+     * @param opt character name of the option
+     * @param defaultValue is a supplier for the default value to be returned if the option is not specified.
+     * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
+     * @since 1.7.0
+     */
+    public String getOptionValue(final char opt, final Supplier<String> defaultValue) {
         return getOptionValue(String.valueOf(opt), defaultValue);
     }
 
@@ -281,10 +294,22 @@ public class CommandLine implements Serializable {
      * @since 1.5.0
      */
     public String getOptionValue(final Option option, final String defaultValue) {
-        final String answer = getOptionValue(option);
-        return answer != null ? answer : defaultValue;
+        return getOptionValue(option, () -> defaultValue);
     }
 
+    /**
+     * Gets the first argument, if any, of an option.
+     *
+     * @param option name of the option.
+     * @param defaultValue is a supplier for the default value to be returned if the option is not specified.
+     * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
+     * @since 1.7.0
+     */
+    public String getOptionValue(final Option option, final Supplier<String> defaultValue) {
+        final String answer = getOptionValue(option);
+        return answer != null ? answer : defaultValue.get();
+    }
+    
     /**
      * Gets the first argument, if any, of this option.
      *
@@ -303,9 +328,22 @@ public class CommandLine implements Serializable {
      * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
      */
     public String getOptionValue(final String opt, final String defaultValue) {
+        return getOptionValue(resolveOption(opt), () -> defaultValue);
+    }
+
+    /**
+     * Gets the first argument, if any, of an option.
+     *
+     * @param opt name of the option.
+     * @param defaultValue is a supplier for the default value to be returned if the option is not specified.
+     * @return Value of the argument if option is set, and has an argument, otherwise {@code defaultValue}.
+     * @since 1.7.0
+     */
+    public String getOptionValue(final String opt, final Supplier<String> defaultValue) {
         return getOptionValue(resolveOption(opt), defaultValue);
     }
 
+    
     /**
      * Gets the array of values, if any, of an option.
      *
@@ -349,12 +387,13 @@ public class CommandLine implements Serializable {
      * Gets a version of this {@code Option} converted to a particular type.
      *
      * @param opt the name of the option.
+     * @param <T> The return type for the method.
      * @return the value parsed into a particular object.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.5.0
      */
-    public Object getParsedOptionValue(final char opt) throws ParseException {
+    public <T> T getParsedOptionValue(final char opt) throws ParseException {
         return getParsedOptionValue(String.valueOf(opt));
     }
 
@@ -362,33 +401,83 @@ public class CommandLine implements Serializable {
      * Gets a version of this {@code Option} converted to a particular type.
      *
      * @param option the name of the option.
+     * @param <T> The return type for the method.
      * @return the value parsed into a particular object.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.5.0
      */
-    public Object getParsedOptionValue(final Option option) throws ParseException {
-        if (option == null) {
-            return null;
-        }
-        final String res = getOptionValue(option);
-        if (res == null) {
-            return null;
-        }
-        return TypeHandler.createValue(res, option.getType());
+    public <T> T getParsedOptionValue(final Option option) throws ParseException {
+        return  getParsedOptionValue(option, null);
     }
 
     /**
      * Gets a version of this {@code Option} converted to a particular type.
      *
      * @param opt the name of the option.
+     * @param <T> The return type for the method.
      * @return the value parsed into a particular object.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.2
      */
-    public Object getParsedOptionValue(final String opt) throws ParseException {
+    public <T> T getParsedOptionValue(final String opt) throws ParseException {
         return getParsedOptionValue(resolveOption(opt));
+    }
+    
+    /**
+     * Gets a version of this {@code Option} converted to a particular type.
+     *
+     * @param opt the name of the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @param <T> The return type for the method.
+     * @return the value parsed into a particular object.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.7.0
+     */
+    public <T> T getParsedOptionValue(final char opt, final T defaultValue) throws ParseException {
+        return getParsedOptionValue(String.valueOf(opt), defaultValue);
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to a particular type.
+     *
+     * @param option the name of the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @param <T> The return type for the method.
+     * @return the value parsed into a particular object.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.7.0
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getParsedOptionValue(final Option option, final T defaultValue) throws ParseException {
+        if (option == null) {
+            return null;
+        }
+        final String res = getOptionValue(option);
+
+        try {
+            return res == null ? defaultValue : (T) option.getConverter().apply(res);
+        } catch (Exception e) {
+            throw ParseException.wrap(e);
+        }
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to a particular type.
+     *
+     * @param opt the name of the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @param <T> The return type for the method.
+     * @return the value parsed into a particular object.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.7.0
+     */
+    public <T> T getParsedOptionValue(final String opt, final T defaultValue) throws ParseException {
+        return getParsedOptionValue(resolveOption(opt), defaultValue);
     }
 
     /**

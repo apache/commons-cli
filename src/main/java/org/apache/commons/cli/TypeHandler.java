@@ -19,29 +19,114 @@ package org.apache.commons.cli;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * This is a temporary implementation. TypeHandler will handle the pluggableness of OptionTypes and it will direct all
- * of these types of conversion functionalities to ConvertUtils component in Commons already. BeanUtils I think.
+ * TypeHandler will handle the pluggable conversion and verification of 
+ * Option types.  It handles the mapping of classes to bot converters and verifiers.
+ * It provides the default conversion and verification methods when converters and verifiers
+ * are not explicitly set.
+ * <p>
+ * If Options are serialized and deserialized their converters and verifiers will revert to the 
+ * defaults defined in this class.  To correctly de-serialize Options with custom converters and/or
+ * verifiers, using the default serialization methods, this class should be properly configured with the custom
+ * converters and verifiers for the specific class.
+ * </p>
  */
 public class TypeHandler {
+    
+    /** Value of hex conversion of strings */
+    private static final int HEX_RADIX = 16;
+
+    /** Map of classes to converters. */
+    private static Map<Class<?>, Converter<?>> converterMap = new HashMap<>();
+
+    static {
+        resetConverters();
+    }
+    
+    /**
+     * Resets the registered Converters to the default state.
+     * @since 1.7.0
+     */
+    public static void resetConverters() {
+        converterMap.clear();
+        converterMap.put(Object.class, Converter.OBJECT);
+        converterMap.put(Class.class, Converter.CLASS);
+        converterMap.put(Date.class, Converter.DATE);
+        converterMap.put(File.class, Converter.FILE);
+        converterMap.put(Path.class, Converter.PATH);
+        converterMap.put(Number.class, Converter.NUMBER);
+        converterMap.put(URL.class, Converter.URL);
+        converterMap.put(FileInputStream.class, s -> new FileInputStream(s));
+        converterMap.put(Long.class, Long::parseLong);
+        converterMap.put(Integer.class, Integer::parseInt);
+        converterMap.put(Short.class, Short::parseShort);
+        converterMap.put(Byte.class, Byte::parseByte);
+        converterMap.put(Character.class, s -> {
+            if (s.startsWith("\\u")) {
+                return Character.toChars(Integer.parseInt(s.substring(2), HEX_RADIX))[0];
+            } else {
+                return s.charAt(0);
+            } });
+        converterMap.put(Double.class, Double::parseDouble);
+        converterMap.put(Float.class, Float::parseFloat);
+        converterMap.put(BigInteger.class, s -> new BigInteger(s));
+        converterMap.put(BigDecimal.class, s -> new BigDecimal(s));
+    }
+    
+    /**
+     * Unregisters all Converters.
+     * @since 1.7.0
+     */
+    public static void noConverters() {
+        converterMap.clear();
+    }
+
+    /**
+     * Registers a Converter for a Class. If @code converter} is null registration is cleared for {@code clazz}, and 
+     * no converter will be used in processing.
+     * 
+     * @param clazz the Class to register the Converter and Verifier to.
+     * @param converter The Converter to associate with Class.  May be null.
+     * @since 1.7.0
+     */
+    public static void register(final Class<?> clazz, final Converter<?> converter) {
+        if (converter == null) {
+            converterMap.remove(clazz);
+        } else {
+            converterMap.put(clazz, converter);
+        }
+    }
+
+    /**
+     * Gets the converter for the the Class. Never null.
+     * @param clazz The Class to get the Converter for.
+     * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
+     * @since 1.7.0
+     */
+    public static Converter<?> getConverter(final Class<?> clazz) {
+        Converter<?> converter = converterMap.get(clazz);
+        return converter == null ? Converter.DEFAULT : converter;
+    }
+
     /**
      * Returns the class whose name is {@code className}.
      *
      * @param className the class name
      * @return The class if it is found
      * @throws ParseException if the class could not be found
+     * @deprecated use {@link #createValue(String, Class)}
      */
+    @Deprecated // since 1.7.0
     public static Class<?> createClass(final String className) throws ParseException {
-        try {
-            return Class.forName(className);
-        } catch (final ClassNotFoundException e) {
-            throw new ParseException("Unable to find the class: " + className);
-        }
+        return createValue(className, Class.class);
     }
 
     /**
@@ -51,10 +136,15 @@ public class TypeHandler {
      *
      * @param str the date string
      * @return The date if {@code str} is a valid date string, otherwise return null.
-     * @throws UnsupportedOperationException always
+     * @deprecated use {@link #createValue(String, Class)}
      */
+    @Deprecated // since 1.7.0
     public static Date createDate(final String str) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        try {
+            return createValue(str, Date.class);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -62,20 +152,27 @@ public class TypeHandler {
      *
      * @param str the File location
      * @return The file represented by {@code str}.
+     * @deprecated use {@link #createValue(String, Class)}
      */
+    @Deprecated // since 1.7.0
     public static File createFile(final String str) {
-        return new File(str);
+        try {
+            return createValue(str, File.class);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Returns the File[] represented by {@code str}.
-     * <p>
-     * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
+     * <p> This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
      *
      * @param str the paths to the files
      * @return The File[] represented by {@code str}.
-     * @throws UnsupportedOperationException always
+     * @throws     UnsupportedOperationException always
+     * @deprecated with no replacement
      */
+    @Deprecated // since 1.7.0
     public static File[] createFiles(final String str) {
         // to implement/port:
         // return FileW.findFiles(str);
@@ -89,15 +186,9 @@ public class TypeHandler {
      * @return the number represented by {@code str}
      * @throws ParseException if {@code str} is not a number
      */
+    @Deprecated // since 1.7.0
     public static Number createNumber(final String str) throws ParseException {
-        try {
-            if (str.indexOf('.') != -1) {
-                return Double.valueOf(str);
-            }
-            return Long.valueOf(str);
-        } catch (final NumberFormatException e) {
-            throw new ParseException(e.getMessage());
-        }
+        return createValue(str, Number.class);
     }
 
     /**
@@ -106,21 +197,11 @@ public class TypeHandler {
      * @param className the argument value
      * @return the initialized object
      * @throws ParseException if the class could not be found or the object could not be created
+     * @deprecated use {@link #createValue(String, Class)}
      */
+    @Deprecated // since 1.7.0
     public static Object createObject(final String className) throws ParseException {
-        final Class<?> cl;
-
-        try {
-            cl = Class.forName(className);
-        } catch (final ClassNotFoundException cnfe) {
-            throw new ParseException("Unable to find the class: " + className);
-        }
-
-        try {
-            return cl.getConstructor().newInstance();
-        } catch (final Exception e) {
-            throw new ParseException(e.getClass().getName() + "; Unable to create an instance of: " + className);
-        }
+        return createValue(className, Object.class);
     }
 
     /**
@@ -129,54 +210,30 @@ public class TypeHandler {
      * @param str the URL string
      * @return The URL in {@code str} is well-formed
      * @throws ParseException if the URL in {@code str} is not well-formed
+     * @deprecated use {@link #createValue(String, Class)}
      */
+    @Deprecated // since 1.7.0
     public static URL createURL(final String str) throws ParseException {
-        try {
-            return new URL(str);
-        } catch (final MalformedURLException e) {
-            throw new ParseException("Unable to parse the URL: " + str);
-        }
+        return createValue(str, URL.class);
     }
 
     /**
-     * Returns the {@code Object} of type {@code clazz} with the value of {@code str}.
+     * Returns the @code Object} of type {@code clazz} with the value of
+     * {@code str}.
      *
      * @param str the command line value
      * @param clazz the class representing the type of argument
      * @param <T> type of argument
      * @return The instance of {@code clazz} initialized with the value of {@code str}.
-     * @throws ParseException if the value creation for the given class failed
+     * @throws ParseException if the value creation for the given class threw an exception.
      */
     @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
     public static <T> T createValue(final String str, final Class<T> clazz) throws ParseException {
-        if (PatternOptionBuilder.STRING_VALUE == clazz) {
-            return (T) str;
+        try {
+            return (T) getConverter(clazz).apply(str);
+        } catch (Exception e) {
+            throw ParseException.wrap(e);
         }
-        if (PatternOptionBuilder.OBJECT_VALUE == clazz) {
-            return (T) createObject(str);
-        }
-        if (PatternOptionBuilder.NUMBER_VALUE == clazz) {
-            return (T) createNumber(str);
-        }
-        if (PatternOptionBuilder.DATE_VALUE == clazz) {
-            return (T) createDate(str);
-        }
-        if (PatternOptionBuilder.CLASS_VALUE == clazz) {
-            return (T) createClass(str);
-        }
-        if (PatternOptionBuilder.FILE_VALUE == clazz) {
-            return (T) createFile(str);
-        }
-        if (PatternOptionBuilder.EXISTING_FILE_VALUE == clazz) {
-            return (T) openFile(str);
-        }
-        if (PatternOptionBuilder.FILES_VALUE == clazz) {
-            return (T) createFiles(str);
-        }
-        if (PatternOptionBuilder.URL_VALUE == clazz) {
-            return (T) createURL(str);
-        }
-        throw new ParseException("Unable to handle the class: " + clazz);
     }
 
     /**
@@ -186,7 +243,9 @@ public class TypeHandler {
      * @param obj the type of argument
      * @return The instance of {@code obj} initialized with the value of {@code str}.
      * @throws ParseException if the value creation for the given object type failed
+     * @deprecated use {@link #createValue(String, Class)}
      */
+    @Deprecated // since 1.7.0
     public static Object createValue(final String str, final Object obj) throws ParseException {
         return createValue(str, (Class<?>) obj);
     }
@@ -197,12 +256,10 @@ public class TypeHandler {
      * @param str the file location
      * @return The file input stream represented by {@code str}.
      * @throws ParseException if the file is not exist or not readable
+     * @deprecated use {@link #createValue(String, Class)}
      */
+    @Deprecated // since 1.7.0
     public static FileInputStream openFile(final String str) throws ParseException {
-        try {
-            return new FileInputStream(str);
-        } catch (final FileNotFoundException e) {
-            throw new ParseException("Unable to find file: " + str);
-        }
+        return createValue(str, FileInputStream.class);
     }
 }

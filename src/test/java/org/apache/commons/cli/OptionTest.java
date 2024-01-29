@@ -25,6 +25,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import org.junit.Test;
 
 public class OptionTest {
@@ -232,4 +238,39 @@ public class OptionTest {
         assertEquals(DefaultOption.class, clone.getClass());
     }
 
+
+    private Option roundTrip(final Option o) throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(o);
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        return (Option) ois.readObject();
+    }
+
+    @Test
+    public void testSerialization() throws IOException, ClassNotFoundException {
+
+        Option o = Option.builder("o").type(TypeHandlerTest.Instantiable.class).build();
+        assertEquals(Converter.DEFAULT, o.getConverter());
+        Option o2 = roundTrip(o);
+        assertEquals(Converter.DEFAULT, o2.getConverter());
+
+        // verify unregistered class converters and verifiers get reset to default.
+        o.setConverter(Converter.DATE);
+        o2 = roundTrip(o);
+        assertEquals(Converter.DEFAULT, o2.getConverter());
+
+        // verify registered class converters and verifiers do not get reset to default.
+        try {
+            TypeHandler.register(TypeHandlerTest.Instantiable.class, Converter.URL);
+            // verify earlier values still set.
+            assertEquals(Converter.DATE, o.getConverter());
+            o2 = roundTrip(o);
+            // verify set to registered value
+            assertEquals(Converter.URL, o2.getConverter());
+        } finally {
+            TypeHandler.register(TypeHandlerTest.Instantiable.class, null);
+        }
+    }
 }

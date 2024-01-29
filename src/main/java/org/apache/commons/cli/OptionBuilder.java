@@ -31,6 +31,7 @@ package org.apache.commons.cli;
 @Deprecated
 public final class OptionBuilder {
 
+
     /** Long option */
     private static String longOption;
 
@@ -108,6 +109,7 @@ public final class OptionBuilder {
             option.setOptionalArg(optionalArg);
             option.setArgs(argCount);
             option.setType(type);
+            option.setConverter(TypeHandler.getConverter(type));
             option.setValueSeparator(valueSeparator);
             option.setArgName(argName);
         } finally {
