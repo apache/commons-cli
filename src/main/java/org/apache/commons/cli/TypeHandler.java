@@ -251,11 +251,7 @@ public class TypeHandler {
         converterMap.put(Integer.class, Integer::parseInt);
         converterMap.put(Short.class, Short::parseShort);
         converterMap.put(Byte.class, Byte::parseByte);
-        converterMap.put(Character.class, s -> {
-            if (s.startsWith("\\u")) {
-                return Character.toChars(Integer.parseInt(s.substring(2), HEX_RADIX))[0];
-            }
-            return s.charAt(0); });
+        converterMap.put(Character.class, s -> s.startsWith("\\u") ? Character.toChars(Integer.parseInt(s.substring(2), HEX_RADIX))[0] : s.charAt(0));
         converterMap.put(Double.class, Double::parseDouble);
         converterMap.put(Float.class, Float::parseFloat);
         converterMap.put(BigInteger.class, BigInteger::new);
