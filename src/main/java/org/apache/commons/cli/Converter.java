@@ -42,16 +42,18 @@ public interface Converter<T, E extends Throwable> {
     Converter<?, RuntimeException> DEFAULT = s -> s;
 
     /**
-     * Class name converter. Calls {@code Class.forName}.
+     * Class name converter. Calls {@link Class#forName(String)}.
      */
     Converter<Class<?>, ClassNotFoundException> CLASS = Class::forName;
 
     /**
-     * File name converter. Calls @{code new File(s)}.
+     * File name converter. Calls {@link File#File(String)}.
      */
     Converter<File, NullPointerException> FILE = File::new;
 
-    /** Path converter. Calls @{code new Path(s)} */
+    /**
+     * Path converter. Calls {@code new File(s).toPath()}.
+     */
     Converter<Path, InvalidPathException> PATH = s -> new File(s).toPath();
 
     /**
@@ -72,8 +74,8 @@ public interface Converter<T, E extends Throwable> {
      */
     Converter<Object, ReflectiveOperationException> OBJECT = s -> CLASS.apply(s).getConstructor().newInstance();
 
-    /** 
-     * Creates a URL. Calls {@code new URL(s)}.
+    /**
+     * Creates a URL. Calls {@link URL#URL(String)}.
      */
     Converter<URL, MalformedURLException> URL = java.net.URL::new;
 
