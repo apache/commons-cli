@@ -114,6 +114,7 @@ public class PatternOptionBuilder {
 
     /**
      * Registers custom {@code Converter}s with the {@code TypeHandler}. 
+     * @since 1.7.0
      */
     public static void registerTypes() {
         TypeHandler.register(PatternOptionBuilder.FILES_VALUE, NOT_IMPLEMENTED);
@@ -126,6 +127,7 @@ public class PatternOptionBuilder {
      * @return The class that {@code ch} represents
      * @deprecated use {@link #getValueType(char)}
      */
+    @Deprecated // since="1.7.0"
     public static Object getValueClass(final char ch) {
         return getValueType(ch);
     }
@@ -135,6 +137,7 @@ public class PatternOptionBuilder {
      *
      * @param ch the specified character
      * @return The class that {@code ch} represents
+     * @since 1.7.0
      */
     public static Class<?> getValueType(final char ch) {
         switch (ch) {

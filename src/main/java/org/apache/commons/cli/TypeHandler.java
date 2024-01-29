@@ -90,7 +90,7 @@ public class TypeHandler {
     }
 
     /**
-     * Registers a Converter for a Class.  If @code converter} is null registration is cleared for {@code clazz}, and 
+     * Registers a Converter for a Class. If @code converter} is null registration is cleared for {@code clazz}, and 
      * no converter will be used in processing.
      * 
      * @param clazz the Class to register the Converter and Verifier to.

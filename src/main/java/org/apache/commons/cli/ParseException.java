@@ -37,12 +37,13 @@ public class ParseException extends Exception {
      * @param e the exception to convert.
      * @return the ParseException.
      * @throws UnsupportedOperationException due to legacy expectations.  Will be removed in the future.
+     * @since 1.7.0
      */
     public static ParseException wrap(final Exception e) throws UnsupportedOperationException {
         if (e instanceof UnsupportedOperationException) {
             throw (UnsupportedOperationException) e;
         }
-        
+
         if (e instanceof ParseException) {
             return (ParseException) e;
         }

@@ -454,23 +454,9 @@ catch (ParseException exp) {
             </source>
             The above will create an option that passes the string value to the Foo constructor when <code>commandLine.getParsedOptionValue(fooOpt)</code> is called.
         </p>
-    </section>
-    <section name="Restricting values">
         <p>
-            Acceptable values for options may be specified by using <code>Option.Builder.verifier()</code> to specify a <code>java.util.function.Predicate</code>
-            to verify the input text.  There are a few examples in the <code>Verifier</code> source file.  Verifier also provides a method to construct a verifier 
-            to test <code>enum</code> values.  For example:
-           <source>
-               public enum MyEnum {ONE, TWO, THREE};
-
-               Option enumOpt = Option.builder("enumValue")
-                          .hasArg()
-                          .desc("the enum arg")
-                          .varifier(Verifier.enumVerifier(MyEnum.ONE))
-                          .build();
-            </source>
-            The above will create an option that verifies any argument passed to <code>enumOpt</code> matches a name from <code>MyEnum</code>.  
-            The initial verification occures when the option string is set during the execution of <code>CommandLine line = parser.parse(options, args)</code>.
+            Conversions that are added to the TypeHandler or that are specified directly will not deserialize if the option is serialized unless the type is registered with the TypeHandler 
+            before deserialization begins.
         </p>
     </section>
   </body>
