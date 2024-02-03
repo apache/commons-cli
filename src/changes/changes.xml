@@ -25,6 +25,9 @@
     <release version="1.7.0" date="202Y-MM-DD" description="New features and bug fixes">
       <!-- ADD -->
       <action type="add" issue="CLI-321" dev="ggregory" due-to="Claude Warren, Gary Gregory">Add and use a Converter interface and implementations without using BeanUtils #216.</action>
+      <action type="add" dev="ggregory" due-to="Gary Gregory">Add Maven property project.build.outputTimestamp for build reproducibility.</action>
+      <!-- UPDATE -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 64 to 66.</action>
     </release>
     <release version="1.6.0" date="2023-10-23" description="New features and bug fixes">
       <!-- FIX -->

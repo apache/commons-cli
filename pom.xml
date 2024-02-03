@@ -19,7 +19,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>64</version>
+    <version>66</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>commons-cli</groupId>
@@ -200,6 +200,7 @@
   </dependencies>
 
   <properties>
+    <project.build.outputTimestamp>2024-01-29T13:15:17Z</project.build.outputTimestamp>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <commons.componentid>cli</commons.componentid>

@@ -35,6 +35,55 @@
       returns="org.apache.commons.cli.OptionBuilder" />
     <Bug pattern="EI_EXPOSE_STATIC_REP2" />
   </Match>
+  <!-- org.apache.commons.cli.HelpFormatter -->
+  <Match>
+    <!-- Note: public ivars are deprecated. -->
+    <Class name="org.apache.commons.cli.HelpFormatter" />
+    <Field name="defaultArgName" />
+    <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
+  </Match>
+  <Match>
+    <!-- Note: public ivars are deprecated. -->
+    <Class name="org.apache.commons.cli.HelpFormatter" />
+    <Field name="defaultDescPad" />
+    <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
+  </Match>
+  <Match>
+    <!-- Note: public ivars are deprecated. -->
+    <Class name="org.apache.commons.cli.HelpFormatter" />
+    <Field name="defaultLeftPad" />
+    <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
+  </Match>
+  <Match>
+    <!-- Note: public ivars are deprecated. -->
+    <Class name="org.apache.commons.cli.HelpFormatter" />
+    <Field name="defaultLongOptPrefix" />
+    <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
+  </Match>
+  <Match>
+    <!-- Note: public ivars are deprecated. -->
+    <Class name="org.apache.commons.cli.HelpFormatter" />
+    <Field name="defaultNewLine" />
+    <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
+  </Match>
+  <Match>
+    <!-- Note: public ivars are deprecated. -->
+    <Class name="org.apache.commons.cli.HelpFormatter" />
+    <Field name="defaultOptPrefix" />
+    <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
+  </Match>
+  <Match>
+    <!-- Note: public ivars are deprecated. -->
+    <Class name="org.apache.commons.cli.HelpFormatter" />
+    <Field name="defaultSyntaxPrefix" />
+    <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
+  </Match>
+  <Match>
+    <!-- Note: public ivars are deprecated. -->
+    <Class name="org.apache.commons.cli.HelpFormatter" />
+    <Field name="defaultWidth" />
+    <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
+  </Match>
 
   <Match>
     <!-- TODO ? -->
@@ -44,6 +93,11 @@
   <Match>
     <!-- TODO ? -->
     <Bug pattern="EI_EXPOSE_REP2" />
+  </Match>
+  
+  <Match>
+    <!-- TODO ? -->
+    <Bug pattern="CT_CONSTRUCTOR_THROW" />
   </Match>
   
 </FindBugsFilter>
