@@ -106,7 +106,7 @@ public class HelpFormatter {
     public static final String DEFAULT_LONG_OPT_PREFIX = "--";
 
     /**
-     * default separator displayed between a long Option and its value
+     * Default separator displayed between a long Option and its value
      *
      * @since 1.3
      **/
@@ -116,7 +116,7 @@ public class HelpFormatter {
     public static final String DEFAULT_ARG_NAME = "arg";
 
     /**
-     * number of characters per line
+     * Number of characters per line
      *
      * @deprecated Scope will be made private for next major version - use get/setWidth methods instead.
      */
@@ -124,7 +124,7 @@ public class HelpFormatter {
     public int defaultWidth = DEFAULT_WIDTH;
 
     /**
-     * amount of padding to the left of each line
+     * Amount of padding to the left of each line
      *
      * @deprecated Scope will be made private for next major version - use get/setLeftPadding methods instead.
      */
@@ -132,7 +132,7 @@ public class HelpFormatter {
     public int defaultLeftPad = DEFAULT_LEFT_PAD;
 
     /**
-     * the number of characters of padding to be prefixed to each description line
+     * The number of characters of padding to be prefixed to each description line
      *
      * @deprecated Scope will be made private for next major version - use get/setDescPadding methods instead.
      */
@@ -140,7 +140,7 @@ public class HelpFormatter {
     public int defaultDescPad = DEFAULT_DESC_PAD;
 
     /**
-     * the string to display at the beginning of the usage statement
+     * The string to display at the beginning of the usage statement
      *
      * @deprecated Scope will be made private for next major version - use get/setSyntaxPrefix methods instead.
      */
@@ -148,15 +148,15 @@ public class HelpFormatter {
     public String defaultSyntaxPrefix = DEFAULT_SYNTAX_PREFIX;
 
     /**
-    * the new line string
-    *
-    * @deprecated Scope will be made private for next major version - use get/setNewLine methods instead.
-    */
+     * The new line string
+     *
+     * @deprecated Scope will be made private for next major version - use get/setNewLine methods instead.
+     */
     @Deprecated
     public String defaultNewLine = System.lineSeparator();
 
     /**
-     * the shortOpt prefix
+     * The shortOpt prefix
      *
      * @deprecated Scope will be made private for next major version - use get/setOptPrefix methods instead.
      */
@@ -164,7 +164,7 @@ public class HelpFormatter {
     public String defaultOptPrefix = DEFAULT_OPT_PREFIX;
 
     /**
-     * the long Opt prefix
+     * The long Opt prefix
      *
      * @deprecated Scope will be made private for next major version - use get/setLongOptPrefix methods instead.
      */
@@ -172,7 +172,7 @@ public class HelpFormatter {
     public String defaultLongOptPrefix = DEFAULT_LONG_OPT_PREFIX;
 
     /**
-     * the name of the argument
+     * The name of the argument
      *
      * @deprecated Scope will be made private for next major version - use get/setArgName methods instead.
      */
@@ -186,7 +186,9 @@ public class HelpFormatter {
      */
     protected Comparator<Option> optionComparator = new OptionComparator();
 
-    /** The separator displayed between the long option and its value. */
+    /**
+     * The separator displayed between the long option and its value.
+     */
     private String longOptSeparator = DEFAULT_LONG_OPT_SEPARATOR;
 
     /**
@@ -645,7 +647,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the specified text to the specified PrintWriter.
+     * Prints the specified text to the specified PrintWriter.
      *
      * @param pw The printWriter to write the help to
      * @param width The number of characters to display per line
@@ -656,7 +658,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Render the specified Options and return the rendered Options in a StringBuffer.
+     * Renders the specified Options and return the rendered Options in a StringBuffer.
      *
      * @param sb The StringBuffer to place the rendered Options into.
      * @param width The number of characters to display per line
@@ -740,7 +742,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Render the specified text and return the rendered Options in a StringBuffer.
+     * Renders the specified text and return the rendered Options in a StringBuffer.
      *
      * @param sb The StringBuffer to place the rendered text into.
      * @param width The number of characters to display per line
@@ -788,7 +790,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Render the specified text width a maximum width. This method differs from renderWrappedText by not removing leading
+     * Renders the specified text width a maximum width. This method differs from renderWrappedText by not removing leading
      * spaces after a new line.
      *
      * @param sb The StringBuffer to place the rendered text into.
@@ -817,7 +819,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Remove the trailing whitespace from the specified String.
+     * Removes the trailing whitespace from the specified String.
      *
      * @param s The String to remove the trailing padding from.
      *
