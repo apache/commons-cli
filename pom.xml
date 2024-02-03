@@ -251,7 +251,7 @@
         <configuration>
           <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
         </configuration>
-        <version>4.8.2.0</version>
+        <version>4.8.3.0</version>
       </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
