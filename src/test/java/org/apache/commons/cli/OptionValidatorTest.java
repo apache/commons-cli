@@ -121,10 +121,10 @@ public class OptionValidatorTest {
         notRestChars = sb.toString();
 
     }
-    
+
     @Test
     public void testExclusivity() {
-        /* since we modify acceptable chars by add and removing ADDITIONAL* chars we must verify that they do not exist in the 
+        /* since we modify acceptable chars by add and removing ADDITIONAL* chars we must verify that they do not exist in the
          * base javaIdentiferPart that is used in OptionValidator to validate basic characters  */
         for (char c : OptionValidator.ADDITIONAL_LONG_CHARS) {
             assertFalse(Character.isJavaIdentifierPart(c), () -> String.format("'%s' should not be in 'ADDITIONAL_LONG_CHARS", c));

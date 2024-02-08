@@ -29,11 +29,11 @@ final class OptionValidator {
     /** The array of additional characters allowed in the rest of the option but not in the first position */
     static final char[] ADDITIONAL_LONG_CHARS = {'-'};
 
-    /** 
+    /**
      * Checks the char array for a matching char.
      * @param chars the char array to search
      * @param c the char to look for.
-     * @return {@code true} if {@code c} was in {@code ary}, {@code false} otherwise. 
+     * @return {@code true} if {@code c} was in {@code ary}, {@code false} otherwise.
      */
     private static boolean search(final char[] chars, final char c) {
         for (char a : chars) {
@@ -43,7 +43,7 @@ final class OptionValidator {
         }
         return false;
     }
-    
+
     /**
      * Returns whether the specified character is a valid character.
      * A character is valid if any of the following conditions are true:
@@ -59,7 +59,7 @@ final class OptionValidator {
      * <li>it is a hyphen/dash ('-')</li>
      * </ul>
      * @param c the character to validate
-     * @return true if {@code c} is a valid character letter. 
+     * @return true if {@code c} is a valid character letter.
      */
     private static boolean isValidChar(final char c) {
         return Character.isJavaIdentifierPart(c) || search(ADDITIONAL_LONG_CHARS, c);
@@ -120,7 +120,7 @@ final class OptionValidator {
         }
 
         char[] chars = option.toCharArray();
-        
+
         if (!isValidOpt(chars[0])) {
             throw new IllegalArgumentException("Illegal option name '" + chars[0] + "'");
         }
