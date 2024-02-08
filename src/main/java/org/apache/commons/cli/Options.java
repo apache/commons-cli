@@ -55,6 +55,18 @@ public class Options implements Serializable {
     private final Map<String, OptionGroup> optionGroups = new LinkedHashMap<>();
 
     /**
+     * Adds options to this option.
+     * @param options the options to add.
+     * @return this for chaining.
+     * @since 1.7.0
+     */
+    public Options addOptions(final Options options) {
+        options.getOptions().forEach(this::addOption);
+        options.getOptionGroups().forEach(this::addOptionGroup);
+        return this;
+    }
+
+    /**
      * Adds an option instance
      *
      * @param opt the option that is to be added
@@ -231,8 +243,9 @@ public class Options implements Serializable {
      * Gets the OptionGroups that are members of this Options instance.
      *
      * @return a Collection of OptionGroup instances.
+     * @since 1.7.0
      */
-    Collection<OptionGroup> getOptionGroups() {
+    public Collection<OptionGroup> getOptionGroups() {
         return new HashSet<>(optionGroups.values());
     }
 
