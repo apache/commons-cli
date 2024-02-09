@@ -166,6 +166,26 @@ public class CommandLineTest {
     }
 
     @Test
+    public void testGetParsedOptionValueUsingDefault() throws Exception {
+        final Options options = new Options();
+        final Option optI = Option.builder("i").hasArg().type(Number.class).build();
+        final Option optF = Option.builder("f").hasArg().build();
+        options.addOption(optI);
+        options.addOption(optF);
+
+        final CommandLineParser parser = new DefaultParser();
+        final CommandLine cmd = parser.parse(options, new String[] {"-i", "123"});
+
+        assertEquals(123, ((Number) cmd.getParsedOptionValue(optI)).intValue());
+        assertEquals("foo", cmd.getParsedOptionValue(optF, "foo"));
+        assertEquals("foo", cmd.getParsedOptionValue(optF, ()->"foo"));
+        assertEquals("foo", cmd.getParsedOptionValue("f", "foo"));
+        assertEquals("foo", cmd.getParsedOptionValue("f", ()->"foo"));
+        assertEquals("foo", cmd.getParsedOptionValue('f', "foo"));
+        assertEquals("foo", cmd.getParsedOptionValue('f', ()->"foo"));
+    }
+
+    @Test
     public void testNullhOption() throws Exception {
         final Options options = new Options();
         final Option optI = Option.builder("i").hasArg().type(Number.class).build();

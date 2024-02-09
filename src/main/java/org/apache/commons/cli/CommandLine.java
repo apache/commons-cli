@@ -469,10 +469,7 @@ public class CommandLine implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public <T> T getParsedOptionValue(final Option option, final Supplier<T> defaultValue) throws ParseException {
-        if (option == null) {
-            return null;
-        }
-        final String res = getOptionValue(option);
+        final String res = option == null ? null : getOptionValue(option);
 
         try {
             return res == null ? defaultValue.get() : (T) option.getConverter().apply(res);
