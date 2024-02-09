@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -76,6 +77,26 @@ public class OptionsTest {
 
         assertNotNull(options.getOptionGroups());
         assertEquals(2, options.getOptionGroups().size());
+    }
+
+    @Test
+    public void testAddOptions() {
+        final Options options = new Options();
+
+        final OptionGroup group1 = new OptionGroup();
+        group1.addOption(Option.builder("a").build());
+        group1.addOption(Option.builder("b").build());
+
+        options.addOptionGroup(group1);
+
+        options.addOption(Option.builder("X").build());
+        options.addOption(Option.builder("y").build());
+
+        final Options underTest = new Options();
+        underTest.addOptions(options);
+
+        assertEquals(options.getOptionGroups(), underTest.getOptionGroups());
+        assertArrayEquals(options.getOptions().toArray(), underTest.getOptions().toArray());
     }
 
     @Test
