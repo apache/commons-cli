@@ -16,6 +16,12 @@
  */
 package org.apache.commons.cli.bug;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.util.Properties;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -23,12 +29,6 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
-
-import java.util.Properties;
-
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  * Demonstrates inconsistencies in parsing Java property-style options.
@@ -75,7 +75,7 @@ public class BugCLI312Test {
                 defineOptionsFound++;
 
                 if (defineOptionsFound == 1) {
-                    assertArrayEquals( new String[] {"v"}, o.getValues() );
+                    assertArrayEquals(new String[] {"v"}, o.getValues());
                 } else if (defineOptionsFound == 2) {
                     assertArrayEquals(new String[] {"w", "1"}, o.getValues());
                 } else if (defineOptionsFound == 3) {

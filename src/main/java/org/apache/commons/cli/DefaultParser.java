@@ -228,6 +228,9 @@ public class DefaultParser implements CommandLineParser {
      */
     private void checkRequiredArgs() throws ParseException {
         if (currentOption != null && currentOption.requiresArg()) {
+            if (isJavaProperty(currentOption.getKey()) && currentOption.getValues().length == 1) {
+                return;
+            }
             throw new MissingArgumentException(currentOption);
         }
     }
