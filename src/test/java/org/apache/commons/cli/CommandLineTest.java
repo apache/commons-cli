@@ -178,15 +178,15 @@ public class CommandLineTest {
 
         assertEquals(123, ((Number) cmd.getParsedOptionValue(optI)).intValue());
         assertEquals("foo", cmd.getParsedOptionValue(optF, "foo"));
-        assertEquals("foo", cmd.getParsedOptionValue(optF, ()->"foo"));
+        assertEquals("foo", cmd.getParsedOptionValue(optF, ()-> "foo"));
         assertEquals("foo", cmd.getParsedOptionValue("f", "foo"));
-        assertEquals("foo", cmd.getParsedOptionValue("f", ()->"foo"));
+        assertEquals("foo", cmd.getParsedOptionValue("f", ()-> "foo"));
         assertEquals("foo", cmd.getParsedOptionValue('f', "foo"));
-        assertEquals("foo", cmd.getParsedOptionValue('f', ()->"foo"));
+        assertEquals("foo", cmd.getParsedOptionValue('f', ()-> "foo"));
     }
 
     @Test
-    public void testNullhOption() throws Exception {
+    public void testNullOption() throws Exception {
         final Options options = new Options();
         final Option optI = Option.builder("i").hasArg().type(Number.class).build();
         final Option optF = Option.builder("f").hasArg().build();
