@@ -46,7 +46,6 @@ public class BugCLI312Test {
         final CommandLine cl = parser.parse(options, "-Dv -Dw=1 -D x=2 -D y -D z=3 other".split(" "));
         assertArrayEquals(new String[] {"v", "w", "1", "x", "2", "y", "z", "3"}, cl.getOptionValues('D'));
 
-        int defineOptionsFound = 0;
         Properties properties = cl.getOptionProperties("D");
         assertEquals("true", properties.getProperty("v"));
         assertEquals("1", properties.getProperty("w"));
