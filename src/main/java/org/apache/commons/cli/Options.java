@@ -243,9 +243,13 @@ public class Options implements Serializable {
      * Gets the OptionGroups that are members of this Options instance.
      *
      * @return a Collection of OptionGroup instances.
-     * @since 1.7.0
      */
-    public Collection<OptionGroup> getOptionGroups() {
+    Collection<OptionGroup> getOptionGroups() {
+        /* The optionGroups map will have duplicates in the values() results.  We
+         * use the HashSet to filter out duplicates and return a collection of
+         * OpitonGroup.  The decision to return a Collection rather than a set
+         * was probably to keep symmetry with the getOptions() method.
+         */
         return new HashSet<>(optionGroups.values());
     }
 
@@ -263,7 +267,7 @@ public class Options implements Serializable {
      *
      * @return read-only List of required options
      */
-    public List getRequiredOptions() {
+    public List<?> getRequiredOptions() {
         return Collections.unmodifiableList(requiredOpts);
     }
 
