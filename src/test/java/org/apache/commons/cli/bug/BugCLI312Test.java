@@ -92,13 +92,13 @@ public class BugCLI312Test {
         }
         assertEquals("other", cl.getArgList().get(0));
     }
-    
+
     @Test
     public void testNoOptionValues() throws ParseException {
         final Option o1 = Option.builder("A").build();
         final Option o2 = Option.builder().option("D").longOpt("define").numberOfArgs(2).valueSeparator('=').build();
         Options options = new Options().addOption(o1).addOption(o2);
-        
+
         final CommandLineParser parser = new DefaultParser();
 
         assertThrows(MissingArgumentException.class, () -> parser.parse(options, "-D -A".split(" ")));
