@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.Properties;
+import java.util.function.Supplier;
 
 import org.junit.Test;
 
@@ -151,6 +152,18 @@ public class CommandLineTest {
     }
 
     @Test
+    public void testGetParsedOptionValueWithNullSupplier() throws Exception {
+        final Options options = new Options();
+        options.addOption(Option.builder("i").hasArg().type(Number.class).build());
+
+        final CommandLineParser parser = new DefaultParser();
+        final CommandLine cmd = parser.parse(options, new String[0]);
+        final Supplier<Number> supplier = null;
+
+        assertNull(cmd.getParsedOptionValue('i', supplier));
+    }
+
+    @Test
     public void testGetParsedOptionValueWithOption() throws Exception {
         final Options options = new Options();
         final Option optI = Option.builder("i").hasArg().type(Number.class).build();
@@ -178,11 +191,11 @@ public class CommandLineTest {
 
         assertEquals(123, ((Number) cmd.getParsedOptionValue(optI)).intValue());
         assertEquals("foo", cmd.getParsedOptionValue(optF, "foo"));
-        assertEquals("foo", cmd.getParsedOptionValue(optF, ()-> "foo"));
+        assertEquals("foo", cmd.getParsedOptionValue(optF, () -> "foo"));
         assertEquals("foo", cmd.getParsedOptionValue("f", "foo"));
-        assertEquals("foo", cmd.getParsedOptionValue("f", ()-> "foo"));
+        assertEquals("foo", cmd.getParsedOptionValue("f", () -> "foo"));
         assertEquals("foo", cmd.getParsedOptionValue('f', "foo"));
-        assertEquals("foo", cmd.getParsedOptionValue('f', ()-> "foo"));
+        assertEquals("foo", cmd.getParsedOptionValue('f', () -> "foo"));
     }
 
     @Test

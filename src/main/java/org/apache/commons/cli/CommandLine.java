@@ -438,7 +438,7 @@ public class CommandLine implements Serializable {
      * @since 1.5.0
      */
     public <T> T getParsedOptionValue(final Option option) throws ParseException {
-        return  getParsedOptionValue(option, ()-> null);
+        return  getParsedOptionValue(option, () -> null);
     }
 
     /**
@@ -472,7 +472,10 @@ public class CommandLine implements Serializable {
         final String res = option == null ? null : getOptionValue(option);
 
         try {
-            return res == null ? defaultValue.get() : (T) option.getConverter().apply(res);
+            if (res == null) {
+                return defaultValue == null ? null : defaultValue.get();
+            }
+            return (T) option.getConverter().apply(res);
         } catch (final Throwable e) {
             throw ParseException.wrap(e);
         }
