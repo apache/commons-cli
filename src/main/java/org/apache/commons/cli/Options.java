@@ -55,13 +55,20 @@ public class Options implements Serializable {
     private final Map<String, OptionGroup> optionGroups = new LinkedHashMap<>();
 
     /**
-     * Adds options to this option.
+     * Adds options to this option.  If any Option in {@code options} already exists
+     * in this Options an IllegalArgumentException is thrown
+     *
      * @param options the options to add.
-     * @return this for chaining.
+     * @return The resulting Options instance.
      * @since 1.7.0
      */
     public Options addOptions(final Options options) {
-        options.getOptions().forEach(this::addOption);
+        for (Option opt : options.getOptions()) {
+            if (hasOption(opt.getKey())) {
+                throw new IllegalArgumentException("Duplicate key: " + opt.getKey());
+            }
+            addOption(opt);
+        }
         options.getOptionGroups().forEach(this::addOptionGroup);
         return this;
     }
