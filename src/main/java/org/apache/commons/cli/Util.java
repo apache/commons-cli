@@ -28,12 +28,25 @@ final class Util {
     static final String[] EMPTY_STRING_ARRAY = {};
 
     /**
+     * Tests whether the given string is null or empty.
+     *
+     * @param str The string to test.
+     * @return Whether the given string is null or empty.
+     */
+    private static boolean isEmpty(final String str) {
+        return str == null || str.isEmpty();
+    }
+
+    /**
      * Removes the leading and trailing quotes from {@code str}. E.g. if str is '"one two"', then 'one two' is returned.
      *
      * @param str The string from which the leading and trailing quotes should be removed.
      * @return The string without the leading and trailing quotes.
      */
     static String stripLeadingAndTrailingQuotes(final String str) {
+        if (isEmpty(str)) {
+            return str;
+        }
         final int length = str.length();
         if (length > 1 && str.startsWith("\"") && str.endsWith("\"") && str.substring(1, length - 1).indexOf('"') == -1) {
             return str.substring(1, length - 1);
@@ -48,8 +61,8 @@ final class Util {
      * @return the new String.
      */
     static String stripLeadingHyphens(final String str) {
-        if (str == null) {
-            return null;
+        if (isEmpty(str)) {
+            return str;
         }
         if (str.startsWith("--")) {
             return str.substring(2);

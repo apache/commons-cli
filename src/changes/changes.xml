@@ -24,13 +24,14 @@
   <body>
     <release version="1.7.0" date="202Y-MM-DD" description="New features and bug fixes">
       <!-- FIX -->
-      <action type="fix" issue="CLI-312" dev="ggregory" due-to="Claude Warren, Gary Gregory">Inconsistent behaviour in key/value pairs (Java property style).</action>
+      <action type="fix" issue="CLI-312" dev="ggregory" due-to="Claude Warren, Gary Gregory">Inconsistent behavior in key/value pairs (Java property style).</action>
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">Avoid NullPointerException in Util.stripLeadingAndTrailingQuotes(String).</action>
       <!-- ADD -->
       <action type="add" issue="CLI-321" dev="ggregory" due-to="Claude Warren, Gary Gregory">Add and use a Converter interface and implementations without using BeanUtils #216.</action>
       <action type="add" dev="ggregory" due-to="Gary Gregory">Add Maven property project.build.outputTimestamp for build reproducibility.</action>
       <action type="add" issue="CLI-322" dev="ggregory" due-to="Claude Warren, Gary Gregory">Add '-' as an option char and implemented extensive tests #217.</action>
       <action type="add" issue="CLI-324" dev="ggregory" due-to="Claude Warren, Gary Gregory">Make adding OptionGroups and Options to existing Options easier #230.</action>
-      <action type="add" issue="CLI-323" dev="ggregory" due-to="Claude Warren, Gary Gregory">Added Supplier<T> defaults for getParsedOptionValue #229 .</action>
+      <action type="add" issue="CLI-323" dev="ggregory" due-to="Claude Warren, Gary Gregory">Added Supplier&lt;T&gt; defaults for getParsedOptionValue #229 .</action>
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 64 to 66.</action>
     </release>
