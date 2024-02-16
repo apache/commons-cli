@@ -29,6 +29,7 @@
       <action type="add" issue="CLI-321" dev="ggregory" due-to="Claude Warren, Gary Gregory">Add and use a Converter interface and implementations without using BeanUtils #216.</action>
       <action type="add" dev="ggregory" due-to="Gary Gregory">Add Maven property project.build.outputTimestamp for build reproducibility.</action>
       <action type="add" issue="CLI-322" dev="ggregory" due-to="Claude Warren, Gary Gregory">Add '-' as an option char and implemented extensive tests #217.</action>
+      <action type="add" issue="CLI-324" dev="ggregory" due-to="Claude Warren, Gary Gregory">Make adding OptionGroups and Options to existing Options easier #230.</action>
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 64 to 66.</action>
     </release>
