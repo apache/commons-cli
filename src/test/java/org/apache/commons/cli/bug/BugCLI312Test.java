@@ -94,7 +94,7 @@ public class BugCLI312Test {
     }
 
     @Test
-    public void testNoOptionValues() throws ParseException {
+    public void testNoOptionValues() {
         final Option o1 = Option.builder("A").build();
         final Option o2 = Option.builder().option("D").longOpt("define").numberOfArgs(2).valueSeparator('=').build();
         Options options = new Options().addOption(o1).addOption(o2);
