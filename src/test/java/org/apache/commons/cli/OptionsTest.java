@@ -21,9 +21,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -76,6 +82,93 @@ public class OptionsTest {
 
         assertNotNull(options.getOptionGroups());
         assertEquals(2, options.getOptionGroups().size());
+    }
+
+    @Test
+    public void testAddOptions() {
+        final Options options = new Options();
+
+        final OptionGroup group1 = new OptionGroup();
+        group1.addOption(Option.builder("a").build());
+        group1.addOption(Option.builder("b").build());
+
+        options.addOptionGroup(group1);
+
+        options.addOption(Option.builder("X").build());
+        options.addOption(Option.builder("y").build());
+
+        final Options underTest = new Options();
+        underTest.addOptions(options);
+
+        assertEquals(options.getOptionGroups(), underTest.getOptionGroups());
+        assertArrayEquals(options.getOptions().toArray(), underTest.getOptions().toArray());
+    }
+
+    @Test
+    public void testAddOptions2X() {
+        final Options options = new Options();
+
+        final OptionGroup group1 = new OptionGroup();
+        group1.addOption(Option.builder("a").build());
+        group1.addOption(Option.builder("b").build());
+
+        options.addOptionGroup(group1);
+
+        options.addOption(Option.builder("X").build());
+        options.addOption(Option.builder("y").build());
+
+        assertThrows(IllegalArgumentException.class, () -> options.addOptions(options));
+    }
+
+    @Test
+    public void testAddConflictingOptions() {
+        final Options options1 = new Options();
+        final OptionGroup group1 = new OptionGroup();
+        group1.addOption(Option.builder("a").build());
+        group1.addOption(Option.builder("b").build());
+        options1.addOptionGroup(group1);
+        options1.addOption(Option.builder("x").build());
+        options1.addOption(Option.builder("y").build());
+
+        final Options options2 = new Options();
+        final OptionGroup group2 = new OptionGroup();
+        group2.addOption(Option.builder("x").type(Integer.class).build());
+        group2.addOption(Option.builder("b").type(Integer.class).build());
+        options2.addOptionGroup(group2);
+        options2.addOption(Option.builder("c").build());
+
+        assertThrows(IllegalArgumentException.class, () -> options1.addOptions(options2));
+    }
+
+    @Test
+    public void testAddNonConflictingOptions() {
+        final Options options1 = new Options();
+        final OptionGroup group1 = new OptionGroup();
+        group1.addOption(Option.builder("a").build());
+        group1.addOption(Option.builder("b").build());
+        options1.addOptionGroup(group1);
+        options1.addOption(Option.builder("x").build());
+        options1.addOption(Option.builder("y").build());
+
+        final Options options2 = new Options();
+        final OptionGroup group2 = new OptionGroup();
+        group2.addOption(Option.builder("c").type(Integer.class).build());
+        group2.addOption(Option.builder("d").type(Integer.class).build());
+        options2.addOptionGroup(group2);
+        options1.addOption(Option.builder("e").build());
+        options1.addOption(Option.builder("f").build());
+
+        Options underTest = new Options();
+        underTest.addOptions(options1);
+        underTest.addOptions(options2);
+
+        List<OptionGroup> expected = Arrays.asList(group1, group2);
+        assertTrue(expected.size() == underTest.getOptionGroups().size() && expected.containsAll(underTest.getOptionGroups()));
+        Set<Option> expectOpt = new HashSet<>();
+        expectOpt.addAll(options1.getOptions());
+        expectOpt.addAll(options2.getOptions());
+        assertEquals(8, expectOpt.size());
+        assertTrue(expectOpt.size() == underTest.getOptions().size() && expectOpt.containsAll(underTest.getOptions()));
     }
 
     @Test

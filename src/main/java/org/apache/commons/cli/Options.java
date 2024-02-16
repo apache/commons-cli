@@ -55,6 +55,25 @@ public class Options implements Serializable {
     private final Map<String, OptionGroup> optionGroups = new LinkedHashMap<>();
 
     /**
+     * Adds options to this option.  If any Option in {@code options} already exists
+     * in this Options an IllegalArgumentException is thrown
+     *
+     * @param options the options to add.
+     * @return The resulting Options instance.
+     * @since 1.7.0
+     */
+    public Options addOptions(final Options options) {
+        for (Option opt : options.getOptions()) {
+            if (hasOption(opt.getKey())) {
+                throw new IllegalArgumentException("Duplicate key: " + opt.getKey());
+            }
+            addOption(opt);
+        }
+        options.getOptionGroups().forEach(this::addOptionGroup);
+        return this;
+    }
+
+    /**
      * Adds an option instance
      *
      * @param opt the option that is to be added
@@ -233,6 +252,11 @@ public class Options implements Serializable {
      * @return a Collection of OptionGroup instances.
      */
     Collection<OptionGroup> getOptionGroups() {
+        /* The optionGroups map will have duplicates in the values() results.  We
+         * use the HashSet to filter out duplicates and return a collection of
+         * OpitonGroup.  The decision to return a Collection rather than a set
+         * was probably to keep symmetry with the getOptions() method.
+         */
         return new HashSet<>(optionGroups.values());
     }
 
@@ -250,7 +274,7 @@ public class Options implements Serializable {
      *
      * @return read-only List of required options
      */
-    public List getRequiredOptions() {
+    public List<?> getRequiredOptions() {
         return Collections.unmodifiableList(requiredOpts);
     }
 
