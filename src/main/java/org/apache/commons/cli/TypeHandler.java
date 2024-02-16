@@ -104,7 +104,7 @@ public class TypeHandler {
      *
      * <p>
      * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
-     * <p>
+     * </p>
      *
      * @param str the paths to the files
      * @return The File[] represented by {@code str}.
