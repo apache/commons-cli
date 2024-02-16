@@ -723,16 +723,6 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the number of values this option has.
-     *
-     * @return the number of values this option has.
-     * @since 1.7.0
-     */
-    int numberOfValues() {
-        return values.size();
-    }
-
-    /**
      * Returns whether this Option can have an optional argument.
      *
      * @return whether this Option can have an optional argument
