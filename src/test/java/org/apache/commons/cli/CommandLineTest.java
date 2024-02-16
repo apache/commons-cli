@@ -152,18 +152,6 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testGetParsedOptionValueWithNullSupplier() throws Exception {
-        final Options options = new Options();
-        options.addOption(Option.builder("i").hasArg().type(Number.class).build());
-
-        final CommandLineParser parser = new DefaultParser();
-        final CommandLine cmd = parser.parse(options, new String[0]);
-        final Supplier<Number> supplier = null;
-
-        assertNull(cmd.getParsedOptionValue('i', supplier));
-    }
-
-    @Test
     public void testGetParsedOptionValueWithOption() throws Exception {
         final Options options = new Options();
         final Option optI = Option.builder("i").hasArg().type(Number.class).build();
@@ -188,14 +176,27 @@ public class CommandLineTest {
 
         final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(options, new String[] {"-i", "123"});
+        final Supplier<String> nullSupplier = null;
 
         assertEquals(123, ((Number) cmd.getParsedOptionValue(optI)).intValue());
         assertEquals("foo", cmd.getParsedOptionValue(optF, "foo"));
         assertEquals("foo", cmd.getParsedOptionValue(optF, () -> "foo"));
+        assertNull(cmd.getParsedOptionValue(optF, null));
+        assertNull(cmd.getParsedOptionValue(optF, nullSupplier));
+        assertNull(cmd.getParsedOptionValue(optF, () -> null));
+
         assertEquals("foo", cmd.getParsedOptionValue("f", "foo"));
         assertEquals("foo", cmd.getParsedOptionValue("f", () -> "foo"));
+        assertNull(cmd.getParsedOptionValue("f", null));
+        assertNull(cmd.getParsedOptionValue("f", nullSupplier));
+        assertNull(cmd.getParsedOptionValue("f", () -> null));
+
         assertEquals("foo", cmd.getParsedOptionValue('f', "foo"));
         assertEquals("foo", cmd.getParsedOptionValue('f', () -> "foo"));
+        assertNull(cmd.getParsedOptionValue('f', null));
+        assertNull(cmd.getParsedOptionValue('f', nullSupplier));
+        assertNull(cmd.getParsedOptionValue('f', () -> null));
+
     }
 
     @Test
