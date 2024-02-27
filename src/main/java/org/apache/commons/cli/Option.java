@@ -577,7 +577,7 @@ public class Option implements Cloneable, Serializable {
      *
      * @return the 'unique' Option identifier
      */
-    String getKey() {
+    public String getKey() {
         // if 'opt' is null, then it is a 'long' option
         return option == null ? longOption : option;
     }
