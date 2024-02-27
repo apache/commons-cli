@@ -171,10 +171,29 @@ public class CommandLine implements Serializable {
     }
 
     /**
+     * Parses a list of values as properties.  All odd numbered values are property keys
+     * and even numbered values are property values.  If there are an odd number of values
+     * the last value is assumed to be a boolean with a value of "true".
+     * @param props the properties to update.
+     * @param values the list of values to parse.
+     * @since 1.7.0
+     */
+    private void processPropertiesFromValues(final Properties props, final List<String> values) {
+        for (int i = 0; i < values.size(); i += 2) {
+            if (i + 1 < values.size()) {
+                props.put(values.get(i), values.get(i + 1));
+            } else {
+                props.put(values.get(i), "true");
+            }
+        }
+    }
+
+    /**
      * Gets the map of values associated to the option. This is convenient for options specifying Java properties like
      * <code>-Dparam1=value1
-     * -Dparam2=value2</code>. The first argument of the option is the key, and the 2nd argument is the value. If the option
-     * has only one argument ({@code -Dfoo}) it is considered as a boolean flag and the value is {@code "true"}.
+     * -Dparam2=value2</code>. All odd numbered values are property keys
+     * and even numbered values are property values.  If there are an odd number of values
+     * the last value is assumed to be a boolean flag and the value is "true".
      *
      * @param option name of the option.
      * @return The Properties mapped by the option, never {@code null} even if the option doesn't exists.
@@ -182,17 +201,9 @@ public class CommandLine implements Serializable {
      */
     public Properties getOptionProperties(final Option option) {
         final Properties props = new Properties();
-
         for (final Option processedOption : options) {
             if (processedOption.equals(option)) {
-                final List<String> values = processedOption.getValuesList();
-                if (values.size() >= 2) {
-                    // use the first 2 arguments as the key/value pair
-                    props.put(values.get(0), values.get(1));
-                } else if (values.size() == 1) {
-                    // no explicit value, handle it as a boolean
-                    props.put(values.get(0), "true");
-                }
+                processPropertiesFromValues(props, processedOption.getValuesList());
             }
         }
 
@@ -211,17 +222,9 @@ public class CommandLine implements Serializable {
      */
     public Properties getOptionProperties(final String opt) {
         final Properties props = new Properties();
-
         for (final Option option : options) {
             if (opt.equals(option.getOpt()) || opt.equals(option.getLongOpt())) {
-                final List<String> values = option.getValuesList();
-                if (values.size() >= 2) {
-                    // use the first 2 arguments as the key/value pair
-                    props.put(values.get(0), values.get(1));
-                } else if (values.size() == 1) {
-                    // no explicit value, handle it as a boolean
-                    props.put(values.get(0), "true");
-                }
+                processPropertiesFromValues(props, option.getValuesList());
             }
         }
 
