@@ -17,18 +17,18 @@
 
 package org.apache.commons.cli.bug;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for CLI-265.
@@ -40,7 +40,7 @@ public class BugCLI265Test {
     private DefaultParser parser;
     private Options options;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         parser = new DefaultParser();
 
@@ -72,8 +72,8 @@ public class BugCLI265Test {
         final CommandLine commandLine = parser.parse(options, twoShortOptions);
 
         assertTrue(commandLine.hasOption("t1"));
-        assertNotEquals("Second option has been used as value for first option", "-last", commandLine.getOptionValue("t1"));
-        assertTrue("Second option has not been detected", commandLine.hasOption("last"));
+        assertNotEquals(commandLine.getOptionValue("t1"), "Second option has been used as value for first option", "-last");
+        assertTrue(commandLine.hasOption("last"), "Second option has not been detected");
     }
 
     @Test

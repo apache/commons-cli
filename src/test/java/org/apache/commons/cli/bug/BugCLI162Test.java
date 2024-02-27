@@ -17,7 +17,7 @@
 
 package org.apache.commons.cli.bug;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -28,8 +28,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BugCLI162Test {
     /** Constant for the line separator. */
@@ -108,7 +108,7 @@ public class BugCLI162Test {
 
     private StringWriter sw;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         formatter = new HelpFormatter();
         sw = new StringWriter();
@@ -165,7 +165,7 @@ public class BugCLI162Test {
                           "                      yes." + CR +
                           "Footer" + CR;
         //@formatter:on
-        assertEquals("Long arguments did not split as expected", expected, sw.toString());
+        assertEquals(expected, sw.toString(), "Long arguments did not split as expected");
     }
 
     @Test
@@ -184,7 +184,7 @@ public class BugCLI162Test {
                           " Long." + CR +
                           "Footer" + CR;
         //@formatter:on
-        assertEquals("Long arguments did not split as expected", expected, sw.toString());
+        assertEquals(expected, sw.toString(), "Long arguments did not split as expected");
     }
 
     @Test

@@ -17,15 +17,15 @@
 
 package org.apache.commons.cli;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DefaultParserTest extends AbstractParserTestCase {
 
     @Override
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
         parser = new DefaultParser();
@@ -47,7 +47,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
         final CommandLine cl = parser.parse(options, args);
 
-        assertEquals("Confirm --bfile \"arg\" keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
+        assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm --bfile \"arg\" keeps quotes");
     }
 
     @Test
@@ -57,7 +57,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
         final CommandLine cl = parser.parse(options, args);
 
-        assertEquals("Confirm --bfile \"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+        assertEquals("quoted string", cl.getOptionValue("b"), "Confirm --bfile \"arg\" strips quotes");
     }
 
     @Override
@@ -67,7 +67,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
         final CommandLine cl = parser.parse(options, args);
 
-        assertEquals("Confirm --bfile=\"arg\" strips quotes",  "\"quoted string\"", cl.getOptionValue("b"));
+        assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm --bfile=\"arg\" strips quotes");
     }
 
     @Test
@@ -77,7 +77,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
         final CommandLine cl = parser.parse(options, args);
 
-        assertEquals("Confirm --bfile=\"arg\" keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
+        assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm --bfile=\"arg\" keeps quotes");
     }
 
     @Test
@@ -87,7 +87,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
         final CommandLine cl = parser.parse(options, args);
 
-        assertEquals("Confirm --bfile=\"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+        assertEquals("quoted string", cl.getOptionValue("b"), "Confirm --bfile=\"arg\" strips quotes");
     }
 
     @Override
@@ -98,7 +98,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
         final CommandLine cl = parser.parse(options, args);
 
         //This is behavior is not consistent with the other parsers, but is required for backwards compatibility
-        assertEquals("Confirm -b\"arg\" keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
+        assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm -b\"arg\" keeps quotes");
     }
 
     @Test
@@ -108,7 +108,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
         final CommandLine cl = parser.parse(options, args);
 
-        assertEquals("Confirm -b \"arg\" keeps quotes",  "\"quoted string\"", cl.getOptionValue("b"));
+        assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm -b \"arg\" keeps quotes");
     }
 
     @Test
@@ -118,6 +118,6 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
         final CommandLine cl = parser.parse(options, args);
 
-        assertEquals("Confirm -b \"arg\" strips quotes",  "quoted string", cl.getOptionValue("b"));
+        assertEquals("quoted string", cl.getOptionValue("b"), "Confirm -b \"arg\" strips quotes");
     }
 }

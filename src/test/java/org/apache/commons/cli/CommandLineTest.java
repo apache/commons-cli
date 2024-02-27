@@ -17,14 +17,14 @@
 
 package org.apache.commons.cli;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Properties;
 import java.util.function.Supplier;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class CommandLineTest {
@@ -78,14 +78,14 @@ public class CommandLineTest {
         final CommandLine cl = parser.parse(options, args);
 
         final Properties props = cl.getOptionProperties("D");
-        assertNotNull("null properties", props);
-        assertEquals("number of properties in " + props, 4, props.size());
-        assertEquals("property 1", "value1", props.getProperty("param1"));
-        assertEquals("property 2", "value2", props.getProperty("param2"));
-        assertEquals("property 3", "true", props.getProperty("param3"));
-        assertEquals("property 4", "value4", props.getProperty("param4"));
+        assertNotNull(props, "null properties");
+        assertEquals(4, props.size(), "number of properties in " + props);
+        assertEquals("value1", props.getProperty("param1"), "property 1");
+        assertEquals("value2", props.getProperty("param2"), "property 2");
+        assertEquals("true", props.getProperty("param3"), "property 3");
+        assertEquals("value4", props.getProperty("param4"), "property 4");
 
-        assertEquals("property with long format", "bar", cl.getOptionProperties("property").getProperty("foo"));
+        assertEquals("bar", cl.getOptionProperties("property").getProperty("foo"), "property with long format");
     }
 
     @Test
@@ -102,14 +102,14 @@ public class CommandLineTest {
         final CommandLine cl = parser.parse(options, args);
 
         final Properties props = cl.getOptionProperties(optionD);
-        assertNotNull("null properties", props);
-        assertEquals("number of properties in " + props, 4, props.size());
-        assertEquals("property 1", "value1", props.getProperty("param1"));
-        assertEquals("property 2", "value2", props.getProperty("param2"));
-        assertEquals("property 3", "true", props.getProperty("param3"));
-        assertEquals("property 4", "value4", props.getProperty("param4"));
+        assertNotNull(props, "null properties");
+        assertEquals(4, props.size(), "number of properties in " + props);
+        assertEquals("value1", props.getProperty("param1"), "property 1");
+        assertEquals("value2", props.getProperty("param2"), "property 2");
+        assertEquals("true", props.getProperty("param3"), "property 3");
+        assertEquals("value4", props.getProperty("param4"), "property 4");
 
-        assertEquals("property with long format", "bar", cl.getOptionProperties(optionProperty).getProperty("foo"));
+        assertEquals("bar", cl.getOptionProperties(optionProperty).getProperty("foo"), "property with long format");
     }
 
     @Test

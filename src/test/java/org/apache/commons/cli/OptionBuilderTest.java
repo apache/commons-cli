@@ -17,13 +17,13 @@
 
 package org.apache.commons.cli;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // OptionBuilder is marked deprecated
 public class OptionBuilderTest {
@@ -53,7 +53,7 @@ public class OptionBuilderTest {
         } catch (final IllegalArgumentException e) {
             // expected
         }
-        assertNull("we inherited a description", OptionBuilder.create('x').getDescription());
+        assertNull(OptionBuilder.create('x').getDescription(), "we inherited a description");
 
         try {
             OptionBuilder.withDescription("JUnit").create();
@@ -61,7 +61,7 @@ public class OptionBuilderTest {
         } catch (final IllegalArgumentException e) {
             // expected
         }
-        assertNull("we inherited a description", OptionBuilder.create('x').getDescription());
+        assertNull(OptionBuilder.create('x').getDescription(), "we inherited a description");
     }
 
     @Test

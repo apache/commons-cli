@@ -17,10 +17,10 @@
 
 package org.apache.commons.cli;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -31,7 +31,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class OptionsTest {
@@ -126,7 +126,7 @@ public class OptionsTest {
         final Options opts = new Options();
         opts.addOption("a", "--a", false, "toggle -a");
         opts.addOption("a", "--a", false, "toggle -a*");
-        assertEquals("last one in wins", "toggle -a*", opts.getOption("a").getDescription());
+        assertEquals("toggle -a*", opts.getOption("a").getDescription(), "last one in wins");
     }
 
     @Test
@@ -135,7 +135,7 @@ public class OptionsTest {
         opts.addOption("a", false, "toggle -a");
         opts.addOption("a", true, "toggle -a*");
 
-        assertEquals("last one in wins", "toggle -a*", opts.getOption("a").getDescription());
+        assertEquals("toggle -a*", opts.getOption("a").getDescription(), "last one in wins");
     }
 
     @Test
@@ -201,8 +201,8 @@ public class OptionsTest {
 
         final Collection<Option> helpOptions = options.helpOptions();
 
-        assertTrue("Everything in all should be in help", helpOptions.containsAll(allOptions));
-        assertTrue("Everything in help should be in all", allOptions.containsAll(helpOptions));
+        assertTrue(helpOptions.containsAll(allOptions), "Everything in all should be in help");
+        assertTrue(allOptions.containsAll(helpOptions), "Everything in help should be in all");
     }
 
     @Test
@@ -262,8 +262,8 @@ public class OptionsTest {
         options.addOption("b", "bar", false, "Bar");
 
         final String s = options.toString();
-        assertNotNull("null string returned", s);
-        assertTrue("foo option missing", s.toLowerCase().contains("foo"));
-        assertTrue("bar option missing", s.toLowerCase().contains("bar"));
+        assertNotNull(s, "null string returned");
+        assertTrue(s.toLowerCase().contains("foo"), "foo option missing");
+        assertTrue(s.toLowerCase().contains("bar"), "bar option missing");
     }
 }

@@ -17,15 +17,15 @@
 
 package org.apache.commons.cli;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for the HelpFormatter class.
@@ -38,28 +38,28 @@ public class HelpFormatterTest {
         final HelpFormatter formatter = new HelpFormatter();
 
         formatter.setArgName("argname");
-        assertEquals("arg name", "argname", formatter.getArgName());
+        assertEquals("argname", formatter.getArgName(), "arg name");
 
         formatter.setDescPadding(3);
-        assertEquals("desc padding", 3, formatter.getDescPadding());
+        assertEquals(3, formatter.getDescPadding(), "desc padding");
 
         formatter.setLeftPadding(7);
-        assertEquals("left padding", 7, formatter.getLeftPadding());
+        assertEquals(7, formatter.getLeftPadding(), "left padding");
 
         formatter.setLongOptPrefix("~~");
-        assertEquals("long opt prefix", "~~", formatter.getLongOptPrefix());
+        assertEquals("~~", formatter.getLongOptPrefix(), "long opt prefix");
 
         formatter.setNewLine("\n");
-        assertEquals("new line", "\n", formatter.getNewLine());
+        assertEquals("\n", formatter.getNewLine(), "new line");
 
         formatter.setOptPrefix("~");
-        assertEquals("opt prefix", "~", formatter.getOptPrefix());
+        assertEquals("~", formatter.getOptPrefix(), "opt prefix");
 
         formatter.setSyntaxPrefix("-> ");
-        assertEquals("syntax prefix", "-> ", formatter.getSyntaxPrefix());
+        assertEquals("-> ", formatter.getSyntaxPrefix(), "syntax prefix");
 
         formatter.setWidth(80);
-        assertEquals("width", 80, formatter.getWidth());
+        assertEquals(80, formatter.getWidth(), "width");
     }
 
     @Test
@@ -73,14 +73,14 @@ public class HelpFormatterTest {
         options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa");
         hf.printUsage(pw, 60, "app", options);
         pw.flush();
-        assertEquals("simple auto usage", expected, out.toString().trim());
+        assertEquals(expected, out.toString().trim(), "simple auto usage");
         out.reset();
 
         expected = "usage: app [-a] [-b]";
         options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa").addOption("b", false, "bbb");
         hf.printUsage(pw, 60, "app", options);
         pw.flush();
-        assertEquals("simple auto usage", expected, out.toString().trim());
+        assertEquals(expected, out.toString().trim(), "simple auto usage");
         out.reset();
     }
 
@@ -106,25 +106,25 @@ public class HelpFormatterTest {
 
         String text = "This is a test.";
         // text width should be max 8; the wrap position is 7
-        assertEquals("wrap position", 7, hf.findWrapPos(text, 8, 0));
+        assertEquals(7, hf.findWrapPos(text, 8, 0), "wrap position");
 
         // starting from 8 must give -1 - the wrap pos is after end
-        assertEquals("wrap position 2", -1, hf.findWrapPos(text, 8, 8));
+        assertEquals(-1, hf.findWrapPos(text, 8, 8), "wrap position 2");
 
         // words longer than the width are cut
         text = "aaaa aa";
-        assertEquals("wrap position 3", 3, hf.findWrapPos(text, 3, 0));
+        assertEquals(3, hf.findWrapPos(text, 3, 0), "wrap position 3");
 
         // last word length is equal to the width
         text = "aaaaaa aaaaaa";
-        assertEquals("wrap position 4", 6, hf.findWrapPos(text, 6, 0));
-        assertEquals("wrap position 4", -1, hf.findWrapPos(text, 6, 7));
+        assertEquals(6, hf.findWrapPos(text, 6, 0), "wrap position 4");
+        assertEquals(-1, hf.findWrapPos(text, 6, 7), "wrap position 4");
 
         text = "aaaaaa\n aaaaaa";
-        assertEquals("wrap position 5", 7, hf.findWrapPos(text, 6, 0));
+        assertEquals(7, hf.findWrapPos(text, 6, 0), "wrap position 5");
 
         text = "aaaaaa\t aaaaaa";
-        assertEquals("wrap position 6", 7, hf.findWrapPos(text, 6, 0));
+        assertEquals(7, hf.findWrapPos(text, 6, 0), "wrap position 6");
     }
 
     @Test
@@ -316,7 +316,7 @@ public class HelpFormatterTest {
                           "-ab" + EOL +
                           EOL;
         pw.flush();
-        assertEquals("footer newline", expected, out.toString());
+        assertEquals(expected, out.toString(), "footer newline");
     }
 
     @Test
@@ -343,7 +343,7 @@ public class HelpFormatterTest {
                           "-ab" + EOL +
                           "footer" + EOL;
         pw.flush();
-        assertEquals("header newline", expected, out.toString());
+        assertEquals(expected, out.toString(), "header newline");
     }
 
     @Test
@@ -396,32 +396,32 @@ public class HelpFormatterTest {
         options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa");
         expected = lpad + "-a" + dpad + "aaaa aaaa aaaa aaaa aaaa";
         hf.renderOptions(sb, 60, options, leftPad, descPad);
-        assertEquals("simple non-wrapped option", expected, sb.toString());
+        assertEquals(expected, sb.toString(), "simple non-wrapped option");
 
         int nextLineTabStop = leftPad + descPad + "-a".length();
         expected = lpad + "-a" + dpad + "aaaa aaaa aaaa" + EOL + hf.createPadding(nextLineTabStop) + "aaaa aaaa";
         sb.setLength(0);
         hf.renderOptions(sb, nextLineTabStop + 17, options, leftPad, descPad);
-        assertEquals("simple wrapped option", expected, sb.toString());
+        assertEquals(expected, sb.toString(), "simple wrapped option");
 
         options = new Options().addOption("a", "aaa", false, "dddd dddd dddd dddd");
         expected = lpad + "-a,--aaa" + dpad + "dddd dddd dddd dddd";
         sb.setLength(0);
         hf.renderOptions(sb, 60, options, leftPad, descPad);
-        assertEquals("long non-wrapped option", expected, sb.toString());
+        assertEquals(expected, sb.toString(), "long non-wrapped option");
 
         nextLineTabStop = leftPad + descPad + "-a,--aaa".length();
         expected = lpad + "-a,--aaa" + dpad + "dddd dddd" + EOL + hf.createPadding(nextLineTabStop) + "dddd dddd";
         sb.setLength(0);
         hf.renderOptions(sb, 25, options, leftPad, descPad);
-        assertEquals("long wrapped option", expected, sb.toString());
+        assertEquals(expected, sb.toString(), "long wrapped option");
 
         options = new Options().addOption("a", "aaa", false, "dddd dddd dddd dddd").addOption("b", false, "feeee eeee eeee eeee");
         expected = lpad + "-a,--aaa" + dpad + "dddd dddd" + EOL + hf.createPadding(nextLineTabStop) + "dddd dddd" + EOL + lpad + "-b      " + dpad
             + "feeee eeee" + EOL + hf.createPadding(nextLineTabStop) + "eeee eeee";
         sb.setLength(0);
         hf.renderOptions(sb, 25, options, leftPad, descPad);
-        assertEquals("multiple wrapped options", expected, sb.toString());
+        assertEquals(expected, sb.toString(), "multiple wrapped options");
     }
 
     @Test
@@ -525,7 +525,7 @@ public class HelpFormatterTest {
 
         final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, expected);
-        assertEquals("multi line text", expected, sb.toString());
+        assertEquals(expected, sb.toString(), "multi line text");
     }
 
     @Test
@@ -544,7 +544,7 @@ public class HelpFormatterTest {
 
         final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, text);
-        assertEquals("multi-line padded text", expected, sb.toString());
+        assertEquals(expected, sb.toString(), "multi-line padded text");
     }
 
     @Test
@@ -557,7 +557,7 @@ public class HelpFormatterTest {
 
         final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, text);
-        assertEquals("single line text", expected, sb.toString());
+        assertEquals(expected, sb.toString(), "single line text");
     }
 
     @Test
@@ -570,7 +570,7 @@ public class HelpFormatterTest {
 
         final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, text);
-        assertEquals("single line padded text", expected, sb.toString());
+        assertEquals(expected, sb.toString(), "single line padded text");
     }
 
     @Test
@@ -588,7 +588,7 @@ public class HelpFormatterTest {
 
         final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, text);
-        assertEquals("single line padded text 2", expected, sb.toString());
+        assertEquals(expected, sb.toString(), "single line padded text 2");
     }
 
     @Test
@@ -600,7 +600,7 @@ public class HelpFormatterTest {
 
         final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, text);
-        assertEquals("cut and wrap", expected, sb.toString());
+        assertEquals(expected, sb.toString(), "cut and wrap");
     }
 
     @Test

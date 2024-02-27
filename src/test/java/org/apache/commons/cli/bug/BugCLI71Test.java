@@ -17,8 +17,8 @@
 
 package org.apache.commons.cli.bug;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -26,15 +26,15 @@ import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugCLI71Test {
     private Options options;
     private CommandLineParser parser;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         options = new Options();
 
@@ -74,7 +74,7 @@ public class BugCLI71Test {
             parser.parse(options, args);
             fail("MissingArgumentException expected");
         } catch (final MissingArgumentException e) {
-            assertEquals("option missing an argument", "k", e.getOption().getOpt());
+            assertEquals("k", e.getOption().getOpt(), "option missing an argument");
         }
     }
 

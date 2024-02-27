@@ -17,6 +17,8 @@
 
 package org.apache.commons.cli.bug;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,8 +29,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BugCLI266Test {
 
@@ -110,7 +111,7 @@ public class BugCLI266Test {
         Collections.sort(options, formatter.getOptionComparator());
         int i = 0;
         for (final Option o : options) {
-            Assert.assertEquals(o.getOpt(), sortOrder.get(i));
+            assertEquals(o.getOpt(), sortOrder.get(i));
             i++;
         }
     }
@@ -120,7 +121,7 @@ public class BugCLI266Test {
         final Collection<Option> options = getOptions().getOptions();
         int i = 0;
         for (final Option o : options) {
-            Assert.assertEquals(o.getOpt(), insertedOrder.get(i));
+            assertEquals(o.getOpt(), insertedOrder.get(i));
             i++;
         }
     }
