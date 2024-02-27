@@ -27,6 +27,7 @@
       <action type="fix" issue="CLI-312" dev="ggregory" due-to="Claude Warren, Gary Gregory">Inconsistent behavior in key/value pairs (Java property style).</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Avoid NullPointerException in Util.stripLeadingAndTrailingQuotes(String).</action>
       <action type="fix" issue="CLI-320" dev="ggregory" due-to="Paul King, Claude Warren">Awkward behavior of Option.builder() for multiple optional args.</action>
+      <action type="fix" issue="CLI-325" dev="ggregory" due-to="Claude Warren">Properties from multiple arguments with value separator. #237.</action>
       <!-- ADD -->
       <action type="add" issue="CLI-321" dev="ggregory" due-to="Claude Warren, Gary Gregory">Add and use a Converter interface and implementations without using BeanUtils #216.</action>
       <action type="add" dev="ggregory" due-to="Gary Gregory">Add Maven property project.build.outputTimestamp for build reproducibility.</action>
