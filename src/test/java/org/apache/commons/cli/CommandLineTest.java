@@ -139,34 +139,6 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testGetParsedOptionValueWithChar() throws Exception {
-        final Options options = new Options();
-        options.addOption(Option.builder("i").hasArg().type(Number.class).build());
-        options.addOption(Option.builder("f").hasArg().build());
-
-        final CommandLineParser parser = new DefaultParser();
-        final CommandLine cmd = parser.parse(options, new String[] {"-i", "123", "-f", "foo"});
-
-        assertEquals(123, ((Number) cmd.getParsedOptionValue('i')).intValue());
-        assertEquals("foo", cmd.getParsedOptionValue('f'));
-    }
-
-    @Test
-    public void testGetParsedOptionValueWithOption() throws Exception {
-        final Options options = new Options();
-        final Option optI = Option.builder("i").hasArg().type(Number.class).build();
-        final Option optF = Option.builder("f").hasArg().build();
-        options.addOption(optI);
-        options.addOption(optF);
-
-        final CommandLineParser parser = new DefaultParser();
-        final CommandLine cmd = parser.parse(options, new String[] {"-i", "123", "-f", "foo"});
-
-        assertEquals(123, ((Number) cmd.getParsedOptionValue(optI)).intValue());
-        assertEquals("foo", cmd.getParsedOptionValue(optF));
-    }
-
-    @Test
     public void testGetParsedOptionValueUsingDefault() throws Exception {
         final Options options = new Options();
         final Option optI = Option.builder("i").hasArg().type(Number.class).build();
@@ -197,6 +169,34 @@ public class CommandLineTest {
         assertNull(cmd.getParsedOptionValue('f', nullSupplier));
         assertNull(cmd.getParsedOptionValue('f', () -> null));
 
+    }
+
+    @Test
+    public void testGetParsedOptionValueWithChar() throws Exception {
+        final Options options = new Options();
+        options.addOption(Option.builder("i").hasArg().type(Number.class).build());
+        options.addOption(Option.builder("f").hasArg().build());
+
+        final CommandLineParser parser = new DefaultParser();
+        final CommandLine cmd = parser.parse(options, new String[] {"-i", "123", "-f", "foo"});
+
+        assertEquals(123, ((Number) cmd.getParsedOptionValue('i')).intValue());
+        assertEquals("foo", cmd.getParsedOptionValue('f'));
+    }
+
+    @Test
+    public void testGetParsedOptionValueWithOption() throws Exception {
+        final Options options = new Options();
+        final Option optI = Option.builder("i").hasArg().type(Number.class).build();
+        final Option optF = Option.builder("f").hasArg().build();
+        options.addOption(optI);
+        options.addOption(optF);
+
+        final CommandLineParser parser = new DefaultParser();
+        final CommandLine cmd = parser.parse(options, new String[] {"-i", "123", "-f", "foo"});
+
+        assertEquals(123, ((Number) cmd.getParsedOptionValue(optI)).intValue());
+        assertEquals("foo", cmd.getParsedOptionValue(optF));
     }
 
     @Test

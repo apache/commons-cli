@@ -171,23 +171,6 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Parses a list of values as properties.  All odd numbered values are property keys
-     * and even numbered values are property values.  If there are an odd number of values
-     * the last value is assumed to be a boolean with a value of "true".
-     * @param props the properties to update.
-     * @param values the list of values to parse.
-     */
-    private void processPropertiesFromValues(final Properties props, final List<String> values) {
-        for (int i = 0; i < values.size(); i += 2) {
-            if (i + 1 < values.size()) {
-                props.put(values.get(i), values.get(i + 1));
-            } else {
-                props.put(values.get(i), "true");
-            }
-        }
-    }
-
-    /**
      * Gets the map of values associated to the option. This is convenient for options specifying Java properties like
      * <code>-Dparam1=value1
      * -Dparam2=value2</code>. All odd numbered values are property keys
@@ -345,7 +328,6 @@ public class CommandLine implements Serializable {
         return getOptionValue(resolveOption(opt), defaultValue);
     }
 
-
     /**
      * Gets the array of values, if any, of an option.
      *
@@ -355,6 +337,7 @@ public class CommandLine implements Serializable {
     public String[] getOptionValues(final char opt) {
         return getOptionValues(String.valueOf(opt));
     }
+
 
     /**
      * Gets the array of values, if any, of an option.
@@ -410,7 +393,7 @@ public class CommandLine implements Serializable {
      * @see PatternOptionBuilder
      * @since 1.7.0
      */
-    public <T> T getParsedOptionValue(final char opt, final T defaultValue) throws ParseException {
+    public <T> T getParsedOptionValue(final char opt, final Supplier<T> defaultValue) throws ParseException {
         return getParsedOptionValue(String.valueOf(opt), defaultValue);
     }
 
@@ -425,7 +408,7 @@ public class CommandLine implements Serializable {
      * @see PatternOptionBuilder
      * @since 1.7.0
      */
-    public <T> T getParsedOptionValue(final char opt, final Supplier<T> defaultValue) throws ParseException {
+    public <T> T getParsedOptionValue(final char opt, final T defaultValue) throws ParseException {
         return getParsedOptionValue(String.valueOf(opt), defaultValue);
     }
 
@@ -441,21 +424,6 @@ public class CommandLine implements Serializable {
      */
     public <T> T getParsedOptionValue(final Option option) throws ParseException {
         return  getParsedOptionValue(option, () -> null);
-    }
-
-    /**
-     * Gets a version of this {@code Option} converted to a particular type.
-     *
-     * @param option the name of the option.
-     * @param defaultValue the default value to return if opt is not set.
-     * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
-     * @throws ParseException if there are problems turning the option value into the desired type
-     * @see PatternOptionBuilder
-     * @since 1.7.0
-     */
-    public <T> T getParsedOptionValue(final Option option, final T defaultValue) throws ParseException {
-        return getParsedOptionValue(option, () -> defaultValue);
     }
 
     /**
@@ -486,6 +454,21 @@ public class CommandLine implements Serializable {
     /**
      * Gets a version of this {@code Option} converted to a particular type.
      *
+     * @param option the name of the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @param <T> The return type for the method.
+     * @return the value parsed into a particular object.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.7.0
+     */
+    public <T> T getParsedOptionValue(final Option option, final T defaultValue) throws ParseException {
+        return getParsedOptionValue(option, () -> defaultValue);
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to a particular type.
+     *
      * @param opt the name of the option.
      * @param <T> The return type for the method.
      * @return the value parsed into a particular object.
@@ -508,7 +491,7 @@ public class CommandLine implements Serializable {
      * @see PatternOptionBuilder
      * @since 1.7.0
      */
-    public <T> T getParsedOptionValue(final String opt, final T defaultValue) throws ParseException {
+    public <T> T getParsedOptionValue(final String opt, final Supplier<T> defaultValue) throws ParseException {
         return getParsedOptionValue(resolveOption(opt), defaultValue);
     }
 
@@ -523,8 +506,18 @@ public class CommandLine implements Serializable {
      * @see PatternOptionBuilder
      * @since 1.7.0
      */
-    public <T> T getParsedOptionValue(final String opt, final Supplier<T> defaultValue) throws ParseException {
+    public <T> T getParsedOptionValue(final String opt, final T defaultValue) throws ParseException {
         return getParsedOptionValue(resolveOption(opt), defaultValue);
+    }
+
+    /**
+     * Tests to see if an option has been set.
+     *
+     * @param opt character name of the option.
+     * @return true if set, false if not.
+     */
+    public boolean hasOption(final char opt) {
+        return hasOption(String.valueOf(opt));
     }
 
     /**
@@ -544,16 +537,6 @@ public class CommandLine implements Serializable {
      *
      * return buf.toString(); }
      */
-
-    /**
-     * Tests to see if an option has been set.
-     *
-     * @param opt character name of the option.
-     * @return true if set, false if not.
-     */
-    public boolean hasOption(final char opt) {
-        return hasOption(String.valueOf(opt));
-    }
 
     /**
      * Tests to see if an option has been set.
@@ -583,6 +566,23 @@ public class CommandLine implements Serializable {
      */
     public Iterator<Option> iterator() {
         return options.iterator();
+    }
+
+    /**
+     * Parses a list of values as properties.  All odd numbered values are property keys
+     * and even numbered values are property values.  If there are an odd number of values
+     * the last value is assumed to be a boolean with a value of "true".
+     * @param props the properties to update.
+     * @param values the list of values to parse.
+     */
+    private void processPropertiesFromValues(final Properties props, final List<String> values) {
+        for (int i = 0; i < values.size(); i += 2) {
+            if (i + 1 < values.size()) {
+                props.put(values.get(i), values.get(i + 1));
+            } else {
+                props.put(values.get(i), "true");
+            }
+        }
     }
 
     /**

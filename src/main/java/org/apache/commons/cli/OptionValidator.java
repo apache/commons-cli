@@ -30,21 +30,6 @@ final class OptionValidator {
     static final char[] ADDITIONAL_LONG_CHARS = {'-'};
 
     /**
-     * Checks the char array for a matching char.
-     * @param chars the char array to search
-     * @param c the char to look for.
-     * @return {@code true} if {@code c} was in {@code ary}, {@code false} otherwise.
-     */
-    private static boolean search(final char[] chars, final char c) {
-        for (char a : chars) {
-            if (a == c) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Returns whether the specified character is a valid character.
      * A character is valid if any of the following conditions are true:
      * <ul>
@@ -84,6 +69,21 @@ final class OptionValidator {
      */
     private static boolean isValidOpt(final char c) {
         return Character.isJavaIdentifierPart(c) || search(ADDITIONAL_OPTION_CHARS, c);
+    }
+
+    /**
+     * Checks the char array for a matching char.
+     * @param chars the char array to search
+     * @param c the char to look for.
+     * @return {@code true} if {@code c} was in {@code ary}, {@code false} otherwise.
+     */
+    private static boolean search(final char[] chars, final char c) {
+        for (char a : chars) {
+            if (a == c) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

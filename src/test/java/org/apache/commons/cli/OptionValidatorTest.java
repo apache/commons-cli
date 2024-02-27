@@ -70,6 +70,43 @@ public class OptionValidatorTest {
     private static String restChars;
     private static String notRestChars;
 
+    private static Stream<Arguments> optionParameters() {
+
+        List<Arguments> args = new ArrayList<>();
+
+        args.add(Arguments.of("CamelCase", true, "Camel case error"));
+        args.add(Arguments.of("Snake_case", true, "Snake case error"));
+        args.add(Arguments.of("_leadingUnderscore", true, "Leading underscore error"));
+        args.add(Arguments.of("kabob-case", true, "Kabob case error"));
+        args.add(Arguments.of("-leadingDash", false, "Leading dash error"));
+        args.add(Arguments.of("lowercase", true, "Lower case error"));
+        args.add(Arguments.of("UPPERCASE", true, "Upper case error"));
+
+        // build passing test cases
+        for (char c : firstChars.toCharArray()) {
+            String s = String.format("%sMoreText", c);
+            args.add(Arguments.of(s, true, String.format("testing: First character '%s'", c)));
+        }
+
+        for (char c : restChars.toCharArray()) {
+            String s = String.format("Some%sText", c);
+            args.add(Arguments.of(s, true, String.format("testing: Middle character '%s'", c)));
+        }
+
+        // build failing test cases
+        for (char c : notFirstChars.toCharArray()) {
+            String s = String.format("%sMoreText", c);
+            args.add(Arguments.of(s, false, String.format("testing: Bad first character '%s'", c)));
+        }
+
+        for (char c : notRestChars.toCharArray()) {
+            String s = String.format("Some%sText", c);
+            args.add(Arguments.of(s, false, String.format("testing: Bad middle character '%s'", c)));
+        }
+
+        return args.stream();
+    }
+
     @BeforeAll
     public static void setup() {
         StringBuilder sb = new StringBuilder();
@@ -142,42 +179,5 @@ public class OptionValidatorTest {
         } else {
             assertThrows(IllegalArgumentException.class, () -> OptionValidator.validate(str));
         }
-    }
-
-    private static Stream<Arguments> optionParameters() {
-
-        List<Arguments> args = new ArrayList<>();
-
-        args.add(Arguments.of("CamelCase", true, "Camel case error"));
-        args.add(Arguments.of("Snake_case", true, "Snake case error"));
-        args.add(Arguments.of("_leadingUnderscore", true, "Leading underscore error"));
-        args.add(Arguments.of("kabob-case", true, "Kabob case error"));
-        args.add(Arguments.of("-leadingDash", false, "Leading dash error"));
-        args.add(Arguments.of("lowercase", true, "Lower case error"));
-        args.add(Arguments.of("UPPERCASE", true, "Upper case error"));
-
-        // build passing test cases
-        for (char c : firstChars.toCharArray()) {
-            String s = String.format("%sMoreText", c);
-            args.add(Arguments.of(s, true, String.format("testing: First character '%s'", c)));
-        }
-
-        for (char c : restChars.toCharArray()) {
-            String s = String.format("Some%sText", c);
-            args.add(Arguments.of(s, true, String.format("testing: Middle character '%s'", c)));
-        }
-
-        // build failing test cases
-        for (char c : notFirstChars.toCharArray()) {
-            String s = String.format("%sMoreText", c);
-            args.add(Arguments.of(s, false, String.format("testing: Bad first character '%s'", c)));
-        }
-
-        for (char c : notRestChars.toCharArray()) {
-            String s = String.format("Some%sText", c);
-            args.add(Arguments.of(s, false, String.format("testing: Bad middle character '%s'", c)));
-        }
-
-        return args.stream();
     }
 }

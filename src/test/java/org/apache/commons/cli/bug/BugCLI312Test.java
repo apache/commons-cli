@@ -37,6 +37,17 @@ import org.junit.Test;
  */
 public class BugCLI312Test {
     @Test
+    public void testNoOptionValues() {
+        final Option o1 = Option.builder("A").build();
+        final Option o2 = Option.builder().option("D").longOpt("define").numberOfArgs(2).valueSeparator('=').build();
+        Options options = new Options().addOption(o1).addOption(o2);
+
+        final CommandLineParser parser = new DefaultParser();
+
+        assertThrows(MissingArgumentException.class, () -> parser.parse(options, "-D -A".split(" ")));
+    }
+
+    @Test
     public void testPropertyStyleOption_withGetOptionProperties() throws ParseException {
         final Option o1 = Option.builder().option("D").longOpt("define").numberOfArgs(2).valueSeparator('=').build();
 
@@ -91,16 +102,5 @@ public class BugCLI312Test {
             }
         }
         assertEquals("other", cl.getArgList().get(0));
-    }
-
-    @Test
-    public void testNoOptionValues() {
-        final Option o1 = Option.builder("A").build();
-        final Option o2 = Option.builder().option("D").longOpt("define").numberOfArgs(2).valueSeparator('=').build();
-        Options options = new Options().addOption(o1).addOption(o2);
-
-        final CommandLineParser parser = new DefaultParser();
-
-        assertThrows(MissingArgumentException.class, () -> parser.parse(options, "-D -A".split(" ")));
     }
 }

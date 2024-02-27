@@ -481,6 +481,54 @@ public abstract class AbstractParserTestCase {
     }
 
     @Test
+    public void testOptionalArgsOptionBuilder() throws Exception {
+        final Options opts = new Options();
+        opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
+        final Properties properties = new Properties();
+
+        CommandLine cmd = parse(parser, opts, new String[]{"-i"}, properties);
+        assertTrue(cmd.hasOption("i"));
+        assertNull(null, cmd.getOptionValues("i"));
+
+        cmd = parse(parser, opts, new String[]{"-i", "paper"}, properties);
+        assertTrue(cmd.hasOption("i"));
+        assertArrayEquals(new String[]{"paper"}, cmd.getOptionValues("i"));
+
+        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors"}, properties);
+        assertTrue(cmd.hasOption("i"));
+        assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
+
+        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors", "rock"}, properties);
+        assertTrue(cmd.hasOption("i"));
+        assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
+        assertArrayEquals(new String[]{"rock"}, cmd.getArgs());
+    }
+
+    @Test
+    public void testOptionalArgsOptionDotBuilder() throws Exception {
+        final Options opts = new Options();
+        opts.addOption(Option.builder("i").numberOfArgs(2).optionalArg(true).build());
+        final Properties properties = new Properties();
+
+        CommandLine cmd = parse(parser, opts, new String[]{"-i"}, properties);
+        assertTrue(cmd.hasOption("i"));
+        assertNull(null, cmd.getOptionValues("i"));
+
+        cmd = parse(parser, opts, new String[]{"-i", "paper"}, properties);
+        assertTrue(cmd.hasOption("i"));
+        assertArrayEquals(new String[]{"paper"}, cmd.getOptionValues("i"));
+
+        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors"}, properties);
+        assertTrue(cmd.hasOption("i"));
+        assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
+
+        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors", "rock"}, properties);
+        assertTrue(cmd.hasOption("i"));
+        assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
+        assertArrayEquals(new String[]{"rock"}, cmd.getArgs());
+    }
+
+    @Test
     public void testOptionAndRequiredOption() throws Exception {
         final String[] args = {"-a", "-b", "file"};
 
@@ -736,54 +784,6 @@ public abstract class AbstractParserTestCase {
         assertTrue(cmd.hasOption("i"));
         assertEquals("ink", cmd.getOptionValue("i"));
         assertFalse(cmd.hasOption("fake"));
-    }
-
-    @Test
-    public void testOptionalArgsOptionBuilder() throws Exception {
-        final Options opts = new Options();
-        opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
-        final Properties properties = new Properties();
-
-        CommandLine cmd = parse(parser, opts, new String[]{"-i"}, properties);
-        assertTrue(cmd.hasOption("i"));
-        assertNull(null, cmd.getOptionValues("i"));
-
-        cmd = parse(parser, opts, new String[]{"-i", "paper"}, properties);
-        assertTrue(cmd.hasOption("i"));
-        assertArrayEquals(new String[]{"paper"}, cmd.getOptionValues("i"));
-
-        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors"}, properties);
-        assertTrue(cmd.hasOption("i"));
-        assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
-
-        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors", "rock"}, properties);
-        assertTrue(cmd.hasOption("i"));
-        assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
-        assertArrayEquals(new String[]{"rock"}, cmd.getArgs());
-    }
-
-    @Test
-    public void testOptionalArgsOptionDotBuilder() throws Exception {
-        final Options opts = new Options();
-        opts.addOption(Option.builder("i").numberOfArgs(2).optionalArg(true).build());
-        final Properties properties = new Properties();
-
-        CommandLine cmd = parse(parser, opts, new String[]{"-i"}, properties);
-        assertTrue(cmd.hasOption("i"));
-        assertNull(null, cmd.getOptionValues("i"));
-
-        cmd = parse(parser, opts, new String[]{"-i", "paper"}, properties);
-        assertTrue(cmd.hasOption("i"));
-        assertArrayEquals(new String[]{"paper"}, cmd.getOptionValues("i"));
-
-        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors"}, properties);
-        assertTrue(cmd.hasOption("i"));
-        assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
-
-        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors", "rock"}, properties);
-        assertTrue(cmd.hasOption("i"));
-        assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
-        assertArrayEquals(new String[]{"rock"}, cmd.getArgs());
     }
 
     @Test
