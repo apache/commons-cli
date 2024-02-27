@@ -40,7 +40,7 @@ public class BugCLI312Test {
     public void testNoOptionValues() {
         final Option o1 = Option.builder("A").build();
         final Option o2 = Option.builder().option("D").longOpt("define").numberOfArgs(2).valueSeparator('=').build();
-        Options options = new Options().addOption(o1).addOption(o2);
+        final Options options = new Options().addOption(o1).addOption(o2);
 
         final CommandLineParser parser = new DefaultParser();
 
@@ -59,7 +59,7 @@ public class BugCLI312Test {
         final CommandLine cl = parser.parse(options, "-Dv -Dw=1 -D x=2 -D y -D z=3 other".split(" "));
         assertArrayEquals(new String[] {"v", "w", "1", "x", "2", "y", "z", "3"}, cl.getOptionValues('D'));
 
-        Properties properties = cl.getOptionProperties("D");
+        final Properties properties = cl.getOptionProperties("D");
         assertEquals("true", properties.getProperty("v"));
         assertEquals("1", properties.getProperty("w"));
         assertEquals("2", properties.getProperty("x"));
@@ -86,18 +86,25 @@ public class BugCLI312Test {
             if ("D".equals(o.getOpt())) {
                 defineOptionsFound++;
 
-                if (defineOptionsFound == 1) {
+                switch (defineOptionsFound) {
+                case 1:
                     assertArrayEquals(new String[] {"v"}, o.getValues());
-                } else if (defineOptionsFound == 2) {
+                    break;
+                case 2:
                     assertArrayEquals(new String[] {"w", "1"}, o.getValues());
-                } else if (defineOptionsFound == 3) {
+                    break;
+                case 3:
                     assertArrayEquals(new String[] {"x", "2"}, o.getValues());
-                } else if (defineOptionsFound == 4) {
+                    break;
+                case 4:
                     assertArrayEquals(new String[] {"y"}, o.getValues());
-                } else if (defineOptionsFound == 5) {
+                    break;
+                case 5:
                     assertArrayEquals(new String[] {"z", "3"}, o.getValues());
-                } else {
+                    break;
+                default:
                     fail("Didn't expect " + defineOptionsFound + " occurrences of -D");
+                    break;
                 }
             }
         }

@@ -78,7 +78,7 @@ final class OptionValidator {
      * @return {@code true} if {@code c} was in {@code ary}, {@code false} otherwise.
      */
     private static boolean search(final char[] chars, final char c) {
-        for (char a : chars) {
+        for (final char a : chars) {
             if (a == c) {
                 return true;
             }
@@ -119,7 +119,7 @@ final class OptionValidator {
             return null;
         }
 
-        char[] chars = option.toCharArray();
+        final char[] chars = option.toCharArray();
 
         if (!isValidOpt(chars[0])) {
             throw new IllegalArgumentException("Illegal option name '" + chars[0] + "'");

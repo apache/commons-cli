@@ -72,7 +72,7 @@ public class OptionValidatorTest {
 
     private static Stream<Arguments> optionParameters() {
 
-        List<Arguments> args = new ArrayList<>();
+        final List<Arguments> args = new ArrayList<>();
 
         args.add(Arguments.of("CamelCase", true, "Camel case error"));
         args.add(Arguments.of("Snake_case", true, "Snake case error"));
@@ -83,24 +83,24 @@ public class OptionValidatorTest {
         args.add(Arguments.of("UPPERCASE", true, "Upper case error"));
 
         // build passing test cases
-        for (char c : firstChars.toCharArray()) {
-            String s = String.format("%sMoreText", c);
+        for (final char c : firstChars.toCharArray()) {
+            final String s = String.format("%sMoreText", c);
             args.add(Arguments.of(s, true, String.format("testing: First character '%s'", c)));
         }
 
-        for (char c : restChars.toCharArray()) {
-            String s = String.format("Some%sText", c);
+        for (final char c : restChars.toCharArray()) {
+            final String s = String.format("Some%sText", c);
             args.add(Arguments.of(s, true, String.format("testing: Middle character '%s'", c)));
         }
 
         // build failing test cases
-        for (char c : notFirstChars.toCharArray()) {
-            String s = String.format("%sMoreText", c);
+        for (final char c : notFirstChars.toCharArray()) {
+            final String s = String.format("%sMoreText", c);
             args.add(Arguments.of(s, false, String.format("testing: Bad first character '%s'", c)));
         }
 
-        for (char c : notRestChars.toCharArray()) {
-            String s = String.format("Some%sText", c);
+        for (final char c : notRestChars.toCharArray()) {
+            final String s = String.format("Some%sText", c);
             args.add(Arguments.of(s, false, String.format("testing: Bad middle character '%s'", c)));
         }
 
@@ -110,10 +110,10 @@ public class OptionValidatorTest {
     @BeforeAll
     public static void setup() {
         StringBuilder sb = new StringBuilder();
-        StringBuilder sb2 = new StringBuilder();
+        final StringBuilder sb2 = new StringBuilder();
         int idx;
 
-        for (char c : PUNCTUATION.toCharArray()) {
+        for (final char c : PUNCTUATION.toCharArray()) {
             if (Character.isJavaIdentifierPart(c)) {
                 sb.append(c);
             } else {
@@ -124,24 +124,24 @@ public class OptionValidatorTest {
         notAcceptablePunctuation = sb2.toString();
 
         sb = new StringBuilder();
-        for (char c : OptionValidator.ADDITIONAL_LONG_CHARS) {
+        for (final char c : OptionValidator.ADDITIONAL_LONG_CHARS) {
             sb.append(c);
         }
         additionalLongChars = sb.toString();
 
         sb = new StringBuilder();
-        for (char c : OptionValidator.ADDITIONAL_OPTION_CHARS) {
+        for (final char c : OptionValidator.ADDITIONAL_OPTION_CHARS) {
             sb.append(c);
         }
         additionalOptonChars = sb.toString();
 
-        String javaIdentifierPart = LETTERS + DIGITS + CURRENCY + acceptablePunctuation + COMBINING_MARK
+        final String javaIdentifierPart = LETTERS + DIGITS + CURRENCY + acceptablePunctuation + COMBINING_MARK
                 + NON_SPACING_MARK + IDENTIFIER_IGNORABLE;
 
         firstChars = additionalOptonChars + javaIdentifierPart;
 
         sb = new StringBuilder(notAcceptablePunctuation).append(additionalLongChars);
-        for (char c : OptionValidator.ADDITIONAL_OPTION_CHARS) {
+        for (final char c : OptionValidator.ADDITIONAL_OPTION_CHARS) {
             while ((idx = sb.indexOf(Character.toString(c))) > -1) {
                 sb.deleteCharAt(idx);
             }
@@ -150,7 +150,7 @@ public class OptionValidatorTest {
 
         restChars = additionalLongChars + javaIdentifierPart;
         sb = new StringBuilder(notAcceptablePunctuation).append(additionalOptonChars);
-        for (char c : OptionValidator.ADDITIONAL_LONG_CHARS) {
+        for (final char c : OptionValidator.ADDITIONAL_LONG_CHARS) {
             while ((idx = sb.indexOf(Character.toString(c))) > -1) {
                 sb.deleteCharAt(idx);
             }
@@ -163,10 +163,10 @@ public class OptionValidatorTest {
     public void testExclusivity() {
         /* since we modify acceptable chars by add and removing ADDITIONAL* chars we must verify that they do not exist in the
          * base javaIdentiferPart that is used in OptionValidator to validate basic characters  */
-        for (char c : OptionValidator.ADDITIONAL_LONG_CHARS) {
+        for (final char c : OptionValidator.ADDITIONAL_LONG_CHARS) {
             assertFalse(Character.isJavaIdentifierPart(c), () -> String.format("'%s' should not be in 'ADDITIONAL_LONG_CHARS", c));
         }
-        for (char c : OptionValidator.ADDITIONAL_OPTION_CHARS) {
+        for (final char c : OptionValidator.ADDITIONAL_OPTION_CHARS) {
             assertFalse(Character.isJavaIdentifierPart(c), () -> String.format("'%s' should not be in 'ADDITIONAL_OPTION_CHARS", c));
         }
     }

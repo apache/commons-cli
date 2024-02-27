@@ -73,14 +73,13 @@ public class OptionsTest {
         options1.addOption(Option.builder("e").build());
         options1.addOption(Option.builder("f").build());
 
-        Options underTest = new Options();
+        final Options underTest = new Options();
         underTest.addOptions(options1);
         underTest.addOptions(options2);
 
-        List<OptionGroup> expected = Arrays.asList(group1, group2);
+        final List<OptionGroup> expected = Arrays.asList(group1, group2);
         assertTrue(expected.size() == underTest.getOptionGroups().size() && expected.containsAll(underTest.getOptionGroups()));
-        Set<Option> expectOpt = new HashSet<>();
-        expectOpt.addAll(options1.getOptions());
+        final Set<Option> expectOpt = new HashSet<>(options1.getOptions());
         expectOpt.addAll(options2.getOptions());
         assertEquals(8, expectOpt.size());
         assertTrue(expectOpt.size() == underTest.getOptions().size() && expectOpt.containsAll(underTest.getOptions()));

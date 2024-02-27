@@ -39,10 +39,10 @@ public class BugCLI325Test {
         .desc("Multiple arg option with value separator.")
         .build();
 
-        String[] args = {"-x", "A=a", "B=b"};
+        final String[] args = {"-x", "A=a", "B=b"};
 
-        CommandLine cmdLine = DefaultParser.builder().build().parse(new Options().addOption(option), args);
-        Properties props = cmdLine.getOptionProperties(option);
+        final CommandLine cmdLine = DefaultParser.builder().build().parse(new Options().addOption(option), args);
+        final Properties props = cmdLine.getOptionProperties(option);
         assertEquals(2, props.size());
         assertEquals("a", props.get("A"));
         assertEquals("b", props.get("B"));

@@ -159,7 +159,7 @@ public class Options implements Serializable {
      * @since 1.7.0
      */
     public Options addOptions(final Options options) {
-        for (Option opt : options.getOptions()) {
+        for (final Option opt : options.getOptions()) {
             if (hasOption(opt.getKey())) {
                 throw new IllegalArgumentException("Duplicate key: " + opt.getKey());
             }
