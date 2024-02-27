@@ -176,7 +176,6 @@ public class CommandLine implements Serializable {
      * the last value is assumed to be a boolean with a value of "true".
      * @param props the properties to update.
      * @param values the list of values to parse.
-     * @since 1.7.0
      */
     private void processPropertiesFromValues(final Properties props, final List<String> values) {
         for (int i = 0; i < values.size(); i += 2) {
