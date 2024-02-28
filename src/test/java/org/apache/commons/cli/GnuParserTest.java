@@ -17,14 +17,14 @@
 
 package org.apache.commons.cli;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class GnuParserTest extends AbstractParserTestCase {
     @Override
-    @Before
+    @BeforeEach
     public void setUp() {
         super.setUp();
         parser = new GnuParser();
@@ -32,133 +32,133 @@ public class GnuParserTest extends AbstractParserTestCase {
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testAmbiguousLongWithoutEqualSingleDash() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testAmbiguousLongWithoutEqualSingleDash2() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testAmbiguousPartialLongOption1() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testAmbiguousPartialLongOption2() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testAmbiguousPartialLongOption3() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testAmbiguousPartialLongOption4() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testBursting() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testDoubleDash2() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testLongWithoutEqualSingleDash() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testLongWithUnexpectedArgument1() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testLongWithUnexpectedArgument2() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testMissingArgWithBursting() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser (CLI-184)")
+    @Disabled("not supported by the GnuParser (CLI-184)")
     public void testNegativeOption() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testPartialLongOptionSingleDash() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testShortWithUnexpectedArgument() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testStopBursting() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testStopBursting2() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testUnambiguousPartialLongOption1() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testUnambiguousPartialLongOption2() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testUnambiguousPartialLongOption3() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testUnambiguousPartialLongOption4() throws Exception {
     }
 
     @Override
     @Test
-    @Ignore("not supported by the GnuParser")
+    @Disabled("not supported by the GnuParser")
     public void testUnrecognizedOptionWithBursting() throws Exception {
     }
 }

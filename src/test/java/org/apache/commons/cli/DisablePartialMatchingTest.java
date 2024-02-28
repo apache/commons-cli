@@ -17,10 +17,10 @@
 
 package org.apache.commons.cli;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DisablePartialMatchingTest {
     @Test
@@ -35,9 +35,9 @@ public class DisablePartialMatchingTest {
 
         final CommandLine line = parser.parse(options, new String[] {"-de", "--option=foobar"});
 
-        assertTrue("There should be an option debug in any case...", line.hasOption("debug"));
-        assertTrue("There should be an extract option because partial matching is off", line.hasOption("extract"));
-        assertTrue("There should be an option option with a argument value", line.hasOption("option"));
+        assertTrue(line.hasOption("debug"), "There should be an option debug in any case...");
+        assertTrue(line.hasOption("extract"), "There should be an extract option because partial matching is off");
+        assertTrue(line.hasOption("option"), "There should be an option option with a argument value");
     }
 
     @Test
@@ -52,8 +52,8 @@ public class DisablePartialMatchingTest {
 
         final CommandLine line = parser.parse(options, new String[] {"-de", "--option=foobar"});
 
-        assertTrue("There should be an option debug in any case...", line.hasOption("debug"));
-        assertFalse("There should not be an extract option because partial matching only selects debug", line.hasOption("extract"));
-        assertTrue("There should be an option option with a argument value", line.hasOption("option"));
+        assertTrue(line.hasOption("debug"), "There should be an option debug in any case...");
+        assertFalse(line.hasOption("extract"), "There should not be an extract option because partial matching only selects debug");
+        assertTrue(line.hasOption("option"), "There should be an option option with a argument value");
     }
 }

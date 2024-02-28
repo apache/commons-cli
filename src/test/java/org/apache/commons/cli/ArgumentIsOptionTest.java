@@ -17,12 +17,12 @@
 
 package org.apache.commons.cli;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class ArgumentIsOptionTest {
@@ -30,7 +30,7 @@ public class ArgumentIsOptionTest {
     private Options options;
     private CommandLineParser parser;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         options = new Options().addOption("p", false, "Option p").addOption("attr", true, "Option accepts argument");
         parser = new PosixParser();
@@ -41,9 +41,9 @@ public class ArgumentIsOptionTest {
         final String[] args = {"-p"};
 
         final CommandLine cl = parser.parse(options, args);
-        assertTrue("Confirm -p is set", cl.hasOption("p"));
-        assertFalse("Confirm -attr is not set", cl.hasOption("attr"));
-        assertEquals("Confirm all arguments recognized", 0, cl.getArgs().length);
+        assertTrue(cl.hasOption("p"), "Confirm -p is set");
+        assertFalse(cl.hasOption("attr"), "Confirm -attr is not set");
+        assertEquals(0, cl.getArgs().length, "Confirm all arguments recognized");
     }
 
     @Test
@@ -51,10 +51,10 @@ public class ArgumentIsOptionTest {
         final String[] args = {"-p", "-attr", "p"};
 
         final CommandLine cl = parser.parse(options, args);
-        assertTrue("Confirm -p is set", cl.hasOption("p"));
-        assertTrue("Confirm -attr is set", cl.hasOption("attr"));
-        assertEquals("Confirm arg of -attr", "p", cl.getOptionValue("attr"));
-        assertEquals("Confirm all arguments recognized", 0, cl.getArgs().length);
+        assertTrue(cl.hasOption("p"), "Confirm -p is set");
+        assertTrue(cl.hasOption("attr"), "Confirm -attr is set");
+        assertEquals("p", cl.getOptionValue("attr"), "Confirm arg of -attr");
+        assertEquals(0, cl.getArgs().length, "Confirm all arguments recognized");
     }
 
     @Test
@@ -62,9 +62,9 @@ public class ArgumentIsOptionTest {
         final String[] args = {"-attr", "p"};
 
         final CommandLine cl = parser.parse(options, args);
-        assertFalse("Confirm -p is set", cl.hasOption("p"));
-        assertTrue("Confirm -attr is set", cl.hasOption("attr"));
-        assertEquals("Confirm arg of -attr", "p", cl.getOptionValue("attr"));
-        assertEquals("Confirm all arguments recognized", 0, cl.getArgs().length);
+        assertFalse(cl.hasOption("p"), "Confirm -p is set");
+        assertTrue(cl.hasOption("attr"), "Confirm -attr is set");
+        assertEquals("p", cl.getOptionValue("attr"), "Confirm arg of -attr");
+        assertEquals(0, cl.getArgs().length, "Confirm all arguments recognized");
     }
 }

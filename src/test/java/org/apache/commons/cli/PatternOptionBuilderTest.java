@@ -17,12 +17,12 @@
 
 package org.apache.commons.cli;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,15 +31,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for the PatternOptionBuilder class.
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class PatternOptionBuilderTest {
-    @BeforeClass
+    @BeforeAll
     public static void setup() {
         PatternOptionBuilder.registerTypes();
     }
@@ -50,8 +50,8 @@ public class PatternOptionBuilderTest {
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, new String[] {"-c", "java.util.Calendar", "-d", "System.DateTime"});
 
-        assertEquals("c value", Calendar.class, line.getOptionObject("c"));
-        assertNull("d value", line.getOptionObject("d"));
+        assertEquals(Calendar.class, line.getOptionObject("c"), "c value");
+        assertNull(line.getOptionObject("d"), "d value");
     }
 
     @Test
@@ -68,8 +68,8 @@ public class PatternOptionBuilderTest {
 
         final Object parsedReadableFileStream = line.getOptionObject("g");
 
-        assertNotNull("option g not parsed", parsedReadableFileStream);
-        assertTrue("option g not FileInputStream", parsedReadableFileStream instanceof FileInputStream);
+        assertNotNull(parsedReadableFileStream, "option g not parsed");
+        assertTrue(parsedReadableFileStream instanceof FileInputStream, "option g not FileInputStream");
     }
 
     @Test
@@ -78,7 +78,7 @@ public class PatternOptionBuilderTest {
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, new String[] {"-f", "non-existing.file"});
 
-        assertNull("option f parsed", line.getOptionObject("f"));
+        assertNull(line.getOptionObject("f"), "option f parsed");
     }
 
     @Test
@@ -89,13 +89,13 @@ public class PatternOptionBuilderTest {
         //assertThrows(ParseException.class, () -> parser.parse(options, new String[] {"-n", "1", "-d", "2.1", "-x", "3,5"}));
 
         final CommandLine line = parser.parse(options, new String[] {"-n", "1", "-d", "2.1", "-x", "3,5"});
-        assertEquals("n object class", Long.class, line.getOptionObject("n").getClass());
-        assertEquals("n value", Long.valueOf(1), line.getOptionObject("n"));
+        assertEquals(Long.class, line.getOptionObject("n").getClass(), "n object class");
+        assertEquals(Long.valueOf(1), line.getOptionObject("n"), "n value");
 
-        assertEquals("d object class", Double.class, line.getOptionObject("d").getClass());
-        assertEquals("d value", Double.valueOf(2.1), line.getOptionObject("d"));
+        assertEquals(Double.class, line.getOptionObject("d").getClass(), "d object class");
+        assertEquals(Double.valueOf(2.1), line.getOptionObject("d"), "d value");
 
-        assertNull("x object", line.getOptionObject("x"));
+        assertNull(line.getOptionObject("x"), "x object");
     }
 
     @Test
@@ -104,9 +104,9 @@ public class PatternOptionBuilderTest {
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, new String[] {"-o", "java.lang.String", "-i", "java.util.Calendar", "-n", "System.DateTime"});
 
-        assertEquals("o value", "", line.getOptionObject("o"));
-        assertNull("i value", line.getOptionObject("i"));
-        assertNull("n value", line.getOptionObject("n"));
+        assertEquals("", line.getOptionObject("o"), "o value");
+        assertNull(line.getOptionObject("i"), "i value");
+        assertNull(line.getOptionObject("n"), "n value");
     }
 
     @Test
@@ -132,36 +132,36 @@ public class PatternOptionBuilderTest {
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, args);
 
-        assertEquals("flag a", "foo", line.getOptionValue("a"));
-        assertEquals("string flag a", "foo", line.getOptionObject("a"));
-        assertEquals("object flag b", new Vector<>(), line.getOptionObject("b"));
-        assertTrue("boolean true flag c", line.hasOption("c"));
-        assertFalse("boolean false flag d", line.hasOption("d"));
-        assertEquals("file flag e", new File("build.xml"), line.getOptionObject("e"));
-        assertEquals("class flag f", Calendar.class, line.getOptionObject("f"));
-        assertEquals("number flag n", Double.valueOf(4.5), line.getOptionObject("n"));
-        assertEquals("url flag t", new URL("https://commons.apache.org"), line.getOptionObject("t"));
+        assertEquals("foo", line.getOptionValue("a"), "flag a");
+        assertEquals("foo", line.getOptionObject("a"), "string flag a");
+        assertEquals(new Vector<>(), line.getOptionObject("b"), "object flag b");
+        assertTrue(line.hasOption("c"), "boolean true flag c");
+        assertFalse(line.hasOption("d"), "boolean false flag d");
+        assertEquals(new File("build.xml"), line.getOptionObject("e"), "file flag e");
+        assertEquals(Calendar.class, line.getOptionObject("f"), "class flag f");
+        assertEquals(Double.valueOf(4.5), line.getOptionObject("n"), "number flag n");
+        assertEquals(new URL("https://commons.apache.org"), line.getOptionObject("t"), "url flag t");
 
         // tests the char methods of CommandLine that delegate to the String methods
-        assertEquals("flag a", "foo", line.getOptionValue('a'));
-        assertEquals("string flag a", "foo", line.getOptionObject('a'));
-        assertEquals("object flag b", new Vector<>(), line.getOptionObject('b'));
-        assertTrue("boolean true flag c", line.hasOption('c'));
-        assertFalse("boolean false flag d", line.hasOption('d'));
-        assertEquals("file flag e", new File("build.xml"), line.getOptionObject('e'));
-        assertEquals("class flag f", Calendar.class, line.getOptionObject('f'));
-        assertEquals("number flag n", Double.valueOf(4.5), line.getOptionObject('n'));
-        assertEquals("url flag t", new URL("https://commons.apache.org"), line.getOptionObject('t'));
+        assertEquals("foo", line.getOptionValue('a'), "flag a");
+        assertEquals("foo", line.getOptionObject('a'), "string flag a");
+        assertEquals(new Vector<>(), line.getOptionObject('b'), "object flag b");
+        assertTrue(line.hasOption('c'), "boolean true flag c");
+        assertFalse(line.hasOption('d'), "boolean false flag d");
+        assertEquals(new File("build.xml"), line.getOptionObject('e'), "file flag e");
+        assertEquals(Calendar.class, line.getOptionObject('f'), "class flag f");
+        assertEquals(Double.valueOf(4.5), line.getOptionObject('n'), "number flag n");
+        assertEquals(new URL("https://commons.apache.org"), line.getOptionObject('t'), "url flag t");
 
         // FILES NOT SUPPORTED YET
         try {
-            assertEquals("files flag m", new File[0], line.getOptionObject('m'));
+            assertEquals(new File[0], line.getOptionObject('m'), "files flag m");
             fail("Multiple files are not supported yet, should have failed");
         } catch (final UnsupportedOperationException uoe) {
             // expected
         }
 
-        assertEquals("date flag z", new Date(1023400137000L), line.getOptionObject('z'));
+        assertEquals(new Date(1023400137000L), line.getOptionObject('z'), "date flag z");
 
     }
 
@@ -172,11 +172,11 @@ public class PatternOptionBuilderTest {
         final CommandLine line = parser.parse(options, new String[] {"-abc"});
 
         assertTrue(line.hasOption('a'));
-        assertNull("value a", line.getOptionObject('a'));
+        assertNull(line.getOptionObject('a'), "value a");
         assertTrue(line.hasOption('b'));
-        assertNull("value b", line.getOptionObject('b'));
+        assertNull(line.getOptionObject('b'), "value b");
         assertTrue(line.hasOption('c'));
-        assertNull("value c", line.getOptionObject('c'));
+        assertNull(line.getOptionObject('c'), "value c");
     }
 
     @Test
@@ -185,7 +185,7 @@ public class PatternOptionBuilderTest {
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, new String[] {"-u", "https://commons.apache.org", "-v", "foo://commons.apache.org"});
 
-        assertEquals("u value", new URL("https://commons.apache.org"), line.getOptionObject("u"));
-        assertNull("v value", line.getOptionObject("v"));
+        assertEquals(new URL("https://commons.apache.org"), line.getOptionObject("u"), "u value");
+        assertNull(line.getOptionObject("v"), "v value");
     }
 }

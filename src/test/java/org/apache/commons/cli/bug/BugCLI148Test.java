@@ -17,15 +17,15 @@
 
 package org.apache.commons.cli.bug;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * https://issues.apache.org/jira/browse/CLI-148
@@ -34,7 +34,7 @@ import org.junit.Test;
 public class BugCLI148Test {
     private Options options;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         options = new Options();
         options.addOption(OptionBuilder.hasArg().create('t'));
