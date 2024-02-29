@@ -43,7 +43,7 @@ import java.util.Objects;
 public class Option implements Cloneable, Serializable {
 
     /**
-     * A nested builder class to create {@code Option} instances using descriptive methods.
+     * Builds {@code Option} instances using descriptive methods.
      * <p>
      * Example usage:
      * </p>
@@ -122,6 +122,7 @@ public class Option implements Cloneable, Serializable {
 
         /**
          * Sets the converter for the option.
+         *
          * <p>Note: see {@link TypeHandler} for serialization discussion.</p>
          * @param converter the Converter to use.
          * @return this builder, to allow method chaining.
@@ -144,7 +145,7 @@ public class Option implements Cloneable, Serializable {
         }
 
         /**
-         * Indicates that the Option will require an argument.
+         * Tests whether the Option will require an argument.
          *
          * @return this builder, to allow method chaining
          */
@@ -153,7 +154,7 @@ public class Option implements Cloneable, Serializable {
         }
 
         /**
-         * Indicates if the Option has an argument or not.
+         * Tests whether the Option has an argument or not.
          *
          * @param hasArg specifies whether the Option takes an argument or not
          * @return this builder, to allow method chaining
@@ -165,7 +166,7 @@ public class Option implements Cloneable, Serializable {
         }
 
         /**
-         * Indicates that the Option can have unlimited argument values.
+         * Tests whether the Option can have unlimited argument values.
          *
          * @return this builder, to allow method chaining
          */
@@ -424,7 +425,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Tells if the option can accept more arguments.
+     * Tests whether the option can accept more arguments.
      *
      * @return false if the maximum number of arguments is reached
      * @since 1.3
@@ -434,7 +435,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Add the value to this Option. If the number of arguments is greater than zero and there is enough space in the list
+     * Adds the value to this Option. If the number of arguments is greater than zero and there is enough space in the list
      * then add the value. Otherwise, throw a runtime exception.
      *
      * @param value The value to be added to this Option
@@ -477,7 +478,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Clear the Option values. After a parse is complete, these are left with data in them and they need clearing if
+     * Clears the Option values. After a parse is complete, these are left with data in them and they need clearing if
      * another parse is done.
      *
      * See: <a href="https://issues.apache.org/jira/browse/CLI-71">CLI-71</a>
@@ -487,8 +488,8 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * A rather odd clone method - due to incorrect code in 1.0 it is public and in 1.1 rather than throwing a
-     * CloneNotSupportedException it throws a RuntimeException so as to maintain backwards compat at the API level.
+     * A rather odd clone method - due to incorrect code in 1.0 it is public and in 1.1 rather than throwing a CloneNotSupportedException it throws a
+     * RuntimeException so as to maintain backwards compatible at the API level.
      *
      * After calling this method, it is very likely you will want to call clearValues().
      *
@@ -546,6 +547,7 @@ public class Option implements Cloneable, Serializable {
 
     /**
      * Gets the value to type converter.
+     *
      * @return the value to type converter
      * @since 1.7.0
      */
@@ -677,7 +679,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Query to see if this Option requires an argument
+     * Tests whether this Option requires an argument
      *
      * @return boolean flag indicating if an argument is required
      */
@@ -686,7 +688,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns whether the display name for the argument value has been set.
+     * Tests whether the display name for the argument value has been set.
      *
      * @return if the display name for the argument value has been set.
      */
@@ -695,7 +697,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Query to see if this Option can take many values.
+     * Tests whether this Option can take many values.
      *
      * @return boolean flag indicating if multiple values are allowed
      */
@@ -709,7 +711,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Query to see if this Option has a long name
+     * Tests whether this Option has a long name
      *
      * @return boolean flag indicating existence of a long name
      */
@@ -718,7 +720,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns whether this Option has any values.
+     * Tests whether this Option has any values.
      *
      * @return whether this Option has any values.
      */
@@ -727,7 +729,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Returns whether this Option can have an optional argument.
+     * Tests whether this Option can have an optional argument.
      *
      * @return whether this Option can have an optional argument
      */
@@ -736,7 +738,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Return whether this Option has specified a value separator.
+     * Tests whether this Option has specified a value separator.
      *
      * @return whether this Option has specified a value separator.
      * @since 1.1
@@ -746,7 +748,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Query to see if this Option is mandatory
+     * Tests whether this Option is required.
      *
      * @return boolean flag indicating whether this Option is mandatory
      */
@@ -796,7 +798,7 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Tells if the option requires more arguments to be valid.
+     * Tests whether the option requires more arguments to be valid.
      *
      * @return false if the option doesn't require more arguments
      * @since 1.3
@@ -910,9 +912,9 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Dump state, suitable for debugging.
+     * Creates a String suitable for debugging.
      *
-     * @return Stringified form of this object
+     * @return a String suitable for debugging.
      */
     @Override
     public String toString() {
