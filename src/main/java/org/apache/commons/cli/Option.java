@@ -573,11 +573,13 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the 'unique' Option identifier.
+     * Gets the 'unique' Option identifier.  This is the option value if set or the long value
+     * if the options value is not set.
      *
      * @return the 'unique' Option identifier
+     * @since 1.7.0
      */
-    String getKey() {
+    public String getKey() {
         // if 'opt' is null, then it is a 'long' option
         return option == null ? longOption : option;
     }
