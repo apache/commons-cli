@@ -21,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -75,8 +77,10 @@ public class ConverterTests {
     public void dateTests() throws Exception {
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("whatever"));
 
-        final Date d = new Date(1023400137000L);
-        assertEquals(d, Converter.DATE.apply("Thu Jun 06 17:48:57 EDT 2002"));
+        final Date expected = new Date(1023400137000L);
+        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+        String formatted = dateFormat.format(expected);
+        assertEquals(expected, Converter.DATE.apply(formatted));
 
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("Jun 06 17:48:57 EDT 2002"));
     }

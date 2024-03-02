@@ -27,6 +27,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
@@ -126,8 +128,10 @@ public class PatternOptionBuilderTest {
     @Test
     public void testSimplePattern() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/m*z#");
+        final Date expectedDate = new Date(1023400137000L);
+        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
         final String[] args = {"-c", "-a", "foo", "-b", "java.util.Vector", "-e", "build.xml", "-f", "java.util.Calendar", "-n", "4.5", "-t",
-            "https://commons.apache.org", "-z", "Thu Jun 06 17:48:57 EDT 2002", "-m", "test*"};
+            "https://commons.apache.org", "-z", dateFormat.format(expectedDate), "-m", "test*"};
 
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, args);
@@ -161,7 +165,7 @@ public class PatternOptionBuilderTest {
             // expected
         }
 
-        assertEquals(new Date(1023400137000L), line.getOptionObject('z'), "date flag z");
+        assertEquals(expectedDate, line.getOptionObject('z'), "date flag z");
 
     }
 

@@ -28,6 +28,8 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,19 +64,21 @@ public class TypeHandlerTest {
     }
 
     private static Stream<Arguments> createValueTestParameters() {
-        // forse the PatternOptionBuilder to load / modify the TypeHandler table.
+        // force the PatternOptionBuilder to load / modify the TypeHandler table.
         final Class<?> ignore = PatternOptionBuilder.FILES_VALUE;
         // reset the type handler table.
         TypeHandler.resetConverters();
         final List<Arguments> lst = new ArrayList<>();
+
+        final Date date = new Date(1023400137000L);
+        final DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 
         try {
             lst.add(Arguments.of(Instantiable.class.getName(), PatternOptionBuilder.CLASS_VALUE, Instantiable.class));
             lst.add(Arguments.of("what ever", PatternOptionBuilder.CLASS_VALUE, ParseException.class));
 
             lst.add(Arguments.of("what ever", PatternOptionBuilder.DATE_VALUE, ParseException.class));
-            lst.add(Arguments.of("Thu Jun 06 17:48:57 EDT 2002", PatternOptionBuilder.DATE_VALUE,
-                    new Date(1023400137000L)));
+            lst.add(Arguments.of(dateFormat.format(date), PatternOptionBuilder.DATE_VALUE, date));
             lst.add(Arguments.of("Jun 06 17:48:57 EDT 2002", PatternOptionBuilder.DATE_VALUE, ParseException.class));
 
             lst.add(Arguments.of("non-existing.file", PatternOptionBuilder.EXISTING_FILE_VALUE, ParseException.class));
