@@ -70,6 +70,12 @@ public class TypeHandlerTest {
         TypeHandler.resetConverters();
         final List<Arguments> lst = new ArrayList<>();
 
+        /*
+         * Dates calculated from strings are dependent upon configuration and environment settings for the
+         * machine on which the test is running.  To avoid this problem, convert the time into a string
+         * and then unparse that using the converter.  This produces strings that always match the correct
+         * time zone.
+         */
         final Date date = new Date(1023400137000L);
         final DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 

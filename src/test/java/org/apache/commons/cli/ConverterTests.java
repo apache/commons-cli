@@ -77,6 +77,12 @@ public class ConverterTests {
     public void dateTests() throws Exception {
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("whatever"));
 
+        /*
+         * Dates calculated from strings are dependent upon configuration and environment settings for the
+         * machine on which the test is running.  To avoid this problem, convert the time into a string
+         * and then unparse that using the converter.  This produces strings that always match the correct
+         * time zone.
+         */
         final Date expected = new Date(1023400137000L);
         DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
         String formatted = dateFormat.format(expected);

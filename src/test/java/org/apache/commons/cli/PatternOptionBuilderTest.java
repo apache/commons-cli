@@ -127,6 +127,12 @@ public class PatternOptionBuilderTest {
 
     @Test
     public void testSimplePattern() throws Exception {
+        /*
+         * Dates calculated from strings are dependent upon configuration and environment settings for the
+         * machine on which the test is running.  To avoid this problem, convert the time into a string
+         * and then unparse that using the converter.  This produces strings that always match the correct
+         * time zone.
+         */
         final Options options = PatternOptionBuilder.parsePattern("a:b@cde>f+n%t/m*z#");
         final Date expectedDate = new Date(1023400137000L);
         DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
