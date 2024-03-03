@@ -84,8 +84,8 @@ public class ConverterTests {
          * time zone.
          */
         final Date expected = new Date(1023400137000L);
-        DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-        String formatted = dateFormat.format(expected);
+        final DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+        final String formatted = dateFormat.format(expected);
         assertEquals(expected, Converter.DATE.apply(formatted));
 
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("Jun 06 17:48:57 EDT 2002"));
