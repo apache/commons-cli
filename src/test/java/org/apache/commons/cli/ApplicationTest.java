@@ -215,7 +215,7 @@ public class ApplicationTest {
                 //FIXME - should generate -S,--sections list
                 addOption("S", "sections", true, "use colon separated section list.").
                 //FIXME - should generate -m,--systems system
-                addOption("m", "systems", true, "search for man pages from other Unix system(s).").
+                addOption("m", "systems", true, "search for man pages from other UNIX system(s).").
                 //FIXME - should generate -L,--locale locale
                 addOption("L", "locale", true, "define the locale for this particular man search.").
                 //FIXME - should generate -p,--preprocessor string
@@ -254,7 +254,7 @@ public class ApplicationTest {
                         " -M,--manpath <arg>        set search path for manual pages" + eol +
                         "                           to 'path'." + eol +
                         " -m,--systems <arg>        search for man pages from other" + eol +
-                        "                           Unix system(s)." + eol +
+                        "                           UNIX system(s)." + eol +
                         " -P,--pager <arg>          use program 'pager' to display" + eol +
                         "                           output." + eol +
                         " -p,--preprocessor <arg>   string indicates which" + eol +
