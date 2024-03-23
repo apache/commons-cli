@@ -47,7 +47,7 @@ import org.junit.jupiter.api.Test;
 public class BugsTest {
     @Test
     public void test11456() throws Exception {
-        // Posix
+        // POSIX
         Options options = new Options();
         options.addOption(OptionBuilder.hasOptionalArg().create('a'));
         options.addOption(OptionBuilder.hasArg().create('b'));
