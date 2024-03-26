@@ -32,11 +32,9 @@ import java.util.List;
 
 /**
  * A formatter of help messages for command line options.
- *
  * <p>
  * Example:
  * </p>
- *
  * <pre>
  * Options options = new Options();
  * options.addOption(OptionBuilder.withLongOpt("file").withDescription("The file to be processed").hasArg().withArgName("FILE").isRequired().create('f'));
@@ -49,9 +47,9 @@ import java.util.List;
  * HelpFormatter formatter = new HelpFormatter();
  * formatter.printHelp("myapp", header, options, footer, true);
  * </pre>
- *
+ * <p>
  * This produces the following output:
- *
+ * </p>
  * <pre>
  * usage: myapp -f &lt;FILE&gt; [-h] [-v]
  * Do something useful with an input file
@@ -202,19 +200,16 @@ public class HelpFormatter {
         if (!required) {
             buff.append("[");
         }
-
         if (option.getOpt() != null) {
             buff.append("-").append(option.getOpt());
         } else {
             buff.append("--").append(option.getLongOpt());
         }
-
         // if the Option has a value and a non blank argname
         if (option.hasArg() && (option.getArgName() == null || !option.getArgName().isEmpty())) {
             buff.append(option.getOpt() == null ? longOptSeparator : " ");
             buff.append("<").append(option.getArgName() != null ? option.getArgName() : getArgName()).append(">");
         }
-
         // if the Option is not a required option
         if (!required) {
             buff.append("]");
@@ -263,7 +258,6 @@ public class HelpFormatter {
     protected String createPadding(final int len) {
         final char[] padding = new char[len];
         Arrays.fill(padding, ' ');
-
         return new String(padding);
     }
 
@@ -283,16 +277,13 @@ public class HelpFormatter {
         if (pos != -1 && pos <= width) {
             return pos + 1;
         }
-
         pos = text.indexOf('\t', startPos);
         if (pos != -1 && pos <= width) {
             return pos + 1;
         }
-
         if (startPos + width >= text.length()) {
             return -1;
         }
-
         // look for the last whitespace character before startPos+width
         for (pos = startPos + width; pos >= startPos; --pos) {
             final char c = text.charAt(pos);
@@ -300,12 +291,10 @@ public class HelpFormatter {
                 break;
             }
         }
-
         // if we found it - just return
         if (pos > startPos) {
             return pos;
         }
-
         // if we didn't find one, simply chop at startPos+width
         pos = startPos + width;
 
@@ -433,7 +422,6 @@ public class HelpFormatter {
     public void printHelp(final int width, final String cmdLineSyntax, final String header, final Options options, final String footer,
         final boolean autoUsage) {
         final PrintWriter pw = new PrintWriter(System.out);
-
         printHelp(pw, width, cmdLineSyntax, header, options, getLeftPadding(), getDescPadding(), footer, autoUsage);
         pw.flush();
     }
@@ -477,19 +465,15 @@ public class HelpFormatter {
         if (cmdLineSyntax == null || cmdLineSyntax.isEmpty()) {
             throw new IllegalArgumentException("cmdLineSyntax not provided");
         }
-
         if (autoUsage) {
             printUsage(pw, width, cmdLineSyntax, options);
         } else {
             printUsage(pw, width, cmdLineSyntax);
         }
-
         if (header != null && !header.isEmpty()) {
             printWrapped(pw, width, header);
         }
-
         printOptions(pw, width, options, leftPad, descPad);
-
         if (footer != null && !footer.isEmpty()) {
             printWrapped(pw, width, footer);
         }
@@ -557,7 +541,6 @@ public class HelpFormatter {
      */
     public void printOptions(final PrintWriter pw, final int width, final Options options, final int leftPad, final int descPad) {
         final StringBuffer sb = new StringBuffer();
-
         renderOptions(sb, width, options, leftPad, descPad);
         pw.println(sb.toString());
     }
@@ -571,7 +554,6 @@ public class HelpFormatter {
      */
     public void printUsage(final PrintWriter pw, final int width, final String cmdLineSyntax) {
         final int argPos = cmdLineSyntax.indexOf(' ') + 1;
-
         printWrapped(pw, width, getSyntaxPrefix().length() + argPos, getSyntaxPrefix() + cmdLineSyntax);
     }
 
@@ -586,10 +568,8 @@ public class HelpFormatter {
     public void printUsage(final PrintWriter pw, final int width, final String app, final Options options) {
         // initialize the string buffer
         final StringBuffer buff = new StringBuffer(getSyntaxPrefix()).append(app).append(" ");
-
         // create a list for processed option groups
         final Collection<OptionGroup> processedGroups = new ArrayList<>();
-
         final List<Option> optList = new ArrayList<>(options.getOptions());
         if (getOptionComparator() != null) {
             Collections.sort(optList, getOptionComparator());
@@ -598,30 +578,24 @@ public class HelpFormatter {
         for (final Iterator<Option> it = optList.iterator(); it.hasNext();) {
             // get the next Option
             final Option option = it.next();
-
             // check if the option is part of an OptionGroup
             final OptionGroup group = options.getOptionGroup(option);
-
             // if the option is part of a group
             if (group != null) {
                 // and if the group has not already been processed
                 if (!processedGroups.contains(group)) {
                     // add the group to the processed list
                     processedGroups.add(group);
-
                     // add the usage clause
                     appendOptionGroup(buff, group);
                 }
-
                 // otherwise the option was displayed in the group
                 // previously so ignore it.
             }
-
             // if the Option is not part of an OptionGroup
             else {
                 appendOption(buff, option, option.isRequired());
             }
-
             if (it.hasNext()) {
                 buff.append(" ");
             }
@@ -641,7 +615,6 @@ public class HelpFormatter {
      */
     public void printWrapped(final PrintWriter pw, final int width, final int nextLineTabStop, final String text) {
         final StringBuffer sb = new StringBuffer(text.length());
-
         renderWrappedTextBlock(sb, width, nextLineTabStop, text);
         pw.println(sb.toString());
     }
@@ -671,33 +644,26 @@ public class HelpFormatter {
     protected StringBuffer renderOptions(final StringBuffer sb, final int width, final Options options, final int leftPad, final int descPad) {
         final String lpad = createPadding(leftPad);
         final String dpad = createPadding(descPad);
-
         // first create list containing only <lpad>-a,--aaa where
         // -a is opt and --aaa is long opt; in parallel look for
         // the longest opt string this list will be then used to
         // sort options ascending
         int max = 0;
         final List<StringBuffer> prefixList = new ArrayList<>();
-
         final List<Option> optList = options.helpOptions();
-
         if (getOptionComparator() != null) {
             Collections.sort(optList, getOptionComparator());
         }
-
         for (final Option option : optList) {
             final StringBuffer optBuf = new StringBuffer();
-
             if (option.getOpt() == null) {
                 optBuf.append(lpad).append("   ").append(getLongOptPrefix()).append(option.getLongOpt());
             } else {
                 optBuf.append(lpad).append(getOptPrefix()).append(option.getOpt());
-
                 if (option.hasLongOpt()) {
                     optBuf.append(',').append(getLongOptPrefix()).append(option.getLongOpt());
                 }
             }
-
             if (option.hasArg()) {
                 final String argName = option.getArgName();
                 if (argName != null && argName.isEmpty()) {
@@ -708,36 +674,26 @@ public class HelpFormatter {
                     optBuf.append("<").append(argName != null ? option.getArgName() : getArgName()).append(">");
                 }
             }
-
             prefixList.add(optBuf);
             max = Math.max(optBuf.length(), max);
         }
-
         int x = 0;
-
         for (final Iterator<Option> it = optList.iterator(); it.hasNext();) {
             final Option option = it.next();
             final StringBuilder optBuf = new StringBuilder(prefixList.get(x++).toString());
-
             if (optBuf.length() < max) {
                 optBuf.append(createPadding(max - optBuf.length()));
             }
-
             optBuf.append(dpad);
-
             final int nextLineTabStop = max + descPad;
-
             if (option.getDescription() != null) {
                 optBuf.append(option.getDescription());
             }
-
             renderWrappedText(sb, width, nextLineTabStop, optBuf.toString());
-
             if (it.hasNext()) {
                 sb.append(getNewLine());
             }
         }
-
         return sb;
     }
 
@@ -755,36 +711,27 @@ public class HelpFormatter {
         String render = text;
         int nextLineTabStopPos = nextLineTabStop;
         int pos = findWrapPos(render, width, 0);
-
         if (pos == -1) {
             sb.append(rtrim(render));
-
             return sb;
         }
         sb.append(rtrim(render.substring(0, pos))).append(getNewLine());
-
         if (nextLineTabStopPos >= width) {
             // stops infinite loop happening
             nextLineTabStopPos = 1;
         }
-
         // all following lines must be padded with nextLineTabStop space characters
         final String padding = createPadding(nextLineTabStopPos);
-
         while (true) {
             render = padding + render.substring(pos).trim();
             pos = findWrapPos(render, width, 0);
-
             if (pos == -1) {
                 sb.append(render);
-
                 return sb;
             }
-
             if (render.length() > width && pos == nextLineTabStopPos - 1) {
                 pos = width;
             }
-
             sb.append(rtrim(render.substring(0, pos))).append(getNewLine());
         }
     }
@@ -814,7 +761,6 @@ public class HelpFormatter {
         } catch (final IOException e) { // NOPMD
             // cannot happen
         }
-
         return sb;
     }
 
@@ -829,13 +775,10 @@ public class HelpFormatter {
         if (s == null || s.isEmpty()) {
             return s;
         }
-
         int pos = s.length();
-
         while (pos > 0 && Character.isWhitespace(s.charAt(pos - 1))) {
             --pos;
         }
-
         return s.substring(0, pos);
     }
 
