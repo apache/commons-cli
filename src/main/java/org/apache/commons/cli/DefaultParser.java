@@ -677,7 +677,7 @@ public class DefaultParser implements CommandLineParser {
             group.setSelected(null);
         }
 
-        cmd = new CommandLine();
+        cmd = CommandLine.builder().build();
 
         if (arguments != null) {
             for (final String argument : arguments) {

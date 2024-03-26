@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.function.Supplier;
 
@@ -46,10 +47,11 @@ public class CommandLine implements Serializable {
      */
     public static final class Builder {
 
-        /**
-         * CommandLine that is being build by this Builder.
-         */
-        private final CommandLine commandLine = new CommandLine();
+        /** The unrecognized options/arguments */
+        private final List<String> args = new LinkedList<>();
+
+        /** The processed options */
+        private final List<Option> options = new ArrayList<>();
 
         /**
          * Adds left-over unrecognized option/argument.
@@ -59,7 +61,9 @@ public class CommandLine implements Serializable {
          * @return this Builder instance for method chaining.
          */
         public Builder addArg(final String arg) {
-            commandLine.addArg(arg);
+            if (arg != null) {
+                args.add(arg);
+            }
             return this;
         }
 
@@ -71,7 +75,9 @@ public class CommandLine implements Serializable {
          * @return this Builder instance for method chaining.
          */
         public Builder addOption(final Option opt) {
-            commandLine.addOption(opt);
+            if (opt != null) {
+                options.add(opt);
+            }
             return this;
         }
 
@@ -81,24 +87,42 @@ public class CommandLine implements Serializable {
          * @return the new instance.
          */
         public CommandLine build() {
-            return commandLine;
+            return new CommandLine(args, options);
         }
+    }
+
+    /**
+     * Creates a new builder.
+     *
+     * @return a new builder.
+     * @since 1.7.0
+     */
+    public static Builder builder() {
+        return new Builder();
     }
 
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
     /** The unrecognized options/arguments */
-    private final List<String> args = new LinkedList<>();
+    private final List<String> args;
 
     /** The processed options */
-    private final List<Option> options = new ArrayList<>();
+    private final List<Option> options;
 
     /**
      * Creates a command line.
      */
     protected CommandLine() {
-        // nothing to do
+        this(new LinkedList<>(), new ArrayList<>());
+    }
+
+    /**
+     * Creates a command line.
+     */
+    private CommandLine(final List<String> args, final List<Option> options) {
+        this.args = Objects.requireNonNull(args, "args");
+        this.options = Objects.requireNonNull(options, "options");
     }
 
     /**

@@ -156,7 +156,7 @@ public abstract class Parser implements CommandLineParser {
         // initialize members
         setOptions(options);
 
-        cmd = new CommandLine();
+        cmd = CommandLine.builder().build();
 
         boolean eatTheRest = false;
 

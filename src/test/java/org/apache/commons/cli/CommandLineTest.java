@@ -113,7 +113,20 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testGetOptions() {
+    public void testGetOptionsBuilder() {
+        final CommandLine cmd = CommandLine.builder().build();
+        assertNotNull(cmd.getOptions());
+        assertEquals(0, cmd.getOptions().length);
+
+        cmd.addOption(new Option("a", null));
+        cmd.addOption(new Option("b", null));
+        cmd.addOption(new Option("c", null));
+
+        assertEquals(3, cmd.getOptions().length);
+    }
+
+    @Test
+    public void testGetOptionsCtor() {
         final CommandLine cmd = new CommandLine();
         assertNotNull(cmd.getOptions());
         assertEquals(0, cmd.getOptions().length);
