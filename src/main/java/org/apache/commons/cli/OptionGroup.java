@@ -27,6 +27,7 @@ import java.util.Map;
  * A group of mutually exclusive options.
  */
 public class OptionGroup implements Serializable {
+
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
@@ -49,7 +50,6 @@ public class OptionGroup implements Serializable {
         // key - option name
         // value - the option
         optionMap.put(option.getKey(), option);
-
         return this;
     }
 
@@ -104,7 +104,6 @@ public class OptionGroup implements Serializable {
             selected = null;
             return;
         }
-
         // if no option has already been selected or the
         // same option is being reselected then set the
         // selected member variable
@@ -122,14 +121,10 @@ public class OptionGroup implements Serializable {
     @Override
     public String toString() {
         final StringBuilder buff = new StringBuilder();
-
         final Iterator<Option> iter = getOptions().iterator();
-
         buff.append("[");
-
         while (iter.hasNext()) {
             final Option option = iter.next();
-
             if (option.getOpt() != null) {
                 buff.append("-");
                 buff.append(option.getOpt());
@@ -147,9 +142,7 @@ public class OptionGroup implements Serializable {
                 buff.append(", ");
             }
         }
-
         buff.append("]");
-
         return buff.toString();
     }
 }
