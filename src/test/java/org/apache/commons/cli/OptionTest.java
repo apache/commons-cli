@@ -90,38 +90,32 @@ public class OptionTest {
 
     @Test
     public void testBuilderInsufficientParams1() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder().desc("desc").build());
+        assertThrows(IllegalArgumentException.class, () -> Option.builder().desc("desc").build());
     }
 
     @Test
     public void testBuilderInsufficientParams2() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder(null).desc("desc").build());
+        assertThrows(IllegalArgumentException.class, () -> Option.builder(null).desc("desc").build());
     }
 
     @Test
     public void testBuilderInvalidOptionName1() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder().option("invalid?"));
+        assertThrows(IllegalArgumentException.class, () -> Option.builder().option("invalid?"));
     }
 
     @Test
     public void testBuilderInvalidOptionName2() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder().option("invalid@"));
+        assertThrows(IllegalArgumentException.class, () -> Option.builder().option("invalid@"));
     }
 
     @Test
     public void testBuilderInvalidOptionName3() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder("invalid?"));
+        assertThrows(IllegalArgumentException.class, () -> Option.builder("invalid?"));
     }
 
     @Test
     public void testBuilderInvalidOptionName4() {
-        assertThrows(IllegalArgumentException.class, () ->
-                Option.builder("invalid@"));
+        assertThrows(IllegalArgumentException.class, () -> Option.builder("invalid@"));
     }
 
     @Test
