@@ -360,13 +360,13 @@ public final class OptionBuilder {
         return INSTANCE;
     }
 
-    public static OptionBuilder withDeprecatedLongOpt(String deprecatedLongOption) {
+    public static OptionBuilder withDeprecatedLongOpt(final String deprecatedLongOption) {
         OptionBuilder.deprecatedLongOption = deprecatedLongOption;
 
         return INSTANCE;
     }
 
-    public static OptionBuilder withDeprecatedOpt(String deprecatedOption){
+    public static OptionBuilder withDeprecatedOpt(final String deprecatedOption) {
         OptionBuilder.deprecatedOption = deprecatedOption;
 
         return INSTANCE;

@@ -599,11 +599,11 @@ public class CommandLine implements Serializable {
                 if (actual.equals(option.getOpt()) || actual.equals(option.getLongOpt())) {
                     return option;
                 }
-                else if (actual.equals(option.getDeprecatedOpt() )) {
+                else if (actual.equals(option.getDeprecatedOpt())) {
                     System.out.println("Using deprecated option name '" + actual + "' instead of proper name '" + option.getOpt() + "'");
                     return option;
                 }
-                else if (actual.equals(option.getDeprecatedLongOpt() )) {
+                else if (actual.equals(option.getDeprecatedLongOpt())) {
                     System.out.println("Using deprecated long option '" + actual + "' instead of proper long name '" + option.getLongOpt() + "'");
                     return option;
                 }
