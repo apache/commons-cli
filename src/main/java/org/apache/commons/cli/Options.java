@@ -30,9 +30,11 @@ import java.util.Map;
  * Main entry-point into the library.
  * <p>
  * Options represents a collection of {@link Option} objects, which describe the possible options for a command-line.
+ * </p>
  * <p>
  * It may flexibly parse long and short options, with or without values. Additionally, it may parse only a portion of a
  * commandline, allowing for flexible multi-stage parsing.
+ * </p>
  *
  * @see org.apache.commons.cli.CommandLine
  */
@@ -78,8 +80,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Add an option that only contains a short-name.
-     *
+     * Adds an option that only contains a short-name.
      * <p>
      * It may be specified as requiring an argument.
      * </p>
@@ -95,8 +96,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Add an option that only contains a short name.
-     *
+     * Adds an option that only contains a short name.
      * <p>
      * The option does not take an argument.
      * </p>
@@ -112,8 +112,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Add an option that contains a short-name and a long-name.
-     *
+     * Adds an option that contains a short-name and a long-name.
      * <p>
      * It may be specified as requiring an argument.
      * </p>
@@ -130,7 +129,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Add the specified option group.
+     * Adds the specified option group.
      *
      * @param group the OptionGroup that is to be added
      * @return the resulting Options instance
@@ -170,12 +169,10 @@ public class Options implements Serializable {
     }
 
     /**
-     * Add an option that contains a short-name and a long-name.
-     *
+     * Adds an option that contains a short-name and a long-name.
      * <p>
      * The added option is set as required. It may be specified as requiring an argument. This method is a shortcut for:
      * </p>
-     *
      * <pre>
      * <code>
      * Options option = new Option(opt, longOpt, hasArg, description);
@@ -222,7 +219,6 @@ public class Options implements Serializable {
 
     /**
      * Gets the {@link Option} matching the long or short name specified.
-     *
      * <p>
      * The leading hyphens in the name are ignored (up to 2).
      * </p>
