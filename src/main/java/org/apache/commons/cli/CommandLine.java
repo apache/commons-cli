@@ -587,6 +587,7 @@ public class CommandLine implements Serializable {
 
     /**
      * Retrieves the option object given the long or short option as a String
+     * It also consults any deprecated option names.
      *
      * @param opt short or long name of the option, may be null.
      * @return Canonicalized option.
@@ -596,6 +597,14 @@ public class CommandLine implements Serializable {
         if (actual != null) {
             for (final Option option : options) {
                 if (actual.equals(option.getOpt()) || actual.equals(option.getLongOpt())) {
+                    return option;
+                }
+                else if (actual.equals(option.getDeprecatedOpt() )) {
+                    System.out.println("Using deprecated option name '" + actual + "' instead of proper name '" + option.getOpt() + "'");
+                    return option;
+                }
+                else if (actual.equals(option.getDeprecatedLongOpt() )) {
+                    System.out.println("Using deprecated long option '" + actual + "' instead of proper long name '" + option.getLongOpt() + "'");
                     return option;
                 }
             }

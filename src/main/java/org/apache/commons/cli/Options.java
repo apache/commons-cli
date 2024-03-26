@@ -66,6 +66,9 @@ public class Options implements Serializable {
         if (opt.hasLongOpt()) {
             longOpts.put(opt.getLongOpt(), opt);
         }
+        if (opt.hasDeprecatedLongOpt()) {
+            longOpts.put(opt.getDeprecatedLongOpt(), opt);
+        }
         // if the option is required add it to the required list
         if (opt.isRequired()) {
             if (requiredOpts.contains(key)) {
@@ -74,6 +77,9 @@ public class Options implements Serializable {
             requiredOpts.add(key);
         }
         shortOpts.put(key, opt);
+        if (opt.hasDeprecatedOption()) {
+            shortOpts.put(opt.getDeprecatedOpt(), opt);
+        }
         return this;
     }
 

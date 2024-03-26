@@ -35,6 +35,12 @@ public final class OptionBuilder {
     /** Long option */
     private static String longOption;
 
+    /** Deprecated Long option */
+    private static String deprecatedLongOption;
+
+    /** Deprecated option */
+    private static String deprecatedOption;
+
     /** Option description */
     private static String description;
 
@@ -104,9 +110,11 @@ public final class OptionBuilder {
             option = new Option(opt, description);
 
             // set the option properties
-            option.setLongOpt(longOption);
             option.setRequired(required);
+            option.setLongOpt(longOption);
             option.setOptionalArg(optionalArg);
+            option.setDeprecatedOption(deprecatedOption);
+            option.setDeprecatedLongOption(deprecatedLongOption);
             option.setArgs(argCount);
             option.setType(type);
             option.setConverter(TypeHandler.getConverter(type));
@@ -234,6 +242,8 @@ public final class OptionBuilder {
         description = null;
         argName = null;
         longOption = null;
+        deprecatedOption = null;
+        deprecatedLongOption = null;
         type = String.class;
         required = false;
         argCount = Option.UNINITIALIZED;
@@ -350,10 +360,22 @@ public final class OptionBuilder {
         return INSTANCE;
     }
 
+    public static OptionBuilder withDeprecatedLongOpt(String deprecatedLongOption) {
+        OptionBuilder.deprecatedLongOption = deprecatedLongOption;
+
+        return INSTANCE;
+    }
+
+    public static OptionBuilder withDeprecatedOpt(String deprecatedOption){
+        OptionBuilder.deprecatedOption = deprecatedOption;
+
+        return INSTANCE;
+    }
     /**
      * private constructor to prevent instances being created
      */
     private OptionBuilder() {
         // hide the constructor
     }
+
 }

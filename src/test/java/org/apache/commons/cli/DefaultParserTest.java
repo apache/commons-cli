@@ -120,4 +120,25 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
         assertEquals("quoted string", cl.getOptionValue("b"), "Confirm -b \"arg\" strips quotes");
     }
+
+    @Test
+    public void testUsingDeprecatedOptions() throws Exception {
+
+        options = new Options().addOption(
+                Option.builder("a")
+                        .longOpt("enable-a")
+                        .hasArg(true)
+                        .deprecatedLongOption("old-enable-a")
+                        .deprecatedOption("z").build());
+
+        parser = DefaultParser.builder().build();
+
+        final String[] args = {"-a", "arg"};
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals("arg", cl.getOptionValue("a"), "normal name look up");
+        assertEquals("arg", cl.getOptionValue("enable-a"), "normal long name look up");
+        assertEquals("arg", cl.getOptionValue("z"), "deprecated name look up");
+        assertEquals("arg", cl.getOptionValue("old-enable-a"), "deprecated long name look up");
+    }
 }

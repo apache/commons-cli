@@ -158,6 +158,8 @@ public class OptionBuilderTest {
     public void testTwoCompleteOptions() {
         //@formatter:off
         Option simple = OptionBuilder.withLongOpt("simple option")
+                                     .withDeprecatedLongOpt("deprecated simple option")
+                                     .withDeprecatedOpt("deprecated-s")
                                      .hasArg()
                                      .isRequired()
                                      .hasArgs()
@@ -168,6 +170,8 @@ public class OptionBuilderTest {
 
         assertEquals("s", simple.getOpt());
         assertEquals("simple option", simple.getLongOpt());
+        assertEquals("deprecated-s", simple.getDeprecatedOpt());
+        assertEquals("deprecated simple option", simple.getDeprecatedLongOpt());
         assertEquals("this is a simple option", simple.getDescription());
         assertEquals(simple.getType(), Float.class);
         assertTrue(simple.hasArg());
