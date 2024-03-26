@@ -42,6 +42,7 @@ import java.util.Objects;
  */
 public class Option implements Cloneable, Serializable {
 
+
     /**
      * Builds {@code Option} instances using descriptive methods.
      * <p>
@@ -64,6 +65,12 @@ public class Option implements Cloneable, Serializable {
 
         /** The long representation of the option. */
         private String longOption;
+
+        /** Specifies if the option had a previous deprecated long representation of the option. */
+        private String deprecatedLongOption;
+
+        /** Specifies if the option had a previous deprecated representation of the option. */
+        private String deprecatedOption;
 
         /** The name of the argument for this option. */
         private String argName;
@@ -186,6 +193,29 @@ public class Option implements Cloneable, Serializable {
             this.longOption = longOpt;
             return this;
         }
+
+        /**
+         * Sets the deprecated long name of the Option.
+         *
+         * @param deprecatedLongOption the deprecated long name of the Option
+         * @return this builder.
+         */
+        public Builder deprecatedLongOption(final String deprecatedLongOption) {
+            this.deprecatedLongOption = deprecatedLongOption;
+            return this;
+        }
+        /**
+         * Sets the deprecated long name of the Option.
+         *
+         * @param deprecatedOption the deprecated name of the Option
+         * @return this builder.
+         */
+        public Builder deprecatedOption(final String deprecatedOption) {
+            this.deprecatedOption = deprecatedOption;
+            return this;
+        }
+
+
 
         /**
          * Sets the number of argument values the Option can take.
@@ -332,6 +362,12 @@ public class Option implements Cloneable, Serializable {
     /** The long representation of the option. */
     private String longOption;
 
+    /** Deprecated Long option */
+    private String deprecatedLongOption;
+
+    /** Deprecated option */
+    private String deprecatedOption;
+
     /** The name of the argument for this option. */
     private String argName;
 
@@ -368,6 +404,8 @@ public class Option implements Cloneable, Serializable {
         this.argName = builder.argName;
         this.description = builder.description;
         this.longOption = builder.longOption;
+        this.deprecatedLongOption = builder.deprecatedLongOption;
+        this.deprecatedOption = builder.deprecatedOption;
         this.argCount = builder.argCount;
         this.option = builder.option;
         this.optionalArg = builder.optionalArg;
@@ -608,6 +646,14 @@ public class Option implements Cloneable, Serializable {
         return option;
     }
 
+    public String getDeprecatedLongOpt() {
+        return deprecatedLongOption;
+    }
+
+    public String getDeprecatedOpt() {
+        return deprecatedOption;
+    }
+
     /**
      * Gets the type of this Option.
      *
@@ -718,6 +764,24 @@ public class Option implements Cloneable, Serializable {
      */
     public boolean hasLongOpt() {
         return longOption != null;
+    }
+
+    /**
+     * Tests whether this Option has a deprecated long name.
+     *
+     * @return boolean flag indicating existence of a deprecated long name.
+     */
+    public boolean hasDeprecatedLongOpt() {
+        return deprecatedLongOption != null;
+    }
+
+    /**
+     * Tests whether this Option has a deprecated option name.
+     *
+     * @return boolean flag indicating existence of a deprecated option name.
+     */
+    public boolean hasDeprecatedOption() {
+        return deprecatedOption != null;
     }
 
     /**
@@ -859,6 +923,24 @@ public class Option implements Cloneable, Serializable {
      */
     public void setLongOpt(final String longOpt) {
         this.longOption = longOpt;
+    }
+
+    /**
+     * Sets the deprecated long name of this Option.
+     *
+     * @param deprecatedLongOption the deprecated long name of this Option.
+     */
+    public void setDeprecatedLongOption(final String deprecatedLongOption) {
+        this.deprecatedLongOption = deprecatedLongOption;
+    }
+
+    /**
+     * Sets the deprecated ame of this Option.
+     *
+     * @param deprecatedOption the deprecated name of this Option.
+     */
+    public void setDeprecatedOption(final String deprecatedOption) {
+        this.deprecatedOption = deprecatedOption;
     }
 
     /**
