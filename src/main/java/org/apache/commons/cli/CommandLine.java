@@ -188,7 +188,6 @@ public class CommandLine implements Serializable {
                 processPropertiesFromValues(props, processedOption.getValuesList());
             }
         }
-
         return props;
     }
 
@@ -209,7 +208,6 @@ public class CommandLine implements Serializable {
                 processPropertiesFromValues(props, option.getValuesList());
             }
         }
-
         return props;
     }
 
@@ -348,13 +346,11 @@ public class CommandLine implements Serializable {
      */
     public String[] getOptionValues(final Option option) {
         final List<String> values = new ArrayList<>();
-
         for (final Option processedOption : options) {
             if (processedOption.equals(option)) {
                 values.addAll(processedOption.getValuesList());
             }
         }
-
         return values.isEmpty() ? null : values.toArray(EMPTY_STRING_ARRAY);
     }
 
@@ -440,7 +436,6 @@ public class CommandLine implements Serializable {
     @SuppressWarnings("unchecked")
     public <T> T getParsedOptionValue(final Option option, final Supplier<T> defaultValue) throws ParseException {
         final String res = option == null ? null : getOptionValue(option);
-
         try {
             if (res == null) {
                 return defaultValue == null ? null : defaultValue.get();
