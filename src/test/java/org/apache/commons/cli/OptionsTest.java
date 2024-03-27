@@ -130,6 +130,15 @@ public class OptionsTest {
     }
 
     @Test
+    public void testDeprecated() {
+        final Options opts = new Options();
+        opts.addOption(Option.builder().option("a").deprecated().build());
+        opts.addOption(Option.builder().option("b").build());
+        assertTrue(opts.getOption("a").toString().startsWith("[ Deprecated option:"));
+        assertTrue(opts.getOption("b").toString().startsWith("[ option:"));
+    }
+
+    @Test
     public void testDuplicateSimple() {
         final Options opts = new Options();
         opts.addOption("a", false, "toggle -a");

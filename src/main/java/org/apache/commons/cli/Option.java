@@ -68,6 +68,9 @@ public class Option implements Cloneable, Serializable {
         /** The name of the argument for this option. */
         private String argName;
 
+        /** Specifies whether this option is deprecated. */
+        private DeprecatedAttributes deprecated;
+
         /** Specifies whether this option is required to be present. */
         private boolean required;
 
@@ -131,6 +134,28 @@ public class Option implements Cloneable, Serializable {
          */
         public Builder converter(final Converter<?, ?> converter) {
             this.converter = converter;
+            return this;
+        }
+
+        /**
+         * Marks this Option as deprecated.
+         *
+         * @return this builder.
+         * @since 1.7.0
+         */
+        public Builder deprecated() {
+            return deprecated(DeprecatedAttributes.DEFAULT);
+        }
+
+        /**
+         * Sets whether the Option is deprecated.
+         *
+         * @param deprecated specifies whether the Option is deprecated.
+         * @return this builder.
+         * @since 1.7.0
+         */
+        public Builder deprecated(final DeprecatedAttributes deprecated) {
+            this.deprecated = deprecated;
             return this;
         }
 
@@ -235,9 +260,9 @@ public class Option implements Cloneable, Serializable {
         }
 
         /**
-         * Sets whether the Option is mandatory.
+         * Sets whether the Option is required.
          *
-         * @param required specifies whether the Option is mandatory.
+         * @param required specifies whether the Option is required.
          * @return this builder.
          */
         public Builder required(final boolean required) {
@@ -338,6 +363,14 @@ public class Option implements Cloneable, Serializable {
     /** Description of the option. */
     private String description;
 
+    /**
+     * Specifies whether this option is deprecated, may be null.
+     * <p>
+     * If you want to serialize this field, use a serialization proxy.
+     * </p>
+     */
+    private final transient DeprecatedAttributes deprecated;
+
     /** Specifies whether this option is required to be present. */
     private boolean required;
 
@@ -371,6 +404,7 @@ public class Option implements Cloneable, Serializable {
         this.argCount = builder.argCount;
         this.option = builder.option;
         this.optionalArg = builder.optionalArg;
+        this.deprecated = builder.deprecated;
         this.required = builder.required;
         this.type = builder.type;
         this.valuesep = builder.valueSeparator;
@@ -414,14 +448,13 @@ public class Option implements Cloneable, Serializable {
      */
     public Option(final String option, final String longOption, final boolean hasArg, final String description) throws IllegalArgumentException {
         // ensure that the option is valid
+        this.deprecated = null;
         this.option = OptionValidator.validate(option);
         this.longOption = longOption;
-
         // if hasArg is set then the number of arguments is 1
         if (hasArg) {
             this.argCount = 1;
         }
-
         this.description = description;
     }
 
@@ -554,6 +587,16 @@ public class Option implements Cloneable, Serializable {
      */
     public Converter<?, ?> getConverter() {
         return converter == null ? TypeHandler.getConverter(type) : converter;
+    }
+
+    /**
+     * Gets deprecated attributes if any.
+     *
+     * @return boolean deprecated attributes or null.
+     * @since 1.7.0
+     */
+    public DeprecatedAttributes getDeprecated() {
+        return deprecated;
     }
 
     /**
@@ -749,9 +792,19 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
+     * Tests whether this Option is deprecated.
+     *
+     * @return boolean flag indicating whether this Option is deprecated.
+     * @since 1.7.0
+     */
+    public boolean isDeprecated() {
+        return deprecated != null;
+    }
+
+    /**
      * Tests whether this Option is required.
      *
-     * @return boolean flag indicating whether this Option is mandatory.
+     * @return boolean flag indicating whether this Option is required.
      */
     public boolean isRequired() {
         return required;
@@ -920,30 +973,27 @@ public class Option implements Cloneable, Serializable {
      */
     @Override
     public String toString() {
-        final StringBuilder buf = new StringBuilder().append("[ option: ");
-
-        buf.append(option);
-
-        if (longOption != null) {
-            buf.append(" ").append(longOption);
+        final StringBuilder buf = new StringBuilder().append("[ ");
+        if (isDeprecated()) {
+            buf.append(deprecated.toShortString());
+            buf.append(' ');
         }
-
-        buf.append(" ");
-
+        buf.append("option: ");
+        buf.append(option);
+        if (longOption != null) {
+            buf.append(' ').append(longOption);
+        }
+        buf.append(' ');
         if (hasArgs()) {
             buf.append("[ARG...]");
         } else if (hasArg()) {
             buf.append(" [ARG]");
         }
-
         buf.append(" :: ").append(description);
-
         if (type != null) {
             buf.append(" :: ").append(type);
         }
-
         buf.append(" ]");
-
         return buf.toString();
     }
 }
