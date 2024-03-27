@@ -20,14 +20,31 @@ package org.apache.commons.cli;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class CommandLineTest {
+
+    @Test
+    public void testDeprecatedOption() {
+        final CommandLine.Builder builder = new CommandLine.Builder();
+        builder.addArg("foo").addArg("bar");
+        final Option opt = Option.builder().option("T").deprecated().build();
+        builder.addOption(opt);
+        final AtomicReference<Option> handler = new AtomicReference<>();
+        final CommandLine cmd = builder.setDeprecatedHandler(handler::set).build();
+        cmd.getOptionValue(opt.getOpt());
+        assertSame(opt, handler.get());
+        handler.set(null);
+        cmd.getOptionValue("Nope");
+        assertNull(handler.get());
+    }
 
     @Test
     public void testBuilder() {

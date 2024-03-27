@@ -17,8 +17,10 @@
 
 package org.apache.commons.cli;
 
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -130,11 +132,27 @@ public class OptionsTest {
     }
 
     @Test
+    public void testDeprecated() {
+        final Options opts = new Options();
+        opts.addOption(Option.builder().option("a").build());
+        opts.addOption(Option.builder().option("b").deprecated().build());
+        opts.addOption(Option.builder().option("c")
+                .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("2.0").setDescription("Use X.").get()).build());
+        // toString()
+        assertTrue(opts.getOption("a").toString().startsWith("[ Option a"));
+        assertTrue(opts.getOption("b").toString().startsWith("[ Option b"));
+        assertTrue(opts.getOption("c").toString().startsWith("[ Option c"));
+        // toDeprecatedString()
+        assertFalse(opts.getOption("a").toDeprecatedString().startsWith("Option a"));
+        assertEquals("Option 'b': Deprecated", opts.getOption("b").toDeprecatedString());
+        assertEquals("Option 'c': Deprecated for removal since 2.0: Use X.", opts.getOption("c").toDeprecatedString());
+    }
+
+    @Test
     public void testDuplicateSimple() {
         final Options opts = new Options();
         opts.addOption("a", false, "toggle -a");
         opts.addOption("a", true, "toggle -a*");
-
         assertEquals("toggle -a*", opts.getOption("a").getDescription(), "last one in wins");
     }
 

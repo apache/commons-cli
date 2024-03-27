@@ -26,6 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
@@ -47,11 +48,21 @@ public class CommandLine implements Serializable {
      */
     public static final class Builder {
 
+        /**
+         * Prints an Option to {@link System#out}.
+         */
+        static final Consumer<Option> DEPRECATED_HANDLER = o -> System.out.println(o.toDeprecatedString());
+
         /** The unrecognized options/arguments */
         private final List<String> args = new LinkedList<>();
 
         /** The processed options */
         private final List<Option> options = new ArrayList<>();
+
+        /**
+         * Deprecated Option handler.
+         */
+        private Consumer<Option> deprecatedHandler = DEPRECATED_HANDLER;
 
         /**
          * Adds left-over unrecognized option/argument.
@@ -82,14 +93,29 @@ public class CommandLine implements Serializable {
         }
 
         /**
-         * Returns the new instance.
+         * Creates the new instance.
          *
          * @return the new instance.
          */
         public CommandLine build() {
-            return new CommandLine(args, options);
+            return new CommandLine(args, options, deprecatedHandler);
+        }
+
+        /**
+         * Sets the deprecated option handler.
+         *
+         * @param deprecatedHandler the deprecated option handler.
+         * @return this.
+         * @since 1.7.0
+         */
+        public Builder setDeprecatedHandler(final Consumer<Option> deprecatedHandler) {
+            this.deprecatedHandler = deprecatedHandler;
+            return this;
         }
     }
+
+    /** The serial version UID. */
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates a new builder.
@@ -101,9 +127,6 @@ public class CommandLine implements Serializable {
         return new Builder();
     }
 
-    /** The serial version UID. */
-    private static final long serialVersionUID = 1L;
-
     /** The unrecognized options/arguments */
     private final List<String> args;
 
@@ -111,18 +134,27 @@ public class CommandLine implements Serializable {
     private final List<Option> options;
 
     /**
+     * The deprecated option handler.
+     * <p>
+     * If you want to serialize this field, use a serialization proxy.
+     * </p>
+     */
+    private final transient Consumer<Option> deprecatedHandler;
+
+    /**
      * Creates a command line.
      */
     protected CommandLine() {
-        this(new LinkedList<>(), new ArrayList<>());
+        this(new LinkedList<>(), new ArrayList<>(), Builder.DEPRECATED_HANDLER);
     }
 
     /**
      * Creates a command line.
      */
-    private CommandLine(final List<String> args, final List<Option> options) {
+    private CommandLine(final List<String> args, final List<Option> options, final Consumer<Option> deprecatedHandler) {
         this.args = Objects.requireNonNull(args, "args");
         this.options = Objects.requireNonNull(options, "options");
+        this.deprecatedHandler = deprecatedHandler;
     }
 
     /**
@@ -530,13 +562,14 @@ public class CommandLine implements Serializable {
     }
 
     /**
-     * Tests to see if an option has been set.
+     * Handles deprecated options.
      *
-     * @param opt character name of the option.
-     * @return true if set, false if not.
+     * @param option a deprecated option.
      */
-    public boolean hasOption(final char opt) {
-        return hasOption(String.valueOf(opt));
+    private void handleDeprecated(final Option option) {
+        if (deprecatedHandler != null) {
+            deprecatedHandler.accept(option);
+        }
     }
 
     /**
@@ -556,6 +589,16 @@ public class CommandLine implements Serializable {
      *
      * return buf.toString(); }
      */
+
+    /**
+     * Tests to see if an option has been set.
+     *
+     * @param opt character name of the option.
+     * @return true if set, false if not.
+     */
+    public boolean hasOption(final char opt) {
+        return hasOption(String.valueOf(opt));
+    }
 
     /**
      * Tests to see if an option has been set.
@@ -615,6 +658,9 @@ public class CommandLine implements Serializable {
         if (actual != null) {
             for (final Option option : options) {
                 if (actual.equals(option.getOpt()) || actual.equals(option.getLongOpt())) {
+                    if (option.isDeprecated()) {
+                        handleDeprecated(option);
+                    }
                     return option;
                 }
             }
