@@ -266,7 +266,6 @@ public class OptionTest {
 
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException {
-
         final Option o = Option.builder("o").type(TypeHandlerTest.Instantiable.class).build();
         assertEquals(Converter.DEFAULT, o.getConverter());
         Option o2 = roundTrip(o);

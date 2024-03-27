@@ -167,9 +167,9 @@ public final class DeprecatedAttributes {
         return since != null ? since : EMPTY_STRING;
     }
 
-    public String toShortString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Deprecated");
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder("Deprecated");
         if (forRemoval) {
             builder.append(" for removal");
         }
@@ -177,13 +177,6 @@ public final class DeprecatedAttributes {
             builder.append(" since ");
             builder.append(since);
         }
-        return builder.toString();
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(toShortString());
         if (!description.isEmpty()) {
             builder.append(": ");
             builder.append(description);

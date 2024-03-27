@@ -51,7 +51,7 @@ public class CommandLine implements Serializable {
         /**
          * Prints an Option to {@link System#out}.
          */
-        static final Consumer<Option> DEPRECATED_HANDLER = o -> System.out.println(o);
+        static final Consumer<Option> DEPRECATED_HANDLER = o -> System.out.println(o.toDeprecatedString());
 
         /** The unrecognized options/arguments */
         private final List<String> args = new LinkedList<>();
@@ -570,7 +570,6 @@ public class CommandLine implements Serializable {
         if (deprecatedHandler != null) {
             deprecatedHandler.accept(option);
         }
-
     }
 
     /**
