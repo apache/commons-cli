@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
+import java.util.function.Consumer;
 
 /**
  * Default parser.
@@ -48,6 +49,14 @@ public class DefaultParser implements CommandLineParser {
         /** Flag indicating if partial matching of long options is supported. */
         private boolean allowPartialMatching = true;
 
+        /**
+         * The deprecated option handler.
+         * <p>
+         * If you want to serialize this field, use a serialization proxy.
+         * </p>
+         */
+        private Consumer<Option> deprecatedHandler = CommandLine.Builder.DEPRECATED_HANDLER;
+
         /** Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments. */
         private Boolean stripLeadingAndTrailingQuotes;
 
@@ -67,7 +76,7 @@ public class DefaultParser implements CommandLineParser {
          * @since 1.5.0
          */
         public DefaultParser build() {
-            return new DefaultParser(allowPartialMatching, stripLeadingAndTrailingQuotes);
+            return new DefaultParser(allowPartialMatching, stripLeadingAndTrailingQuotes, deprecatedHandler);
         }
 
         /**
@@ -94,6 +103,18 @@ public class DefaultParser implements CommandLineParser {
          */
         public Builder setAllowPartialMatching(final boolean allowPartialMatching) {
             this.allowPartialMatching = allowPartialMatching;
+            return this;
+        }
+
+        /**
+         * Sets the deprecated option handler.
+         *
+         * @param deprecatedHandler the deprecated option handler.
+         * @return this.
+         * @since 1.7.0
+         */
+        public Builder setDeprecatedHandler(final Consumer<Option> deprecatedHandler) {
+            this.deprecatedHandler = deprecatedHandler;
             return this;
         }
 
@@ -161,6 +182,14 @@ public class DefaultParser implements CommandLineParser {
     private final Boolean stripLeadingAndTrailingQuotes;
 
     /**
+     * The deprecated option handler.
+     * <p>
+     * If you want to serialize this field, use a serialization proxy.
+     * </p>
+     */
+    private final Consumer<Option> deprecatedHandler;
+
+    /**
      * Creates a new DefaultParser instance with partial matching enabled.
      *
      * By "partial matching" we mean that given the following code:
@@ -182,6 +211,7 @@ public class DefaultParser implements CommandLineParser {
     public DefaultParser() {
         this.allowPartialMatching = true;
         this.stripLeadingAndTrailingQuotes = null;
+        this.deprecatedHandler = CommandLine.Builder.DEPRECATED_HANDLER;
     }
 
     /**
@@ -208,6 +238,7 @@ public class DefaultParser implements CommandLineParser {
     public DefaultParser(final boolean allowPartialMatching) {
         this.allowPartialMatching = allowPartialMatching;
         this.stripLeadingAndTrailingQuotes = null;
+        this.deprecatedHandler = CommandLine.Builder.DEPRECATED_HANDLER;
     }
 
     /**
@@ -217,10 +248,10 @@ public class DefaultParser implements CommandLineParser {
      * @param allowPartialMatching if partial matching of long options shall be enabled
      * @param stripLeadingAndTrailingQuotes if balanced outer double quoutes should be stripped
      */
-    private DefaultParser(final boolean allowPartialMatching,
-            final Boolean stripLeadingAndTrailingQuotes) {
+    private DefaultParser(final boolean allowPartialMatching, final Boolean stripLeadingAndTrailingQuotes, final Consumer<Option> deprecatedHandler) {
         this.allowPartialMatching = allowPartialMatching;
         this.stripLeadingAndTrailingQuotes = stripLeadingAndTrailingQuotes;
+        this.deprecatedHandler = deprecatedHandler;
     }
 
     /**
@@ -671,28 +702,21 @@ public class DefaultParser implements CommandLineParser {
         skipParsing = false;
         currentOption = null;
         expectedOpts = new ArrayList<>(options.getRequiredOptions());
-
         // clear the data from the groups
         for (final OptionGroup group : options.getOptionGroups()) {
             group.setSelected(null);
         }
-
-        cmd = CommandLine.builder().build();
-
+        cmd = CommandLine.builder().setDeprecatedHandler(deprecatedHandler).build();
         if (arguments != null) {
             for (final String argument : arguments) {
                 handleToken(argument);
             }
         }
-
         // check the arguments of the last option
         checkRequiredArgs();
-
         // add the default options
         handleProperties(properties);
-
         checkRequiredOptions();
-
         return cmd;
     }
 

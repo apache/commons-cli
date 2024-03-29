@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * A formatter of help messages for command line options.
@@ -62,6 +63,38 @@ import java.util.List;
  * </pre>
  */
 public class HelpFormatter {
+
+    /**
+     * Builds {@link HelpFormatter}.
+     *
+     * @since 1.7.0
+     */
+    public static final class Builder implements Supplier<HelpFormatter> {
+        // TODO All other instance HelpFormatter instance variables.
+        // Make HelpFormatter immutable for 2.0
+
+        /**
+         * Whether to show deprecated options.
+         */
+        private boolean showDeprecated;
+
+        @Override
+        public HelpFormatter get() {
+            return new HelpFormatter(showDeprecated);
+        }
+
+        /**
+         * Sets whether to show deprecated options.
+         *
+         * @param showDeprecated Whether to show deprecated options.
+         * @return this.
+         */
+        public Builder setShowDeprecated(final boolean showDeprecated) {
+            this.showDeprecated = showDeprecated;
+            return this;
+        }
+
+    }
 
     /**
      * This class implements the {@code Comparator} interface for comparing Options.
@@ -112,6 +145,16 @@ public class HelpFormatter {
 
     /** Default name for an argument */
     public static final String DEFAULT_ARG_NAME = "arg";
+
+    /**
+     * Creates a new builder.
+     *
+     * @return a new builder.
+     * @since 1.7.0
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
 
     /**
      * Number of characters per line
@@ -185,9 +228,32 @@ public class HelpFormatter {
     protected Comparator<Option> optionComparator = new OptionComparator();
 
     /**
+     * Whether to show deprecated options.
+     */
+    private final boolean showDeprecated;
+
+    /**
      * The separator displayed between the long option and its value.
      */
     private String longOptSeparator = DEFAULT_LONG_OPT_SEPARATOR;
+
+    /**
+     * Constructs a new instance.
+     */
+    public HelpFormatter() {
+        super();
+        this.showDeprecated = false;
+    }
+
+    /**
+     * Constructs a new instance.
+     */
+    private HelpFormatter(final boolean showDeprecated) {
+        // TODO All other instance HelpFormatter instance variables.
+        // Make HelpFormatter immutable for 2.0
+        super();
+        this.showDeprecated = showDeprecated;
+    }
 
     /**
      * Appends the usage clause for an Option to a StringBuffer.
@@ -686,7 +752,13 @@ public class HelpFormatter {
             }
             optBuf.append(dpad);
             final int nextLineTabStop = max + descPad;
+            if (showDeprecated && option.isDeprecated()) {
+                optBuf.append("[Deprecated]");
+            }
             if (option.getDescription() != null) {
+                if (showDeprecated && option.isDeprecated()) {
+                    optBuf.append(' ');
+                }
                 optBuf.append(option.getDescription());
             }
             renderWrappedText(sb, width, nextLineTabStop, optBuf.toString());
