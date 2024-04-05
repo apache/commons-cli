@@ -38,7 +38,7 @@
       <action type="add" issue="CLI-326" dev="ggregory" due-to="Claude Warren, Gary Gregory">Make Option.getKey() public #239.</action>
       <action type="add" dev="ggregory" due-to="Claude Warren, Gary Gregory">Add builder factory CommandLine#builder().</action>
       <!-- UPDATE -->
-      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 64 to 67.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 64 to 69 #256.</action>
       <action type="update" dev="ggregory" due-to="Elric, Gary Gregory">Update the tests to JUnit 5 #238.</action>
     </release>
     <release version="1.6.0" date="2023-10-23" description="New features and bug fixes">
