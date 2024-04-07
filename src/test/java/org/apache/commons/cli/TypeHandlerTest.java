@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
@@ -40,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -185,9 +187,10 @@ public class TypeHandlerTest {
     }
 
     @Test
-    public void testOpenFile() {
-        final File file = new File("").getAbsoluteFile();
-        assertEquals(file, TypeHandler.createFile(file.toString()));
+    public void testOpenFile() throws ParseException, IOException {
+        try (FileInputStream fis = TypeHandler.openFile("src/test/resources/org/apache/commons/cli/existing-readable.file")) {
+            IOUtils.consume(fis);
+        }
     }
 
     @Test
