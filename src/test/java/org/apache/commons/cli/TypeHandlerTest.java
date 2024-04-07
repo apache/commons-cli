@@ -174,10 +174,16 @@ public class TypeHandlerTest {
     @ParameterizedTest(name = "{0} as {1}")
     @MethodSource("createValueTestParameters")
     public void createValueTests(final String str, final Class<?> type, final Object expected) throws Exception {
+        @SuppressWarnings("cast")
+        final Object objectApiTest = (Object) type; // KEEP this cast
         if (expected instanceof Class<?> && Throwable.class.isAssignableFrom((Class<?>) expected)) {
             assertThrows((Class<Throwable>) expected, () -> TypeHandler.createValue(str, type));
+            assertThrows((Class<Throwable>) expected, () -> {
+                TypeHandler.createValue(str, objectApiTest);
+            });
         } else {
             assertEquals(expected, TypeHandler.createValue(str, type));
+            assertEquals(expected, TypeHandler.createValue(str, objectApiTest);
         }
     }
 
