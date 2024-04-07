@@ -218,6 +218,7 @@ public class PatternOptionBuilder {
 
     /**
      * Registers custom {@code Converter}s with the {@code TypeHandler}.
+     *
      * @since 1.7.0
      */
     public static void registerTypes() {
