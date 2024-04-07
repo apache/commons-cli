@@ -192,6 +192,12 @@ public class TypeHandlerTest {
         }
     }
 
+    @Test
+    public void testCreateClass() throws ParseException {
+        final Class<?> cls = getClass();
+        assertEquals(cls, TypeHandler.createClass(cls.getName()));
+    }
+
     @ParameterizedTest
     @MethodSource("createDateFixtures")
     public void testCreateDate(final Date date) {
