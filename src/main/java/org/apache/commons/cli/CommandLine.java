@@ -475,7 +475,7 @@ public class CommandLine implements Serializable {
      * @since 1.5.0
      */
     public <T> T getParsedOptionValue(final Option option) throws ParseException {
-        return  getParsedOptionValue(option, () -> null);
+        return getParsedOptionValue(option, () -> null);
     }
 
     /**
