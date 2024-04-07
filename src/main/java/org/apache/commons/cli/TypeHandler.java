@@ -190,15 +190,14 @@ public class TypeHandler {
     }
 
     /**
-     * Gets the converter for the the Class. Never null.
+     * Gets the registered converter for the the Class, or {@link Converter#DEFAULT} if absent.
      *
      * @param clazz The Class to get the Converter for.
      * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
      * @since 1.7.0
      */
     public static Converter<?, ?> getConverter(final Class<?> clazz) {
-        final Converter<?, ?> converter = converterMap.get(clazz);
-        return converter == null ? Converter.DEFAULT : converter;
+        return converterMap.getOrDefault(clazz, Converter.DEFAULT);
     }
 
     /**
