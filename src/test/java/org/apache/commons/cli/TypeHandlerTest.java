@@ -32,6 +32,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,6 +69,11 @@ public class TypeHandlerTest {
     /** Always returns the same Path. */
     private static final Converter<Path, InvalidPathException> PATH_CONVERTER = s -> Paths.get("foo");
 
+    static Stream<Date> createDateFixtures() {
+        return Stream.of(Date.from(Instant.EPOCH), Date.from(Instant.ofEpochSecond(0)), Date.from(Instant.ofEpochSecond(40_000)));
+
+    }
+
     private static Stream<Arguments> createValueTestParameters() {
         // force the PatternOptionBuilder to load / modify the TypeHandler table.
         @SuppressWarnings("unused")
@@ -77,10 +83,8 @@ public class TypeHandlerTest {
         final List<Arguments> lst = new ArrayList<>();
 
         /*
-         * Dates calculated from strings are dependent upon configuration and environment settings for the
-         * machine on which the test is running.  To avoid this problem, convert the time into a string
-         * and then unparse that using the converter.  This produces strings that always match the correct
-         * time zone.
+         * Dates calculated from strings are dependent upon configuration and environment settings for the machine on which the test is running. To avoid this
+         * problem, convert the time into a string and then unparse that using the converter. This produces strings that always match the correct time zone.
          */
         final Date date = new Date(1023400137000L);
         final DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
@@ -148,8 +152,7 @@ public class TypeHandlerTest {
             lst.add(Arguments.of("not a number", PatternOptionBuilder.NUMBER_VALUE, ParseException.class));
 
             lst.add(Arguments.of(Instantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE, new Instantiable()));
-            lst.add(Arguments.of(NotInstantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE,
-                    ParseException.class));
+            lst.add(Arguments.of(NotInstantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE, ParseException.class));
             lst.add(Arguments.of("unknown", PatternOptionBuilder.OBJECT_VALUE, ParseException.class));
 
             lst.add(Arguments.of("String", PatternOptionBuilder.STRING_VALUE, "String"));
@@ -189,10 +192,15 @@ public class TypeHandlerTest {
         }
     }
 
+    @ParameterizedTest
+    @MethodSource("createDateFixtures")
+    public void testCreateDate(final Date date) {
+        assertEquals(date, TypeHandler.createDate(date.toString()));
+    }
+
     @Test
     public void testCreateValueExistingFile() throws Exception {
-        try (FileInputStream result = TypeHandler.createValue(
-                "src/test/resources/org/apache/commons/cli/existing-readable.file",
+        try (FileInputStream result = TypeHandler.createValue("src/test/resources/org/apache/commons/cli/existing-readable.file",
                 PatternOptionBuilder.EXISTING_FILE_VALUE)) {
             assertNotNull(result);
         }
