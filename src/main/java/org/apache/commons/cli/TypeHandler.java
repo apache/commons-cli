@@ -68,9 +68,7 @@ public class TypeHandler {
      * @param className the class name
      * @return The class if it is found
      * @throws ParseException if the class could not be found
-     * @deprecated use {@link #createValue(String, Class)}
      */
-    @Deprecated // since 1.7.0
     public static Class<?> createClass(final String className) throws ParseException {
         return createValue(className, Class.class);
     }
@@ -83,9 +81,7 @@ public class TypeHandler {
      *
      * @param string the date string
      * @return The date if {@code string} is a valid date string, otherwise return null.
-     * @deprecated use {@link #createValue(String, Class)}
      */
-    @Deprecated // since 1.7.0
     public static Date createDate(final String string) {
         return createValueUnchecked(string, Date.class);
     }
@@ -95,9 +91,7 @@ public class TypeHandler {
      *
      * @param string the File location
      * @return The file represented by {@code string}.
-     * @deprecated use {@link #createValue(String, Class)}
      */
-    @Deprecated // since 1.7.0
     public static File createFile(final String string) {
         return createValueUnchecked(string, File.class);
     }
@@ -152,9 +146,7 @@ public class TypeHandler {
      * @param string the URL string
      * @return The URL in {@code string} is well-formed
      * @throws ParseException if the URL in {@code string} is not well-formed
-     * @deprecated use {@link #createValue(String, Class)}
      */
-    @Deprecated // since 1.7.0
     public static URL createURL(final String string) throws ParseException {
         return createValue(string, URL.class);
     }
