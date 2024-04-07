@@ -70,6 +70,7 @@ public class TypeHandlerTest {
 
     private static Stream<Arguments> createValueTestParameters() {
         // force the PatternOptionBuilder to load / modify the TypeHandler table.
+        @SuppressWarnings("unused")
         final Class<?> ignore = PatternOptionBuilder.FILES_VALUE;
         // reset the type handler table.
         TypeHandler.resetConverters();
