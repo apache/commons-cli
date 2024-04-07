@@ -241,7 +241,6 @@ public class HelpFormatter {
      * Constructs a new instance.
      */
     public HelpFormatter() {
-        super();
         this.showDeprecated = false;
     }
 
@@ -251,7 +250,6 @@ public class HelpFormatter {
     private HelpFormatter(final boolean showDeprecated) {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
-        super();
         this.showDeprecated = showDeprecated;
     }
 
