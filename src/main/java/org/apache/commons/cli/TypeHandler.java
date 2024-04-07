@@ -47,11 +47,7 @@ public class TypeHandler {
      * The Class type parameter matches the Converter's first generic type.
      * </p>
      */
-    private static Map<Class<?>, Converter<?, ? extends Throwable>> converterMap = new HashMap<>();
-
-    static {
-        resetConverters();
-    }
+    private static Map<Class<?>, Converter<?, ? extends Throwable>> converterMap = createDefaultMap();
 
     /**
      * Unregisters all Converters.
@@ -84,6 +80,10 @@ public class TypeHandler {
      */
     public static Date createDate(final String string) {
         return createValueUnchecked(string, Date.class);
+    }
+
+    private static Map<Class<?>, Converter<?, ? extends Throwable>> createDefaultMap() {
+        return putDefaultMap(new HashMap<>());
     }
 
     /**
@@ -225,6 +225,27 @@ public class TypeHandler {
         return createValue(string, FileInputStream.class);
     }
 
+    private static Map<Class<?>, Converter<?, ? extends Throwable>> putDefaultMap(final Map<Class<?>, Converter<?, ? extends Throwable>> map) {
+        map.put(Object.class, Converter.OBJECT);
+        map.put(Class.class, Converter.CLASS);
+        map.put(Date.class, Converter.DATE);
+        map.put(File.class, Converter.FILE);
+        map.put(Path.class, Converter.PATH);
+        map.put(Number.class, Converter.NUMBER);
+        map.put(URL.class, Converter.URL);
+        map.put(FileInputStream.class, FileInputStream::new);
+        map.put(Long.class, Long::parseLong);
+        map.put(Integer.class, Integer::parseInt);
+        map.put(Short.class, Short::parseShort);
+        map.put(Byte.class, Byte::parseByte);
+        map.put(Character.class, s -> s.startsWith("\\u") ? Character.toChars(Integer.parseInt(s.substring(2), HEX_RADIX))[0] : s.charAt(0));
+        map.put(Double.class, Double::parseDouble);
+        map.put(Float.class, Float::parseFloat);
+        map.put(BigInteger.class, BigInteger::new);
+        map.put(BigDecimal.class, BigDecimal::new);
+        return map;
+    }
+
     /**
      * Registers a Converter for a Class. If {@code converter} is null registration is cleared for {@code clazz}, and no converter will be used in processing.
      *
@@ -248,23 +269,7 @@ public class TypeHandler {
      */
     public static void resetConverters() {
         converterMap.clear();
-        converterMap.put(Object.class, Converter.OBJECT);
-        converterMap.put(Class.class, Converter.CLASS);
-        converterMap.put(Date.class, Converter.DATE);
-        converterMap.put(File.class, Converter.FILE);
-        converterMap.put(Path.class, Converter.PATH);
-        converterMap.put(Number.class, Converter.NUMBER);
-        converterMap.put(URL.class, Converter.URL);
-        converterMap.put(FileInputStream.class, FileInputStream::new);
-        converterMap.put(Long.class, Long::parseLong);
-        converterMap.put(Integer.class, Integer::parseInt);
-        converterMap.put(Short.class, Short::parseShort);
-        converterMap.put(Byte.class, Byte::parseByte);
-        converterMap.put(Character.class, s -> s.startsWith("\\u") ? Character.toChars(Integer.parseInt(s.substring(2), HEX_RADIX))[0] : s.charAt(0));
-        converterMap.put(Double.class, Double::parseDouble);
-        converterMap.put(Float.class, Float::parseFloat);
-        converterMap.put(BigInteger.class, BigInteger::new);
-        converterMap.put(BigDecimal.class, BigDecimal::new);
+        putDefaultMap(converterMap);
     }
 
     /**
