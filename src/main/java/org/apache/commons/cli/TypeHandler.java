@@ -168,10 +168,9 @@ public class TypeHandler {
      * @return The instance of {@code clazz} initialized with the value of {@code string}.
      * @throws ParseException if the value creation for the given class threw an exception.
      */
-    @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
     public static <T> T createValue(final String string, final Class<T> clazz) throws ParseException {
         try {
-            return (T) getConverter(clazz).apply(string);
+            return getConverter(clazz).apply(string);
         } catch (final Throwable e) {
             throw ParseException.wrap(e);
         }
@@ -211,12 +210,14 @@ public class TypeHandler {
     /**
      * Gets the registered converter for the the Class, or {@link Converter#DEFAULT} if absent.
      *
+     * @param <T> The Class parameter type. 
      * @param clazz The Class to get the Converter for.
      * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
      * @since 1.7.0
      */
-    public static Converter<?, ?> getConverter(final Class<?> clazz) {
-        return converterMap.getOrDefault(clazz, Converter.DEFAULT);
+    @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
+    public static <T> Converter<T, ?> getConverter(final Class<T> clazz) {
+        return (Converter<T, ?>) converterMap.getOrDefault(clazz, Converter.DEFAULT);
     }
 
     /**
