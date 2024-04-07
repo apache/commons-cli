@@ -68,6 +68,9 @@ public class OptionTest {
         }
     }
 
+    /** Always returns the same Path. */
+    private static final Converter<Path, InvalidPathException> PATH_CONVERTER = s -> Paths.get("foo");
+
     private static void checkOption(final Option option, final String opt, final String description, final String longOpt, final int numArgs,
             final String argName, final boolean required, final boolean optionalArg, final char valueSeparator, final Class<?> cls, final String deprecatedDesc,
             final Boolean deprecatedForRemoval, final String deprecatedSince) {
@@ -266,13 +269,8 @@ public class OptionTest {
         assertNotEquals(Option.builder("test").build().hashCode(), Option.builder("test").longOpt("long test").build().hashCode());
     }
 
-    /** Always returns the same Path. */
-    private static final Converter<Path, InvalidPathException> PATH_CONVERTER = s -> Paths.get("foo");
-
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException {
-        // TODO No global map!
-        TypeHandler.resetConverters();
         final Option option = Option.builder("o").type(TypeHandlerTest.Instantiable.class).build();
         assertEquals(Converter.DEFAULT, option.getConverter());
         Option roundtrip = roundTrip(option);
@@ -284,16 +282,10 @@ public class OptionTest {
         assertEquals(Converter.DEFAULT, roundtrip.getConverter());
         // verify registered class converters and verifiers do not get reset to default.
         // converters are NOT Serializable, use a serialization proxy if you want that.
-        try {
-            TypeHandler.register(Path.class, PATH_CONVERTER);
-            // verify earlier values still set.
-            assertEquals(Converter.DATE, option.getConverter());
-            roundtrip = roundTrip(option);
-            assertEquals(Converter.DEFAULT, roundtrip.getConverter());
-        } finally {
-            // TODO No global map!
-            TypeHandler.resetConverters();
-        }
+        // verify earlier values still set.
+        assertEquals(Converter.DATE, option.getConverter());
+        roundtrip = roundTrip(option);
+        assertEquals(Converter.DEFAULT, roundtrip.getConverter());
     }
 
     @Test

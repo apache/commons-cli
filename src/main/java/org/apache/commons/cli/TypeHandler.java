@@ -38,25 +38,13 @@ import java.util.Map;
  */
 public class TypeHandler {
 
+    /**
+     * The default TypeHandler.
+     */
+    private static final TypeHandler DEFAULT = new TypeHandler();
+
     /** Value of hex conversion of strings */
     private static final int HEX_RADIX = 16;
-
-    /**
-     * Map of Class to Converter.
-     * <p>
-     * The Class type parameter matches the Converter's first generic type.
-     * </p>
-     */
-    private static Map<Class<?>, Converter<?, ? extends Throwable>> converterMap = createDefaultMap();
-
-    /**
-     * Unregisters all Converters.
-     *
-     * @since 1.7.0
-     */
-    public static void clear() {
-        converterMap.clear();
-    }
 
     /**
      * Returns the class whose name is {@code className}.
@@ -82,7 +70,13 @@ public class TypeHandler {
         return createValueUnchecked(string, Date.class);
     }
 
-    private static Map<Class<?>, Converter<?, ? extends Throwable>> createDefaultMap() {
+    /**
+     * Creates a default converter map.
+     *
+     * @return a default converter map.
+     * @since 1.7.0
+     */
+    public static Map<Class<?>, Converter<?, ? extends Throwable>> createDefaultMap() {
         return putDefaultMap(new HashMap<>());
     }
 
@@ -162,7 +156,7 @@ public class TypeHandler {
      */
     public static <T> T createValue(final String string, final Class<T> clazz) throws ParseException {
         try {
-            return getConverter(clazz).apply(string);
+            return getDefault().getConverter(clazz).apply(string);
         } catch (final Throwable e) {
             throw ParseException.wrap(e);
         }
@@ -200,16 +194,13 @@ public class TypeHandler {
     }
 
     /**
-     * Gets the registered converter for the the Class, or {@link Converter#DEFAULT} if absent.
+     * Gets the default TypeHandler.
      *
-     * @param <T> The Class parameter type.
-     * @param clazz The Class to get the Converter for.
-     * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
+     * @return the default TypeHandler.
      * @since 1.7.0
      */
-    @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
-    public static <T> Converter<T, ?> getConverter(final Class<T> clazz) {
-        return (Converter<T, ?>) converterMap.getOrDefault(clazz, Converter.DEFAULT);
+    public static TypeHandler getDefault() {
+        return DEFAULT;
     }
 
     /**
@@ -247,38 +238,41 @@ public class TypeHandler {
     }
 
     /**
-     * Registers a Converter for a Class. If {@code converter} is null registration is cleared for {@code clazz}, and no converter will be used in processing.
-     *
-     * @param <T>       The Class parameter type.
-     * @param clazz     the Class to register the Converter for.
-     * @param converter The Converter to associate with Class. May be null.
-     * @since 1.7.0
+     * Map of Class to Converter.
+     * <p>
+     * The Class type parameter matches the Converter's first generic type.
+     * </p>
      */
-    public static <T> void register(final Class<T> clazz, final Converter<T, ? extends Throwable> converter) {
-        if (converter == null) {
-            unregister(clazz);
-        } else {
-            converterMap.put(clazz, converter);
-        }
+    private final Map<Class<?>, Converter<?, ? extends Throwable>> converterMap;
+
+    /**
+     * Constructs a default initialized instance.
+     */
+    public TypeHandler() {
+        this(createDefaultMap());
     }
 
     /**
-     * Resets the registered Converters to the default state.
+     * Constructs a default initialized instance.
      *
+     * @param converterMap The converter map.
      * @since 1.7.0
      */
-    public static void resetConverters() {
-        converterMap.clear();
-        putDefaultMap(converterMap);
+    public TypeHandler(final Map<Class<?>, Converter<?, ? extends Throwable>> converterMap) {
+        this.converterMap = converterMap;
     }
 
     /**
-     * Unregisters a Converter for a Class. If {@code converter} is null registration is cleared for {@code clazz}, and no converter will be used in processing.
+     * Gets the registered converter for the the Class, or {@link Converter#DEFAULT} if absent.
      *
-     * @param clazz     the Class to unregister.
+     * @param <T>   The Class parameter type.
+     * @param clazz The Class to get the Converter for.
+     * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
      * @since 1.7.0
      */
-    public static void unregister(final Class<?> clazz) {
-        converterMap.remove(clazz);
+    @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
+    public <T> Converter<T, ?> getConverter(final Class<T> clazz) {
+        return (Converter<T, ?>) converterMap.getOrDefault(clazz, Converter.DEFAULT);
     }
+
 }

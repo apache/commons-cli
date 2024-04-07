@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Allows Options to be created from a single String. The pattern contains various single character flags and via an
@@ -104,13 +105,9 @@ public class PatternOptionBuilder {
     public static final Class<URL> URL_VALUE = URL.class;
 
     /** The converter to use for Unimplemented data types */
-    static final Converter<?, UnsupportedOperationException> UNSUPPORTED = s -> {
+    private static final Converter<?, UnsupportedOperationException> UNSUPPORTED = s -> {
         throw new UnsupportedOperationException("Not yet implemented");
     };
-
-    static {
-        registerTypes();
-    }
 
     /**
      * Retrieve the class that {@code ch} represents.
@@ -202,7 +199,10 @@ public class PatternOptionBuilder {
                 required = true;
             } else {
                 type = getValueType(ch);
-                converter = TypeHandler.getConverter(getValueType(ch));
+                final Map<Class<?>, Converter<?, ? extends Throwable>> map = TypeHandler.createDefaultMap();
+                // Backward compatibility (probably).
+                map.put(FILES_VALUE, unsupported());
+                converter = new TypeHandler(map).getConverter(getValueType(ch));
             }
         }
 
@@ -214,15 +214,6 @@ public class PatternOptionBuilder {
         }
 
         return options;
-    }
-
-    /**
-     * Registers custom {@code Converter}s with the {@code TypeHandler}.
-     *
-     * @since 1.7.0
-     */
-    public static void registerTypes() {
-        TypeHandler.register(PatternOptionBuilder.FILES_VALUE, unsupported());
     }
 
     @SuppressWarnings("unchecked")

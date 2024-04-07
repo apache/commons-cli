@@ -109,7 +109,7 @@ public final class OptionBuilder {
             option.setOptionalArg(optionalArg);
             option.setArgs(argCount);
             option.setType(type);
-            option.setConverter(TypeHandler.getConverter(type));
+            option.setConverter(TypeHandler.getDefault().getConverter(type));
             option.setValueSeparator(valueSeparator);
             option.setArgName(argName);
         } finally {

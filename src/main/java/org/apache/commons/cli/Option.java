@@ -582,7 +582,7 @@ public class Option implements Cloneable, Serializable {
      * @since 1.7.0
      */
     public Converter<?, ?> getConverter() {
-        return converter == null ? TypeHandler.getConverter(type) : converter;
+        return converter == null ? TypeHandler.getDefault().getConverter(type) : converter;
     }
 
     /**

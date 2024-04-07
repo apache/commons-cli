@@ -37,6 +37,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
@@ -70,18 +71,18 @@ public class TypeHandlerTest {
     /** Always returns the same Path. */
     private static final Converter<Path, InvalidPathException> PATH_CONVERTER = s -> Paths.get("foo");
 
-    static Stream<Date> createDateFixtures() {
+    private static Stream<Date> createDateFixtures() {
         return Stream.of(Date.from(Instant.EPOCH), Date.from(Instant.ofEpochSecond(0)), Date.from(Instant.ofEpochSecond(40_000)));
 
     }
 
-    private static Stream<Arguments> createValueTestParameters() {
+    private static Stream<Arguments> createValueTestParameters() throws MalformedURLException {
         // force the PatternOptionBuilder to load / modify the TypeHandler table.
         @SuppressWarnings("unused")
-        final Class<?> ignore = PatternOptionBuilder.FILES_VALUE;
+        final Class<?> loadStatic = PatternOptionBuilder.FILES_VALUE;
         // reset the type handler table.
-        TypeHandler.resetConverters();
-        final List<Arguments> lst = new ArrayList<>();
+        // TypeHandler.resetConverters();
+        final List<Arguments> list = new ArrayList<>();
 
         /*
          * Dates calculated from strings are dependent upon configuration and environment settings for the machine on which the test is running. To avoid this
@@ -90,113 +91,79 @@ public class TypeHandlerTest {
         final Date date = new Date(1023400137000L);
         final DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 
-        try {
-            lst.add(Arguments.of(Instantiable.class.getName(), PatternOptionBuilder.CLASS_VALUE, Instantiable.class));
-            lst.add(Arguments.of("what ever", PatternOptionBuilder.CLASS_VALUE, ParseException.class));
+        list.add(Arguments.of(Instantiable.class.getName(), PatternOptionBuilder.CLASS_VALUE, Instantiable.class));
+        list.add(Arguments.of("what ever", PatternOptionBuilder.CLASS_VALUE, ParseException.class));
 
-            lst.add(Arguments.of("what ever", PatternOptionBuilder.DATE_VALUE, ParseException.class));
-            lst.add(Arguments.of(dateFormat.format(date), PatternOptionBuilder.DATE_VALUE, date));
-            lst.add(Arguments.of("Jun 06 17:48:57 EDT 2002", PatternOptionBuilder.DATE_VALUE, ParseException.class));
+        list.add(Arguments.of("what ever", PatternOptionBuilder.DATE_VALUE, ParseException.class));
+        list.add(Arguments.of(dateFormat.format(date), PatternOptionBuilder.DATE_VALUE, date));
+        list.add(Arguments.of("Jun 06 17:48:57 EDT 2002", PatternOptionBuilder.DATE_VALUE, ParseException.class));
 
-            lst.add(Arguments.of("non-existing.file", PatternOptionBuilder.EXISTING_FILE_VALUE, ParseException.class));
+        list.add(Arguments.of("non-existing.file", PatternOptionBuilder.EXISTING_FILE_VALUE, ParseException.class));
 
-            lst.add(Arguments.of("some-file.txt", PatternOptionBuilder.FILE_VALUE, new File("some-file.txt")));
+        list.add(Arguments.of("some-file.txt", PatternOptionBuilder.FILE_VALUE, new File("some-file.txt")));
 
-            lst.add(Arguments.of("some-path.txt", Path.class, new File("some-path.txt").toPath()));
+        list.add(Arguments.of("some-path.txt", Path.class, new File("some-path.txt").toPath()));
 
-            // the PatternOptionBUilder.FILES_VALUE is not registered so it should just return the string
-            lst.add(Arguments.of("some.files", PatternOptionBuilder.FILES_VALUE, "some.files"));
+        // the PatternOptionBuilder.FILES_VALUE is not registered so it should just return the string
+        list.add(Arguments.of("some.files", PatternOptionBuilder.FILES_VALUE, "some.files"));
 
-            lst.add(Arguments.of("just-a-string", Integer.class, ParseException.class));
-            lst.add(Arguments.of("5", Integer.class, 5));
-            lst.add(Arguments.of("5.5", Integer.class, ParseException.class));
-            lst.add(Arguments.of(Long.toString(Long.MAX_VALUE), Integer.class, ParseException.class));
+        list.add(Arguments.of("just-a-string", Integer.class, ParseException.class));
+        list.add(Arguments.of("5", Integer.class, 5));
+        list.add(Arguments.of("5.5", Integer.class, ParseException.class));
+        list.add(Arguments.of(Long.toString(Long.MAX_VALUE), Integer.class, ParseException.class));
 
-            lst.add(Arguments.of("just-a-string", Long.class, ParseException.class));
-            lst.add(Arguments.of("5", Long.class, 5L));
-            lst.add(Arguments.of("5.5", Long.class, ParseException.class));
+        list.add(Arguments.of("just-a-string", Long.class, ParseException.class));
+        list.add(Arguments.of("5", Long.class, 5L));
+        list.add(Arguments.of("5.5", Long.class, ParseException.class));
 
-            lst.add(Arguments.of("just-a-string", Short.class, ParseException.class));
-            lst.add(Arguments.of("5", Short.class, (short) 5));
-            lst.add(Arguments.of("5.5", Short.class, ParseException.class));
-            lst.add(Arguments.of(Integer.toString(Integer.MAX_VALUE), Short.class, ParseException.class));
+        list.add(Arguments.of("just-a-string", Short.class, ParseException.class));
+        list.add(Arguments.of("5", Short.class, (short) 5));
+        list.add(Arguments.of("5.5", Short.class, ParseException.class));
+        list.add(Arguments.of(Integer.toString(Integer.MAX_VALUE), Short.class, ParseException.class));
 
-            lst.add(Arguments.of("just-a-string", Byte.class, ParseException.class));
-            lst.add(Arguments.of("5", Byte.class, (byte) 5));
-            lst.add(Arguments.of("5.5", Byte.class, ParseException.class));
-            lst.add(Arguments.of(Short.toString(Short.MAX_VALUE), Byte.class, ParseException.class));
+        list.add(Arguments.of("just-a-string", Byte.class, ParseException.class));
+        list.add(Arguments.of("5", Byte.class, (byte) 5));
+        list.add(Arguments.of("5.5", Byte.class, ParseException.class));
+        list.add(Arguments.of(Short.toString(Short.MAX_VALUE), Byte.class, ParseException.class));
 
-            lst.add(Arguments.of("just-a-string", Character.class, 'j'));
-            lst.add(Arguments.of("5", Character.class, '5'));
-            lst.add(Arguments.of("5.5", Character.class, '5'));
-            lst.add(Arguments.of("\\u0124", Character.class, Character.toChars(0x0124)[0]));
+        list.add(Arguments.of("just-a-string", Character.class, 'j'));
+        list.add(Arguments.of("5", Character.class, '5'));
+        list.add(Arguments.of("5.5", Character.class, '5'));
+        list.add(Arguments.of("\\u0124", Character.class, Character.toChars(0x0124)[0]));
 
-            lst.add(Arguments.of("just-a-string", Double.class, ParseException.class));
-            lst.add(Arguments.of("5", Double.class, 5d));
-            lst.add(Arguments.of("5.5", Double.class, 5.5));
+        list.add(Arguments.of("just-a-string", Double.class, ParseException.class));
+        list.add(Arguments.of("5", Double.class, 5d));
+        list.add(Arguments.of("5.5", Double.class, 5.5));
 
-            lst.add(Arguments.of("just-a-string", Float.class, ParseException.class));
-            lst.add(Arguments.of("5", Float.class, 5f));
-            lst.add(Arguments.of("5.5", Float.class, 5.5f));
-            lst.add(Arguments.of(Double.toString(Double.MAX_VALUE), Float.class, Float.POSITIVE_INFINITY));
+        list.add(Arguments.of("just-a-string", Float.class, ParseException.class));
+        list.add(Arguments.of("5", Float.class, 5f));
+        list.add(Arguments.of("5.5", Float.class, 5.5f));
+        list.add(Arguments.of(Double.toString(Double.MAX_VALUE), Float.class, Float.POSITIVE_INFINITY));
 
-            lst.add(Arguments.of("just-a-string", BigInteger.class, ParseException.class));
-            lst.add(Arguments.of("5", BigInteger.class, new BigInteger("5")));
-            lst.add(Arguments.of("5.5", BigInteger.class, ParseException.class));
+        list.add(Arguments.of("just-a-string", BigInteger.class, ParseException.class));
+        list.add(Arguments.of("5", BigInteger.class, new BigInteger("5")));
+        list.add(Arguments.of("5.5", BigInteger.class, ParseException.class));
 
-            lst.add(Arguments.of("just-a-string", BigDecimal.class, ParseException.class));
-            lst.add(Arguments.of("5", BigDecimal.class, new BigDecimal("5")));
-            lst.add(Arguments.of("5.5", BigDecimal.class, new BigDecimal(5.5)));
+        list.add(Arguments.of("just-a-string", BigDecimal.class, ParseException.class));
+        list.add(Arguments.of("5", BigDecimal.class, new BigDecimal("5")));
+        list.add(Arguments.of("5.5", BigDecimal.class, new BigDecimal(5.5)));
 
-            lst.add(Arguments.of("1.5", PatternOptionBuilder.NUMBER_VALUE, Double.valueOf(1.5)));
-            lst.add(Arguments.of("15", PatternOptionBuilder.NUMBER_VALUE, Long.valueOf(15)));
-            lst.add(Arguments.of("not a number", PatternOptionBuilder.NUMBER_VALUE, ParseException.class));
+        list.add(Arguments.of("1.5", PatternOptionBuilder.NUMBER_VALUE, Double.valueOf(1.5)));
+        list.add(Arguments.of("15", PatternOptionBuilder.NUMBER_VALUE, Long.valueOf(15)));
+        list.add(Arguments.of("not a number", PatternOptionBuilder.NUMBER_VALUE, ParseException.class));
 
-            lst.add(Arguments.of(Instantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE, new Instantiable()));
-            lst.add(Arguments.of(NotInstantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE, ParseException.class));
-            lst.add(Arguments.of("unknown", PatternOptionBuilder.OBJECT_VALUE, ParseException.class));
+        list.add(Arguments.of(Instantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE, new Instantiable()));
+        list.add(Arguments.of(NotInstantiable.class.getName(), PatternOptionBuilder.OBJECT_VALUE, ParseException.class));
+        list.add(Arguments.of("unknown", PatternOptionBuilder.OBJECT_VALUE, ParseException.class));
 
-            lst.add(Arguments.of("String", PatternOptionBuilder.STRING_VALUE, "String"));
+        list.add(Arguments.of("String", PatternOptionBuilder.STRING_VALUE, "String"));
 
-            final String urlString = "https://commons.apache.org";
-            lst.add(Arguments.of(urlString, PatternOptionBuilder.URL_VALUE, new URL(urlString)));
-            lst.add(Arguments.of("Malformed-url", PatternOptionBuilder.URL_VALUE, ParseException.class));
+        final String urlString = "https://commons.apache.org";
+        list.add(Arguments.of(urlString, PatternOptionBuilder.URL_VALUE, new URL(urlString)));
+        list.add(Arguments.of("Malformed-url", PatternOptionBuilder.URL_VALUE, ParseException.class));
 
-            return lst.stream();
+        return list.stream();
 
-        } catch (final MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @SuppressWarnings("unchecked")
-    @ParameterizedTest(name = "{0} as {1}")
-    @MethodSource("createValueTestParameters")
-    public void createValueTests(final String str, final Class<?> type, final Object expected) throws Exception {
-        @SuppressWarnings("cast")
-        final Object objectApiTest = (Object) type; // KEEP this cast
-        if (expected instanceof Class<?> && Throwable.class.isAssignableFrom((Class<?>) expected)) {
-            assertThrows((Class<Throwable>) expected, () -> TypeHandler.createValue(str, type));
-            assertThrows((Class<Throwable>) expected, () -> {
-                TypeHandler.createValue(str, objectApiTest);
-            });
-        } else {
-            assertEquals(expected, TypeHandler.createValue(str, type));
-            assertEquals(expected, TypeHandler.createValue(str, objectApiTest));
-        }
-    }
-
-    @Test
-    public void testClear() {
-        assertEquals(Converter.NUMBER, TypeHandler.getConverter(Number.class));
-        try {
-            TypeHandler.clear();
-            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(Number.class));
-        } finally {
-            TypeHandler.resetConverters();
-            assertEquals(Converter.NUMBER, TypeHandler.getConverter(Number.class));
-        }
     }
 
     @Test
@@ -213,6 +180,12 @@ public class TypeHandlerTest {
 
     @Test
     public void testCreateFile() {
+        final File file = new File("").getAbsoluteFile();
+        assertEquals(file, TypeHandler.createFile(file.toString()));
+    }
+
+    @Test
+    public void testOpenFile() {
         final File file = new File("").getAbsoluteFile();
         assertEquals(file, TypeHandler.createFile(file.toString()));
     }
@@ -239,6 +212,21 @@ public class TypeHandlerTest {
         assertEquals(file, TypeHandler.createURL(file.toString()));
     }
 
+    @SuppressWarnings("unchecked")
+    @ParameterizedTest(name = "{0} as {1}")
+    @MethodSource("createValueTestParameters")
+    public void testCreateValue(final String str, final Class<?> type, final Object expected) throws Exception {
+        @SuppressWarnings("cast")
+        final Object objectApiTest = (Object) type; // KEEP this cast
+        if (expected instanceof Class<?> && Throwable.class.isAssignableFrom((Class<?>) expected)) {
+            assertThrows((Class<Throwable>) expected, () -> TypeHandler.createValue(str, type));
+            assertThrows((Class<Throwable>) expected, () -> TypeHandler.createValue(str, objectApiTest));
+        } else {
+            assertEquals(expected, TypeHandler.createValue(str, type));
+            assertEquals(expected, TypeHandler.createValue(str, objectApiTest));
+        }
+    }
+
     @Test
     public void testCreateValueExistingFile() throws Exception {
         try (FileInputStream result = TypeHandler.createValue("src/test/resources/org/apache/commons/cli/existing-readable.file",
@@ -255,27 +243,16 @@ public class TypeHandlerTest {
 
     @Test
     public void testRegister() {
-        assertEquals(Converter.PATH, TypeHandler.getConverter(Path.class));
+        final Map<Class<?>, Converter<?, ? extends Throwable>> map = TypeHandler.createDefaultMap();
+        final TypeHandler typeHandler = new TypeHandler(map);
+        assertEquals(Converter.PATH, typeHandler.getConverter(Path.class));
         try {
-            TypeHandler.register(Path.class, PATH_CONVERTER);
-            assertEquals(PATH_CONVERTER, TypeHandler.getConverter(Path.class));
+            map.put(Path.class, PATH_CONVERTER);
+            assertEquals(PATH_CONVERTER, typeHandler.getConverter(Path.class));
         } finally {
-            TypeHandler.unregister(Path.class);
-            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(Path.class));
+            map.remove(Path.class);
+            assertEquals(Converter.DEFAULT, typeHandler.getConverter(Path.class));
         }
     }
 
-    @Test
-    public void testResetConverters() {
-        assertEquals(Converter.PATH, TypeHandler.getConverter(Path.class));
-        try {
-            TypeHandler.register(Path.class, PATH_CONVERTER);
-            assertEquals(PATH_CONVERTER, TypeHandler.getConverter(Path.class));
-            TypeHandler.resetConverters();
-            assertEquals(Converter.PATH, TypeHandler.getConverter(Path.class));
-            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
-        } finally {
-            TypeHandler.resetConverters();
-        }
-    }
 }

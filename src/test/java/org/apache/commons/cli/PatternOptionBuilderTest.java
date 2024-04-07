@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -33,7 +34,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -41,10 +41,6 @@ import org.junit.jupiter.api.Test;
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class PatternOptionBuilderTest {
-    @BeforeAll
-    public static void setup() {
-        PatternOptionBuilder.registerTypes();
-    }
 
     @Test
     public void testClassPattern() throws Exception {
@@ -164,12 +160,7 @@ public class PatternOptionBuilderTest {
         assertEquals(new URL("https://commons.apache.org"), line.getOptionObject('t'), "url flag t");
 
         // FILES NOT SUPPORTED YET
-        try {
-            assertEquals(new File[0], line.getOptionObject('m'), "files flag m");
-            fail("Multiple files are not supported yet, should have failed");
-        } catch (final UnsupportedOperationException uoe) {
-            // expected
-        }
+        assertThrows(UnsupportedOperationException.class, () -> line.getOptionObject('m'));
 
         assertEquals(expectedDate, line.getOptionObject('z'), "date flag z");
 
