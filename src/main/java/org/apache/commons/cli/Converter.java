@@ -71,7 +71,7 @@ public interface Converter<T, E extends Throwable> {
     /**
      * Creates a URL. Calls {@link URL#URL(String)}.
      */
-    Converter<URL, MalformedURLException> URL = java.net.URL::new;
+    Converter<URL, MalformedURLException> URL = URL::new;
 
     /**
      * Converts to a date using the format string Form "EEE MMM dd HH:mm:ss zzz yyyy".
