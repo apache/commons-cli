@@ -28,15 +28,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TypeHandler will handle the pluggable conversion and verification of
- * Option types.  It handles the mapping of classes to bot converters and verifiers.
- * It provides the default conversion and verification methods when converters and verifiers
- * are not explicitly set.
+ * TypeHandler will handle the pluggable conversion and verification of Option types. It handles the mapping of classes to bot converters and verifiers. It
+ * provides the default conversion and verification methods when converters and verifiers are not explicitly set.
  * <p>
- * If Options are serialized and deserialized their converters and verifiers will revert to the
- * defaults defined in this class.  To correctly de-serialize Options with custom converters and/or
- * verifiers, using the default serialization methods, this class should be properly configured with the custom
- * converters and verifiers for the specific class.
+ * If Options are serialized and deserialized their converters and verifiers will revert to the defaults defined in this class. To correctly de-serialize
+ * Options with custom converters and/or verifiers, using the default serialization methods, this class should be properly configured with the custom converters
+ * and verifiers for the specific class.
  * </p>
  */
 public class TypeHandler {
@@ -44,7 +41,9 @@ public class TypeHandler {
     /** Value of hex conversion of strings */
     private static final int HEX_RADIX = 16;
 
-    /** Map of Class to Converter. */
+    /**
+     * Map of Class to Converter.
+     */
     private static Map<Class<?>, Converter<?, ?>> converterMap = new HashMap<>();
 
     static {
@@ -100,7 +99,7 @@ public class TypeHandler {
      *
      * @param string the paths to the files
      * @return The File[] represented by {@code string}.
-     * @throws     UnsupportedOperationException always
+     * @throws UnsupportedOperationException always
      * @deprecated with no replacement
      */
     @Deprecated // since 1.7.0
@@ -149,12 +148,11 @@ public class TypeHandler {
     }
 
     /**
-     * Creates the @code Object} of type {@code clazz} with the value of
-     * {@code string}.
+     * Creates the @code Object} of type {@code clazz} with the value of {@code string}.
      *
      * @param string the command line value
-     * @param clazz the class representing the type of argument
-     * @param <T> type of argument
+     * @param clazz  the class representing the type of argument
+     * @param <T>    type of argument
      * @return The instance of {@code clazz} initialized with the value of {@code string}.
      * @throws ParseException if the value creation for the given class threw an exception.
      */
@@ -171,7 +169,7 @@ public class TypeHandler {
      * Creates the {@code Object} of type {@code obj} with the value of {@code string}.
      *
      * @param string the command line value
-     * @param obj the type of argument
+     * @param obj    the type of argument
      * @return The instance of {@code obj} initialized with the value of {@code string}.
      * @throws ParseException if the value creation for the given object type failed
      * @deprecated use {@link #createValue(String, Class)}
@@ -185,8 +183,8 @@ public class TypeHandler {
      * Delegates to {@link #createValue(String, Class)} throwing IllegalArgumentException instead of ParseException.
      *
      * @param string the command line value
-     * @param clazz the class representing the type of argument
-     * @param <T> type of argument
+     * @param clazz  the class representing the type of argument
+     * @param <T>    type of argument
      * @return The instance of {@code clazz} initialized with the value of {@code string}.
      * @throws IllegalArgumentException if the value creation for the given class threw an exception.
      */
@@ -232,11 +230,10 @@ public class TypeHandler {
     }
 
     /**
-     * Registers a Converter for a Class. If @code converter} is null registration is cleared for {@code clazz}, and
-     * no converter will be used in processing.
+     * Registers a Converter for a Class. If @code converter} is null registration is cleared for {@code clazz}, and no converter will be used in processing.
      *
-     * @param clazz the Class to register the Converter and Verifier to.
-     * @param converter The Converter to associate with Class.  May be null.
+     * @param clazz     the Class to register the Converter and Verifier to.
+     * @param converter The Converter to associate with Class. May be null.
      * @since 1.7.0
      */
     public static void register(final Class<?> clazz, final Converter<?, ?> converter) {
