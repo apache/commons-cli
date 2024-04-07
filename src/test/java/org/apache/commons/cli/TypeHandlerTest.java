@@ -20,6 +20,7 @@ package org.apache.commons.cli;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -211,14 +212,19 @@ public class TypeHandlerTest {
     }
 
     @Test
+    public void testCreateFiles() {
+        assertThrows(UnsupportedOperationException.class, () -> TypeHandler.createFiles(null));
+    }
+
+    @Test
     public void testCreateNumber() throws ParseException {
         assertEquals(0L, TypeHandler.createNumber("0"));
         assertEquals(0d, TypeHandler.createNumber("0.0"));
     }
 
     @Test
-    public void testCreateFiles() {
-        assertThrows(UnsupportedOperationException.class, () -> TypeHandler.createFiles(null));
+    public void testCreateObject() throws ParseException {
+        assertTrue(TypeHandler.createObject(Date.class.getName()) instanceof Date);
     }
 
     @Test
