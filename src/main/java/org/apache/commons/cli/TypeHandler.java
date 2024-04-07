@@ -44,7 +44,7 @@ public class TypeHandler {
     /** Value of hex conversion of strings */
     private static final int HEX_RADIX = 16;
 
-    /** Map of classes to converters. */
+    /** Map of Class to Converter. */
     private static Map<Class<?>, Converter<?, ?>> converterMap = new HashMap<>();
 
     static {
