@@ -211,6 +211,12 @@ public class TypeHandlerTest {
     }
 
     @Test
+    public void testCreateNumber() throws ParseException {
+        assertEquals(0L, TypeHandler.createNumber("0"));
+        assertEquals(0d, TypeHandler.createNumber("0.0"));
+    }
+
+    @Test
     public void testCreateFiles() {
         assertThrows(UnsupportedOperationException.class, () -> TypeHandler.createFiles(null));
     }
