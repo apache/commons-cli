@@ -76,11 +76,7 @@ public class TypeHandler {
      */
     @Deprecated // since 1.7.0
     public static Date createDate(final String str) {
-        try {
-            return createValue(str, Date.class);
-        } catch (final ParseException e) {
-            throw new RuntimeException(e);
-        }
+        return createValueUnchecked(str, Date.class);
     }
 
     /**
@@ -92,11 +88,7 @@ public class TypeHandler {
      */
     @Deprecated // since 1.7.0
     public static File createFile(final String str) {
-        try {
-            return createValue(str, File.class);
-        } catch (final ParseException e) {
-            throw new RuntimeException(e);
-        }
+        return createValueUnchecked(str, File.class);
     }
 
     /**
@@ -187,6 +179,23 @@ public class TypeHandler {
     @Deprecated // since 1.7.0
     public static Object createValue(final String str, final Object obj) throws ParseException {
         return createValue(str, (Class<?>) obj);
+    }
+
+    /**
+     * Delegates to {@link #createValue(String, Class)} throwing IllegalArgumentException instead of ParseException.
+     *
+     * @param str the command line value
+     * @param clazz the class representing the type of argument
+     * @param <T> type of argument
+     * @return The instance of {@code clazz} initialized with the value of {@code str}.
+     * @throws IllegalArgumentException if the value creation for the given class threw an exception.
+     */
+    private static <T> T createValueUnchecked(final String str, final Class<T> clazz) {
+        try {
+            return createValue(str, clazz);
+        } catch (final ParseException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     /**
