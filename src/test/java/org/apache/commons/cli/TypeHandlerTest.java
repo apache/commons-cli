@@ -183,7 +183,7 @@ public class TypeHandlerTest {
             });
         } else {
             assertEquals(expected, TypeHandler.createValue(str, type));
-            assertEquals(expected, TypeHandler.createValue(str, objectApiTest);
+            assertEquals(expected, TypeHandler.createValue(str, objectApiTest));
         }
     }
 
