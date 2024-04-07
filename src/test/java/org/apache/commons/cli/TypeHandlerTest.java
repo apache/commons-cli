@@ -205,6 +205,12 @@ public class TypeHandlerTest {
     }
 
     @Test
+    public void testCreateURL() throws ParseException, MalformedURLException {
+        final URL file = Paths.get("").toAbsolutePath().toUri().toURL();
+        assertEquals(file, TypeHandler.createURL(file.toString()));
+    }
+
+    @Test
     public void testCreateValueExistingFile() throws Exception {
         try (FileInputStream result = TypeHandler.createValue("src/test/resources/org/apache/commons/cli/existing-readable.file",
                 PatternOptionBuilder.EXISTING_FILE_VALUE)) {
