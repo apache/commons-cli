@@ -210,7 +210,7 @@ public class TypeHandler {
     /**
      * Gets the registered converter for the the Class, or {@link Converter#DEFAULT} if absent.
      *
-     * @param <T> The Class parameter type. 
+     * @param <T> The Class parameter type.
      * @param clazz The Class to get the Converter for.
      * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
      * @since 1.7.0
