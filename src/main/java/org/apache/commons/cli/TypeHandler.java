@@ -65,61 +65,61 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the date represented by {@code str}.
+     * Returns the date represented by {@code string}.
      * <p>
      * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
      * </p>
      *
-     * @param str the date string
-     * @return The date if {@code str} is a valid date string, otherwise return null.
+     * @param string the date string
+     * @return The date if {@code string} is a valid date string, otherwise return null.
      * @deprecated use {@link #createValue(String, Class)}
      */
     @Deprecated // since 1.7.0
-    public static Date createDate(final String str) {
-        return createValueUnchecked(str, Date.class);
+    public static Date createDate(final String string) {
+        return createValueUnchecked(string, Date.class);
     }
 
     /**
-     * Returns the File represented by {@code str}.
+     * Returns the File represented by {@code string}.
      *
-     * @param str the File location
-     * @return The file represented by {@code str}.
+     * @param string the File location
+     * @return The file represented by {@code string}.
      * @deprecated use {@link #createValue(String, Class)}
      */
     @Deprecated // since 1.7.0
-    public static File createFile(final String str) {
-        return createValueUnchecked(str, File.class);
+    public static File createFile(final String string) {
+        return createValueUnchecked(string, File.class);
     }
 
     /**
-     * Creates the File[] represented by {@code str}.
+     * Creates the File[] represented by {@code string}.
      *
      * <p>
      * This method is not yet implemented and always throws an {@link UnsupportedOperationException}.
      * </p>
      *
-     * @param str the paths to the files
-     * @return The File[] represented by {@code str}.
+     * @param string the paths to the files
+     * @return The File[] represented by {@code string}.
      * @throws     UnsupportedOperationException always
      * @deprecated with no replacement
      */
     @Deprecated // since 1.7.0
-    public static File[] createFiles(final String str) {
+    public static File[] createFiles(final String string) {
         // to implement/port:
-        // return FileW.findFiles(str);
+        // return FileW.findFiles(string);
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**
      * Creates a number from a String. If a '.' is present, it creates a Double, otherwise a Long.
      *
-     * @param str the value
-     * @return the number represented by {@code str}
-     * @throws ParseException if {@code str} is not a number
+     * @param string the value
+     * @return the number represented by {@code string}
+     * @throws ParseException if {@code string} is not a number
      */
     @Deprecated // since 1.7.0
-    public static Number createNumber(final String str) throws ParseException {
-        return createValue(str, Number.class);
+    public static Number createNumber(final String string) throws ParseException {
+        return createValue(string, Number.class);
     }
 
     /**
@@ -136,63 +136,63 @@ public class TypeHandler {
     }
 
     /**
-     * Creates the URL represented by {@code str}.
+     * Creates the URL represented by {@code string}.
      *
-     * @param str the URL string
-     * @return The URL in {@code str} is well-formed
-     * @throws ParseException if the URL in {@code str} is not well-formed
+     * @param string the URL string
+     * @return The URL in {@code string} is well-formed
+     * @throws ParseException if the URL in {@code string} is not well-formed
      * @deprecated use {@link #createValue(String, Class)}
      */
     @Deprecated // since 1.7.0
-    public static URL createURL(final String str) throws ParseException {
-        return createValue(str, URL.class);
+    public static URL createURL(final String string) throws ParseException {
+        return createValue(string, URL.class);
     }
 
     /**
      * Creates the @code Object} of type {@code clazz} with the value of
-     * {@code str}.
+     * {@code string}.
      *
-     * @param str the command line value
+     * @param string the command line value
      * @param clazz the class representing the type of argument
      * @param <T> type of argument
-     * @return The instance of {@code clazz} initialized with the value of {@code str}.
+     * @return The instance of {@code clazz} initialized with the value of {@code string}.
      * @throws ParseException if the value creation for the given class threw an exception.
      */
     @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
-    public static <T> T createValue(final String str, final Class<T> clazz) throws ParseException {
+    public static <T> T createValue(final String string, final Class<T> clazz) throws ParseException {
         try {
-            return (T) getConverter(clazz).apply(str);
+            return (T) getConverter(clazz).apply(string);
         } catch (final Throwable e) {
             throw ParseException.wrap(e);
         }
     }
 
     /**
-     * Creates the {@code Object} of type {@code obj} with the value of {@code str}.
+     * Creates the {@code Object} of type {@code obj} with the value of {@code string}.
      *
-     * @param str the command line value
+     * @param string the command line value
      * @param obj the type of argument
-     * @return The instance of {@code obj} initialized with the value of {@code str}.
+     * @return The instance of {@code obj} initialized with the value of {@code string}.
      * @throws ParseException if the value creation for the given object type failed
      * @deprecated use {@link #createValue(String, Class)}
      */
     @Deprecated // since 1.7.0
-    public static Object createValue(final String str, final Object obj) throws ParseException {
-        return createValue(str, (Class<?>) obj);
+    public static Object createValue(final String string, final Object obj) throws ParseException {
+        return createValue(string, (Class<?>) obj);
     }
 
     /**
      * Delegates to {@link #createValue(String, Class)} throwing IllegalArgumentException instead of ParseException.
      *
-     * @param str the command line value
+     * @param string the command line value
      * @param clazz the class representing the type of argument
      * @param <T> type of argument
-     * @return The instance of {@code clazz} initialized with the value of {@code str}.
+     * @return The instance of {@code clazz} initialized with the value of {@code string}.
      * @throws IllegalArgumentException if the value creation for the given class threw an exception.
      */
-    private static <T> T createValueUnchecked(final String str, final Class<T> clazz) {
+    private static <T> T createValueUnchecked(final String string, final Class<T> clazz) {
         try {
-            return createValue(str, clazz);
+            return createValue(string, clazz);
         } catch (final ParseException e) {
             throw new IllegalArgumentException(e);
         }
@@ -219,16 +219,16 @@ public class TypeHandler {
     }
 
     /**
-     * Returns the opened FileInputStream represented by {@code str}.
+     * Returns the opened FileInputStream represented by {@code string}.
      *
-     * @param str the file location
-     * @return The file input stream represented by {@code str}.
+     * @param string the file location
+     * @return The file input stream represented by {@code string}.
      * @throws ParseException if the file is not exist or not readable
      * @deprecated use {@link #createValue(String, Class)}
      */
     @Deprecated // since 1.7.0
-    public static FileInputStream openFile(final String str) throws ParseException {
-        return createValue(str, FileInputStream.class);
+    public static FileInputStream openFile(final String string) throws ParseException {
+        return createValue(string, FileInputStream.class);
     }
 
     /**

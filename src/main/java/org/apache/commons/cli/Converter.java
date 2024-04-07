@@ -81,9 +81,9 @@ public interface Converter<T, E extends Throwable> {
     /**
      * Applies the conversion function to the String argument.
      *
-     * @param str the String to convert
+     * @param string the String to convert
      * @return the Object from the conversion.
      * @throws E on error.
      */
-    T apply(String str) throws E;
+    T apply(String string) throws E;
 }
