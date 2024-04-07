@@ -124,14 +124,6 @@ public class OptionsTest {
     }
 
     @Test
-    public void testDuplicateLong() {
-        final Options opts = new Options();
-        opts.addOption("a", "--a", false, "toggle -a");
-        opts.addOption("a", "--a", false, "toggle -a*");
-        assertEquals("toggle -a*", opts.getOption("a").getDescription(), "last one in wins");
-    }
-
-    @Test
     public void testDeprecated() {
         final Options opts = new Options();
         opts.addOption(Option.builder().option("a").build());
@@ -146,6 +138,14 @@ public class OptionsTest {
         assertFalse(opts.getOption("a").toDeprecatedString().startsWith("Option a"));
         assertEquals("Option 'b': Deprecated", opts.getOption("b").toDeprecatedString());
         assertEquals("Option 'c': Deprecated for removal since 2.0: Use X.", opts.getOption("c").toDeprecatedString());
+    }
+
+    @Test
+    public void testDuplicateLong() {
+        final Options opts = new Options();
+        opts.addOption("a", "--a", false, "toggle -a");
+        opts.addOption("a", "--a", false, "toggle -a*");
+        assertEquals("toggle -a*", opts.getOption("a").getDescription(), "last one in wins");
     }
 
     @Test
