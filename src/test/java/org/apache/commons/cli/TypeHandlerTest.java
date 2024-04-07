@@ -211,6 +211,11 @@ public class TypeHandlerTest {
     }
 
     @Test
+    public void testCreateFiles() {
+        assertThrows(UnsupportedOperationException.class, () -> TypeHandler.createFiles(null));
+    }
+
+    @Test
     public void testCreateURL() throws ParseException, MalformedURLException {
         final URL file = Paths.get("").toAbsolutePath().toUri().toURL();
         assertEquals(file, TypeHandler.createURL(file.toString()));
