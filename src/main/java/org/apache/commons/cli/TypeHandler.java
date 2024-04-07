@@ -43,6 +43,9 @@ public class TypeHandler {
 
     /**
      * Map of Class to Converter.
+     * <p>
+     * The Class type parameter matches the Converter's first generic type.
+     * </p>
      */
     private static Map<Class<?>, Converter<?, ?>> converterMap = new HashMap<>();
 
