@@ -54,6 +54,15 @@ public class TypeHandler {
     }
 
     /**
+     * Unregisters all Converters.
+     *
+     * @since 1.7.0
+     */
+    public static void clear() {
+        converterMap.clear();
+    }
+
+    /**
      * Returns the class whose name is {@code className}.
      *
      * @param className the class name
@@ -208,15 +217,6 @@ public class TypeHandler {
      */
     public static Converter<?, ?> getConverter(final Class<?> clazz) {
         return converterMap.getOrDefault(clazz, Converter.DEFAULT);
-    }
-
-    /**
-     * Unregisters all Converters.
-     *
-     * @since 1.7.0
-     */
-    public static void noConverters() {
-        converterMap.clear();
     }
 
     /**

@@ -172,23 +172,23 @@ public class TypeHandlerTest {
     }
 
     @Test
+    public void testClear() {
+        assertEquals(Converter.NUMBER, TypeHandler.getConverter(Number.class));
+        try {
+            TypeHandler.clear();
+            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(Number.class));
+        } finally {
+            TypeHandler.resetConverters();
+            assertEquals(Converter.NUMBER, TypeHandler.getConverter(Number.class));
+        }
+    }
+
+    @Test
     public void testCreateValueExistingFile() throws Exception {
         try (FileInputStream result = TypeHandler.createValue(
                 "src/test/resources/org/apache/commons/cli/existing-readable.file",
                 PatternOptionBuilder.EXISTING_FILE_VALUE)) {
             assertNotNull(result);
-        }
-    }
-
-    @Test
-    public void testNoConverters() {
-        assertEquals(Converter.NUMBER, TypeHandler.getConverter(Number.class));
-        try {
-            TypeHandler.noConverters();
-            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(Number.class));
-        } finally {
-            TypeHandler.resetConverters();
-            assertEquals(Converter.NUMBER, TypeHandler.getConverter(Number.class));
         }
     }
 
