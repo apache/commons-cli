@@ -199,6 +199,12 @@ public class TypeHandlerTest {
     }
 
     @Test
+    public void testCreateFile() {
+        final File file = new File("").getAbsoluteFile();
+        assertEquals(file, TypeHandler.createFile(file.toString()));
+    }
+
+    @Test
     public void testCreateValueExistingFile() throws Exception {
         try (FileInputStream result = TypeHandler.createValue("src/test/resources/org/apache/commons/cli/existing-readable.file",
                 PatternOptionBuilder.EXISTING_FILE_VALUE)) {
