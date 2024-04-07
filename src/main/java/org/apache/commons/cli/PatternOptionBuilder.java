@@ -104,7 +104,7 @@ public class PatternOptionBuilder {
     public static final Class<URL> URL_VALUE = URL.class;
 
     /** The converter to use for Unimplemented data types */
-    static final Converter<?, UnsupportedOperationException> NOT_IMPLEMENTED = s -> {
+    static final Converter<?, UnsupportedOperationException> UNSUPPORTED = s -> {
         throw new UnsupportedOperationException("Not yet implemented");
     };
 
@@ -221,6 +221,11 @@ public class PatternOptionBuilder {
      * @since 1.7.0
      */
     public static void registerTypes() {
-        TypeHandler.register(PatternOptionBuilder.FILES_VALUE, NOT_IMPLEMENTED);
+        TypeHandler.register(PatternOptionBuilder.FILES_VALUE, unsupported());
+    }
+
+    @SuppressWarnings("unchecked")
+    static <T> T unsupported() {
+        return (T) UNSUPPORTED;
     }
 }

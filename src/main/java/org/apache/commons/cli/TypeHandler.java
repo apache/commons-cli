@@ -235,13 +235,14 @@ public class TypeHandler {
     /**
      * Registers a Converter for a Class. If {@code converter} is null registration is cleared for {@code clazz}, and no converter will be used in processing.
      *
-     * @param clazz     the Class to register the Converter and Verifier to.
+     * @param <T>       The Class parameter type.
+     * @param clazz     the Class to register the Converter for.
      * @param converter The Converter to associate with Class. May be null.
      * @since 1.7.0
      */
-    public static void register(final Class<?> clazz, final Converter<?, ? extends Throwable> converter) {
+    public static <T> void register(final Class<T> clazz, final Converter<T, ? extends Throwable> converter) {
         if (converter == null) {
-            converterMap.remove(clazz);
+            unregister(clazz);
         } else {
             converterMap.put(clazz, converter);
         }
@@ -271,5 +272,15 @@ public class TypeHandler {
         converterMap.put(Float.class, Float::parseFloat);
         converterMap.put(BigInteger.class, BigInteger::new);
         converterMap.put(BigDecimal.class, BigDecimal::new);
+    }
+
+    /**
+     * Unregisters a Converter for a Class. If {@code converter} is null registration is cleared for {@code clazz}, and no converter will be used in processing.
+     *
+     * @param clazz     the Class to unregister.
+     * @since 1.7.0
+     */
+    public static void unregister(final Class<?> clazz) {
+        converterMap.remove(clazz);
     }
 }

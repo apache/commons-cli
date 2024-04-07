@@ -30,6 +30,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
@@ -263,29 +266,33 @@ public class OptionTest {
         assertNotEquals(Option.builder("test").build().hashCode(), Option.builder("test").longOpt("long test").build().hashCode());
     }
 
+    /** Always returns the same Path. */
+    private static final Converter<Path, InvalidPathException> PATH_CONVERTER = s -> Paths.get("foo");
 
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException {
-        final Option o = Option.builder("o").type(TypeHandlerTest.Instantiable.class).build();
-        assertEquals(Converter.DEFAULT, o.getConverter());
-        Option o2 = roundTrip(o);
-        assertEquals(Converter.DEFAULT, o2.getConverter());
-
+        // TODO No global map!
+        TypeHandler.resetConverters();
+        final Option option = Option.builder("o").type(TypeHandlerTest.Instantiable.class).build();
+        assertEquals(Converter.DEFAULT, option.getConverter());
+        Option roundtrip = roundTrip(option);
+        assertEquals(Converter.DEFAULT, roundtrip.getConverter());
         // verify unregistered class converters and verifiers get reset to default.
-        o.setConverter(Converter.DATE);
-        o2 = roundTrip(o);
-        assertEquals(Converter.DEFAULT, o2.getConverter());
-
+        // converters are NOT Serializable, use a serialization proxy if you want that.
+        option.setConverter(Converter.DATE);
+        roundtrip = roundTrip(option);
+        assertEquals(Converter.DEFAULT, roundtrip.getConverter());
         // verify registered class converters and verifiers do not get reset to default.
+        // converters are NOT Serializable, use a serialization proxy if you want that.
         try {
-            TypeHandler.register(TypeHandlerTest.Instantiable.class, Converter.URL);
+            TypeHandler.register(Path.class, PATH_CONVERTER);
             // verify earlier values still set.
-            assertEquals(Converter.DATE, o.getConverter());
-            o2 = roundTrip(o);
-            // verify set to registered value
-            assertEquals(Converter.URL, o2.getConverter());
+            assertEquals(Converter.DATE, option.getConverter());
+            roundtrip = roundTrip(option);
+            assertEquals(Converter.DEFAULT, roundtrip.getConverter());
         } finally {
-            TypeHandler.register(TypeHandlerTest.Instantiable.class, null);
+            // TODO No global map!
+            TypeHandler.resetConverters();
         }
     }
 

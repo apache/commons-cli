@@ -27,7 +27,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,6 +64,9 @@ public class TypeHandlerTest {
         }
 
     }
+
+    /** Always returns the same Path. */
+    private static final Converter<Path, InvalidPathException> PATH_CONVERTER = s -> Paths.get("foo");
 
     private static Stream<Arguments> createValueTestParameters() {
         // force the PatternOptionBuilder to load / modify the TypeHandler table.
@@ -200,27 +205,27 @@ public class TypeHandlerTest {
 
     @Test
     public void testRegister() {
-        assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
+        assertEquals(Converter.PATH, TypeHandler.getConverter(Path.class));
         try {
-            TypeHandler.register(NotInstantiable.class, Converter.DATE);
-            assertEquals(Converter.DATE, TypeHandler.getConverter(NotInstantiable.class));
+            TypeHandler.register(Path.class, PATH_CONVERTER);
+            assertEquals(PATH_CONVERTER, TypeHandler.getConverter(Path.class));
         } finally {
-            TypeHandler.register(NotInstantiable.class, null);
-            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
+            TypeHandler.unregister(Path.class);
+            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(Path.class));
         }
     }
 
     @Test
     public void testResetConverters() {
-        assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
+        assertEquals(Converter.PATH, TypeHandler.getConverter(Path.class));
         try {
-            TypeHandler.register(NotInstantiable.class, Converter.DATE);
-            assertEquals(Converter.DATE, TypeHandler.getConverter(NotInstantiable.class));
+            TypeHandler.register(Path.class, PATH_CONVERTER);
+            assertEquals(PATH_CONVERTER, TypeHandler.getConverter(Path.class));
             TypeHandler.resetConverters();
-            assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
+            assertEquals(Converter.PATH, TypeHandler.getConverter(Path.class));
             assertEquals(Converter.DEFAULT, TypeHandler.getConverter(NotInstantiable.class));
         } finally {
-            TypeHandler.register(NotInstantiable.class, null);
+            TypeHandler.resetConverters();
         }
     }
 }
