@@ -47,7 +47,7 @@ public class TypeHandler {
      * The Class type parameter matches the Converter's first generic type.
      * </p>
      */
-    private static Map<Class<?>, Converter<?, ?>> converterMap = new HashMap<>();
+    private static Map<Class<?>, Converter<?, ? extends Throwable>> converterMap = new HashMap<>();
 
     static {
         resetConverters();
@@ -239,7 +239,7 @@ public class TypeHandler {
      * @param converter The Converter to associate with Class. May be null.
      * @since 1.7.0
      */
-    public static void register(final Class<?> clazz, final Converter<?, ?> converter) {
+    public static void register(final Class<?> clazz, final Converter<?, ? extends Throwable> converter) {
         if (converter == null) {
             converterMap.remove(clazz);
         } else {
