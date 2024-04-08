@@ -313,7 +313,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Return a String of padding of length {@code len}.
+     * Creates a String of padding of length {@code len}.
      *
      * @param len The length of the String of padding to create.
      *
@@ -459,7 +459,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for {@code options} with the specified command line syntax. This method prints help information
+     * Prints the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param width the number of characters to be displayed on each line
@@ -473,7 +473,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for {@code options} with the specified command line syntax. This method prints help information
+     * Prints the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param width the number of characters to be displayed on each line
@@ -491,7 +491,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for {@code options} with the specified command line syntax.
+     * Prints the help for {@code options} with the specified command line syntax.
      *
      * @param pw the writer to which the help will be written
      * @param width the number of characters to be displayed on each line
@@ -510,7 +510,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for {@code options} with the specified command line syntax.
+     * Prints the help for {@code options} with the specified command line syntax.
      *
      * @param pw the writer to which the help will be written
      * @param width the number of characters to be displayed on each line
@@ -544,7 +544,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for {@code options} with the specified command line syntax. This method prints help information
+     * Prints the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param cmdLineSyntax the syntax for this application
@@ -555,7 +555,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for {@code options} with the specified command line syntax. This method prints help information
+     * Prints the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param cmdLineSyntax the syntax for this application
@@ -567,7 +567,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for {@code options} with the specified command line syntax. This method prints help information
+     * Prints the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param cmdLineSyntax the syntax for this application
@@ -580,7 +580,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for {@code options} with the specified command line syntax. This method prints help information
+     * Prints the help for {@code options} with the specified command line syntax. This method prints help information
      * to System.out.
      *
      * @param cmdLineSyntax the syntax for this application
@@ -594,7 +594,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the help for the specified Options to the specified writer, using the specified width, left padding and
+     * Prints the help for the specified Options to the specified writer, using the specified width, left padding and
      * description padding.
      *
      * @param pw The printWriter to write the help to
@@ -610,7 +610,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the cmdLineSyntax to the specified writer, using the specified width.
+     * Prints the cmdLineSyntax to the specified writer, using the specified width.
      *
      * @param pw The printWriter to write the help to
      * @param width The number of characters per line for the usage statement.
@@ -670,7 +670,7 @@ public class HelpFormatter {
     }
 
     /**
-     * Print the specified text to the specified PrintWriter.
+     * Prints the specified text to the specified PrintWriter.
      *
      * @param pw The printWriter to write the help to
      * @param width The number of characters to display per line
