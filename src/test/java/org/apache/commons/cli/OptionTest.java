@@ -108,6 +108,7 @@ public class OptionTest {
     public void testAddValue() {
         final Option option = new Option("f", null);
         assertThrows(UnsupportedOperationException.class, () -> option.addValue(""));
+        assertThrows(IllegalArgumentException.class, () -> option.addValueForProcessing(""));
     }
 
     @Test
