@@ -126,14 +126,15 @@ public class BugsTest {
     @Test
     public void test11680() throws Exception {
         final Options options = new Options();
-        options.addOption("f", true, "foobar");
-        options.addOption("m", true, "missing");
+        final Option optionF = options.addOption("f", true, "foobar").getOption("f");
+        final Option optionM = options.addOption("m", true, "missing").getOption("m");
         final String[] args = {"-f", "foo"};
-
         final CommandLineParser parser = new PosixParser();
-
         final CommandLine cmd = parser.parse(options, args);
-
+        // 1.5.0 API:
+        cmd.getOptionValue(optionF, "default f");
+        cmd.getOptionValue(optionM, "default m");
+        // Original API:
         cmd.getOptionValue("f", "default f");
         cmd.getOptionValue("m", "default m");
         //
