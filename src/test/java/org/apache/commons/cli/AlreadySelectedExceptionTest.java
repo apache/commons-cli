@@ -18,18 +18,24 @@
 package org.apache.commons.cli;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests {@link UnrecognizedOptionException}.
+ * Tests {@link AlreadySelectedException}.
  */
-public class UnrecognizedOptionExceptionTest {
+public class AlreadySelectedExceptionTest {
 
     @Test
     public void testConstructor() {
-        assertEquals("a", new UnrecognizedOptionException("a").getMessage());
-        assertEquals("a", new UnrecognizedOptionException("a", "b").getMessage());
-        assertEquals("b", new UnrecognizedOptionException("a", "b").getOption());
+        assertEquals("a", new AlreadySelectedException("a").getMessage());
+        assertNull(new AlreadySelectedException("a").getOption());
+        final Option option = new Option("a", "d");
+        final OptionGroup group = new OptionGroup();
+        assertNotNull(new AlreadySelectedException(group, option).getMessage());
+        assertEquals(option, new AlreadySelectedException(group, option).getOption());
+        assertEquals(group, new AlreadySelectedException(group, option).getOptionGroup());
     }
 }
