@@ -72,4 +72,8 @@ final class Util {
         }
         return str;
     }
+
+    private Util() {
+        // no instances
+    }
 }
