@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
@@ -349,19 +350,8 @@ public class HelpFormatterTest {
     @Test
     public void testPrintHelpWithEmptySyntax() {
         final HelpFormatter formatter = new HelpFormatter();
-        try {
-            formatter.printHelp(null, new Options());
-            fail("null command line syntax should be rejected");
-        } catch (final IllegalArgumentException e) {
-            // expected
-        }
-
-        try {
-            formatter.printHelp("", new Options());
-            fail("empty command line syntax should be rejected");
-        } catch (final IllegalArgumentException e) {
-            // expected
-        }
+        assertThrows(IllegalArgumentException.class, () -> formatter.printHelp(null, new Options()), "null command line syntax should be rejected");
+        assertThrows(IllegalArgumentException.class, () -> formatter.printHelp("", new Options()), "null command line syntax should be rejected");
     }
 
     @Test
