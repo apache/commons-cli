@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringReader;
@@ -29,6 +30,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -78,9 +80,25 @@ public class HelpFormatter {
          */
         private boolean showDeprecated;
 
+        /**
+         * The output PrintStream, defaults to {@link System#out}.
+         */
+        private PrintStream printStream = System.out;
+
         @Override
         public HelpFormatter get() {
-            return new HelpFormatter(showDeprecated);
+            return new HelpFormatter(showDeprecated, printStream);
+        }
+
+        /**
+         * Sets the output PrintStream, defaults to {@link System#out}.
+         *
+         * @param printStream the output PrintStream, not null.
+         * @return this.
+         */
+        public Builder setPrintStream(final PrintStream printStream) {
+            this.printStream = Objects.requireNonNull(printStream, "printStream");
+            return this;
         }
 
         /**
@@ -100,6 +118,7 @@ public class HelpFormatter {
      * This class implements the {@code Comparator} interface for comparing Options.
      */
     private static final class OptionComparator implements Comparator<Option>, Serializable {
+
         /** The serial version UID. */
         private static final long serialVersionUID = 5305467873966684014L;
 
@@ -233,6 +252,11 @@ public class HelpFormatter {
     private final boolean showDeprecated;
 
     /**
+     * Where to print help.
+     */
+    private final PrintStream printStream;
+
+    /**
      * The separator displayed between the long option and its value.
      */
     private String longOptSeparator = DEFAULT_LONG_OPT_SEPARATOR;
@@ -241,16 +265,18 @@ public class HelpFormatter {
      * Constructs a new instance.
      */
     public HelpFormatter() {
-        this.showDeprecated = false;
+        this(false, System.out);
     }
 
     /**
      * Constructs a new instance.
+     * @param printStream TODO
      */
-    private HelpFormatter(final boolean showDeprecated) {
+    private HelpFormatter(final boolean showDeprecated, final PrintStream printStream) {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
         this.showDeprecated = showDeprecated;
+        this.printStream = printStream;
     }
 
     /**
@@ -460,7 +486,7 @@ public class HelpFormatter {
 
     /**
      * Prints the help for {@code options} with the specified command line syntax. This method prints help information
-     * to System.out.
+     * to  {@link System#out}  by default.
      *
      * @param width the number of characters to be displayed on each line
      * @param cmdLineSyntax the syntax for this application
@@ -474,7 +500,7 @@ public class HelpFormatter {
 
     /**
      * Prints the help for {@code options} with the specified command line syntax. This method prints help information
-     * to System.out.
+     * to {@link System#out} by default.
      *
      * @param width the number of characters to be displayed on each line
      * @param cmdLineSyntax the syntax for this application
@@ -485,7 +511,7 @@ public class HelpFormatter {
      */
     public void printHelp(final int width, final String cmdLineSyntax, final String header, final Options options, final String footer,
         final boolean autoUsage) {
-        final PrintWriter pw = new PrintWriter(System.out);
+        final PrintWriter pw = new PrintWriter(printStream);
         printHelp(pw, width, cmdLineSyntax, header, options, getLeftPadding(), getDescPadding(), footer, autoUsage);
         pw.flush();
     }
@@ -545,7 +571,7 @@ public class HelpFormatter {
 
     /**
      * Prints the help for {@code options} with the specified command line syntax. This method prints help information
-     * to System.out.
+     * to {@link System#out} by default.
      *
      * @param cmdLineSyntax the syntax for this application
      * @param options the Options instance
@@ -556,7 +582,7 @@ public class HelpFormatter {
 
     /**
      * Prints the help for {@code options} with the specified command line syntax. This method prints help information
-     * to System.out.
+     * to {@link System#out} by default.
      *
      * @param cmdLineSyntax the syntax for this application
      * @param options the Options instance
@@ -568,7 +594,7 @@ public class HelpFormatter {
 
     /**
      * Prints the help for {@code options} with the specified command line syntax. This method prints help information
-     * to System.out.
+     * to {@link System#out} by default.
      *
      * @param cmdLineSyntax the syntax for this application
      * @param header the banner to display at the beginning of the help
@@ -581,7 +607,7 @@ public class HelpFormatter {
 
     /**
      * Prints the help for {@code options} with the specified command line syntax. This method prints help information
-     * to System.out.
+     * to {@link System#out} by default.
      *
      * @param cmdLineSyntax the syntax for this application
      * @param header the banner to display at the beginning of the help

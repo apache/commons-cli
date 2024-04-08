@@ -231,28 +231,31 @@ public class BugsTest {
     @Test
     public void test13666() throws Exception {
         final Options options = new Options();
-        final Option dir = OptionBuilder.withDescription("dir").hasArg().create('d');
-        options.addOption(dir);
-
+        final Option dirOption = OptionBuilder.withDescription("dir").hasArg().create('d');
+        options.addOption(dirOption);
         final PrintStream oldSystemOut = System.out;
         try {
-            final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            final PrintStream print = new PrintStream(bytes);
-
-            // capture this platform's eol symbol
-            print.println();
-            final String eol = bytes.toString();
-            bytes.reset();
-
-            System.setOut(new PrintStream(bytes));
-
+            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            final String eol = System.lineSeparator();
+            System.setOut(new PrintStream(baos));
             final HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("dir", options);
-
-            assertEquals("usage: dir" + eol + " -d <arg>   dir" + eol, bytes.toString());
+            assertEquals("usage: dir" + eol + " -d <arg>   dir" + eol, baos.toString());
         } finally {
             System.setOut(oldSystemOut);
         }
+    }
+
+    @Test
+    public void test13666_Builder() throws Exception {
+        final Options options = new Options();
+        final Option dirOption = OptionBuilder.withDescription("dir").hasArg().create('d');
+        options.addOption(dirOption);
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final String eol = System.lineSeparator();
+        final HelpFormatter formatter = HelpFormatter.builder().setPrintStream(new PrintStream(baos)).get();
+        formatter.printHelp("dir", options);
+        assertEquals("usage: dir" + eol + " -d <arg>   dir" + eol, baos.toString());
     }
 
     @Test
