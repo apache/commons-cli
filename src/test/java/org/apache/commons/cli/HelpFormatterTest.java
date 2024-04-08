@@ -351,7 +351,10 @@ public class HelpFormatterTest {
     public void testPrintHelpWithEmptySyntax() {
         final HelpFormatter formatter = new HelpFormatter();
         assertThrows(IllegalArgumentException.class, () -> formatter.printHelp(null, new Options()), "null command line syntax should be rejected");
-        assertThrows(IllegalArgumentException.class, () -> formatter.printHelp("", new Options()), "null command line syntax should be rejected");
+        assertThrows(IllegalArgumentException.class, () -> formatter.printHelp(null, new Options(), true), "null command line syntax should be rejected");
+        assertThrows(IllegalArgumentException.class, () -> formatter.printHelp(null, new Options(), false), "null command line syntax should be rejected");
+        assertThrows(IllegalArgumentException.class, () -> formatter.printHelp("", new Options(), true), "null command line syntax should be rejected");
+        assertThrows(IllegalArgumentException.class, () -> formatter.printHelp("", new Options(), false), "null command line syntax should be rejected");
     }
 
     @Test
