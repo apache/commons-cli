@@ -494,7 +494,7 @@ public class Option implements Cloneable, Serializable {
     @Deprecated
     public boolean addValue(final String value) {
         throw new UnsupportedOperationException(
-                "The addValue method is not intended for client use. " + "Subclasses should use the addValueForProcessing method instead. ");
+                "The addValue method is not intended for client use. Subclasses should use the addValueForProcessing method instead.");
     }
 
     /**
