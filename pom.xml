@@ -90,6 +90,14 @@
     <commons.encoding>utf-8</commons.encoding>
     <findbugs.skip>true</findbugs.skip>
     <japicmp.skip>false</japicmp.skip>
+    <!-- JaCoCo: Don't make code coverage worse -->
+    <commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
+    <commons.jacoco.classRatio>1.00</commons.jacoco.classRatio>
+    <commons.jacoco.instructionRatio>0.97</commons.jacoco.instructionRatio>
+    <commons.jacoco.methodRatio>0.97</commons.jacoco.methodRatio>
+    <commons.jacoco.branchRatio>0.94</commons.jacoco.branchRatio>
+    <commons.jacoco.complexityRatio>0.85</commons.jacoco.complexityRatio>
+    <commons.jacoco.lineRatio>0.97</commons.jacoco.lineRatio>
   </properties>
 
   <build>
