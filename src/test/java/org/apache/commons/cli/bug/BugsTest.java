@@ -128,9 +128,12 @@ public class BugsTest {
         final Options options = new Options();
         final Option optionF = options.addOption("f", true, "foobar").getOption("f");
         final Option optionM = options.addOption("m", true, "missing").getOption("m");
-        final String[] args = {"-f", "foo"};
+        final String[] args = { "-f", "foo" };
         final CommandLineParser parser = new PosixParser();
         final CommandLine cmd = parser.parse(options, args);
+        // 1.7.0 API:
+        cmd.getOptionValue(optionF, () -> "default f");
+        cmd.getOptionValue(optionM, () -> "default m");
         // 1.5.0 API:
         cmd.getOptionValue(optionF, "default f");
         cmd.getOptionValue(optionM, "default m");
