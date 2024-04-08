@@ -295,4 +295,22 @@ public class OptionTest {
         assertEquals("myfile.txt", clone.getValue());
         assertEquals(DefaultOption.class, clone.getClass());
     }
+
+    @Test
+    public void testTypeClass() {
+        final Option option = new Option("f", null);
+        assertEquals(String.class, option.getType());
+        option.setType(CharSequence.class);
+        assertEquals(CharSequence.class, option.getType());
+    }
+
+    @Test
+    public void testTypeObject() {
+        final Option option = new Option("f", null);
+        assertEquals(String.class, option.getType());
+        @SuppressWarnings("cast")
+        final Object type = (Object) CharSequence.class; // Do NOT remove cast
+        option.setType(type);
+        assertEquals(CharSequence.class, option.getType());
+    }
 }
