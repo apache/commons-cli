@@ -221,6 +221,20 @@ public class OptionTest {
     }
 
     @Test
+    public void testEquals() {
+        final Option option1a = new Option("1", null);
+        final Option option1b = new Option("1", null);
+        final Option option2 = new Option("2", null);
+        assertEquals(option1a, option1a);
+        assertEquals(option1a, option1b);
+        assertEquals(option1b, option1a);
+        assertNotEquals(option1a, option2);
+        assertNotEquals(option1b, option2);
+        assertNotEquals(option2, option1a);
+        assertNotEquals(option2, "");
+    }
+
+    @Test
     public void testGetValue() {
         final Option option = new Option("f", null);
         option.setArgs(Option.UNLIMITED_VALUES);
