@@ -134,6 +134,9 @@ public class BugsTest {
         // 1.7.0 API:
         cmd.getOptionValue(optionF, () -> "default f");
         cmd.getOptionValue(optionM, () -> "default m");
+        // 1.7.0 API:
+        cmd.getOptionValue('f', () -> "default f");
+        cmd.getOptionValue('m', () -> "default m");
         // 1.5.0 API:
         cmd.getOptionValue(optionF, "default f");
         cmd.getOptionValue(optionM, "default m");
