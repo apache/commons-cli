@@ -105,6 +105,12 @@ public class OptionTest {
     }
 
     @Test
+    public void testAddValue() {
+        final Option option = new Option("f", null);
+        assertThrows(UnsupportedOperationException.class, () -> option.addValue(""));
+    }
+
+    @Test
     public void testBuilderInsufficientParams1() {
         assertThrows(IllegalArgumentException.class, () -> Option.builder().desc("desc").build());
     }
