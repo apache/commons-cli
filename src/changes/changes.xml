@@ -40,6 +40,7 @@
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 64 to 69 #256.</action>
       <action type="update" dev="ggregory" due-to="Elric, Gary Gregory">Update the tests to JUnit 5 #238.</action>
+      <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump tests commons-io:commons-io from 2.16.0 to 2.16.1 #258.</action>
     </release>
     <release version="1.6.0" date="2023-10-23" description="New features and bug fixes">
       <!-- FIX -->
