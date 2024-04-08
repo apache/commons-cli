@@ -23,8 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 
 public class UtilTest {
+
     @Test
     public void testStripLeadingAndTrailingQuotes() {
+        assertNull(Util.stripLeadingAndTrailingQuotes(null));
+        assertEquals("", Util.stripLeadingAndTrailingQuotes(""));
         assertEquals("foo", Util.stripLeadingAndTrailingQuotes("\"foo\""));
         assertEquals("foo \"bar\"", Util.stripLeadingAndTrailingQuotes("foo \"bar\""));
         assertEquals("\"foo\" bar", Util.stripLeadingAndTrailingQuotes("\"foo\" bar"));
