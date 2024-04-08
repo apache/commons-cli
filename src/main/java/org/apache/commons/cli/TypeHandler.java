@@ -26,6 +26,7 @@ import java.nio.file.Path;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * TypeHandler will handle the pluggable conversion and verification of Option types. It handles the mapping of classes to bot converters and verifiers. It
@@ -258,11 +259,11 @@ public class TypeHandler {
      * For each entry, that Class' type must match the Converter's first type.
      * </p>
      *
-     * @param converterMap The converter map.
+     * @param converterMap The converter map, not null.
      * @since 1.7.0
      */
     public TypeHandler(final Map<Class<?>, Converter<?, ? extends Throwable>> converterMap) {
-        this.converterMap = converterMap;
+        this.converterMap = Objects.requireNonNull(converterMap, "converterMap");
     }
 
     /**
