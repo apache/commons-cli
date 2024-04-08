@@ -240,7 +240,7 @@ public class TypeHandler {
     /**
      * Map of Class to Converter.
      * <p>
-     * The Class type parameter matches the Converter's first generic type.
+     * For each entry, that Class' type must match the Converter's first type.
      * </p>
      */
     private final Map<Class<?>, Converter<?, ? extends Throwable>> converterMap;
@@ -254,6 +254,9 @@ public class TypeHandler {
 
     /**
      * Constructs a default initialized instance.
+     * <p>
+     * For each entry, that Class' type must match the Converter's first type.
+     * </p>
      *
      * @param converterMap The converter map.
      * @since 1.7.0
