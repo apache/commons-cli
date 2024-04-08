@@ -84,6 +84,20 @@ public class CommandLineTest {
     }
 
     @Test
+    public void testDeprecatedDefaultOption() {
+        final CommandLine.Builder builder = new CommandLine.Builder();
+        builder.addArg("foo").addArg("bar");
+        final Option opt = Option.builder().option("T").deprecated().build();
+        builder.addOption(opt);
+        final AtomicReference<Option> handler = new AtomicReference<>();
+        final CommandLine cmd = builder.build();
+        cmd.getOptionValue(opt.getOpt());
+        handler.set(null);
+        cmd.getOptionValue("Nope");
+        assertNull(handler.get());
+    }
+
+    @Test
     public void testGetOptionProperties() throws Exception {
         final String[] args = {"-Dparam1=value1", "-Dparam2=value2", "-Dparam3", "-Dparam4=value4", "-D", "--property", "foo=bar"};
 
