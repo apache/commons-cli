@@ -166,35 +166,35 @@ public abstract class Parser implements CommandLineParser {
 
         // process each flattened token
         while (iterator.hasNext()) {
-            final String t = iterator.next();
+            final String token = iterator.next();
 
             // the value is the double-dash
-            if ("--".equals(t)) {
+            if ("--".equals(token)) {
                 eatTheRest = true;
             }
 
             // the value is a single dash
-            else if ("-".equals(t)) {
+            else if ("-".equals(token)) {
                 if (stopAtNonOption) {
                     eatTheRest = true;
                 } else {
-                    cmd.addArg(t);
+                    cmd.addArg(token);
                 }
             }
 
             // the value is an option
-            else if (t.startsWith("-")) {
-                if (stopAtNonOption && !getOptions().hasOption(t)) {
+            else if (token.startsWith("-")) {
+                if (stopAtNonOption && !getOptions().hasOption(token)) {
                     eatTheRest = true;
-                    cmd.addArg(t);
+                    cmd.addArg(token);
                 } else {
-                    processOption(t, iterator);
+                    processOption(token, iterator);
                 }
             }
 
             // the value is an argument
             else {
-                cmd.addArg(t);
+                cmd.addArg(token);
 
                 if (stopAtNonOption) {
                     eatTheRest = true;
