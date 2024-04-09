@@ -123,7 +123,7 @@ public class OptionTest {
 
     @Test
     public void testBuilderInvalidOptionName0() {
-        assertNull(Option.builder().option(null));
+        assertThrows(IllegalArgumentException.class, () -> Option.builder().option(null).build());
         assertThrows(IllegalArgumentException.class, () -> Option.builder().option(""));
         assertThrows(IllegalArgumentException.class, () -> Option.builder().option(" "));
     }
