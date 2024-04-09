@@ -30,9 +30,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
@@ -67,9 +64,6 @@ public class OptionTest {
             return true;
         }
     }
-
-    /** Always returns the same Path. */
-    private static final Converter<Path, InvalidPathException> PATH_CONVERTER = s -> Paths.get("foo");
 
     private static void checkOption(final Option option, final String opt, final String description, final String longOpt, final int numArgs,
             final String argName, final boolean required, final boolean optionalArg, final char valueSeparator, final Class<?> cls, final String deprecatedDesc,
