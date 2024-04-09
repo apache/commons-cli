@@ -602,7 +602,7 @@ public class DefaultParser implements CommandLineParser {
         if (token == null || !token.startsWith("-") || token.length() == 1) {
             return false;
         }
-        final int pos = token.indexOf("=");
+        final int pos = token.indexOf(Char.EQUAL);
         final String t = pos == -1 ? token : token.substring(0, pos);
         if (!getMatchingLongOptions(t).isEmpty()) {
             // long or partial long options (--L, -L, --L=V, -L=V, --l, --l=V)
@@ -649,7 +649,7 @@ public class DefaultParser implements CommandLineParser {
             return false;
         }
         // remove leading "-" and "=value"
-        final int pos = token.indexOf("=");
+        final int pos = token.indexOf(Char.EQUAL);
         final String optName = pos == -1 ? token.substring(1) : token.substring(1, pos);
         if (options.hasShortOption(optName)) {
             return true;

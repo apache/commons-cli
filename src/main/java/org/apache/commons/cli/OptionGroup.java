@@ -134,7 +134,7 @@ public class OptionGroup implements Serializable {
             }
 
             if (option.getDescription() != null) {
-                buff.append(" ");
+                buff.append(Char.SP);
                 buff.append(option.getDescription());
             }
 

@@ -657,7 +657,7 @@ public class HelpFormatter {
      */
     public void printUsage(final PrintWriter pw, final int width, final String app, final Options options) {
         // initialize the string buffer
-        final StringBuffer buff = new StringBuffer(getSyntaxPrefix()).append(app).append(" ");
+        final StringBuffer buff = new StringBuffer(getSyntaxPrefix()).append(app).append(Char.SP);
         // create a list for processed option groups
         final Collection<OptionGroup> processedGroups = new ArrayList<>();
         final List<Option> optList = new ArrayList<>(options.getOptions());
@@ -687,7 +687,7 @@ public class HelpFormatter {
                 appendOption(buff, option, option.isRequired());
             }
             if (it.hasNext()) {
-                buff.append(" ");
+                buff.append(Char.SP);
             }
         }
 
