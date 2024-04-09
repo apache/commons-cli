@@ -122,6 +122,13 @@ public class OptionTest {
     }
 
     @Test
+    public void testBuilderInvalidOptionName0() {
+        assertNull(Option.builder().option(null));
+        assertThrows(IllegalArgumentException.class, () -> Option.builder().option(""));
+        assertThrows(IllegalArgumentException.class, () -> Option.builder().option(" "));
+    }
+
+    @Test
     public void testBuilderInvalidOptionName1() {
         assertThrows(IllegalArgumentException.class, () -> Option.builder().option("invalid?"));
     }
