@@ -81,9 +81,9 @@ public class HelpFormatter {
         private boolean showDeprecated;
 
         /**
-         * The output PrintStream, defaults to {@link System#out}.
+         * The output PrintWriter, defaults to wrapping {@link System#out}.
          */
-        private PrintStream printStream = System.out;
+        private PrintWriter printStream = new PrintWriter(System.out);
 
         @Override
         public HelpFormatter get() {
@@ -91,13 +91,13 @@ public class HelpFormatter {
         }
 
         /**
-         * Sets the output PrintStream, defaults to {@link System#out}.
+         * Sets the output PrintWriter, defaults to wrapping {@link System#out}.
          *
-         * @param printStream the output PrintStream, not null.
+         * @param printWriter the output PrintWriter, not null.
          * @return this.
          */
-        public Builder setPrintStream(final PrintStream printStream) {
-            this.printStream = Objects.requireNonNull(printStream, "printStream");
+        public Builder setPrintWriter(final PrintWriter printWriter) {
+            this.printStream = Objects.requireNonNull(printWriter, "printWriter");
             return this;
         }
 
@@ -254,7 +254,7 @@ public class HelpFormatter {
     /**
      * Where to print help.
      */
-    private final PrintStream printStream;
+    private final PrintWriter printWriter;
 
     /**
      * The separator displayed between the long option and its value.
@@ -265,18 +265,18 @@ public class HelpFormatter {
      * Constructs a new instance.
      */
     public HelpFormatter() {
-        this(false, System.out);
+        this(false, new PrintWriter(System.out));
     }
 
     /**
      * Constructs a new instance.
      * @param printStream TODO
      */
-    private HelpFormatter(final boolean showDeprecated, final PrintStream printStream) {
+    private HelpFormatter(final boolean showDeprecated, final PrintWriter printStream) {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
         this.showDeprecated = showDeprecated;
-        this.printStream = printStream;
+        this.printWriter = printStream;
     }
 
     /**
@@ -363,11 +363,11 @@ public class HelpFormatter {
      */
     protected int findWrapPos(final String text, final int width, final int startPos) {
         // the line ends before the max wrap pos or a new line char found
-        int pos = text.indexOf('\n', startPos);
+        int pos = text.indexOf(Char.LF, startPos);
         if (pos != -1 && pos <= width) {
             return pos + 1;
         }
-        pos = text.indexOf('\t', startPos);
+        pos = text.indexOf(Char.TAB, startPos);
         if (pos != -1 && pos <= width) {
             return pos + 1;
         }
@@ -377,7 +377,7 @@ public class HelpFormatter {
         // look for the last whitespace character before startPos+width
         for (pos = startPos + width; pos >= startPos; --pos) {
             final char c = text.charAt(pos);
-            if (c == ' ' || c == '\n' || c == '\r') {
+            if (c == Char.SP || c == Char.LF || c == Char.CR) {
                 break;
             }
         }
@@ -511,7 +511,7 @@ public class HelpFormatter {
      */
     public void printHelp(final int width, final String cmdLineSyntax, final String header, final Options options, final String footer,
         final boolean autoUsage) {
-        final PrintWriter pw = new PrintWriter(printStream);
+        final PrintWriter pw = new PrintWriter(printWriter);
         printHelp(pw, width, cmdLineSyntax, header, options, getLeftPadding(), getDescPadding(), footer, autoUsage);
         pw.flush();
     }

@@ -37,6 +37,9 @@ final class Char {
     /** Space. */
     static final char SP = ' ';
 
+    /** Tab. */
+    static final char TAB = '\t';
+
     private Char() {
         // empty
     }

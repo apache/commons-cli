@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Properties;
 
@@ -253,7 +254,7 @@ public class BugsTest {
         options.addOption(dirOption);
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         final String eol = System.lineSeparator();
-        final HelpFormatter formatter = HelpFormatter.builder().setPrintStream(new PrintStream(baos)).get();
+        final HelpFormatter formatter = HelpFormatter.builder().setPrintWriter(new PrintWriter(baos)).get();
         formatter.printHelp("dir", options);
         assertEquals("usage: dir" + eol + " -d <arg>   dir" + eol, baos.toString());
     }

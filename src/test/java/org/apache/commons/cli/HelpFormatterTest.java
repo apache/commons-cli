@@ -25,6 +25,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import org.apache.commons.cli.HelpFormatter.Builder;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -128,7 +129,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void testHeaderStartingWithLineSeparator() {
+    public void testHeaderStartingWithLineSeparator0() {
         // related to Bugzilla #21215
         final Options options = new Options();
         final HelpFormatter formatter = new HelpFormatter();
@@ -143,6 +144,78 @@ public class HelpFormatterTest {
                 "Header" + EOL +
                 "" + EOL +
                 "Footer" + EOL,
+                out.toString());
+        //@formatter:on
+    }
+
+    @Test
+    public void testHeaderStartingWithLineSeparator1() {
+        // related to Bugzilla #21215
+        final Options options = new Options();
+        final String header = EOL + "Header";
+        final String footer = "Footer";
+        final Builder builder = HelpFormatter.builder();
+        StringWriter out = new StringWriter();
+        builder.setPrintWriter(new PrintWriter(out)).get().printHelp(new PrintWriter(out), 80, "foobar", header, options, 2, 2, footer, true);
+        //@formatter:off
+        assertEquals(
+                "usage: foobar" + EOL +
+                "" + EOL +
+                "Header" + EOL +
+                "" + EOL +
+                "Footer" + EOL,
+                out.toString());
+        //@formatter:on
+        out = new StringWriter();
+        builder.setPrintWriter(new PrintWriter(out)).get().printHelp("foobar", header, options, footer);
+        //@formatter:off
+        assertEquals(
+                "usage: foobar" + EOL +
+                "" + EOL +
+                "Header" + EOL +
+                "" + EOL +
+                "Footer" + EOL,
+                out.toString());
+        //@formatter:on
+        out = new StringWriter();
+        builder.setPrintWriter(new PrintWriter(out)).get().printHelp(80, "foobar", header, options, footer);
+        //@formatter:off
+        assertEquals(
+                "usage: foobar" + EOL +
+                "" + EOL +
+                "Header" + EOL +
+                "" + EOL +
+                "Footer" + EOL,
+                out.toString());
+        //@formatter:on
+        out = new StringWriter();
+        builder.setPrintWriter(new PrintWriter(out)).get().printHelp("foobar", header, options, footer, false);
+        //@formatter:off
+        assertEquals(
+                "usage: foobar" + EOL +
+                "" + EOL +
+                "Header" + EOL +
+                "" + EOL +
+                "Footer" + EOL,
+                out.toString());
+        //@formatter:on
+        out = new StringWriter();
+        builder.setPrintWriter(new PrintWriter(out)).get().printHelp("foobar", header, options, footer, true);
+        //@formatter:off
+        assertEquals(
+                "usage: foobar" + EOL +
+                "" + EOL +
+                "Header" + EOL +
+                "" + EOL +
+                "Footer" + EOL,
+                out.toString());
+        //@formatter:on
+        out = new StringWriter();
+        builder.setPrintWriter(new PrintWriter(out)).get().printHelp("foobar", options, false);
+        //@formatter:off
+        assertEquals(
+                "usage: foobar" + EOL +
+                "" + EOL,
                 out.toString());
         //@formatter:on
     }
