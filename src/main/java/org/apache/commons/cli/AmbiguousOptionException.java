@@ -45,9 +45,9 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
 
         final Iterator<String> it = matchingOptions.iterator();
         while (it.hasNext()) {
-            buf.append("'");
+            buf.append(Char.APOS);
             buf.append(it.next());
-            buf.append("'");
+            buf.append(Char.APOS);
             if (it.hasNext()) {
                 buf.append(", ");
             }

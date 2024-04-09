@@ -135,7 +135,7 @@ public class PosixParser extends Parser {
 
             // handle long option --foo or --foo=bar
             else if (token.startsWith("--")) {
-                final int pos = token.indexOf('=');
+                final int pos = token.indexOf(Char.EQUAL);
                 final String opt = pos == -1 ? token : token.substring(0, pos); // --foo
 
                 final List<String> matchingOpts = options.getMatchingOptions(opt);

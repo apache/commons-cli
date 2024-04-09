@@ -360,7 +360,7 @@ public class DefaultParser implements CommandLineParser {
      * @param token the command line token to handle
      */
     private void handleLongOption(final String token) throws ParseException {
-        if (token.indexOf('=') == -1) {
+        if (token.indexOf(Char.EQUAL) == -1) {
             handleLongOptionWithoutEqual(token);
         } else {
             handleLongOptionWithEqual(token);
@@ -375,7 +375,7 @@ public class DefaultParser implements CommandLineParser {
      * @param token the command line token to handle
      */
     private void handleLongOptionWithEqual(final String token) throws ParseException {
-        final int pos = token.indexOf('=');
+        final int pos = token.indexOf(Char.EQUAL);
         final String value = token.substring(pos + 1);
         final String opt = token.substring(0, pos);
         final List<String> matchingOpts = getMatchingLongOptions(opt);
@@ -471,7 +471,7 @@ public class DefaultParser implements CommandLineParser {
      */
     private void handleShortAndLongOption(final String token) throws ParseException {
         final String t = Util.stripLeadingHyphens(token);
-        final int pos = t.indexOf('=');
+        final int pos = t.indexOf(Char.EQUAL);
         if (t.length() == 1) {
             // -S
             if (options.hasShortOption(t)) {

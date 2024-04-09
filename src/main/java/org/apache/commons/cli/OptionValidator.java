@@ -114,7 +114,7 @@ final class OptionValidator {
      * @throws IllegalArgumentException if the Option is not valid.
      */
     static String validate(final String option) throws IllegalArgumentException {
-        // if opt is NULL do not check further
+        // if opt is null do not check further.
         if (option == null) {
             return null;
         }

@@ -170,7 +170,7 @@ public class PatternOptionBuilder {
      * @return The {@link Options} instance
      */
     public static Options parsePattern(final String pattern) {
-        char opt = ' ';
+        char opt = Char.SP;
         boolean required = false;
         Class<?> type = null;
         Converter<?, ?> converter = Converter.DEFAULT;
@@ -183,7 +183,7 @@ public class PatternOptionBuilder {
             // a value code comes after an option and specifies
             // details about it
             if (!isValueCode(ch)) {
-                if (opt != ' ') {
+                if (opt != Char.SP) {
                     final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type)
                             .converter(converter).build();
 
@@ -206,7 +206,7 @@ public class PatternOptionBuilder {
             }
         }
 
-        if (opt != ' ') {
+        if (opt != Char.SP) {
             final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type).build();
 
             // we have a final one to deal with

@@ -61,10 +61,10 @@ public class GnuParser extends Parser {
 
                 if (options.hasOption(opt)) {
                     tokens.add(arg);
-                } else if (opt.indexOf('=') != -1 && options.hasOption(opt.substring(0, opt.indexOf('=')))) {
+                } else if (opt.indexOf(Char.EQUAL) != -1 && options.hasOption(opt.substring(0, opt.indexOf(Char.EQUAL)))) {
                     // the format is --foo=value or -foo=value
-                    tokens.add(arg.substring(0, arg.indexOf('='))); // --foo
-                    tokens.add(arg.substring(arg.indexOf('=') + 1)); // value
+                    tokens.add(arg.substring(0, arg.indexOf(Char.EQUAL))); // --foo
+                    tokens.add(arg.substring(arg.indexOf(Char.EQUAL) + 1)); // value
                 } else if (options.hasOption(arg.substring(0, 2))) {
                     // the format is a special properties option (-Dproperty=value)
                     tokens.add(arg.substring(0, 2)); // -D

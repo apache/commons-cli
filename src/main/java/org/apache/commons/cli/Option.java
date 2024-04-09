@@ -286,7 +286,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder.
          */
         public Builder valueSeparator() {
-            return valueSeparator('=');
+            return valueSeparator(Char.EQUAL);
         }
 
         /**
@@ -963,9 +963,9 @@ public class Option implements Cloneable, Serializable {
             return "";
         }
         final StringBuilder buf = new StringBuilder().append("Option '");
-        buf.append(option).append('\'');
+        buf.append(option).append(Char.APOS);
         if (longOption != null) {
-            buf.append('\'').append(longOption).append('\'');
+            buf.append(Char.APOS).append(longOption).append(Char.APOS);
         }
         if (isDeprecated()) {
             buf.append(": ").append(deprecated);
@@ -984,10 +984,10 @@ public class Option implements Cloneable, Serializable {
         buf.append("Option ");
         buf.append(option);
         if (longOption != null) {
-            buf.append(' ').append(longOption);
+            buf.append(Char.SP).append(longOption);
         }
         if (isDeprecated()) {
-            buf.append(' ');
+            buf.append(Char.SP);
             buf.append(deprecated.toString());
         }
         if (hasArgs()) {

@@ -321,7 +321,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      */
     public static OptionBuilder withValueSeparator() {
-        OptionBuilder.valueSeparator = '=';
+        OptionBuilder.valueSeparator = Char.EQUAL;
 
         return INSTANCE;
     }

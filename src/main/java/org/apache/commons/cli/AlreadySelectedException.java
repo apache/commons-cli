@@ -41,8 +41,8 @@ public class AlreadySelectedException extends ParseException {
      * @since 1.2
      */
     public AlreadySelectedException(final OptionGroup group, final Option option) {
-        this("The option '" + option.getKey() + "' was specified but an option from this group " + "has already been selected: '" + group.getSelected() + "'",
-            group, option);
+        this(String.format("The option '%s' was specified but an option from this group has already been selected: '%s'", option.getKey(), group.getSelected()),
+                group, option);
     }
 
     /**
