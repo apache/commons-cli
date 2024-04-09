@@ -108,6 +108,66 @@ public class BugCLI162Test {
 
     private StringWriter sw;
 
+    // @formatter:off
+    private static final String EXPECTED = "usage: org.apache.commons.cli.bug.BugCLI162Test" + CR +
+            " -2,--jdbc2sfmd <arg>        Converts the JDBC file in the first argument" + CR +
+            "                             to an SMFD file specified in the second" + CR +
+            "                             argument." + CR +
+            " -a,--paramNames <arg>       Parameter XML names; default names are" + CR +
+            "                             param1, param2, etc. Example: -a \"pname1" + CR +
+            "                             pname2\"" + CR +
+            " -b,--jdbc <arg>             Writes a JDBC binding node file for the given" + CR +
+            "                             SQL" + CR +
+            " -c,--url <arg>              Connection URL" + CR +
+            " -d,--driver <arg>           JDBC driver class name" + CR +
+            " -e,--description <arg>      SFMD description. A default description is" + CR +
+            "                             used if omited. Example: -e \"Runs such and" + CR +
+            "                             such\"" + CR +
+            " -f,--sfmd <arg>             Writes a SFMD file for the given SQL" + CR +
+            " -g,--printTiming            Prints timing information" + CR +
+            " -h,--help                   Prints help and quits" + CR +
+            " -i,--interactive            Runs in interactive mode, reading and writing" + CR +
+            "                             from the console, 'go' or '/' sends a" + CR +
+            "                             statement" + CR +
+            " -j,--node <arg>             Writes a JDBC node file for the given SQL" + CR +
+            "                             (internal debugging)" + CR +
+            " -l,--columnNames <arg>      Column XML names; default names column" + CR +
+            "                             labels. Example: -l \"cname1 cname2\"" + CR +
+            " -m,--printMetaData          Prints metadata information" + CR +
+            " -n,--info                   Prints driver information and properties. If" + CR +
+            "                             -c is not specified, all drivers on the" + CR +
+            "                             classpath are displayed." + CR +
+            " -o,--paramModes <arg>       Parameters modes (1=IN, 2=INOUT, 4=OUT," + CR +
+            "                             0=Unknown). -o and -O are mutually exclusive." + CR +
+            "                             Example for 2 parameters, OUT and IN: -o \"4" + CR +
+            "                             1\"" + CR +
+            " -O,--paramModeNames <arg>   Parameters mode names (IN, INOUT, OUT," + CR +
+            "                             Unknown). -o and -O are mutually exclusive." + CR +
+            "                             Example for 2 parameters, OUT and IN: -O \"OUT" + CR +
+            "                             IN\"" + CR +
+            " -p,--password <arg>         The database password for the user specified" + CR +
+            "                             with the -u option. You can obfuscate the" + CR +
+            "                             password with" + CR +
+            "                             org.mortbay.jetty.security.Password, see" + CR +
+            "                             https://docs.codehaus.org/display/JETTY/Secur" + CR +
+            "                             ing+Passwords" + CR +
+            " -s,--sql <arg>              Runs SQL or {call stored_procedure(?, ?)} or" + CR +
+            "                             {?=call function(?, ?)}" + CR +
+            " -t,--printStack             Prints stack traces on errors" + CR +
+            "    --trim <arg>             Trims leading and trailing spaces from all" + CR +
+            "                             column values. Column XML names can be" + CR +
+            "                             optionally specified to set which columns to" + CR +
+            "                             trim." + CR +
+            " -u,--user <arg>             A database user name" + CR +
+            " -w,--outfile <arg>          Writes the SQL output to the given file" + CR +
+            " -y,--paramTypes <arg>       Parameter types from java.sql.Types. -y and" + CR +
+            "                             -Y are mutually exclusive. Example: -y \"-10" + CR +
+            "                             12\"" + CR +
+            " -Y,--paramTypeNames <arg>   Parameter java.sql.Types names. -y and -Y are" + CR +
+            "                             mutually exclusive. Example: -Y \"CURSOR" + CR +
+            "                             VARCHAR\"" + CR;
+    // @formatter:on
+
     @BeforeEach
     public void setUp() {
         formatter = new HelpFormatter();
@@ -319,66 +379,8 @@ public class BugCLI162Test {
 
         formatter.printHelp(new PrintWriter(sw), HelpFormatter.DEFAULT_WIDTH, this.getClass().getName(), null, commandLineOptions,
             HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, null);
-        //@formatter:off
-        final String expected = "usage: org.apache.commons.cli.bug.BugCLI162Test" + CR +
-                " -2,--jdbc2sfmd <arg>        Converts the JDBC file in the first argument" + CR +
-                "                             to an SMFD file specified in the second" + CR +
-                "                             argument." + CR +
-                " -a,--paramNames <arg>       Parameter XML names; default names are" + CR +
-                "                             param1, param2, etc. Example: -a \"pname1" + CR +
-                "                             pname2\"" + CR +
-                " -b,--jdbc <arg>             Writes a JDBC binding node file for the given" + CR +
-                "                             SQL" + CR +
-                " -c,--url <arg>              Connection URL" + CR +
-                " -d,--driver <arg>           JDBC driver class name" + CR +
-                " -e,--description <arg>      SFMD description. A default description is" + CR +
-                "                             used if omited. Example: -e \"Runs such and" + CR +
-                "                             such\"" + CR +
-                " -f,--sfmd <arg>             Writes a SFMD file for the given SQL" + CR +
-                " -g,--printTiming            Prints timing information" + CR +
-                " -h,--help                   Prints help and quits" + CR +
-                " -i,--interactive            Runs in interactive mode, reading and writing" + CR +
-                "                             from the console, 'go' or '/' sends a" + CR +
-                "                             statement" + CR +
-                " -j,--node <arg>             Writes a JDBC node file for the given SQL" + CR +
-                "                             (internal debugging)" + CR +
-                " -l,--columnNames <arg>      Column XML names; default names column" + CR +
-                "                             labels. Example: -l \"cname1 cname2\"" + CR +
-                " -m,--printMetaData          Prints metadata information" + CR +
-                " -n,--info                   Prints driver information and properties. If" + CR +
-                "                             -c is not specified, all drivers on the" + CR +
-                "                             classpath are displayed." + CR +
-                " -o,--paramModes <arg>       Parameters modes (1=IN, 2=INOUT, 4=OUT," + CR +
-                "                             0=Unknown). -o and -O are mutually exclusive." + CR +
-                "                             Example for 2 parameters, OUT and IN: -o \"4" + CR +
-                "                             1\"" + CR +
-                " -O,--paramModeNames <arg>   Parameters mode names (IN, INOUT, OUT," + CR +
-                "                             Unknown). -o and -O are mutually exclusive." + CR +
-                "                             Example for 2 parameters, OUT and IN: -O \"OUT" + CR +
-                "                             IN\"" + CR +
-                " -p,--password <arg>         The database password for the user specified" + CR +
-                "                             with the -u option. You can obfuscate the" + CR +
-                "                             password with" + CR +
-                "                             org.mortbay.jetty.security.Password, see" + CR +
-                "                             https://docs.codehaus.org/display/JETTY/Secur" + CR +
-                "                             ing+Passwords" + CR +
-                " -s,--sql <arg>              Runs SQL or {call stored_procedure(?, ?)} or" + CR +
-                "                             {?=call function(?, ?)}" + CR +
-                " -t,--printStack             Prints stack traces on errors" + CR +
-                "    --trim <arg>             Trims leading and trailing spaces from all" + CR +
-                "                             column values. Column XML names can be" + CR +
-                "                             optionally specified to set which columns to" + CR +
-                "                             trim." + CR +
-                " -u,--user <arg>             A database user name" + CR +
-                " -w,--outfile <arg>          Writes the SQL output to the given file" + CR +
-                " -y,--paramTypes <arg>       Parameter types from java.sql.Types. -y and" + CR +
-                "                             -Y are mutually exclusive. Example: -y \"-10" + CR +
-                "                             12\"" + CR +
-                " -Y,--paramTypeNames <arg>   Parameter java.sql.Types names. -y and -Y are" + CR +
-                "                             mutually exclusive. Example: -Y \"CURSOR" + CR +
-                "                             VARCHAR\"" + CR;
         //@formatter:on
-        assertEquals(expected, sw.toString());
+        assertEquals(EXPECTED, sw.toString());
     }
 
 }

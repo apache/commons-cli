@@ -28,7 +28,6 @@
   <suppress checks="MethodName" files="src[/\\]test[/\\]java[/\\]" />
   <suppress checks="MagicNumber" files="src[/\\]test[/\\]java[/\\]" />
   <suppress checks="ParameterNumber" files="src[/\\]test[/\\]java[/\\]" />
-  <suppress checks="MethodLength" files="BugCLI162Test.java" />
 
   <!-- Suppress visibility check of some member fields as they have to be kept
        for binary compatibility reasons                                         -->
