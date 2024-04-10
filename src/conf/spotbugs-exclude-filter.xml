@@ -84,6 +84,12 @@
     <Field name="defaultWidth" />
     <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE" />
   </Match>
+  <Match>
+    <!-- Special case for using System.out as the default. -->
+    <Class name="org.apache.commons.cli.HelpFormatter" />
+    <Method name="createDefaultPrintWriter" />
+    <Bug pattern="DM_DEFAULT_ENCODING" />
+  </Match>
 
   <Match>
     <!-- TODO ? -->

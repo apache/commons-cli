@@ -82,7 +82,7 @@ public class HelpFormatter {
         /**
          * The output PrintWriter, defaults to wrapping {@link System#out}.
          */
-        private PrintWriter printStream = new PrintWriter(System.out);
+        private PrintWriter printStream = createDefaultPrintWriter();
 
         @Override
         public HelpFormatter get() {
@@ -172,6 +172,10 @@ public class HelpFormatter {
      */
     public static Builder builder() {
         return new Builder();
+    }
+
+    private static PrintWriter createDefaultPrintWriter() {
+        return new PrintWriter(System.out);
     }
 
     /**
@@ -264,7 +268,7 @@ public class HelpFormatter {
      * Constructs a new instance.
      */
     public HelpFormatter() {
-        this(false, new PrintWriter(System.out));
+        this(false, createDefaultPrintWriter());
     }
 
     /**
@@ -546,7 +550,6 @@ public class HelpFormatter {
      * @param descPad the number of characters of padding to be prefixed to each description line
      * @param footer the banner to display at the end of the help
      * @param autoUsage whether to print an automatically generated usage statement
-     *
      * @throws IllegalStateException if there is no room to print a line
      */
     public void printHelp(final PrintWriter pw, final int width, final String cmdLineSyntax, final String header, final Options options, final int leftPad,
@@ -863,7 +866,6 @@ public class HelpFormatter {
      * Removes the trailing whitespace from the specified String.
      *
      * @param s The String to remove the trailing padding from.
-     *
      * @return The String of without the trailing padding
      */
     protected String rtrim(final String s) {
