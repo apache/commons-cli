@@ -179,6 +179,10 @@ public class CommandLine implements Serializable {
         }
     }
 
+    private <T> T get(final Supplier<T> supplier) {
+        return supplier == null ? null : supplier.get();
+    }
+
     /**
      * Gets any left-over non-recognized options and arguments
      *
@@ -317,9 +321,6 @@ public class CommandLine implements Serializable {
      * @since 1.5.0
      */
     public String getOptionValue(final Option option) {
-        if (option == null) {
-            return null;
-        }
         final String[] values = getOptionValues(option);
         return values == null ? null : values[0];
     }
@@ -346,7 +347,7 @@ public class CommandLine implements Serializable {
      */
     public String getOptionValue(final Option option, final Supplier<String> defaultValue) {
         final String answer = getOptionValue(option);
-        return answer != null ? answer : defaultValue.get();
+        return answer != null ? answer : get(defaultValue);
     }
 
     /**
@@ -382,6 +383,7 @@ public class CommandLine implements Serializable {
         return getOptionValue(resolveOption(opt), defaultValue);
     }
 
+
     /**
      * Gets the array of values, if any, of an option.
      *
@@ -392,7 +394,6 @@ public class CommandLine implements Serializable {
         return getOptionValues(String.valueOf(opt));
     }
 
-
     /**
      * Gets the array of values, if any, of an option.
      *
@@ -401,6 +402,9 @@ public class CommandLine implements Serializable {
      * @since 1.5.0
      */
     public String[] getOptionValues(final Option option) {
+        if (option == null) {
+            return null;
+        }
         final List<String> values = new ArrayList<>();
         for (final Option processedOption : options) {
             if (processedOption.equals(option)) {
@@ -491,10 +495,13 @@ public class CommandLine implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public <T> T getParsedOptionValue(final Option option, final Supplier<T> defaultValue) throws ParseException {
-        final String res = option == null ? null : getOptionValue(option);
+        if (option == null) {
+            return get(defaultValue);
+        }
+        final String res = getOptionValue(option);
         try {
             if (res == null) {
-                return defaultValue == null ? null : defaultValue.get();
+                return get(defaultValue);
             }
             return (T) option.getConverter().apply(res);
         } catch (final Throwable e) {

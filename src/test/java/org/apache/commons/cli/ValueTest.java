@@ -27,8 +27,12 @@ import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class ValueTest {
-    private CommandLine cl;
+
+    private static final Option NULL_OPTION = null;
+    private static final String NULL_STRING = null;
+
     private final Options opts = new Options();
+    private CommandLine cl;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -78,6 +82,8 @@ public class ValueTest {
 
         final Parser parser = new PosixParser();
         final CommandLine cmd = parser.parse(opts, args);
+        assertNull(cmd.getOptionValues(NULL_OPTION));
+        assertNull(cmd.getOptionValues(NULL_STRING));
         assertTrue(cmd.hasOption("gravy"));
         assertEquals("gold", cmd.getOptionValue("gravy"));
         assertEquals("gold", cmd.getOptionValues("gravy")[0]);
@@ -91,6 +97,8 @@ public class ValueTest {
 
         final Parser parser = new PosixParser();
         final CommandLine cmd = parser.parse(opts, args);
+        assertNull(cmd.getOptionValues(NULL_OPTION));
+        assertNull(cmd.getOptionValues(NULL_STRING));
         assertTrue(cmd.hasOption(opts.getOption("gravy")));
         assertEquals("gold", cmd.getOptionValue(opts.getOption("gravy")));
         assertEquals("gold", cmd.getOptionValues(opts.getOption("gravy"))[0]);
@@ -130,6 +138,8 @@ public class ValueTest {
         final Parser parser = new PosixParser();
 
         final CommandLine cmd = parser.parse(opts, args);
+        assertNull(cmd.getOptionValues(NULL_OPTION));
+        assertNull(cmd.getOptionValues(NULL_STRING));
         assertTrue(cmd.hasOption(opts.getOption("hide")));
         assertEquals("house", cmd.getOptionValue(opts.getOption("hide")));
         assertEquals("house", cmd.getOptionValues(opts.getOption("hide"))[0]);
@@ -233,6 +243,8 @@ public class ValueTest {
 
         final Parser parser = new PosixParser();
         final CommandLine cmd = parser.parse(opts, args);
+        assertNull(cmd.getOptionValues(NULL_OPTION));
+        assertNull(cmd.getOptionValues(NULL_STRING));
         assertTrue(cmd.hasOption(opts.getOption("j")));
         assertEquals("ink", cmd.getOptionValue(opts.getOption("j")));
         assertEquals("ink", cmd.getOptionValues(opts.getOption("j"))[0]);
@@ -271,6 +283,8 @@ public class ValueTest {
 
         final Parser parser = new PosixParser();
         final CommandLine cmd = parser.parse(opts, args);
+        assertNull(cmd.getOptionValues(NULL_OPTION));
+        assertNull(cmd.getOptionValues(NULL_STRING));
         assertTrue(cmd.hasOption("i"));
         assertEquals("ink", cmd.getOptionValue(opts.getOption("i")));
         assertEquals("ink", cmd.getOptionValues(opts.getOption("i"))[0]);

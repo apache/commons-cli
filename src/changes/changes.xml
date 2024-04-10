@@ -30,6 +30,7 @@
       <action type="fix" issue="CLI-325" dev="ggregory" due-to="Claude Warren">Properties from multiple arguments with value separator. #237.</action>
       <action type="fix" issue="CLI-327" dev="ggregory" due-to="Claude Warren, Gary Gregory">Fix for expected textual date values. #244.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Option.Builder.option("") should throw IllegalArgumentException instead of ArrayIndexOutOfBoundsException.</action>
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">Avoid NullPointerException in CommandLine.getOptionValues(Option|String).</action>
       <!-- ADD -->
       <action type="add" issue="CLI-321" dev="ggregory" due-to="Claude Warren, Gary Gregory">Add and use a Converter interface and implementations without using BeanUtils #216.</action>
       <action type="add" dev="ggregory" due-to="Gary Gregory">Add Maven property project.build.outputTimestamp for build reproducibility.</action>
