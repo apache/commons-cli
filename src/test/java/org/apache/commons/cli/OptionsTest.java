@@ -37,6 +37,14 @@ import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class OptionsTest {
+
+    private void assertToStrings(Option option) {
+        // Should never throw.
+        // Should return a String, not null.
+        assertNotNull(option.toString());
+        assertNotNull(option.toDeprecatedString());
+    }
+
     @Test
     public void testAddConflictingOptions() {
         final Options options1 = new Options();
@@ -46,14 +54,12 @@ public class OptionsTest {
         options1.addOptionGroup(group1);
         options1.addOption(Option.builder("x").build());
         options1.addOption(Option.builder("y").build());
-
         final Options options2 = new Options();
         final OptionGroup group2 = new OptionGroup();
         group2.addOption(Option.builder("x").type(Integer.class).build());
         group2.addOption(Option.builder("b").type(Integer.class).build());
         options2.addOptionGroup(group2);
         options2.addOption(Option.builder("c").build());
-
         assertThrows(IllegalArgumentException.class, () -> options1.addOptions(options2));
     }
 
@@ -125,35 +131,43 @@ public class OptionsTest {
 
     @Test
     public void testDeprecated() {
-        final Options opts = new Options();
-        opts.addOption(Option.builder().option("a").build());
-        opts.addOption(Option.builder().option("b").deprecated().build());
-        opts.addOption(Option.builder().option("c")
+        final Options options = new Options();
+        options.addOption(Option.builder().option("a").build());
+        options.addOption(Option.builder().option("b").deprecated().build());
+        options.addOption(Option.builder().option("c")
                 .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("2.0").setDescription("Use X.").get()).build());
+        options.addOption(Option.builder().option("d").deprecated().longOpt("longD").hasArgs().build());
         // toString()
-        assertTrue(opts.getOption("a").toString().startsWith("[ Option a"));
-        assertTrue(opts.getOption("b").toString().startsWith("[ Option b"));
-        assertTrue(opts.getOption("c").toString().startsWith("[ Option c"));
+        assertTrue(options.getOption("a").toString().startsWith("[ Option a"));
+        assertTrue(options.getOption("b").toString().startsWith("[ Option b"));
+        assertTrue(options.getOption("c").toString().startsWith("[ Option c"));
         // toDeprecatedString()
-        assertFalse(opts.getOption("a").toDeprecatedString().startsWith("Option a"));
-        assertEquals("Option 'b': Deprecated", opts.getOption("b").toDeprecatedString());
-        assertEquals("Option 'c': Deprecated for removal since 2.0: Use X.", opts.getOption("c").toDeprecatedString());
+        assertFalse(options.getOption("a").toDeprecatedString().startsWith("Option a"));
+        assertEquals("Option 'b': Deprecated", options.getOption("b").toDeprecatedString());
+        assertEquals("Option 'c': Deprecated for removal since 2.0: Use X.", options.getOption("c").toDeprecatedString());
+        assertToStrings(options.getOption("a"));
+        assertToStrings(options.getOption("b"));
+        assertToStrings(options.getOption("c"));
+        assertToStrings(options.getOption("d"));
     }
 
     @Test
     public void testDuplicateLong() {
-        final Options opts = new Options();
-        opts.addOption("a", "--a", false, "toggle -a");
-        opts.addOption("a", "--a", false, "toggle -a*");
-        assertEquals("toggle -a*", opts.getOption("a").getDescription(), "last one in wins");
+        final Options options = new Options();
+        options.addOption("a", "--a", false, "toggle -a");
+        options.addOption("a", "--a", false, "toggle -a*");
+        assertEquals("toggle -a*", options.getOption("a").getDescription(), "last one in wins");
+        assertToStrings(options.getOption("a"));
     }
 
     @Test
     public void testDuplicateSimple() {
-        final Options opts = new Options();
-        opts.addOption("a", false, "toggle -a");
-        opts.addOption("a", true, "toggle -a*");
-        assertEquals("toggle -a*", opts.getOption("a").getDescription(), "last one in wins");
+        final Options options = new Options();
+        options.addOption("a", false, "toggle -a");
+        assertToStrings(options.getOption("a"));
+        options.addOption("a", true, "toggle -a*");
+        assertEquals("toggle -a*", options.getOption("a").getDescription(), "last one in wins");
+        assertToStrings(options.getOption("a"));
     }
 
     @Test
@@ -163,10 +177,11 @@ public class OptionsTest {
         options.addOption(OptionBuilder.create());
         OptionBuilder.withLongOpt("verbose");
         options.addOption(OptionBuilder.create());
-
         assertTrue(options.getMatchingOptions("foo").isEmpty());
         assertEquals(1, options.getMatchingOptions("version").size());
         assertEquals(2, options.getMatchingOptions("ver").size());
+        assertToStrings(options.getOption("version"));
+        assertToStrings(options.getOption("verbose"));
     }
 
     @Test
@@ -225,13 +240,13 @@ public class OptionsTest {
 
     @Test
     public void testLong() {
-        final Options opts = new Options();
+        final Options options = new Options();
 
-        opts.addOption("a", "--a", false, "toggle -a");
-        opts.addOption("b", "--b", true, "set -b");
+        options.addOption("a", "--a", false, "toggle -a");
+        options.addOption("b", "--b", true, "set -b");
 
-        assertTrue(opts.hasOption("a"));
-        assertTrue(opts.hasOption("b"));
+        assertTrue(options.hasOption("a"));
+        assertTrue(options.hasOption("b"));
     }
 
     @Test
@@ -264,13 +279,13 @@ public class OptionsTest {
 
     @Test
     public void testSimple() {
-        final Options opts = new Options();
+        final Options options = new Options();
 
-        opts.addOption("a", false, "toggle -a");
-        opts.addOption("b", true, "toggle -b");
+        options.addOption("a", false, "toggle -a");
+        options.addOption("b", true, "toggle -b");
 
-        assertTrue(opts.hasOption("a"));
-        assertTrue(opts.hasOption("b"));
+        assertTrue(options.hasOption("a"));
+        assertTrue(options.hasOption("b"));
     }
 
     @Test

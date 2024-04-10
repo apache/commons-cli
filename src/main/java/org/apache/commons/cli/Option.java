@@ -962,14 +962,16 @@ public class Option implements Cloneable, Serializable {
         if (!isDeprecated()) {
             return "";
         }
-        final StringBuilder buf = new StringBuilder().append("Option '");
-        buf.append(option).append(Char.APOS);
+        // @formatter:off
+        final StringBuilder buf = new StringBuilder()
+                .append("Option '")
+                .append(option)
+                .append(Char.APOS);
+        // @formatter:on
         if (longOption != null) {
             buf.append(Char.APOS).append(longOption).append(Char.APOS);
         }
-        if (isDeprecated()) {
-            buf.append(": ").append(deprecated);
-        }
+        buf.append(": ").append(deprecated);
         return buf.toString();
     }
 
