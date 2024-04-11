@@ -850,7 +850,6 @@ public class Option implements Cloneable, Serializable {
      * Tests whether the option requires more arguments to be valid.
      *
      * @return false if the option doesn't require more arguments.
-     * @since 1.3
      */
     boolean requiresArg() {
         if (optionalArg) {
