@@ -297,38 +297,33 @@ public class HelpFormatterTest {
         final Option version = new Option("v", "version", false, "print version information");
         final Option newRun = new Option("n", "new", false, "Create NLT cache entries only for new items");
         final Option trackerRun = new Option("t", "tracker", false, "Create NLT cache entries only for tracker items");
-
         //@formatter:off
         final Option timeLimit = Option.builder("l")
-                                 .longOpt("limit")
-                                 .hasArg()
-                                 .valueSeparator()
-                                 .desc("Set time limit for execution, in mintues")
-                                 .build();
-
+                .longOpt("limit")
+                .hasArg()
+                .valueSeparator()
+                .desc("Set time limit for execution, in mintues")
+                .build();
         final Option age = Option.builder("a").longOpt("age")
-                                        .hasArg()
-                                        .valueSeparator()
-                                        .desc("Age (in days) of cache item before being recomputed")
-                                        .build();
-
+                .hasArg()
+                .valueSeparator()
+                .desc("Age (in days) of cache item before being recomputed")
+                .build();
         final Option server = Option.builder("s").longOpt("server")
-                                           .hasArg()
-                                           .valueSeparator()
-                                           .desc("The NLT server address")
-                                           .build();
-
+                .hasArg()
+                .valueSeparator()
+                .desc("The NLT server address")
+                .build();
         final Option numResults = Option.builder("r").longOpt("results")
-                                               .hasArg()
-                                               .valueSeparator()
-                                               .desc("Number of results per item")
-                                               .build();
-
+                .hasArg()
+                .valueSeparator()
+                .desc("Number of results per item")
+                .build();
         final Option configFile = Option.builder().longOpt("config")
-                                            .hasArg()
-                                            .valueSeparator()
-                                            .desc("Use the specified configuration file")
-                                            .build();
+                .hasArg()
+                .valueSeparator()
+                .desc("Use the specified configuration file")
+                .build();
         //@formatter:on
 
         final Options mOptions = new Options();
