@@ -187,13 +187,6 @@ public class TypeHandlerTest {
     }
 
     @Test
-    public void testOpenFile() throws ParseException, IOException {
-        try (FileInputStream fis = TypeHandler.openFile("src/test/resources/org/apache/commons/cli/existing-readable.file")) {
-            IOUtils.consume(fis);
-        }
-    }
-
-    @Test
     public void testCreateFiles() {
         assertThrows(UnsupportedOperationException.class, () -> TypeHandler.createFiles(null));
     }
@@ -220,7 +213,7 @@ public class TypeHandlerTest {
     @MethodSource("createValueTestParameters")
     public void testCreateValue(final String str, final Class<?> type, final Object expected) throws Exception {
         @SuppressWarnings("cast")
-        final Object objectApiTest = (Object) type; // KEEP this cast
+        final Object objectApiTest = type; // KEEP this cast
         if (expected instanceof Class<?> && Throwable.class.isAssignableFrom((Class<?>) expected)) {
             assertThrows((Class<Throwable>) expected, () -> TypeHandler.createValue(str, type));
             assertThrows((Class<Throwable>) expected, () -> TypeHandler.createValue(str, objectApiTest));
@@ -242,6 +235,13 @@ public class TypeHandlerTest {
     @Test
     public void testnstantiableEquals() {
         assertEquals(new Instantiable(), new Instantiable());
+    }
+
+    @Test
+    public void testOpenFile() throws ParseException, IOException {
+        try (FileInputStream fis = TypeHandler.openFile("src/test/resources/org/apache/commons/cli/existing-readable.file")) {
+            IOUtils.consume(fis);
+        }
     }
 
     @Test

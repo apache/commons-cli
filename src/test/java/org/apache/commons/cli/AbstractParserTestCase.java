@@ -35,6 +35,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Abstract test case testing common parser features.
+ *
+ * TODO Needs a rework using JUnit parameterized tests.
  */
 public abstract class AbstractParserTestCase {
 
@@ -499,6 +501,9 @@ public abstract class AbstractParserTestCase {
         assertTrue(cmd.hasOption("i"));
         assertArrayEquals(new String[] { "paper", "scissors" }, cmd.getOptionValues("i"));
         assertArrayEquals(new String[] { "rock" }, cmd.getArgs());
+
+        options.addOption(Option.builder("j").numberOfArgs(3).optionalArg(true).build());
+        cmd = parse(parser, options, new String[] { "-j" }, properties);
     }
 
     @Test

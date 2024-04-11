@@ -104,10 +104,6 @@ public class BugCLI162Test {
 
     private static final String PMODES = PMODE_IN + ", " + PMODE_INOUT + ", " + PMODE_OUT + ", " + PMODE_UNK;
 
-    private HelpFormatter formatter;
-
-    private StringWriter sw;
-
     // @formatter:off
     private static final String EXPECTED = "usage: org.apache.commons.cli.bug.BugCLI162Test" + CR +
             " -2,--jdbc2sfmd <arg>        Converts the JDBC file in the first argument" + CR +
@@ -167,6 +163,10 @@ public class BugCLI162Test {
             "                             mutually exclusive. Example: -Y \"CURSOR" + CR +
             "                             VARCHAR\"" + CR;
     // @formatter:on
+
+    private HelpFormatter formatter;
+
+    private StringWriter sw;
 
     @BeforeEach
     public void setUp() {

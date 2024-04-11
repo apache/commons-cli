@@ -21,6 +21,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+/**
+ * TODO Needs a rework using JUnit parameterized tests.
+ */
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class GnuParserTest extends AbstractParserTestCase {
     @Override
