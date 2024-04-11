@@ -346,7 +346,7 @@ public class DefaultParser implements CommandLineParser {
 
             if (currentOption != null && token.length() != i + 1) {
                 // add the trail as an argument of the option
-                currentOption.addValueForProcessing(stripLeadingAndTrailingQuotesDefaultOff(token.substring(i + 1)));
+                currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(token.substring(i + 1)));
                 break;
             }
         }
@@ -388,7 +388,7 @@ public class DefaultParser implements CommandLineParser {
             final Option option = options.getOption(key);
             if (option.acceptsArg()) {
                 handleOption(option);
-                currentOption.addValueForProcessing(stripLeadingAndTrailingQuotesDefaultOff(value));
+                currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
                 currentOption = null;
             } else {
                 handleUnknownToken(currentToken);
@@ -448,7 +448,7 @@ public class DefaultParser implements CommandLineParser {
 
                 if (opt.hasArg()) {
                     if (opt.getValues() == null || opt.getValues().length == 0) {
-                        opt.addValueForProcessing(stripLeadingAndTrailingQuotesDefaultOff(value));
+                        opt.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
                     }
                 } else if (!("yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value) || "1".equalsIgnoreCase(value))) {
                     // if the value is not yes, true or 1 then don't add the option to the CommandLine
@@ -492,12 +492,12 @@ public class DefaultParser implements CommandLineParser {
 
                 if (opt != null && options.getOption(opt).acceptsArg()) {
                     handleOption(options.getOption(opt));
-                    currentOption.addValueForProcessing(stripLeadingAndTrailingQuotesDefaultOff(t.substring(opt.length())));
+                    currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(t.substring(opt.length())));
                     currentOption = null;
                 } else if (isJavaProperty(t)) {
                     // -SV1 (-Dflag)
                     handleOption(options.getOption(t.substring(0, 1)));
-                    currentOption.addValueForProcessing(stripLeadingAndTrailingQuotesDefaultOff(t.substring(1)));
+                    currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(t.substring(1)));
                     currentOption = null;
                 } else {
                     // -S1S2S3 or -S1S2V
@@ -514,7 +514,7 @@ public class DefaultParser implements CommandLineParser {
                 final Option option = options.getOption(opt);
                 if (option != null && option.acceptsArg()) {
                     handleOption(option);
-                    currentOption.addValueForProcessing(value);
+                    currentOption.processValue(value);
                     currentOption = null;
                 } else {
                     handleUnknownToken(token);
@@ -522,8 +522,8 @@ public class DefaultParser implements CommandLineParser {
             } else if (isJavaProperty(opt)) {
                 // -SV1=V2 (-Dkey=value)
                 handleOption(options.getOption(opt.substring(0, 1)));
-                currentOption.addValueForProcessing(opt.substring(1));
-                currentOption.addValueForProcessing(value);
+                currentOption.processValue(opt.substring(1));
+                currentOption.processValue(value);
                 currentOption = null;
             } else {
                 // -L=V or -l=V
@@ -545,7 +545,7 @@ public class DefaultParser implements CommandLineParser {
         } else if ("--".equals(token)) {
             skipParsing = true;
         } else if (currentOption != null && currentOption.acceptsArg() && isArgument(token)) {
-            currentOption.addValueForProcessing(stripLeadingAndTrailingQuotesDefaultOn(token));
+            currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOn(token));
         } else if (token.startsWith("--")) {
             handleLongOption(token);
         } else if (token.startsWith("-") && !"-".equals(token)) {

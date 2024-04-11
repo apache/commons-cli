@@ -507,19 +507,7 @@ public class Option implements Cloneable, Serializable {
     @Deprecated
     public boolean addValue(final String value) {
         throw new UnsupportedOperationException(
-                "The addValue method is not intended for client use. Subclasses should use the addValueForProcessing method instead.");
-    }
-
-    /**
-     * Adds the specified value to this Option.
-     *
-     * @param value is a/the value of this Option.
-     */
-    void addValueForProcessing(final String value) {
-        if (argCount == UNINITIALIZED) {
-            throw new IllegalArgumentException("NO_ARGS_ALLOWED");
-        }
-        processValue(value);
+                "The addValue method is not intended for client use. Subclasses should use the processValue method instead.");
     }
 
     /**
@@ -823,7 +811,10 @@ public class Option implements Cloneable, Serializable {
      *
      * @param value The String to be processed.
      */
-    private void processValue(final String value) {
+    void processValue(final String value) {
+        if (argCount == UNINITIALIZED) {
+            throw new IllegalArgumentException("NO_ARGS_ALLOWED");
+        }
         String add = value;
         // this Option has a separator character
         if (hasValueSeparator()) {

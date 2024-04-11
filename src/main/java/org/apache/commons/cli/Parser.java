@@ -224,7 +224,7 @@ public abstract class Parser implements CommandLineParser {
             }
             // found a value
             try {
-                opt.addValueForProcessing(Util.stripLeadingAndTrailingQuotes(str));
+                opt.processValue(Util.stripLeadingAndTrailingQuotes(str));
             } catch (final RuntimeException exp) {
                 iter.previous();
                 break;
@@ -287,7 +287,7 @@ public abstract class Parser implements CommandLineParser {
                 if (opt.hasArg()) {
                     if (opt.getValues() == null || opt.getValues().length == 0) {
                         try {
-                            opt.addValueForProcessing(value);
+                            opt.processValue(value);
                         } catch (final RuntimeException exp) { // NOPMD
                             // if we cannot add the value don't worry about it
                         }
