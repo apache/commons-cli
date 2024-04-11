@@ -37,17 +37,18 @@ import org.junit.jupiter.api.Test;
  * Abstract test case testing common parser features.
  */
 public abstract class AbstractParserTestCase {
+
     protected CommandLineParser parser;
 
     protected Options options;
 
     @SuppressWarnings("deprecation")
-    private CommandLine parse(final CommandLineParser parser, final Options opts, final String[] args, final Properties properties) throws ParseException {
+    private CommandLine parse(final CommandLineParser parser, final Options options, final String[] args, final Properties properties) throws ParseException {
         if (parser instanceof Parser) {
-            return ((Parser) parser).parse(opts, args, properties);
+            return ((Parser) parser).parse(options, args, properties);
         }
         if (parser instanceof DefaultParser) {
-            return ((DefaultParser) parser).parse(opts, args, properties);
+            return ((DefaultParser) parser).parse(options, args, properties);
         }
         throw new UnsupportedOperationException("Default options not supported by this parser");
     }
@@ -482,23 +483,23 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testOptionalArgsOptionBuilder() throws Exception {
-        final Options opts = new Options();
-        opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
+        final Options options = new Options();
+        options.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
         final Properties properties = new Properties();
 
-        CommandLine cmd = parse(parser, opts, new String[]{"-i"}, properties);
+        CommandLine cmd = parse(parser, options, new String[]{"-i"}, properties);
         assertTrue(cmd.hasOption("i"));
         assertNull(cmd.getOptionValues("i"));
 
-        cmd = parse(parser, opts, new String[]{"-i", "paper"}, properties);
+        cmd = parse(parser, options, new String[]{"-i", "paper"}, properties);
         assertTrue(cmd.hasOption("i"));
         assertArrayEquals(new String[]{"paper"}, cmd.getOptionValues("i"));
 
-        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors"}, properties);
+        cmd = parse(parser, options, new String[]{"-i", "paper", "scissors"}, properties);
         assertTrue(cmd.hasOption("i"));
         assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
 
-        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors", "rock"}, properties);
+        cmd = parse(parser, options, new String[]{"-i", "paper", "scissors", "rock"}, properties);
         assertTrue(cmd.hasOption("i"));
         assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
         assertArrayEquals(new String[]{"rock"}, cmd.getArgs());
@@ -506,23 +507,23 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testOptionalArgsOptionDotBuilder() throws Exception {
-        final Options opts = new Options();
-        opts.addOption(Option.builder("i").numberOfArgs(2).optionalArg(true).build());
+        final Options options = new Options();
+        options.addOption(Option.builder("i").numberOfArgs(2).optionalArg(true).build());
         final Properties properties = new Properties();
 
-        CommandLine cmd = parse(parser, opts, new String[]{"-i"}, properties);
+        CommandLine cmd = parse(parser, options, new String[]{"-i"}, properties);
         assertTrue(cmd.hasOption("i"));
         assertNull(cmd.getOptionValues("i"));
 
-        cmd = parse(parser, opts, new String[]{"-i", "paper"}, properties);
+        cmd = parse(parser, options, new String[]{"-i", "paper"}, properties);
         assertTrue(cmd.hasOption("i"));
         assertArrayEquals(new String[]{"paper"}, cmd.getOptionValues("i"));
 
-        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors"}, properties);
+        cmd = parse(parser, options, new String[]{"-i", "paper", "scissors"}, properties);
         assertTrue(cmd.hasOption("i"));
         assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
 
-        cmd = parse(parser, opts, new String[]{"-i", "paper", "scissors", "rock"}, properties);
+        cmd = parse(parser, options, new String[]{"-i", "paper", "scissors", "rock"}, properties);
         assertTrue(cmd.hasOption("i"));
         assertArrayEquals(new String[]{"paper", "scissors"}, cmd.getOptionValues("i"));
         assertArrayEquals(new String[]{"rock"}, cmd.getArgs());
@@ -630,17 +631,17 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testPropertyOptionFlags() throws Exception {
-        final Options opts = new Options();
-        opts.addOption("a", false, "toggle -a");
-        opts.addOption("c", "c", false, "toggle -c");
-        opts.addOption(OptionBuilder.hasOptionalArg().create('e'));
+        final Options options = new Options();
+        options.addOption("a", false, "toggle -a");
+        options.addOption("c", "c", false, "toggle -c");
+        options.addOption(OptionBuilder.hasOptionalArg().create('e'));
 
         Properties properties = new Properties();
         properties.setProperty("a", "true");
         properties.setProperty("c", "yes");
         properties.setProperty("e", "1");
 
-        CommandLine cmd = parse(parser, opts, null, properties);
+        CommandLine cmd = parse(parser, options, null, properties);
         assertTrue(cmd.hasOption("a"));
         assertTrue(cmd.hasOption("c"));
         assertTrue(cmd.hasOption("e"));
@@ -650,7 +651,7 @@ public abstract class AbstractParserTestCase {
         properties.setProperty("c", "no");
         properties.setProperty("e", "0");
 
-        cmd = parse(parser, opts, null, properties);
+        cmd = parse(parser, options, null, properties);
         assertFalse(cmd.hasOption("a"));
         assertFalse(cmd.hasOption("c"));
         assertTrue(cmd.hasOption("e")); // this option accepts an argument
@@ -660,7 +661,7 @@ public abstract class AbstractParserTestCase {
         properties.setProperty("c", "nO");
         properties.setProperty("e", "TrUe");
 
-        cmd = parse(parser, opts, null, properties);
+        cmd = parse(parser, options, null, properties);
         assertTrue(cmd.hasOption("a"));
         assertFalse(cmd.hasOption("c"));
         assertTrue(cmd.hasOption("e"));
@@ -669,7 +670,7 @@ public abstract class AbstractParserTestCase {
         properties.setProperty("a", "just a string");
         properties.setProperty("e", "");
 
-        cmd = parse(parser, opts, null, properties);
+        cmd = parse(parser, options, null, properties);
         assertFalse(cmd.hasOption("a"));
         assertFalse(cmd.hasOption("c"));
         assertTrue(cmd.hasOption("e"));
@@ -678,24 +679,24 @@ public abstract class AbstractParserTestCase {
         properties.setProperty("a", "0");
         properties.setProperty("c", "1");
 
-        cmd = parse(parser, opts, null, properties);
+        cmd = parse(parser, options, null, properties);
         assertFalse(cmd.hasOption("a"));
         assertTrue(cmd.hasOption("c"));
     }
 
     @Test
     public void testPropertyOptionGroup() throws Exception {
-        final Options opts = new Options();
+        final Options options = new Options();
 
         final OptionGroup group1 = new OptionGroup();
         group1.addOption(new Option("a", null));
         group1.addOption(new Option("b", null));
-        opts.addOptionGroup(group1);
+        options.addOptionGroup(group1);
 
         final OptionGroup group2 = new OptionGroup();
         group2.addOption(new Option("x", null));
         group2.addOption(new Option("y", null));
-        opts.addOptionGroup(group2);
+        options.addOptionGroup(group2);
 
         final String[] args = {"-a"};
 
@@ -703,7 +704,7 @@ public abstract class AbstractParserTestCase {
         properties.put("b", "true");
         properties.put("x", "true");
 
-        final CommandLine cmd = parse(parser, opts, args, properties);
+        final CommandLine cmd = parse(parser, options, args, properties);
 
         assertTrue(cmd.hasOption("a"));
         assertFalse(cmd.hasOption("b"));
@@ -713,40 +714,40 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testPropertyOptionMultipleValues() throws Exception {
-        final Options opts = new Options();
-        opts.addOption(OptionBuilder.hasArgs().withValueSeparator(',').create('k'));
+        final Options options = new Options();
+        options.addOption(OptionBuilder.hasArgs().withValueSeparator(',').create('k'));
 
         final Properties properties = new Properties();
         properties.setProperty("k", "one,two");
 
         final String[] values = {"one", "two"};
 
-        final CommandLine cmd = parse(parser, opts, null, properties);
+        final CommandLine cmd = parse(parser, options, null, properties);
         assertTrue(cmd.hasOption("k"));
         assertArrayEquals(values, cmd.getOptionValues('k'));
     }
 
     @Test
     public void testPropertyOptionRequired() throws Exception {
-        final Options opts = new Options();
-        opts.addOption(OptionBuilder.isRequired().create("f"));
+        final Options options = new Options();
+        options.addOption(OptionBuilder.isRequired().create("f"));
 
         final Properties properties = new Properties();
         properties.setProperty("f", "true");
 
-        final CommandLine cmd = parse(parser, opts, null, properties);
+        final CommandLine cmd = parse(parser, options, null, properties);
         assertTrue(cmd.hasOption("f"));
     }
 
     @Test
     public void testPropertyOptionSingularValue() throws Exception {
-        final Options opts = new Options();
-        opts.addOption(OptionBuilder.hasOptionalArgs(2).withLongOpt("hide").create());
+        final Options options = new Options();
+        options.addOption(OptionBuilder.hasOptionalArgs(2).withLongOpt("hide").create());
 
         final Properties properties = new Properties();
         properties.setProperty("hide", "seek");
 
-        final CommandLine cmd = parse(parser, opts, null, properties);
+        final CommandLine cmd = parse(parser, options, null, properties);
         assertTrue(cmd.hasOption("hide"));
         assertEquals("seek", cmd.getOptionValue("hide"));
         assertFalse(cmd.hasOption("fake"));
@@ -754,13 +755,13 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testPropertyOptionUnexpected() throws Exception {
-        final Options opts = new Options();
+        final Options options = new Options();
 
         final Properties properties = new Properties();
         properties.setProperty("f", "true");
 
         try {
-            parse(parser, opts, null, properties);
+            parse(parser, options, null, properties);
             fail("UnrecognizedOptionException expected");
         } catch (final UnrecognizedOptionException e) {
             // expected
@@ -769,16 +770,16 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testPropertyOverrideValues() throws Exception {
-        final Options opts = new Options();
-        opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
-        opts.addOption(OptionBuilder.hasOptionalArgs().create('j'));
+        final Options options = new Options();
+        options.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
+        options.addOption(OptionBuilder.hasOptionalArgs().create('j'));
 
         final String[] args = {"-j", "found", "-i", "ink"};
 
         final Properties properties = new Properties();
         properties.setProperty("j", "seek");
 
-        final CommandLine cmd = parse(parser, opts, args, properties);
+        final CommandLine cmd = parse(parser, options, args, properties);
         assertTrue(cmd.hasOption("j"));
         assertEquals("found", cmd.getOptionValue("j"));
         assertTrue(cmd.hasOption("i"));
@@ -788,15 +789,15 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testReuseOptionsTwice() throws Exception {
-        final Options opts = new Options();
-        opts.addOption(OptionBuilder.isRequired().create('v'));
+        final Options options = new Options();
+        options.addOption(OptionBuilder.isRequired().create('v'));
 
         // first parsing
-        parser.parse(opts, new String[] {"-v"});
+        parser.parse(options, new String[] {"-v"});
 
         try {
             // second parsing, with the same Options instance and an invalid command line
-            parser.parse(opts, new String[0]);
+            parser.parse(options, new String[0]);
             fail("MissingOptionException not thrown");
         } catch (final MissingOptionException e) {
             // expected
