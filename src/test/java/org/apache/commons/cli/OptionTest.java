@@ -108,6 +108,11 @@ public class OptionTest {
     }
 
     @Test
+    public void testBuilderEmpty() {
+        assertThrows(IllegalArgumentException.class, () -> Option.builder().build());
+    }
+
+    @Test
     public void testBuilderInsufficientParams1() {
         assertThrows(IllegalArgumentException.class, () -> Option.builder().desc("desc").build());
     }
