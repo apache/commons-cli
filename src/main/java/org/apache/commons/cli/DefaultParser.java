@@ -150,6 +150,10 @@ public class DefaultParser implements CommandLineParser {
         return new Builder();
     }
 
+    static int indexOfEqual(final String token) {
+        return token.indexOf(Char.EQUAL);
+    }
+
     /** The command-line instance. */
     protected CommandLine cmd;
 
@@ -358,7 +362,7 @@ public class DefaultParser implements CommandLineParser {
      * @param token the command line token to handle
      */
     private void handleLongOption(final String token) throws ParseException {
-        if (token.indexOf(Char.EQUAL) == -1) {
+        if (indexOfEqual(token) == -1) {
             handleLongOptionWithoutEqual(token);
         } else {
             handleLongOptionWithEqual(token);
@@ -373,7 +377,7 @@ public class DefaultParser implements CommandLineParser {
      * @param token the command line token to handle
      */
     private void handleLongOptionWithEqual(final String token) throws ParseException {
-        final int pos = token.indexOf(Char.EQUAL);
+        final int pos = indexOfEqual(token);
         final String value = token.substring(pos + 1);
         final String opt = token.substring(0, pos);
         final List<String> matchingOpts = getMatchingLongOptions(opt);
@@ -469,7 +473,7 @@ public class DefaultParser implements CommandLineParser {
      */
     private void handleShortAndLongOption(final String token) throws ParseException {
         final String t = Util.stripLeadingHyphens(token);
-        final int pos = t.indexOf(Char.EQUAL);
+        final int pos = indexOfEqual(t);
         if (t.length() == 1) {
             // -S
             if (options.hasShortOption(t)) {
@@ -600,7 +604,7 @@ public class DefaultParser implements CommandLineParser {
         if (token == null || !token.startsWith("-") || token.length() == 1) {
             return false;
         }
-        final int pos = token.indexOf(Char.EQUAL);
+        final int pos = indexOfEqual(token);
         final String t = pos == -1 ? token : token.substring(0, pos);
         if (!getMatchingLongOptions(t).isEmpty()) {
             // long or partial long options (--L, -L, --L=V, -L=V, --l, --l=V)
@@ -647,7 +651,7 @@ public class DefaultParser implements CommandLineParser {
             return false;
         }
         // remove leading "-" and "=value"
-        final int pos = token.indexOf(Char.EQUAL);
+        final int pos = indexOfEqual(token);
         final String optName = pos == -1 ? token.substring(1) : token.substring(1, pos);
         if (options.hasShortOption(optName)) {
             return true;

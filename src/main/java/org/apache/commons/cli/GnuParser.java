@@ -45,12 +45,9 @@ public class GnuParser extends Parser {
     @Override
     protected String[] flatten(final Options options, final String[] arguments, final boolean stopAtNonOption) {
         final List<String> tokens = new ArrayList<>();
-
         boolean eatTheRest = false;
-
         for (int i = 0; i < arguments.length; i++) {
             final String arg = arguments[i];
-
             if ("--".equals(arg)) {
                 eatTheRest = true;
                 tokens.add("--");
@@ -58,20 +55,22 @@ public class GnuParser extends Parser {
                 tokens.add("-");
             } else if (arg.startsWith("-")) {
                 final String opt = Util.stripLeadingHyphens(arg);
-
                 if (options.hasOption(opt)) {
                     tokens.add(arg);
-                } else if (opt.indexOf(Char.EQUAL) != -1 && options.hasOption(opt.substring(0, opt.indexOf(Char.EQUAL)))) {
-                    // the format is --foo=value or -foo=value
-                    tokens.add(arg.substring(0, arg.indexOf(Char.EQUAL))); // --foo
-                    tokens.add(arg.substring(arg.indexOf(Char.EQUAL) + 1)); // value
-                } else if (options.hasOption(arg.substring(0, 2))) {
-                    // the format is a special properties option (-Dproperty=value)
-                    tokens.add(arg.substring(0, 2)); // -D
-                    tokens.add(arg.substring(2)); // property=value
                 } else {
-                    eatTheRest = stopAtNonOption;
-                    tokens.add(arg);
+                    final int equalPos = DefaultParser.indexOfEqual(opt);
+                    if (equalPos != -1 && options.hasOption(opt.substring(0, equalPos))) {
+                        // the format is --foo=value or -foo=value
+                        tokens.add(arg.substring(0, arg.indexOf(Char.EQUAL))); // --foo
+                        tokens.add(arg.substring(arg.indexOf(Char.EQUAL) + 1)); // value
+                    } else if (options.hasOption(arg.substring(0, 2))) {
+                        // the format is a special properties option (-Dproperty=value)
+                        tokens.add(arg.substring(0, 2)); // -D
+                        tokens.add(arg.substring(2)); // property=value
+                    } else {
+                        eatTheRest = stopAtNonOption;
+                        tokens.add(arg);
+                    }
                 }
             } else {
                 tokens.add(arg);

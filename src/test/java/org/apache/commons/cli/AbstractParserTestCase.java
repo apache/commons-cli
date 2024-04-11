@@ -697,10 +697,9 @@ public abstract class AbstractParserTestCase {
         final Properties properties = new Properties();
         properties.setProperty("k", "one,two");
 
-        final String[] values = { "one", "two" };
-
         final CommandLine cmd = parse(parser, options, null, properties);
         assertTrue(cmd.hasOption("k"));
+        final String[] values = { "one", "two" };
         assertArrayEquals(values, cmd.getOptionValues('k'));
     }
 
