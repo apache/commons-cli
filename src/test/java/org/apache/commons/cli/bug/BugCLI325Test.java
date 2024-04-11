@@ -32,15 +32,14 @@ public class BugCLI325Test {
 
     @Test
     public void testCli325() throws ParseException {
-
+        // @formatter:off
         final Option option = Option.builder("x")
-        .hasArgs()
-        .valueSeparator()
-        .desc("Multiple arg option with value separator.")
-        .build();
-
+                .hasArgs()
+                .valueSeparator()
+                .desc("Multiple arg option with value separator.")
+                .build();
+        // @formatter:on
         final String[] args = {"-x", "A=a", "B=b"};
-
         final CommandLine cmdLine = DefaultParser.builder().build().parse(new Options().addOption(option), args);
         final Properties props = cmdLine.getOptionProperties(option);
         assertEquals(2, props.size());
