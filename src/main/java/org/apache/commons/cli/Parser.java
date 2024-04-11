@@ -118,7 +118,6 @@ public abstract class Parser implements CommandLineParser {
      * @param properties command line option name-value pairs
      * @return the list of atomic option and value tokens
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
-     *
      * @since 1.1
      */
     public CommandLine parse(final Options options, final String[] arguments, final Properties properties) throws ParseException {
@@ -134,11 +133,8 @@ public abstract class Parser implements CommandLineParser {
      * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments
      *        are added to the {@link CommandLine}s args list. If {@code false} an unrecognized argument triggers a
      *        ParseException.
-     *
      * @return the list of atomic option and value tokens
-     *
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
-     *
      * @since 1.1
      */
     public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption)
@@ -210,7 +206,6 @@ public abstract class Parser implements CommandLineParser {
      *
      * @param opt The current Option
      * @param iter The iterator over the flattened command line Options.
-     *
      * @throws ParseException if an argument value is required and it is has not been found.
      */
     public void processArgs(final Option opt, final ListIterator<String> iter) throws ParseException {
@@ -241,7 +236,6 @@ public abstract class Parser implements CommandLineParser {
      *
      * @param arg The String value representing an Option
      * @param iter The iterator over the flattened command line arguments.
-     *
      * @throws ParseException if {@code arg} does not represent an Option
      */
     protected void processOption(final String arg, final ListIterator<String> iter) throws ParseException {
