@@ -53,8 +53,30 @@ public class Option implements Cloneable, Serializable {
      */
     public static final class Builder {
 
-        /** The name of the option. */
-        private String option;
+        /** The default type. */
+        private static final Class<String> DEFAULT_TYPE = String.class;
+
+        /**
+         * Returns the input Class or the default type (String) if null.
+         *
+         * @param type the candidate Class.
+         * @return the input Class or the default type (String) if null.
+         */
+        private static Class<?> toType(final Class<?> type) {
+            return type != null ? type : DEFAULT_TYPE;
+        }
+
+        /** The number of argument values this option can have. */
+        private int argCount = UNINITIALIZED;
+
+        /** The name of the argument for this option. */
+        private String argName;
+
+        /** The converter to convert to type. **/
+        private Converter<?, ?> converter;
+
+        /** Specifies whether this option is deprecated. */
+        private DeprecatedAttributes deprecated;
 
         /** Description of the option. */
         private String description;
@@ -62,29 +84,20 @@ public class Option implements Cloneable, Serializable {
         /** The long representation of the option. */
         private String longOption;
 
-        /** The name of the argument for this option. */
-        private String argName;
-
-        /** Specifies whether this option is deprecated. */
-        private DeprecatedAttributes deprecated;
-
-        /** Specifies whether this option is required to be present. */
-        private boolean required;
+        /** The name of the option. */
+        private String option;
 
         /** Specifies whether the argument value of this Option is optional. */
         private boolean optionalArg;
 
-        /** The number of argument values this option can have. */
-        private int argCount = UNINITIALIZED;
+        /** Specifies whether this option is required to be present. */
+        private boolean required;
 
         /** The type of this Option. */
-        private Class<?> type = String.class;
+        private Class<?> type = DEFAULT_TYPE;
 
         /** The character that is the value separator. */
         private char valueSeparator;
-
-        /** The converter to convert to type. **/
-        private Converter<?, ?> converter;
 
         /**
          * Constructs a new {@code Builder} with the minimum required parameters for an {@code Option} instance.
@@ -276,7 +289,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder.
          */
         public Builder type(final Class<?> type) {
-            this.type = type;
+            this.type = toType(type);
             return this;
         }
 
@@ -316,17 +329,17 @@ public class Option implements Cloneable, Serializable {
 
     }
 
+    /** Empty array. */
+    static final Option[] EMPTY_ARRAY = {};
+
+    /** The serial version UID. */
+    private static final long serialVersionUID = 1L;
+
     /** Specifies the number of argument values has not been specified. */
     public static final int UNINITIALIZED = -1;
 
     /** Specifies the number of argument values is infinite. */
     public static final int UNLIMITED_VALUES = -2;
-
-    /** The serial version UID. */
-    private static final long serialVersionUID = 1L;
-
-    /** Empty array. */
-    static final Option[] EMPTY_ARRAY = {};
 
     /**
      * Returns a {@link Builder} to create an {@link Option} using descriptive methods.
@@ -350,17 +363,14 @@ public class Option implements Cloneable, Serializable {
         return new Builder(option);
     }
 
-    /** The name of the option. */
-    private final String option;
-
-    /** The long representation of the option. */
-    private String longOption;
+    /** The number of argument values this option can have. */
+    private int argCount = UNINITIALIZED;
 
     /** The name of the argument for this option. */
     private String argName;
 
-    /** Description of the option. */
-    private String description;
+    /** The explicit converter for this option. May be null. */
+    private transient Converter<?, ?> converter;
 
     /**
      * Specifies whether this option is deprecated, may be null.
@@ -370,14 +380,20 @@ public class Option implements Cloneable, Serializable {
      */
     private final transient DeprecatedAttributes deprecated;
 
-    /** Specifies whether this option is required to be present. */
-    private boolean required;
+    /** Description of the option. */
+    private String description;
+
+    /** The long representation of the option. */
+    private String longOption;
+
+    /** The name of the option. */
+    private final String option;
 
     /** Specifies whether the argument value of this Option is optional. */
     private boolean optionalArg;
 
-    /** The number of argument values this option can have. */
-    private int argCount = UNINITIALIZED;
+    /** Specifies whether this option is required to be present. */
+    private boolean required;
 
     /** The type of this Option. */
     private Class<?> type = String.class;
@@ -387,9 +403,6 @@ public class Option implements Cloneable, Serializable {
 
     /** The character that is the value separator. */
     private char valuesep;
-
-    /** The explicit converter for this option. May be null. */
-    private transient Converter<?, ?> converter;
 
     /**
      * Private constructor used by the nested Builder class.
@@ -932,7 +945,7 @@ public class Option implements Cloneable, Serializable {
      * @since 1.3
      */
     public void setType(final Class<?> type) {
-        this.type = type;
+        this.type = Builder.toType(type);
     }
 
     /**
@@ -997,11 +1010,13 @@ public class Option implements Cloneable, Serializable {
         } else if (hasArg()) {
             buf.append(" [ARG]");
         }
-        buf.append(" :: ").append(description);
-        if (type != null) {
-            buf.append(" :: ").append(type);
-        }
-        buf.append(" ]");
-        return buf.toString();
+        // @formatter:off
+        return buf.append(" :: ")
+            .append(description)
+            .append(" :: ")
+            .append(type)
+            .append(" ]")
+            .toString();
+        // @formatter:on
     }
 }

@@ -175,6 +175,8 @@ public class OptionTest {
                 String.class, null, null, null);
         checkOption(Option.builder("a").desc("desc").type(Integer.class).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator,
                 Integer.class, null, null, null);
+        checkOption(Option.builder("a").desc("desc").type(null).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator,
+                String.class, null, null, null);
         checkOption(Option.builder().option("a").desc("desc").type(Integer.class).build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false,
                 defaultSeparator, Integer.class, null, null, null);
         // Deprecated
@@ -331,7 +333,7 @@ public class OptionTest {
         final Option option = new Option("f", null);
         assertEquals(String.class, option.getType());
         @SuppressWarnings("cast")
-        final Object type = (Object) CharSequence.class; // Do NOT remove cast
+        final Object type = CharSequence.class; // Do NOT remove cast
         option.setType(type);
         assertEquals(CharSequence.class, option.getType());
     }

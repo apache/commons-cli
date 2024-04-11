@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class OptionsTest {
 
-    private void assertToStrings(Option option) {
+    private void assertToStrings(final Option option) {
         // Should never throw.
         // Should return a String, not null.
         assertNotNull(option.toString());

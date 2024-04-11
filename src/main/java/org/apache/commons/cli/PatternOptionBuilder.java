@@ -184,9 +184,14 @@ public class PatternOptionBuilder {
             // details about it
             if (!isValueCode(ch)) {
                 if (opt != Char.SP) {
-                    final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type)
-                            .converter(converter).build();
-
+                    // @formatter:off
+                    final Option option = Option.builder(String.valueOf(opt))
+                            .hasArg(type != null)
+                            .required(required)
+                            .type(type)
+                            .converter(converter)
+                            .build();
+                    // @formatter:on
                     // we have a previous one to deal with
                     options.addOption(option);
                     required = false;
