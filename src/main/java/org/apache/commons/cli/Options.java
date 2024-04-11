@@ -275,7 +275,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Returns whether the named {@link Option} is a member of this {@link Options}.
+     * Tests whether the named {@link Option} is a member of this {@link Options}.
      *
      * @param opt long name of the {@link Option}
      * @return true if the named {@link Option} is a member of this {@link Options}
@@ -286,7 +286,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Returns whether the named {@link Option} is a member of this {@link Options}.
+     * Tests whether the named {@link Option} is a member of this {@link Options}.
      *
      * @param opt short or long name of the {@link Option}
      * @return true if the named {@link Option} is a member of this {@link Options}
@@ -297,7 +297,7 @@ public class Options implements Serializable {
     }
 
     /**
-     * Returns whether the named {@link Option} is a member of this {@link Options}.
+     * Tests whether the named {@link Option} is a member of this {@link Options}.
      *
      * @param opt short name of the {@link Option}
      * @return true if the named {@link Option} is a member of this {@link Options}
