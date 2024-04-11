@@ -19,8 +19,6 @@ package org.apache.commons.cli;
 
 /**
  * Validates an Option string.
- *
- * @since 1.1
  */
 final class OptionValidator {
     /* package private for testing access */

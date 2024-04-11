@@ -485,8 +485,6 @@ public class Option implements Cloneable, Serializable {
      * a runtime exception.
      *
      * @param value The value to be added to this Option.
-     *
-     * @since 1.0.1
      */
     private void add(final String value) {
         if (!acceptsArg()) {

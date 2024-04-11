@@ -158,7 +158,7 @@ public class HelpFormatter {
      * Default separator displayed between a long Option and its value
      *
      * @since 1.3
-     **/
+     */
     public static final String DEFAULT_LONG_OPT_SEPARATOR = " ";
 
     /** Default name for an argument */
