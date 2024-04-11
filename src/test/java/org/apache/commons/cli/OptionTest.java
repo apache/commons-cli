@@ -60,7 +60,7 @@ public class OptionTest {
 
         @Override
         public boolean addValue(final String value) {
-            addValueForProcessing(value);
+            processValue(value);
             return true;
         }
     }
@@ -76,6 +76,8 @@ public class OptionTest {
         assertEquals(required, option.isRequired());
 
         assertEquals(optionalArg, option.hasOptionalArg());
+        assertEquals(numArgs > 0, option.hasArg());
+        assertEquals(numArgs > 0, option.acceptsArg());
         assertEquals(valueSeparator, option.getValueSeparator());
         assertEquals(cls, option.getType());
         if (deprecatedDesc != null) {
@@ -245,7 +247,7 @@ public class OptionTest {
         assertEquals("default", option.getValue("default"));
         assertNull(option.getValue(0));
 
-        option.addValueForProcessing("foo");
+        option.processValue("foo");
 
         assertEquals("foo", option.getValue());
         assertEquals("foo", option.getValue(0));
