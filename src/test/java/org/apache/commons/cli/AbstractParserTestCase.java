@@ -238,132 +238,104 @@ public abstract class AbstractParserTestCase {
     @Test
     public void testLongOptionQuoteHandling() throws Exception {
         final String[] args = {"--bfile", "\"quoted string\""};
-
         final CommandLine cl = parser.parse(options, args);
-
         assertEquals("quoted string", cl.getOptionValue("b"), "Confirm --bfile \"arg\" strips quotes");
     }
 
     @Test
     public void testLongOptionWithEqualsQuoteHandling() throws Exception {
         final String[] args = {"--bfile=\"quoted string\""};
-
         final CommandLine cl = parser.parse(options, args);
-
         assertEquals("quoted string", cl.getOptionValue("b"), "Confirm --bfile=\"arg\" strips quotes");
     }
 
     @Test
     public void testLongWithEqualDoubleDash() throws Exception {
         final String[] args = {"--foo=bar"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
-
         final CommandLine cl = parser.parse(options, args);
-
         assertEquals("bar", cl.getOptionValue("foo"));
     }
 
     @Test
     public void testLongWithEqualSingleDash() throws Exception {
         final String[] args = {"-foo=bar"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
-
         final CommandLine cl = parser.parse(options, args);
-
         assertEquals("bar", cl.getOptionValue("foo"));
     }
 
     @Test
     public void testLongWithoutEqualDoubleDash() throws Exception {
         final String[] args = {"--foobar"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
-
         final CommandLine cl = parser.parse(options, args, true);
-
         assertFalse(cl.hasOption("foo")); // foo isn't expected to be recognized with a double dash
     }
 
     @Test
     public void testLongWithoutEqualSingleDash() throws Exception {
         final String[] args = {"-foobar"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
-
         final CommandLine cl = parser.parse(options, args);
-
         assertEquals("bar", cl.getOptionValue("foo"));
     }
 
     @Test
     public void testLongWithUnexpectedArgument1() throws Exception {
         final String[] args = {"--foo=bar"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("foo").create('f'));
-
         try {
             parser.parse(options, args);
         } catch (final UnrecognizedOptionException e) {
             assertEquals("--foo=bar", e.getOption());
             return;
         }
-
         fail("UnrecognizedOptionException not thrown");
     }
 
     @Test
     public void testLongWithUnexpectedArgument2() throws Exception {
         final String[] args = {"-foobar"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("foo").create('f'));
-
         try {
             parser.parse(options, args);
         } catch (final UnrecognizedOptionException e) {
             assertEquals("-foobar", e.getOption());
             return;
         }
-
         fail("UnrecognizedOptionException not thrown");
     }
 
     @Test
     public void testMissingArg() throws Exception {
         final String[] args = {"-b"};
-
         boolean caught = false;
-
         try {
             parser.parse(options, args);
         } catch (final MissingArgumentException e) {
             caught = true;
             assertEquals("b", e.getOption().getOpt(), "option missing an argument");
         }
-
         assertTrue(caught, "Confirm MissingArgumentException caught");
     }
 
     @Test
     public void testMissingArgWithBursting() throws Exception {
         final String[] args = {"-acb"};
-
         boolean caught = false;
-
         try {
             parser.parse(options, args);
         } catch (final MissingArgumentException e) {
             caught = true;
             assertEquals("b", e.getOption().getOpt(), "option missing an argument");
         }
-
         assertTrue(caught, "Confirm MissingArgumentException caught");
     }
 
@@ -791,10 +763,8 @@ public abstract class AbstractParserTestCase {
     public void testReuseOptionsTwice() throws Exception {
         final Options options = new Options();
         options.addOption(OptionBuilder.isRequired().create('v'));
-
         // first parsing
         parser.parse(options, new String[] {"-v"});
-
         try {
             // second parsing, with the same Options instance and an invalid command line
             parser.parse(options, new String[0]);
@@ -806,69 +776,48 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testShortOptionConcatenatedQuoteHandling() throws Exception {
-        final String[] args = {"-b\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"-b\"quoted string\""});
         assertEquals("quoted string", cl.getOptionValue("b"), "Confirm -b\"arg\" strips quotes");
     }
 
     @Test
     public void testShortOptionQuoteHandling() throws Exception {
-        final String[] args = {"-b", "\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"-b", "\"quoted string\""});
         assertEquals("quoted string", cl.getOptionValue("b"), "Confirm -b \"arg\" strips quotes");
     }
 
     @Test
     public void testShortWithEqual() throws Exception {
-        final String[] args = {"-f=bar"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"-f=bar"});
         assertEquals("bar", cl.getOptionValue("foo"));
     }
 
     @Test
     public void testShortWithoutEqual() throws Exception {
-        final String[] args = {"-fbar"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("foo").hasArg().create('f'));
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"-fbar"});
         assertEquals("bar", cl.getOptionValue("foo"));
     }
 
     @Test
     public void testShortWithUnexpectedArgument() throws Exception {
-        final String[] args = {"-f=bar"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("foo").create('f'));
-
         try {
-            parser.parse(options, args);
+            parser.parse(options, new String[] {"-f=bar"});
         } catch (final UnrecognizedOptionException e) {
             assertEquals("-f=bar", e.getOption());
             return;
         }
-
         fail("UnrecognizedOptionException not thrown");
     }
 
     @Test
     public void testSimpleLong() throws Exception {
-        final String[] args = {"--enable-a", "--bfile", "toast", "foo", "bar"};
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"--enable-a", "--bfile", "toast", "foo", "bar"});
         assertTrue(cl.hasOption("a"), "Confirm -a is set");
         assertTrue(cl.hasOption("b"), "Confirm -b is set");
         assertEquals("toast", cl.getOptionValue("b"), "Confirm arg of -b");
@@ -878,10 +827,7 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testSimpleShort() throws Exception {
-        final String[] args = {"-a", "-b", "toast", "foo", "bar"};
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"-a", "-b", "toast", "foo", "bar"});
         assertTrue(cl.hasOption("a"), "Confirm -a is set");
         assertTrue(cl.hasOption("b"), "Confirm -b is set");
         assertEquals("toast", cl.getOptionValue("b"), "Confirm arg of -b");
@@ -890,10 +836,7 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testSingleDash() throws Exception {
-        final String[] args = {"--copt", "-b", "-", "-a", "-"};
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"--copt", "-b", "-", "-a", "-"});
         assertTrue(cl.hasOption("a"), "Confirm -a is set");
         assertTrue(cl.hasOption("b"), "Confirm -b is set");
         assertEquals("-", cl.getOptionValue("b"), "Confirm arg of -b");
@@ -904,9 +847,7 @@ public abstract class AbstractParserTestCase {
     @Test
     public void testStopAtExpectedArg() throws Exception {
         final String[] args = {"-b", "foo"};
-
         final CommandLine cl = parser.parse(options, args, true);
-
         assertTrue(cl.hasOption('b'), "Confirm -b is set");
         assertEquals("foo", cl.getOptionValue('b'), "Confirm -b is set");
         assertTrue(cl.getArgList().isEmpty(), "Confirm no extra args: " + cl.getArgList().size());
@@ -915,9 +856,7 @@ public abstract class AbstractParserTestCase {
     @Test
     public void testStopAtNonOptionLong() throws Exception {
         final String[] args = {"--zop==1", "-abtoast", "--b=bar"};
-
         final CommandLine cl = parser.parse(options, args, true);
-
         assertFalse(cl.hasOption("a"), "Confirm -a is not set");
         assertFalse(cl.hasOption("b"), "Confirm -b is not set");
         assertEquals(3, cl.getArgList().size(), "Confirm  3 extra args: " + cl.getArgList().size());
@@ -925,44 +864,33 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testStopAtNonOptionShort() throws Exception {
-        final String[] args = {"-z", "-a", "-btoast"};
-
-        final CommandLine cl = parser.parse(options, args, true);
+        final CommandLine cl = parser.parse(options, new String[] {"-z", "-a", "-btoast"}, true);
         assertFalse(cl.hasOption("a"), "Confirm -a is not set");
         assertEquals(3, cl.getArgList().size(), "Confirm  3 extra args: " + cl.getArgList().size());
     }
 
     @Test
     public void testStopAtUnexpectedArg() throws Exception {
-        final String[] args = {"-c", "foober", "-b", "toast"};
-
-        final CommandLine cl = parser.parse(options, args, true);
+        final CommandLine cl = parser.parse(options, new String[] {"-c", "foober", "-b", "toast"}, true);
         assertTrue(cl.hasOption("c"), "Confirm -c is set");
         assertEquals(3, cl.getArgList().size(), "Confirm  3 extra args: " + cl.getArgList().size());
     }
 
     @Test
     public void testStopBursting() throws Exception {
-        final String[] args = {"-azc"};
-
-        final CommandLine cl = parser.parse(options, args, true);
+        final CommandLine cl = parser.parse(options, new String[] {"-azc"}, true);
         assertTrue(cl.hasOption("a"), "Confirm -a is set");
         assertFalse(cl.hasOption("c"), "Confirm -c is not set");
-
         assertEquals(1, cl.getArgList().size(), "Confirm  1 extra arg: " + cl.getArgList().size());
         assertTrue(cl.getArgList().contains("zc"));
     }
 
     @Test
     public void testStopBursting2() throws Exception {
-        final String[] args = {"-c", "foobar", "-btoast"};
-
-        CommandLine cl = parser.parse(options, args, true);
+        CommandLine cl = parser.parse(options, new String[] {"-c", "foobar", "-btoast"}, true);
         assertTrue(cl.hasOption("c"), "Confirm -c is set");
         assertEquals(2, cl.getArgList().size(), "Confirm  2 extra args: " + cl.getArgList().size());
-
         cl = parser.parse(options, cl.getArgs());
-
         assertFalse(cl.hasOption("c"), "Confirm -c is not set");
         assertTrue(cl.hasOption("b"), "Confirm -b is set");
         assertEquals("toast", cl.getOptionValue("b"), "Confirm arg of -b");
@@ -972,68 +900,48 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testUnambiguousPartialLongOption1() throws Exception {
-        final String[] args = {"--ver"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("version").create());
         options.addOption(OptionBuilder.withLongOpt("help").create());
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"--ver"});
         assertTrue(cl.hasOption("version"), "Confirm --version is set");
     }
 
     @Test
     public void testUnambiguousPartialLongOption2() throws Exception {
-        final String[] args = {"-ver"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("version").create());
         options.addOption(OptionBuilder.withLongOpt("help").create());
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"-ver"});
         assertTrue(cl.hasOption("version"), "Confirm --version is set");
     }
 
     @Test
     public void testUnambiguousPartialLongOption3() throws Exception {
-        final String[] args = {"--ver=1"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("verbose").hasOptionalArg().create());
         options.addOption(OptionBuilder.withLongOpt("help").create());
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"--ver=1"});
         assertTrue(cl.hasOption("verbose"), "Confirm --verbose is set");
         assertEquals("1", cl.getOptionValue("verbose"));
     }
 
     @Test
     public void testUnambiguousPartialLongOption4() throws Exception {
-        final String[] args = {"-ver=1"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("verbose").hasOptionalArg().create());
         options.addOption(OptionBuilder.withLongOpt("help").create());
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"-ver=1"});
         assertTrue(cl.hasOption("verbose"), "Confirm --verbose is set");
         assertEquals("1", cl.getOptionValue("verbose"));
     }
 
     @Test
     public void testUnlimitedArgs() throws Exception {
-        final String[] args = {"-e", "one", "two", "-f", "alpha"};
-
         final Options options = new Options();
         options.addOption(OptionBuilder.hasArgs().create("e"));
         options.addOption(OptionBuilder.hasArgs().create("f"));
-
-        final CommandLine cl = parser.parse(options, args);
-
+        final CommandLine cl = parser.parse(options, new String[] {"-e", "one", "two", "-f", "alpha"});
         assertTrue(cl.hasOption("e"), "Confirm -e is set");
         assertEquals(2, cl.getOptionValues("e").length, "number of arg for -e");
         assertTrue(cl.hasOption("f"), "Confirm -f is set");
@@ -1042,10 +950,8 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testUnrecognizedOption() throws Exception {
-        final String[] args = {"-a", "-d", "-b", "toast", "foo", "bar"};
-
         try {
-            parser.parse(options, args);
+            parser.parse(options, new String[] {"-a", "-d", "-b", "toast", "foo", "bar"});
             fail("UnrecognizedOptionException wasn't thrown");
         } catch (final UnrecognizedOptionException e) {
             assertEquals("-d", e.getOption());
@@ -1054,10 +960,8 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testUnrecognizedOptionWithBursting() throws Exception {
-        final String[] args = {"-adbtoast", "foo", "bar"};
-
         try {
-            parser.parse(options, args);
+            parser.parse(options, new String[] {"-adbtoast", "foo", "bar"});
             fail("UnrecognizedOptionException wasn't thrown");
         } catch (final UnrecognizedOptionException e) {
             assertEquals("-adbtoast", e.getOption());
@@ -1067,13 +971,10 @@ public abstract class AbstractParserTestCase {
     @Test
     public void testWithRequiredOption() throws Exception {
         final String[] args = {"-b", "file"};
-
         final Options options = new Options();
         options.addOption("a", "enable-a", false, null);
         options.addOption(OptionBuilder.withLongOpt("bfile").hasArg().isRequired().create('b'));
-
         final CommandLine cl = parser.parse(options, args);
-
         assertFalse(cl.hasOption("a"), "Confirm -a is NOT set");
         assertTrue(cl.hasOption("b"), "Confirm -b is set");
         assertEquals("file", cl.getOptionValue("b"), "Confirm arg of -b");
