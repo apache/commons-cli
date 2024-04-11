@@ -282,8 +282,7 @@ public class Options implements Serializable {
      * @since 1.3
      */
     public boolean hasLongOption(final String opt) {
-        final String clean = Util.stripLeadingHyphens(opt);
-        return longOpts.containsKey(clean);
+        return longOpts.containsKey(Util.stripLeadingHyphens(opt));
     }
 
     /**
