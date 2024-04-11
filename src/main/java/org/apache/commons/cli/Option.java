@@ -820,28 +820,22 @@ public class Option implements Cloneable, Serializable {
         if (hasValueSeparator()) {
             // get the separator character
             final char sep = getValueSeparator();
-
             // store the index for the value separator
             int index = add.indexOf(sep);
-
             // while there are more value separators
             while (index != -1) {
                 // next value to be added
                 if (values.size() == argCount - 1) {
                     break;
                 }
-
                 // store
                 add(add.substring(0, index));
-
                 // parse
                 add = add.substring(index + 1);
-
                 // get new index
                 index = add.indexOf(sep);
             }
         }
-
         // store the actual value or the last value that has been parsed
         add(add);
     }
