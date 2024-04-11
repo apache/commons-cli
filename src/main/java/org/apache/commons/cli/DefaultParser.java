@@ -309,8 +309,7 @@ public class DefaultParser implements CommandLineParser {
         }
         final List<String> matches = new ArrayList<>(1);
         if (options.hasLongOption(token)) {
-            final Option option = options.getOption(token);
-            matches.add(option.getLongOpt());
+            matches.add(options.getOption(token).getLongOpt());
         }
         return matches;
     }
