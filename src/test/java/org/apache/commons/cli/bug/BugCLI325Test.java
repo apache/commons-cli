@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 public class BugCLI325Test {
 
     @Test
-    public void Cli325() throws ParseException {
+    public void testCli325() throws ParseException {
 
         final Option option = Option.builder("x")
         .hasArgs()
