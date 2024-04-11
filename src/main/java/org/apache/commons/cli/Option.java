@@ -822,8 +822,6 @@ public class Option implements Cloneable, Serializable {
      * and there are more value separators in the value, parsing is ceased and the remaining characters are added as a single token.
      *
      * @param value The String to be processed.
-     *
-     * @since 1.0.1
      */
     private void processValue(final String value) {
         String add = value;
