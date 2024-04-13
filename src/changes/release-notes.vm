@@ -65,7 +65,7 @@ $release.description.replaceAll("  ", "
 #else
 #set($dueto="")
 #end
-o $issue ${action}$dueto
+* $issue ${action}$dueto
 #set($action="")
 #set($issue="")
 #set($dueto="")
@@ -74,11 +74,10 @@ o $issue ${action}$dueto
 #if ($release.getActions().size() == 0)
 No changes defined in this version.
 #else
-Changes in this version include:
 
 #if ($release.getActions('add').size() !=0)
 New Features
-============
+------------
 
 #foreach($actionItem in $release.getActions('add'))
 #processaction()
@@ -87,7 +86,7 @@ New Features
 
 #if ($release.getActions('fix').size() !=0)
 Fixed Bugs
-==========
+----------
 
 #foreach($actionItem in $release.getActions('fix'))
 #processaction()
@@ -96,7 +95,7 @@ Fixed Bugs
 
 #if ($release.getActions('update').size() !=0)
 Updates
-=======
+-------
 
 #foreach($actionItem in $release.getActions('update'))
 #processaction()
@@ -104,7 +103,9 @@ Updates
 #end
 
 #if ($release.getActions('remove').size() !=0)
-Removed:
+Removed
+-------
+
 #foreach($actionItem in $release.getActions('remove'))
 #processaction()
 #end

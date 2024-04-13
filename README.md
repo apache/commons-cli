@@ -46,7 +46,7 @@ Apache Commons CLI
 [![Java CI](https://github.com/apache/commons-cli/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-cli/actions/workflows/maven.yml)
 [![Coverage Status](https://codecov.io/gh/apache/commons-cli/branch/master/graph/badge.svg)](https://app.codecov.io/gh/apache/commons-cli)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/badge.svg?gav=true)](https://maven-badges.herokuapp.com/maven-central/commons-cli/commons-cli/?gav=true)
-[![Javadocs](https://javadoc.io/badge/commons-cli/commons-cli/1.6.0.svg)](https://javadoc.io/doc/commons-cli/commons-cli/1.6.0)
+[![Javadocs](https://javadoc.io/badge/commons-cli/commons-cli/1.7.0.svg)](https://javadoc.io/doc/commons-cli/commons-cli/1.7.0)
 [![CodeQL](https://github.com/apache/commons-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-cli/actions/workflows/codeql-analysis.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-cli/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-cli)
 
@@ -69,7 +69,7 @@ Alternatively, you can pull it from  the central Maven repositories:
 <dependency>
   <groupId>commons-cli</groupId>
   <artifactId>commons-cli</artifactId>
-  <version>1.6.0</version>
+  <version>1.7.0</version>
 </dependency>
 ```
 
@@ -111,7 +111,6 @@ Additional Resources
 + [Apache Issue Tracker (JIRA)](https://issues.apache.org/jira/browse/CLI)
 + [Apache Commons Slack Channel](https://the-asf.slack.com/archives/C60NVB8AD)
 + [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
-+ `#apache-commons` IRC channel on `irc.freenode.org`
 
 Apache Commons Components
 -------------------------

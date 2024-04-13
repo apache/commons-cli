@@ -1,7 +1,61 @@
 Apache Commons CLI
-Version 1.6.0
+Version 1.7.0
 Release Notes
 
+This document contains the release notes for this version of the Apache Commons 
+CLI Component of the Apache Commons Project. Commons CLI provides a simple API
+for working with the command line arguments and options.
+
+Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
+
+New features and bug fixes.
+
+New Features
+------------
+
+* CLI-321:  Add and use a Converter interface and implementations without using BeanUtils #216. Thanks to Claude Warren, Gary Gregory.
+*           Add Maven property project.build.outputTimestamp for build reproducibility. Thanks to Gary Gregory.
+* CLI-322:  Add '-' as an option char and implemented extensive tests #217. Thanks to Claude Warren, Gary Gregory.
+* CLI-324:  Make adding OptionGroups and Options to existing Options easier #230. Thanks to Claude Warren, Gary Gregory.
+* CLI-323:  Added Supplier<T> defaults for getParsedOptionValue #229. Thanks to Claude Warren, Gary Gregory.
+* CLI-326:  Make Option.getKey() public #239. Thanks to Claude Warren, Gary Gregory.
+*           Add builder factory CommandLine#builder(). Thanks to Claude Warren, Gary Gregory.
+
+Fixed Bugs
+----------
+
+* CLI-312:  Inconsistent behavior in key/value pairs (Java property style). Thanks to Claude Warren, Gary Gregory.
+*           Avoid NullPointerException in Util.stripLeadingAndTrailingQuotes(String). Thanks to Gary Gregory.
+* CLI-320:  Awkward behavior of Option.builder() for multiple optional args. Thanks to Paul King, Claude Warren.
+* CLI-325:  Properties from multiple arguments with value separator. #237. Thanks to Claude Warren.
+* CLI-327:  Fix for expected textual date values. #244. Thanks to Claude Warren, Gary Gregory.
+*           Option.Builder.option("") should throw IllegalArgumentException instead of ArrayIndexOutOfBoundsException. Thanks to Gary Gregory.
+*           Avoid NullPointerException in CommandLine.getOptionValues(Option|String). Thanks to Gary Gregory.
+
+Updates
+-------
+
+*           Bump commons-parent from 64 to 69 #256. Thanks to Gary Gregory.
+*           Update the tests to JUnit 5 #238. Thanks to Elric, Gary Gregory.
+*           Bump tests commons-io:commons-io from 2.16.0 to 2.16.1 #258. Thanks to Dependabot, Gary Gregory.
+
+Historical list of changes: https://commons.apache.org/proper/commons-cli/changes-report.html
+
+For complete information on Apache Commons CLI, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons CLI website:
+
+https://commons.apache.org/proper/commons-cli/
+
+Download page: https://commons.apache.org/proper/commons-cli/download_cli.cgi
+
+Have fun!
+The Apache Commons Team
+
+------------------------------------------------------------------------------
+
+Apache Commons CLI
+Version 1.6.0
+Release Notes
 
 This document contains the release notes for this version of the Apache Commons 
 CLI Component of the Apache Commons Project. Commons CLI provides a simple API
@@ -13,44 +67,43 @@ New features and bug fixes
 
 Changes in this version include:
 
-
 Fixed Bugs
-==========
+----------
 
-o           [StepSecurity] ci: Harden GitHub Actions #176. Thanks to step-security-bot, Gary Gregory.
-o CLI-318:  Inconsistent date format in changes report. Thanks to Alexander Veit, Gary Gregory.
-o CLI-283:  Fix NPE in CommandLine.resolveOption(String). Thanks to Dilraj Singh, Gary Gregory.
-o CLI-283:  CommandLine.addOption(Option) should not allow a null Option. Thanks to Dilraj Singh, Gary Gregory.
-o CLI-283:  CommandLine.addArgs(String) should not allow a null String. Thanks to Gary Gregory.
-o CLI-303:  Site docs: "Usage Scenarios" refers to deprecated methods. Thanks to Julian Schilling, Gary Gregory.
-o CLI-317:  NullPointerException thrown by CommandLineParser.parse(). Thanks to Philippe Bastiani, Sruteesh Kumar Paramata, Gary Gregory.
-o CLI-313:  StringIndexOutOfBoundsException thrown by CommandLineParser.parse(). Thanks to Dominik Stadler, HUNG LU, Sruteesh Kumar Paramata.
+*           [StepSecurity] ci: Harden GitHub Actions #176. Thanks to step-security-bot, Gary Gregory.
+* CLI-318:  Inconsistent date format in changes report. Thanks to Alexander Veit, Gary Gregory.
+* CLI-283:  Fix NPE in CommandLine.resolveOption(String). Thanks to Dilraj Singh, Gary Gregory.
+* CLI-283:  CommandLine.addOption(Option) should not allow a null Option. Thanks to Dilraj Singh, Gary Gregory.
+* CLI-283:  CommandLine.addArgs(String) should not allow a null String. Thanks to Gary Gregory.
+* CLI-303:  Site docs: "Usage Scenarios" refers to deprecated methods. Thanks to Julian Schilling, Gary Gregory.
+* CLI-317:  NullPointerException thrown by CommandLineParser.parse(). Thanks to Philippe Bastiani, Sruteesh Kumar Paramata, Gary Gregory.
+* CLI-313:  StringIndexOutOfBoundsException thrown by CommandLineParser.parse(). Thanks to Dominik Stadler, HUNG LU, Sruteesh Kumar Paramata.
 
 Updates
-=======
+-------
 
-o           Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 417-423] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION Thanks to Gary Gregory.
-o           Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 446-450] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION Thanks to Gary Gregory.
-o           Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 474-478] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION Thanks to Gary Gregory.
-o           Use EMPTY_STRING_ARRAY constant. #102. Thanks to Ken Dombeck.
-o           Fix site links that are broken #155. Thanks to Arturo Bernal.
-o           Use Math.max() #111. 
+*           Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 417-423] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION Thanks to Gary Gregory.
+*           Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 446-450] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION Thanks to Gary Gregory.
+*           Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 474-478] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION Thanks to Gary Gregory.
+*           Use EMPTY_STRING_ARRAY constant. #102. Thanks to Ken Dombeck.
+*           Fix site links that are broken #155. Thanks to Arturo Bernal.
+*           Use Math.max() #111. 
             Delete unused assignment #112. Thanks to Arturo Bernal.
-o           Add github/codeql-action. Thanks to Dependabot, Gary Gregory.
-o           Bump Java from 7 to 8. Thanks to Gary Gregory.
-o           Bump actions/cache from 2.1.7 to 3.0.10 #97, #130, #132. Thanks to Dependabot, Gary Gregory.
-o           Bump actions/checkout from 3 to 3.1.0 #133. Thanks to Gary Gregory, Dependabot.
-o           Bump actions/setup-java from 2 to 3.6.0 #136. Thanks to Gary Gregory.
-o           Bump spotbugs from 4.5.3 to 4.7.3 #96, #107, #113, #125, #138. Thanks to Gary Gregory, Dependabot.
-o           Bump spotbugs-maven-plugin from 4.5.3.0 to 4.7.3.0 #98, #108, #115, #117, #126, #145. Thanks to Dependabot.
-o           Bump commons-parent from 52 to 64 #100, #128, #151, #158. Thanks to Dependabot, Gary Gregory.
-o           Bump maven-antrun-plugin from 3.0.0 to 3.1.0 #103. Thanks to Dependabot.
-o           Bump maven-javadoc-plugin from 3.3.2 to 3.4.1 #105, #120. Thanks to Dependabot.
-o           Bump maven-pmd-plugin from 3.16.0 to 3.19.0 #110, #124. Thanks to Dependabot.
-o           Bump jacoco-maven-plugin from 0.8.7 to 0.8.8. Thanks to Gary Gregory.
-o           Bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 #121. Thanks to Gary Gregory.
-o           Bump japicmp-maven-plugin from 0.15.4 to 0.16.0. Thanks to Gary Gregory.
-o           Update JUnit 4 to 5 vintage. Thanks to Gary Gregory.
+*           Add github/codeql-action. Thanks to Dependabot, Gary Gregory.
+*           Bump Java from 7 to 8. Thanks to Gary Gregory.
+*           Bump actions/cache from 2.1.7 to 3.0.10 #97, #130, #132. Thanks to Dependabot, Gary Gregory.
+*           Bump actions/checkout from 3 to 3.1.0 #133. Thanks to Gary Gregory, Dependabot.
+*           Bump actions/setup-java from 2 to 3.6.0 #136. Thanks to Gary Gregory.
+*           Bump spotbugs from 4.5.3 to 4.7.3 #96, #107, #113, #125, #138. Thanks to Gary Gregory, Dependabot.
+*           Bump spotbugs-maven-plugin from 4.5.3.0 to 4.7.3.0 #98, #108, #115, #117, #126, #145. Thanks to Dependabot.
+*           Bump commons-parent from 52 to 64 #100, #128, #151, #158. Thanks to Dependabot, Gary Gregory.
+*           Bump maven-antrun-plugin from 3.0.0 to 3.1.0 #103. Thanks to Dependabot.
+*           Bump maven-javadoc-plugin from 3.3.2 to 3.4.1 #105, #120. Thanks to Dependabot.
+*           Bump maven-pmd-plugin from 3.16.0 to 3.19.0 #110, #124. Thanks to Dependabot.
+*           Bump jacoco-maven-plugin from 0.8.7 to 0.8.8. Thanks to Gary Gregory.
+*           Bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 #121. Thanks to Gary Gregory.
+*           Bump japicmp-maven-plugin from 0.15.4 to 0.16.0. Thanks to Gary Gregory.
+*           Update JUnit 4 to 5 vintage. Thanks to Gary Gregory.
 
 
 Historical list of changes: https://commons.apache.org/proper/commons-cli/changes-report.html
@@ -83,49 +136,48 @@ New features and bug fixes (Java 7 or above).
 Changes in this version include:
 
 New Features
-============
+------------
 
-o CLI-217:  Accommodate toggling partial matching in DefaultParser. Thanks to Rubin Simons.
-o CLI-274:  Option parser type EXISTING_FILE_VALUE not check file existing Thanks to Béla Schaum.
-o CLI-271:  CommandLine.getXXX and CommandLine.hasXXX should accept an Option as a parameter Thanks to Christoph Läubrich.
-o CLI-276:  Adjust access-modifier of checkRequiredOptions() to protected. Thanks to Jason Dillon.
-o CLI-282:  TypeHandler should throw ParseException for an unsupported class. Thanks to Alex Nordlund.
-o           Added setter for Builder.option #33. Thanks to Waldemar Sojka, Gary Gregory.
-o           Add Option unit tests #76. Thanks to Waldemar Sojka, Gary Gregory.
+* CLI-217:  Accommodate toggling partial matching in DefaultParser. Thanks to Rubin Simons.
+* CLI-274:  Option parser type EXISTING_FILE_VALUE not check file existing Thanks to Béla Schaum.
+* CLI-271:  CommandLine.getXXX and CommandLine.hasXXX should accept an Option as a parameter Thanks to Christoph Läubrich.
+* CLI-276:  Adjust access-modifier of checkRequiredOptions() to protected. Thanks to Jason Dillon.
+* CLI-282:  TypeHandler should throw ParseException for an unsupported class. Thanks to Alex Nordlund.
+*           Added setter for Builder.option #33. Thanks to Waldemar Sojka, Gary Gregory.
+*           Add Option unit tests #76. Thanks to Waldemar Sojka, Gary Gregory.
 
 Fixed Bugs
-==========
+----------
 
-o           Fix NPE in DefaultParser.isLongOption(String). Thanks to Gary Gregory.
-o CLI-279:  @param or @return lines should end with a period in CommandLine.java Thanks to Krishna Mohan Rao Kandunoori.
-o           Replace deprecated FindBugs with SpotBugs. Thanks to Gary Gregory.
-o           Replace CLIRR with JApiCmp. Thanks to Gary Gregory.
-o           Option Javadocs grammar nits #55. Thanks to Elliotte Rusty Harold.
-o           Minor Improvements #57, #61. Thanks to Arturo Bernal, Gary Gregory.
-o CLI-254:  Input "test" gets parsed as test, quotes die #58. Thanks to stoty.
-o CLI-287:  Allow whitespace-only header and footer #26. Thanks to MrQubo, Gary Gregory.
+*           Fix NPE in DefaultParser.isLongOption(String). Thanks to Gary Gregory.
+* CLI-279:  @param or @return lines should end with a period in CommandLine.java Thanks to Krishna Mohan Rao Kandunoori.
+*           Replace deprecated FindBugs with SpotBugs. Thanks to Gary Gregory.
+*           Replace CLIRR with JApiCmp. Thanks to Gary Gregory.
+*           Option Javadocs grammar nits #55. Thanks to Elliotte Rusty Harold.
+*           Minor Improvements #57, #61. Thanks to Arturo Bernal, Gary Gregory.
+* CLI-254:  Input "test" gets parsed as test, quotes die #58. Thanks to stoty.
+* CLI-287:  Allow whitespace-only header and footer #26. Thanks to MrQubo, Gary Gregory.
 
 Updates
-=======
+-------
 
-o CLI-294:  Update Java from version 5 to 7.
-o           Docs: Replace OptionBuilder in usage page #30. Thanks to Mincong Huang.
-o           Remove deprecated sudo setting. #36. Thanks to dengliming.
-o           Bump junit:junit from 4.12 to 4.13.2, #53, #60. Thanks to Gary Gregory, Dependabot.
-o           Bump commons-parent from 48 to 52. Thanks to Dependabot.
-o           Bump maven-pmd-plugin from 3.12.0 to 3.15.0, #44, #54, #67. Thanks to Dependabot.
-o           Bump actions/checkout from v2.3.1 to v2.3.5 #46, #72. Thanks to Dependabot.
-o           Bump actions/setup-java from v1.4.2 to v2 #50. Thanks to Dependabot, Gary Gregory.
-o           Bump maven-antrun-plugin from 1.7 to 3.0.0 #43. Thanks to Dependabot.
-o           Bump maven-checkstyle-plugin from 2.15 to 3.1.2 #41. Thanks to Gary Gregory.
-o           Bump checkstyle to 9.0.1 #68. Thanks to Gary Gregory.
-o           Bump actions/cache from 2 to 2.1.6 #64, #65. Thanks to Dependabot.
-o           Bump commons.animal-sniffer.version 1.19 -> 1.20. Thanks to Gary Gregory.
-o           Bump maven-bundle-plugin 5.1.1 -> 5.1.2. Thanks to Gary Gregory.
-o           Bump biz.aQute.bndlib.version 5.1.2 -> 6.0.0. Thanks to Gary Gregory.
-o           Bump spotbugs from 4.4.1 to 4.4.2 #70. Thanks to Dependabot.
-o           Bump spotbugs-maven-plugin from 4.4.1 to 4.4.2.2 #71. Thanks to Dependabot.
-
+* CLI-294:  Update Java from version 5 to 7.
+*           Docs: Replace OptionBuilder in usage page #30. Thanks to Mincong Huang.
+*           Remove deprecated sudo setting. #36. Thanks to dengliming.
+*           Bump junit:junit from 4.12 to 4.13.2, #53, #60. Thanks to Gary Gregory, Dependabot.
+*           Bump commons-parent from 48 to 52. Thanks to Dependabot.
+*           Bump maven-pmd-plugin from 3.12.0 to 3.15.0, #44, #54, #67. Thanks to Dependabot.
+*           Bump actions/checkout from v2.3.1 to v2.3.5 #46, #72. Thanks to Dependabot.
+*           Bump actions/setup-java from v1.4.2 to v2 #50. Thanks to Dependabot, Gary Gregory.
+*           Bump maven-antrun-plugin from 1.7 to 3.0.0 #43. Thanks to Dependabot.
+*           Bump maven-checkstyle-plugin from 2.15 to 3.1.2 #41. Thanks to Gary Gregory.
+*           Bump checkstyle to 9.0.1 #68. Thanks to Gary Gregory.
+*           Bump actions/cache from 2 to 2.1.6 #64, #65. Thanks to Dependabot.
+*           Bump commons.animal-sniffer.version 1.19 -> 1.20. Thanks to Gary Gregory.
+*           Bump maven-bundle-plugin 5.1.1 -> 5.1.2. Thanks to Gary Gregory.
+*           Bump biz.aQute.bndlib.version 5.1.2 -> 6.0.0. Thanks to Gary Gregory.
+*           Bump spotbugs from 4.4.1 to 4.4.2 #70. Thanks to Dependabot.
+*           Bump spotbugs-maven-plugin from 4.4.1 to 4.4.2.2 #71. Thanks to Dependabot.
 
 Historical list of changes: https://commons.apache.org/proper/commons-cli/changes-report.html
 
@@ -141,12 +193,13 @@ The Apache Commons Team
 
 ------------------------------------------------------------------------------
 
-            Apache Commons CLI
-                Version 1.4
-               Release Notes
+Apache Commons CLI
+Version 1.4
+Release Notes
 
 
-INTRODUCTION:
+INTRODUCTION
+------------
 
 This document contains the release notes for this version of the Commons CLI
 package. Commons CLI provides a simple API for working with the command line
@@ -161,34 +214,35 @@ https://commons.apache.org/cli.
 
 
 NEW FEATURES
-============
+------------
 
-o CLI-269: Introduce CommandLine.Builder
-o CLI-267: Add an addRequiredOption method to Options.
+* CLI-269: Introduce CommandLine.Builder
+* CLI-267: Add an addRequiredOption method to Options.
            Thanks to Ricardo Ribeiro.
 
-
 BUG FIXES
-=========
+---------
 
-o CLI-265: Optional argument picking up next regular option as its argument.
+* CLI-265: Optional argument picking up next regular option as its argument.
            Thanks to Martin Sandiford.
-o CLI-266: HelpFormatter.setOptionComparator(null) doesn't display the values
+* CLI-266: HelpFormatter.setOptionComparator(null) doesn't display the values
            in inserted order. Thanks to Ravi Teja.
 
+------------------------------------------------------------------------------
 
-                Release Notes for version 1.3.1
+Release Notes for version 1.3.1
 
 BUG FIXES
-=========
+---------
 
-o CLI-252: LongOpt falsely detected as ambiguous. Thanks to Simon Harrer.
+* CLI-252: LongOpt falsely detected as ambiguous. Thanks to Simon Harrer.
 
+------------------------------------------------------------------------------
 
-                Release Notes for version 1.3
+Release Notes for version 1.3
 
 NOTES
-=====
+-----
 
 A new parser is available: DefaultParser. It combines the features of the
 GnuParser and the PosixParser. It also provides additional features like
@@ -197,188 +251,186 @@ separator (i.e like the JVM memory settings: -Xmx512m). This new parser
 deprecates the previous ones.
 
 DEPRECATIONS
-============
+------------
 
-o org.apache.commons.cli.BasicParser
+* org.apache.commons.cli.BasicParser
     replaced by org.apache.commons.cli.DefaultParser
 
-o org.apache.commons.cli.GnuParser
+* org.apache.commons.cli.GnuParser
     replaced by org.apache.commons.cli.DefaultParser
 
-o org.apache.commons.cli.OptionBuilder
+* org.apache.commons.cli.OptionBuilder
     replaced by org.apache.commons.cli.Option.builder()
                 org.apache.commons.cli.Option.builder(String)
                 org.apache.commons.cli.Option.Builder
 
-o org.apache.commons.cli.Parser
+* org.apache.commons.cli.Parser
     replaced by org.apache.commons.cli.DefaultParser
 
-o org.apache.commons.cli.PosixParser
+* org.apache.commons.cli.PosixParser
     replaced by org.apache.commons.cli.DefaultParser
 
 
 NEW FEATURES
-============
+------------
 
-o CLI-161: PosixParser doesn't stop the parsing on "--" tokens following an
+* CLI-161: PosixParser doesn't stop the parsing on "--" tokens following an
            option with an argument
-o CLI-167: Support options like Java memory settings (-Xmx512M)
-o CLI-181: Unified Parser
-o CLI-224: Added new fluent API to create Option instances via builder class
+* CLI-167: Support options like Java memory settings (-Xmx512M)
+* CLI-181: Unified Parser
+* CLI-224: Added new fluent API to create Option instances via builder class
            Option.Builder. This replaces the now deprecated OptionBuilder.
            Thanks to Duncan Jones, Brian Blount.
-o CLI-160: PosixParser now supports partial long options (--ver instead of
+* CLI-160: PosixParser now supports partial long options (--ver instead of
            --version).
-o CLI-169: HelpFormatter now supports setting the displayed separator of long
+* CLI-169: HelpFormatter now supports setting the displayed separator of long
            options. Thanks to J. Lewis Muir.
-o CLI-214: Added new method Options.addOption(String, String). Thanks to
+* CLI-214: Added new method Options.addOption(String, String). Thanks to
            Alexandru Mocanu.
 
-
 BUG FIXES
-=========
+---------
 
-o CLI-248: Dead links on doc page.
-o CLI-234: Fixed code example in javadoc of
+* CLI-248: Dead links on doc page.
+* CLI-234: Fixed code example in javadoc of
            "Option#Builder#valueSeparator(char)". Thanks to Greg Thomas.
-o CLI-241: Clarified behavior of "OptionValidator#validateOption(String)"
+* CLI-241: Clarified behavior of "OptionValidator#validateOption(String)"
            in case of null input. Thanks to Beluga Behr.
-o CLI-202: Default options will now work correctly with required options that
+* CLI-202: Default options will now work correctly with required options that
            are missing.
-o CLI-203: Default options will now work correctly together with option groups.
-o CLI-205: HelpFormatter.setArgName(String) now correctly sets the argument
+* CLI-203: Default options will now work correctly together with option groups.
+* CLI-205: HelpFormatter.setArgName(String) now correctly sets the argument
            name.
-o CLI-204: Passing default values for not defined options to a parser will now
+* CLI-204: Passing default values for not defined options to a parser will now
            trigger a ParseException instead of a NullPointerException.
-o CLI-201: Default properties provided as input to the Parser.parse() methods
+* CLI-201: Default properties provided as input to the Parser.parse() methods
            are now correctly processed.
-o CLI-215: CommandLine.getParsedOptionValue() now returns a String object if no
+* CLI-215: CommandLine.getParsedOptionValue() now returns a String object if no
            option type has been explicitly set. Thanks to Manuel Müller.
-o CLI-212: HelpFormatter now prints command-line options in the same order as
+* CLI-212: HelpFormatter now prints command-line options in the same order as
            they have been added. Thanks to Per Cederberg.
-o CLI-186: Standard help text now shows mandatory arguments also for the first
+* CLI-186: Standard help text now shows mandatory arguments also for the first
            option. Thanks to Kristoff Kiefer.
-o CLI-207: HelpFormatter does not strip anymore leading whitespace in the
+* CLI-207: HelpFormatter does not strip anymore leading whitespace in the
            footer text. Thanks to Uri Moszkowicz.
-o CLI-185: Strip quotes contained in argument values only if there is exactly
+* CLI-185: Strip quotes contained in argument values only if there is exactly
            one at the beginning and one at the end. Thanks to
            Einar M. R. Rosenvinge.
-o CLI-184: Negative numerical arguments take precedence over numerical options.
-o CLI-193: Fix possible StringIndexOutOfBoundsException in HelpFormatter.
+* CLI-184: Negative numerical arguments take precedence over numerical options.
+* CLI-193: Fix possible StringIndexOutOfBoundsException in HelpFormatter.
            Thanks to Travis McLeskey.
-o CLI-183: OptionGroups no longer throw an AlreadySelectedException when reused
+* CLI-183: OptionGroups no longer throw an AlreadySelectedException when reused
            for several parsings.
-o CLI-182: OptionGroup now selects properly an option with no short name.
-
+* CLI-182: OptionGroup now selects properly an option with no short name.
 
 CHANGES
-=======
+-------
 
-o CLI-240: Small cleanup of Option class. Thanks to Beluga Behr.
-o CLI-230: Options.getRequiredOptions() now returns an unmodifiable list.
-o CLI-218: Clarify javadoc for CommandLine.getOptionValue() that the first
+* CLI-240: Small cleanup of Option class. Thanks to Beluga Behr.
+* CLI-230: Options.getRequiredOptions() now returns an unmodifiable list.
+* CLI-218: Clarify javadoc for CommandLine.getOptionValue() that the first
            specified argument will be returned. Thanks to Sven.
-o CLI-227: Changed unit tests to junit 4 annotation style. Thanks to
+* CLI-227: Changed unit tests to junit 4 annotation style. Thanks to
            Duncan Jones.
-o CLI-209: The javadoc of OptionBuilder now states that the class is not
+* CLI-209: The javadoc of OptionBuilder now states that the class is not
            thread-safe. Thanks to Thomas Herre.
-o CLI-200: Fixed typo in javadoc of class CommandLine. Thanks to
+* CLI-200: Fixed typo in javadoc of class CommandLine. Thanks to
            Gerard Weatherby.
-o CLI-223: Source code now uses generic types instead of raw types where
+* CLI-223: Source code now uses generic types instead of raw types where
            possible. Thanks to Gerard Weatherby.
-o CLI-220  Corrected javadoc for return type of
+* CLI-220  Corrected javadoc for return type of
            MissingOptionException.getMissingOptions(). Thanks to Joe Casadonte.
-o CLI-197: Improve description of parameter "stopAtNonOption" in method
+* CLI-197: Improve description of parameter "stopAtNonOption" in method
            CommandLine.parse(Options, String[], boolean). Thanks to
            Anders Larsson.
-o CLI-231: Removed DoubleCheckedLocking test from checkstyle configuration.
+* CLI-231: Removed DoubleCheckedLocking test from checkstyle configuration.
            Thanks to Duncan Jones.
 
+------------------------------------------------------------------------------
 
-                Release Notes for version 1.2
+Release Notes for version 1.2
 
 NEW FEATURES
-============
+------------
 
-o --     : The method getOptionProperties() in the CommandLine class was added
+* --     : The method getOptionProperties() in the CommandLine class was added
            to retrieve easily the key/value pairs specified with options like
            -Dkey1=value1 -Dkey2=value2.
-o CLI-157: GnuParser now supports long options with an '=' sign
+* CLI-157: GnuParser now supports long options with an '=' sign
            (ie. --foo=bar and -foo=bar)
-o CLI-155: The ordering of options can be defined in help messages.
-
+* CLI-155: The ordering of options can be defined in help messages.
 
 BUG FIXES
-=========
+---------
 
-o CLI-137: The number of arguments defined for an option specifies the
+* CLI-137: The number of arguments defined for an option specifies the
            arguments per occurrence of the option and not for all occurrences.
-o CLI-164: PosixParser no longer ignores unrecognized short options.
-o CLI-163: PosixParser no longer stops the bursting process of a token if
+* CLI-164: PosixParser no longer ignores unrecognized short options.
+* CLI-163: PosixParser no longer stops the bursting process of a token if
            stopAtNonOption is enabled and a non option character is
            encountered.
-o CLI-165: PosixParser no longer keeps processing the tokens after an
+* CLI-165: PosixParser no longer keeps processing the tokens after an
            unrecognized long option when stopAtNonOption is enabled.
-o CLI-156: Required options are properly checked if an Options instance is used
+* CLI-156: Required options are properly checked if an Options instance is used
            twice to parse a command line.
-o CLI-151: The line wrapping in HelpFormatter now works properly.
-
+* CLI-151: The line wrapping in HelpFormatter now works properly.
 
 CHANGES
-=======
+-------
 
-o CLI-149: The message of MissingOptionException has been improved.
-o CLI-86:  The exceptions have been enhanced with methods to retrieve easily
+* CLI-149: The message of MissingOptionException has been improved.
+* CLI-86:  The exceptions have been enhanced with methods to retrieve easily
            the related options.
-o CLI-141: Option.toString() now reports arguments properly.
-o CLI-142: The Parser class has been changed to be more easily extendable.
-o CLI-140: The following classes are now serializable: Option, OptionGroup,
+* CLI-141: Option.toString() now reports arguments properly.
+* CLI-142: The Parser class has been changed to be more easily extendable.
+* CLI-140: The following classes are now serializable: Option, OptionGroup,
            CommandLine and Options.
-o --     : OptionValidator is no longer public, its methods were all private.
+* --     : OptionValidator is no longer public, its methods were all private.
 
+------------------------------------------------------------------------------
 
-                Release Notes for version 1.1
+Release Notes for version 1.1
 
 NEW FEATURES
-============
+------------
 
-o CLI-78:  Setting description of a Option.
+* CLI-78:  Setting description of a Option.
 
 CHANGES
-=======
+-------
 
-o CLI-2:   Wrong usage summary.
-o CLI-5:   Dependecy on commons-lang-2.0 but commons-lang-1.0 is obtained.
-o CLI-8:   Line separator as first char for helpformatter (footer) throws
+* CLI-2:   Wrong usage summary.
+* CLI-5:   Dependecy on commons-lang-2.0 but commons-lang-1.0 is obtained.
+* CLI-8:   Line separator as first char for helpformatter (footer) throws
            exception.
-o CLI-13:  CommandLine.getOptionValue() behaves contrary to docs.
-o CLI-21:  clone method in Option should use super.clone().
-o CLI-23:  Passing properties in Parser does not work for options with a single
+* CLI-13:  CommandLine.getOptionValue() behaves contrary to docs.
+* CLI-21:  clone method in Option should use super.clone().
+* CLI-23:  Passing properties in Parser does not work for options with a single
            argument.
-o CLI-26:  Only long options without short option seems to be noticed.
-o CLI-28:  Infinite Loop in Command-Line processing.
-o CLI-29:  Options should not be able to be added more than once.
-o CLI-35:  HelpFormatter doesn't sort options properly.
-o CLI-38:  HelpFormatter doesn't function correctly for options with only
+* CLI-26:  Only long options without short option seems to be noticed.
+* CLI-28:  Infinite Loop in Command-Line processing.
+* CLI-29:  Options should not be able to be added more than once.
+* CLI-35:  HelpFormatter doesn't sort options properly.
+* CLI-38:  HelpFormatter doesn't function correctly for options with only
            LongOpt.
-o CLI-44:  Document enhancement.
-o CLI-45:  Documentation errors.
-o CLI-51:  Parameter value "-something" misinterpreted as a parameter.
-o CLI-56:  clone() method doesn't fully clone contents.
-o CLI-59:  No Javadoc for HelpFormatter!.
-o CLI-65:  Parser breaks up command line parms into single characters.
-o CLI-67:  Missing arguments in HelpFormatter.renderOptions(..).
-o CLI-69:  Error parsing option arguments.
-o CLI-71:  A weakness of parser.
-o CLI-129: CLI_1_BRANCH build.xml doesn't work.
-o CLI-130: Remove the Commons Lang dependency.
-o CLI-131: Options class returns options in random order.
-o CLI-132: MissingOptionException should contain a useful error message.
-o CLI-133: NullPointerException in Util.stripLeadingHyphens when passed a null
+* CLI-44:  Document enhancement.
+* CLI-45:  Documentation errors.
+* CLI-51:  Parameter value "-something" misinterpreted as a parameter.
+* CLI-56:  clone() method doesn't fully clone contents.
+* CLI-59:  No Javadoc for HelpFormatter!.
+* CLI-65:  Parser breaks up command line parms into single characters.
+* CLI-67:  Missing arguments in HelpFormatter.renderOptions(..).
+* CLI-69:  Error parsing option arguments.
+* CLI-71:  A weakness of parser.
+* CLI-129: CLI_1_BRANCH build.xml doesn't work.
+* CLI-130: Remove the Commons Lang dependency.
+* CLI-131: Options class returns options in random order.
+* CLI-132: MissingOptionException should contain a useful error message.
+* CLI-133: NullPointerException in Util.stripLeadingHyphens when passed a null
            argument.
-o CLI-134: 1.1 is not backwards compatible because it adds methods to the
+* CLI-134: 1.1 is not backwards compatible because it adds methods to the
            CommandLineParser interface.
-o CLI-135: Backwards compatibility between 1.1 and 1.0 broken due to
+* CLI-135: Backwards compatibility between 1.1 and 1.0 broken due to
            Option.addValue removal.
 
 
@@ -392,3 +444,5 @@ https://commons.apache.org/cli/
 
 Have fun!
 -Apache Commons CLI team
+
+------------------------------------------------------------------------------
