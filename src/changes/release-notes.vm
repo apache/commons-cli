@@ -15,14 +15,7 @@
 ## specific language governing permissions and limitations
 ## under the License.
 ##
-${project.name}
-Version ${version}
-Release Notes
-
-
-This document contains the release notes for this version of the Apache Commons 
-CLI Component of the Apache Commons Project. Commons CLI provides a simple API
-for working with the command line arguments and options.
+${project.name} Version ${version} Release Notes
 
 $introduction.replaceAll("(?<!\015)\012", "
 ").replaceAll("(?m)^ +","")
