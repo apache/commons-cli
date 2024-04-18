@@ -76,12 +76,12 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <commons.componentid>cli</commons.componentid>
     <commons.module.name>org.apache.commons.cli</commons.module.name>
-    <commons.release.version>1.7.0</commons.release.version>
-    <commons.release.next>1.7.1</commons.release.next>
+    <commons.release.version>1.7.1</commons.release.version>
+    <commons.release.next>1.7.2</commons.release.next>
     <commons.release.name>commons-cli-${commons.release.version}</commons.release.name>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.rc.version>RC1</commons.rc.version>
-    <commons.bc.version>1.6.0</commons.bc.version>
+    <commons.bc.version>1.7.0</commons.bc.version>
     <commons.osgi.symbolicName>org.apache.commons.cli</commons.osgi.symbolicName>
     <commons.jira.id>CLI</commons.jira.id>
     <commons.jira.pid>12310463</commons.jira.pid>
