@@ -22,9 +22,9 @@
     <title>Apache Commons CLI Release Notes</title>
   </properties>
   <body>
-    <release version="1.7.1" date="YYYY-MM-DD" description="New features and bug fixes">
+    <release version="1.7.1" date="YYYY-MM-DD" description="This release contains new features and bug fixes and requires Java 8 or above.">
     </release>
-    <release version="1.7.0" date="2024-04-13" description="New features and bug fixes">
+    <release version="1.7.0" date="2024-04-13" description="This release contains new features and bug fixes and requires Java 8 or above.">
       <!-- FIX -->
       <action type="fix" issue="CLI-312" dev="ggregory" due-to="Claude Warren, Gary Gregory">Inconsistent behavior in key/value pairs (Java property style).</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Avoid NullPointerException in Util.stripLeadingAndTrailingQuotes(String).</action>
@@ -46,7 +46,7 @@
       <action type="update" dev="ggregory" due-to="Elric, Gary Gregory">Update the tests to JUnit 5 #238.</action>
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump tests commons-io:commons-io from 2.16.0 to 2.16.1 #258.</action>
     </release>
-    <release version="1.6.0" date="2023-10-23" description="New features and bug fixes">
+    <release version="1.6.0" date="2023-10-23" description="This release contains new features and bug fixes and requires Java 8 or above.">
       <!-- FIX -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">
         Fix SpotBugs Error: Medium: Method intentionally throws RuntimeException. [org.apache.commons.cli.Option] At Option.java:[lines 417-423] THROWS_METHOD_THROWS_RUNTIMEEXCEPTION
@@ -139,7 +139,7 @@
         Update JUnit 4 to 5 vintage.
       </action>
     </release>
-    <release version="1.5.0" date="2021-10-23" description="New features and bug fixes (Java 7 or above).">
+    <release version="1.5.0" date="2021-10-23" description="This release contains new features and bug fixes and requires Java 7 or above.">
       <!-- FIX -->
       <action type="fix" dev="ggregory" due-to="Gary Gregory">
         Fix NPE in DefaultParser.isLongOption(String).
@@ -243,8 +243,7 @@
         Bump maven-javadoc-plugin from 3.3.1 to 3.3.2, #91.
       </action>
     </release>
-
-    <release version="1.4" date="2017-03-09" description="New features and bug fixes">
+    <release version="1.4" date="2017-03-09" description="This release contains new features and bug fixes and requires Java 5 or above.">
       <action type="add" dev="rfscholte" issue="CLI-269">
         Introduce CommandLine.Builder
       </action>
@@ -258,14 +257,12 @@
         HelpFormatter.setOptionComparator(null) doesn't display the values in inserted order
       </action>
     </release>
-
-    <release version="1.3.1" date="2015-06-17" description="Bug fix release for 1.3">
+    <release version="1.3.1" date="2015-06-17" description="This release contains bug fixes and requires Java 5 or above.">
       <action type="fix" dev="britter" issue="CLI-252" due-to="Simon Harrer">
         LongOpt falsely detected as ambiguous
       </action>
     </release>
-
-    <release version="1.3" date="2015-05-09" description="This is a feature and maintenance bug fix release.">
+    <release version="1.3" date="2015-05-09" description="This release contains new features and bug fixes and requires Java 5 or above..">
       <action type="fix" dev="djones" issue="CLI-248">
         Fixed broken Javadoc links on Introduction page.
       </action>
@@ -374,8 +371,7 @@
         PosixParser now supports partial long options (--ver instead of --version).
       </action>
     </release>
-
-    <release version="1.2" date="2009-03-19" description="This is a maintenance release containing bug fixes.">
+    <release version="1.2" date="2009-03-19" description="This release contains new features and bug fixes and requires Java 5 or above.">
       <action type="fix" dev="joehni" issue="CLI-177">
         OptionBuilder is now reseted if an IllegalArgumentException occurs in create().
       </action>
@@ -447,7 +443,6 @@
         OptionValidator is no longer public, its methods were all private.
       </action>
     </release>
-
     <release version="1.1" date="2007-07-08" description="This is a maintenance release containing bug fixes.">
       <action type="fix" issue="CLI-2">Wrong usage summary. </action>
       <action type="fix" issue="CLI-5">Dependecy on commons-lang-2.0 but commons-lang-1.0 is obtained. </action>
@@ -478,8 +473,6 @@
       <action type="fix" issue="CLI-134">1.1 is not backwards compatible because it adds methods to the CommandLineParser interface. </action>
       <action type="fix" issue="CLI-135">Backwards compatibility between 1.1 and 1.0 broken due to Option.addValue removal. </action>
     </release>
-
     <release version="1.0" date="2002-11-06" description="Initial release"/>    
-
   </body>
 </document>
