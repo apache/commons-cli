@@ -405,6 +405,9 @@ public class CommandLine implements Serializable {
         if (option == null) {
             return null;
         }
+        if (option.isDeprecated()) {
+            handleDeprecated(option);
+        }
         final List<String> values = new ArrayList<>();
         for (final Option processedOption : options) {
             if (processedOption.equals(option)) {
@@ -497,6 +500,9 @@ public class CommandLine implements Serializable {
     public <T> T getParsedOptionValue(final Option option, final Supplier<T> defaultValue) throws ParseException {
         if (option == null) {
             return get(defaultValue);
+        }
+        if (option.isDeprecated()) {
+            handleDeprecated(option);
         }
         final String res = getOptionValue(option);
         try {
@@ -615,7 +621,11 @@ public class CommandLine implements Serializable {
      * @since 1.5.0
      */
     public boolean hasOption(final Option opt) {
-        return options.contains(opt);
+        boolean result = options.contains(opt);
+        if (result && opt.isDeprecated()) {
+            handleDeprecated(opt);
+        }
+        return result;
     }
 
     /**
@@ -665,9 +675,6 @@ public class CommandLine implements Serializable {
         if (actual != null) {
             for (final Option option : options) {
                 if (actual.equals(option.getOpt()) || actual.equals(option.getLongOpt())) {
-                    if (option.isDeprecated()) {
-                        handleDeprecated(option);
-                    }
                     return option;
                 }
             }

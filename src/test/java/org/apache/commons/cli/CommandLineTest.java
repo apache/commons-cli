@@ -95,6 +95,27 @@ public class CommandLineTest {
         handler.set(null);
         cmd.getOptionValue("Nope");
         assertNull(handler.get());
+        handler.set(null);
+        cmd.getOptionValue(opt);
+        assertSame(opt, handler.get());
+    }
+
+    @Test
+    public void testDeprecatedParsedOptionValue() throws ParseException {
+        final CommandLine.Builder builder = new CommandLine.Builder();
+        builder.addArg("foo").addArg("bar");
+        final Option opt = Option.builder().option("T").deprecated().build();
+        builder.addOption(opt);
+        final AtomicReference<Option> handler = new AtomicReference<>();
+        final CommandLine cmd = builder.setDeprecatedHandler(handler::set).build();
+        cmd.getParsedOptionValue(opt.getOpt());
+        assertSame(opt, handler.get());
+        handler.set(null);
+        cmd.getParsedOptionValue("Nope");
+        assertNull(handler.get());
+        handler.set(null);
+        cmd.getParsedOptionValue(opt);
+        assertSame(opt, handler.get());
     }
 
     @Test
