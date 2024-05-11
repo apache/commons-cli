@@ -24,9 +24,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 import org.apache.commons.cli.HelpFormatter.Builder;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Test case for the HelpFormatter class.
@@ -482,6 +488,59 @@ public class HelpFormatterTest {
         sb.setLength(0);
         hf.renderOptions(sb, 25, options, leftPad, descPad);
         assertEquals(expected, sb.toString(), "multiple wrapped options");
+    }
+
+    @ParameterizedTest
+    @MethodSource("deprecatedOptionsProvider")
+    public void testPrintDeprecatedOptions(final HelpFormatter hf, final Option option, final String expectedTxt) {
+        final StringBuffer sb = new StringBuffer();
+
+        final int leftPad = 1;
+        final int descPad = 3;
+        final String lpad = hf.createPadding(leftPad);
+        final String dpad = hf.createPadding(descPad);
+        Options options;
+        String expected = lpad + "-a,--aaa";
+
+        options = new Options().addOption(option);
+        if (expectedTxt.length() > 0) {
+            expected = expected + dpad + expectedTxt;
+        }
+        hf.renderOptions(sb, 160, options, leftPad, descPad);
+        assertEquals(expected, sb.toString());
+    }
+
+    static Stream<Arguments> deprecatedOptionsProvider() {
+        List<Arguments> lst = new ArrayList<>();
+        Option option = Option.builder("a").longOpt("aaa").desc("dddd dddd dddd")
+                .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("now")
+                        .setDescription("Why why why").get())
+                .build();
+
+        HelpFormatter hf = HelpFormatter.builder().setShowDeprecated(false).get();
+        lst.add(Arguments.of(hf, option, "dddd dddd dddd"));
+
+        hf = HelpFormatter.builder().setShowDeprecated(true).get();
+        lst.add(Arguments.of(hf, option, "[Deprecated] dddd dddd dddd"));
+
+        hf = HelpFormatter.builder().setShowDeprecated((d, o) -> String.format("%s [%s]", d, o.getDeprecated())).get();
+        lst.add(Arguments.of(hf, option, "dddd dddd dddd [Deprecated for removal since now: Why why why]"));
+
+        option = Option.builder("a").longOpt("aaa")
+                .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("now")
+                        .setDescription("Why why why").get())
+                .build();
+
+        hf = HelpFormatter.builder().setShowDeprecated(false).get();
+        lst.add(Arguments.of(hf, option, ""));
+
+        hf = HelpFormatter.builder().setShowDeprecated(true).get();
+        lst.add(Arguments.of(hf, option, "[Deprecated]"));
+
+        hf = HelpFormatter.builder().setShowDeprecated((d, o) -> String.format("%s [%s]", d, o.getDeprecated())).get();
+        lst.add(Arguments.of(hf, option, "[Deprecated for removal since now: Why why why]"));
+
+        return lst.stream();
     }
 
     @Test
