@@ -409,7 +409,7 @@ public class HelpFormatterTest {
         final String lpad = hf.createPadding(leftPad);
         final String dpad = hf.createPadding(descPad);
         Options options;
-        StringBuilder expected = new StringBuilder().append(lpad).append("-a,--aaa");
+        final StringBuilder expected = new StringBuilder().append(lpad).append("-a,--aaa");
 
         options = new Options().addOption(option);
         if (expectedTxt.length() > 0) {
