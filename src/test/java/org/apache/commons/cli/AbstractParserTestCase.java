@@ -421,6 +421,23 @@ public abstract class AbstractParserTestCase {
     }
 
     @Test
+    public void testMultipleWithNull() throws Exception {
+        final String[] args = { null, "-c", null, "foobar", null, "-b", null, "toast", null };
+
+        CommandLine cl = parser.parse(options, args, true);
+        assertTrue(cl.hasOption("c"), "Confirm -c is set");
+        assertEquals(3, cl.getArgList().size(), "Confirm  3 extra args: " + cl.getArgList().size());
+
+        cl = parser.parse(options, cl.getArgs());
+
+        assertFalse(cl.hasOption("c"), "Confirm -c is not set");
+        assertTrue(cl.hasOption("b"), "Confirm -b is set");
+        assertEquals("toast", cl.getOptionValue("b"), "Confirm arg of -b");
+        assertEquals(1, cl.getArgList().size(), "Confirm  1 extra arg: " + cl.getArgList().size());
+        assertEquals("foobar", cl.getArgList().get(0), "Confirm  value of extra arg: " + cl.getArgList().get(0));
+    }
+
+    @Test
     public void testMultipleWithLong() throws Exception {
         final String[] args = { "--copt", "foobar", "--bfile", "toast" };
 

@@ -119,63 +119,56 @@ public class PosixParser extends Parser {
     protected String[] flatten(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException {
         init();
         this.options = options;
-
         // an iterator for the command line tokens
         final Iterator<String> iter = Arrays.asList(arguments).iterator();
-
         // process each command line token
         while (iter.hasNext()) {
             // get the next command line token
             final String token = iter.next();
+            if (token != null) {
+                // single or double hyphen
+                if ("-".equals(token) || "--".equals(token)) {
+                    tokens.add(token);
+                } else if (token.startsWith("--")) {
+                    // handle long option --foo or --foo=bar
+                    final int pos = DefaultParser.indexOfEqual(token);
+                    final String opt = pos == -1 ? token : token.substring(0, pos); // --foo
 
-            // single or double hyphen
-            if ("-".equals(token) || "--".equals(token)) {
-                tokens.add(token);
-            }
+                    final List<String> matchingOpts = options.getMatchingOptions(opt);
 
-            // handle long option --foo or --foo=bar
-            else if (token.startsWith("--")) {
-                final int pos = DefaultParser.indexOfEqual(token);
-                final String opt = pos == -1 ? token : token.substring(0, pos); // --foo
+                    if (matchingOpts.isEmpty()) {
+                        processNonOptionToken(token, stopAtNonOption);
+                    } else if (matchingOpts.size() > 1) {
+                        throw new AmbiguousOptionException(opt, matchingOpts);
+                    } else {
+                        currentOption = options.getOption(matchingOpts.get(0));
 
-                final List<String> matchingOpts = options.getMatchingOptions(opt);
-
-                if (matchingOpts.isEmpty()) {
-                    processNonOptionToken(token, stopAtNonOption);
-                } else if (matchingOpts.size() > 1) {
-                    throw new AmbiguousOptionException(opt, matchingOpts);
+                        tokens.add("--" + currentOption.getLongOpt());
+                        if (pos != -1) {
+                            tokens.add(token.substring(pos + 1));
+                        }
+                    }
+                } else if (token.startsWith("-")) {
+                    if (token.length() == 2 || options.hasOption(token)) {
+                        processOptionToken(token, stopAtNonOption);
+                    } else if (!options.getMatchingOptions(token).isEmpty()) {
+                        final List<String> matchingOpts = options.getMatchingOptions(token);
+                        if (matchingOpts.size() > 1) {
+                            throw new AmbiguousOptionException(token, matchingOpts);
+                        }
+                        final Option opt = options.getOption(matchingOpts.get(0));
+                        processOptionToken("-" + opt.getLongOpt(), stopAtNonOption);
+                    }
+                    // requires bursting
+                    else {
+                        burstToken(token, stopAtNonOption);
+                    }
                 } else {
-                    currentOption = options.getOption(matchingOpts.get(0));
-
-                    tokens.add("--" + currentOption.getLongOpt());
-                    if (pos != -1) {
-                        tokens.add(token.substring(pos + 1));
-                    }
+                    processNonOptionToken(token, stopAtNonOption);
                 }
             }
-
-            else if (token.startsWith("-")) {
-                if (token.length() == 2 || options.hasOption(token)) {
-                    processOptionToken(token, stopAtNonOption);
-                } else if (!options.getMatchingOptions(token).isEmpty()) {
-                    final List<String> matchingOpts = options.getMatchingOptions(token);
-                    if (matchingOpts.size() > 1) {
-                        throw new AmbiguousOptionException(token, matchingOpts);
-                    }
-                    final Option opt = options.getOption(matchingOpts.get(0));
-                    processOptionToken("-" + opt.getLongOpt(), stopAtNonOption);
-                }
-                // requires bursting
-                else {
-                    burstToken(token, stopAtNonOption);
-                }
-            } else {
-                processNonOptionToken(token, stopAtNonOption);
-            }
-
             gobble(iter);
         }
-
         return tokens.toArray(Util.EMPTY_STRING_ARRAY);
     }
 

@@ -48,37 +48,39 @@ public class GnuParser extends Parser {
         boolean eatTheRest = false;
         for (int i = 0; i < arguments.length; i++) {
             final String arg = arguments[i];
-            if ("--".equals(arg)) {
-                eatTheRest = true;
-                tokens.add("--");
-            } else if ("-".equals(arg)) {
-                tokens.add("-");
-            } else if (arg.startsWith("-")) {
-                final String opt = Util.stripLeadingHyphens(arg);
-                if (options.hasOption(opt)) {
-                    tokens.add(arg);
-                } else {
-                    final int equalPos = DefaultParser.indexOfEqual(opt);
-                    if (equalPos != -1 && options.hasOption(opt.substring(0, equalPos))) {
-                        // the format is --foo=value or -foo=value
-                        tokens.add(arg.substring(0, arg.indexOf(Char.EQUAL))); // --foo
-                        tokens.add(arg.substring(arg.indexOf(Char.EQUAL) + 1)); // value
-                    } else if (options.hasOption(arg.substring(0, 2))) {
-                        // the format is a special properties option (-Dproperty=value)
-                        tokens.add(arg.substring(0, 2)); // -D
-                        tokens.add(arg.substring(2)); // property=value
-                    } else {
-                        eatTheRest = stopAtNonOption;
+            if (arg != null) {
+                if ("--".equals(arg)) {
+                    eatTheRest = true;
+                    tokens.add("--");
+                } else if ("-".equals(arg)) {
+                    tokens.add("-");
+                } else if (arg.startsWith("-")) {
+                    final String opt = Util.stripLeadingHyphens(arg);
+                    if (options.hasOption(opt)) {
                         tokens.add(arg);
+                    } else {
+                        final int equalPos = DefaultParser.indexOfEqual(opt);
+                        if (equalPos != -1 && options.hasOption(opt.substring(0, equalPos))) {
+                            // the format is --foo=value or -foo=value
+                            tokens.add(arg.substring(0, arg.indexOf(Char.EQUAL))); // --foo
+                            tokens.add(arg.substring(arg.indexOf(Char.EQUAL) + 1)); // value
+                        } else if (options.hasOption(arg.substring(0, 2))) {
+                            // the format is a special properties option (-Dproperty=value)
+                            tokens.add(arg.substring(0, 2)); // -D
+                            tokens.add(arg.substring(2)); // property=value
+                        } else {
+                            eatTheRest = stopAtNonOption;
+                            tokens.add(arg);
+                        }
                     }
+                } else {
+                    tokens.add(arg);
                 }
-            } else {
-                tokens.add(arg);
-            }
 
-            if (eatTheRest) {
-                for (i++; i < arguments.length; i++) { // NOPMD
-                    tokens.add(arguments[i]);
+                if (eatTheRest) {
+                    for (i++; i < arguments.length; i++) { // NOPMD
+                        tokens.add(arguments[i]);
+                    }
                 }
             }
         }

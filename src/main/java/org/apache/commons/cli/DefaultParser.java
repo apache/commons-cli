@@ -541,22 +541,24 @@ public class DefaultParser implements CommandLineParser {
      * @throws ParseException
      */
     private void handleToken(final String token) throws ParseException {
-        currentToken = token;
-        if (skipParsing) {
-            cmd.addArg(token);
-        } else if ("--".equals(token)) {
-            skipParsing = true;
-        } else if (currentOption != null && currentOption.acceptsArg() && isArgument(token)) {
-            currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOn(token));
-        } else if (token.startsWith("--")) {
-            handleLongOption(token);
-        } else if (token.startsWith("-") && !"-".equals(token)) {
-            handleShortAndLongOption(token);
-        } else {
-            handleUnknownToken(token);
-        }
-        if (currentOption != null && !currentOption.acceptsArg()) {
-            currentOption = null;
+        if (token != null) {
+            currentToken = token;
+            if (skipParsing) {
+                cmd.addArg(token);
+            } else if ("--".equals(token)) {
+                skipParsing = true;
+            } else if (currentOption != null && currentOption.acceptsArg() && isArgument(token)) {
+                currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOn(token));
+            } else if (token.startsWith("--")) {
+                handleLongOption(token);
+            } else if (token.startsWith("-") && !"-".equals(token)) {
+                handleShortAndLongOption(token);
+            } else {
+                handleUnknownToken(token);
+            }
+            if (currentOption != null && !currentOption.acceptsArg()) {
+                currentOption = null;
+            }
         }
     }
 

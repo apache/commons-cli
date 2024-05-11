@@ -156,41 +156,40 @@ public abstract class Parser implements CommandLineParser {
         // process each flattened token
         while (iterator.hasNext()) {
             final String token = iterator.next();
-            // the value is the double-dash
-            if ("--".equals(token)) {
-                eatTheRest = true;
-            }
-            // the value is a single dash
-            else if ("-".equals(token)) {
-                if (stopAtNonOption) {
+            if (token != null) {
+                // the value is the double-dash
+                if ("--".equals(token)) {
                     eatTheRest = true;
+                } else if ("-".equals(token)) {
+                    // the value is a single dash
+                    if (stopAtNonOption) {
+                        eatTheRest = true;
+                    } else {
+                        cmd.addArg(token);
+                    }
+                } else if (token.startsWith("-")) {
+                    // the value is an option
+                    if (stopAtNonOption && !getOptions().hasOption(token)) {
+                        eatTheRest = true;
+                        cmd.addArg(token);
+                    } else {
+                        processOption(token, iterator);
+                    }
                 } else {
+                    // the value is an argument
                     cmd.addArg(token);
+                    if (stopAtNonOption) {
+                        eatTheRest = true;
+                    }
                 }
-            }
-            // the value is an option
-            else if (token.startsWith("-")) {
-                if (stopAtNonOption && !getOptions().hasOption(token)) {
-                    eatTheRest = true;
-                    cmd.addArg(token);
-                } else {
-                    processOption(token, iterator);
-                }
-            }
-            // the value is an argument
-            else {
-                cmd.addArg(token);
-                if (stopAtNonOption) {
-                    eatTheRest = true;
-                }
-            }
-            // eat the remaining tokens
-            if (eatTheRest) {
-                while (iterator.hasNext()) {
-                    final String str = iterator.next();
-                    // ensure only one double-dash is added
-                    if (!"--".equals(str)) {
-                        cmd.addArg(str);
+                // eat the remaining tokens
+                if (eatTheRest) {
+                    while (iterator.hasNext()) {
+                        final String str = iterator.next();
+                        // ensure only one double-dash is added
+                        if (!"--".equals(str)) {
+                            cmd.addArg(str);
+                        }
                     }
                 }
             }
