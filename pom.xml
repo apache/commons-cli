@@ -24,7 +24,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>commons-cli</groupId>
   <artifactId>commons-cli</artifactId>
-  <version>1.7.1-SNAPSHOT</version>
+  <version>1.8.0-SNAPSHOT</version>
   <name>Apache Commons CLI</name>
 
   <inceptionYear>2002</inceptionYear>
@@ -76,8 +76,8 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <commons.componentid>cli</commons.componentid>
     <commons.module.name>org.apache.commons.cli</commons.module.name>
-    <commons.release.version>1.7.1</commons.release.version>
-    <commons.release.next>1.7.2</commons.release.next>
+    <commons.release.version>1.8.0</commons.release.version>
+    <commons.release.next>1.8.1</commons.release.next>
     <commons.release.name>commons-cli-${commons.release.version}</commons.release.name>
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.rc.version>RC1</commons.rc.version>
