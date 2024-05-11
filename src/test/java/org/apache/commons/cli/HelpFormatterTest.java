@@ -41,7 +41,7 @@ public class HelpFormatterTest {
     private static final String EOL = System.lineSeparator();
 
     static Stream<Arguments> deprecatedOptionsProvider() {
-        List<Arguments> lst = new ArrayList<>();
+        final List<Arguments> lst = new ArrayList<>();
         Option option = Option.builder("a").longOpt("aaa").desc("dddd dddd dddd")
                 .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("now")
                         .setDescription("Why why why").get())
@@ -409,14 +409,14 @@ public class HelpFormatterTest {
         final String lpad = hf.createPadding(leftPad);
         final String dpad = hf.createPadding(descPad);
         Options options;
-        String expected = lpad + "-a,--aaa";
+        StringBuilder expected = new StringBuilder().append(lpad).append("-a,--aaa");
 
         options = new Options().addOption(option);
         if (expectedTxt.length() > 0) {
-            expected = expected + dpad + expectedTxt;
+            expected.append(dpad).append(expectedTxt);
         }
         hf.renderOptions(sb, 160, options, leftPad, descPad);
-        assertEquals(expected, sb.toString());
+        assertEquals(expected.toString(), sb.toString());
     }
 
     @Test
