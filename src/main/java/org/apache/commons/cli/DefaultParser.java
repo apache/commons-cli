@@ -469,47 +469,47 @@ public class DefaultParser implements CommandLineParser {
      *
      * -L -LV -L V -L=V -l
      *
-     * @param token the command line token to handle
+     * @param hyphenToken the command line token to handle
      */
-    private void handleShortAndLongOption(final String token) throws ParseException {
-        final String t = Util.stripLeadingHyphens(token);
-        final int pos = indexOfEqual(t);
-        if (t.length() == 1) {
+    private void handleShortAndLongOption(final String hyphenToken) throws ParseException {
+        final String token = Util.stripLeadingHyphens(hyphenToken);
+        final int pos = indexOfEqual(token);
+        if (token.length() == 1) {
             // -S
-            if (options.hasShortOption(t)) {
-                handleOption(options.getOption(t));
+            if (options.hasShortOption(token)) {
+                handleOption(options.getOption(token));
             } else {
-                handleUnknownToken(token);
+                handleUnknownToken(hyphenToken);
             }
         } else if (pos == -1) {
             // no equal sign found (-xxx)
-            if (options.hasShortOption(t)) {
-                handleOption(options.getOption(t));
-            } else if (!getMatchingLongOptions(t).isEmpty()) {
+            if (options.hasShortOption(token)) {
+                handleOption(options.getOption(token));
+            } else if (!getMatchingLongOptions(token).isEmpty()) {
                 // -L or -l
-                handleLongOptionWithoutEqual(token);
+                handleLongOptionWithoutEqual(hyphenToken);
             } else {
                 // look for a long prefix (-Xmx512m)
-                final String opt = getLongPrefix(t);
+                final String opt = getLongPrefix(token);
 
                 if (opt != null && options.getOption(opt).acceptsArg()) {
                     handleOption(options.getOption(opt));
-                    currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(t.substring(opt.length())));
+                    currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(token.substring(opt.length())));
                     currentOption = null;
-                } else if (isJavaProperty(t)) {
+                } else if (isJavaProperty(token)) {
                     // -SV1 (-Dflag)
-                    handleOption(options.getOption(t.substring(0, 1)));
-                    currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(t.substring(1)));
+                    handleOption(options.getOption(token.substring(0, 1)));
+                    currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(token.substring(1)));
                     currentOption = null;
                 } else {
                     // -S1S2S3 or -S1S2V
-                    handleConcatenatedOptions(token);
+                    handleConcatenatedOptions(hyphenToken);
                 }
             }
         } else {
             // equal sign found (-xxx=yyy)
-            final String opt = t.substring(0, pos);
-            final String value = t.substring(pos + 1);
+            final String opt = token.substring(0, pos);
+            final String value = token.substring(pos + 1);
 
             if (opt.length() == 1) {
                 // -S=V
@@ -519,7 +519,7 @@ public class DefaultParser implements CommandLineParser {
                     currentOption.processValue(value);
                     currentOption = null;
                 } else {
-                    handleUnknownToken(token);
+                    handleUnknownToken(hyphenToken);
                 }
             } else if (isJavaProperty(opt)) {
                 // -SV1=V2 (-Dkey=value)
@@ -529,7 +529,7 @@ public class DefaultParser implements CommandLineParser {
                 currentOption = null;
             } else {
                 // -L=V or -l=V
-                handleLongOptionWithEqual(token);
+                handleLongOptionWithEqual(hyphenToken);
             }
         }
     }
