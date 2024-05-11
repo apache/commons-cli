@@ -492,7 +492,7 @@ public class HelpFormatterTest {
 
     @ParameterizedTest
     @MethodSource("deprecatedOptionsProvider")
-    public void testPrintDeprecatedOptions(HelpFormatter hf, Option option, String expectedTxt) {
+    public void testPrintDeprecatedOptions(final HelpFormatter hf, final Option option, final String expectedTxt) {
         final StringBuffer sb = new StringBuffer();
 
         final int leftPad = 1;
@@ -500,7 +500,7 @@ public class HelpFormatterTest {
         final String lpad = hf.createPadding(leftPad);
         final String dpad = hf.createPadding(descPad);
         Options options;
-        String expected = expected = lpad + "-a,--aaa";
+        String expected = lpad + "-a,--aaa";
 
         options = new Options().addOption(option);
         if (expectedTxt.length() > 0) {
@@ -523,7 +523,7 @@ public class HelpFormatterTest {
         hf = HelpFormatter.builder().setShowDeprecated(true).get();
         lst.add(Arguments.of(hf, option, "[Deprecated] dddd dddd dddd"));
 
-        hf = HelpFormatter.builder().setShowDeprecated((d,o) -> String.format("%s [%s]",d,o.getDeprecated())).get();
+        hf = HelpFormatter.builder().setShowDeprecated((d, o) -> String.format("%s [%s]", d, o.getDeprecated())).get();
         lst.add(Arguments.of(hf, option, "dddd dddd dddd [Deprecated for removal since now: Why why why]"));
 
         option = Option.builder("a").longOpt("aaa")
@@ -537,7 +537,7 @@ public class HelpFormatterTest {
         hf = HelpFormatter.builder().setShowDeprecated(true).get();
         lst.add(Arguments.of(hf, option, "[Deprecated]"));
 
-        hf = HelpFormatter.builder().setShowDeprecated((d,o)-> String.format("%s [%s]",d,o.getDeprecated())).get();
+        hf = HelpFormatter.builder().setShowDeprecated((d, o) -> String.format("%s [%s]", d, o.getDeprecated())).get();
         lst.add(Arguments.of(hf, option, "[Deprecated for removal since now: Why why why]"));
 
         return lst.stream();

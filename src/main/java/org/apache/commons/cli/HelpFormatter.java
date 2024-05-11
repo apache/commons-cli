@@ -30,7 +30,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
@@ -76,12 +75,15 @@ public class HelpFormatter {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
 
-        private static final BiFunction<String, Option,String> DEFAULT_DEPRECATED_FORMAT = (d,o) -> "[Deprecated] "+d;
+        /**
+         * A function to convert a description (not null) and a deprecated Option (not null) to help description
+         */
+        private static final BiFunction<String, Option, String> DEFAULT_DEPRECATED_FORMAT = (d, o) -> "[Deprecated] " + d;
 
         /**
          * Formatter for deprecated options.
          */
-        private BiFunction<String,Option,String> deprecatedFormatFunc;
+        private BiFunction<String, Option, String> deprecatedFormatFunc;
 
         /**
          * The output PrintWriter, defaults to wrapping {@link System#out}.
@@ -120,7 +122,7 @@ public class HelpFormatter {
          * @param showDeprecatedFunc Specify the format for the deprecated options.
          * @return this.
          */
-        public Builder setShowDeprecated(final BiFunction<String,Option,String> showDeprecatedFunc) {
+        public Builder setShowDeprecated(final BiFunction<String, Option, String> showDeprecatedFunc) {
             this.deprecatedFormatFunc = showDeprecatedFunc;
             return this;
         }
@@ -265,7 +267,7 @@ public class HelpFormatter {
     /**
      * BiFunction to format the description for a deprecated option.
      */
-    private final BiFunction<String,Option,String> deprecatedFormatFunc;
+    private final BiFunction<String, Option, String> deprecatedFormatFunc;
 
     /**
      * Where to print help.
@@ -288,7 +290,7 @@ public class HelpFormatter {
      * Constructs a new instance.
      * @param printStream TODO
      */
-    private HelpFormatter(final BiFunction<String, Option,String> deprecatedFormatFunc, final PrintWriter printStream) {
+    private HelpFormatter(final BiFunction<String, Option, String> deprecatedFormatFunc, final PrintWriter printStream) {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
         this.deprecatedFormatFunc = deprecatedFormatFunc;
@@ -792,7 +794,7 @@ public class HelpFormatter {
             optBuf.append(dpad);
             final int nextLineTabStop = max + descPad;
             if (deprecatedFormatFunc != null && option.isDeprecated()) {
-                optBuf.append(deprecatedFormatFunc.apply(option.getDescription()==null?"":option.getDescription(), option).trim());
+                optBuf.append(deprecatedFormatFunc.apply(option.getDescription() == null ? "" : option.getDescription(), option).trim());
             } else if (option.getDescription() != null) {
                 optBuf.append(option.getDescription());
             }
