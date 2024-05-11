@@ -95,6 +95,9 @@ public class CommandLineTest {
         handler.set(null);
         cmd.getOptionValue("Nope");
         assertNull(handler.get());
+        handler.set(null);
+        cmd.getOptionValue(opt);
+        assertSame(opt, handler.get());
     }
 
     @Test
