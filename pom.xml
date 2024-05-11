@@ -26,26 +26,21 @@
   <artifactId>commons-cli</artifactId>
   <version>1.8.0-SNAPSHOT</version>
   <name>Apache Commons CLI</name>
-
   <inceptionYear>2002</inceptionYear>
   <description>
     Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
   </description>
-
   <url>https://commons.apache.org/proper/commons-cli/</url>
-
   <issueManagement>
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/CLI</url>
   </issueManagement>
-
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-cli.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-cli.git</developerConnection>
     <url>https://gitbox.apache.org/repos/asf?p=commons-cli.git</url>
     <tag>HEAD</tag>
   </scm>
-
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -69,7 +64,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <properties>
     <project.build.outputTimestamp>2024-04-18T01:27:20Z</project.build.outputTimestamp>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -96,10 +90,9 @@
     <commons.jacoco.instructionRatio>0.98</commons.jacoco.instructionRatio>
     <commons.jacoco.methodRatio>0.98</commons.jacoco.methodRatio>
     <commons.jacoco.branchRatio>0.95</commons.jacoco.branchRatio>
-    <commons.jacoco.complexityRatio>0.94</commons.jacoco.complexityRatio>
     <commons.jacoco.lineRatio>0.98</commons.jacoco.lineRatio>
+    <commons.jacoco.complexityRatio>0.94</commons.jacoco.complexityRatio>
   </properties>
-
   <build>
     <defaultGoal>clean verify apache-rat:check japicmp:cmp checkstyle:check spotbugs:check javadoc:javadoc</defaultGoal>
     <pluginManagement>
@@ -168,7 +161,6 @@
       </plugin>
     </plugins>
   </build>
-
   <reporting>
     <plugins>
       <plugin>
@@ -212,7 +204,6 @@
       </plugin>
     </plugins>
   </reporting>
-
   <distributionManagement>
     <site>
       <id>apache.website</id>
@@ -220,7 +211,6 @@
       <url>scm:svn:${commons.scmPubUrl}</url>
     </site>
   </distributionManagement>
-
   <profiles>
     <profile>
       <id>rc</id>
@@ -258,11 +248,9 @@
                     <exec executable="svn">
                       <arg line="checkout --depth immediates ${commons.scmPubUrl} ${commons.scmPubCheckoutDirectory}" />
                     </exec>
-
                     <exec executable="svn">
                       <arg line="update --set-depth exclude ${commons.scmPubCheckoutDirectory}/javadocs" />
                     </exec>
-
                     <pathconvert pathsep=" " property="dirs">
                       <dirset dir="${commons.scmPubCheckoutDirectory}" includes="*" />
                     </pathconvert>
@@ -278,7 +266,6 @@
       </build>
     </profile>
   </profiles>
-
   <developers>
     <developer>
       <name>James Strachan</name>
@@ -345,7 +332,6 @@
       </properties>
     </developer>
   </developers>
-
   <contributors>
     <contributor>
       <name>Beluga Behr</name>
@@ -411,7 +397,5 @@
         <role>supplied patch</role>
       </roles>
     </contributor>
-    
   </contributors>
-
 </project>
