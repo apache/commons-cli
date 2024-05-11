@@ -619,7 +619,7 @@ public class CommandLine implements Serializable {
      * @since 1.5.0
      */
     public boolean hasOption(final Option opt) {
-        boolean result = options.contains(opt);
+        final boolean result = options.contains(opt);
         if (result && opt.isDeprecated()) {
             handleDeprecated(opt);
         }
