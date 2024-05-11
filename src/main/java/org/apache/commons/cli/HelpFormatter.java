@@ -30,6 +30,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 /**
@@ -74,10 +76,12 @@ public class HelpFormatter {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
 
+        private static final BiFunction<String, Option,String> DEFAULT_DEPRECATED_FORMAT = (d,o) -> "[Deprecated] "+d;
+
         /**
-         * Whether to show deprecated options.
+         * Formatter for deprecated options.
          */
-        private boolean showDeprecated;
+        private BiFunction<String,Option,String> deprecatedFormatFunc;
 
         /**
          * The output PrintWriter, defaults to wrapping {@link System#out}.
@@ -86,7 +90,7 @@ public class HelpFormatter {
 
         @Override
         public HelpFormatter get() {
-            return new HelpFormatter(showDeprecated, printStream);
+            return new HelpFormatter(deprecatedFormatFunc, printStream);
         }
 
         /**
@@ -103,14 +107,23 @@ public class HelpFormatter {
         /**
          * Sets whether to show deprecated options.
          *
-         * @param showDeprecated Whether to show deprecated options.
+         * @param useDefaultFormat if {@code true} use the default format, otherwise clear the formatter.
          * @return this.
          */
-        public Builder setShowDeprecated(final boolean showDeprecated) {
-            this.showDeprecated = showDeprecated;
-            return this;
+        public Builder setShowDeprecated(final boolean useDefaultFormat) {
+            return setShowDeprecated(useDefaultFormat ? DEFAULT_DEPRECATED_FORMAT : null);
         }
 
+        /**
+         * Sets whether to show deprecated options.
+         *
+         * @param showDeprecatedFunc Specify the format for the deprecated options.
+         * @return this.
+         */
+        public Builder setShowDeprecated(final BiFunction<String,Option,String> showDeprecatedFunc) {
+            this.deprecatedFormatFunc = showDeprecatedFunc;
+            return this;
+        }
     }
 
     /**
@@ -250,9 +263,9 @@ public class HelpFormatter {
     protected Comparator<Option> optionComparator = new OptionComparator();
 
     /**
-     * Whether to show deprecated options.
+     * BiFunction to format the description for a deprecated option.
      */
-    private final boolean showDeprecated;
+    private final BiFunction<String,Option,String> deprecatedFormatFunc;
 
     /**
      * Where to print help.
@@ -268,17 +281,17 @@ public class HelpFormatter {
      * Constructs a new instance.
      */
     public HelpFormatter() {
-        this(false, createDefaultPrintWriter());
+        this(null, createDefaultPrintWriter());
     }
 
     /**
      * Constructs a new instance.
      * @param printStream TODO
      */
-    private HelpFormatter(final boolean showDeprecated, final PrintWriter printStream) {
+    private HelpFormatter(final BiFunction<String, Option,String> deprecatedFormatFunc, final PrintWriter printStream) {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
-        this.showDeprecated = showDeprecated;
+        this.deprecatedFormatFunc = deprecatedFormatFunc;
         this.printWriter = printStream;
     }
 
@@ -778,13 +791,9 @@ public class HelpFormatter {
             }
             optBuf.append(dpad);
             final int nextLineTabStop = max + descPad;
-            if (showDeprecated && option.isDeprecated()) {
-                optBuf.append("[Deprecated]");
-            }
-            if (option.getDescription() != null) {
-                if (showDeprecated && option.isDeprecated()) {
-                    optBuf.append(' ');
-                }
+            if (deprecatedFormatFunc != null && option.isDeprecated()) {
+                optBuf.append(deprecatedFormatFunc.apply(option.getDescription()==null?"":option.getDescription(), option).trim());
+            } else if (option.getDescription() != null) {
                 optBuf.append(option.getDescription());
             }
             renderWrappedText(sb, width, nextLineTabStop, optBuf.toString());
