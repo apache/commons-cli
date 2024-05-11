@@ -421,8 +421,8 @@ public abstract class AbstractParserTestCase {
     }
 
     @Test
-    public void testMultipleWithNull() throws Exception {
-        final String[] args = { null, "-c", null, "foobar", null, "-b", null, "toast", null };
+    public void testMultipleWithLong() throws Exception {
+        final String[] args = { "--copt", "foobar", "--bfile", "toast" };
 
         CommandLine cl = parser.parse(options, args, true);
         assertTrue(cl.hasOption("c"), "Confirm -c is set");
@@ -438,8 +438,8 @@ public abstract class AbstractParserTestCase {
     }
 
     @Test
-    public void testMultipleWithLong() throws Exception {
-        final String[] args = { "--copt", "foobar", "--bfile", "toast" };
+    public void testMultipleWithNull() throws Exception {
+        final String[] args = { null, "-c", null, "foobar", null, "-b", null, "toast", null };
 
         CommandLine cl = parser.parse(options, args, true);
         assertTrue(cl.hasOption("c"), "Confirm -c is set");

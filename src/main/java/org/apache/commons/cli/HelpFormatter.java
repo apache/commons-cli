@@ -109,16 +109,6 @@ public class HelpFormatter {
         /**
          * Sets whether to show deprecated options.
          *
-         * @param useDefaultFormat if {@code true} use the default format, otherwise clear the formatter.
-         * @return this.
-         */
-        public Builder setShowDeprecated(final boolean useDefaultFormat) {
-            return setShowDeprecated(useDefaultFormat ? DEFAULT_DEPRECATED_FORMAT : null);
-        }
-
-        /**
-         * Sets whether to show deprecated options.
-         *
          * @param showDeprecatedFunc Specify the format for the deprecated options.
          * @return this.
          * @since 1.8.0
@@ -126,6 +116,16 @@ public class HelpFormatter {
         public Builder setShowDeprecated(final BiFunction<String, Option, String> showDeprecatedFunc) {
             this.deprecatedFormatFunc = showDeprecatedFunc;
             return this;
+        }
+
+        /**
+         * Sets whether to show deprecated options.
+         *
+         * @param useDefaultFormat if {@code true} use the default format, otherwise clear the formatter.
+         * @return this.
+         */
+        public Builder setShowDeprecated(final boolean useDefaultFormat) {
+            return setShowDeprecated(useDefaultFormat ? DEFAULT_DEPRECATED_FORMAT : null);
         }
     }
 
