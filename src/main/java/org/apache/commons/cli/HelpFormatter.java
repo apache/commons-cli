@@ -121,6 +121,7 @@ public class HelpFormatter {
          *
          * @param showDeprecatedFunc Specify the format for the deprecated options.
          * @return this.
+         * @since(1.8.0)
          */
         public Builder setShowDeprecated(final BiFunction<String, Option, String> showDeprecatedFunc) {
             this.deprecatedFormatFunc = showDeprecatedFunc;
