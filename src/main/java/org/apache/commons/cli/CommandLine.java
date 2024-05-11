@@ -17,8 +17,6 @@
 
 package org.apache.commons.cli;
 
-import static org.apache.commons.cli.Util.EMPTY_STRING_ARRAY;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -414,7 +412,7 @@ public class CommandLine implements Serializable {
                 values.addAll(processedOption.getValuesList());
             }
         }
-        return values.isEmpty() ? null : values.toArray(EMPTY_STRING_ARRAY);
+        return values.isEmpty() ? null : values.toArray(Util.EMPTY_STRING_ARRAY);
     }
 
     /**
