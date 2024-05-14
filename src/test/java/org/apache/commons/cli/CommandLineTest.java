@@ -22,8 +22,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
@@ -86,36 +89,66 @@ public class CommandLineTest {
     public void testDeprecatedOption() {
         final CommandLine.Builder builder = new CommandLine.Builder();
         builder.addArg("foo").addArg("bar");
-        final Option opt = Option.builder().option("T").deprecated().build();
+        final Option opt = Option.builder().option("T").longOpt("tee").deprecated().build();
         builder.addOption(opt);
-        final AtomicReference<Option> handler = new AtomicReference<>();
-        final CommandLine cmd = builder.setDeprecatedHandler(handler::set).build();
+        // verify one and only one call
+        List<Option> handler = new ArrayList<>();
+        final CommandLine cmd = builder.setDeprecatedHandler(handler::add).build();
+        // test short option arg
         cmd.getOptionValue(opt.getOpt());
-        assertSame(opt, handler.get());
-        handler.set(null);
-        cmd.getOptionValue("Nope");
-        assertNull(handler.get());
-        handler.set(null);
+        assertEquals(1, handler.size());
+        assertSame(opt, handler.get(0));
+        handler.clear();
+
+        // test long option arg
+        cmd.getOptionValue(opt.getLongOpt());
+        assertEquals(1, handler.size());
+        assertSame(opt, handler.get(0));
+        handler.clear();
+
+        // test Option arg
         cmd.getOptionValue(opt);
-        assertSame(opt, handler.get());
+        assertEquals(1, handler.size());
+        assertSame(opt, handler.get(0));
+        handler.clear();
+
+        // test not an option
+        cmd.getOptionValue("Nope");
+        assertEquals(0, handler.size());
     }
 
     @Test
     public void testDeprecatedParsedOptionValue() throws ParseException {
         final CommandLine.Builder builder = new CommandLine.Builder();
         builder.addArg("foo").addArg("bar");
-        final Option opt = Option.builder().option("T").deprecated().build();
+        final Option opt = Option.builder().option("T").longOpt("tee").deprecated().build();
         builder.addOption(opt);
-        final AtomicReference<Option> handler = new AtomicReference<>();
-        final CommandLine cmd = builder.setDeprecatedHandler(handler::set).build();
+        // verify one and only one call
+        List<Option> handler = new ArrayList<>();
+        final CommandLine cmd = builder.setDeprecatedHandler(handler::add).build();
+
+        // test short option arg
         cmd.getParsedOptionValue(opt.getOpt());
-        assertSame(opt, handler.get());
-        handler.set(null);
-        cmd.getParsedOptionValue("Nope");
-        assertNull(handler.get());
-        handler.set(null);
+        assertEquals(1, handler.size());
+        assertSame(opt, handler.get(0));
+        handler.clear();
+
+        // test long option arg
+        cmd.getParsedOptionValue(opt.getLongOpt());
+        assertEquals(1, handler.size());
+        assertSame(opt, handler.get(0));
+        handler.clear();
+
+        // test option arg
         cmd.getParsedOptionValue(opt);
-        assertSame(opt, handler.get());
+        assertEquals(1, handler.size());
+        assertSame(opt, handler.get(0));
+        handler.clear();
+
+
+        // test not an option
+        cmd.getParsedOptionValue("Nope");
+        assertEquals(0, handler.size());
     }
 
     @Test

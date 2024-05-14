@@ -47,7 +47,11 @@ public class HelpFormatterTest {
                         .setDescription("Why why why").get())
                 .build();
 
-        HelpFormatter hf = HelpFormatter.builder().setShowDeprecated(false).get();
+        HelpFormatter hf = HelpFormatter.builder().get();
+        lst.add(Arguments.of(hf, option, "[Deprecated] dddd dddd dddd"));
+
+
+        hf = HelpFormatter.builder().setShowDeprecated(false).get();
         lst.add(Arguments.of(hf, option, "dddd dddd dddd"));
 
         hf = HelpFormatter.builder().setShowDeprecated(true).get();
@@ -60,6 +64,9 @@ public class HelpFormatterTest {
                 .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("now")
                         .setDescription("Why why why").get())
                 .build();
+
+        hf = HelpFormatter.builder().get();
+        lst.add(Arguments.of(hf, option, "[Deprecated]"));
 
         hf = HelpFormatter.builder().setShowDeprecated(false).get();
         lst.add(Arguments.of(hf, option, ""));
