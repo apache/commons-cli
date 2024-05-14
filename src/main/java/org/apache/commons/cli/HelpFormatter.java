@@ -83,7 +83,7 @@ public class HelpFormatter {
         /**
          * Formatter for deprecated options.
          */
-        private BiFunction<String, Option, String> deprecatedFormatFunc;
+        private BiFunction<String, Option, String> deprecatedFormatFunc = DEFAULT_DEPRECATED_FORMAT;
 
         /**
          * The output PrintWriter, defaults to wrapping {@link System#out}.
