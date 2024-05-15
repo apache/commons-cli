@@ -499,9 +499,6 @@ public class CommandLine implements Serializable {
         if (option == null) {
             return get(defaultValue);
         }
-        if (option.isDeprecated()) {
-            handleDeprecated(option);
-        }
         final String res = getOptionValue(option);
         try {
             if (res == null) {
