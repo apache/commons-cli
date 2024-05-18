@@ -32,6 +32,7 @@
       <action type="fix" dev="ggregory" due-to="Claude Warren">Cleanup deprecation issues #272.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Fix PMD UnnecessaryFullyQualifiedName issues.</action>
       <!-- UPDATE -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 69 to 70.</action>
     </release>
     <release version="1.7.0" date="2024-04-13" description="This release contains new features and bug fixes and requires Java 8 or above.">
       <!-- FIX -->

@@ -90,6 +90,11 @@
     <Method name="createDefaultPrintWriter" />
     <Bug pattern="DM_DEFAULT_ENCODING" />
   </Match>
+  <Match>
+    <!-- Doesn't make sense and compatibility. -->
+    <Class name="org.apache.commons.cli.TypeHandler" />
+    <Bug pattern="SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR" />
+  </Match>
 
   <Match>
     <!-- TODO ? -->
