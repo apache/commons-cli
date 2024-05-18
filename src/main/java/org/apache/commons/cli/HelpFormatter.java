@@ -130,12 +130,14 @@ public class HelpFormatter {
     }
 
     /**
-     * Returns the option description or an empty string if the description is {@code null}.
+     * Gets the option description or an empty string if the description is {@code null}.
      * @param option The option to get the description from.
      * @return the option description or an empty string if the description is {@code null}.
+     * @since 2.17.0
      */
     public static String getDescription(final Option option) {
-        return option.getDescription() == null ? "" : option.getDescription();
+        String desc = option.getDescription();
+        return desc == null ? "" : desc;
     }
     /**
      * This class implements the {@code Comparator} interface for comparing Options.
@@ -274,7 +276,7 @@ public class HelpFormatter {
     protected Comparator<Option> optionComparator = new OptionComparator();
 
     /**
-     * BiFunction to format the description for a deprecated option.
+     * Function to format the description for a deprecated option.
      */
     private final Function<Option, String> deprecatedFormatFunc;
 

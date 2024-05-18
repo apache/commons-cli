@@ -404,15 +404,14 @@ public static void main(String[] args) {
     try {
         // parse the command line arguments
         CommandLine line = parser.parse(options, args);
-    }
-    catch (ParseException exp) {
+    } catch (ParseException exp) {
         // oops, something went wrong
         System.err.println("Parsing failed.  Reason: " + exp.getMessage());
     }
 
     try {
         Integer value = line.getParsedOptionValue(count);
-        System.out.format("The value is %s\m", value );
+        System.out.format("The value is %s%n", value );
     } catch (ParseException e) {
         e.printStackTrace();
     }
@@ -449,7 +448,7 @@ public static void main(String[] args) {
   Option fooOpt = Option.builder("foo")
           .hasArg()
           .desc("the foo arg")
-          .converter((s) -> new Foo(s))
+          .converter(Foo::new)
           .build();</source>
             The above will create an option that passes the string value to the Foo constructor when <code>commandLine.getParsedOptionValue(fooOpt)</code> is called.
         </p>
@@ -509,10 +508,10 @@ public static void main(String[] args) {
       try {
           // parse the command line arguments
           line = parser.parse(options, new String[] {"-n", "5"});
-          System.out.println( "n="+line.getParsedOptionValue("n"));
+          System.out.println("n=" + line.getParsedOptionValue("n"));
       } catch (ParseException exp) {
           // oops, something went wrong
-          System.err.println("Parsing failed.  Reason: " + exp.getMessage());
+          System.err.println("Parsing failed. Reason: " + exp.getMessage());
       }
   }           </source>
               <p>
@@ -544,10 +543,10 @@ public static void main(String[] args) {
       try {
           // parse the command line arguments
           line = parser.parse(options, new String[] {"-n", "5"});
-          System.out.println( "n="+line.getParsedOptionValue("n"));
+          System.out.println("n=" + line.getParsedOptionValue("n"));
       } catch (ParseException exp) {
         // oops, something went wrong
-        System.err.println("Parsing failed.  Reason: " + exp.getMessage());
+        System.err.println("Parsing failed. Reason: " + exp.getMessage());
       }
   }           </source>
               <p>
@@ -589,7 +588,7 @@ public static void main(String[] args) {
               As an example of the second case above, changing the implementation of <code>doSomething</code> to
               <source>
   void doSomething(Options options) {
-      Function&lt;Option, String> disp = option -> String.format( "%s. %s", HelpFormatter.getDescription(option),
+      Function&lt;Option, String> disp = option -> String.format("%s. %s", HelpFormatter.getDescription(option),
                   option.getDeprecated().toString());
       HelpFormatter formatter = HelpFormatter.builder().setShowDeprecated(disp).get();
       formatter.printHelp("Command line syntax:", options);
