@@ -1,3 +1,44 @@
+Apache Commons CLI Version 1.8.0 Release Notes
+
+Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
+
+This release contains new features and bug fixes and requires Java 8 or above.
+
+
+New Features
+------------
+
+* CLI-332:  Add optional HelpFormatter Function to document Deprecated options #271. Thanks to Claude Warren, Gary Gregory.
+*           Add PMD check to default Maven goal. Thanks to Gary Gregory.
+
+Fixed Bugs
+----------
+
+* CLI-331:  Handle reporting of deprecated options when parameters are not String type. #270. Thanks to Claude Warren, Gary Gregory.
+*           Avoid throwing NullPointerException when calling CommandLineParser will null array elements. Thanks to Claude Warren, Gary Gregory.
+*           Cleanup deprecation issues #272. Thanks to Claude Warren.
+*           Fix PMD UnnecessaryFullyQualifiedName issues. Thanks to Gary Gregory.
+
+Updates
+-------
+
+*           Bump commons-parent from 69 to 70. Thanks to Gary Gregory.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-cli/changes-report.html
+
+For complete information on Apache Commons CLI, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons CLI website:
+
+https://commons.apache.org/proper/commons-cli/
+
+Download page: https://commons.apache.org/proper/commons-cli/download_cli.cgi
+
+Have fun!
+The Apache Commons Team
+
+------------------------------------------------------------------------------
+
 Apache Commons CLI
 Version 1.7.0
 Release Notes
