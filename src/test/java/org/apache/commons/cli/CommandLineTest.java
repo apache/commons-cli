@@ -91,7 +91,7 @@ public class CommandLineTest {
         final Option opt = Option.builder().option("T").longOpt("tee").deprecated().build();
         builder.addOption(opt);
         // verify one and only one call
-        List<Option> handler = new ArrayList<>();
+        final List<Option> handler = new ArrayList<>();
         final CommandLine cmd = builder.setDeprecatedHandler(handler::add).build();
         // test short option arg
         cmd.getOptionValue(opt.getOpt());
@@ -123,7 +123,7 @@ public class CommandLineTest {
         final Option opt = Option.builder().option("T").longOpt("tee").deprecated().build();
         builder.addOption(opt);
         // verify one and only one call
-        List<Option> handler = new ArrayList<>();
+        final List<Option> handler = new ArrayList<>();
         final CommandLine cmd = builder.setDeprecatedHandler(handler::add).build();
 
         // test short option arg
