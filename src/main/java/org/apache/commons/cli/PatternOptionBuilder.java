@@ -73,6 +73,7 @@ import java.util.Map;
  * </p>
  */
 public class PatternOptionBuilder {
+
     /** String class */
     public static final Class<String> STRING_VALUE = String.class;
 
@@ -131,23 +132,23 @@ public class PatternOptionBuilder {
     public static Class<?> getValueType(final char ch) {
         switch (ch) {
         case '@':
-            return PatternOptionBuilder.OBJECT_VALUE;
+            return OBJECT_VALUE;
         case ':':
-            return PatternOptionBuilder.STRING_VALUE;
+            return STRING_VALUE;
         case '%':
-            return PatternOptionBuilder.NUMBER_VALUE;
+            return NUMBER_VALUE;
         case '+':
-            return PatternOptionBuilder.CLASS_VALUE;
+            return CLASS_VALUE;
         case '#':
-            return PatternOptionBuilder.DATE_VALUE;
+            return DATE_VALUE;
         case '<':
-            return PatternOptionBuilder.EXISTING_FILE_VALUE;
+            return EXISTING_FILE_VALUE;
         case '>':
-            return PatternOptionBuilder.FILE_VALUE;
+            return FILE_VALUE;
         case '*':
-            return PatternOptionBuilder.FILES_VALUE;
+            return FILES_VALUE;
         case '/':
-            return PatternOptionBuilder.URL_VALUE;
+            return URL_VALUE;
         }
 
         return null;

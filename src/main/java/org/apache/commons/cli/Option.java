@@ -199,7 +199,7 @@ public class Option implements Cloneable, Serializable {
          */
         public Builder hasArg(final boolean hasArg) {
             // set to UNINITIALIZED when no arg is specified to be compatible with OptionBuilder
-            argCount = hasArg ? 1 : Option.UNINITIALIZED;
+            argCount = hasArg ? 1 : UNINITIALIZED;
             return this;
         }
 
@@ -209,7 +209,7 @@ public class Option implements Cloneable, Serializable {
          * @return this builder.
          */
         public Builder hasArgs() {
-            argCount = Option.UNLIMITED_VALUES;
+            argCount = UNLIMITED_VALUES;
             return this;
         }
 

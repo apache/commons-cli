@@ -30,6 +30,7 @@
       <action type="fix" issue="CLI-331" dev="ggregory" due-to="Claude Warren, Gary Gregory">Handle reporting of deprecated options when parameters are not String type. #270.</action>
       <action type="fix" dev="ggregory" due-to="Claude Warren, Gary Gregory">Avoid throwing NullPointerException when calling CommandLineParser will null array elements.</action>
       <action type="fix" dev="ggregory" due-to="Claude Warren">Cleanup deprecation issues #272.</action>
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">Fix PMD UnnecessaryFullyQualifiedName issues.</action>
       <!-- UPDATE -->
     </release>
     <release version="1.7.0" date="2024-04-13" description="This release contains new features and bug fixes and requires Java 8 or above.">
