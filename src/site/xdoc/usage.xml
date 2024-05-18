@@ -382,7 +382,7 @@ try {
 }
 catch (ParseException exp) {
     System.out.println("Unexpected exception:" + exp.getMessage());
-}</source>
+}     </source>
     </section>
     <section name="Converting (Parsing) Option Values">
         <p>
@@ -392,31 +392,31 @@ catch (ParseException exp) {
             that the "count" option should return an Integer the following code could be used:
         </p>
         <source>
-        public static void main(String[] args) {
-            Option count = Option.builder("count")
-                          .hasArg()
-                          .desc("the number of things")
-                          .type(Integer.class)
-                          .build();
-            Options options = new Options().addOption(count);
-            // create the parser
-            CommandLineParser parser = new DefaultParser();
-            try {
-                // parse the command line arguments
-                CommandLine line = parser.parse(options, args);
-            }
-            catch (ParseException exp) {
-                // oops, something went wrong
-                System.err.println("Parsing failed.  Reason: " + exp.getMessage());
-            }
-            
-            try {
-                Integer value = line.getParsedOptionValue(count);
-                System.out.format("The value is %s\m", value );
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }</source>
+public static void main(String[] args) {
+    Option count = Option.builder("count")
+                  .hasArg()
+                  .desc("the number of things")
+                  .type(Integer.class)
+                  .build();
+    Options options = new Options().addOption(count);
+    // create the parser
+    CommandLineParser parser = new DefaultParser();
+    try {
+        // parse the command line arguments
+        CommandLine line = parser.parse(options, args);
+    }
+    catch (ParseException exp) {
+        // oops, something went wrong
+        System.err.println("Parsing failed.  Reason: " + exp.getMessage());
+    }
+
+    try {
+        Integer value = line.getParsedOptionValue(count);
+        System.out.format("The value is %s\m", value );
+    } catch (ParseException e) {
+        e.printStackTrace();
+    }
+}       </source>
         <p>
             The value types natively supported by commons-cli are:
             <ul>
@@ -446,12 +446,11 @@ catch (ParseException exp) {
             Conversions can be specified without using the <code>TypeHandler</code> class by specifying the converter 
             directly during the option build.  For example: 
             <source>
-                Option fooOpt = Option.builder("foo")
-                          .hasArg()
-                          .desc("the foo arg")
-                          .converter((s) -> new Foo(s))
-                          .build();
-            </source>
+  Option fooOpt = Option.builder("foo")
+          .hasArg()
+          .desc("the foo arg")
+          .converter((s) -> new Foo(s))
+          .build();</source>
             The above will create an option that passes the string value to the Foo constructor when <code>commandLine.getParsedOptionValue(fooOpt)</code> is called.
         </p>
         <p>
@@ -466,145 +465,141 @@ catch (ParseException exp) {
               <code>deprecated</code> method.
 
               Usage of the deprecated option is announced when the presence of the option is checked
-              or the value of the option is retrieved.  By default the announcement printed to Standard out.
+              or the value of the option is retrieved.  By default, the announcement printed to Standard out.
 
-              The HelpFormatter output will be default show the description prefixed by "[Deprecated]"
+              The HelpFormatter output will by default show the description prefixed by "[Deprecated]"
           </p>
           <p>
               The examples below will implement <code>doSomething</code> in the following code block.
               <source>
-                  public static void main(String[] args) {
-                      Option n = Option.builder("n")
-                          .deprecated(DeprecatedAttributes.builder()
-                              .setDescription("Use '-count' instead")
-                              .setForRemoval(true)
-                              .setSince("now").get())
-                          .hasArg()
-                          .desc("the number of things")
-                          .type(Integer.class)
-                          .build();
-                      Option count = Option.builder("count")
-                          .hasArg()
-                          .desc("the number of things")
-                          .type(Integer.class)
-                          .build();
-                      Options options = new Options().addOption(n).addOption(count);
+  public static void main(String[] args) {
+      Option n = Option.builder("n")
+          .deprecated(DeprecatedAttributes.builder()
+              .setDescription("Use '-count' instead")
+              .setForRemoval(true)
+              .setSince("now").get())
+          .hasArg()
+          .desc("the number of things")
+          .type(Integer.class)
+          .build();
+      Option count = Option.builder("count")
+          .hasArg()
+          .desc("the number of things")
+          .type(Integer.class)
+          .build();
+      Options options = new Options().addOption(n).addOption(count);
 
-                      doSomething(options);
-                  }
-              </source>
+      doSomething(options);
+  }           </source>
           </p>
 
           <subsection name="Changing Usage Announcement">
               <p>
-                  The usage announcement may be changed by providing a <code>Consumer&gt;Option&lt;></code> to the
-                  <code>CommandLine.Builder.deprecatedHandler</code> method.
+                  The usage announcement may be changed by providing a <code>Consumer&lt;Option></code> to the
+                  <code>CommandLine.Builder.deprecatedHandler</code> method.  This is commonly used to log usage
+                  of deprecated options rather than printing them on the standard output.
               </p>
               <p>
                   for example if <code>doSomething</code> is implemented as:
               </p>
-              <sorce>
-                  void doSomething(Options options) {
-                      CommandLineParser parser = new DefaultParser();
-                      CommandLine line;
-                      try {
-                          // parse the command line arguments
-                          line = parser.parse(options, new String[] {"-n", "5"});
-                          System.out.println( "n="+line.getParsedOptionValue("n"));
-                      } catch (ParseException exp) {
-                          // oops, something went wrong
-                          System.err.println("Parsing failed.  Reason: " + exp.getMessage());
-                      }
-                  }
-              </sorce>
+              <source>
+  void doSomething(Options options) {
+      CommandLineParser parser = new DefaultParser();
+      CommandLine line;
+      try {
+          // parse the command line arguments
+          line = parser.parse(options, new String[] {"-n", "5"});
+          System.out.println( "n="+line.getParsedOptionValue("n"));
+      } catch (ParseException exp) {
+          // oops, something went wrong
+          System.err.println("Parsing failed.  Reason: " + exp.getMessage());
+      }
+  }           </source>
               <p>
                   The output of the run would be.
               </p>
 
               <source>
-                  Option 'n': Deprecated for removal since now: Use '-count' instead
-                  n=5
-              </source>
+  Option 'n': Deprecated for removal since now: Use '-count' instead
+  n=5         </source>
 
               <p>
                   for example if <code>doSomething</code> is implemented as:
               </p>
 
               <source>
-                  void doSomething(Options options) {
-                      Consumer&gt;Option&lt; deprecatedUsageAnnouncement = o -> {
-                          final StringBuilder buf = new StringBuilder()
-                              .append("'")
-                              .append(o.getOpt())
-                              .append("'");
-                          if (o.getLongOpt() != null) {
-                              buf.append("'").append(o.getLongOpt()).append("'");
-                          }
-                          System.err.printf("ERROR: Option %s: %s%n", buf, o.getDeprecated());
-                      };
-                      DefaultParser parser = DefaultParser.builder().setDeprecatedHandler(deprecatedUsageAnnouncement).build();
-                      CommandLine line;
-                      try {
-                          // parse the command line arguments
-                          line = parser.parse(options, new String[] {"-n", "5"});
-                          System.out.println( "n="+line.getParsedOptionValue("n"));
-                      } catch (ParseException exp) {
-                        // oops, something went wrong
-                        System.err.println("Parsing failed.  Reason: " + exp.getMessage());
-                      }
-                  }
-              </source>
+  void doSomething(Options options) {
+      Consumer&lt;Option> deprecatedUsageAnnouncement = o -> {
+          final StringBuilder buf = new StringBuilder()
+              .append("'")
+              .append(o.getOpt())
+              .append("'");
+          if (o.getLongOpt() != null) {
+              buf.append("'").append(o.getLongOpt()).append("'");
+          }
+          System.err.printf("ERROR: Option %s: %s%n", buf, o.getDeprecated());
+      };
+      DefaultParser parser = DefaultParser.builder().setDeprecatedHandler(deprecatedUsageAnnouncement).build();
+      CommandLine line;
+      try {
+          // parse the command line arguments
+          line = parser.parse(options, new String[] {"-n", "5"});
+          System.out.println( "n="+line.getParsedOptionValue("n"));
+      } catch (ParseException exp) {
+        // oops, something went wrong
+        System.err.println("Parsing failed.  Reason: " + exp.getMessage());
+      }
+  }           </source>
               <p>
                   The output of the run would be.
               </p>
               <source>
-                  ERROR: Option 'n': Deprecated for removal since now: Use '-count' instead
-                  n=5
-              </source>
+  ERROR: Option 'n': Deprecated for removal since now: Use '-count' instead
+  n=5         </source>
               <p>
                   However, the first line would be printed on system err instead of system out.
               </p>
 
           </subsection>
           <subsection name="Changing help format">
+              <p>By default the help formater prints "[Deprecated]" in front of the description for the option.  This can
+              be changed to display any values desired.
+              </p>
           <p>
               If <code>doSomething</code> is implemented as:
               <source>
-                  void doSomething(Options options) {
-                    HelpFormatter formatter = HelpFormatter.builder().get();
-                    formatter.printHelp("Command line syntax:", options);
-                  }
-              </source>
+  void doSomething(Options options) {
+    HelpFormatter formatter = HelpFormatter.builder().get();
+    formatter.printHelp("Command line syntax:", options);
+  }           </source>
               To output is
               <source>
-                  usage: Command line syntax:
-                  -count &lt;arg>   the number of things
-                  -n &lt;arg>       [Deprecated] the number of things
-              </source>
+  usage: Command line syntax:
+  -count &lt;arg>   the number of things
+  -n &lt;arg>       [Deprecated] the number of things</source>
           </p>
           <p>
              The display of deprecated options may be changed through the use of the
               <code>HelpFormatter.Builder.setShowDeprecated()</code> method.
               <ul>
                   <li>Calling <code>HelpFormatter.Builder.setShowDeprecated(false)</code> will disable the "[Deprecated]" tag.</li>
-                  <li>Calling <code>HelpFormatter.Builder.setShowDeprecated</code> with a <code>BiFunction&lt;String, Option, String></code>
+                  <li>Calling <code>HelpFormatter.Builder.setShowDeprecated</code> with a <code>Function&lt;Option, String></code>
                       will use the output of the function as the description for the option.</li>
               </ul>
               As an example of the second case above, changing the implementation of <code>doSomething</code> to
               <source>
-                  void doSomething(Options options) {
-                      BiFunction&lt;String, Option, String> disp = (desc, option) -> String.format( "%s. %s", desc, option.getDeprecated().toString());
-                      HelpFormatter formatter = HelpFormatter.builder().setShowDeprecated(disp).get();
-                      formatter.printHelp("Command line syntax:", options);
-                  }
-              </source>
+  void doSomething(Options options) {
+      Function&lt;Option, String> disp = option -> String.format( "%s. %s", HelpFormatter.getDescription(option),
+                  option.getDeprecated().toString());
+      HelpFormatter formatter = HelpFormatter.builder().setShowDeprecated(disp).get();
+      formatter.printHelp("Command line syntax:", options);
+  }           </source>
               changes the output to
               <source>
-                  usage: Command line syntax:
-                  -count &lt;arg>   the number of things
-                  -n &lt;arg>       the number of things. Deprecated for removal since now:
-                  Use '-count' instead
-              </source>
+  usage: Command line syntax:
+  -count &lt;arg>   the number of things
+  -n &lt;arg>       the number of things. Deprecated for removal since now:
+  Use '-count' instead</source>
           </p>
       </subsection>
       </section>
