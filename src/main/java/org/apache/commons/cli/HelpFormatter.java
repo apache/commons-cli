@@ -200,7 +200,7 @@ public class HelpFormatter {
      * @since 1.8.0
      */
     public static String getDescription(final Option option) {
-        String desc = option.getDescription();
+        final String desc = option.getDescription();
         return desc == null ? "" : desc;
     }
 
