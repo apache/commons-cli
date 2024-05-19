@@ -133,7 +133,7 @@ public class HelpFormatter {
      * Gets the option description or an empty string if the description is {@code null}.
      * @param option The option to get the description from.
      * @return the option description or an empty string if the description is {@code null}.
-     * @since 2.17.0
+     * @since 1.8.0
      */
     public static String getDescription(final Option option) {
         String desc = option.getDescription();
