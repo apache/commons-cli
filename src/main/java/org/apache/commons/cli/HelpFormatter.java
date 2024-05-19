@@ -30,7 +30,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -78,12 +78,12 @@ public class HelpFormatter {
         /**
          * A function to convert a description (not null) and a deprecated Option (not null) to help description
          */
-        private static final BiFunction<String, Option, String> DEFAULT_DEPRECATED_FORMAT = (d, o) -> "[Deprecated] " + d;
+        private static final Function<Option, String> DEFAULT_DEPRECATED_FORMAT = o -> "[Deprecated] " + getDescription(o);
 
         /**
          * Formatter for deprecated options.
          */
-        private BiFunction<String, Option, String> deprecatedFormatFunc = DEFAULT_DEPRECATED_FORMAT;
+        private Function<Option, String> deprecatedFormatFunc = DEFAULT_DEPRECATED_FORMAT;
 
         /**
          * The output PrintWriter, defaults to wrapping {@link System#out}.
@@ -113,7 +113,7 @@ public class HelpFormatter {
          * @return this.
          * @since 1.8.0
          */
-        public Builder setShowDeprecated(final BiFunction<String, Option, String> showDeprecatedFunc) {
+        public Builder setShowDeprecated(final Function<Option, String> showDeprecatedFunc) {
             this.deprecatedFormatFunc = showDeprecatedFunc;
             return this;
         }
@@ -129,6 +129,16 @@ public class HelpFormatter {
         }
     }
 
+    /**
+     * Gets the option description or an empty string if the description is {@code null}.
+     * @param option The option to get the description from.
+     * @return the option description or an empty string if the description is {@code null}.
+     * @since 1.8.0
+     */
+    public static String getDescription(final Option option) {
+        String desc = option.getDescription();
+        return desc == null ? "" : desc;
+    }
     /**
      * This class implements the {@code Comparator} interface for comparing Options.
      */
@@ -266,9 +276,9 @@ public class HelpFormatter {
     protected Comparator<Option> optionComparator = new OptionComparator();
 
     /**
-     * BiFunction to format the description for a deprecated option.
+     * Function to format the description for a deprecated option.
      */
-    private final BiFunction<String, Option, String> deprecatedFormatFunc;
+    private final Function<Option, String> deprecatedFormatFunc;
 
     /**
      * Where to print help.
@@ -291,7 +301,7 @@ public class HelpFormatter {
      * Constructs a new instance.
      * @param printStream TODO
      */
-    private HelpFormatter(final BiFunction<String, Option, String> deprecatedFormatFunc, final PrintWriter printStream) {
+    private HelpFormatter(final Function<Option, String> deprecatedFormatFunc, final PrintWriter printStream) {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
         this.deprecatedFormatFunc = deprecatedFormatFunc;
@@ -795,7 +805,7 @@ public class HelpFormatter {
             optBuf.append(dpad);
             final int nextLineTabStop = max + descPad;
             if (deprecatedFormatFunc != null && option.isDeprecated()) {
-                optBuf.append(deprecatedFormatFunc.apply(option.getDescription() == null ? "" : option.getDescription(), option).trim());
+                optBuf.append(deprecatedFormatFunc.apply(option).trim());
             } else if (option.getDescription() != null) {
                 optBuf.append(option.getDescription());
             }
