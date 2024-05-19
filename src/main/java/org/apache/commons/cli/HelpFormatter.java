@@ -580,7 +580,7 @@ public class HelpFormatter {
      */
     public void printHelp(final PrintWriter pw, final int width, final String cmdLineSyntax, final String header, final Options options, final int leftPad,
         final int descPad, final String footer, final boolean autoUsage) {
-        if (cmdLineSyntax == null || cmdLineSyntax.isEmpty()) {
+        if (Util.isEmpty(cmdLineSyntax)) {
             throw new IllegalArgumentException("cmdLineSyntax not provided");
         }
         if (autoUsage) {
@@ -891,7 +891,7 @@ public class HelpFormatter {
      * @return The String of without the trailing padding
      */
     protected String rtrim(final String s) {
-        if (s == null || s.isEmpty()) {
+        if (Util.isEmpty(s)) {
             return s;
         }
         int pos = s.length();
