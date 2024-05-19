@@ -109,6 +109,16 @@ public class HelpFormatter {
         /**
          * Sets whether to show deprecated options.
          *
+         * @param useDefaultFormat if {@code true} use the default format, otherwise clear the formatter.
+         * @return this.
+         */
+        public Builder setShowDeprecated(final boolean useDefaultFormat) {
+            return setShowDeprecated(useDefaultFormat ? DEFAULT_DEPRECATED_FORMAT : null);
+        }
+
+        /**
+         * Sets whether to show deprecated options.
+         *
          * @param showDeprecatedFunc Specify the format for the deprecated options.
          * @return this.
          * @since 1.8.0
@@ -117,28 +127,8 @@ public class HelpFormatter {
             this.deprecatedFormatFunc = showDeprecatedFunc;
             return this;
         }
-
-        /**
-         * Sets whether to show deprecated options.
-         *
-         * @param useDefaultFormat if {@code true} use the default format, otherwise clear the formatter.
-         * @return this.
-         */
-        public Builder setShowDeprecated(final boolean useDefaultFormat) {
-            return setShowDeprecated(useDefaultFormat ? DEFAULT_DEPRECATED_FORMAT : null);
-        }
     }
 
-    /**
-     * Gets the option description or an empty string if the description is {@code null}.
-     * @param option The option to get the description from.
-     * @return the option description or an empty string if the description is {@code null}.
-     * @since 1.8.0
-     */
-    public static String getDescription(final Option option) {
-        String desc = option.getDescription();
-        return desc == null ? "" : desc;
-    }
     /**
      * This class implements the {@code Comparator} interface for comparing Options.
      */
@@ -161,7 +151,6 @@ public class HelpFormatter {
             return opt1.getKey().compareToIgnoreCase(opt2.getKey());
         }
     }
-
     /** Default number of characters per line */
     public static final int DEFAULT_WIDTH = 74;
 
@@ -202,6 +191,17 @@ public class HelpFormatter {
 
     private static PrintWriter createDefaultPrintWriter() {
         return new PrintWriter(System.out);
+    }
+
+    /**
+     * Gets the option description or an empty string if the description is {@code null}.
+     * @param option The option to get the description from.
+     * @return the option description or an empty string if the description is {@code null}.
+     * @since 1.8.0
+     */
+    public static String getDescription(final Option option) {
+        String desc = option.getDescription();
+        return desc == null ? "" : desc;
     }
 
     /**
