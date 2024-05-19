@@ -278,7 +278,7 @@ public abstract class Parser implements CommandLineParser {
                 // get the value from the properties instance
                 final String value = properties.getProperty(option);
                 if (opt.hasArg()) {
-                    if (opt.getValues() == null || opt.getValues().length == 0) {
+                    if (Util.isEmpty(opt.getValues())) {
                         try {
                             opt.processValue(value);
                         } catch (final RuntimeException exp) { // NOPMD

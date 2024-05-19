@@ -57,7 +57,7 @@ public class HelpFormatterTest {
         hf = HelpFormatter.builder().setShowDeprecated(true).get();
         lst.add(Arguments.of(hf, option, "[Deprecated] dddd dddd dddd"));
 
-        hf = HelpFormatter.builder().setShowDeprecated((d, o) -> String.format("%s [%s]", d, o.getDeprecated())).get();
+        hf = HelpFormatter.builder().setShowDeprecated(o -> String.format("%s [%s]", HelpFormatter.getDescription(o), o.getDeprecated())).get();
         lst.add(Arguments.of(hf, option, "dddd dddd dddd [Deprecated for removal since now: Why why why]"));
 
         option = Option.builder("a").longOpt("aaa")
@@ -74,7 +74,7 @@ public class HelpFormatterTest {
         hf = HelpFormatter.builder().setShowDeprecated(true).get();
         lst.add(Arguments.of(hf, option, "[Deprecated]"));
 
-        hf = HelpFormatter.builder().setShowDeprecated((d, o) -> String.format("%s [%s]", d, o.getDeprecated())).get();
+        hf = HelpFormatter.builder().setShowDeprecated(o -> String.format("%s [%s]", HelpFormatter.getDescription(o), o.getDeprecated())).get();
         lst.add(Arguments.of(hf, option, "[Deprecated for removal since now: Why why why]"));
 
         return lst.stream();
@@ -186,9 +186,9 @@ public class HelpFormatterTest {
         //@formatter:off
         assertEquals(
                 "usage: foobar" + EOL +
-                "" + EOL +
+                EOL +
                 "Header" + EOL +
-                "" + EOL +
+                EOL +
                 "Footer" + EOL,
                 out.toString());
         //@formatter:on
@@ -217,9 +217,9 @@ public class HelpFormatterTest {
         //@formatter:off
         assertEquals(
                 "usage: foobar" + EOL +
-                "" + EOL +
+                EOL +
                 "Header" + EOL +
-                "" + EOL +
+                EOL +
                 "Footer" + EOL,
                 out.toString());
         //@formatter:on
@@ -228,9 +228,9 @@ public class HelpFormatterTest {
         //@formatter:off
         assertEquals(
                 "usage: foobar" + EOL +
-                "" + EOL +
+                EOL +
                 "Header" + EOL +
-                "" + EOL +
+                EOL +
                 "Footer" + EOL,
                 out.toString());
         //@formatter:on
@@ -239,9 +239,9 @@ public class HelpFormatterTest {
         //@formatter:off
         assertEquals(
                 "usage: foobar" + EOL +
-                "" + EOL +
+                EOL +
                 "Header" + EOL +
-                "" + EOL +
+                EOL +
                 "Footer" + EOL,
                 out.toString());
         //@formatter:on
@@ -250,9 +250,9 @@ public class HelpFormatterTest {
         //@formatter:off
         assertEquals(
                 "usage: foobar" + EOL +
-                "" + EOL +
+                EOL +
                 "Header" + EOL +
-                "" + EOL +
+                EOL +
                 "Footer" + EOL,
                 out.toString());
         //@formatter:on

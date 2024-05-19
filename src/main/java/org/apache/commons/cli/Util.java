@@ -28,12 +28,22 @@ final class Util {
     static final String[] EMPTY_STRING_ARRAY = {};
 
     /**
+     * Tests whether the given array is null or empty.
+     *
+     * @param array the array to test.
+     * @return the given array is null or empty.
+     */
+    static boolean isEmpty(final Object[] array) {
+        return array == null || array.length == 0;
+    }
+
+    /**
      * Tests whether the given string is null or empty.
      *
      * @param str The string to test.
      * @return Whether the given string is null or empty.
      */
-    private static boolean isEmpty(final String str) {
+    static boolean isEmpty(final String str) {
         return str == null || str.isEmpty();
     }
 

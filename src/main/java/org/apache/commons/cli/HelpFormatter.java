@@ -30,7 +30,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -78,12 +78,12 @@ public class HelpFormatter {
         /**
          * A function to convert a description (not null) and a deprecated Option (not null) to help description
          */
-        private static final BiFunction<String, Option, String> DEFAULT_DEPRECATED_FORMAT = (d, o) -> "[Deprecated] " + d;
+        private static final Function<Option, String> DEFAULT_DEPRECATED_FORMAT = o -> "[Deprecated] " + getDescription(o);
 
         /**
          * Formatter for deprecated options.
          */
-        private BiFunction<String, Option, String> deprecatedFormatFunc = DEFAULT_DEPRECATED_FORMAT;
+        private Function<Option, String> deprecatedFormatFunc = DEFAULT_DEPRECATED_FORMAT;
 
         /**
          * The output PrintWriter, defaults to wrapping {@link System#out}.
@@ -109,23 +109,23 @@ public class HelpFormatter {
         /**
          * Sets whether to show deprecated options.
          *
-         * @param showDeprecatedFunc Specify the format for the deprecated options.
-         * @return this.
-         * @since 1.8.0
-         */
-        public Builder setShowDeprecated(final BiFunction<String, Option, String> showDeprecatedFunc) {
-            this.deprecatedFormatFunc = showDeprecatedFunc;
-            return this;
-        }
-
-        /**
-         * Sets whether to show deprecated options.
-         *
          * @param useDefaultFormat if {@code true} use the default format, otherwise clear the formatter.
          * @return this.
          */
         public Builder setShowDeprecated(final boolean useDefaultFormat) {
             return setShowDeprecated(useDefaultFormat ? DEFAULT_DEPRECATED_FORMAT : null);
+        }
+
+        /**
+         * Sets whether to show deprecated options.
+         *
+         * @param showDeprecatedFunc Specify the format for the deprecated options.
+         * @return this.
+         * @since 1.8.0
+         */
+        public Builder setShowDeprecated(final Function<Option, String> showDeprecatedFunc) {
+            this.deprecatedFormatFunc = showDeprecatedFunc;
+            return this;
         }
     }
 
@@ -151,7 +151,6 @@ public class HelpFormatter {
             return opt1.getKey().compareToIgnoreCase(opt2.getKey());
         }
     }
-
     /** Default number of characters per line */
     public static final int DEFAULT_WIDTH = 74;
 
@@ -192,6 +191,17 @@ public class HelpFormatter {
 
     private static PrintWriter createDefaultPrintWriter() {
         return new PrintWriter(System.out);
+    }
+
+    /**
+     * Gets the option description or an empty string if the description is {@code null}.
+     * @param option The option to get the description from.
+     * @return the option description or an empty string if the description is {@code null}.
+     * @since 1.8.0
+     */
+    public static String getDescription(final Option option) {
+        final String desc = option.getDescription();
+        return desc == null ? "" : desc;
     }
 
     /**
@@ -266,9 +276,9 @@ public class HelpFormatter {
     protected Comparator<Option> optionComparator = new OptionComparator();
 
     /**
-     * BiFunction to format the description for a deprecated option.
+     * Function to format the description for a deprecated option.
      */
-    private final BiFunction<String, Option, String> deprecatedFormatFunc;
+    private final Function<Option, String> deprecatedFormatFunc;
 
     /**
      * Where to print help.
@@ -291,7 +301,7 @@ public class HelpFormatter {
      * Constructs a new instance.
      * @param printStream TODO
      */
-    private HelpFormatter(final BiFunction<String, Option, String> deprecatedFormatFunc, final PrintWriter printStream) {
+    private HelpFormatter(final Function<Option, String> deprecatedFormatFunc, final PrintWriter printStream) {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
         this.deprecatedFormatFunc = deprecatedFormatFunc;
@@ -570,7 +580,7 @@ public class HelpFormatter {
      */
     public void printHelp(final PrintWriter pw, final int width, final String cmdLineSyntax, final String header, final Options options, final int leftPad,
         final int descPad, final String footer, final boolean autoUsage) {
-        if (cmdLineSyntax == null || cmdLineSyntax.isEmpty()) {
+        if (Util.isEmpty(cmdLineSyntax)) {
             throw new IllegalArgumentException("cmdLineSyntax not provided");
         }
         if (autoUsage) {
@@ -795,7 +805,7 @@ public class HelpFormatter {
             optBuf.append(dpad);
             final int nextLineTabStop = max + descPad;
             if (deprecatedFormatFunc != null && option.isDeprecated()) {
-                optBuf.append(deprecatedFormatFunc.apply(option.getDescription() == null ? "" : option.getDescription(), option).trim());
+                optBuf.append(deprecatedFormatFunc.apply(option).trim());
             } else if (option.getDescription() != null) {
                 optBuf.append(option.getDescription());
             }
@@ -881,7 +891,7 @@ public class HelpFormatter {
      * @return The String of without the trailing padding
      */
     protected String rtrim(final String s) {
-        if (s == null || s.isEmpty()) {
+        if (Util.isEmpty(s)) {
             return s;
         }
         int pos = s.length();
