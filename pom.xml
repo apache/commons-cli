@@ -28,7 +28,7 @@
   <name>Apache Commons CLI</name>
   <inceptionYear>2002</inceptionYear>
   <description>
-    Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
+    Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
   </description>
   <url>https://commons.apache.org/proper/commons-cli/</url>
   <issueManagement>
