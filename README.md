@@ -50,7 +50,7 @@ Apache Commons CLI
 [![CodeQL](https://github.com/apache/commons-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-cli/actions/workflows/codeql-analysis.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-cli/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-cli)
 
-Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
+Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
 
 Documentation
 -------------

@@ -1,6 +1,6 @@
 Apache Commons CLI Version 1.8.0 Release Notes
 
-Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
+Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
 
 This release contains new features and bug fixes and requires Java 8 or above.
 
@@ -47,7 +47,7 @@ This document contains the release notes for this version of the Apache Commons
 CLI Component of the Apache Commons Project. Commons CLI provides a simple API
 for working with the command line arguments and options.
 
-Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
+Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
 
 New features and bug fixes.
 
@@ -102,7 +102,7 @@ This document contains the release notes for this version of the Apache Commons
 CLI Component of the Apache Commons Project. Commons CLI provides a simple API
 for working with the command line arguments and options.
 
-Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
+Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
 
 New features and bug fixes
 
@@ -170,7 +170,7 @@ This document contains the release notes for this version of the Apache Commons
 CLI Component of the Apache Commons Project. Commons CLI provides a simple API
 for working with the command line arguments and options.
 
-Apache Commons CLI provides a simple API for presenting, processing and validating a Command Line Interface.
+Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
 
 New features and bug fixes (Java 7 or above).
 
