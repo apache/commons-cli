@@ -99,7 +99,7 @@ public class HelpFormatter {
          * Sets the output PrintWriter, defaults to wrapping {@link System#out}.
          *
          * @param printWriter the output PrintWriter, not null.
-         * @return this.
+         * @return {@code this} instance.
          */
         public Builder setPrintWriter(final PrintWriter printWriter) {
             this.printStream = Objects.requireNonNull(printWriter, "printWriter");
@@ -110,7 +110,7 @@ public class HelpFormatter {
          * Sets whether to show deprecated options.
          *
          * @param useDefaultFormat if {@code true} use the default format, otherwise clear the formatter.
-         * @return this.
+         * @return {@code this} instance.
          */
         public Builder setShowDeprecated(final boolean useDefaultFormat) {
             return setShowDeprecated(useDefaultFormat ? DEFAULT_DEPRECATED_FORMAT : null);
@@ -120,7 +120,7 @@ public class HelpFormatter {
          * Sets whether to show deprecated options.
          *
          * @param showDeprecatedFunc Specify the format for the deprecated options.
-         * @return this.
+         * @return {@code this} instance.
          * @since 1.8.0
          */
         public Builder setShowDeprecated(final Function<Option, String> showDeprecatedFunc) {

@@ -103,7 +103,7 @@ public class CommandLine implements Serializable {
          * Sets the deprecated option handler.
          *
          * @param deprecatedHandler the deprecated option handler.
-         * @return this.
+         * @return {@code this} instance.
          * @since 1.7.0
          */
         public Builder setDeprecatedHandler(final Consumer<Option> deprecatedHandler) {

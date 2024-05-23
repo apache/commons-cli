@@ -64,7 +64,7 @@ public final class DeprecatedAttributes {
          * Sets the description.
          *
          * @param description the description.
-         * @return this.
+         * @return {@code this} instance.
          */
         public Builder setDescription(final String description) {
             this.description = description;
@@ -75,7 +75,7 @@ public final class DeprecatedAttributes {
          * Whether this option is subject to removal in a future version.
          *
          * @param forRemoval whether this is subject to removal in a future version.
-         * @return this.
+         * @return {@code this} instance.
          * @see <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Deprecated.html#forRemoval()">Deprecated.forRemoval</a>
          */
         public Builder setForRemoval(final boolean forRemoval) {
@@ -87,7 +87,7 @@ public final class DeprecatedAttributes {
          * Sets the version in which the option became deprecated.
          *
          * @param since the version in which the option became deprecated.
-         * @return this.
+         * @return {@code this} instance.
          */
         public Builder setSince(final String since) {
             this.since = since;
