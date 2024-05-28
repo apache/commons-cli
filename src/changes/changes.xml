@@ -23,6 +23,7 @@
   </properties>
   <body>
     <release version="1.8.1" date="YYYY-MM-DD" description="This release contains new features and bug fixes and requires Java 8 or above.">
+      <action type="add" issue="CLI-334" dev="ggregory" due-to="Eric Pugh">Fix Javadoc pathing #280.</action>
     </release>
     <release version="1.8.0" date="2024-05-18" description="This release contains new features and bug fixes and requires Java 8 or above.">
       <!-- ADD -->
