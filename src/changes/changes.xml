@@ -54,6 +54,7 @@
       <action type="add" issue="CLI-323" dev="ggregory" due-to="Claude Warren, Gary Gregory">Added Supplier&lt;T&gt; defaults for getParsedOptionValue #229.</action>
       <action type="add" issue="CLI-326" dev="ggregory" due-to="Claude Warren, Gary Gregory">Make Option.getKey() public #239.</action>
       <action type="add" dev="ggregory" due-to="Claude Warren, Gary Gregory">Add builder factory CommandLine#builder().</action>
+      <action type="add" issue="CLI-329" dev="ggregory" due-to="Eric Pugh, Gary Gregory">Support "Deprecated" CLI Options #252.</action>
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 64 to 69 #256.</action>
       <action type="update" dev="ggregory" due-to="Elric, Gary Gregory">Update the tests to JUnit 5 #238.</action>
