@@ -28,10 +28,10 @@
     <section name="Defining Option Properties">
       <p>
         The following are the properties that each 
-        <a href="api-release/org/apache/commons/cli/Option.html">Option</a> has.  All of these
+        <a href="javadocs/api-release/org/apache/commons/cli/Option.html">Option</a> has.  All of these
         can be set using the accessors or using the methods
         defined in the
-        <a href="api-release/org/apache/commons/cli/OptionBuilder.html">OptionBuilder</a>.
+        <a href="javadocs/api-release/org/apache/commons/cli/OptionBuilder.html">OptionBuilder</a>.
       </p>
       <table>
         <tr>
