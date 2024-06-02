@@ -14,6 +14,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+/*
+ * Changes: Make processValue(), acceptsArg() and requiresArg() public.
+ */
 
 package org.apache.commons.cli;
 
@@ -476,7 +479,7 @@ public class Option implements Cloneable, Serializable {
      * @return false if the maximum number of arguments is reached.
      * @since 1.3
      */
-    boolean acceptsArg() {
+    public boolean acceptsArg() {
         return (hasArg() || hasArgs() || hasOptionalArg()) && (argCount <= 0 || values.size() < argCount);
     }
 
@@ -808,7 +811,7 @@ public class Option implements Cloneable, Serializable {
      *
      * @param value The String to be processed.
      */
-    void processValue(final String value) {
+    public void processValue(final String value) {
         if (argCount == UNINITIALIZED) {
             throw new IllegalArgumentException("NO_ARGS_ALLOWED");
         }
@@ -842,7 +845,7 @@ public class Option implements Cloneable, Serializable {
      *
      * @return false if the option doesn't require more arguments.
      */
-    boolean requiresArg() {
+    public boolean requiresArg() {
         if (optionalArg) {
             return false;
         }

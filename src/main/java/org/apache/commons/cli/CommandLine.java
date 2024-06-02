@@ -14,6 +14,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+/*
+ * Changes: Make CommandLine(), addArg() and addOption() public.
+ */
 
 package org.apache.commons.cli;
 
@@ -142,7 +145,7 @@ public class CommandLine implements Serializable {
     /**
      * Creates a command line.
      */
-    protected CommandLine() {
+    public CommandLine() {
         this(new LinkedList<>(), new ArrayList<>(), Builder.DEPRECATED_HANDLER);
     }
 
@@ -160,7 +163,7 @@ public class CommandLine implements Serializable {
      *
      * @param arg the unrecognized option/argument.
      */
-    protected void addArg(final String arg) {
+    public void addArg(final String arg) {
         if (arg != null) {
             args.add(arg);
         }
@@ -171,7 +174,7 @@ public class CommandLine implements Serializable {
      *
      * @param opt the processed option.
      */
-    protected void addOption(final Option opt) {
+    public void addOption(final Option opt) {
         if (opt != null) {
             options.add(opt);
         }

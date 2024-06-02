@@ -14,6 +14,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+/*
+ * Changes: Make getOptionGroups() and helpOptions() public.
+ */
 
 package org.apache.commons.cli;
 
@@ -247,7 +250,7 @@ public class Options implements Serializable {
      *
      * @return a Collection of OptionGroup instances.
      */
-    Collection<OptionGroup> getOptionGroups() {
+    public Collection<OptionGroup> getOptionGroups() {
         /* The optionGroups map will have duplicates in the values() results.  We
          * use the HashSet to filter out duplicates and return a collection of
          * OpitonGroup.  The decision to return a Collection rather than a set
@@ -313,7 +316,7 @@ public class Options implements Serializable {
      *
      * @return the List of Options
      */
-    List<Option> helpOptions() {
+    public List<Option> helpOptions() {
         return new ArrayList<>(shortOpts.values());
     }
 

@@ -14,13 +14,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+/*
+ * Changes: Make Util, stringLeadingHyphens() and
+ *          stripLeadingAndTrailingQuotes() public
+ */
 
 package org.apache.commons.cli;
 
 /**
  * Contains useful helper methods for classes within this package.
  */
-final class Util {
+public final class Util {
 
     /**
      * An empty immutable {@code String} array.
@@ -53,7 +57,7 @@ final class Util {
      * @param str The string from which the leading and trailing quotes should be removed.
      * @return The string without the leading and trailing quotes.
      */
-    static String stripLeadingAndTrailingQuotes(final String str) {
+    public static String stripLeadingAndTrailingQuotes(final String str) {
         if (isEmpty(str)) {
             return str;
         }
@@ -70,7 +74,7 @@ final class Util {
      * @param str The string from which the hyphens should be removed.
      * @return the new String.
      */
-    static String stripLeadingHyphens(final String str) {
+    public static String stripLeadingHyphens(final String str) {
         if (isEmpty(str)) {
             return str;
         }

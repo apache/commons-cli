@@ -14,7 +14,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-
+/*
+ * Changes: Make appendOption() and renderOptions() public.
+ *          Change longOptSeparator from private to protected.
+ */
 package org.apache.commons.cli;
 
 import java.io.BufferedReader;
@@ -288,7 +291,7 @@ public class HelpFormatter {
     /**
      * The separator displayed between the long option and its value.
      */
-    private String longOptSeparator = DEFAULT_LONG_OPT_SEPARATOR;
+    protected String longOptSeparator = DEFAULT_LONG_OPT_SEPARATOR;
 
     /**
      * Constructs a new instance.
@@ -315,7 +318,7 @@ public class HelpFormatter {
      * @param option the Option to append
      * @param required whether the Option is required or not
      */
-    private void appendOption(final StringBuffer buff, final Option option, final boolean required) {
+    public void appendOption(final StringBuffer buff, final Option option, final boolean required) {
         if (!required) {
             buff.append("[");
         }
@@ -759,7 +762,7 @@ public class HelpFormatter {
      *
      * @return the StringBuffer with the rendered Options contents.
      */
-    protected StringBuffer renderOptions(final StringBuffer sb, final int width, final Options options, final int leftPad, final int descPad) {
+    public StringBuffer renderOptions(final StringBuffer sb, final int width, final Options options, final int leftPad, final int descPad) {
         final String lpad = createPadding(leftPad);
         final String dpad = createPadding(descPad);
         // first create list containing only <lpad>-a,--aaa where
