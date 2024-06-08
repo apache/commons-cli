@@ -542,6 +542,7 @@ public abstract class AbstractParserTestCase {
     @Test
     public void testOptionGroup() throws Exception {
         final OptionGroup group = new OptionGroup();
+        assertFalse(group.isSelected());
         group.addOption(OptionBuilder.create("a"));
         group.addOption(OptionBuilder.create("b"));
 
@@ -550,6 +551,7 @@ public abstract class AbstractParserTestCase {
 
         parser.parse(options, new String[] { "-b" });
 
+        assertTrue(group.isSelected());
         assertEquals("b", group.getSelected(), "selected option");
     }
 
@@ -565,6 +567,7 @@ public abstract class AbstractParserTestCase {
         final CommandLine cl = parser.parse(options, new String[] { "--bar" });
 
         assertTrue(cl.hasOption("bar"));
+        assertTrue(group.isSelected());
         assertEquals("bar", group.getSelected(), "selected option");
     }
 

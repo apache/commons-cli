@@ -22,8 +22,12 @@
     <title>Apache Commons CLI Release Notes</title>
   </properties>
   <body>
-    <release version="1.8.1" date="YYYY-MM-DD" description="This release contains new features and bug fixes and requires Java 8 or above.">
-      <action type="add" issue="CLI-334" dev="ggregory" due-to="Eric Pugh">Fix Javadoc pathing #280.</action>
+    <release version="1.9.0" date="YYYY-MM-DD" description="This release contains new features and bug fixes and requires Java 8 or above.">
+      <!-- ADD -->
+      <action type="add" dev="ggregory" due-to="Gary Gregory">Add OptionGroup.isSelected().</action>
+      <!-- FIX -->
+      <action type="fix" issue="CLI-334" dev="ggregory" due-to="Eric Pugh">Fix Javadoc pathing #280.</action>
+      <!-- UPDATE -->
     </release>
     <release version="1.8.0" date="2024-05-18" description="This release contains new features and bug fixes and requires Java 8 or above.">
       <!-- ADD -->

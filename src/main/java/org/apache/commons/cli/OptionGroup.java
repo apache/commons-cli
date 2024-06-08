@@ -92,6 +92,16 @@ public class OptionGroup implements Serializable {
     }
 
     /**
+     * Tests whether an option is selected.
+     *
+     * @return whether whether an option is selected.
+     * @since 1.9.0
+     */
+    public boolean isSelected() {
+        return selected != null;
+    }
+
+    /**
      * Sets whether this group is required.
      *
      * @param required whether this group is required.
