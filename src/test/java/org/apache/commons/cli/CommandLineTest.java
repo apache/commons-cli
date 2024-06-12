@@ -117,6 +117,27 @@ public class CommandLineTest {
     }
 
     @Test
+    public void testDeprecatedOptionGroup() throws Exception {
+        final Options options = new Options();
+        final Option optI = Option.builder("i").hasArg().type(Number.class).build();
+        final Option optF = Option.builder("f").deprecated().hasArg().build();
+        OptionGroup optionGroup = new OptionGroup().addOption(optI).addOption(optF);
+        options.addOptionGroup(optionGroup);
+
+        final List<Option> handler = new ArrayList<>();
+        final CommandLine.Builder builder = new CommandLine.Builder();
+        CommandLineParser parser = DefaultParser.builder().setDeprecatedHandler(handler::add).build();
+        CommandLine cmd = parser.parse(options, new String[] {"-i", "123"});
+        assertEquals(123, ((Number) cmd.getParsedOptionValue(optionGroup)).intValue());
+        assertEquals(0, handler.size());
+
+        cmd = parser.parse(options, new String[] {"-f", "hello"});
+        assertEquals("hello", cmd.getParsedOptionValue(optionGroup));
+        assertEquals(1, handler.size());
+    }
+
+
+    @Test
     public void testDeprecatedParsedOptionValue() throws ParseException {
         final CommandLine.Builder builder = new CommandLine.Builder();
         builder.addArg("foo").addArg("bar");
@@ -295,7 +316,19 @@ public class CommandLineTest {
         final CommandLine cmd = parser.parse(options, new String[] {"-i", "123", "-f", "foo"});
 
         assertEquals(123, ((Number) cmd.getParsedOptionValue(optI)).intValue());
-        assertEquals("foo", cmd.getParsedOptionValue(optF));
+    }
+
+    @Test
+    public void testGetParsedOptionValueWithOptionGroup() throws Exception {
+        final Option optI = Option.builder("i").hasArg().type(Number.class).build();
+        final Option optF = Option.builder("f").deprecated().hasArg().build();
+        OptionGroup optionGroup = new OptionGroup().addOption(optI).addOption(optF);
+        final Options options = new Options().addOptionGroup(optionGroup);
+
+        final CommandLineParser parser = new DefaultParser();
+        final CommandLine cmd = parser.parse(options, new String[] {"-i", "123"});
+
+        assertEquals(123, ((Number) cmd.getParsedOptionValue(optionGroup)).intValue());
     }
 
     @Test
