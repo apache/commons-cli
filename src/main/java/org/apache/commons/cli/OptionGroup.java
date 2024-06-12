@@ -76,6 +76,7 @@ public class OptionGroup implements Serializable {
     /**
      * Gets the selected option name.
      *
+     * If the selected option is deprecated <em>no warning is logged</em>.
      * @return the selected option name.
      */
     public String getSelected() {
@@ -94,6 +95,7 @@ public class OptionGroup implements Serializable {
     /**
      * Tests whether an option is selected.
      *
+     *  If an option is selected and is deprecated <em>no warning is logged</em>.
      * @return whether whether an option is selected.
      * @since 1.9.0
      */
@@ -113,6 +115,7 @@ public class OptionGroup implements Serializable {
     /**
      * Sets the selected option of this group to {@code name}.
      *
+     * If the selected option is deprecated <em>no warning is logged</em>.
      * @param option the option that is selected
      * @throws AlreadySelectedException if an option from this group has already been selected.
      */
