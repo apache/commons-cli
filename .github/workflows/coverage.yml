@@ -29,7 +29,7 @@ jobs:
         java: [ 8 ]
 
     steps:
-    - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # 4.1.6
+    - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # 4.1.7
       with:
         persist-credentials: false
     - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
@@ -47,6 +47,6 @@ jobs:
       run: mvn --show-version --batch-mode --no-transfer-progress test jacoco:report
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@125fc84a9a348dbcf27191600683ec096ec9021c # v4.4.1
+      uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # v4.5.0
       with:
         files: ./target/site/jacoco/jacoco.xml

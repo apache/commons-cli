@@ -63,6 +63,8 @@ public class OptionGroupTest {
     @Test
     public void testGetNames() {
         final OptionGroup group = new OptionGroup();
+        assertFalse(group.isSelected());
+
         group.addOption(OptionBuilder.create('a'));
         group.addOption(OptionBuilder.create('b'));
 
@@ -156,6 +158,7 @@ public class OptionGroupTest {
             fail("two arguments from group not allowed");
         } catch (final AlreadySelectedException e) {
             assertNotNull(e.getOptionGroup(), "null option group");
+            assertTrue(e.getOptionGroup().isSelected());
             assertEquals("f", e.getOptionGroup().getSelected(), "selected option");
             assertEquals("d", e.getOption().getOpt(), "option");
         }
@@ -183,6 +186,7 @@ public class OptionGroupTest {
             fail("two arguments from group not allowed");
         } catch (final AlreadySelectedException e) {
             assertNotNull(e.getOptionGroup(), "null option group");
+            assertTrue(e.getOptionGroup().isSelected());
             assertEquals("f", e.getOptionGroup().getSelected(), "selected option");
             assertEquals("d", e.getOption().getOpt(), "option");
         }

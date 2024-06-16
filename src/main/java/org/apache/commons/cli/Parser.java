@@ -273,7 +273,7 @@ public abstract class Parser implements CommandLineParser {
             }
             // if the option is part of a group, check if another option of the group has been selected
             final OptionGroup group = options.getOptionGroup(opt);
-            final boolean selected = group != null && group.getSelected() != null;
+            final boolean selected = group != null && group.isSelected();
             if (!cmd.hasOption(option) && !selected) {
                 // get the value from the properties instance
                 final String value = properties.getProperty(option);

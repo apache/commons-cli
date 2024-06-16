@@ -41,7 +41,7 @@ public class OptionGroup implements Serializable {
     private boolean required;
 
     /**
-     * Add the specified {@code Option} to this group.
+     * Adds the given {@code Option} to this group.
      *
      * @param option the option to add to this group
      * @return this option group with the option added
@@ -54,7 +54,9 @@ public class OptionGroup implements Serializable {
     }
 
     /**
-     * @return the names of the options in this group as a {@code Collection}
+     * Gets the names of the options in this group as a {@code Collection}.
+     *
+     * @return the names of the options in this group as a {@code Collection}.
      */
     public Collection<String> getNames() {
         // the key set is the collection of names
@@ -62,7 +64,9 @@ public class OptionGroup implements Serializable {
     }
 
     /**
-     * @return the options in this group as a {@code Collection}
+     * Gets the options in this group as a {@code Collection}.
+     *
+     * @return the options in this group as a {@code Collection}.
      */
     public Collection<Option> getOptions() {
         // the values are the collection of options
@@ -70,7 +74,9 @@ public class OptionGroup implements Serializable {
     }
 
     /**
-     * @return the selected option name
+     * Gets the selected option name.
+     *
+     * @return the selected option name.
      */
     public String getSelected() {
         return selected;
@@ -86,7 +92,19 @@ public class OptionGroup implements Serializable {
     }
 
     /**
-     * @param required specifies if this group is required
+     * Tests whether an option is selected.
+     *
+     * @return whether whether an option is selected.
+     * @since 1.9.0
+     */
+    public boolean isSelected() {
+        return selected != null;
+    }
+
+    /**
+     * Sets whether this group is required.
+     *
+     * @param required whether this group is required.
      */
     public void setRequired(final boolean required) {
         this.required = required;
