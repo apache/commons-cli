@@ -187,7 +187,7 @@ public final class OptionBuilder {
     /**
      * The next Option can have the specified number of optional arguments.
      *
-     * @param numArgs - the maximum number of optional arguments the next Option created can have.
+     * @param numArgs   the maximum number of optional arguments the next Option created can have.
      * @return the OptionBuilder instance
      */
     public static OptionBuilder hasOptionalArgs(final int numArgs) {
