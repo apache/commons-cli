@@ -441,12 +441,12 @@ public class CommandLine implements Serializable {
         if (option == null) {
             return null;
         }
-        if (option.isDeprecated()) {
-            handleDeprecated(option);
-        }
         final List<String> values = new ArrayList<>();
         for (final Option processedOption : options) {
             if (processedOption.equals(option)) {
+                if (option.isDeprecated()) {
+                    handleDeprecated(option);
+                }
                 values.addAll(processedOption.getValuesList());
             }
         }
