@@ -25,6 +25,7 @@
     <release version="1.9.0" date="YYYY-MM-DD" description="This release contains new features and bug fixes and requires Java 8 or above.">
       <!-- ADD -->
       <action type="add" dev="ggregory" due-to="Gary Gregory">Add OptionGroup.isSelected().</action>
+      <action type="add" dev="ggregory" due-to="Gary Gregory">You can now extend HelpFormatter.Builder.</action>
       <!-- FIX -->
       <action type="fix" issue="CLI-334" dev="ggregory" due-to="Eric Pugh">Fix Javadoc pathing #280.</action>
       <action type="fix" issue="CLI-335" dev="ggregory" due-to="Claude Warren">Updated properties documentation #285.</action>

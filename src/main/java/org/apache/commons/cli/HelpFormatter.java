@@ -71,7 +71,7 @@ public class HelpFormatter {
      *
      * @since 1.7.0
      */
-    public static final class Builder implements Supplier<HelpFormatter> {
+    public static class Builder implements Supplier<HelpFormatter> {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
 
