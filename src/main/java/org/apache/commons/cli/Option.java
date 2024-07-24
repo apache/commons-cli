@@ -93,6 +93,9 @@ public class Option implements Cloneable, Serializable {
         /** Specifies whether this option is required to be present. */
         private boolean required;
 
+        /** Specifies the version when this option was added.  May be null */
+        private String since;
+
         /** The type of this Option. */
         private Class<?> type = DEFAULT_TYPE;
 
@@ -282,6 +285,16 @@ public class Option implements Cloneable, Serializable {
             return this;
         }
 
+        /** Sets the version number when this option was first defined."
+         *
+         * @param since the version number when this option was first defined.
+         * @return this builder.
+         */
+        public Builder since(final String since) {
+            this.since = since;
+            return this;
+        }
+
         /**
          * Sets the type of the Option.
          *
@@ -395,6 +408,9 @@ public class Option implements Cloneable, Serializable {
     /** Specifies whether this option is required to be present. */
     private boolean required;
 
+    /** Specifies the version when this option was added.  May be null */
+    private String since;
+
     /** The type of this Option. */
     private Class<?> type = String.class;
 
@@ -418,6 +434,7 @@ public class Option implements Cloneable, Serializable {
         this.optionalArg = builder.optionalArg;
         this.deprecated = builder.deprecated;
         this.required = builder.required;
+        this.since = builder.since;
         this.type = builder.type;
         this.valuesep = builder.valueSeparator;
         this.converter = builder.converter;
@@ -643,6 +660,15 @@ public class Option implements Cloneable, Serializable {
     public String getOpt() {
         return option;
     }
+
+    /**
+     * Gets the version when this option was added.
+     * @return the version when this option was added, or {@code null} if not set.
+     */
+    public String getSince() {
+        return since;
+    }
+
 
     /**
      * Gets the type of this Option.
