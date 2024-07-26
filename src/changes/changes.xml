@@ -26,6 +26,7 @@
       <!-- ADD -->
       <action type="add" dev="ggregory" due-to="Gary Gregory">Add OptionGroup.isSelected().</action>
       <action type="add" dev="ggregory" due-to="Gary Gregory">You can now extend HelpFormatter.Builder.</action>
+      <action type="add" dev="ggregory" due-to="Claude Warren">Add 'since' attribute to Option to track when an Option was introduced #292</action>
       <!-- FIX -->
       <action type="fix" issue="CLI-334" dev="ggregory" due-to="Eric Pugh">Fix Javadoc pathing #280.</action>
       <action type="fix" issue="CLI-335" dev="ggregory" due-to="Claude Warren">Updated properties documentation #285.</action>
