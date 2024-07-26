@@ -17,11 +17,13 @@
 
 package org.apache.commons.cli;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -491,6 +493,22 @@ public class HelpFormatterTest {
     }
 
     @Test
+    public void testPrintHelpWithSince() {
+        final String [] expected = {"usage: Command syntax", "Header", "Options            Since   Description",
+                "  -n,--no-since    -          Description for n", "  -W,--with-since  1.19.0     Descripton for W", "footer"};
+        final Options options = new Options()
+                .addOption(Option.builder("W").longOpt("with-since").since("1.19.0").desc("Descripton for W").build())
+                .addOption(Option.builder("n").longOpt("no-since").desc("Description for n").build());
+
+        final HelpFormatter formatter = HelpFormatter.builder().setShowSince(true).get();
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(baos))) {
+            formatter.printHelp(pw, 80, "Command syntax", "Header", options, 2, 5, "footer", false);
+        }
+        assertArrayEquals(expected, baos.toString().split(System.lineSeparator()));
+    }
+
+    @Test
     public void testPrintOptionGroupUsage() {
         final OptionGroup group = new OptionGroup();
         group.addOption(Option.builder("a").build());
@@ -636,6 +654,20 @@ public class HelpFormatterTest {
             helpFormatter.printUsage(printWriter, 80, "app", opts);
         }
         assertEquals("usage: app [-a] [-b] [-c]" + EOL, bytesOut.toString());
+    }
+
+    @Test
+    public void testRenderSince() {
+        final String[] expected = {"Options            Since   Description", "  -n,--no-since    -          Description for n",
+            "  -W,--with-since  1.19.0     Descripton for W"};
+        final Options options = new Options()
+                .addOption(Option.builder("W").longOpt("with-since").since("1.19.0").desc("Descripton for W").build())
+                .addOption(Option.builder("n").longOpt("no-since").desc("Description for n").build());
+        final HelpFormatter formatter = HelpFormatter.builder().setShowSince(true).get();
+
+        final StringBuffer sb = new StringBuffer();
+        formatter.renderOptions(sb, 50, options, 2, 5);
+        assertArrayEquals(expected, sb.toString().split(System.lineSeparator()));
     }
 
     @Test

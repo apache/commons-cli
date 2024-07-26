@@ -90,9 +90,12 @@ public class HelpFormatter {
          */
         private PrintWriter printStream = createDefaultPrintWriter();
 
+        /** The flag to determine if the since values should be dispalyed */
+        private boolean showSince;
+
         @Override
         public HelpFormatter get() {
-            return new HelpFormatter(deprecatedFormatFunc, printStream);
+            return new HelpFormatter(deprecatedFormatFunc, printStream, showSince);
         }
 
         /**
@@ -127,6 +130,17 @@ public class HelpFormatter {
             this.deprecatedFormatFunc = showDeprecatedFunc;
             return this;
         }
+
+        /**
+         * Sets whether to show the date the option was first added.
+         * @param showSince if @{code true} the date the options was first added will be shown.
+         * @return this builder.
+         * @since 1.9.0
+         */
+        public Builder setShowSince(final boolean showSince) {
+            this.showSince = showSince;
+            return this;
+        }
     }
 
     /**
@@ -151,6 +165,15 @@ public class HelpFormatter {
             return opt1.getKey().compareToIgnoreCase(opt2.getKey());
         }
     }
+    /** "Options" text for options header */
+    private static final String HEADER_OPTIONS = "Options";
+
+    /** "Since" text for options header */
+    private static final String HEADER_SINCE = "Since";
+
+    /** "Description" test for options header */
+    private static final String HEADER_DESCRIPTION = "Description";
+
     /** Default number of characters per line */
     public static final int DEFAULT_WIDTH = 74;
 
@@ -285,6 +308,9 @@ public class HelpFormatter {
      */
     private final PrintWriter printWriter;
 
+    /** Flag to determine if since field should be displayed */
+    private final boolean showSince;
+
     /**
      * The separator displayed between the long option and its value.
      */
@@ -294,18 +320,19 @@ public class HelpFormatter {
      * Constructs a new instance.
      */
     public HelpFormatter() {
-        this(null, createDefaultPrintWriter());
+        this(null, createDefaultPrintWriter(), false);
     }
 
     /**
      * Constructs a new instance.
      * @param printStream TODO
      */
-    private HelpFormatter(final Function<Option, String> deprecatedFormatFunc, final PrintWriter printStream) {
+    private HelpFormatter(final Function<Option, String> deprecatedFormatFunc, final PrintWriter printStream, final boolean showSince) {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
         this.deprecatedFormatFunc = deprecatedFormatFunc;
         this.printWriter = printStream;
+        this.showSince = showSince;
     }
 
     /**
@@ -748,6 +775,12 @@ public class HelpFormatter {
         printWrapped(pw, width, 0, text);
     }
 
+    private int determineMaxSinceLength(final Options options) {
+        int minLen = HEADER_SINCE.length();
+        int len = options.getOptions().stream().map(o -> o.getSince() == null ? minLen : o.getSince().length()).max(Integer::compareTo).orElse(minLen);
+        return len < minLen ? minLen : len;
+    }
+
     /**
      * Renders the specified Options and return the rendered Options in a StringBuffer.
      *
@@ -767,6 +800,7 @@ public class HelpFormatter {
         // the longest opt string this list will be then used to
         // sort options ascending
         int max = 0;
+        int maxSince = showSince ? determineMaxSinceLength(options) + leftPad : 0;
         final List<StringBuffer> prefixList = new ArrayList<>();
         final List<Option> optList = options.helpOptions();
         if (getOptionComparator() != null) {
@@ -792,18 +826,32 @@ public class HelpFormatter {
                     optBuf.append("<").append(argName != null ? option.getArgName() : getArgName()).append(">");
                 }
             }
+
             prefixList.add(optBuf);
-            max = Math.max(optBuf.length(), max);
+            max = Math.max(optBuf.length() + maxSince, max);
         }
+        final int nextLineTabStop = max + descPad;
+        if (showSince) {
+            StringBuilder optHeader = new StringBuilder(HEADER_OPTIONS).append(createPadding(max - maxSince - HEADER_OPTIONS.length() + leftPad))
+                    .append(HEADER_SINCE);
+            optHeader.append(createPadding(max - optHeader.length())).append(lpad).append(HEADER_DESCRIPTION);
+            renderWrappedText(sb, width, nextLineTabStop, optHeader.toString());
+            sb.append(getNewLine());
+        }
+
         int x = 0;
         for (final Iterator<Option> it = optList.iterator(); it.hasNext();) {
             final Option option = it.next();
             final StringBuilder optBuf = new StringBuilder(prefixList.get(x++).toString());
             if (optBuf.length() < max) {
+                optBuf.append(createPadding(max - maxSince - optBuf.length()));
+                if (showSince) {
+                    optBuf.append(lpad).append(option.getSince() == null ? "-" : option.getSince());
+                }
                 optBuf.append(createPadding(max - optBuf.length()));
             }
             optBuf.append(dpad);
-            final int nextLineTabStop = max + descPad;
+
             if (deprecatedFormatFunc != null && option.isDeprecated()) {
                 optBuf.append(deprecatedFormatFunc.apply(option).trim());
             } else if (option.getDescription() != null) {
