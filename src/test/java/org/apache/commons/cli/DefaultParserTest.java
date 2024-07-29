@@ -23,14 +23,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.apache.commons.cli.DefaultParser.Builder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.ArgumentsProvider;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
-/**
- * TODO Needs a rework using JUnit parameterized tests.
- */
 public class DefaultParserTest extends AbstractParserTestCase {
 
     @Override
@@ -83,24 +86,126 @@ public class DefaultParserTest extends AbstractParserTestCase {
         assertFalse(handler.contains(opt3));
     }
 
-    @Test
-    public void testLongOptionQuoteHandlingWithoutStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).get();
-        final String[] args = {"--bfile", "\"quoted string\""};
-
+    @ParameterizedTest(name = "{index}. {0}")
+    @ArgumentsSource(ExternalArgumentsProvider.class)
+    public void testParameterized(final String testName, final CommandLineParser parser, final String[] args, final String expected,
+        final String option, final String message) throws Exception {
         final CommandLine cl = parser.parse(options, args);
 
-        assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm --bfile \"arg\" keeps quotes");
+        assertEquals(expected, cl.getOptionValue(option), message);
     }
 
-    @Test
-    public void testLongOptionQuoteHandlingWithStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).get();
-        final String[] args = {"--bfile", "\"quoted string\""};
+    static class ExternalArgumentsProvider implements ArgumentsProvider {
 
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals("quoted string", cl.getOptionValue("b"), "Confirm --bfile \"arg\" strips quotes");
+        @Override
+        public Stream<? extends Arguments> provideArguments(final ExtensionContext context) {
+            return Stream.of(
+                    /* Arguments:
+                     * 1. test case name
+                     * 2. parser
+                     * 3. input string
+                     * 4. expected option value
+                     * 5. checked option
+                     * 6. assertion message
+                     */
+                    Arguments.of(
+                            "Long option quote handling DEFAULT behavior",
+                            DefaultParser.builder().get(),
+                            new String[]{"--bfile", "\"quoted string\""},
+                            "quoted string",
+                            "b",
+                            "Confirm --bfile=\"arg\" strips quotes"
+                    ),
+                    Arguments.of(
+                            "Long option with equals quote handling DEFAULT behavior",
+                            DefaultParser.builder().get(),
+                            new String[]{"--bfile=\"quoted string\""},
+                            "\"quoted string\"",
+                            "b",
+                            "Confirm --bfile=\"arg\" keeps quotes"
+                    ),
+                    Arguments.of(
+                            "Short option quote handling DEFAULT behavior",
+                            DefaultParser.builder().get(),
+                            new String[]{"-b", "\"quoted string\""},
+                            "quoted string",
+                            "b",
+                            "Confirm -b\"arg\" strips quotes"
+                    ),
+                    Arguments.of(
+                            "Short option concatenated quote handling DEFAULT behavior",
+                            DefaultParser.builder().get(),
+                            new String[]{"-b\"quoted string\""},
+                            "\"quoted string\"",
+                            "b",
+                            "Confirm -b\"arg\" keeps quotes"
+                    ),
+                    Arguments.of(
+                            "Long option quote handling WITHOUT strip",
+                            DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).get(),
+                            new String[]{"--bfile", "\"quoted string\""},
+                            "\"quoted string\"",
+                            "b",
+                            "Confirm --bfile \"arg\" keeps quotes"
+                    ),
+                    Arguments.of(
+                            "Long option with equals quote handling WITHOUT strip",
+                            DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).get(),
+                            new String[]{"--bfile=\"quoted string\""},
+                            "\"quoted string\"",
+                            "b",
+                            "Confirm --bfile=\"arg\" keeps quotes"
+                    ),
+                    Arguments.of(
+                            "Short option quote handling WITHOUT strip",
+                            DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).get(),
+                            new String[]{"-b", "\"quoted string\""},
+                            "\"quoted string\"",
+                            "b",
+                            "Confirm -b\"arg\" keeps quotes"
+                    ),
+                    Arguments.of(
+                            "Short option concatenated quote handling WITHOUT strip",
+                            DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).get(),
+                            new String[]{"-b\"quoted string\""},
+                            "\"quoted string\"",
+                            "b",
+                            "Confirm -b\"arg\" keeps quotes"
+                    ),
+                    Arguments.of(
+                            "Long option quote handling WITH strip",
+                            DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).get(),
+                            new String[]{"--bfile", "\"quoted string\""},
+                            "quoted string",
+                            "b",
+                            "Confirm --bfile \"arg\" strips quotes"
+                    ),
+                    Arguments.of(
+                            "Long option With Equals Quote Handling WITH Strip",
+                            DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).get(),
+                            new String[]{"--bfile=\"quoted string\""},
+                            "quoted string",
+                            "b",
+                            "Confirm --bfile=\"arg\" strips quotes"
+                    ),
+                    Arguments.of(
+                            "Short option quote handling WITH strip",
+                            DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).get(),
+                            new String[]{"-b", "\"quoted string\""},
+                            "quoted string",
+                            "b",
+                            "Confirm -b \"arg\" strips quotes"
+                    ),
+                    Arguments.of(
+                            "Short option concatenated quote handling WITH strip",
+                            DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).get(),
+                            new String[]{"-b\"quoted string\""},
+                            "quoted string",
+                            "b",
+                            "Confirm -b\"arg\" strips quotes"
+                    )
+            );
+        }
     }
 
     @Override
@@ -113,26 +218,6 @@ public class DefaultParserTest extends AbstractParserTestCase {
         assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm --bfile=\"arg\" strips quotes");
     }
 
-    @Test
-    public void testLongOptionWithEqualsQuoteHandlingWithoutStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).get();
-        final String[] args = {"--bfile=\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm --bfile=\"arg\" keeps quotes");
-    }
-
-    @Test
-    public void testLongOptionWithEqualsQuoteHandlingWithStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).get();
-        final String[] args = {"--bfile=\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals("quoted string", cl.getOptionValue("b"), "Confirm --bfile=\"arg\" strips quotes");
-    }
-
     @Override
     @Test
     public void testShortOptionConcatenatedQuoteHandling() throws Exception {
@@ -142,25 +227,5 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
         //This is behavior is not consistent with the other parsers, but is required for backwards compatibility
         assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm -b\"arg\" keeps quotes");
-    }
-
-    @Test
-    public void testShortOptionQuoteHandlingWithoutStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).get();
-        final String[] args = {"-b", "\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm -b \"arg\" keeps quotes");
-    }
-
-    @Test
-    public void testShortOptionQuoteHandlingWithStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).get();
-        final String[] args = {"-b", "\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals("quoted string", cl.getOptionValue("b"), "Confirm -b \"arg\" strips quotes");
     }
 }
