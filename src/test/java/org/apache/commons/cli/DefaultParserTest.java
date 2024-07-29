@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 
 import org.apache.commons.cli.DefaultParser.Builder;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -210,22 +211,13 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
     @Override
     @Test
+    @Disabled("Test case handled in the parameterized tests as \"DEFAULT behavior\"")
     public void testLongOptionWithEqualsQuoteHandling() throws Exception {
-        final String[] args = {"--bfile=\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm --bfile=\"arg\" strips quotes");
     }
 
     @Override
     @Test
+    @Disabled("Test case handled in the parameterized tests as \"DEFAULT behavior\"")
     public void testShortOptionConcatenatedQuoteHandling() throws Exception {
-        final String[] args = {"-b\"quoted string\""};
-
-        final CommandLine cl = parser.parse(options, args);
-
-        //This is behavior is not consistent with the other parsers, but is required for backwards compatibility
-        assertEquals("\"quoted string\"", cl.getOptionValue("b"), "Confirm -b\"arg\" keeps quotes");
     }
 }
