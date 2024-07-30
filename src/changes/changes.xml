@@ -32,7 +32,7 @@
       <action type="fix" issue="CLI-335" dev="ggregory" due-to="Claude Warren">Updated properties documentation #285.</action>
       <action type="fix" issue="CLI-336" dev="ggregory" due-to="Claude Warren, Gary Gregory">Deprecation not always reported #284.</action> 
       <!-- UPDATE -->
-      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 70 to 71 #283.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 70 to 72 #283.</action>
     </release>
     <release version="1.8.0" date="2024-05-18" description="This release contains new features and bug fixes and requires Java 8 or above.">
       <!-- ADD -->
