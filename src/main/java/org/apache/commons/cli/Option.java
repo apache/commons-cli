@@ -138,9 +138,8 @@ public class Option implements Cloneable, Serializable {
 
         /**
          * Sets the converter for the option.
-         *
          * <p>
-         * Note: see {@link TypeHandler} for serialization discussion.
+         * Note: See {@link TypeHandler} for serialization discussion.
          * </p>
          *
          * @param converter the Converter to use.
