@@ -342,7 +342,7 @@ public class HelpFormatter {
      * @param option the Option to append
      * @param required whether the Option is required or not
      */
-    private void appendOption(final StringBuffer buff, final Option option, final boolean required) {
+    private void appendOption(final StringBuilder buff, final Option option, final boolean required) {
         if (!required) {
             buff.append("[");
         }
@@ -366,11 +366,11 @@ public class HelpFormatter {
      * Appends the usage clause for an OptionGroup to a StringBuffer. The clause is wrapped in square brackets if the group
      * is required. The display of the options is handled by appendOption
      *
-     * @param buff the StringBuffer to append to
+     * @param buff the StringBuilder to append to
      * @param group the group to append
-     * @see #appendOption(StringBuffer,Option,boolean)
+     * @see #appendOption(StringBuilder,Option,boolean)
      */
-    private void appendOptionGroup(final StringBuffer buff, final OptionGroup group) {
+    private void appendOptionGroup(final StringBuilder buff, final OptionGroup group) {
         if (!group.isRequired()) {
             buff.append("[");
         }
@@ -712,7 +712,7 @@ public class HelpFormatter {
      */
     public void printUsage(final PrintWriter pw, final int width, final String app, final Options options) {
         // initialize the string buffer
-        final StringBuffer buff = new StringBuffer(getSyntaxPrefix()).append(app).append(Char.SP);
+        final StringBuilder buff = new StringBuilder(getSyntaxPrefix()).append(app).append(Char.SP);
         // create a list for processed option groups
         final Collection<OptionGroup> processedGroups = new ArrayList<>();
         final List<Option> optList = new ArrayList<>(options.getOptions());
