@@ -21,11 +21,15 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -35,6 +39,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
 
 /**
  * Test case for the HelpFormatter class.
@@ -657,7 +662,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void testRenderSince() {
+    public void testRenderSince() throws IOException {
         final String[] expected = {"Options            Since   Description", "  -n,--no-since    -          Description for n",
             "  -W,--with-since  1.19.0     Descripton for W"};
         final Options options = new Options()
@@ -668,6 +673,10 @@ public class HelpFormatterTest {
         final StringBuffer sb = new StringBuffer();
         formatter.renderOptions(sb, 50, options, 2, 5);
         assertArrayEquals(expected, sb.toString().split(System.lineSeparator()));
+        // check internal exception handling for coverage
+        final HelpFormatter spy = spy(formatter);
+        when(spy.appendOptions(sb, 50, options, 2, 5)).thenThrow(IOException.class);
+        assertThrows(UncheckedIOException.class, () -> spy.renderOptions(sb, 50, options, 2, 5));
     }
 
     @Test
@@ -706,7 +715,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void testRenderWrappedTextSingleLine() {
+    public void testRenderWrappedTextSingleLine() throws IOException {
         // single line text
         final int width = 12;
         final int padding = 0;
@@ -716,6 +725,11 @@ public class HelpFormatterTest {
         final StringBuffer sb = new StringBuffer();
         new HelpFormatter().renderWrappedText(sb, width, padding, text);
         assertEquals(expected, sb.toString(), "single line text");
+        // check internal exception handling for coverage
+        final HelpFormatter spy = spy(new HelpFormatter());
+        when(spy.appendWrappedText(sb, width, padding, text)).thenThrow(IOException.class);
+        assertThrows(UncheckedIOException.class, () -> spy.renderWrappedText(sb, width, padding, text));
+
     }
 
     @Test

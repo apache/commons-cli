@@ -63,6 +63,12 @@
       <version>2.16.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>4.11.0</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <properties>
     <project.build.outputTimestamp>2024-05-23T21:37:00Z</project.build.outputTimestamp>
