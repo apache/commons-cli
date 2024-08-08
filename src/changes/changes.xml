@@ -31,6 +31,7 @@
       <action type="fix" issue="CLI-334" dev="ggregory" due-to="Eric Pugh">Fix Javadoc pathing #280.</action>
       <action type="fix" issue="CLI-335" dev="ggregory" due-to="Claude Warren">Updated properties documentation #285.</action>
       <action type="fix" issue="CLI-336" dev="ggregory" due-to="Claude Warren, Gary Gregory">Deprecation not always reported #284.</action> 
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">Replace internal StringBuffer with StringBuilder.</action>
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 70 to 72 #283.</action>
     </release>

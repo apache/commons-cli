@@ -801,13 +801,13 @@ public class HelpFormatter {
         // sort options ascending
         int max = 0;
         int maxSince = showSince ? determineMaxSinceLength(options) + leftPad : 0;
-        final List<StringBuffer> prefixList = new ArrayList<>();
+        final List<StringBuilder> prefixList = new ArrayList<>();
         final List<Option> optList = options.helpOptions();
         if (getOptionComparator() != null) {
             Collections.sort(optList, getOptionComparator());
         }
         for (final Option option : optList) {
-            final StringBuffer optBuf = new StringBuffer();
+            final StringBuilder optBuf = new StringBuilder();
             if (option.getOpt() == null) {
                 optBuf.append(lpad).append("   ").append(getLongOptPrefix()).append(option.getLongOpt());
             } else {
