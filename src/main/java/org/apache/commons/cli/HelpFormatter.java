@@ -84,7 +84,7 @@ public class HelpFormatter {
         /**
          * Formatter for deprecated options.
          */
-        private Function<Option, String> deprecatedFormatFunc = DEFAULT_DEPRECATED_FORMAT;
+        private Function<Option, String> deprecatedFormatFunction = DEFAULT_DEPRECATED_FORMAT;
 
         /**
          * The output PrintWriter, defaults to wrapping {@link System#out}.
@@ -96,7 +96,7 @@ public class HelpFormatter {
 
         @Override
         public HelpFormatter get() {
-            return new HelpFormatter(deprecatedFormatFunc, printStream, showSince);
+            return new HelpFormatter(deprecatedFormatFunction, printStream, showSince);
         }
 
         /**
@@ -123,12 +123,12 @@ public class HelpFormatter {
         /**
          * Sets whether to show deprecated options.
          *
-         * @param showDeprecatedFunc Specify the format for the deprecated options.
+         * @param deprecatedFormatFunction Specify the format for the deprecated options.
          * @return {@code this} instance.
          * @since 1.8.0
          */
-        public Builder setShowDeprecated(final Function<Option, String> showDeprecatedFunc) {
-            this.deprecatedFormatFunc = showDeprecatedFunc;
+        public Builder setShowDeprecated(final Function<Option, String> deprecatedFormatFunction) {
+            this.deprecatedFormatFunction = deprecatedFormatFunction;
             return this;
         }
 
