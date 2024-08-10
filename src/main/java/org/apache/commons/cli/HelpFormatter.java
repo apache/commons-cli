@@ -947,28 +947,28 @@ public class HelpFormatter {
      * Renders the specified text width a maximum width. This method differs from renderWrappedText by not removing leading
      * spaces after a new line.
      *
-     * @param sb The StringBuffer to place the rendered text into.
+     * @param appendable The StringBuffer to place the rendered text into.
      * @param width The number of characters to display per line
      * @param nextLineTabStop The position on the next line for the first tab.
      * @param text The text to be rendered.
      */
-    private <A extends Appendable> A renderWrappedTextBlock(final A sb, final int width, final int nextLineTabStop, final String text) {
+    private <A extends Appendable> A renderWrappedTextBlock(final A appendable, final int width, final int nextLineTabStop, final String text) {
         try {
             final BufferedReader in = new BufferedReader(new StringReader(text));
             String line;
             boolean firstLine = true;
             while ((line = in.readLine()) != null) {
                 if (!firstLine) {
-                    sb.append(getNewLine());
+                    appendable.append(getNewLine());
                 } else {
                     firstLine = false;
                 }
-                appendWrappedText(sb, width, nextLineTabStop, line);
+                appendWrappedText(appendable, width, nextLineTabStop, line);
             }
         } catch (final IOException e) { // NOPMD
             // cannot happen
         }
-        return sb;
+        return appendable;
     }
 
     /**
