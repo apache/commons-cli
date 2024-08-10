@@ -302,7 +302,7 @@ public class HelpFormatter {
     /**
      * Function to format the description for a deprecated option.
      */
-    private final Function<Option, String> deprecatedFormatFunc;
+    private final Function<Option, String> deprecatedFormatFunction;
 
     /**
      * Where to print help.
@@ -328,10 +328,10 @@ public class HelpFormatter {
      * Constructs a new instance.
      * @param printWriter TODO
      */
-    private HelpFormatter(final Function<Option, String> deprecatedFormatFunc, final PrintWriter printWriter, final boolean showSince) {
+    private HelpFormatter(final Function<Option, String> deprecatedFormatFunction, final PrintWriter printWriter, final boolean showSince) {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
-        this.deprecatedFormatFunc = deprecatedFormatFunc;
+        this.deprecatedFormatFunction = deprecatedFormatFunction;
         this.printWriter = printWriter;
         this.showSince = showSince;
     }
@@ -464,8 +464,8 @@ public class HelpFormatter {
             }
             optBuf.append(dpad);
 
-            if (deprecatedFormatFunc != null && option.isDeprecated()) {
-                optBuf.append(deprecatedFormatFunc.apply(option).trim());
+            if (deprecatedFormatFunction != null && option.isDeprecated()) {
+                optBuf.append(deprecatedFormatFunction.apply(option).trim());
             } else if (option.getDescription() != null) {
                 optBuf.append(option.getDescription());
             }
