@@ -326,13 +326,13 @@ public class HelpFormatter {
 
     /**
      * Constructs a new instance.
-     * @param printStream TODO
+     * @param printWriter TODO
      */
-    private HelpFormatter(final Function<Option, String> deprecatedFormatFunc, final PrintWriter printStream, final boolean showSince) {
+    private HelpFormatter(final Function<Option, String> deprecatedFormatFunc, final PrintWriter printWriter, final boolean showSince) {
         // TODO All other instance HelpFormatter instance variables.
         // Make HelpFormatter immutable for 2.0
         this.deprecatedFormatFunc = deprecatedFormatFunc;
-        this.printWriter = printStream;
+        this.printWriter = printWriter;
         this.showSince = showSince;
     }
 
