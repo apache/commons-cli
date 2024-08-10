@@ -1,3 +1,45 @@
+Apache Commons CLI Version 1.9.0 Release Notes
+
+Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
+
+This release contains new features and bug fixes and requires Java 8 or above.
+
+
+New Features
+------------
+
+*           Add OptionGroup.isSelected(). Thanks to Gary Gregory.
+*           You can now extend HelpFormatter.Builder. Thanks to Gary Gregory.
+*           Add 'since' attribute to Option to track when an Option was introduced #292 Thanks to Claude Warren.
+
+Fixed Bugs
+----------
+
+* CLI-334:  Fix Javadoc pathing #280. Thanks to Eric Pugh.
+* CLI-335:  Updated properties documentation #285. Thanks to Claude Warren.
+* CLI-336:  Deprecation not always reported #284. Thanks to Claude Warren, Gary Gregory.
+*           Replace internal StringBuffer with StringBuilder. Thanks to Gary Gregory.
+
+Updates
+-------
+
+*           Bump org.apache.commons:commons-parent from 70 to 72 #283. Thanks to Gary Gregory, Dependabot.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-cli/changes-report.html
+
+For complete information on Apache Commons CLI, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons CLI website:
+
+https://commons.apache.org/proper/commons-cli/
+
+Download page: https://commons.apache.org/proper/commons-cli/download_cli.cgi
+
+Have fun!
+The Apache Commons Team
+
+------------------------------------------------------------------------------
+
 Apache Commons CLI Version 1.8.0 Release Notes
 
 Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
