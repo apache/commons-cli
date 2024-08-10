@@ -417,7 +417,7 @@ public class Option implements Cloneable, Serializable {
     private List<String> values = new ArrayList<>();
 
     /** The character that is the value separator. */
-    private char valuesep;
+    private char valueSeparator;
 
     /**
      * Private constructor used by the nested Builder class.
@@ -435,7 +435,7 @@ public class Option implements Cloneable, Serializable {
         this.required = builder.required;
         this.since = builder.since;
         this.type = builder.type;
-        this.valuesep = builder.valueSeparator;
+        this.valueSeparator = builder.valueSeparator;
         this.converter = builder.converter;
     }
 
@@ -727,7 +727,7 @@ public class Option implements Cloneable, Serializable {
      * @return the value separator character.
      */
     public char getValueSeparator() {
-        return valuesep;
+        return valueSeparator;
     }
 
     /**
@@ -805,7 +805,7 @@ public class Option implements Cloneable, Serializable {
      * @since 1.1
      */
     public boolean hasValueSeparator() {
-        return valuesep > 0;
+        return valueSeparator > 0;
     }
 
     /**
@@ -969,10 +969,10 @@ public class Option implements Cloneable, Serializable {
     /**
      * Sets the value separator. For example if the argument value was a Java property, the value separator would be '='.
      *
-     * @param sep The value separator.
+     * @param valueSeparator The value separator.
      */
-    public void setValueSeparator(final char sep) {
-        this.valuesep = sep;
+    public void setValueSeparator(final char valueSeparator) {
+        this.valueSeparator = valueSeparator;
     }
 
     String toDeprecatedString() {
