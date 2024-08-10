@@ -218,11 +218,11 @@ public class Option implements Cloneable, Serializable {
         /**
          * Sets the long name of the Option.
          *
-         * @param longOpt the long name of the Option
+         * @param longOption the long name of the Option
          * @return this builder.
          */
-        public Builder longOpt(final String longOpt) {
-            this.longOption = longOpt;
+        public Builder longOpt(final String longOption) {
+            this.longOption = longOption;
             return this;
         }
 
