@@ -80,7 +80,7 @@
     <commons.release.next>1.9.1</commons.release.next>
     <commons.release.name>commons-cli-${commons.release.version}</commons.release.name>
     <commons.release.isDistModule>true</commons.release.isDistModule>
-    <commons.rc.version>RC2</commons.rc.version>
+    <commons.rc.version>RC1</commons.rc.version>
     <commons.bc.version>1.8.0</commons.bc.version>
     <commons.osgi.symbolicName>org.apache.commons.cli</commons.osgi.symbolicName>
     <commons.jira.id>CLI</commons.jira.id>
