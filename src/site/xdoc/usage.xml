@@ -283,7 +283,7 @@ options.addOption(property);</source>
         </p>
         <source>// has the buildfile argument been passed?
 if (line.hasOption("buildfile")) {
-    // initialise the member variable
+    // initialize the member variable
     this.buildfile = line.getOptionValue("buildfile");
 }</source>
       </subsection>
