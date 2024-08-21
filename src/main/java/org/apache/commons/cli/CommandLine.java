@@ -375,7 +375,7 @@ public class CommandLine implements Serializable {
     /**
      * Gets the first argument, if any, of an option group.
      *
-     * @param optionGroup the option group..
+     * @param optionGroup the option group.
      * @param defaultValue is a supplier for the default value to be returned if the option group is not selected.
      * @return Value of the argument if option group is selected, and has an argument, otherwise {@code defaultValue}.
      * @since 1.9.0
