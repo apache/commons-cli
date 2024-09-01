@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -67,7 +68,7 @@ public class PatternOptionBuilderTest {
         final Object parsedReadableFileStream = line.getOptionObject("g");
 
         assertNotNull(parsedReadableFileStream, "option g not parsed");
-        assertTrue(parsedReadableFileStream instanceof FileInputStream, "option g not FileInputStream");
+        assertInstanceOf(FileInputStream.class, parsedReadableFileStream, "option g not FileInputStream");
     }
 
     @Test
