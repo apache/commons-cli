@@ -55,6 +55,15 @@ public abstract class AbstractHelpFormatter {
         return syntaxPrefix;
     }
 
+
+    public Serializer getSerializer() {
+        return serializer;
+    }
+
+    public OptionFormatter getOptionFormatter(Option option) {
+        return optionFormatBuilder.build(option);
+    }
+
     /**
      * Prints the help for {@code options} with the specified command line syntax.
      *
@@ -125,7 +134,8 @@ public abstract class AbstractHelpFormatter {
         serializer.writeTable(tableDef);
     }
 
-    public Serializer getSerializer() {
-        return serializer;
+    public String asArgName(String argName) {
+        return optionFormatBuilder.asArgName(argName);
     }
+
 }

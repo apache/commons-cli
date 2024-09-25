@@ -59,7 +59,7 @@ public class TextSerializer extends AbstractSerializer {
         styleBuilder.setIndent(indent);
     }
 
-    protected TextStyle.Builder getStyleBuilder() {
+    public TextStyle.Builder getStyleBuilder() {
         return styleBuilder;
     }
 
@@ -131,7 +131,7 @@ public class TextSerializer extends AbstractSerializer {
         int maxAdjust = builder.getMaxWidth() / 3;
         int newIndent = builder.getMaxWidth() == 1 ? 0 : builder.getIndent();
         if (newIndent > maxAdjust) {
-            newIndent = Math.min(resize(builder.getIndent(), indentFrac), maxAdjust);
+            newIndent = Math.min(resize(builder.getIndent(), indentFrac), Math.min(maxAdjust, builder.getMinWidth()));
         }
         builder.setIndent(newIndent);
         return builder;
@@ -146,7 +146,7 @@ public class TextSerializer extends AbstractSerializer {
             styleBuilders.add(builder);
             String header = table.headers().get(i);
 
-            if (style.getMaxWidth() > header.length()) {
+            if (style.getMaxWidth() < header.length() || style.getMaxWidth() == TextStyle.UNSET) {
                 builder.setMaxWidth(header.length());
             }
             if (style.getMinWidth() < header.length()) {
@@ -222,7 +222,7 @@ public class TextSerializer extends AbstractSerializer {
                 Queue<String> columnQueue = columnQueues.get(i);
                 String line = columnQueue.poll();
                 if (Util.isEmpty(line)) {
-                    output.append(Util.createPadding(style.getMaxWidth()));
+                    output.append(Util.createPadding(style.getMaxWidth() + style.getLeftPad()));
                 } else {
                     output.append(line);
                 }

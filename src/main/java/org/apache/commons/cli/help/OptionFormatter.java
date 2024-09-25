@@ -161,6 +161,10 @@ public final class OptionFormatter {
             return this;
         }
 
+        public String asArgName(String argName) {
+            return argDelimiters[0]+Util.defaultValue(argName, "")+argDelimiters[1];
+        }
+
         /**
          * Sets the 'longOptPrefix'.
          *
@@ -272,7 +276,7 @@ public final class OptionFormatter {
     }
 
     public String getArgName() {
-        return option.hasArg() ? argDelimiters[0]+Util.defaultValue(option.getArgName(),argName)+argDelimiters[1] : "";
+        return option.hasArg() ? argDelimiters[0]+Util.defaultValue(option.getArgName(), argName)+argDelimiters[1] : "";
     }
 
     public String asOptional(String text) {
@@ -294,7 +298,7 @@ public final class OptionFormatter {
     }
 
     public String getSince() {
-        return Util.defaultValue(option.getSince(), "");
+        return Util.defaultValue(option.getSince(), "--");
     }
 
     /**

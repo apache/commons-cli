@@ -25,6 +25,7 @@ import java.util.function.Supplier;
  * This Definition is used to format the columns in the table.
  */
 public final class TextStyle {
+    public final static int UNSET = Integer.MAX_VALUE;
     public enum Alignment {LEFT, CENTER, RIGHT};
     public enum Scaling {FIXED, VARIABLE};
     final Alignment alignment;
@@ -48,7 +49,7 @@ public final class TextStyle {
             indent = 0;
             scaling = Scaling.VARIABLE;
             minWidth = 0;
-            maxWidth = Integer.MAX_VALUE;
+            maxWidth = UNSET;
         }
 
         public Builder(TextStyle style) {
