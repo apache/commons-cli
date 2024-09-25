@@ -42,4 +42,16 @@ public class UtilTest {
         assertEquals("-foo", Util.stripLeadingHyphens("---foo"));
         assertNull(Util.stripLeadingHyphens(null));
     }
+
+    @Test
+    public void testFindWrapPos() {
+        String testString = "The quick brown fox jumps over\tthe lazy dog";
+
+        assertEquals(9, Util.findWrapPos(testString, 10, 0), "did not find end of word");
+        assertEquals(9, Util.findWrapPos(testString, 14, 0), "did not backup to end of word");
+        assertEquals(15, Util.findWrapPos(testString, 15, 0), "did not find word at 15");
+        assertEquals(15, Util.findWrapPos(testString, 16, 0));
+        assertEquals(30, Util.findWrapPos(testString, 15, 20),  "did not find break character");
+        assertEquals(30, Util.findWrapPos(testString, 150, 0), "did not handle text shorter than width");
+    }
 }
