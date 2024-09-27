@@ -16,20 +16,21 @@
  */
 package org.example;
 
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Util;
-import org.apache.commons.cli.help.TableDef;
-import org.apache.commons.cli.help.TextStyle;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-public class WeirdOptionFormat implements Function<Iterable<Option>, TableDef> {
-    String[] headers = {"Opt", "Since", "Required", "LongOpt", "Deprecated", "Arg Name", "Type", "Description"};
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Util;
+import org.apache.commons.cli.help.TableDef;
+import org.apache.commons.cli.help.TextStyle;
 
-    List<TextStyle> styles;
+public class WeirdOptionFormat implements Function<Iterable<Option>, TableDef> {
+    private String[] headers = {"Opt", "Since", "Required", "LongOpt", "Deprecated", "Arg Name", "Type", "Description"};
+
+    private List<TextStyle> styles;
+
     public WeirdOptionFormat() {
         styles = new ArrayList<>();
         TextStyle.Builder builder = new TextStyle.Builder();
@@ -44,7 +45,7 @@ public class WeirdOptionFormat implements Function<Iterable<Option>, TableDef> {
     }
 
     @Override
-    public TableDef apply(Iterable<Option> options) {
+    public TableDef apply(final Iterable<Option> options) {
         List<List<String>> rows = new ArrayList<>();
             for (Option option : options) {
                 List<String> row = new ArrayList<>();

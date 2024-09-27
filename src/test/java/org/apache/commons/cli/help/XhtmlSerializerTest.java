@@ -16,8 +16,9 @@
  */
 package org.apache.commons.cli.help;
 
-import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Test;
+import static java.lang.String.format;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -26,14 +27,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static java.lang.String.format;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.apache.commons.io.IOUtils;
+import org.example.XhtmlSerializer;
+import org.junit.jupiter.api.Test;
 
 public class XhtmlSerializerTest {
 
-    StringBuilder sb = new StringBuilder();
-    XhtmlSerializer underTest = new XhtmlSerializer(sb);
+    private StringBuilder sb = new StringBuilder();
+    private XhtmlSerializer underTest = new XhtmlSerializer(sb);
 
     @Test
     public void writeTitleTest() throws IOException {

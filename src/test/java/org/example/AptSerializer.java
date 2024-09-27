@@ -16,23 +16,22 @@
  */
 package org.example;
 
-import org.apache.commons.cli.Util;
-import org.apache.commons.cli.help.AbstractSerializer;
-import org.apache.commons.cli.help.TextStyle;
-import org.apache.commons.cli.help.TableDef;
+import static java.lang.String.format;
 
 import java.io.IOException;
 import java.util.Collection;
 
-import static java.lang.String.format;
-
+import org.apache.commons.cli.Util;
+import org.apache.commons.cli.help.AbstractSerializer;
+import org.apache.commons.cli.help.TableDef;
+import org.apache.commons.cli.help.TextStyle;
 
 /**
  * A class to write APT formatted text.
  */
 public class AptSerializer extends AbstractSerializer {
 
-    public AptSerializer(Appendable output) {
+    public AptSerializer(final Appendable output) {
         super(output);
     }
 
@@ -64,7 +63,7 @@ public class AptSerializer extends AbstractSerializer {
     }
 
     @Override
-    public void writeTable(TableDef table) throws IOException {
+    public void writeTable(final TableDef table) throws IOException {
         // create the row separator string
         StringBuilder sb = new StringBuilder("*");
         for (int i = 0; i < table.headers().size(); i++) {

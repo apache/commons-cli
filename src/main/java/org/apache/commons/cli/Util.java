@@ -26,38 +26,25 @@ import java.util.Set;
  */
 public final class Util {
 
-    /*
-
-    It is LINE_SEPARATOR
-    It is PARAGRAPH_SEPARATOR
-    It is '\t', U+0009 HORIZONTAL TABULATION.
-    It is '\n', U+000A LINE FEED.
-    It is '\u000B', U+000B VERTICAL TABULATION.
-    It is '\f', U+000C FORM FEED.
-    It is '\r', U+000D CARRIAGE RETURN.
-    It is '\u001C', U+001C FILE SEPARATOR.
-    It is '\u001D', U+001D GROUP SEPARATOR.
-    It is '\u001E', U+001E RECORD SEPARATOR.
-    It is '\u001F', U+001F UNIT SEPARATOR.
-     */
+    /** An array of chars that are breaks in text */
     public static final char[] BREAK_CHARS = {'\t', '\n', '\f', '\r',
             Character.LINE_SEPARATOR,
             Character.PARAGRAPH_SEPARATOR,
             '\u000B', // VERTICAL TABULATION.
-            '\u001C',// FILE SEPARATOR.
+            '\u001C', // FILE SEPARATOR.
             '\u001D', // GROUP SEPARATOR.
             '\u001E', // RECORD SEPARATOR.
             '\u001F', // UNIT SEPARATOR.
     };
 
-    public static Set<Character> BREAK_CHAR_SET = new HashSet<Character>();
+    /** The list of characters that are breaks in text. */
+    private static final Set<Character> BREAK_CHAR_SET = new HashSet<Character>();
 
     static {
         for (char c : BREAK_CHARS) {
             BREAK_CHAR_SET.add(Character.valueOf(c));
         }
     }
-
 
     /**
      * An empty immutable {@code String} array.
@@ -141,7 +128,7 @@ public final class Util {
         }
         // handle case of width > text.
         // the line ends before the max wrap pos or a new line char found
-        int limit = Math.min(startPos + width, text.length()-1);
+        int limit = Math.min(startPos + width, text.length() - 1);
 
         for (int idx = startPos; idx < limit; idx++) {
             if (BREAK_CHAR_SET.contains(text.charAt(idx))) {
@@ -175,7 +162,7 @@ public final class Util {
             return -1;
         }
         // the line ends before the max wrap pos or a new line char found
-        int idx=startPos;
+        int idx = startPos;
         while (idx < text.length() && Character.isWhitespace(text.charAt(idx))) {
             idx++;
         }
@@ -208,7 +195,7 @@ public final class Util {
      * @return the {@code defaultValue} if {@code str} is empty.
      * @since 1.9.0
      */
-    public static String defaultValue(String str, String defaultValue) {
+    public static String defaultValue(final String str, final String defaultValue) {
         return isEmpty(str) ? defaultValue : str;
     }
 

@@ -20,50 +20,69 @@ import java.io.IOException;
 import java.util.Collection;
 
 /**
- * The definition of an output Format.
+ * The definition of a semantic scribe.  The semantic scribe write string to output based on the semantic meaning
+ * of the type of string.  e.g. a Paragraph -vs- a Heading.
+ * <p>
+ *     the representation of the semantics is dependant upon the format being output.  For example the plain text
+ *     output for a paragraph may print the text followed by two line breaks, while an XHTML output would print the
+ *     text surrounded by &lt;p&gt; and &lt;/p&gt;
+ * </p>
  */
 public interface Serializer {
 
     /**
+     * A method that writes a string directly to the output without formatting for any semantic meaning.
+     * @param text the string to write.
+     * @throws IOException on write failure
+     */
+    void writeDirect(String text) throws IOException;
+
+    /**
+     * A method that writes a char directly to the output without formatting for any semantic meaning.
+     * @param ch the char to write.
+     * @throws IOException on write failure.
+     */
+    void writeDirect(char ch) throws IOException;
+
+    /**
      * Write a title.
      *
-     * @param title  the title to write.
-     * @throws IOException on error.
+     * @param title the title to write.
+     * @throws IOException on write failure
      */
-    void writeTitle(final String title) throws IOException;
+    void writeTitle(String title) throws IOException;
 
     /**
      * Write a paragraph.
      *
      * @param paragraph the paragraph to write.
-     * @throws IOException on error.
+     * @throws IOException on write failure
      */
-    void writePara(final String paragraph) throws IOException;
+    void writePara(String paragraph) throws IOException;
 
     /**
      * Write a header.
      *
      * @param level  the level of the header
      * @param text   the text for the header
-     * @throws IOException on error.
+     * @throws IOException on write failure
      */
-    void writeHeader(final int level, final String text) throws IOException;
+    void writeHeader(int level, String text) throws IOException;
 
     /**
-     * Write a list .
+     * Write a list.
      *
      * @param ordered {@code true} if the list should be ordered.
      * @param list   the list to write.
-     * @throws IOException on error.
+     * @throws IOException on write failure
      */
-    void writeList(boolean ordered, final Collection<String> list) throws IOException;
+    void writeList(boolean ordered, Collection<String> list) throws IOException;
 
     /**
      * Write a table.
      *
-     * @param table   the Table to write.
-     * @throws IOException on error.
+     * @param table   the table definition to write.
+     * @throws IOException on write failure
      */
     void writeTable(TableDef table) throws IOException;
-
 }

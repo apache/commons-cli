@@ -14,19 +14,22 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package org.apache.commons.cli.help;
+package org.example;
 
-import org.apache.commons.cli.Util;
+import static java.lang.String.format;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-import static java.lang.String.format;
+import org.apache.commons.cli.Util;
+import org.apache.commons.cli.help.AbstractSerializer;
+import org.apache.commons.cli.help.TableDef;
 
+/** An example XML serializer -- DO NOT USE as this does not properly escape strings */
 public class XhtmlSerializer extends AbstractSerializer {
 
-    public XhtmlSerializer(Appendable output) {
+    public XhtmlSerializer(final Appendable output) {
         super(output);
     }
 
@@ -53,7 +56,7 @@ public class XhtmlSerializer extends AbstractSerializer {
     }
 
     @Override
-    public void writeList(boolean ordered, Collection<String> list) throws IOException {
+    public void writeList(final boolean ordered, final Collection<String> list) throws IOException {
         output.append(format("<%sl>%n", ordered ? "o" : "u"));
         for (String line : list) {
             output.append(format("  <li>%s</li>%n", Util.defaultValue(line, "")));
@@ -62,7 +65,7 @@ public class XhtmlSerializer extends AbstractSerializer {
     }
 
     @Override
-    public void writeTable(TableDef table) throws IOException {
+    public void writeTable(final TableDef table) throws IOException {
         output.append(format("<table class='commons_cli_table'>%n"));
 
         if (!Util.isEmpty(table.caption())) {

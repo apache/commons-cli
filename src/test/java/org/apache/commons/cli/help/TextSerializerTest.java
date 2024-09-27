@@ -16,9 +16,9 @@
  */
 package org.apache.commons.cli.help;
 
-import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static java.lang.String.format;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -29,14 +29,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import static java.lang.String.format;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class TextSerializerTest {
+public final class TextSerializerTest {
 
-    StringBuilder sb;
-    TextSerializer underTest;
+    private StringBuilder sb;
+    private TextSerializer underTest;
 
     @BeforeEach
     public void setUp() {
@@ -97,14 +97,14 @@ public class TextSerializerTest {
         assertEquals(Arrays.asList(expected), actual, "header 5 failed");
 
         sb.setLength(0);
-        assertThrows(IllegalArgumentException.class, () ->underTest.writeHeader(0, "Hello World"));
+        assertThrows(IllegalArgumentException.class, () -> underTest.writeHeader(0, "Hello World"));
     }
     @Test
     public void writeListTest() throws IOException {
         List<String> expected = new ArrayList<>();
         String[] entries = {"one", "two", "three"};
-        for (int i=0; i<entries.length; i++) {
-            expected.add(format("  %s. %s", i+1, entries[i]));
+        for (int i = 0; i < entries.length; i++) {
+            expected.add(format("  %s. %s", i + 1, entries[i]));
         }
         expected.add("");
 
@@ -115,7 +115,7 @@ public class TextSerializerTest {
 
         sb.setLength(0);
         expected.clear();
-        for (int i=0; i<entries.length; i++) {
+        for (int i = 0; i < entries.length; i++) {
             expected.add(format("  * %s", entries[i]));
         }
         expected.add("");

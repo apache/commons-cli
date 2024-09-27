@@ -16,15 +16,57 @@
  */
 package org.apache.commons.cli.help;
 
-import java.util.Collection;
 import java.util.List;
 
+/**
+ * The definition of a table to display.
+ * <p>
+ *     Aa table definition contains a caption and data that describes each column.  Every column in the table may have
+ * </p>
+ * <ul>
+ *     <li>A caption.</li>
+ *     <li>A {@link TextStyle} that describes the width of the entry, its offset from the previous column (leftPad) and
+ *     how much each line after the first should be indented (indent).</li>
+ *     <li>A heading (String) is placed at the top of the column</li>
+ *     <li>A collection of rows</li>
+ * </ul>
+ */
 public interface TableDef {
+    /**
+     * Gets the caption for the table.  May be @{code null}.
+     * @return The caption for the table.  May be @{code null}.
+     */
     String caption();
+
+    /**
+     * Gets the list TextStyles.  One for each column in order.
+     * @return the list of TextStyles.
+     */
     List<TextStyle> columnStyle();
+
+    /**
+     * Gets the list of header strings.  One for each column in order.
+     * @return The list of header strings.
+     */
     List<String> headers();
+
+    /**
+     * Gets the collection of rows.
+     * <p>
+     * Each row is a list of Strings, one for each column in the table.
+     * </p?
+     * @return The collection of rows.
+     */
     Iterable<List<String>> rows();
 
+    /**
+     * A helper function to create a table instance from the various components.
+     * @param caption The caption, May be {@code null}
+     * @param columnStyle a list of TextStyle elements defining the columns.
+     * @param headers the list of column headers.
+     * @param rows a collection of Rows.
+     * @return A TableDef returning the parameters as appropriate.
+     */
     static TableDef from(final String caption, final List<TextStyle> columnStyle, final List<String> headers, final Iterable<List<String>>rows) {
         return new TableDef() {
 

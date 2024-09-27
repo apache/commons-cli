@@ -16,23 +16,20 @@
  */
 package org.apache.commons.cli.help;
 
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.Util;
-import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.io.IOUtils;
+import org.example.XhtmlSerializer;
+import org.junit.jupiter.api.Test;
 
 public class HelpFormatterTest {
-
 
     @Test
     public void testPrintOptions() throws IOException {
@@ -103,7 +100,7 @@ public class HelpFormatterTest {
         expected.add(" footer");
         expected.add("");
 
-        formatter.printHelp("commandSyntax", "header", options, "footer", true );
+        formatter.printHelp("commandSyntax", "header", options, "footer", true);
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual);
 
@@ -120,7 +117,7 @@ public class HelpFormatterTest {
         expected.add("");
 
         sb.setLength(0);
-        formatter.printHelp("commandSyntax", "header", options, "footer", true );
+        formatter.printHelp("commandSyntax", "header", options, "footer", true);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual);
     }
@@ -148,7 +145,7 @@ public class HelpFormatterTest {
         expected.add("</table>");
         expected.add("<p>footer</p>");
 
-        formatter.printHelp("commandSyntax", "header", options, "footer", true );
+        formatter.printHelp("commandSyntax", "header", options, "footer", true);
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
 
         assertEquals(expected, actual);

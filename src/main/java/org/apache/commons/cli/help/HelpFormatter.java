@@ -17,17 +17,15 @@
 
 package org.apache.commons.cli.help;
 
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
+
+import org.apache.commons.cli.Option;
 
 /**
- * A formatter of help messages for command line options.
+ * A default formatter implementation for standard usage.
  * <p>
  * Example:
  * </p>
@@ -37,8 +35,8 @@ import java.util.function.Supplier;
  * options.addOption(OptionBuilder.withLongOpt("version").withDescription("Print the version of the application").create('v'));
  * options.addOption(OptionBuilder.withLongOpt("help").create('h'));
  *
- * String header = "Do something useful with an input file\n\n";
- * String footer = "\nPlease report issues at https://example.com/issues";
+ * String header = "Do something useful with an input file";
+ * String footer = "Please report issues at https://example.com/issues";
  *
  * HelpFormatter formatter = new HelpFormatter();
  * formatter.printHelp("myapp", header, options, footer, true);
@@ -67,43 +65,87 @@ public class HelpFormatter extends AbstractHelpFormatter {
     /** Number of space characters to be prefixed to each description line */
     public static final int DEFAULT_INDENT = 3;
 
+    /** The default number of spaces between columns in the options table */
     public static final int DEFAULT_COLUMN_SPACING = 5;
 
+    /** If {@code true} show the "Since" column, otherwise ignore it. */
     private boolean showSince;
 
+    /**
+     * A builder for the HelpFormatter.  Intended to make more complex uses of the HelpFormatter class easier.
+     * Default values are:
+     * <ul>
+     *     <li>showSicne = true</li>
+     *     <li>serializer = a {@link TextSerializer} writing to {@code System.out}</li>
+     *     <li>optionFormatter.Builder = the default {@link OptionFormatter.Builder}</li>
+     *     <li>defaultTableBuilder = {@link HelpFormatter#defaultTableBuilder(Iterable)}</li>
+     * </ul>
+     */
     public static class Builder {
+        /** If {@code true} show the "Since" column, otherwise ignore it. */
         private boolean showSince;
+        /** The {@link Serializer} to use */
         private Serializer serializer;
+        /** The {@link OptionFormatter.Builder} to use to format options in the table. */
         private OptionFormatter.Builder optionFormatBuilder;
+        /** A function to create a {@link TableDef} from a collection of {@link Option} instances. */
         private Function<Iterable<Option>, TableDef> defaultTableBuilder;
 
+        /**
+         * Constructor.
+         * <p>sets the showSince to {@code true}</p>>
+         */
         public Builder() {
             showSince = true;
             serializer = null;
-            optionFormatBuilder = new OptionFormatter.Builder();
+            optionFormatBuilder = null;
             defaultTableBuilder = null;
         }
 
-        public Builder setShowSince(boolean showSince) {
+        /**
+         * Sets the showSince flag.
+         * @param showSince the desired value of the showSince flag.
+         * @return this.
+         */
+        public Builder setShowSince(final boolean showSince) {
             this.showSince = showSince;
             return this;
         }
 
-        public Builder setSerializer(Serializer serializer) {
+        /**
+         * Sets the {@link Serializer}.
+         * @param serializer the {@link Serializer} to use.
+         * @return this
+         */
+        public Builder setSerializer(final Serializer serializer) {
             this.serializer = serializer;
             return this;
         }
 
-        public Builder setOptionFormatBuilder(OptionFormatter.Builder optionFormatBuilder) {
+        /**
+         * Sets the {@link OptionFormatter.Builder}.
+         * @param optionFormatBuilder the {@link OptionFormatter.Builder} to use.
+         * @return this
+         */
+        public Builder setOptionFormatBuilder(final OptionFormatter.Builder optionFormatBuilder) {
             this.optionFormatBuilder = optionFormatBuilder;
             return this;
         }
 
-        public Builder setDefaultTableBuilder(Function<Iterable<Option>, TableDef> defaultTableBuilder) {
+        /**
+         * Sets the function to build the option table from a collection of {@link Option} instances.
+         * @param defaultTableBuilder the function to build the option table from a collection of {@link Option} instances.
+         * @return this
+         */
+        public Builder setDefaultTableBuilder(final Function<Iterable<Option>, TableDef> defaultTableBuilder) {
             this.defaultTableBuilder = defaultTableBuilder;
             return this;
         }
 
+        /**
+         * performs a sanity check and sets default values if they are not set.
+         * @return this.
+         */
         private Builder sanityCheck() {
             if (serializer == null) {
                 serializer = new TextSerializer(System.out);
@@ -114,6 +156,10 @@ public class HelpFormatter extends AbstractHelpFormatter {
             return this;
         }
 
+        /**
+         * Constructs the {@link HelpFormatter}.
+         * @return this.
+         */
         public HelpFormatter build() {
             sanityCheck();
             return new HelpFormatter(this);
@@ -121,17 +167,27 @@ public class HelpFormatter extends AbstractHelpFormatter {
     }
 
     /**
-     * Constructs a new instance.
+     * Constructs a new instance using the default {@link Builder}.
+     * @see Builder
      */
     public HelpFormatter() {
         this(new Builder().sanityCheck());
     }
 
-    public HelpFormatter(Serializer serializer) {
+    /**
+     * Convenience constructor to create an instance using the specified {@link Serializer} and the
+     * remaining default {@link Builder}.
+     * @param serializer the {@link Serializer} to use.
+     */
+    public HelpFormatter(final Serializer serializer) {
         this(new Builder().setSerializer(serializer).sanityCheck());
     }
 
-    private HelpFormatter(Builder builder) {
+    /**
+     * Constructs the Help formatter.
+     * @param builder the Builder to build from.
+     */
+    private HelpFormatter(final Builder builder) {
         super(builder.serializer, builder.optionFormatBuilder, builder.defaultTableBuilder);
         this.showSince = builder.showSince;
         if (this.tableDefBuilder == null) {
@@ -139,41 +195,61 @@ public class HelpFormatter extends AbstractHelpFormatter {
         }
     }
 
-    public void setShowSince(boolean showSince) {
+    /**
+     * Sets the state of the showSince flag.
+     * @param showSince the desires state of the showSince flag.
+     */
+    public void setShowSince(final boolean showSince) {
         this.showSince = showSince;
     }
 
-    public TableDef defaultTableBuilder(Iterable<Option> options) {
+    /**
+     * The default table builder for the HelpFormatter.  If a different formatter is not specified in the
+     * {@link Builder} this method is used.
+     * @param options the collection of {@link Option} instances to create the table from.
+     * @return A {@link TableDef} to display the options.
+     */
+    public TableDef defaultTableBuilder(final Iterable<Option> options) {
+        // set up the base TextStyle for the columns configured for the Option opt and arg values..
         TextStyle.Builder builder = new TextStyle.Builder().setAlignment(TextStyle.Alignment.LEFT)
                 .setIndent(DEFAULT_LEFT_PAD).setScaling(TextStyle.Scaling.FIXED);
         List<TextStyle> styles = new ArrayList<>();
         styles.add(builder.get());
+        // set up showSince column
         builder.setScaling(TextStyle.Scaling.VARIABLE).setLeftPad(DEFAULT_COLUMN_SPACING);
         if (showSince) {
             builder.setAlignment(TextStyle.Alignment.CENTER);
             styles.add(builder.get());
         }
+        // set up the description column.
         builder.setAlignment(TextStyle.Alignment.LEFT);
         styles.add(builder.get());
 
+        // setup the rows for the table.
         List<List<String>> rows = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         for (Option option : options) {
             List<String> row = new ArrayList<>();
+            // create an option formatter to correctly format the parts of the option
             OptionFormatter formatter = optionFormatBuilder.build(option);
             sb.setLength(0);
+            // append the opt values.
             sb.append(formatter.getBothOpt());
+            // append the arg name if it exists.
             if (option.hasArg()) {
                 sb.append(" ").append(formatter.getArgName());
             }
             row.add(sb.toString());
+            // append the since value if desired.
             if (showSince) {
                 row.add(formatter.getSince());
             }
+            // add the option description
             row.add(option.isDeprecated() ? formatter.getDeprecated() : formatter.getDescription());
             rows.add(row);
         }
 
+        // return the TableDef with the proper column headers.
         return showSince ? TableDef.from("", styles, Arrays.asList("Options", "Since", "Description"), rows) :
                 TableDef.from("", styles, Arrays.asList("Options", "Description"), rows);
     }

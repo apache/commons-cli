@@ -17,67 +17,31 @@
 package org.apache.commons.cli.help;
 
 import java.io.IOException;
-import java.util.Collection;
-
-import static java.lang.String.format;
 
 /**
- * A class to write formatted text.
+ * An abstract implementation of {@link Serializer} that writes output to an {@link Appendable} instance.
  */
 public abstract class AbstractSerializer implements Serializer {
+    /**
+     * The Appendable instance to write to.
+     */
     protected final Appendable output;
 
+    /**
+     * Constructs an instance using the provided Appendable instance.
+     * @param output the Appendable instance to write to.
+     */
     protected AbstractSerializer(final Appendable output) {
         this.output = output;
     }
 
-    public void writeDirect(String text) throws IOException {
+    @Override
+    public void writeDirect(final String text) throws IOException {
         output.append(text);
     }
 
-    public void writeDirect(char ch) throws IOException {
+    @Override
+    public void writeDirect(final char ch) throws IOException {
         output.append(ch);
     }
-
-    /**
-     * Write a title.
-     *
-     * @param title  the title to write.
-     * @throws IOException on error.
-     */
-    abstract public void writeTitle(final String title) throws IOException;
-
-    /**
-     * Write a paragraph.
-     *
-     * @param paragraph the paragraph to write.
-     * @throws IOException on error.
-     */
-    abstract public void writePara(final String paragraph) throws IOException;
-
-    /**
-     * Write a header.
-     *
-     * @param level  the level of the header
-     * @param text   the text for the header
-     * @throws IOException on error.
-     */
-    abstract public void writeHeader(final int level, final String text) throws IOException;
-
-    /**
-     * Write a list .
-     *
-     * @param ordered {@code true} if the list should be ordered.
-     * @param list   the list to write.
-     * @throws IOException on error.
-     */
-    abstract public void writeList(boolean ordered, final Collection<String> list) throws IOException;
-
-    /**
-     * Write a table.
-     *
-     * @param table   the Table to write.  A collections of collections of Strings.
-     * @throws IOException on error.
-     */
-    abstract public void writeTable(TableDef table) throws IOException;
 }
