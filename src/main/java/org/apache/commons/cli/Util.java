@@ -27,7 +27,7 @@ import java.util.Set;
 public final class Util {
 
     /** An array of chars that are breaks in text */
-    public static final char[] BREAK_CHARS = {'\t', '\n', '\f', '\r',
+    private static final char[] BREAK_CHARS = {'\t', '\n', '\f', '\r',
             Character.LINE_SEPARATOR,
             Character.PARAGRAPH_SEPARATOR,
             '\u000B', // VERTICAL TABULATION.
@@ -199,6 +199,12 @@ public final class Util {
         return isEmpty(str) ? defaultValue : str;
     }
 
+    /**
+     * Constructs a string of specified length filled with the specified char.
+     * @param len the length of the final string.
+     * @param fillChar the character to file it will.
+     * @return A string of specified length filled with the specified char.
+     */
     public static String filledString(final int len, final char fillChar) {
         final char[] padding = new char[len];
         Arrays.fill(padding, fillChar);

@@ -54,7 +54,7 @@ public interface TableDef {
      * Gets the collection of rows.
      * <p>
      * Each row is a list of Strings, one for each column in the table.
-     * </p?
+     * </p>
      * @return The collection of rows.
      */
     Iterable<List<String>> rows();

@@ -36,9 +36,9 @@ import org.apache.commons.cli.Util;
 public final class OptionFormatter {
 
     /** The default delimiters for optional arguments */
-    public static final String[] DEFAULT_OPTIONAL_DELIMITERS = {"[", "]"};
+    private static final String[] DEFAULT_OPTIONAL_DELIMITERS = {"[", "]"};
     /** The default delimiters for an argument name */
-    public static final String[] DEFAULT_ARG_NAME_DELIMITERS = {"<", ">"};
+    private static final String[] DEFAULT_ARG_NAME_DELIMITERS = {"<", ">"};
     /** The default argument name */
     public static final String DEFAULT_ARG_NAME = "arg";
 
@@ -178,7 +178,7 @@ public final class OptionFormatter {
 
         /**
          * Constructor that takes the arguments from the supplied {@link OptionFormatter}
-         * @param optionFormatter
+         * @param optionFormatter The option formatter to provide values for the builder.
          */
         public Builder(final OptionFormatter optionFormatter) {
             optionalDelimiters = Arrays.copyOf(optionFormatter.optionalDelimiters, 2);
@@ -389,7 +389,7 @@ public final class OptionFormatter {
      * Gets the argument name wrapped in the argument name delimiters.
      * <ul>
      *     <li>If option has no arguments an empty string is returned</li>
-     *     >li>If the argument name is not set the default argument name is used.</li>
+     *     <li>If the argument name is not set the default argument name is used.</li>
      * </ul>
      * @return The argument name wrapped in the argument name delimiters or an empty string.
      */
