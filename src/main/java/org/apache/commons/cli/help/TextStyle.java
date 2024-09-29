@@ -34,13 +34,13 @@ public final class TextStyle {
         /** center the text */
         CENTER,
         /** right justify the text */
-        RIGHT };
+        RIGHT }
     /** Types scaling */
     public enum Scaling {
         /** do not scale */
         FIXED,
         /** text may be scaled */
-        VARIABLE };
+        VARIABLE }
 
     /** the alignment */
     private final Alignment alignment;
@@ -276,6 +276,12 @@ public final class TextStyle {
         return maxWidth;
     }
 
+    @Override
+    public String toString() {
+        return String.format("TextStyle{%s, l:%s, i:%s, %s, min:%s, max:%s}",
+                alignment, leftPad, indent, scaling, minWidth, maxWidth == UNSET_MAX_WIDTH ? "unset" : maxWidth);
+    }
+
     /**
      * Pads a string to the maximum width or optionally to the maximum width - indent.
      * <ul>
@@ -290,26 +296,39 @@ public final class TextStyle {
         if (text.length() >= maxWidth) {
             return text;
         }
-        String indentPad = addIndent ? Util.createPadding(indent) : "";
-        int restLen = maxWidth - text.length();
-        if (addIndent) {
-            restLen -= indent;
-        }
-        if (restLen < 0) {
-            restLen = maxWidth - text.length();
-            indentPad = "";
-        }
-        String rest = Util.createPadding(restLen);
+        String indentPad;
+        String rest;
         StringBuilder sb = new StringBuilder();
         switch (alignment) {
             case LEFT:
-                sb.append(indentPad).append(text).append(rest);
-                break;
             case RIGHT:
-                sb.append(indentPad).append(rest).append(text);
+                if (maxWidth == UNSET_MAX_WIDTH) {
+                    indentPad = addIndent ? Util.createPadding(indent) : "";
+                    rest = "";
+                } else {
+                    int restLen = maxWidth - text.length();
+                    if (addIndent && restLen > indent) {
+                        indentPad = Util.createPadding(indent);
+                        restLen -= indent;
+                    } else {
+                        indentPad = "";
+                    }
+                    rest = Util.createPadding(restLen);
+                }
+
+                if  (alignment == Alignment.LEFT) {
+                    sb.append(indentPad).append(text).append(rest);
+                } else {
+                    sb.append(indentPad).append(rest).append(text);
+                }
                 break;
             case CENTER:
-                int padLen = maxWidth - text.length();
+                int padLen;
+                if (maxWidth == UNSET_MAX_WIDTH) {
+                    padLen = addIndent ? indent : 0;
+                } else {
+                    padLen = maxWidth - text.length();
+                }
                 int left = padLen / 2;
                 indentPad = Util.createPadding(left);
                 rest = Util.createPadding(padLen - left);
@@ -317,33 +336,5 @@ public final class TextStyle {
                 break;
         }
         return sb.toString();
-    }
-
-    /**
-     * Left pad the string to maximum length.  Adds spaces to the string until it reaches maximum length.
-     * If the string is already at or above maximum length returns it unchanged.
-     * @param orig the string to pad
-     * @return the string padded to maximum length.
-     */
-    public String lPad(final String orig) {
-        int origLen = orig == null ? 0 : orig.length();
-        if (origLen >= maxWidth) {
-            return orig;
-        }
-        return Util.createPadding(maxWidth - origLen) + Util.defaultValue(orig, "");
-    }
-
-    /**
-     * Right pad the string to maximum length.  Adds spaces to the string until it reaches maximum length.
-     * If the string is already at or above maximum length returns it unchanged.
-     * @param orig the string to pad
-     * @return the string padded to maximum length.
-     */
-    public String rPad(final String orig) {
-        int origLen = orig == null ? 0 : orig.length();
-        if (origLen >= maxWidth) {
-            return orig;
-        }
-        return Util.defaultValue(orig, "") + Util.createPadding(maxWidth - origLen);
     }
 }

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.io.IOUtils;
 import org.example.XhtmlSerializer;
@@ -149,5 +150,154 @@ public class HelpFormatterTest {
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void asSyntaxOptionGroupTest() {
+        HelpFormatter underTest = new HelpFormatter();
+        OptionGroup group = new OptionGroup()
+                .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
+                .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
+                .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build())
+                .addOption(Option.builder().option("f").argName("other").build())
+                .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
+                .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
+                .addOption(Option.builder().option("s").longOpt("sevem").hasArg().build());
+        assertEquals("[-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th]",
+                underTest.asSyntaxOptions(group));
+
+        group.setRequired(true);
+        assertEquals("-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th",
+                underTest.asSyntaxOptions(group));
+    }
+
+    @Test
+    public void asSyntaxOptionOptionsTest(){
+        HelpFormatter underTest = new HelpFormatter();
+        Options options = getTestGroups();
+        assertEquals("[-1 <arg> | --aon <arg> | --uno <arg>] [--dos <arg> | --dó <arg> | --two <arg>] " +
+                        "[--three <arg> | --tres <arg> | --trí <arg>]",
+                underTest.asSyntaxOptions(options),
+                "getTestGroup options failed");
+
+          options = new Options()
+                .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
+                .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
+                .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build())
+                .addOption(Option.builder().option("f").argName("other").build())
+                .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
+                .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
+                .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
+        assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> -th",
+                underTest.asSyntaxOptions(options),
+                "assorted options failed");
+
+
+        options = new Options()
+                .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
+                .addOptionGroup(
+                        new OptionGroup()
+                                .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
+                                .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build()))
+                .addOption(Option.builder().option("f").argName("other").build())
+                .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
+                .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
+                .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
+        assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> [-t <other> | -th]",
+                underTest.asSyntaxOptions(options),
+                "option with group failed");
+
+        OptionGroup group1 = new OptionGroup()
+                .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
+                .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build());
+        group1.setRequired(true);
+        options = new Options()
+                .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
+                .addOptionGroup(group1)
+                .addOption(Option.builder().option("f").argName("other").build())
+                .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
+                .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
+                .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
+        assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> | -th",
+                underTest.asSyntaxOptions(options),
+                "options with required group failed");
+    }
+
+    @Test
+    public void asSyntaxOptionIterableTest() {
+        HelpFormatter underTest = new HelpFormatter();
+        List<Option> options = new ArrayList<>();
+
+        options.add(Option.builder().option("o").longOpt("one").hasArg().build());
+        options.add(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build());
+        options.add(Option.builder().option("th").longOpt("three").required().argName("other").build());
+        options.add(Option.builder().option("f").argName("other").build());
+        options.add(Option.builder().longOpt("five").hasArg().argName("other").build());
+        options.add(Option.builder().longOpt("six").required().hasArg().argName("other").build());
+        options.add(Option.builder().option("s").longOpt("sevem").hasArg().build());
+        assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> -th",
+                underTest.asSyntaxOptions(options));
+
+    }
+
+
+    @Test
+    public void sortedOptionsTest() {
+        Options options = new Options()
+                .addOption(Option.builder("a").longOpt("optA").hasArg().desc("The description of A").build())
+                .addOption(Option.builder("b").longOpt("BOpt").hasArg().desc("B description").build())
+                .addOption(Option.builder().longOpt("COpt").hasArg().desc("A COpt description").build());
+
+        HelpFormatter underTest = new HelpFormatter();
+        List<Option> expected = new ArrayList<>();
+        expected.add(options.getOption("a"));
+        expected.add(options.getOption("b"));
+        expected.add(options.getOption("COpt"));
+
+        List<Option> actual = underTest.sortedOptions(options);
+        assertEquals(expected, underTest.sortedOptions(options));
+
+        expected.set(0, expected.get(2));
+        expected.set(2, options.getOption("a"));
+        underTest = new HelpFormatter.Builder().setComparator(AbstractHelpFormatter.DEFAULT_COMPARATOR.reversed()).build();
+        actual = underTest.sortedOptions(options);
+        assertEquals(expected, underTest.sortedOptions(options));
+    }
+
+    private Options getTestGroups() {
+        return new Options()
+                .addOptionGroup(new OptionGroup()
+                        .addOption(Option.builder("1").longOpt("one").hasArg().desc("English one").build())
+                        .addOption(Option.builder().longOpt("aon").hasArg().desc("Irish one").build())
+                        .addOption(Option.builder().longOpt("uno").hasArg().desc("Spanish one").build())
+                )
+                .addOptionGroup(new OptionGroup()
+                        .addOption(Option.builder().longOpt("two").hasArg().desc("English two").build())
+                        .addOption(Option.builder().longOpt("dó").hasArg().desc("Irish twp").build())
+                        .addOption(Option.builder().longOpt("dos").hasArg().desc("Spanish two").build())
+                )
+                .addOptionGroup(new OptionGroup()
+                        .addOption(Option.builder().longOpt("three").hasArg().desc("English three").build())
+                        .addOption(Option.builder().longOpt("trí").hasArg().desc("Irish three").build())
+                        .addOption(Option.builder().longOpt("tres").hasArg().desc("Spanish three").build())
+                );
+    }
+
+    @Test
+    public void sortedOptionGroupsTest() {
+        Options options = getTestGroups();
+        List<Option> optList = new ArrayList<>(options.getOptions());
+        HelpFormatter underTest = new HelpFormatter();
+        List<Option> expected = new ArrayList<>();
+        expected.add(optList.get(0)); // because 1 sorts before all long values
+        expected.add(optList.get(1));
+        expected.add(optList.get(5));
+        expected.add(optList.get(4));
+        expected.add(optList.get(6));
+        expected.add(optList.get(8));
+        expected.add(optList.get(7));
+        expected.add(optList.get(3));
+        expected.add(optList.get(2));
+        assertEquals(expected, underTest.sortedOptions(options));
     }
 }

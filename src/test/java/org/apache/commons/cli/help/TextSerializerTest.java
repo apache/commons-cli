@@ -216,16 +216,16 @@ public final class TextSerializerTest {
         styleBuilder.setAlignment(TextStyle.Alignment.CENTER);
 
         result = underTest.makeColumnQueue(text, styleBuilder.get());
-        assertEquals(expected, result, "right aligned failed");
+        assertEquals(expected, result, "center aligned failed");
 
         expected = new LinkedList<>();
-        expected.add("     The quick ");
-        expected.add("       brown   ");
-        expected.add("       fox     ");
-        expected.add("       jumps   ");
+        expected.add("      The quick");
+        expected.add("          brown");
+        expected.add("            fox");
+        expected.add("          jumps");
         expected.add("       over the");
         expected.add("       lazy dog");
-        styleBuilder.setAlignment(TextStyle.Alignment.LEFT).setLeftPad(5).setIndent(2);
+        styleBuilder.setAlignment(TextStyle.Alignment.RIGHT).setLeftPad(5).setIndent(2);
 
         result = underTest.makeColumnQueue(text, styleBuilder.get());
         assertEquals(expected, result, "right aligned failed");

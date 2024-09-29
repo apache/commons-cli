@@ -16,18 +16,12 @@
  */
 package org.apache.commons.cli.help;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import org.apache.commons.cli.DeprecatedAttributes;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionGroup;
-import org.apache.commons.cli.Options;
 import org.apache.commons.cli.Util;
 
 /**
@@ -43,9 +37,36 @@ public final class OptionFormatter {
     public static final String DEFAULT_ARG_NAME = "arg";
 
     /**
-     * The default A function to convert an option into a string with the description and a deprecated warning.
+     * A function to display a deprecated option with the "[Deprecated]" prefix.
      */
-    public static final Function<Option, String> DEFAULT_DEPRECATED_FORMAT = o -> "[Deprecated] " + Util.defaultValue(o.getDescription(), "");
+    public static final Function<Option, String> SIMPLE_DEPRECATED_FORMAT = o -> "[Deprecated] " + Util.defaultValue(o.getDescription(), "");
+
+    /**
+     * A function to display a deprecated option with a "Deprecated" prefix that displays all deprecation information.
+     */
+    public static final Function<Option, String> COMPLEX_DEPRECATED_FORMAT = o -> {
+        StringBuilder sb = new StringBuilder("[Deprecated");
+        DeprecatedAttributes attr = o.getDeprecated();
+        if (attr.isForRemoval()) {
+            sb.append(" for removal");
+        }
+        if (!Util.isEmpty(attr.getSince())) {
+            sb.append(" since ").append(attr.getSince());
+        }
+        if (!Util.isEmpty(attr.getDescription())) {
+            sb.append(". ").append(attr.getDescription());
+        }
+        sb.append("]");
+        if (!Util.isEmpty(o.getDescription())) {
+            sb.append(" ").append(o.getDescription());
+        }
+        return sb.toString();
+    };
+
+    /**
+     * A function to display a deprecated option with the "[Deprecated]" prefix.
+     */
+    public static final Function<Option, String> NO_DEPRECATED_FORMAT = o -> Util.defaultValue(o.getDescription(), "");
 
     /**
      * The default {@link BiFunction} to produce the option syntax component from an {@link OptionFormatter} and a
@@ -91,15 +112,6 @@ public final class OptionFormatter {
      */
     public static final String DEFAULT_OPT_SEPARATOR = " ";
 
-    /**
-     * The default comparator for {@link Option} implementations.
-     */
-    public static final Comparator<Option> DEFAULT_COMPARATOR = (opt1, opt2) -> opt1.getKey().compareToIgnoreCase(opt2.getKey());
-
-    /**
-     * The default separator between {@link OptionGroup} elements.
-     */
-    public static final String DEFAULT_OPTION_GROUP_SEPARATOR = " | ";
 
     /**
      * The delimiters around argument names.
@@ -107,8 +119,6 @@ public final class OptionFormatter {
     private final String[] argNameDelimiters;
     /** The default argument name */
     private final String defaultArgName;
-    /** The comparator for sorting {@link Option} collections */
-    private final Comparator<Option> comparator;
     /** The function to display the deprecated option message */
     private final Function<Option, String> deprecatedFormatFunction;
     /** The prefix for the long option text */
@@ -117,8 +127,6 @@ public final class OptionFormatter {
     private final String optPrefix;
     /** The separator between the options */
     private final String optSeparator;
-    /** The separator between {@link OptionGroup} components.*/
-    private final String optionGroupSeparator;
     /** The delimiters for optional {@link Option}s. */
     private final String[] optionalDelimiters;
     /** The method to convert an Option formatter into a syntax notation.*/
@@ -143,8 +151,6 @@ public final class OptionFormatter {
         private final String[] argNameDelimiters;
         /** The default argument name */
         private String defaultArgName;
-        /** The {@link Option} comparator for sorting collections */
-        private Comparator<Option> comparator;
         /** The function to create the deprecated message for an option */
         private Function<Option, String> deprecatedFormatFunction;
         /** The long option prefix */
@@ -153,8 +159,7 @@ public final class OptionFormatter {
         private String optPrefix;
         /** The separator between long and short options*/
         private String optSeparator;
-        /** The separator between {@link OptionGroup} elements.*/
-        private String optionGroupSeparator;
+
         /** The delimiters surrounding optional {@link Option} instances. */
         private final String[] optionalDelimiters;
         /** A function to convert the {@link OptionFormatter} into an entry in the syntax description. */
@@ -166,12 +171,11 @@ public final class OptionFormatter {
         public Builder() {
             argNameDelimiters = Arrays.copyOf(DEFAULT_ARG_NAME_DELIMITERS, 2);
             defaultArgName = DEFAULT_ARG_NAME;
-            comparator = DEFAULT_COMPARATOR;
-            deprecatedFormatFunction = null;
+           // comparator = DEFAULT_COMPARATOR;
+            deprecatedFormatFunction = NO_DEPRECATED_FORMAT;
             longOptPrefix = DEFAULT_LONG_OPT_PREFIX;
             optPrefix = DEFAULT_OPT_PREFIX;
             optSeparator = DEFAULT_OPT_SEPARATOR;
-            optionGroupSeparator = DEFAULT_OPTION_GROUP_SEPARATOR;
             optionalDelimiters = Arrays.copyOf(DEFAULT_OPTIONAL_DELIMITERS, 2);
             syntaxFormatFunction = DEFAULT_SYNTAX_FORMAT;
         }
@@ -187,10 +191,9 @@ public final class OptionFormatter {
             optPrefix = optionFormatter.optPrefix;
             longOptPrefix = optionFormatter.longOptPrefix;
             optSeparator = optionFormatter.optSeparator;
-            optionGroupSeparator = optionFormatter.optionGroupSeparator;
             deprecatedFormatFunction = optionFormatter.deprecatedFormatFunction;
             syntaxFormatFunction = optionFormatter.syntaxFormatFunction;
-            comparator = optionFormatter.comparator;
+            //comparator = optionFormatter.comparator;
         }
 
         /**
@@ -242,31 +245,6 @@ public final class OptionFormatter {
          */
         public Builder setOptSeparator(final String optSeparator) {
             this.optSeparator = Util.defaultValue(optSeparator, "");
-            return this;
-        }
-
-        /**
-         * Sets the separator displayed between {@link Option}s in an {@link OptionGroup} listing.
-         *
-         * @param optionGroupSeparator the separator.
-         * @return this
-         * @since 1.9
-         */
-        public Builder setOptionGroupSeparator(final String optionGroupSeparator) {
-            this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "");
-            return this;
-        }
-
-        /**
-         * Sets the comparator used to sort the options when they output in help text. Passing in a null comparator will keep the
-         * options in the order they were declared.
-         *
-         * @param comparator the {@link Comparator} to use for sorting the options, may be {@code null}.
-         * @return this
-         * @since 1.9
-         */
-        public Builder setComparator(final Comparator<Option> comparator) {
-            this.comparator = comparator;
             return this;
         }
 
@@ -338,8 +316,6 @@ public final class OptionFormatter {
         this.optPrefix = builder.optPrefix;
         this.longOptPrefix = builder.longOptPrefix;
         this.optSeparator = builder.optSeparator;
-        this.optionGroupSeparator = builder.optionGroupSeparator;
-        this.comparator = builder.comparator;
         this.deprecatedFormatFunction = builder.deprecatedFormatFunction;
         this.syntaxFormatFunction = builder.syntaxFormatFunction;
         this.option = option;
@@ -378,7 +354,7 @@ public final class OptionFormatter {
         String lOpt = getLongOpt();
 
         StringBuilder sb = new StringBuilder(getOpt());
-        if (sb.length() > 0 && lOpt.length() > 0) {
+        if (sb.length() > 0 && !Util.isEmpty(lOpt)) {
             sb.append(",");
         }
         sb.append(getLongOpt());
@@ -410,22 +386,13 @@ public final class OptionFormatter {
     }
 
     /**
-     * Gets the description from the option.
-     * @return The Description from the option or an empty string is no description was provided.
+     * Gets the description for the option.  This will include any deprecation notices if the deprecated format function
+     * has been set.
+     * @return The Description from the option or an empty string is no description was provided and the option is not
+     * deprecated.
      */
     public String getDescription() {
-        return Util.defaultValue(option.getDescription(), "");
-    }
-
-    /**
-     * Gets the deprecated message for the option.
-     * @return the deprecated message for the option or an empty string if no deprecatedFormatFunction was specified.
-     */
-    public String getDeprecated() {
-        if (deprecatedFormatFunction == null) {
-            return "";
-        }
-        return option.isDeprecated() ? deprecatedFormatFunction.apply(option) : "";
+        return option.isDeprecated() ? deprecatedFormatFunction.apply(option) : Util.defaultValue(option.getDescription(), "");
     }
 
     /**
@@ -441,138 +408,15 @@ public final class OptionFormatter {
      * @return the syntax format for this option as specified by the syntaxFormatFunction.
      */
     public String asSyntaxOption() {
-        return syntaxFormatFunction.apply(this, this.isRequired());
+        return asSyntaxOption(this.isRequired());
     }
 
     /**
-     * Returns a sorted list of Options if the comparator has been set.
-     * <p>
-     *     If the comparator has not been set a list of the options in the
-     *     original order are returned.
-     * </p>
-     * @param options the options to sort.
-     * @return A sorted list of Options.
+     * Gets the syntax format for this option.
+     * @param isRequired if {@code true} the options is printed as a required option, otherwise it is optional.
+     * @return the syntax format for this option as specified by the syntaxFormatFunction.
      */
-    public List<Option> sortedOptions(final Options options) {
-        return sortedOptions(options.getOptions());
-    }
-
-    /**
-     * Returns a sorted list of Options if the comparator has been set.
-     * <p>
-     *     If the comparator has not been set a list of the options in the
-     *     original order are returned.
-     * </p>
-     * @param options the options to sort.
-     * @return A sorted list of Options if the comparator has been set.
-     */
-    public List<Option> sortedOptions(final Iterable<Option> options) {
-        return sortedOptions(comparator, options);
-    }
-
-    /**
-     * Sorts the options if the comparator has been set.
-     * <p>
-     *     If the comparator has not been set a list of the options in the
-     *     original order are returned.
-     * </p>
-     * @param comparator The comparator to sort with.
-     * @param options the options to sort.
-     * @return a new List of the options.
-     */
-    private static List<Option> sortedOptions(final Comparator<Option> comparator, final Iterable<Option> options) {
-        final List<Option> optList = new ArrayList<>();
-        options.forEach(optList::add);
-        if (comparator != null) {
-            optList.sort(comparator);
-        }
-        return optList;
-    }
-
-    /**
-     * Return the string representation of the options as used in the syntax display.
-     * @param builder The Builder to create OptionFormatters to format the options.
-     * @param options The {@link Options} to create the string representation for.
-     * @return the string representation of the options as used in the syntax display.
-     */
-    public static String asSyntaxOptions(final OptionFormatter.Builder builder, final Options options) {
-        return asSyntaxOptions(builder, options.getOptions(), options::getOptionGroup);
-    }
-
-    /**
-     * Return the string representation of the options as used in the syntax display.
-     * @param builder The Builder to create OptionFormatters to format the options.
-     * @param options The collection of {@link Option} instances to create the string representation for.
-     * @return the string representation of the options as used in the syntax display.
-     */
-    public static String asSyntaxOptions(final OptionFormatter.Builder builder, final Iterable<Option> options) {
-        return asSyntaxOptions(builder, options, o -> null);
-    }
-
-    /**
-     * Return the string representation of the options as used in the syntax display.
-     * @param builder The Builder to create OptionFormatters to format the options.
-     * @param options The options to create the string representation for.
-     * @param lookup a function to determine if the Option is part of an OptionGroup that has already been processed.
-     * @return the string representation of the options as used in the syntax display.
-     */
-    private static String asSyntaxOptions(final OptionFormatter.Builder builder, final Iterable<Option> options,
-                                          final Function<Option, OptionGroup> lookup) {
-        // list of groups that have been processed.
-        final Collection<OptionGroup> processedGroups = new ArrayList<>();
-        final List<Option> optList = sortedOptions(builder.comparator, options);
-        StringBuilder buff = new StringBuilder();
-        String pfx = "";
-        // iterate over the options
-        for (final Option option : optList) {
-            // get the next Option
-            // check if the option is part of an OptionGroup
-            final OptionGroup group = lookup.apply(option);
-            // if the option is part of a group
-            if (group != null) {
-                // and if the group has not already been processed
-                if (!processedGroups.contains(group)) {
-                    // add the group to the processed list
-                    processedGroups.add(group);
-                    // add the usage clause
-                    buff.append(pfx).append(OptionFormatter.asSyntaxOptions(builder, group));
-                    pfx = " ";
-                }
-                // otherwise the option was displayed in the group previously so ignore it.
-            }
-            // if the Option is not part of an OptionGroup
-            else {
-                buff.append(pfx).append(builder.build(option).asSyntaxOption());
-                pfx = " ";
-            }
-        }
-        return buff.toString();
-    }
-
-    /**
-     * Return the string representation of the options as used in the syntax display.
-     * @param builder The Builder to create OptionFormatters to format the options.
-     * @param group The OptionGroup to create the string representation for.
-     * @return the string representation of the options as used in the syntax display.
-     */
-    public static String asSyntaxOptions(final OptionFormatter.Builder builder, final OptionGroup group) {
-        StringBuilder buff = new StringBuilder();
-        final List<Option> optList = sortedOptions(builder.comparator, group.getOptions());
-        OptionFormatter formatter = null;
-        // for each option in the OptionGroup
-        Iterator<Option> iter = optList.iterator();
-        while (iter.hasNext()) {
-            formatter = builder.build(iter.next());
-            // whether the option is required or not is handled at group level
-            buff.append(formatter.syntaxFormatFunction.apply(formatter, true));
-
-            if (iter.hasNext()) {
-                buff.append(formatter.optionGroupSeparator);
-            }
-        }
-        if (formatter != null) {
-            return group.isRequired() ? buff.toString() : formatter.asOptional(buff.toString());
-        }
-        return ""; // there were no entries in the group.
+    public String asSyntaxOption(boolean isRequired) {
+        return syntaxFormatFunction.apply(this, isRequired);
     }
 }

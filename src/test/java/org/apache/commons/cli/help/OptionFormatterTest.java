@@ -21,11 +21,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
+import org.apache.commons.cli.DeprecatedAttributes;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class OptionFormatterTest {
 
@@ -67,83 +72,75 @@ public class OptionFormatterTest {
     }
 
     @Test
-    public void asSyntaxOptionGroupTest() throws IOException {
-        OptionFormatter.Builder builder = new OptionFormatter.Builder();
-        OptionGroup group = new OptionGroup()
-                .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
-                .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
-                .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build())
-                .addOption(Option.builder().option("f").argName("other").build())
-                .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
-                .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
-                .addOption(Option.builder().option("s").longOpt("sevem").hasArg().build());
-        assertEquals("[-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th]",
-                OptionFormatter.asSyntaxOptions(builder, group));
+    public void getDescriptionTest() {
+        Option normalOption = Option.builder().option("o").longOpt("one").hasArg()
+                .desc("The description").build();
 
-        group.setRequired(true);
-        assertEquals("-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th",
-                OptionFormatter.asSyntaxOptions(builder, group));
+        Option deprecatedOption = Option.builder().option("o").longOpt("one").hasArg()
+                .desc("The description").deprecated().build();
+
+        Option deprecatedOptionWithAttributes = Option.builder().option("o").longOpt("one").hasArg()
+                .desc("The description").deprecated(
+                        DeprecatedAttributes.builder().setForRemoval(true).setSince("now")
+                                .setDescription("Use something else").get()).build();
+
+        assertEquals("The description", OptionFormatter.from(normalOption).getDescription(), "normal option failure");
+        assertEquals("The description", OptionFormatter.from(deprecatedOption).getDescription(), "deprecated option failure");
+        assertEquals("The description", OptionFormatter.from(deprecatedOptionWithAttributes).getDescription(), "complex deprecated option failure");
+
+        OptionFormatter.Builder builder = new OptionFormatter.Builder().setDeprecatedFormatFunction(OptionFormatter.SIMPLE_DEPRECATED_FORMAT);
+
+        assertEquals("The description", builder.build(normalOption).getDescription(), "normal option failure");
+        assertEquals("[Deprecated] The description", builder.build(deprecatedOption).getDescription(), "deprecated option failure");
+        assertEquals("[Deprecated] The description", builder.build(deprecatedOptionWithAttributes).getDescription(), "complex deprecated option failure");
+
+        builder = new OptionFormatter.Builder().setDeprecatedFormatFunction(OptionFormatter.COMPLEX_DEPRECATED_FORMAT);
+
+        assertEquals("The description", builder.build(normalOption).getDescription(), "normal option failure");
+        assertEquals("[Deprecated] The description", builder.build(deprecatedOption).getDescription(), "deprecated option failure");
+        assertEquals("[Deprecated for removal since now. Use something else] The description", builder.build(deprecatedOptionWithAttributes).getDescription(), "complex deprecated option failure");
     }
 
-    @Test
-    public void asSyntaxOptionOptionsTest() throws IOException {
-        OptionFormatter.Builder builder = new OptionFormatter.Builder();
-        Options options = new Options()
-                .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
-                .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
-                .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build())
-                .addOption(Option.builder().option("f").argName("other").build())
-                .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
-                .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
-                .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
-        assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> -th",
-                OptionFormatter.asSyntaxOptions(builder, options),
-                "generic options failed");
+    @ParameterizedTest(name = "{index} {0}")
+    @MethodSource("deprecatedAttributesData")
+    public void complexDeprecationFormatTest(DeprecatedAttributes da, String expected) {
+        Option.Builder builder = Option.builder("o").deprecated(da);
+        Option.Builder builderWithDesc = Option.builder("o").desc("The description").deprecated(da);
 
-        options = new Options()
-                .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
-                .addOptionGroup(
-                        new OptionGroup()
-                                .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
-                                .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build()))
-                .addOption(Option.builder().option("f").argName("other").build())
-                .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
-                .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
-                .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
-        assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> [-t <other> | -th]",
-                OptionFormatter.asSyntaxOptions(builder, options),
-                "option with group failed");
-
-        OptionGroup group1 = new OptionGroup()
-                .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
-                .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build());
-        group1.setRequired(true);
-        options = new Options()
-                .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
-                .addOptionGroup(group1)
-                .addOption(Option.builder().option("f").argName("other").build())
-                .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
-                .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
-                .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
-        assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> | -th",
-                OptionFormatter.asSyntaxOptions(builder, options),
-                "options with required group failed");
+        assertEquals(expected, OptionFormatter.COMPLEX_DEPRECATED_FORMAT.apply(builder.build()));
+        assertEquals(expected+" The description", OptionFormatter.COMPLEX_DEPRECATED_FORMAT.apply(builderWithDesc.build()));
     }
 
-    @Test
-    public void asSyntaxOptionIterableTest() throws IOException {
-        OptionFormatter.Builder builder = new OptionFormatter.Builder();
-        List<Option> options = new ArrayList<>();
+    public static Stream<Arguments> deprecatedAttributesData() {
+        List<Arguments> lst = new ArrayList<>();
 
-        options.add(Option.builder().option("o").longOpt("one").hasArg().build());
-        options.add(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build());
-        options.add(Option.builder().option("th").longOpt("three").required().argName("other").build());
-        options.add(Option.builder().option("f").argName("other").build());
-        options.add(Option.builder().longOpt("five").hasArg().argName("other").build());
-        options.add(Option.builder().longOpt("six").required().hasArg().argName("other").build());
-        options.add(Option.builder().option("s").longOpt("sevem").hasArg().build());
-        assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> -th",
-                OptionFormatter.asSyntaxOptions(builder, options));
+        DeprecatedAttributes.Builder daBuilder = DeprecatedAttributes.builder();
+        lst.add(Arguments.of(daBuilder.get(), "[Deprecated]"));
 
+        daBuilder.setSince("now");
+        lst.add(Arguments.of(daBuilder.get(), "[Deprecated since now]"));
+
+        daBuilder.setForRemoval(true);
+        lst.add(Arguments.of(daBuilder.get(), "[Deprecated for removal since now]"));
+
+        daBuilder.setSince(null);
+        lst.add(Arguments.of(daBuilder.get(), "[Deprecated for removal]"));
+
+        daBuilder.setForRemoval(false);
+        daBuilder.setDescription("Use something else");
+        lst.add(Arguments.of(daBuilder.get(), "[Deprecated. Use something else]"));
+
+        daBuilder.setForRemoval(true);
+        lst.add(Arguments.of(daBuilder.get(), "[Deprecated for removal. Use something else]"));
+
+        daBuilder.setForRemoval(false);
+        daBuilder.setSince("then");
+        lst.add(Arguments.of(daBuilder.get(), "[Deprecated since then. Use something else]"));
+
+        daBuilder.setForRemoval(true);
+        lst.add(Arguments.of(daBuilder.get(), "[Deprecated for removal since then. Use something else]"));
+
+        return lst.stream();
     }
+
 }

@@ -19,10 +19,12 @@ package org.apache.commons.cli.help;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 
 import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Util;
 
 /**
  * A default formatter implementation for standard usage.
@@ -90,7 +92,10 @@ public class HelpFormatter extends AbstractHelpFormatter {
         private OptionFormatter.Builder optionFormatBuilder;
         /** A function to create a {@link TableDef} from a collection of {@link Option} instances. */
         private Function<Iterable<Option>, TableDef> defaultTableBuilder;
-
+        /** The string to separate option groups with */
+        private String optionGroupSeparator;
+        /** The comparator to sort lists of options */
+        private Comparator<Option> comparator;
         /**
          * Constructor.
          * <p>sets the showSince to {@code true}</p>>
@@ -100,6 +105,8 @@ public class HelpFormatter extends AbstractHelpFormatter {
             serializer = null;
             optionFormatBuilder = null;
             defaultTableBuilder = null;
+            comparator = AbstractHelpFormatter.DEFAULT_COMPARATOR;
+            optionGroupSeparator = AbstractHelpFormatter.DEFAULT_OPTION_GROUP_SEPARATOR;
         }
 
         /**
@@ -139,6 +146,16 @@ public class HelpFormatter extends AbstractHelpFormatter {
          */
         public Builder setDefaultTableBuilder(final Function<Iterable<Option>, TableDef> defaultTableBuilder) {
             this.defaultTableBuilder = defaultTableBuilder;
+            return this;
+        }
+
+        public Builder setOptionGroupSeparator(final String optionGroupSeparator) {
+            this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "");
+            return this;
+        }
+
+        public Builder setComparator(final Comparator<Option> comparator) {
+            this.comparator = comparator;
             return this;
         }
 
@@ -188,7 +205,9 @@ public class HelpFormatter extends AbstractHelpFormatter {
      * @param builder the Builder to build from.
      */
     private HelpFormatter(final Builder builder) {
-        super(builder.serializer, builder.optionFormatBuilder, builder.defaultTableBuilder);
+        super(builder.serializer, builder.optionFormatBuilder, builder.defaultTableBuilder, builder.comparator,
+                builder.optionGroupSeparator);
+
         this.showSince = builder.showSince;
         if (this.tableDefBuilder == null) {
             tableDefBuilder = this::defaultTableBuilder;
@@ -240,12 +259,12 @@ public class HelpFormatter extends AbstractHelpFormatter {
                 sb.append(" ").append(formatter.getArgName());
             }
             row.add(sb.toString());
-            // append the since value if desired.
+            // append the "since" value if desired.
             if (showSince) {
                 row.add(formatter.getSince());
             }
             // add the option description
-            row.add(option.isDeprecated() ? formatter.getDeprecated() : formatter.getDescription());
+            row.add(formatter.getDescription());
             rows.add(row);
         }
 
