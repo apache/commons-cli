@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
@@ -249,7 +248,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void asSyntaxOptionOptionsTest(){
+    public void asSyntaxOptionOptionsTest() {
         HelpFormatter underTest = new HelpFormatter();
         Options options = getTestGroups();
         assertEquals("[-1 <arg> | --aon <arg> | --uno <arg>] [--dos <arg> | --dó <arg> | --two <arg>] " +
@@ -341,8 +340,7 @@ public class HelpFormatterTest {
         assertEquals(0, underTest.sortedOptions(Collections.emptyList()).size(), "empty colleciton should return empty list");
         Iterable<Option> iterable = null;
         assertEquals(0, underTest.sortedOptions(iterable).size(), "null iterable should return empty list");
-        assertEquals(0, underTest.sortedOptions((Options)null).size(), "null Options should return empty list");
-
+        assertEquals(0, underTest.sortedOptions((Options) null).size(), "null Options should return empty list");
     }
 
     private Options getTestGroups() {

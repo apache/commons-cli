@@ -19,23 +19,25 @@ package org.apache.commons.cli;
 
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
 public class UtilTest {
 
     @Test
-    public void testStripLeadingAndTrailingQuotes() {
+    public void stripLeadingAndTrailingQuotesTest() {
         assertNull(Util.stripLeadingAndTrailingQuotes(null));
         assertEquals("", Util.stripLeadingAndTrailingQuotes(""));
         assertEquals("foo", Util.stripLeadingAndTrailingQuotes("\"foo\""));
@@ -46,7 +48,7 @@ public class UtilTest {
     }
 
     @Test
-    public void testStripLeadingHyphens() {
+    public void stripLeadingHyphensTest() {
         assertEquals("f", Util.stripLeadingHyphens("-f"));
         assertEquals("foo", Util.stripLeadingHyphens("--foo"));
         assertEquals("-foo", Util.stripLeadingHyphens("---foo"));
@@ -54,18 +56,19 @@ public class UtilTest {
     }
 
     @Test
-    public void testFindWrapPos() {
+    public void findWrapPosTest() {
         String testString = "The quick brown fox jumps over\tthe lazy dog";
 
         assertEquals(9, Util.findWrapPos(testString, 10, 0), "did not find end of word");
         assertEquals(9, Util.findWrapPos(testString, 14, 0), "did not backup to end of word");
         assertEquals(15, Util.findWrapPos(testString, 15, 0), "did not find word at 15");
         assertEquals(15, Util.findWrapPos(testString, 16, 0));
-        assertEquals(30, Util.findWrapPos(testString, 15, 20),  "did not find break character");
+        assertEquals(30, Util.findWrapPos(testString, 15, 20), "did not find break character");
         assertEquals(30, Util.findWrapPos(testString, 150, 0), "did not handle text shorter than width");
+
+        assertThrows(IllegalArgumentException.class, () -> Util.findWrapPos("", 0, 0));
+        assertEquals(3, Util.findWrapPos("Hello", 4, 0));
     }
-
-
 
     @ParameterizedTest
     @MethodSource("charArgs")
@@ -75,7 +78,8 @@ public class UtilTest {
         } else {
             assertNotEquals("worx", Util.ltrim(format("%sworx", c)), () -> format("Did not process character 0x%x", (int) c));
         }
-
+        String text = format("%c%c%c", c, c, c);
+        assertEquals(isWhitespace ? "" : text, Util.ltrim(text));
     }
 
     @ParameterizedTest
@@ -86,6 +90,8 @@ public class UtilTest {
         } else {
             assertNotEquals("worx", Util.rtrim(format("worx%s", c)), () -> format("Did not process character 0x%x", (int) c));
         }
+        String text = format("%c%c%c", c, c, c);
+        assertEquals(isWhitespace ? "" : text, Util.ltrim(text));
     }
 
     public static Stream<Arguments> charArgs() {
@@ -110,5 +116,46 @@ public class UtilTest {
             lst.add(Arguments.of(Character.valueOf(c), Boolean.FALSE));
         }
         return lst.stream();
+    }
+
+    @Test
+    public void isEmptyTest() {
+        Object[] objAry = null;
+        assertTrue(Util.isEmpty(objAry), "null array should be empty");
+        objAry = new Object[]{};
+        assertTrue(Util.isEmpty(objAry), "empty array should be empty");
+        objAry = new Object[1];
+        assertFalse(Util.isEmpty(objAry), "array with only null element should not be empty");
+        objAry = new Object[] { "hello" };
+        assertFalse(Util.isEmpty(objAry), "array with element should not be empty");
+
+        String str = null;
+        assertTrue(Util.isEmpty(str), "null string should be empty");
+        str = "";
+        assertTrue(Util.isEmpty(str), "empty string should be empty");
+        str = " ";
+        assertFalse(Util.isEmpty(str), "string with whitespace should not be empty");
+    }
+
+    @ParameterizedTest
+    @MethodSource("charArgs")
+    public void findWrapPosWithWhitespace(final Character c, final boolean isWhitespace) {
+        String text = format("Hello%cWorld", c);
+        assertEquals(isWhitespace ? 5 : 6, Util.findWrapPos(text, 7, 0));
+    }
+
+    @ParameterizedTest
+    @MethodSource("charArgs")
+    public void findNonWhitespacePosTest(final Character c, final boolean isWhitespace) {
+        String text = format("%cWorld", c);
+        assertEquals(isWhitespace ? 1 : 0, Util.findNonWhitespacePos(text, 0));
+        text = format("%c%c%c", c, c, c);
+        assertEquals(isWhitespace ? -1 : 0, Util.findNonWhitespacePos(text, 0));
+    }
+
+    @Test
+    public void findNonWhitespacePosTest() {
+        assertEquals(-1, Util.findNonWhitespacePos(null, 0));
+        assertEquals(-1, Util.findNonWhitespacePos("", 0));
     }
 }

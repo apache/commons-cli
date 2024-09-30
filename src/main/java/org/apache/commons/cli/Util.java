@@ -38,11 +38,11 @@ public final class Util {
     };
 
     /** The list of characters that are breaks in text. */
-    private static final Set<Character> BREAK_CHAR_SET = new HashSet<Character>();
+    private static final Set<Character> BREAK_CHAR_SET = new HashSet<>();
 
     static {
         for (char c : BREAK_CHARS) {
-            BREAK_CHAR_SET.add(Character.valueOf(c));
+            BREAK_CHAR_SET.add(c);
         }
     }
 
@@ -186,7 +186,7 @@ public final class Util {
         return s.substring(0, pos);
     }
 
-    private static boolean isWhitespace(char c) {
+    private static boolean isWhitespace(final char c) {
         return Character.isWhitespace(c) || Character.PARAGRAPH_SEPARATOR == c;
     }
 
@@ -233,16 +233,6 @@ public final class Util {
      */
     public static String ltrim(final String s) {
         int pos = findNonWhitespacePos(s, 0);
-        return pos == -1 ? s : s.substring(pos);
-    }
-
-    /**
-     * Gets the option description or an empty string if the description is {@code null}.
-     * @param option The option to get the description from.
-     * @return the option description or an empty string if the description is {@code null}.
-     * @since 1.8.0
-     */
-    public static String getDescription(final Option option) {
-        return Util.defaultValue(option.getDescription(), "");
+        return pos == -1 ? "" : s.substring(pos);
     }
 }

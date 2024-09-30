@@ -240,7 +240,7 @@ public abstract class AbstractHelpFormatter {
      * @return a new list of options ordered by the comparator.
      */
     public List<Option> sortedOptions(final Options options) {
-        return sortedOptions( options == null ? null : options.getOptions());
+        return sortedOptions(options == null ? null : options.getOptions());
     }
 
     /**
@@ -248,7 +248,7 @@ public abstract class AbstractHelpFormatter {
      * @param options the Options to sort.
      * @return a new list of options ordered by the comparator.
      */
-    public List<Option> sortedOptions(Iterable<Option> options) {
+    public List<Option> sortedOptions(final Iterable<Option> options) {
         List<Option> result = new ArrayList<>();
         if (options != null) {
             options.forEach(result::add);

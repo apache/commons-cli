@@ -327,7 +327,7 @@ public final class TextSerializerTest {
         underTest.setMaxWidth(150);
         TableDef tableDef = TableDef.from("Caption", Arrays.asList(new TextStyle.Builder().setMinWidth(20)
                 .setMaxWidth(100).get()),
-                Arrays.asList("header") , Arrays.asList(Arrays.asList("one")));
+                Arrays.asList("header"), Arrays.asList(Arrays.asList("one")));
         TableDef result = underTest.adjustTableFormat(tableDef);
         assertEquals(20, result.columnStyle().get(0).getMinWidth(), "Minimum width should not be reset");
         assertEquals(100, result.columnStyle().get(0).getMaxWidth(), "Maximum width should not be reset");
@@ -398,20 +398,20 @@ public final class TextSerializerTest {
 
     @Test
     public void writeDirectTest() throws IOException {
-        char c = (char)0x1F44D;
+        char c = (char) 0x1F44D;
         underTest.writeDirect(c);
         assertEquals(1, sb.length());
-        assertEquals( String.valueOf(c), sb.toString());
+        assertEquals(String.valueOf(c), sb.toString());
 
         sb.setLength(0);
         underTest.writeDirect("Hello");
-        assertEquals( "Hello", sb.toString());
+        assertEquals("Hello", sb.toString());
     }
 
     @Test
     public void adjustTableFormatTest() {
         // test width smaller than header
-        TableDef tableDef = TableDef.from( "Testing",
+        TableDef tableDef = TableDef.from("Testing",
                 Arrays.asList(new TextStyle.Builder().setMaxWidth(3).get()),
                 Arrays.asList("header"),
                 // "data" shorter than "header"
@@ -425,8 +425,8 @@ public final class TextSerializerTest {
     @Test
     public void setIndentTest() {
         assertEquals(TextSerializer.DEFAULT_INDENT, underTest.getIndent(), "Default indent value was changed, some tests may fail");
-        underTest.setIndent(TextSerializer.DEFAULT_INDENT+2);
-        assertEquals(underTest.getIndent(), TextSerializer.DEFAULT_INDENT+2);
+        underTest.setIndent(TextSerializer.DEFAULT_INDENT + 2);
+        assertEquals(underTest.getIndent(), TextSerializer.DEFAULT_INDENT + 2);
     }
 
     @Test

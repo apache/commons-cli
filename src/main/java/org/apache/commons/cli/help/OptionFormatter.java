@@ -414,7 +414,7 @@ public final class OptionFormatter {
      * @param isRequired if {@code true} the options is printed as a required option, otherwise it is optional.
      * @return the syntax format for this option as specified by the syntaxFormatFunction.
      */
-    public String asSyntaxOption(boolean isRequired) {
+    public String asSyntaxOption(final boolean isRequired) {
         return syntaxFormatFunction.apply(this, isRequired);
     }
 }

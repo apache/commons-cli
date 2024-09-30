@@ -27,8 +27,6 @@ import java.util.stream.Stream;
 
 import org.apache.commons.cli.DeprecatedAttributes;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionGroup;
-import org.apache.commons.cli.Options;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -100,17 +98,19 @@ public class OptionFormatterTest {
 
         assertEquals("The description", builder.build(normalOption).getDescription(), "normal option failure");
         assertEquals("[Deprecated] The description", builder.build(deprecatedOption).getDescription(), "deprecated option failure");
-        assertEquals("[Deprecated for removal since now. Use something else] The description", builder.build(deprecatedOptionWithAttributes).getDescription(), "complex deprecated option failure");
+        assertEquals("[Deprecated for removal since now. Use something else] The description",
+                builder.build(deprecatedOptionWithAttributes).getDescription(),
+                "complex deprecated option failure");
     }
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("deprecatedAttributesData")
-    public void complexDeprecationFormatTest(DeprecatedAttributes da, String expected) {
+    public void complexDeprecationFormatTest(final DeprecatedAttributes da, final String expected) {
         Option.Builder builder = Option.builder("o").deprecated(da);
         Option.Builder builderWithDesc = Option.builder("o").desc("The description").deprecated(da);
 
         assertEquals(expected, OptionFormatter.COMPLEX_DEPRECATED_FORMAT.apply(builder.build()));
-        assertEquals(expected+" The description", OptionFormatter.COMPLEX_DEPRECATED_FORMAT.apply(builderWithDesc.build()));
+        assertEquals(expected + " The description", OptionFormatter.COMPLEX_DEPRECATED_FORMAT.apply(builderWithDesc.build()));
     }
 
     public static Stream<Arguments> deprecatedAttributesData() {
@@ -182,13 +182,13 @@ public class OptionFormatterTest {
 
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
         OptionFormatter formatter = OptionFormatter.from(option);
-        assertEquals( "[-o <arg>]", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, null));
-        assertEquals( "-o <arg>", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, true));
+        assertEquals("[-o <arg>]", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, null));
+        assertEquals("-o <arg>", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, true));
 
         option = Option.builder().option("o").longOpt("opt").hasArg().required().build();
         formatter = OptionFormatter.from(option);
-        assertEquals( "-o <arg>", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, null));
-        assertEquals( "[-o <arg>]", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, false));
+        assertEquals("-o <arg>", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, null));
+        assertEquals("[-o <arg>]", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, false));
 
     }
 
@@ -258,7 +258,7 @@ public class OptionFormatterTest {
         assertEquals("[-o <arg>]", builder.build(option).asSyntaxOption());
     }
 
-    private void assertEquivalent(OptionFormatter formatter, OptionFormatter formatter2) {
+    private void assertEquivalent(final OptionFormatter formatter, final OptionFormatter formatter2) {
         assertEquals(formatter.asSyntaxOption(), formatter2.asSyntaxOption());
         assertEquals(formatter.asSyntaxOption(true), formatter2.asSyntaxOption(true));
         assertEquals(formatter.asSyntaxOption(false), formatter2.asSyntaxOption(false));
@@ -271,7 +271,7 @@ public class OptionFormatterTest {
     }
     @Test
     public void testCopyConstructor() {
-        Function<Option,String> depFunc = o -> "Ooo Deprecated";
+        Function<Option, String> depFunc = o -> "Ooo Deprecated";
         BiFunction<OptionFormatter, Boolean, String> fmtFunc = (o, b) -> "Yep, it worked";
         OptionFormatter.Builder builder = new OptionFormatter.Builder()
                 .setLongOptPrefix("l")
@@ -279,7 +279,7 @@ public class OptionFormatterTest {
                 .setArgumentNameDelimiters("{", "}")
                 .setDefaultArgName("Some Argument")
                 .setOptSeparator(" and ")
-                .setOptionalDelimiters("?>","<?")
+                .setOptionalDelimiters("?>", "<?")
                 .setSyntaxFormatFunction(fmtFunc)
                 .setDeprecatedFormatFunction(depFunc);
 

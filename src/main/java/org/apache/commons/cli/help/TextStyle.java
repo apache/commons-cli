@@ -300,6 +300,18 @@ public final class TextStyle {
         String rest;
         StringBuilder sb = new StringBuilder();
         switch (alignment) {
+            case CENTER:
+                int padLen;
+                if (maxWidth == UNSET_MAX_WIDTH) {
+                    padLen = addIndent ? indent : 0;
+                } else {
+                    padLen = maxWidth - text.length();
+                }
+                int left = padLen / 2;
+                indentPad = Util.createPadding(left);
+                rest = Util.createPadding(padLen - left);
+                sb.append(indentPad).append(text).append(rest);
+                break;
             case LEFT:
             case RIGHT:
             default: // default should never happen.  It is here to keep code coverage happy.
@@ -322,18 +334,6 @@ public final class TextStyle {
                 } else {
                     sb.append(indentPad).append(rest).append(text);
                 }
-                break;
-            case CENTER:
-                int padLen;
-                if (maxWidth == UNSET_MAX_WIDTH) {
-                    padLen = addIndent ? indent : 0;
-                } else {
-                    padLen = maxWidth - text.length();
-                }
-                int left = padLen / 2;
-                indentPad = Util.createPadding(left);
-                rest = Util.createPadding(padLen - left);
-                sb.append(indentPad).append(text).append(rest);
                 break;
         }
         return sb.toString();
