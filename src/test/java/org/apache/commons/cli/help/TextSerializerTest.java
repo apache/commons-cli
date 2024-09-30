@@ -52,6 +52,15 @@ public final class TextSerializerTest {
         underTest.writeTitle("Hello World");
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(Arrays.asList(expected), actual);
+
+        sb.setLength(0);
+        underTest.writeTitle("");
+        assertEquals(0, sb.length(), "empty string test failed");
+
+        sb.setLength(0);
+        underTest.writeTitle(null);
+        assertEquals(0, sb.length(), "null test failed");
+
     }
 
     @Test
@@ -62,6 +71,14 @@ public final class TextSerializerTest {
         underTest.writePara("Hello World");
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(Arrays.asList(expected), actual);
+
+        sb.setLength(0);
+        underTest.writePara("");
+        assertEquals(0, sb.length(), "empty string test failed");
+
+        sb.setLength(0);
+        underTest.writePara(null);
+        assertEquals(0, sb.length(), "null test failed");
     }
 
     @Test
@@ -98,7 +115,16 @@ public final class TextSerializerTest {
 
         sb.setLength(0);
         assertThrows(IllegalArgumentException.class, () -> underTest.writeHeader(0, "Hello World"));
+
+        sb.setLength(0);
+        underTest.writeHeader(5, "");
+        assertEquals(0, sb.length(), "empty string test failed");
+
+        sb.setLength(0);
+        underTest.writeHeader(5, null);
+        assertEquals(0, sb.length(), "null test failed");
     }
+
     @Test
     public void writeListTest() throws IOException {
         List<String> expected = new ArrayList<>();
@@ -128,6 +154,12 @@ public final class TextSerializerTest {
         underTest.writeList(false, Collections.emptyList());
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "empty list failed");
+
+        sb.setLength(0);
+        expected.clear();
+        underTest.writeList(false, null);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual, "null list failed");
     }
 
     @Test
@@ -257,7 +289,6 @@ public final class TextSerializerTest {
 
         queues.add(queue);
 
-        String text = "The quick brown fox jumps over the lazy dog";
         TextStyle.Builder styleBuilder = new TextStyle.Builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
 
         List<TextStyle> columns = new ArrayList<>();
@@ -278,5 +309,131 @@ public final class TextSerializerTest {
         underTest.writeColumnQueues(queues, columns);
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void resizeTest() {
+        TextStyle.Builder tsBuilder = new TextStyle.Builder().setIndent(2).setMaxWidth(3);
+        underTest.resize(tsBuilder, 0.5);
+        assertEquals(0, tsBuilder.getIndent());
+
+        tsBuilder = new TextStyle.Builder().setIndent(4).setMaxWidth(6);
+        underTest.resize(tsBuilder, 0.5);
+        assertEquals(1, tsBuilder.getIndent());
+    }
+
+    @Test
+    public void resizeTableFormatTest() {
+        underTest.setMaxWidth(150);
+        TableDef tableDef = TableDef.from("Caption", Arrays.asList(new TextStyle.Builder().setMinWidth(20)
+                .setMaxWidth(100).get()),
+                Arrays.asList("header") , Arrays.asList(Arrays.asList("one")));
+        TableDef result = underTest.adjustTableFormat(tableDef);
+        assertEquals(20, result.columnStyle().get(0).getMinWidth(), "Minimum width should not be reset");
+        assertEquals(100, result.columnStyle().get(0).getMaxWidth(), "Maximum width should not be reset");
+    }
+
+    @Test
+    public void printWrappedTest() throws IOException {
+        String text = "The quick brown fox jumps over the lazy dog";
+        TextStyle.Builder styleBuilder = new TextStyle.Builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
+
+        List<String> expected = new ArrayList<>();
+        expected.add("The quick");
+        expected.add("brown fox");
+        expected.add("jumps over");
+        expected.add("the lazy");
+        expected.add("dog");
+        underTest.printWrapped(text, styleBuilder.get());
+        List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual, "left aligned failed");
+
+        sb.setLength(0);
+        expected.clear();
+        expected.add(" The quick");
+        expected.add(" brown fox");
+        expected.add("jumps over");
+        expected.add("  the lazy");
+        expected.add("       dog");
+        styleBuilder.setAlignment(TextStyle.Alignment.RIGHT);
+
+        underTest.printWrapped(text, styleBuilder.get());
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual, "right aligned failed");
+
+        sb.setLength(0);
+        expected.clear();
+        expected.add("The quick");
+        expected.add("brown fox");
+        expected.add("jumps over");
+        expected.add(" the lazy");
+        expected.add("   dog");
+        styleBuilder.setAlignment(TextStyle.Alignment.CENTER);
+
+        underTest.printWrapped(text, styleBuilder.get());
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual, "center aligned failed");
+
+        sb.setLength(0);
+        expected.clear();
+        expected.add(" The quick brown fox jumps over the lazy dog");
+
+        assertEquals(1, underTest.getLeftPad(), "unexpected page left pad");
+        assertEquals(3, underTest.getIndent(), "unexpected page indent");
+        assertEquals(74, underTest.getMaxWidth(), "unexpected page width");
+        underTest.printWrapped(text);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual, "default format aligned failed");
+
+        sb.setLength(0);
+        text += ".\nNow is the time for all good people to come to the aid of their country.";
+        expected.clear();
+        expected.add(" The quick brown fox jumps over the lazy dog.");
+        expected.add("    Now is the time for all good people to come to the aid of their");
+        expected.add("    country.");
+        underTest.printWrapped(text);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual, "default format aligned failed");
+    }
+
+    @Test
+    public void writeDirectTest() throws IOException {
+        char c = (char)0x1F44D;
+        underTest.writeDirect(c);
+        assertEquals(1, sb.length());
+        assertEquals( String.valueOf(c), sb.toString());
+
+        sb.setLength(0);
+        underTest.writeDirect("Hello");
+        assertEquals( "Hello", sb.toString());
+    }
+
+    @Test
+    public void adjustTableFormatTest() {
+        // test width smaller than header
+        TableDef tableDef = TableDef.from( "Testing",
+                Arrays.asList(new TextStyle.Builder().setMaxWidth(3).get()),
+                Arrays.asList("header"),
+                // "data" shorter than "header"
+                Arrays.asList(Arrays.asList("data"))
+        );
+        TableDef actual = underTest.adjustTableFormat(tableDef);
+        assertEquals("header".length(), actual.columnStyle().get(0).getMaxWidth());
+        assertEquals("header".length(), actual.columnStyle().get(0).getMinWidth());
+    }
+
+    @Test
+    public void setIndentTest() {
+        assertEquals(TextSerializer.DEFAULT_INDENT, underTest.getIndent(), "Default indent value was changed, some tests may fail");
+        underTest.setIndent(TextSerializer.DEFAULT_INDENT+2);
+        assertEquals(underTest.getIndent(), TextSerializer.DEFAULT_INDENT+2);
+    }
+
+    @Test
+    public void getStyleBuilderTest() {
+        TextStyle.Builder builder = underTest.getStyleBuilder();
+        assertEquals(TextSerializer.DEFAULT_INDENT, builder.getIndent(), "Default indent value was changed, some tests may fail");
+        assertEquals(TextSerializer.DEFAULT_LEFT_PAD, builder.getLeftPad(), "Default left pad value was changed, some tests may fail");
+        assertEquals(TextSerializer.DEFAULT_WIDTH, builder.getMaxWidth(),  "Default width value was changed, some tests may fail");
     }
 }

@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 import org.apache.commons.cli.Option;
@@ -78,17 +79,19 @@ public abstract class AbstractHelpFormatter {
      * Constructs the base formatter.
      * @param serializer the serializer to output with
      * @param optionFormatBuilder the builder of {@link OptionFormatter} to format options for display.
-     * @param defaultTableDefBuilder A function to build a {@link TableDef} from a collection of {@link Option}s.
+     * @param tableDefBuilder A function to build a {@link TableDef} from a collection of {@link Option}s.
+     * @param comparator The comparator to use for sorting options.
+     * @param optionGroupSeparator the string to separate option groups.
      */
     protected AbstractHelpFormatter(final Serializer serializer, final OptionFormatter.Builder optionFormatBuilder,
-                                    final Function<Iterable<Option>, TableDef> defaultTableDefBuilder,
+                                    final Function<Iterable<Option>, TableDef> tableDefBuilder,
                                     final Comparator<Option> comparator,
                                     final String optionGroupSeparator) {
-        this.serializer = serializer;
-        this.optionFormatBuilder = optionFormatBuilder;
-        this.tableDefBuilder = defaultTableDefBuilder;
-        this.comparator = comparator;
-        this.optionGroupSeparator = optionGroupSeparator;
+        this.serializer = Objects.requireNonNull(serializer, "serializer");
+        this.optionFormatBuilder = Objects.requireNonNull(optionFormatBuilder, "optionFormatBuilder");
+        this.tableDefBuilder = tableDefBuilder;
+        this.comparator = Objects.requireNonNull(comparator, "comparator");
+        this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "");
     }
 
     /**

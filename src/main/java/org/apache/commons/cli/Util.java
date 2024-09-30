@@ -143,7 +143,7 @@ public final class Util {
         int pos;
         // look for the last whitespace character before limit
         for (pos = limit; pos >= startPos; --pos) {
-            if (Character.isWhitespace(text.charAt(pos))) {
+            if (isWhitespace(text.charAt(pos))) {
                 break;
             }
         }
@@ -163,12 +163,11 @@ public final class Util {
         }
         // the line ends before the max wrap pos or a new line char found
         int idx = startPos;
-        while (idx < text.length() && Character.isWhitespace(text.charAt(idx))) {
+        while (idx < text.length() && isWhitespace(text.charAt(idx))) {
             idx++;
         }
         return idx < text.length() ? idx : -1;
     }
-
 
     /**
      * Removes the trailing whitespace from the specified String.
@@ -181,10 +180,14 @@ public final class Util {
             return s;
         }
         int pos = s.length();
-        while (pos > 0 && Character.isWhitespace(s.charAt(pos - 1))) {
+        while (pos > 0 && isWhitespace(s.charAt(pos - 1))) {
             --pos;
         }
         return s.substring(0, pos);
+    }
+
+    private static boolean isWhitespace(char c) {
+        return Character.isWhitespace(c) || Character.PARAGRAPH_SEPARATOR == c;
     }
 
 
@@ -230,7 +233,7 @@ public final class Util {
      */
     public static String ltrim(final String s) {
         int pos = findNonWhitespacePos(s, 0);
-        return pos == -1 ? s : s.substring(0, pos);
+        return pos == -1 ? s : s.substring(pos);
     }
 
     /**

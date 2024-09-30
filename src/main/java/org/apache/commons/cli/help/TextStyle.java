@@ -302,6 +302,7 @@ public final class TextStyle {
         switch (alignment) {
             case LEFT:
             case RIGHT:
+            default: // default should never happen.  It is here to keep code coverage happy.
                 if (maxWidth == UNSET_MAX_WIDTH) {
                     indentPad = addIndent ? Util.createPadding(indent) : "";
                     rest = "";

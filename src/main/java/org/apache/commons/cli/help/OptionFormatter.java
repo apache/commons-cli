@@ -110,7 +110,7 @@ public final class OptionFormatter {
     /**
      * The default separator between options.
      */
-    public static final String DEFAULT_OPT_SEPARATOR = " ";
+    public static final String DEFAULT_OPT_SEPARATOR = ", ";
 
 
     /**
@@ -171,7 +171,6 @@ public final class OptionFormatter {
         public Builder() {
             argNameDelimiters = Arrays.copyOf(DEFAULT_ARG_NAME_DELIMITERS, 2);
             defaultArgName = DEFAULT_ARG_NAME;
-           // comparator = DEFAULT_COMPARATOR;
             deprecatedFormatFunction = NO_DEPRECATED_FORMAT;
             longOptPrefix = DEFAULT_LONG_OPT_PREFIX;
             optPrefix = DEFAULT_OPT_PREFIX;
@@ -193,7 +192,6 @@ public final class OptionFormatter {
             optSeparator = optionFormatter.optSeparator;
             deprecatedFormatFunction = optionFormatter.deprecatedFormatFunction;
             syntaxFormatFunction = optionFormatter.syntaxFormatFunction;
-            //comparator = optionFormatter.comparator;
         }
 
         /**
@@ -355,10 +353,10 @@ public final class OptionFormatter {
 
         StringBuilder sb = new StringBuilder(getOpt());
         if (sb.length() > 0 && !Util.isEmpty(lOpt)) {
-            sb.append(",");
+            sb.append(optSeparator);
         }
-        sb.append(getLongOpt());
-        return sb.length() == 0 ? "" : sb.toString();
+        // sb will not be empty as Option requries at least one of opt or longOpt.
+        return sb.append(getLongOpt()).toString();
     }
 
     /**

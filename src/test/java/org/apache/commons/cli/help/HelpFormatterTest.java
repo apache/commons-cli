@@ -17,11 +17,17 @@
 package org.apache.commons.cli.help;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
@@ -31,6 +37,26 @@ import org.example.XhtmlSerializer;
 import org.junit.jupiter.api.Test;
 
 public class HelpFormatterTest {
+
+    @Test
+    public void defaultTest() {
+        StringBuilder sb = new StringBuilder();
+        TextSerializer serializer = new TextSerializer(sb);
+        HelpFormatter formatter = new HelpFormatter(serializer);
+        assertEquals(serializer, formatter.getSerializer(), "Unexpected serializer tests may fail unexpectedly");
+        assertEquals(AbstractHelpFormatter.DEFAULT_COMPARATOR, formatter.getComparator(), "Unexpected comparator tests may fail unexpectedly");
+        assertEquals(AbstractHelpFormatter.DEFAULT_SYNTAX_PREFIX, formatter.getSyntaxPrefix(), "Unexpected syntax prefix tests may fail unexpectedly");
+    }
+
+    @Test
+    public void syntaxPrefixTest() {
+        StringBuilder sb = new StringBuilder();
+        TextSerializer serializer = new TextSerializer(sb);
+        HelpFormatter formatter = new HelpFormatter(serializer);
+        formatter.setSyntaxPrefix("Something new");
+        assertEquals("Something new", formatter.getSyntaxPrefix());
+        assertEquals(0, sb.length(), "Should not write to output");
+    }
 
     @Test
     public void testPrintOptions() throws IOException {
@@ -86,9 +112,10 @@ public class HelpFormatterTest {
     public void testPrintHelp() throws IOException {
         StringBuilder sb = new StringBuilder();
         TextSerializer serializer = new TextSerializer(sb);
+        HelpFormatter formatter = new HelpFormatter(serializer);
+
         Options options = new Options().addOption(Option.builder("a").since("1853").hasArg()
                 .desc("aaaa aaaa aaaa aaaa aaaa").build());
-        HelpFormatter formatter = new HelpFormatter(serializer);
 
         List<String> expected = new ArrayList<>();
         expected.add(" usage:  commandSyntax [-a <arg>]");
@@ -121,8 +148,56 @@ public class HelpFormatterTest {
         formatter.printHelp("commandSyntax", "header", options, "footer", true);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual);
+
+        sb.setLength(0);
+        formatter.printHelp("commandSyntax", "header", options, "footer", false);
+        expected.set(0, " usage:  commandSyntax");
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+        sb.setLength(0);
+        formatter.printHelp("commandSyntax", "", options, "footer", false);
+        expected.remove(3);
+        expected.remove(2);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+        sb.setLength(0);
+        formatter.printHelp("commandSyntax", null, options, "footer", false);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+        sb.setLength(0);
+        formatter.printHelp("commandSyntax", null, options, "", false);
+        expected.remove(6);
+        expected.remove(5);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+        sb.setLength(0);
+        formatter.printHelp("commandSyntax", null, options, null, false);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+
+        sb.setLength(0);
+        final HelpFormatter fHelp = formatter;
+        assertThrows(IllegalArgumentException.class, () -> fHelp.printHelp("", "header", options, "footer", true));
+        assertEquals(0, sb.length(), "Should not write to output");
+        assertThrows(IllegalArgumentException.class, () -> fHelp.printHelp(null, "header", options, "footer", true));
+        assertEquals(0, sb.length(), "Should not write to output");
     }
 
+    @Test
+    public void asArgNameTest() {
+        StringBuilder sb = new StringBuilder();
+        TextSerializer serializer = new TextSerializer(sb);
+        HelpFormatter formatter = new HelpFormatter(serializer);
+
+        assertEquals("<some Arg>", formatter.asArgName("some Arg"));
+        assertEquals("<>", formatter.asArgName(""));
+        assertEquals("<>", formatter.asArgName(null));
+    }
     @Test
     public void testPrintHelpXML() throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -169,6 +244,8 @@ public class HelpFormatterTest {
         group.setRequired(true);
         assertEquals("-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th",
                 underTest.asSyntaxOptions(group));
+
+        assertEquals("", underTest.asSyntaxOptions(new OptionGroup()), "empty group should return empty string");
     }
 
     @Test
@@ -254,14 +331,18 @@ public class HelpFormatterTest {
         expected.add(options.getOption("b"));
         expected.add(options.getOption("COpt"));
 
-        List<Option> actual = underTest.sortedOptions(options);
         assertEquals(expected, underTest.sortedOptions(options));
 
         expected.set(0, expected.get(2));
         expected.set(2, options.getOption("a"));
         underTest = new HelpFormatter.Builder().setComparator(AbstractHelpFormatter.DEFAULT_COMPARATOR.reversed()).build();
-        actual = underTest.sortedOptions(options);
         assertEquals(expected, underTest.sortedOptions(options));
+
+        assertEquals(0, underTest.sortedOptions(Collections.emptyList()).size(), "empty colleciton should return empty list");
+        Iterable<Option> iterable = null;
+        assertEquals(0, underTest.sortedOptions(iterable).size(), "null iterable should return empty list");
+        assertEquals(0, underTest.sortedOptions((Options)null).size(), "null Options should return empty list");
+
     }
 
     private Options getTestGroups() {
@@ -300,4 +381,40 @@ public class HelpFormatterTest {
         expected.add(optList.get(2));
         assertEquals(expected, underTest.sortedOptions(options));
     }
+
+    @Test
+    public void setOptionFormatBuilderTest() {
+        HelpFormatter.Builder underTest = new HelpFormatter.Builder();
+        OptionFormatter.Builder ofBuilder = new OptionFormatter.Builder().setOptPrefix("Just Another ");
+        underTest.setOptionFormatBuilder(ofBuilder);
+        HelpFormatter formatter = underTest.build();
+        OptionFormatter oFormatter = formatter.getOptionFormatter(Option.builder("thing").build());
+        assertEquals("Just Another thing", oFormatter.getOpt());
+
+    }
+
+    @Test
+    public void setDefaultTableBuilderTest() throws IOException {
+        HelpFormatter.Builder underTest = new HelpFormatter.Builder();
+        Function<Iterable<Option>, TableDef> func = options -> {
+            return TableDef.from("TESTING TABLE DEF", Arrays.asList(TextStyle.DEFAULT),
+                    Arrays.asList("Dummy"), Arrays.asList(Arrays.asList("Dummy Value")));
+        };
+        StringBuilder sb = new StringBuilder();
+        underTest.setDefaultTableBuilder(func).setSerializer(new TextSerializer(sb));
+        HelpFormatter formatter = underTest.build();
+        formatter.printOptions(Arrays.asList(Option.builder("foo").build()));
+        String s = sb.toString();
+        assertTrue(s.contains("TESTING TABLE DEF"));
+    }
+
+    @Test
+    public void setOptionGroupSeparatorTest() {
+        HelpFormatter.Builder underTest = new HelpFormatter.Builder().setOptionGroupSeparator(" and ");
+        HelpFormatter formatter = underTest.build();
+        String result = formatter.asSyntaxOptions(new OptionGroup().addOption(Option.builder("this").build())
+                .addOption(Option.builder("that").build()));
+        assertTrue(result.contains("-that and -this"));
+    }
+
 }

@@ -17,10 +17,20 @@
 
 package org.apache.commons.cli;
 
+import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class UtilTest {
 
@@ -53,5 +63,52 @@ public class UtilTest {
         assertEquals(15, Util.findWrapPos(testString, 16, 0));
         assertEquals(30, Util.findWrapPos(testString, 15, 20),  "did not find break character");
         assertEquals(30, Util.findWrapPos(testString, 150, 0), "did not handle text shorter than width");
+    }
+
+
+
+    @ParameterizedTest
+    @MethodSource("charArgs")
+    public void ltrimTest(final Character c, final boolean isWhitespace) {
+        if (isWhitespace) {
+            assertEquals("worx", Util.ltrim(format("%sworx", c)), () -> format("Did not process character 0x%x", (int) c));
+        } else {
+            assertNotEquals("worx", Util.ltrim(format("%sworx", c)), () -> format("Did not process character 0x%x", (int) c));
+        }
+
+    }
+
+    @ParameterizedTest
+    @MethodSource("charArgs")
+    public void rtrimTest(final Character c, final boolean isWhitespace) {
+        if (isWhitespace) {
+            assertEquals("worx", Util.rtrim(format("worx%s", c)), () -> format("Did not process character 0x%x", (int) c));
+        } else {
+            assertNotEquals("worx", Util.rtrim(format("worx%s", c)), () -> format("Did not process character 0x%x", (int) c));
+        }
+    }
+
+    public static Stream<Arguments> charArgs() {
+        List<Arguments> lst = new ArrayList<>();
+        final char[] whitespace = {' ', '\t', '\n', '\f', '\r',
+                Character.SPACE_SEPARATOR,
+                Character.LINE_SEPARATOR,
+                Character.PARAGRAPH_SEPARATOR,
+                '\u000B', // VERTICAL TABULATION.
+                '\u001C', // FILE SEPARATOR.
+                '\u001D', // GROUP SEPARATOR.
+                '\u001E', // RECORD SEPARATOR.
+                '\u001F', // UNIT SEPARATOR.
+        };
+
+        final char[] nonBreakingSpace = {  '\u00A0', '\u2007', '\u202F' };
+
+        for (char c : whitespace) {
+            lst.add(Arguments.of(Character.valueOf(c), Boolean.TRUE));
+        }
+        for (char c : nonBreakingSpace) {
+            lst.add(Arguments.of(Character.valueOf(c), Boolean.FALSE));
+        }
+        return lst.stream();
     }
 }

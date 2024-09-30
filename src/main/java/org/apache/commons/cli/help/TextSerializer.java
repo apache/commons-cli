@@ -66,6 +66,14 @@ public class TextSerializer extends AbstractSerializer {
     }
 
     /**
+     * Gets the maximum width for the output
+     * @return the maximum width for the output.
+     */
+    public int getMaxWidth() {
+        return styleBuilder.getMaxWidth();
+    }
+
+    /**
      * Sets the left padding: the number of characters from the left edge to start output.
      * @param leftPad the left padding.
      */
@@ -74,11 +82,27 @@ public class TextSerializer extends AbstractSerializer {
     }
 
     /**
-     * Sets the indent for paragraphs.
+     * Returns the left padding for the output.
+     * @return The left padding for the output.
+     */
+    public int getLeftPad() {
+        return styleBuilder.getLeftPad();
+    }
+
+    /**
+     * Sets the indent for the output.
      * @param indent the indent used for paragraphs.
      */
     public void setIndent(final int indent) {
         styleBuilder.setIndent(indent);
+    }
+
+    /**
+     * Gets the indent for the output.
+     * @return the indent ofr the page.
+     */
+    public int getIndent() {
+        return styleBuilder.getIndent();
     }
 
     /**
@@ -174,7 +198,7 @@ public class TextSerializer extends AbstractSerializer {
         int maxAdjust = builder.getMaxWidth() / 3;
         int newIndent = builder.getMaxWidth() == 1 ? 0 : builder.getIndent();
         if (newIndent > maxAdjust) {
-            newIndent = Math.min(resize(builder.getIndent(), indentFrac), Math.min(maxAdjust, builder.getMinWidth()));
+            newIndent = Math.min(resize(builder.getIndent(), indentFrac), maxAdjust);
         }
         builder.setIndent(newIndent);
         return builder;
@@ -350,5 +374,14 @@ public class TextSerializer extends AbstractSerializer {
      */
     public void printWrapped(final String text, final TextStyle style) throws IOException {
         printQueue(makeColumnQueue(text, style));
+    }
+
+    /**
+     * Print wrapped text using the TextSerializer output style.
+     * @param text the text to wrap
+     * @throws IOException on output error.
+     */
+    public void printWrapped(final String text) throws IOException {
+        printQueue(makeColumnQueue(text, this.styleBuilder.get()));
     }
 }
