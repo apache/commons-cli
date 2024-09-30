@@ -98,7 +98,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
         private Comparator<Option> comparator;
         /**
          * Constructor.
-         * <p>sets the showSince to {@code true}</p>>
+         * <p>sets the showSince to {@code true}</p>
          */
         public Builder() {
             showSince = true;
