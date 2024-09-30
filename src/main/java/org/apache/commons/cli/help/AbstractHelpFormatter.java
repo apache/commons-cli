@@ -128,10 +128,13 @@ public abstract class AbstractHelpFormatter {
         return optionFormatBuilder.build(option);
     }
 
+    /**
+     * Gets the comparator used by this HelpFormatter.
+     * @return The comparator used by this HelpFormatter.
+     */
     public Comparator<Option> getComparator() {
         return comparator;
     }
-
 
     /**
      * Prints the help for {@link Options} with the specified command line syntax.

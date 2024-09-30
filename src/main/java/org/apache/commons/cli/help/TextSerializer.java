@@ -151,7 +151,7 @@ public class TextSerializer extends AbstractSerializer {
                 throw new IllegalArgumentException("level must be at least 1");
             }
             char[] fillChars = {'=', '%', '+', '_'};
-            int idx = (Math.min(level, fillChars.length)) - 1;
+            int idx = Math.min(level, fillChars.length) - 1;
             TextStyle style = styleBuilder.get();
             Queue<String> queue = makeColumnQueue(text, style);
             queue.add(Util.createPadding(style.getLeftPad()) + Util.filledString(Math.min(text.length(), style.getMaxWidth()), fillChars[idx]));
@@ -163,7 +163,6 @@ public class TextSerializer extends AbstractSerializer {
     @Override
     public void writeList(final boolean ordered, final Collection<String> list) throws IOException {
         if (list != null && !list.isEmpty()) {
-            int maxWidth = 0;
             TextStyle.Builder builder = new TextStyle.Builder().setLeftPad(styleBuilder.getLeftPad()).setIndent(DEFAULT_LIST_INDENT);
             int i = 1;
             for (String line : list) {
@@ -356,7 +355,6 @@ public class TextSerializer extends AbstractSerializer {
             int workingWidth = wrapPos == 0 ? style.getMaxWidth() : wrappedMaxWidth;
             nextPos = Util.findWrapPos(columnData, workingWidth, wrapPos);
             String working = columnData.substring(wrapPos, nextPos);
-            String rest = Util.createPadding(workingWidth - working.length());
             StringBuilder sb = new StringBuilder(lpad);
             sb.append(style.pad(wrapPos > 0, working));
             result.add(sb.toString());

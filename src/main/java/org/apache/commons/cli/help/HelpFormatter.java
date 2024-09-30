@@ -105,8 +105,8 @@ public class HelpFormatter extends AbstractHelpFormatter {
             serializer = null;
             optionFormatBuilder = null;
             defaultTableBuilder = null;
-            comparator = AbstractHelpFormatter.DEFAULT_COMPARATOR;
-            optionGroupSeparator = AbstractHelpFormatter.DEFAULT_OPTION_GROUP_SEPARATOR;
+            comparator = DEFAULT_COMPARATOR;
+            optionGroupSeparator = DEFAULT_OPTION_GROUP_SEPARATOR;
         }
 
         /**
@@ -149,11 +149,22 @@ public class HelpFormatter extends AbstractHelpFormatter {
             return this;
         }
 
+        /**
+         * Sets the OptionGroup separator.  Normally " | " or something similar to denote that only one option may
+         * be chosen.
+         * @param optionGroupSeparator the string to separate option group elements with.
+         * @return this
+         */
         public Builder setOptionGroupSeparator(final String optionGroupSeparator) {
             this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "");
             return this;
         }
 
+        /**
+         * Sets the comparator to use for sorting opitons.  If set to {@code null} no sorting is performed.
+         * @param comparator The comparator to use for sorting opitons.
+         * @return this
+         */
         public Builder setComparator(final Comparator<Option> comparator) {
             this.comparator = comparator;
             return this;

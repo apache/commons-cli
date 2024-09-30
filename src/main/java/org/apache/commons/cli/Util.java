@@ -158,7 +158,7 @@ public final class Util {
      * @return the index of the first non whitespace character or -1 if non found.
      */
     public static int findNonWhitespacePos(final String text, final int startPos) {
-        if (Util.isEmpty(text)) {
+        if (isEmpty(text)) {
             return -1;
         }
         // the line ends before the max wrap pos or a new line char found
@@ -176,7 +176,7 @@ public final class Util {
      * @return The String of without the trailing padding
      */
     public static String rtrim(final String s) {
-        if (Util.isEmpty(s)) {
+        if (isEmpty(s)) {
             return s;
         }
         int pos = s.length();
