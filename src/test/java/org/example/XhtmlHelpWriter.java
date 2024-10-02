@@ -23,13 +23,13 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.cli.Util;
-import org.apache.commons.cli.help.AbstractSerializer;
+import org.apache.commons.cli.help.AbstractHelpWriter;
 import org.apache.commons.cli.help.TableDef;
 
-/** An example XML serializer -- DO NOT USE as this does not properly escape strings */
-public class XhtmlSerializer extends AbstractSerializer {
+/** An example XML helpWriter -- DO NOT USE as this does not properly escape strings */
+public class XhtmlHelpWriter extends AbstractHelpWriter {
 
-    public XhtmlSerializer(final Appendable output) {
+    public XhtmlHelpWriter(final Appendable output) {
         super(output);
     }
 

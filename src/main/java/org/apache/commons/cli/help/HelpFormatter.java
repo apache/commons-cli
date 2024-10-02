@@ -78,7 +78,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
      * Default values are:
      * <ul>
      *     <li>showSicne = true</li>
-     *     <li>serializer = a {@link TextSerializer} writing to {@code System.out}</li>
+     *     <li>helpWriter = a {@link TextHelpWriter} writing to {@code System.out}</li>
      *     <li>optionFormatter.Builder = the default {@link OptionFormatter.Builder}</li>
      *     <li>defaultTableBuilder = {@link HelpFormatter#defaultTableBuilder(Iterable)}</li>
      * </ul>
@@ -86,8 +86,8 @@ public class HelpFormatter extends AbstractHelpFormatter {
     public static class Builder {
         /** If {@code true} show the "Since" column, otherwise ignore it. */
         private boolean showSince;
-        /** The {@link Serializer} to use */
-        private Serializer serializer;
+        /** The {@link HelpWriter} to use */
+        private HelpWriter helpWriter;
         /** The {@link OptionFormatter.Builder} to use to format options in the table. */
         private OptionFormatter.Builder optionFormatBuilder;
         /** A function to create a {@link TableDef} from a collection of {@link Option} instances. */
@@ -102,7 +102,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
          */
         public Builder() {
             showSince = true;
-            serializer = null;
+            helpWriter = null;
             optionFormatBuilder = null;
             defaultTableBuilder = null;
             comparator = DEFAULT_COMPARATOR;
@@ -120,12 +120,12 @@ public class HelpFormatter extends AbstractHelpFormatter {
         }
 
         /**
-         * Sets the {@link Serializer}.
-         * @param serializer the {@link Serializer} to use.
+         * Sets the {@link HelpWriter}.
+         * @param helpWriter the {@link HelpWriter} to use.
          * @return this
          */
-        public Builder setSerializer(final Serializer serializer) {
-            this.serializer = serializer;
+        public Builder setSerializer(final HelpWriter helpWriter) {
+            this.helpWriter = helpWriter;
             return this;
         }
 
@@ -175,8 +175,8 @@ public class HelpFormatter extends AbstractHelpFormatter {
          * @return this.
          */
         private Builder sanityCheck() {
-            if (serializer == null) {
-                serializer = new TextSerializer(System.out);
+            if (helpWriter == null) {
+                helpWriter = new TextHelpWriter(System.out);
             }
             if (optionFormatBuilder == null) {
                 optionFormatBuilder = new OptionFormatter.Builder();
@@ -203,12 +203,12 @@ public class HelpFormatter extends AbstractHelpFormatter {
     }
 
     /**
-     * Convenience constructor to create an instance using the specified {@link Serializer} and the
+     * Convenience constructor to create an instance using the specified {@link HelpWriter} and the
      * remaining default {@link Builder}.
-     * @param serializer the {@link Serializer} to use.
+     * @param helpWriter the {@link HelpWriter} to use.
      */
-    public HelpFormatter(final Serializer serializer) {
-        this(new Builder().setSerializer(serializer).sanityCheck());
+    public HelpFormatter(final HelpWriter helpWriter) {
+        this(new Builder().setSerializer(helpWriter).sanityCheck());
     }
 
     /**
@@ -216,7 +216,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
      * @param builder the Builder to build from.
      */
     private HelpFormatter(final Builder builder) {
-        super(builder.serializer, builder.optionFormatBuilder, builder.defaultTableBuilder, builder.comparator,
+        super(builder.helpWriter, builder.optionFormatBuilder, builder.defaultTableBuilder, builder.comparator,
                 builder.optionGroupSeparator);
 
         this.showSince = builder.showSince;

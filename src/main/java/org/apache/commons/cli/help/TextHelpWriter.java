@@ -30,7 +30,7 @@ import org.apache.commons.cli.Util;
 /**
  * Writes text format output.
  */
-public class TextSerializer extends AbstractSerializer {
+public class TextHelpWriter extends AbstractHelpWriter {
 
     /** Default number of characters per line */
     public static final int DEFAULT_WIDTH = 74;
@@ -51,7 +51,7 @@ public class TextSerializer extends AbstractSerializer {
      * Construct from an output.
      * @param output the Appendable to write the output to.
      */
-    public TextSerializer(final Appendable output) {
+    public TextHelpWriter(final Appendable output) {
         super(output);
         styleBuilder = new TextStyle.Builder().setMaxWidth(DEFAULT_WIDTH)
                 .setLeftPad(DEFAULT_LEFT_PAD).setIndent(DEFAULT_INDENT);
@@ -375,7 +375,7 @@ public class TextSerializer extends AbstractSerializer {
     }
 
     /**
-     * Print wrapped text using the TextSerializer output style.
+     * Print wrapped text using the TextHelpWriter output style.
      * @param text the text to wrap
      * @throws IOException on output error.
      */

@@ -33,15 +33,15 @@ import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public final class TextSerializerTest {
+public final class TextHelpWriterTest {
 
     private StringBuilder sb;
-    private TextSerializer underTest;
+    private TextHelpWriter underTest;
 
     @BeforeEach
     public void setUp() {
         sb = new StringBuilder();
-        underTest = new TextSerializer(sb);
+        underTest = new TextHelpWriter(sb);
     }
 
     @Test
@@ -424,16 +424,16 @@ public final class TextSerializerTest {
 
     @Test
     public void setIndentTest() {
-        assertEquals(TextSerializer.DEFAULT_INDENT, underTest.getIndent(), "Default indent value was changed, some tests may fail");
-        underTest.setIndent(TextSerializer.DEFAULT_INDENT + 2);
-        assertEquals(underTest.getIndent(), TextSerializer.DEFAULT_INDENT + 2);
+        assertEquals(TextHelpWriter.DEFAULT_INDENT, underTest.getIndent(), "Default indent value was changed, some tests may fail");
+        underTest.setIndent(TextHelpWriter.DEFAULT_INDENT + 2);
+        assertEquals(underTest.getIndent(), TextHelpWriter.DEFAULT_INDENT + 2);
     }
 
     @Test
     public void getStyleBuilderTest() {
         TextStyle.Builder builder = underTest.getStyleBuilder();
-        assertEquals(TextSerializer.DEFAULT_INDENT, builder.getIndent(), "Default indent value was changed, some tests may fail");
-        assertEquals(TextSerializer.DEFAULT_LEFT_PAD, builder.getLeftPad(), "Default left pad value was changed, some tests may fail");
-        assertEquals(TextSerializer.DEFAULT_WIDTH, builder.getMaxWidth(),  "Default width value was changed, some tests may fail");
+        assertEquals(TextHelpWriter.DEFAULT_INDENT, builder.getIndent(), "Default indent value was changed, some tests may fail");
+        assertEquals(TextHelpWriter.DEFAULT_LEFT_PAD, builder.getLeftPad(), "Default left pad value was changed, some tests may fail");
+        assertEquals(TextHelpWriter.DEFAULT_WIDTH, builder.getMaxWidth(),  "Default width value was changed, some tests may fail");
     }
 }

@@ -22,16 +22,16 @@ import java.io.IOException;
 import java.util.Collection;
 
 import org.apache.commons.cli.Util;
-import org.apache.commons.cli.help.AbstractSerializer;
+import org.apache.commons.cli.help.AbstractHelpWriter;
 import org.apache.commons.cli.help.TableDef;
 import org.apache.commons.cli.help.TextStyle;
 
 /**
  * A class to write APT formatted text.
  */
-public class AptSerializer extends AbstractSerializer {
+public class AptHelpWriter extends AbstractHelpWriter {
 
-    public AptSerializer(final Appendable output) {
+    public AptHelpWriter(final Appendable output) {
         super(output);
     }
 

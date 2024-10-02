@@ -19,9 +19,9 @@ package org.apache.commons.cli.help;
 import java.io.IOException;
 
 /**
- * An abstract implementation of {@link Serializer} that writes output to an {@link Appendable} instance.
+ * An abstract implementation of {@link HelpWriter} that writes output to an {@link Appendable} instance.
  */
-public abstract class AbstractSerializer implements Serializer {
+public abstract class AbstractHelpWriter implements HelpWriter {
     /**
      * The Appendable instance to write to.
      */
@@ -31,7 +31,7 @@ public abstract class AbstractSerializer implements Serializer {
      * Constructs an instance using the provided Appendable instance.
      * @param output the Appendable instance to write to.
      */
-    protected AbstractSerializer(final Appendable output) {
+    protected AbstractHelpWriter(final Appendable output) {
         this.output = output;
     }
 

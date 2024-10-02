@@ -32,7 +32,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.io.IOUtils;
-import org.example.XhtmlSerializer;
+import org.example.XhtmlHelpWriter;
 import org.junit.jupiter.api.Test;
 
 public class HelpFormatterTest {
@@ -40,9 +40,9 @@ public class HelpFormatterTest {
     @Test
     public void defaultTest() {
         StringBuilder sb = new StringBuilder();
-        TextSerializer serializer = new TextSerializer(sb);
+        TextHelpWriter serializer = new TextHelpWriter(sb);
         HelpFormatter formatter = new HelpFormatter(serializer);
-        assertEquals(serializer, formatter.getSerializer(), "Unexpected serializer tests may fail unexpectedly");
+        assertEquals(serializer, formatter.getSerializer(), "Unexpected helpWriter tests may fail unexpectedly");
         assertEquals(AbstractHelpFormatter.DEFAULT_COMPARATOR, formatter.getComparator(), "Unexpected comparator tests may fail unexpectedly");
         assertEquals(AbstractHelpFormatter.DEFAULT_SYNTAX_PREFIX, formatter.getSyntaxPrefix(), "Unexpected syntax prefix tests may fail unexpectedly");
     }
@@ -50,7 +50,7 @@ public class HelpFormatterTest {
     @Test
     public void syntaxPrefixTest() {
         StringBuilder sb = new StringBuilder();
-        TextSerializer serializer = new TextSerializer(sb);
+        TextHelpWriter serializer = new TextHelpWriter(sb);
         HelpFormatter formatter = new HelpFormatter(serializer);
         formatter.setSyntaxPrefix("Something new");
         assertEquals("Something new", formatter.getSyntaxPrefix());
@@ -60,16 +60,16 @@ public class HelpFormatterTest {
     @Test
     public void testPrintOptions() throws IOException {
         StringBuilder sb = new StringBuilder();
-        TextSerializer serializer = new TextSerializer(sb);
+        TextHelpWriter serializer = new TextHelpWriter(sb);
         HelpFormatter formatter = new HelpFormatter.Builder().setSerializer(serializer).setShowSince(false).build();
 
         // help format default column styles
-        // col  options     description     serializer
+        // col  options     description     helpWriter
         // styl   FIXED     VARIABLE         VARIABLE
         // LPad     0           5               1
         // indent   1           1               3
         //
-        // default serializer
+        // default helpWriter
 
         Options options;
         List<String> expected = new ArrayList<>();
@@ -110,7 +110,7 @@ public class HelpFormatterTest {
     @Test
     public void testPrintHelp() throws IOException {
         StringBuilder sb = new StringBuilder();
-        TextSerializer serializer = new TextSerializer(sb);
+        TextHelpWriter serializer = new TextHelpWriter(sb);
         HelpFormatter formatter = new HelpFormatter(serializer);
 
         Options options = new Options().addOption(Option.builder("a").since("1853").hasArg()
@@ -190,7 +190,7 @@ public class HelpFormatterTest {
     @Test
     public void asArgNameTest() {
         StringBuilder sb = new StringBuilder();
-        TextSerializer serializer = new TextSerializer(sb);
+        TextHelpWriter serializer = new TextHelpWriter(sb);
         HelpFormatter formatter = new HelpFormatter(serializer);
 
         assertEquals("<some Arg>", formatter.asArgName("some Arg"));
@@ -200,7 +200,7 @@ public class HelpFormatterTest {
     @Test
     public void testPrintHelpXML() throws IOException {
         StringBuilder sb = new StringBuilder();
-        XhtmlSerializer serializer = new XhtmlSerializer(sb);
+        XhtmlHelpWriter serializer = new XhtmlHelpWriter(sb);
         HelpFormatter formatter = new HelpFormatter(serializer);
         formatter.setShowSince(false);
         Options options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa");
@@ -399,7 +399,7 @@ public class HelpFormatterTest {
                     Arrays.asList("Dummy"), Arrays.asList(Arrays.asList("Dummy Value")));
         };
         StringBuilder sb = new StringBuilder();
-        underTest.setDefaultTableBuilder(func).setSerializer(new TextSerializer(sb));
+        underTest.setDefaultTableBuilder(func).setSerializer(new TextHelpWriter(sb));
         HelpFormatter formatter = underTest.build();
         formatter.printOptions(Arrays.asList(Option.builder("foo").build()));
         String s = sb.toString();

@@ -33,7 +33,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.Util;
 
 /**
- * The class for help formatters provides the framework to link the {@link Serializer} with the {@link OptionFormatter}
+ * The class for help formatters provides the framework to link the {@link HelpWriter} with the {@link OptionFormatter}
  * and a default {@link TableDef} so to produce a standard format help page.
  */
 public abstract class AbstractHelpFormatter {
@@ -52,9 +52,9 @@ public abstract class AbstractHelpFormatter {
      public static final Comparator<Option> DEFAULT_COMPARATOR = (opt1, opt2) -> opt1.getKey().compareToIgnoreCase(opt2.getKey());
 
     /**
-     * The {@link Serializer} that produces the final output.
+     * The {@link HelpWriter} that produces the final output.
      */
-    protected final Serializer serializer;
+    protected final HelpWriter helpWriter;
     /**
      * The OptionFormatter.Builder used to display options within the help page
      */
@@ -77,17 +77,17 @@ public abstract class AbstractHelpFormatter {
 
     /**
      * Constructs the base formatter.
-     * @param serializer the serializer to output with
+     * @param helpWriter the helpWriter to output with
      * @param optionFormatBuilder the builder of {@link OptionFormatter} to format options for display.
      * @param tableDefBuilder A function to build a {@link TableDef} from a collection of {@link Option}s.
      * @param comparator The comparator to use for sorting options.
      * @param optionGroupSeparator the string to separate option groups.
      */
-    protected AbstractHelpFormatter(final Serializer serializer, final OptionFormatter.Builder optionFormatBuilder,
+    protected AbstractHelpFormatter(final HelpWriter helpWriter, final OptionFormatter.Builder optionFormatBuilder,
                                     final Function<Iterable<Option>, TableDef> tableDefBuilder,
                                     final Comparator<Option> comparator,
                                     final String optionGroupSeparator) {
-        this.serializer = Objects.requireNonNull(serializer, "serializer");
+        this.helpWriter = Objects.requireNonNull(helpWriter, "helpWriter");
         this.optionFormatBuilder = Objects.requireNonNull(optionFormatBuilder, "optionFormatBuilder");
         this.tableDefBuilder = tableDefBuilder;
         this.comparator = Objects.requireNonNull(comparator, "comparator");
@@ -112,11 +112,11 @@ public abstract class AbstractHelpFormatter {
     }
 
     /**
-     * Gets the {@link Serializer} associated with this help formatter.
-     * @return The {@link Serializer} associated with this help formatter.
+     * Gets the {@link HelpWriter} associated with this help formatter.
+     * @return The {@link HelpWriter} associated with this help formatter.
      */
-    public final Serializer getSerializer() {
-        return serializer;
+    public final HelpWriter getSerializer() {
+        return helpWriter;
     }
 
     /**
@@ -144,7 +144,7 @@ public abstract class AbstractHelpFormatter {
      * @param options the {@link Options} to print
      * @param footer the banner to display at the end of the help
      * @param autoUsage whether to print an automatically generated usage statement
-     * @throws IOException If the output could not be written to the {@link Serializer}
+     * @throws IOException If the output could not be written to the {@link HelpWriter}
      */
     public final void printHelp(final String cmdLineSyntax, final String header, final Options options,
                                 final String footer, final boolean autoUsage) throws IOException {
@@ -159,7 +159,7 @@ public abstract class AbstractHelpFormatter {
      * @param options the collection of {@link Option} objects to print.
      * @param footer the banner to display at the end of the help
      * @param autoUsage whether to print an automatically generated usage statement
-     * @throws IOException If the output could not be written to the {@link Serializer}
+     * @throws IOException If the output could not be written to the {@link HelpWriter}
      */
     public void printHelp(final String cmdLineSyntax, final String header, final Iterable<Option> options,
                           final String footer, final boolean autoUsage) throws IOException {
@@ -168,46 +168,46 @@ public abstract class AbstractHelpFormatter {
         }
 
         if (autoUsage) {
-            serializer.writePara(format("%s %s %s", syntaxPrefix, cmdLineSyntax, asSyntaxOptions(options)));
+            helpWriter.writePara(format("%s %s %s", syntaxPrefix, cmdLineSyntax, asSyntaxOptions(options)));
         } else {
-            serializer.writePara(format("%s %s", syntaxPrefix, cmdLineSyntax));
+            helpWriter.writePara(format("%s %s", syntaxPrefix, cmdLineSyntax));
         }
 
         if (!Util.isEmpty(header)) {
-            serializer.writePara(header);
+            helpWriter.writePara(header);
         }
 
-        serializer.writeTable(tableDefBuilder.apply(options));
+        helpWriter.writeTable(tableDefBuilder.apply(options));
 
         if (!Util.isEmpty(footer)) {
-            serializer.writePara(footer);
+            helpWriter.writePara(footer);
         }
     }
 
     /**
-     * Prints the option table for the specified {@link Options} to the {@link Serializer}.
+     * Prints the option table for the specified {@link Options} to the {@link HelpWriter}.
      * @param options the Options to print in the table.
-     * @throws IOException If the output could not be written to the {@link Serializer}
+     * @throws IOException If the output could not be written to the {@link HelpWriter}
      */
     public final void printOptions(final Options options) throws IOException {
         printOptions(options.getOptions());
     }
 
     /**
-     * Prints the option table for a collection of {@link Option} objects to the {@link Serializer}.
+     * Prints the option table for a collection of {@link Option} objects to the {@link HelpWriter}.
      * @param options the collection of Option objects to print in the table.
-     * @throws IOException If the output could not be written to the {@link Serializer}
+     * @throws IOException If the output could not be written to the {@link HelpWriter}
      */
     public final void printOptions(final Iterable<Option> options) throws IOException {
         printOptions(tableDefBuilder.apply(options));
     }
     /**
-     * Prints a {@link TableDef} to the {@link Serializer}.
+     * Prints a {@link TableDef} to the {@link HelpWriter}.
      * @param tableDef the {@link TableDef} to print.
-     * @throws IOException If the output could not be written to the {@link Serializer}
+     * @throws IOException If the output could not be written to the {@link HelpWriter}
      */
     public final void printOptions(final TableDef tableDef) throws IOException {
-        serializer.writeTable(tableDef);
+        helpWriter.writeTable(tableDef);
     }
 
     /**

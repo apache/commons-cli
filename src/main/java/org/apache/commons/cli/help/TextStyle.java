@@ -22,7 +22,7 @@ import org.apache.commons.cli.Util;
 
 /**
  * The definition for styling blocks of text.  Most common usage is to style columns in a table, but may also be used to
- * specify default stylings for a {@link Serializer}.
+ * specify default stylings for a {@link HelpWriter}.
  */
 public final class TextStyle {
     /** The unset value for maxWidth */

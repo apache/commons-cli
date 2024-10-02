@@ -28,13 +28,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.example.XhtmlSerializer;
+import org.example.XhtmlHelpWriter;
 import org.junit.jupiter.api.Test;
 
-public class XhtmlSerializerTest {
+public class XhtmlHelpWriterTest {
 
     private StringBuilder sb = new StringBuilder();
-    private XhtmlSerializer underTest = new XhtmlSerializer(sb);
+    private XhtmlHelpWriter underTest = new XhtmlHelpWriter(sb);
 
     @Test
     public void writeTitleTest() throws IOException {

@@ -28,7 +28,7 @@ import java.util.Collection;
  *     text surrounded by &lt;p&gt; and &lt;/p&gt;
  * </p>
  */
-public interface Serializer {
+public interface HelpWriter {
 
     /**
      * A method that writes a string directly to the output without formatting for any semantic meaning.
