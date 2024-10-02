@@ -137,7 +137,7 @@ class SolrCliTest {
             .build();
     // @formatter:on
 
-    public static String getDefaultSolrUrl() {
+    private static String getDefaultSolrUrl() {
         final String scheme = "http";
         final String host = "localhost";
         final String port = "8983";

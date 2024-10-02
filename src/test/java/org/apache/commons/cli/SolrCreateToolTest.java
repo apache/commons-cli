@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class SolrCreateToolTest {
 
-    public List<Option> getOptions() {
+    private List<Option> getOptions() {
         // @formatter:off
         return Arrays.asList(
             SolrCliTest.OPTION_ZKHOST,
