@@ -182,14 +182,13 @@ public class OptionFormatterTest {
 
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
         OptionFormatter formatter = OptionFormatter.from(option);
-        assertEquals("[-o <arg>]", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, null));
-        assertEquals("-o <arg>", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, true));
+        assertEquals("[-o <arg>]", formatter.asSyntaxOption());
+        assertEquals("-o <arg>", formatter.asSyntaxOption(true));
 
         option = Option.builder().option("o").longOpt("opt").hasArg().required().build();
         formatter = OptionFormatter.from(option);
-        assertEquals("-o <arg>", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, null));
-        assertEquals("[-o <arg>]", OptionFormatter.DEFAULT_SYNTAX_FORMAT.apply(formatter, false));
-
+        assertEquals("-o <arg>", formatter.asSyntaxOption());
+        assertEquals("[-o <arg>]", formatter.asSyntaxOption(false));
     }
 
     @Test
@@ -244,6 +243,19 @@ public class OptionFormatterTest {
         builder = new OptionFormatter.Builder().setArgumentNameDelimiters("", null);
         assertEquals("arg", builder.build(option).getArgName());
 
+    }
+
+    @Test
+    public void testSetOptArgumentSeparator() {
+        Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
+        OptionFormatter.Builder builder = new OptionFormatter.Builder().setOptArgSeparator(" with argument named ");
+        assertEquals("[-o with argument named <arg>]", builder.build(option).asSyntaxOption());
+
+        builder = new OptionFormatter.Builder().setOptArgSeparator(null);
+        assertEquals("[-o<arg>]", builder.build(option).asSyntaxOption());
+
+        builder = new OptionFormatter.Builder().setOptArgSeparator("=");
+        assertEquals("[-o=<arg>]", builder.build(option).asSyntaxOption());
     }
 
     @Test

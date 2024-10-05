@@ -70,30 +70,6 @@ public final class OptionFormatter {
     public static final Function<Option, String> NO_DEPRECATED_FORMAT = o -> Util.defaultValue(o.getDescription(), "");
 
     /**
-     * The default {@link BiFunction} to produce the option syntax component from an {@link OptionFormatter} and a
-     * required flag.  The default implementation returns string like:
-     * <ul>
-     *      <li>-o &lt;arg&gt; -- for required.</li>
-     *     <li>[-o &lt;arg&gt;] -- for optional.</li>
-     *      <li>--opt &lt;arg&gt; -- for required with long option only.</li>
-     *     <li>[--opt &lt;arg&gt;] -- for optional with long option only.</li>
-     * </ul>
-     * <p>long or shot options will not be displayed if they are not set in the Option, argument name will be as specified in
-     * in the argument or </p>
-     * @see Builder#setSyntaxFormatFunction(BiFunction)
-     */
-    public static final BiFunction<OptionFormatter, Boolean, String> DEFAULT_SYNTAX_FORMAT = (o, required) -> {
-        StringBuilder buff = new StringBuilder();
-        String argName = o.getArgName();
-        buff.append(Util.defaultValue(o.getOpt(), o.getLongOpt()));
-        if (!Util.isEmpty(argName)) {
-            buff.append(' ').append(argName);
-        }
-        boolean requiredFlg = required == null ? o.isRequired() : required;
-        return requiredFlg ? buff.toString() : o.asOptional(buff.toString());
-    };
-
-    /**
      * The string to display at the beginning of the usage statement.
      */
     public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
@@ -113,6 +89,10 @@ public final class OptionFormatter {
      */
     public static final String DEFAULT_OPT_SEPARATOR = ", ";
 
+    /**
+     * The default separator between the opt and/or longOpt and the argument name.
+     */
+    public static final String DEFAULT_OPT_ARG_SEPARATOR = " ";
 
     /**
      * The delimiters around argument names.
@@ -128,6 +108,8 @@ public final class OptionFormatter {
     private final String optPrefix;
     /** The separator between the options */
     private final String optSeparator;
+    /** the separator between the opt and/or longOpt and the argument name */
+    private final String optArgSeparator;
     /** The delimiters for optional {@link Option}s. */
     private final String[] optionalDelimiters;
     /** The method to convert an Option formatter into a syntax notation.*/
@@ -160,7 +142,8 @@ public final class OptionFormatter {
         private String optPrefix;
         /** The separator between long and short options*/
         private String optSeparator;
-
+        /** the separator between the opt and/or longOpt and the argument name */
+        private String optArgSeparator;
         /** The delimiters surrounding optional {@link Option} instances. */
         private final String[] optionalDelimiters;
         /** A function to convert the {@link OptionFormatter} into an entry in the syntax description. */
@@ -176,8 +159,8 @@ public final class OptionFormatter {
             longOptPrefix = DEFAULT_LONG_OPT_PREFIX;
             optPrefix = DEFAULT_OPT_PREFIX;
             optSeparator = DEFAULT_OPT_SEPARATOR;
+            optArgSeparator = DEFAULT_OPT_ARG_SEPARATOR;
             optionalDelimiters = Arrays.copyOf(DEFAULT_OPTIONAL_DELIMITERS, 2);
-            syntaxFormatFunction = DEFAULT_SYNTAX_FORMAT;
         }
 
         /**
@@ -248,6 +231,17 @@ public final class OptionFormatter {
         }
 
         /**
+         * Sets the separator displayed between a options and the argument name.  Typically ' ' or '='.
+         *
+         * @param optArgSeparator the separator.
+         * @since 1.3
+         * @return this
+         */
+        public Builder setOptArgSeparator(final String optArgSeparator) {
+            this.optArgSeparator = Util.defaultValue(optArgSeparator, "");
+            return this;
+        }
+        /**
          * Specifies the starting and ending delimiters for optional {@link Option} instances.
          * @param begin the beginning delimiter.
          * @param end the ending delimiter.
@@ -298,7 +292,7 @@ public final class OptionFormatter {
          * @return this
          */
         public Builder setSyntaxFormatFunction(final BiFunction<OptionFormatter, Boolean, String> syntaxFormatFunction) {
-            this.syntaxFormatFunction = syntaxFormatFunction == null ? DEFAULT_SYNTAX_FORMAT : syntaxFormatFunction;
+            this.syntaxFormatFunction = syntaxFormatFunction;
             return this;
         }
     }
@@ -315,9 +309,20 @@ public final class OptionFormatter {
         this.optPrefix = builder.optPrefix;
         this.longOptPrefix = builder.longOptPrefix;
         this.optSeparator = builder.optSeparator;
+        this.optArgSeparator = builder.optArgSeparator;
         this.deprecatedFormatFunction = builder.deprecatedFormatFunction;
-        this.syntaxFormatFunction = builder.syntaxFormatFunction;
         this.option = option;
+        this.syntaxFormatFunction = builder.syntaxFormatFunction != null ? builder.syntaxFormatFunction :
+                (o, required) -> {
+                    StringBuilder buff = new StringBuilder();
+                    String argName = o.getArgName();
+                    buff.append(Util.defaultValue(o.getOpt(), o.getLongOpt()));
+                    if (!Util.isEmpty(argName)) {
+                        buff.append(optArgSeparator).append(argName);
+                    }
+                    boolean requiredFlg = required == null ? o.isRequired() : required;
+                    return requiredFlg ? buff.toString() : o.asOptional(buff.toString());
+                };
     }
 
     /**
