@@ -37,7 +37,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class UtilTest {
 
     @Test
-    public void stripLeadingAndTrailingQuotesTest() {
+    public void testStripLeadingAndTrailingQuotes() {
         assertNull(Util.stripLeadingAndTrailingQuotes(null));
         assertEquals("", Util.stripLeadingAndTrailingQuotes(""));
         assertEquals("foo", Util.stripLeadingAndTrailingQuotes("\"foo\""));
@@ -48,7 +48,7 @@ public class UtilTest {
     }
 
     @Test
-    public void stripLeadingHyphensTest() {
+    public void testStripLeadingHyphens() {
         assertEquals("f", Util.stripLeadingHyphens("-f"));
         assertEquals("foo", Util.stripLeadingHyphens("--foo"));
         assertEquals("-foo", Util.stripLeadingHyphens("---foo"));
@@ -56,7 +56,7 @@ public class UtilTest {
     }
 
     @Test
-    public void findWrapPosTest() {
+    public void testFindWrapPos() {
         String testString = "The quick brown fox jumps over\tthe lazy dog";
 
         assertEquals(9, Util.findWrapPos(testString, 10, 0), "did not find end of word");
@@ -72,7 +72,7 @@ public class UtilTest {
 
     @ParameterizedTest
     @MethodSource("charArgs")
-    public void ltrimTest(final Character c, final boolean isWhitespace) {
+    public void testLtrim(final Character c, final boolean isWhitespace) {
         if (isWhitespace) {
             assertEquals("worx", Util.ltrim(format("%sworx", c)), () -> format("Did not process character 0x%x", (int) c));
         } else {
@@ -84,7 +84,7 @@ public class UtilTest {
 
     @ParameterizedTest
     @MethodSource("charArgs")
-    public void rtrimTest(final Character c, final boolean isWhitespace) {
+    public void testRtrim(final Character c, final boolean isWhitespace) {
         if (isWhitespace) {
             assertEquals("worx", Util.rtrim(format("worx%s", c)), () -> format("Did not process character 0x%x", (int) c));
         } else {
@@ -119,7 +119,7 @@ public class UtilTest {
     }
 
     @Test
-    public void isEmptyTest() {
+    public void testIsEmpty() {
         Object[] objAry = null;
         assertTrue(Util.isEmpty(objAry), "null array should be empty");
         objAry = new Object[]{};
@@ -139,14 +139,14 @@ public class UtilTest {
 
     @ParameterizedTest
     @MethodSource("charArgs")
-    public void findWrapPosWithWhitespace(final Character c, final boolean isWhitespace) {
+    public void testFindWrapPosWithWhitespace(final Character c, final boolean isWhitespace) {
         String text = format("Hello%cWorld", c);
         assertEquals(isWhitespace ? 5 : 6, Util.findWrapPos(text, 7, 0));
     }
 
     @ParameterizedTest
     @MethodSource("charArgs")
-    public void findNonWhitespacePosTest(final Character c, final boolean isWhitespace) {
+    public void testFindNonWhitespacePos(final Character c, final boolean isWhitespace) {
         String text = format("%cWorld", c);
         assertEquals(isWhitespace ? 1 : 0, Util.findNonWhitespacePos(text, 0));
         text = format("%c%c%c", c, c, c);
@@ -154,7 +154,7 @@ public class UtilTest {
     }
 
     @Test
-    public void findNonWhitespacePosTest() {
+    public void testFindNonWhitespacePos() {
         assertEquals(-1, Util.findNonWhitespacePos(null, 0));
         assertEquals(-1, Util.findNonWhitespacePos("", 0));
     }

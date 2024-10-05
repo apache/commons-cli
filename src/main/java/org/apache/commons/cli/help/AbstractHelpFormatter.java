@@ -34,7 +34,8 @@ import org.apache.commons.cli.Util;
 
 /**
  * The class for help formatters provides the framework to link the {@link HelpWriter} with the {@link OptionFormatter}
- * and a default {@link TableDef} so to produce a standard format help page.
+ * and a default {@link TableDefinition} so to produce a standard format help page.
+ * @since 1.10.0
  */
 public abstract class AbstractHelpFormatter {
 
@@ -63,10 +64,6 @@ public abstract class AbstractHelpFormatter {
      * The phrase printed before the syntax line.
      */
     protected String syntaxPrefix = DEFAULT_SYNTAX_PREFIX;
-    /**
-     * A function to convert a collection of Options into a {@link TableDef} for display within the page
-     */
-    protected Function<Iterable<Option>, TableDef> tableDefBuilder;
 
     /** The comparator for sorting {@link Option} collections */
     protected Comparator<Option> comparator;
@@ -79,20 +76,24 @@ public abstract class AbstractHelpFormatter {
      * Constructs the base formatter.
      * @param helpWriter the helpWriter to output with
      * @param optionFormatBuilder the builder of {@link OptionFormatter} to format options for display.
-     * @param tableDefBuilder A function to build a {@link TableDef} from a collection of {@link Option}s.
      * @param comparator The comparator to use for sorting options.
      * @param optionGroupSeparator the string to separate option groups.
      */
     protected AbstractHelpFormatter(final HelpWriter helpWriter, final OptionFormatter.Builder optionFormatBuilder,
-                                    final Function<Iterable<Option>, TableDef> tableDefBuilder,
                                     final Comparator<Option> comparator,
                                     final String optionGroupSeparator) {
         this.helpWriter = Objects.requireNonNull(helpWriter, "helpWriter");
         this.optionFormatBuilder = Objects.requireNonNull(optionFormatBuilder, "optionFormatBuilder");
-        this.tableDefBuilder = tableDefBuilder;
         this.comparator = Objects.requireNonNull(comparator, "comparator");
-        this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "");
+        this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "").toString();
     }
+
+    /**
+     * Converts a collection of {@link Option}s into a {@TableDefinition}.
+     * @param options The options to create a table for.
+     * @return the TableDefinition.
+     */
+    protected abstract TableDefinition getTableDefinition(Iterable<Option> options);
 
     /**
      * Sets the syntax prefix.  This is the phrase that is printed before the syntax line.
@@ -177,7 +178,7 @@ public abstract class AbstractHelpFormatter {
             helpWriter.writePara(header);
         }
 
-        helpWriter.writeTable(tableDefBuilder.apply(options));
+        helpWriter.writeTable(getTableDefinition(options));
 
         if (!Util.isEmpty(footer)) {
             helpWriter.writePara(footer);
@@ -199,15 +200,15 @@ public abstract class AbstractHelpFormatter {
      * @throws IOException If the output could not be written to the {@link HelpWriter}
      */
     public final void printOptions(final Iterable<Option> options) throws IOException {
-        printOptions(tableDefBuilder.apply(options));
+        printOptions(getTableDefinition(options));
     }
     /**
-     * Prints a {@link TableDef} to the {@link HelpWriter}.
-     * @param tableDef the {@link TableDef} to print.
+     * Prints a {@link TableDefinition} to the {@link HelpWriter}.
+     * @param tableDefinition the {@link TableDefinition} to print.
      * @throws IOException If the output could not be written to the {@link HelpWriter}
      */
-    public final void printOptions(final TableDef tableDef) throws IOException {
-        helpWriter.writeTable(tableDef);
+    public final void printOptions(final TableDefinition tableDefinition) throws IOException {
+        helpWriter.writeTable(tableDefinition);
     }
 
     /**

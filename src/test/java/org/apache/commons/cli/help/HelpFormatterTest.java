@@ -23,22 +23,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
+import org.apache.commons.example.cli.XhtmlHelpWriter;
 import org.apache.commons.io.IOUtils;
-import org.example.XhtmlHelpWriter;
 import org.junit.jupiter.api.Test;
 
 public class HelpFormatterTest {
 
     @Test
-    public void defaultTest() {
+    public void testDefault() {
         StringBuilder sb = new StringBuilder();
         TextHelpWriter serializer = new TextHelpWriter(sb);
         HelpFormatter formatter = new HelpFormatter(serializer);
@@ -48,7 +46,7 @@ public class HelpFormatterTest {
     }
 
     @Test
-    public void syntaxPrefixTest() {
+    public void testSyntaxPrefix() {
         StringBuilder sb = new StringBuilder();
         TextHelpWriter serializer = new TextHelpWriter(sb);
         HelpFormatter formatter = new HelpFormatter(serializer);
@@ -202,7 +200,7 @@ public class HelpFormatterTest {
         StringBuilder sb = new StringBuilder();
         XhtmlHelpWriter serializer = new XhtmlHelpWriter(sb);
         HelpFormatter formatter = new HelpFormatter(serializer);
-        formatter.setShowSince(false);
+
         Options options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa");
 
         List<String> expected = new ArrayList<>();
@@ -211,10 +209,12 @@ public class HelpFormatterTest {
         expected.add("<table class='commons_cli_table'>");
         expected.add("  <tr>");
         expected.add("    <th>Options</th>");
+        expected.add("    <th>Since</th>");
         expected.add("    <th>Description</th>");
         expected.add("  </tr>");
         expected.add("  <tr>");
         expected.add("    <td>-a</td>");
+        expected.add("    <td>--</td>");
         expected.add("    <td>aaaa aaaa aaaa aaaa aaaa</td>");
         expected.add("  </tr>");
         expected.add("</table>");
@@ -338,8 +338,7 @@ public class HelpFormatterTest {
         assertEquals(expected, underTest.sortedOptions(options));
 
         assertEquals(0, underTest.sortedOptions(Collections.emptyList()).size(), "empty colleciton should return empty list");
-        Iterable<Option> iterable = null;
-        assertEquals(0, underTest.sortedOptions(iterable).size(), "null iterable should return empty list");
+        assertEquals(0, underTest.sortedOptions((Iterable<Option>) null).size(), "null iterable should return empty list");
         assertEquals(0, underTest.sortedOptions((Options) null).size(), "null Options should return empty list");
     }
 
@@ -389,21 +388,6 @@ public class HelpFormatterTest {
         OptionFormatter oFormatter = formatter.getOptionFormatter(Option.builder("thing").build());
         assertEquals("Just Another thing", oFormatter.getOpt());
 
-    }
-
-    @Test
-    public void setDefaultTableBuilderTest() throws IOException {
-        HelpFormatter.Builder underTest = new HelpFormatter.Builder();
-        Function<Iterable<Option>, TableDef> func = options -> {
-            return TableDef.from("TESTING TABLE DEF", Arrays.asList(TextStyle.DEFAULT),
-                    Arrays.asList("Dummy"), Arrays.asList(Arrays.asList("Dummy Value")));
-        };
-        StringBuilder sb = new StringBuilder();
-        underTest.setDefaultTableBuilder(func).setSerializer(new TextHelpWriter(sb));
-        HelpFormatter formatter = underTest.build();
-        formatter.printOptions(Arrays.asList(Option.builder("foo").build()));
-        String s = sb.toString();
-        assertTrue(s.contains("TESTING TABLE DEF"));
     }
 
     @Test

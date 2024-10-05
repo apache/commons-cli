@@ -35,7 +35,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class OptionFormatterTest {
 
     @Test
-    public void asSyntaxOptionTest() throws IOException {
+    public void testAsSyntaxOption() throws IOException {
         OptionFormatter underTest;
 
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
@@ -72,7 +72,7 @@ public class OptionFormatterTest {
     }
 
     @Test
-    public void getDescriptionTest() {
+    public void testGetDescription() {
         Option normalOption = Option.builder().option("o").longOpt("one").hasArg()
                 .desc("The description").build();
 
@@ -105,7 +105,7 @@ public class OptionFormatterTest {
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("deprecatedAttributesData")
-    public void complexDeprecationFormatTest(final DeprecatedAttributes da, final String expected) {
+    public void testComplexDeprecationFormat(final DeprecatedAttributes da, final String expected) {
         Option.Builder builder = Option.builder("o").deprecated(da);
         Option.Builder builderWithDesc = Option.builder("o").desc("The description").deprecated(da);
 
@@ -146,7 +146,7 @@ public class OptionFormatterTest {
     }
 
     @Test
-    public void asOptionalTest() {
+    public void testAsOptional() {
         OptionFormatter underTest;
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
 
@@ -161,7 +161,7 @@ public class OptionFormatterTest {
     }
 
     @Test
-    public void getBothOptTest() {
+    public void testGetBothOpt() {
         OptionFormatter underTest;
 
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
@@ -178,7 +178,7 @@ public class OptionFormatterTest {
     }
 
     @Test
-    public void defaultSyntaxFormatTest() {
+    public void testDefaultSyntaxFormat() {
 
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
         OptionFormatter formatter = OptionFormatter.from(option);
@@ -193,7 +193,7 @@ public class OptionFormatterTest {
     }
 
     @Test
-    public void setDefaultArgNameTest() {
+    public void testSetDefaultArgName() {
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
         OptionFormatter.Builder builder = new OptionFormatter.Builder().setDefaultArgName("foo");
         assertEquals("<foo>", builder.build(option).getArgName());
@@ -206,7 +206,7 @@ public class OptionFormatterTest {
     }
 
     @Test
-    public void setLongOptPrefixTest() {
+    public void testSetLongOptPrefix() {
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
         OptionFormatter.Builder builder = new OptionFormatter.Builder().setLongOptPrefix("fo");
         assertEquals("foopt", builder.build(option).getLongOpt());
@@ -219,7 +219,7 @@ public class OptionFormatterTest {
     }
 
     @Test
-    public void setOptSeparatorTest() {
+    public void testSetOptSeparator() {
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
         OptionFormatter.Builder builder = new OptionFormatter.Builder().setOptSeparator(" and ");
         assertEquals("-o and --opt", builder.build(option).getBothOpt());
@@ -233,7 +233,7 @@ public class OptionFormatterTest {
     }
 
     @Test
-    public void setArgumentNameDelimitersTest() {
+    public void testSetArgumentNameDelimiters() {
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
         OptionFormatter.Builder builder = new OptionFormatter.Builder().setArgumentNameDelimiters("with argument named ", ".");
         assertEquals("with argument named arg.", builder.build(option).getArgName());
@@ -247,7 +247,7 @@ public class OptionFormatterTest {
     }
 
     @Test
-    public void setSyntaxFormatFunctionTest() {
+    public void testSetSyntaxFormatFunction() {
         BiFunction<OptionFormatter, Boolean, String> func = (o, b) -> "Yep, it worked";
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
 
@@ -293,6 +293,5 @@ public class OptionFormatterTest {
         formatter = builder.build(option);
         builder2 = new OptionFormatter.Builder(formatter);
         assertEquivalent(formatter, builder2.build(option));
-
     }
 }

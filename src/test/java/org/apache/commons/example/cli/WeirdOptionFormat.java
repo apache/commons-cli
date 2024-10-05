@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package org.example;
+package org.apache.commons.example.cli;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,10 +23,10 @@ import java.util.function.Function;
 
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Util;
-import org.apache.commons.cli.help.TableDef;
+import org.apache.commons.cli.help.TableDefinition;
 import org.apache.commons.cli.help.TextStyle;
 
-public class WeirdOptionFormat implements Function<Iterable<Option>, TableDef> {
+public class WeirdOptionFormat implements Function<Iterable<Option>, TableDefinition> {
     private String[] headers = {"Opt", "Since", "Required", "LongOpt", "Deprecated", "Arg Name", "Type", "Description"};
 
     private List<TextStyle> styles;
@@ -45,7 +45,7 @@ public class WeirdOptionFormat implements Function<Iterable<Option>, TableDef> {
     }
 
     @Override
-    public TableDef apply(final Iterable<Option> options) {
+    public TableDefinition apply(final Iterable<Option> options) {
         List<List<String>> rows = new ArrayList<>();
             for (Option option : options) {
                 List<String> row = new ArrayList<>();
@@ -60,6 +60,6 @@ public class WeirdOptionFormat implements Function<Iterable<Option>, TableDef> {
                 rows.add(row);
             }
 
-        return TableDef.from("", styles, Arrays.asList(headers), rows);
+        return TableDefinition.from("", styles, Arrays.asList(headers), rows);
     }
 }

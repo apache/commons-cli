@@ -26,6 +26,7 @@ import org.apache.commons.cli.Util;
 
 /**
  * The definition of how to display Option attributes.
+ * @since 1.10.0
  */
 public final class OptionFormatter {
 

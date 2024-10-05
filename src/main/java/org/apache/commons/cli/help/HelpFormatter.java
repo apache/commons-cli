@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Util;
@@ -47,15 +46,18 @@ import org.apache.commons.cli.Util;
  * This produces the following output:
  * </p>
  * <pre>
- * usage: myapp -f &lt;FILE&gt; [-h] [-v]
+ *     {@code
+ * usage: myapp -f <FILE> [-h] [-v]
  * Do something useful with an input file
  *
- *  -f,--file &lt;FILE&gt;   The file to be processed
+ *  -f,--file <FILE>   The file to be processed
  *  -h,--help
  *  -v,--version       Print the version of the application
  *
  * Please report issues at https://example.com/issues
+ * }
  * </pre>
+ * @since 1.10.0
  */
 public class HelpFormatter extends AbstractHelpFormatter {
     /** Default number of characters per line */
@@ -71,16 +73,15 @@ public class HelpFormatter extends AbstractHelpFormatter {
     public static final int DEFAULT_COLUMN_SPACING = 5;
 
     /** If {@code true} show the "Since" column, otherwise ignore it. */
-    private boolean showSince;
+    private final boolean showSince;
 
     /**
      * A builder for the HelpFormatter.  Intended to make more complex uses of the HelpFormatter class easier.
      * Default values are:
      * <ul>
-     *     <li>showSicne = true</li>
+     *     <li>showSince = true</li>
      *     <li>helpWriter = a {@link TextHelpWriter} writing to {@code System.out}</li>
      *     <li>optionFormatter.Builder = the default {@link OptionFormatter.Builder}</li>
-     *     <li>defaultTableBuilder = {@link HelpFormatter#defaultTableBuilder(Iterable)}</li>
      * </ul>
      */
     public static class Builder {
@@ -90,8 +91,6 @@ public class HelpFormatter extends AbstractHelpFormatter {
         private HelpWriter helpWriter;
         /** The {@link OptionFormatter.Builder} to use to format options in the table. */
         private OptionFormatter.Builder optionFormatBuilder;
-        /** A function to create a {@link TableDef} from a collection of {@link Option} instances. */
-        private Function<Iterable<Option>, TableDef> defaultTableBuilder;
         /** The string to separate option groups with */
         private String optionGroupSeparator;
         /** The comparator to sort lists of options */
@@ -102,9 +101,6 @@ public class HelpFormatter extends AbstractHelpFormatter {
          */
         public Builder() {
             showSince = true;
-            helpWriter = null;
-            optionFormatBuilder = null;
-            defaultTableBuilder = null;
             comparator = DEFAULT_COMPARATOR;
             optionGroupSeparator = DEFAULT_OPTION_GROUP_SEPARATOR;
         }
@@ -140,16 +136,6 @@ public class HelpFormatter extends AbstractHelpFormatter {
         }
 
         /**
-         * Sets the function to build the option table from a collection of {@link Option} instances.
-         * @param defaultTableBuilder the function to build the option table from a collection of {@link Option} instances.
-         * @return this
-         */
-        public Builder setDefaultTableBuilder(final Function<Iterable<Option>, TableDef> defaultTableBuilder) {
-            this.defaultTableBuilder = defaultTableBuilder;
-            return this;
-        }
-
-        /**
          * Sets the OptionGroup separator.  Normally " | " or something similar to denote that only one option may
          * be chosen.
          * @param optionGroupSeparator the string to separate option group elements with.
@@ -171,10 +157,10 @@ public class HelpFormatter extends AbstractHelpFormatter {
         }
 
         /**
-         * performs a sanity check and sets default values if they are not set.
+         * Performs a sanity check and sets default values if they are not set.
          * @return this.
          */
-        private Builder sanityCheck() {
+        private Builder validate() {
             if (helpWriter == null) {
                 helpWriter = new TextHelpWriter(System.out);
             }
@@ -189,7 +175,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
          * @return this.
          */
         public HelpFormatter build() {
-            sanityCheck();
+            validate();
             return new HelpFormatter(this);
         }
     }
@@ -199,7 +185,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
      * @see Builder
      */
     public HelpFormatter() {
-        this(new Builder().sanityCheck());
+        this(new Builder().validate());
     }
 
     /**
@@ -208,7 +194,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
      * @param helpWriter the {@link HelpWriter} to use.
      */
     public HelpFormatter(final HelpWriter helpWriter) {
-        this(new Builder().setSerializer(helpWriter).sanityCheck());
+        this(new Builder().setSerializer(helpWriter).validate());
     }
 
     /**
@@ -216,37 +202,25 @@ public class HelpFormatter extends AbstractHelpFormatter {
      * @param builder the Builder to build from.
      */
     private HelpFormatter(final Builder builder) {
-        super(builder.helpWriter, builder.optionFormatBuilder, builder.defaultTableBuilder, builder.comparator,
+        super(builder.helpWriter, builder.optionFormatBuilder, builder.comparator,
                 builder.optionGroupSeparator);
 
         this.showSince = builder.showSince;
-        if (this.tableDefBuilder == null) {
-            tableDefBuilder = this::defaultTableBuilder;
-        }
     }
 
     /**
-     * Sets the state of the showSince flag.
-     * @param showSince the desires state of the showSince flag.
-     */
-    public void setShowSince(final boolean showSince) {
-        this.showSince = showSince;
-    }
-
-    /**
-     * The default table builder for the HelpFormatter.  If a different formatter is not specified in the
-     * {@link Builder} this method is used.
+     * Gets the table definition for the options.
      * @param options the collection of {@link Option} instances to create the table from.
-     * @return A {@link TableDef} to display the options.
+     * @return A {@link TableDefinition} to display the options.
      */
-    public TableDef defaultTableBuilder(final Iterable<Option> options) {
+    public TableDefinition getTableDefinition(final Iterable<Option> options) {
         // set up the base TextStyle for the columns configured for the Option opt and arg values..
         TextStyle.Builder builder = new TextStyle.Builder().setAlignment(TextStyle.Alignment.LEFT)
-                .setIndent(DEFAULT_LEFT_PAD).setScaling(TextStyle.Scaling.FIXED);
+                .setIndent(DEFAULT_LEFT_PAD).setScaling(TextStyle.Scaling.UNSCALED);
         List<TextStyle> styles = new ArrayList<>();
         styles.add(builder.get());
         // set up showSince column
-        builder.setScaling(TextStyle.Scaling.VARIABLE).setLeftPad(DEFAULT_COLUMN_SPACING);
+        builder.setScaling(TextStyle.Scaling.SCALED).setLeftPad(DEFAULT_COLUMN_SPACING);
         if (showSince) {
             builder.setAlignment(TextStyle.Alignment.CENTER);
             styles.add(builder.get());
@@ -279,8 +253,8 @@ public class HelpFormatter extends AbstractHelpFormatter {
             rows.add(row);
         }
 
-        // return the TableDef with the proper column headers.
-        return showSince ? TableDef.from("", styles, Arrays.asList("Options", "Since", "Description"), rows) :
-                TableDef.from("", styles, Arrays.asList("Options", "Description"), rows);
+        // return the TableDefinition with the proper column headers.
+        return showSince ? TableDefinition.from("", styles, Arrays.asList("Options", "Since", "Description"), rows) :
+                TableDefinition.from("", styles, Arrays.asList("Options", "Description"), rows);
     }
 }

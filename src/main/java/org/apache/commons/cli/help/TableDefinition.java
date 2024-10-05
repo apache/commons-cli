@@ -30,8 +30,9 @@ import java.util.List;
  *     <li>A heading (String) is placed at the top of the column</li>
  *     <li>A collection of rows</li>
  * </ul>
+ * @since 1.10.0
  */
-public interface TableDef {
+public interface TableDefinition {
     /**
      * Gets the caption for the table.  May be @{code null}.
      * @return The caption for the table.  May be @{code null}.
@@ -65,10 +66,10 @@ public interface TableDef {
      * @param columnStyle a list of TextStyle elements defining the columns.
      * @param headers the list of column headers.
      * @param rows a collection of Rows.
-     * @return A TableDef returning the parameters as appropriate.
+     * @return A TableDefinition returning the parameters as appropriate.
      */
-    static TableDef from(final String caption, final List<TextStyle> columnStyle, final List<String> headers, final Iterable<List<String>>rows) {
-        return new TableDef() {
+    static TableDefinition from(final String caption, final List<TextStyle> columnStyle, final List<String> headers, final Iterable<List<String>>rows) {
+        return new TableDefinition() {
 
             @Override
             public String caption() {

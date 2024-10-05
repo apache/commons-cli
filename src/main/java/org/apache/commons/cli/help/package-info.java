@@ -27,8 +27,9 @@
  *     <li>HelpFormatter - the class used to produce the help output for most users.</li>
  *     <li>Scribe - Writes the output in a specific output serialization format (e.g. text, XHTML, Markdown, etc.)</li>
  *     <li>OptionFormatter - Determines how to format the various data elements in an Option</li>
- *     <li>TableDef - Useful for developers who want to build custom option displays or use the help system to produce
+ *     <li>TableDefinition - Useful for developers who want to build custom option displays or use the help system to produce
  *     additional information in the help system</li>
  * </ul>
+ * @since 1.10.0
  */
 package org.apache.commons.cli.help;

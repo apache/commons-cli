@@ -20,6 +20,7 @@ import java.io.IOException;
 
 /**
  * An abstract implementation of {@link HelpWriter} that writes output to an {@link Appendable} instance.
+ * @since 1.10.0
  */
 public abstract class AbstractHelpWriter implements HelpWriter {
     /**
@@ -36,12 +37,20 @@ public abstract class AbstractHelpWriter implements HelpWriter {
     }
 
     @Override
-    public void writeDirect(final String text) throws IOException {
+    public Appendable append(final CharSequence text) throws IOException {
         output.append(text);
+        return this;
     }
 
     @Override
-    public void writeDirect(final char ch) throws IOException {
+    public Appendable append(final char ch) throws IOException {
         output.append(ch);
+        return this;
+    }
+
+    @Override
+    public Appendable append(final CharSequence csq, final int start, final int end) throws IOException {
+        output.append(csq, start, end);
+        return this;
     }
 }

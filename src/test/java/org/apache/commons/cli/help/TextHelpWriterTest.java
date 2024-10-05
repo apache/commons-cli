@@ -45,7 +45,7 @@ public final class TextHelpWriterTest {
     }
 
     @Test
-    public void writeTitleTest() throws IOException {
+    public void testWriteTitle() throws IOException {
         String[] expected = {" Hello World", " ###########", ""};
 
         sb.setLength(0);
@@ -64,7 +64,7 @@ public final class TextHelpWriterTest {
     }
 
     @Test
-    public void writeParaTest() throws IOException {
+    public void testWritePara() throws IOException {
         String[] expected = {" Hello World", ""};
 
         sb.setLength(0);
@@ -82,7 +82,7 @@ public final class TextHelpWriterTest {
     }
 
     @Test
-    public void writeHeaderTest() throws IOException {
+    public void testWriteHeader() throws IOException {
         String[] expected = {" Hello World", " ===========", ""};
 
         sb.setLength(0);
@@ -126,7 +126,7 @@ public final class TextHelpWriterTest {
     }
 
     @Test
-    public void writeListTest() throws IOException {
+    public void testWriteList() throws IOException {
         List<String> expected = new ArrayList<>();
         String[] entries = {"one", "two", "three"};
         for (int i = 0; i < entries.length; i++) {
@@ -163,7 +163,7 @@ public final class TextHelpWriterTest {
     }
 
     @Test
-    public void writeTableTest() throws IOException {
+    public void testWriteTable() throws IOException {
         TextStyle.Builder styleBuilder = new TextStyle.Builder();
         List<TextStyle> styles = new ArrayList<>();
         styles.add(styleBuilder.setIndent(2).get());
@@ -188,14 +188,14 @@ public final class TextHelpWriterTest {
         expected.add("   thar an madra leisciúil                           teacht i gcabhair ar a dtír");
         expected.add("");
 
-        TableDef table = TableDef.from("Common Phrases", styles, Arrays.asList(headers), Arrays.asList(rows));
+        TableDefinition table = TableDefinition.from("Common Phrases", styles, Arrays.asList(headers), Arrays.asList(rows));
         sb.setLength(0);
         underTest.setMaxWidth(80);
         underTest.writeTable(table);
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "full table failed");
 
-        table = TableDef.from(null, styles, Arrays.asList(headers), Arrays.asList(rows));
+        table = TableDefinition.from(null, styles, Arrays.asList(headers), Arrays.asList(rows));
         expected.remove(1);
         expected.remove(0);
         sb.setLength(0);
@@ -203,7 +203,7 @@ public final class TextHelpWriterTest {
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual);
 
-        table = TableDef.from(null, styles, Arrays.asList(headers), Collections.emptyList());
+        table = TableDefinition.from(null, styles, Arrays.asList(headers), Collections.emptyList());
         expected = new ArrayList<>();
         expected.add(" fox     time");
         expected.add("");
@@ -214,7 +214,7 @@ public final class TextHelpWriterTest {
     }
 
     @Test
-    public void makeColumnQueueTest() {
+    public void tesstMakeColumnQueue() {
         String text = "The quick brown fox jumps over the lazy dog";
         TextStyle.Builder styleBuilder = new TextStyle.Builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
 
@@ -265,7 +265,7 @@ public final class TextHelpWriterTest {
 
 
     @Test
-    public void writeColumnQueuesTest() throws IOException {
+    public void testWriteColumnQueues() throws IOException {
         List<Queue<String>> queues = new ArrayList<>();
 
         Queue<String> queue = new LinkedList<>();
@@ -312,7 +312,7 @@ public final class TextHelpWriterTest {
     }
 
     @Test
-    public void resizeTest() {
+    public void testResize() {
         TextStyle.Builder tsBuilder = new TextStyle.Builder().setIndent(2).setMaxWidth(3);
         underTest.resize(tsBuilder, 0.5);
         assertEquals(0, tsBuilder.getIndent());
@@ -323,18 +323,18 @@ public final class TextHelpWriterTest {
     }
 
     @Test
-    public void resizeTableFormatTest() {
+    public void testResizeTableFormat() {
         underTest.setMaxWidth(150);
-        TableDef tableDef = TableDef.from("Caption", Arrays.asList(new TextStyle.Builder().setMinWidth(20)
+        TableDefinition tableDefinition = TableDefinition.from("Caption", Arrays.asList(new TextStyle.Builder().setMinWidth(20)
                 .setMaxWidth(100).get()),
                 Arrays.asList("header"), Arrays.asList(Arrays.asList("one")));
-        TableDef result = underTest.adjustTableFormat(tableDef);
+        TableDefinition result = underTest.adjustTableFormat(tableDefinition);
         assertEquals(20, result.columnStyle().get(0).getMinWidth(), "Minimum width should not be reset");
         assertEquals(100, result.columnStyle().get(0).getMaxWidth(), "Maximum width should not be reset");
     }
 
     @Test
-    public void printWrappedTest() throws IOException {
+    public void testPrintWrapped() throws IOException {
         String text = "The quick brown fox jumps over the lazy dog";
         TextStyle.Builder styleBuilder = new TextStyle.Builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
 
@@ -397,40 +397,40 @@ public final class TextHelpWriterTest {
     }
 
     @Test
-    public void writeDirectTest() throws IOException {
+    public void testAppend() throws IOException {
         char c = (char) 0x1F44D;
-        underTest.writeDirect(c);
+        underTest.append(c);
         assertEquals(1, sb.length());
         assertEquals(String.valueOf(c), sb.toString());
 
         sb.setLength(0);
-        underTest.writeDirect("Hello");
+        underTest.append("Hello");
         assertEquals("Hello", sb.toString());
     }
 
     @Test
-    public void adjustTableFormatTest() {
+    public void testAdjustTableFormat() {
         // test width smaller than header
-        TableDef tableDef = TableDef.from("Testing",
+        TableDefinition tableDefinition = TableDefinition.from("Testing",
                 Arrays.asList(new TextStyle.Builder().setMaxWidth(3).get()),
                 Arrays.asList("header"),
                 // "data" shorter than "header"
                 Arrays.asList(Arrays.asList("data"))
         );
-        TableDef actual = underTest.adjustTableFormat(tableDef);
+        TableDefinition actual = underTest.adjustTableFormat(tableDefinition);
         assertEquals("header".length(), actual.columnStyle().get(0).getMaxWidth());
         assertEquals("header".length(), actual.columnStyle().get(0).getMinWidth());
     }
 
     @Test
-    public void setIndentTest() {
+    public void testSetIndent() {
         assertEquals(TextHelpWriter.DEFAULT_INDENT, underTest.getIndent(), "Default indent value was changed, some tests may fail");
         underTest.setIndent(TextHelpWriter.DEFAULT_INDENT + 2);
         assertEquals(underTest.getIndent(), TextHelpWriter.DEFAULT_INDENT + 2);
     }
 
     @Test
-    public void getStyleBuilderTest() {
+    public void testGetStyleBuilder() {
         TextStyle.Builder builder = underTest.getStyleBuilder();
         assertEquals(TextHelpWriter.DEFAULT_INDENT, builder.getIndent(), "Default indent value was changed, some tests may fail");
         assertEquals(TextHelpWriter.DEFAULT_LEFT_PAD, builder.getLeftPad(), "Default left pad value was changed, some tests may fail");

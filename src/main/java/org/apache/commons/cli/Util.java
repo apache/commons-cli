@@ -23,6 +23,7 @@ import java.util.Set;
 
 /**
  * Contains useful helper methods for classes within this package.
+ * @since 1.10.0
  */
 public final class Util {
 
@@ -72,8 +73,8 @@ public final class Util {
      * @param str The string to test.
      * @return Whether the given string is null or empty.
      */
-    public static boolean isEmpty(final String str) {
-        return str == null || str.isEmpty();
+    public static boolean isEmpty(final CharSequence str) {
+        return str == null || str.length() == 0;
     }
 
     /**
@@ -122,7 +123,7 @@ public final class Util {
      * @param startPos position from which to start the lookup whitespace character
      * @return position on which the text must be wrapped or @{code text.length()} if the wrap position is at the end of the text.
      */
-    public static int findWrapPos(final String text, final int width, final int startPos) {
+    public static int findWrapPos(final CharSequence text, final int width, final int startPos) {
         if (width < 1) {
             throw new IllegalArgumentException("Width must be greater than 0");
         }
@@ -157,7 +158,7 @@ public final class Util {
      * @param startPos the starting position to search from.
      * @return the index of the first non whitespace character or -1 if non found.
      */
-    public static int findNonWhitespacePos(final String text, final int startPos) {
+    public static int findNonWhitespacePos(final CharSequence text, final int startPos) {
         if (isEmpty(text)) {
             return -1;
         }
@@ -198,7 +199,7 @@ public final class Util {
      * @return the {@code defaultValue} if {@code str} is empty.
      * @since 1.9.0
      */
-    public static String defaultValue(final String str, final String defaultValue) {
+    public static <T extends CharSequence> T defaultValue(final T str, final T defaultValue) {
         return isEmpty(str) ? defaultValue : str;
     }
 

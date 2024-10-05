@@ -23,6 +23,7 @@ import org.apache.commons.cli.Util;
 /**
  * The definition for styling blocks of text.  Most common usage is to style columns in a table, but may also be used to
  * specify default stylings for a {@link HelpWriter}.
+ * @since 1.10.0
  */
 public final class TextStyle {
     /** The unset value for maxWidth */
@@ -38,9 +39,10 @@ public final class TextStyle {
     /** Types scaling */
     public enum Scaling {
         /** do not scale */
-        FIXED,
+        UNSCALED,
         /** text may be scaled */
-        VARIABLE }
+        SCALED
+    }
 
     /** the alignment */
     private final Alignment alignment;
@@ -84,10 +86,7 @@ public final class TextStyle {
          */
         public Builder() {
             alignment = Alignment.LEFT;
-            leftPad = 0;
-            indent = 0;
-            scaling = Scaling.VARIABLE;
-            minWidth = 0;
+            scaling = Scaling.SCALED;
             maxWidth = UNSET_MAX_WIDTH;
         }
 
@@ -292,7 +291,7 @@ public final class TextStyle {
      * @param text the text to pad.
      * @return the padded string.
      */
-    public String pad(final boolean addIndent, final String text) {
+    public CharSequence pad(final boolean addIndent, final CharSequence text) {
         if (text.length() >= maxWidth) {
             return text;
         }
