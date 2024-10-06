@@ -196,7 +196,8 @@ public final class Util {
      * Returns the {@code defaultValue} if {@code str} is empty.
      * @param str The string to check
      * @param defaultValue the default value if the string is empty.
-     * @return the {@code defaultValue} if {@code str} is empty.
+     * @param <T> The type of arguments.
+     * @return the {@code defaultValue} if {@code str} is empty,
      * @since 1.9.0
      */
     public static <T extends CharSequence> T defaultValue(final T str, final T defaultValue) {

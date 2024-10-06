@@ -89,7 +89,7 @@ public abstract class AbstractHelpFormatter {
     }
 
     /**
-     * Converts a collection of {@link Option}s into a {@TableDefinition}.
+     * Converts a collection of {@link Option}s into a {@link TableDefinition}.
      * @param options The options to create a table for.
      * @return the TableDefinition.
      */
