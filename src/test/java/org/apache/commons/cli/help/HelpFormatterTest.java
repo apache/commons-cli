@@ -330,16 +330,16 @@ public class HelpFormatterTest {
         expected.add(options.getOption("b"));
         expected.add(options.getOption("COpt"));
 
-        assertEquals(expected, underTest.sortedOptions(options));
+        assertEquals(expected, underTest.sort(options));
 
         expected.set(0, expected.get(2));
         expected.set(2, options.getOption("a"));
         underTest = new HelpFormatter.Builder().setComparator(AbstractHelpFormatter.DEFAULT_COMPARATOR.reversed()).build();
-        assertEquals(expected, underTest.sortedOptions(options));
+        assertEquals(expected, underTest.sort(options));
 
-        assertEquals(0, underTest.sortedOptions(Collections.emptyList()).size(), "empty colleciton should return empty list");
-        assertEquals(0, underTest.sortedOptions((Iterable<Option>) null).size(), "null iterable should return empty list");
-        assertEquals(0, underTest.sortedOptions((Options) null).size(), "null Options should return empty list");
+        assertEquals(0, underTest.sort(Collections.emptyList()).size(), "empty colleciton should return empty list");
+        assertEquals(0, underTest.sort((Iterable<Option>) null).size(), "null iterable should return empty list");
+        assertEquals(0, underTest.sort((Options) null).size(), "null Options should return empty list");
     }
 
     private Options getTestGroups() {
@@ -376,7 +376,7 @@ public class HelpFormatterTest {
         expected.add(optList.get(7));
         expected.add(optList.get(3));
         expected.add(optList.get(2));
-        assertEquals(expected, underTest.sortedOptions(options));
+        assertEquals(expected, underTest.sort(options));
     }
 
     @Test

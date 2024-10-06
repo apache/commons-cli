@@ -243,8 +243,8 @@ public abstract class AbstractHelpFormatter {
      * @param options the Options to sort.
      * @return a new list of options ordered by the comparator.
      */
-    public List<Option> sortedOptions(final Options options) {
-        return sortedOptions(options == null ? null : options.getOptions());
+    public List<Option> sort(final Options options) {
+        return sort(options == null ? null : options.getOptions());
     }
 
     /**
@@ -252,7 +252,7 @@ public abstract class AbstractHelpFormatter {
      * @param options the Options to sort.
      * @return a new list of options ordered by the comparator.
      */
-    public List<Option> sortedOptions(final Iterable<Option> options) {
+    public List<Option> sort(final Iterable<Option> options) {
         List<Option> result = new ArrayList<>();
         if (options != null) {
             options.forEach(result::add);
@@ -271,7 +271,7 @@ public abstract class AbstractHelpFormatter {
                                           final Function<Option, OptionGroup> lookup) {
         // list of groups that have been processed.
         final Collection<OptionGroup> processedGroups = new ArrayList<>();
-        final List<Option> optList = sortedOptions(options);
+        final List<Option> optList = sort(options);
         StringBuilder buff = new StringBuilder();
         String pfx = "";
         // iterate over the options
@@ -307,7 +307,7 @@ public abstract class AbstractHelpFormatter {
      */
     public String asSyntaxOptions(final OptionGroup group) {
         StringBuilder buff = new StringBuilder();
-        final List<Option> optList = sortedOptions(group.getOptions());
+        final List<Option> optList = sort(group.getOptions());
         OptionFormatter formatter = null;
         // for each option in the OptionGroup
         Iterator<Option> iter = optList.iterator();

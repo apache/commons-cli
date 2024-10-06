@@ -62,6 +62,7 @@ public final class Util {
      *
      * @param array the array to test.
      * @return the given array is null or empty.
+     * @since 1.10.0
      */
     static boolean isEmpty(final Object[] array) {
         return array == null || array.length == 0;
@@ -72,6 +73,7 @@ public final class Util {
      *
      * @param str The string to test.
      * @return Whether the given string is null or empty.
+     * @since 1.10.0
      */
     public static boolean isEmpty(final CharSequence str) {
         return str == null || str.length() == 0;
@@ -122,6 +124,7 @@ public final class Util {
      * @param width width of the wrapped text
      * @param startPos position from which to start the lookup whitespace character
      * @return position on which the text must be wrapped or @{code text.length()} if the wrap position is at the end of the text.
+     * @since 1.10.0
      */
     public static int findWrapPos(final CharSequence text, final int width, final int startPos) {
         if (width < 1) {
@@ -157,6 +160,7 @@ public final class Util {
      * @param text the text to search in.
      * @param startPos the starting position to search from.
      * @return the index of the first non whitespace character or -1 if non found.
+     * @since 1.10.0
      */
     public static int findNonWhitespacePos(final CharSequence text, final int startPos) {
         if (isEmpty(text)) {
@@ -175,6 +179,7 @@ public final class Util {
      *
      * @param s The String to remove the trailing padding from.
      * @return The String of without the trailing padding
+     * @since 1.10.0
      */
     public static String rtrim(final String s) {
         if (isEmpty(s)) {
@@ -190,7 +195,6 @@ public final class Util {
     private static boolean isWhitespace(final char c) {
         return Character.isWhitespace(c) || Character.PARAGRAPH_SEPARATOR == c;
     }
-
 
     /**
      * Returns the {@code defaultValue} if {@code str} is empty.
@@ -209,6 +213,7 @@ public final class Util {
      * @param len the length of the final string.
      * @param fillChar the character to file it will.
      * @return A string of specified length filled with the specified char.
+     * @since 1.10.0
      */
     public static String filledString(final int len, final char fillChar) {
         final char[] padding = new char[len];
@@ -222,6 +227,7 @@ public final class Util {
      * @param len The length of the String of padding to create.
      *
      * @return The String of padding
+     * @since 1.10.0
      */
     public static String createPadding(final int len) {
         return filledString(len, ' ');
@@ -232,6 +238,7 @@ public final class Util {
      *
      * @param s The String to remove the leading padding from.
      * @return The String of without the leading padding
+     * @since 1.10.0
      */
     public static String ltrim(final String s) {
         int pos = findNonWhitespacePos(s, 0);

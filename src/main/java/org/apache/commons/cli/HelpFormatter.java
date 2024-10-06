@@ -67,7 +67,7 @@ import org.apache.commons.cli.help.TextStyle;
  *
  * Please report issues at https://example.com/issues
  * </pre>
- * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter}
+ * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter}
  */
 @Deprecated
 public class HelpFormatter {
@@ -151,7 +151,7 @@ public class HelpFormatter {
 
     /**
      * This class implements the {@code Comparator} interface for comparing Options.
-     * @deprecated use {@link org.apache.commons.cli.help.AbstractHelpFormatter#DEFAULT_COMPARATOR}
+     * @deprecated Use {@link org.apache.commons.cli.help.AbstractHelpFormatter#DEFAULT_COMPARATOR}
      */
     private static final class OptionComparator implements Comparator<Option>, Serializable {
 
@@ -228,7 +228,7 @@ public class HelpFormatter {
      * @param option The option to get the description from.
      * @return the option description or an empty string if the description is {@code null}.
      * @since 1.8.0
-     * @deprecated use {@link Util#defaultValue(CharSequence, CharSequence)}
+     * @deprecated Use {@link Util#defaultValue(CharSequence, CharSequence)}
      */
     @Deprecated
     public static String getDescription(final Option option) {
@@ -498,7 +498,7 @@ public class HelpFormatter {
      * @param text The text to be rendered.
      * @return the StringBuffer with the rendered Options contents.
      * @throws IOException if an I/O error occurs.
-     * @deprecated this method is replaced by {@link org.apache.commons.cli.help.TextHelpWriter#printWrapped(String, TextStyle)}
+     * @deprecated This method is replaced by {@link org.apache.commons.cli.help.TextHelpWriter#printWrapped(String, TextStyle)}
      */
     @Deprecated
     <A extends Appendable> A appendWrappedText(final A appendable, final int width, final int nextLineTabStop, final String text) throws IOException {
@@ -536,7 +536,7 @@ public class HelpFormatter {
      * @param len The length of the String of padding to create.
      *
      * @return The String of padding
-     * @deprecated use {@link Util#createPadding(int)}.
+     * @deprecated Use {@link Util#createPadding(int)}.
      */
     @Deprecated
     protected String createPadding(final int len) {
@@ -558,7 +558,7 @@ public class HelpFormatter {
      * @param width width of the wrapped text
      * @param startPos position from which to start the lookup whitespace character
      * @return position on which the text must be wrapped or -1 if the wrap position is at the end of the text
-     * @deprecated use {@link Util#findWrapPos(CharSequence, int, int)}
+     * @deprecated Use {@link Util#findWrapPos(CharSequence, int, int)}
      */
     @Deprecated
     protected int findWrapPos(final String text, final int width, final int startPos) {
@@ -594,7 +594,7 @@ public class HelpFormatter {
      * Gets the 'argName'.
      *
      * @return the 'argName'
-     * @deprecated use {@link OptionFormatter#getArgName()} or {@link OptionFormatter.Builder#getArgName()}
+     * @deprecated Use {@link OptionFormatter#getArgName()} or {@link OptionFormatter.Builder#getArgName()}
      */
     @Deprecated
     public String getArgName() {
@@ -605,7 +605,7 @@ public class HelpFormatter {
      * Gets the 'descPadding'.
      *
      * @return the 'descPadding'
-     * @deprecated text formatting is now handled by {@link org.apache.commons.cli.help.TextStyle}
+     * @deprecated Text formatting is now handled by {@link TextStyle}
      */
     @Deprecated
     public int getDescPadding() {
@@ -616,7 +616,7 @@ public class HelpFormatter {
      * Gets the 'leftPadding'.
      *
      * @return the 'leftPadding'
-     * @deprecated text formatting is now handled by {@link org.apache.commons.cli.help.TextStyle}
+     * @deprecated Text formatting is now handled by {@link TextStyle}
      */
     @Deprecated
     public int getLeftPadding() {
@@ -639,7 +639,7 @@ public class HelpFormatter {
      *
      * @return the separator
      * @since 1.3
-     * @deprecated text formatting is now handled by {@link org.apache.commons.cli.help.TextStyle}
+     * @deprecated Text formatting is now handled by {@link TextStyle}
      */
     @Deprecated
     public String getLongOptSeparator() {
@@ -650,7 +650,7 @@ public class HelpFormatter {
      * Gets the 'newLine'.
      *
      * @return the 'newLine'
-     * @deprecated text output is now handled by {@link org.apache.commons.cli.help.TextHelpWriter}
+     * @deprecated Text output is now handled by {@link org.apache.commons.cli.help.TextHelpWriter}
      */
     @Deprecated
     public String getNewLine() {
@@ -663,7 +663,7 @@ public class HelpFormatter {
      *
      * @return the {@link Comparator} currently in use to sort the options
      * @since 1.2
-     * @deprecated use {@link AbstractHelpFormatter#getComparator()}
+     * @deprecated Use {@link AbstractHelpFormatter#getComparator()}
      */
     @Deprecated
     public Comparator<Option> getOptionComparator() {
@@ -674,7 +674,7 @@ public class HelpFormatter {
      * Gets the 'optPrefix'.
      *
      * @return the 'optPrefix'
-     * @deprecated use {@link OptionFormatter#getOpt()}
+     * @deprecated Use {@link OptionFormatter#getOpt()}
      */
     @Deprecated
     public String getOptPrefix() {
@@ -685,7 +685,7 @@ public class HelpFormatter {
      * Gets the 'syntaxPrefix'.
      *
      * @return the 'syntaxPrefix'
-     * @deprecated use {@link AbstractHelpFormatter#getSyntaxPrefix()}
+     * @deprecated Use {@link AbstractHelpFormatter#getSyntaxPrefix()}
      */
     @Deprecated
     public String getSyntaxPrefix() {
@@ -696,7 +696,7 @@ public class HelpFormatter {
      * Gets the 'width'.
      *
      * @return the 'width'
-     * @deprecated text formatting is now handled by {@link org.apache.commons.cli.help.TextStyle}
+     * @deprecated Text formatting is now handled by {@link TextStyle}
      */
     @Deprecated
     public int getWidth() {
@@ -712,7 +712,7 @@ public class HelpFormatter {
      * @param header the banner to display at the beginning of the help
      * @param options the Options instance
      * @param footer the banner to display at the end of the help
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
      */
     @Deprecated
     public void printHelp(final int width, final String cmdLineSyntax, final String header, final Options options, final String footer) {
@@ -729,7 +729,7 @@ public class HelpFormatter {
      * @param options the Options instance
      * @param footer the banner to display at the end of the help
      * @param autoUsage whether to print an automatically generated usage statement
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
      */
     @Deprecated
     public void printHelp(final int width, final String cmdLineSyntax, final String header, final Options options, final String footer,
@@ -752,7 +752,7 @@ public class HelpFormatter {
      * @param footer the banner to display at the end of the help
      *
      * @throws IllegalStateException if there is no room to print a line
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
      */
     @Deprecated
     public void printHelp(final PrintWriter pw, final int width, final String cmdLineSyntax, final String header, final Options options, final int leftPad,
@@ -773,7 +773,7 @@ public class HelpFormatter {
      * @param footer the banner to display at the end of the help
      * @param autoUsage whether to print an automatically generated usage statement
      * @throws IllegalStateException if there is no room to print a line
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
      */
     @Deprecated
     public void printHelp(final PrintWriter pw, final int width, final String cmdLineSyntax, final String header, final Options options, final int leftPad,
@@ -801,7 +801,7 @@ public class HelpFormatter {
      *
      * @param cmdLineSyntax the syntax for this application
      * @param options the Options instance
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
      */
     @Deprecated
     public void printHelp(final String cmdLineSyntax, final Options options) {
@@ -815,7 +815,7 @@ public class HelpFormatter {
      * @param cmdLineSyntax the syntax for this application
      * @param options the Options instance
      * @param autoUsage whether to print an automatically generated usage statement
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
      */
     @Deprecated
     public void printHelp(final String cmdLineSyntax, final Options options, final boolean autoUsage) {
@@ -830,7 +830,7 @@ public class HelpFormatter {
      * @param header the banner to display at the beginning of the help
      * @param options the Options instance
      * @param footer the banner to display at the end of the help
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
      */
     @Deprecated
     public void printHelp(final String cmdLineSyntax, final String header, final Options options, final String footer) {
@@ -846,7 +846,7 @@ public class HelpFormatter {
      * @param options the Options instance
      * @param footer the banner to display at the end of the help
      * @param autoUsage whether to print an automatically generated usage statement
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter#printHelp(String, String, Options, String, boolean)}
      */
     @Deprecated
     public void printHelp(final String cmdLineSyntax, final String header, final Options options, final String footer, final boolean autoUsage) {
@@ -862,7 +862,7 @@ public class HelpFormatter {
      * @param options The command line Options
      * @param leftPad the number of characters of padding to be prefixed to each line
      * @param descPad the number of characters of padding to be prefixed to each description line
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter#printOptions(Options)}
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter#printOptions(Options)}
      */
     @Deprecated
     public void printOptions(final PrintWriter pw, final int width, final Options options, final int leftPad, final int descPad) {
@@ -880,7 +880,7 @@ public class HelpFormatter {
      * @param pw The printWriter to write the help to
      * @param width The number of characters per line for the usage statement.
      * @param cmdLineSyntax The usage statement.
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter#getSyntaxPrefix()} and
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter#getSyntaxPrefix()} and
      * {@link org.apache.commons.cli.help.TextHelpWriter#printWrapped(String)}
      */
     @Deprecated
@@ -896,7 +896,7 @@ public class HelpFormatter {
      * @param width The number of characters to display per line
      * @param app The application name
      * @param options The command line Options
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter#getSyntaxPrefix()} and
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter#getSyntaxPrefix()} and
      * {@link org.apache.commons.cli.help.TextHelpWriter#printWrapped(String)}
      */
     @Deprecated
@@ -947,7 +947,7 @@ public class HelpFormatter {
      * @param width The number of characters to display per line
      * @param nextLineTabStop The position on the next line for the first tab.
      * @param text The text to be written to the PrintWriter
-     * @deprecated use {@link org.apache.commons.cli.help.TextHelpWriter#printWrapped(String)}
+     * @deprecated Use {@link org.apache.commons.cli.help.TextHelpWriter#printWrapped(String)}
      */
     @Deprecated
     public void printWrapped(final PrintWriter pw, final int width, final int nextLineTabStop, final String text) {
@@ -960,7 +960,7 @@ public class HelpFormatter {
      * @param pw The printWriter to write the help to
      * @param width The number of characters to display per line
      * @param text The text to be written to the PrintWriter
-     * @deprecated use {@link org.apache.commons.cli.help.TextHelpWriter#printWrapped(String)}
+     * @deprecated Use {@link org.apache.commons.cli.help.TextHelpWriter#printWrapped(String)}
      */
     @Deprecated    public void printWrapped(final PrintWriter pw, final int width, final String text) {
         printWrapped(pw, width, 0, text);
@@ -997,7 +997,7 @@ public class HelpFormatter {
      * @param text The text to be rendered.
      *
      * @return the StringBuffer with the rendered Options contents.
-     * @deprecated use {@link org.apache.commons.cli.help.TextHelpWriter#printWrapped(String)}
+     * @deprecated Use {@link org.apache.commons.cli.help.TextHelpWriter#printWrapped(String)}
      */
     @Deprecated
     protected StringBuffer renderWrappedText(final StringBuffer sb, final int width, final int nextLineTabStop, final String text) {
@@ -1042,7 +1042,7 @@ public class HelpFormatter {
      *
      * @param s The String to remove the trailing padding from.
      * @return The String of without the trailing padding
-     * @deprecated use {@link Util#rtrim(String)}
+     * @deprecated Use {@link Util#rtrim(String)}
      */
     @Deprecated
     protected String rtrim(final String s) {
@@ -1060,7 +1060,7 @@ public class HelpFormatter {
      * Sets the 'argName'.
      *
      * @param name the new value of 'argName'
-     * @deprecated use {@link OptionFormatter.Builder#setDefaultArgName(String)}
+     * @deprecated Use {@link OptionFormatter.Builder#setDefaultArgName(String)}
      */
     @Deprecated
     public void setArgName(final String name) {
@@ -1071,7 +1071,7 @@ public class HelpFormatter {
      * Sets the 'descPadding'.
      *
      * @param padding the new value of 'descPadding'
-     * @deprecated use {@link TextStyle.Builder#setIndent(int)}
+     * @deprecated Use {@link TextStyle.Builder#setIndent(int)}
      */
     @Deprecated
     public void setDescPadding(final int padding) {
@@ -1082,7 +1082,7 @@ public class HelpFormatter {
      * Sets the 'leftPadding'.
      *
      * @param padding the new value of 'leftPadding'
-     * @deprecated use {@link TextStyle.Builder#setLeftPad(int)}
+     * @deprecated Use {@link TextStyle.Builder#setLeftPad(int)}
      */
     @Deprecated
     public void setLeftPadding(final int padding) {
@@ -1093,7 +1093,7 @@ public class HelpFormatter {
      * Sets the 'longOptPrefix'.
      *
      * @param prefix the new value of 'longOptPrefix'
-     * @deprecated use {@link OptionFormatter.Builder#setLongOptPrefix(String)}
+     * @deprecated Use {@link OptionFormatter.Builder#setLongOptPrefix(String)}
      */
     @Deprecated
     public void setLongOptPrefix(final String prefix) {
@@ -1106,7 +1106,7 @@ public class HelpFormatter {
      *
      * @param longOptSeparator the separator, typically ' ' or '='.
      * @since 1.3
-     * @deprecated use {@link OptionFormatter.Builder#setOptArgSeparator(String)}
+     * @deprecated Use {@link OptionFormatter.Builder#setOptArgSeparator(String)}
      */
     @Deprecated
     public void setLongOptSeparator(final String longOptSeparator) {
@@ -1128,7 +1128,7 @@ public class HelpFormatter {
      *
      * @param comparator the {@link Comparator} to use for sorting the options
      * @since 1.2
-     * @deprecated use {@link org.apache.commons.cli.help.HelpFormatter.Builder#setComparator(Comparator)}
+     * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter.Builder#setComparator(Comparator)}
      */
     @Deprecated
     public void setOptionComparator(final Comparator<Option> comparator) {
@@ -1139,7 +1139,7 @@ public class HelpFormatter {
      * Sets the 'optPrefix'.
      *
      * @param prefix the new value of 'optPrefix'
-     * @deprecated use {@link OptionFormatter.Builder#setOptPrefix(String)}
+     * @deprecated Use {@link OptionFormatter.Builder#setOptPrefix(String)}
      */
     @Deprecated
     public void setOptPrefix(final String prefix) {
@@ -1150,7 +1150,7 @@ public class HelpFormatter {
      * Sets the 'syntaxPrefix'.
      *
      * @param prefix the new value of 'syntaxPrefix'
-     * @deprecated use {@link AbstractHelpFormatter#setSyntaxPrefix(String)}
+     * @deprecated Use {@link AbstractHelpFormatter#setSyntaxPrefix(String)}
      */
     @Deprecated
     public void setSyntaxPrefix(final String prefix) {
@@ -1161,7 +1161,7 @@ public class HelpFormatter {
      * Sets the 'width'.
      *
      * @param width the new value of 'width'
-     * @deprecated text formatting is now handled by {@link org.apache.commons.cli.help.TextStyle}
+     * @deprecated Text formatting is now handled by {@link TextStyle}
      */
     @Deprecated
     public void setWidth(final int width) {

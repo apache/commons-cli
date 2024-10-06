@@ -27,7 +27,7 @@ import org.apache.commons.cli.help.AbstractHelpWriter;
 import org.apache.commons.cli.help.TableDefinition;
 import org.apache.commons.text.StringEscapeUtils;
 
-/** An example XML helpWriter -- DO NOT USE as this does not properly escape strings */
+/** An example XML helpWriter */
 public class XhtmlHelpWriter extends AbstractHelpWriter {
 
     public XhtmlHelpWriter(final Appendable output) {
