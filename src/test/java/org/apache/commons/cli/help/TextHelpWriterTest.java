@@ -45,88 +45,88 @@ public final class TextHelpWriterTest {
     }
 
     @Test
-    public void testWriteTitle() throws IOException {
+    public void testAppendTitle() throws IOException {
         String[] expected = {" Hello World", " ###########", ""};
 
         sb.setLength(0);
-        underTest.writeTitle("Hello World");
+        underTest.appendTitle("Hello World");
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(Arrays.asList(expected), actual);
 
         sb.setLength(0);
-        underTest.writeTitle("");
+        underTest.appendTitle("");
         assertEquals(0, sb.length(), "empty string test failed");
 
         sb.setLength(0);
-        underTest.writeTitle(null);
+        underTest.appendTitle(null);
         assertEquals(0, sb.length(), "null test failed");
 
     }
 
     @Test
-    public void testWritePara() throws IOException {
+    public void testAppendParagraph() throws IOException {
         String[] expected = {" Hello World", ""};
 
         sb.setLength(0);
-        underTest.writePara("Hello World");
+        underTest.appendParagraph("Hello World");
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(Arrays.asList(expected), actual);
 
         sb.setLength(0);
-        underTest.writePara("");
+        underTest.appendParagraph("");
         assertEquals(0, sb.length(), "empty string test failed");
 
         sb.setLength(0);
-        underTest.writePara(null);
+        underTest.appendParagraph(null);
         assertEquals(0, sb.length(), "null test failed");
     }
 
     @Test
-    public void testWriteHeader() throws IOException {
+    public void testAppendHeader() throws IOException {
         String[] expected = {" Hello World", " ===========", ""};
 
         sb.setLength(0);
-        underTest.writeHeader(1, "Hello World");
+        underTest.appendHeader(1, "Hello World");
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(Arrays.asList(expected), actual, "header 1 failed");
 
         sb.setLength(0);
-        underTest.writeHeader(2, "Hello World");
+        underTest.appendHeader(2, "Hello World");
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         expected[1] = " %%%%%%%%%%%";
         assertEquals(Arrays.asList(expected), actual, "header 2 failed");
 
         sb.setLength(0);
-        underTest.writeHeader(3, "Hello World");
+        underTest.appendHeader(3, "Hello World");
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         expected[1] = " +++++++++++";
         assertEquals(Arrays.asList(expected), actual, "header 3 failed");
 
         sb.setLength(0);
-        underTest.writeHeader(4, "Hello World");
+        underTest.appendHeader(4, "Hello World");
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         expected[1] = " ___________";
         assertEquals(Arrays.asList(expected), actual, "header 4 failed");
 
         sb.setLength(0);
-        underTest.writeHeader(5, "Hello World");
+        underTest.appendHeader(5, "Hello World");
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(Arrays.asList(expected), actual, "header 5 failed");
 
         sb.setLength(0);
-        assertThrows(IllegalArgumentException.class, () -> underTest.writeHeader(0, "Hello World"));
+        assertThrows(IllegalArgumentException.class, () -> underTest.appendHeader(0, "Hello World"));
 
         sb.setLength(0);
-        underTest.writeHeader(5, "");
+        underTest.appendHeader(5, "");
         assertEquals(0, sb.length(), "empty string test failed");
 
         sb.setLength(0);
-        underTest.writeHeader(5, null);
+        underTest.appendHeader(5, null);
         assertEquals(0, sb.length(), "null test failed");
     }
 
     @Test
-    public void testWriteList() throws IOException {
+    public void testAppendList() throws IOException {
         List<String> expected = new ArrayList<>();
         String[] entries = {"one", "two", "three"};
         for (int i = 0; i < entries.length; i++) {
@@ -135,7 +135,7 @@ public final class TextHelpWriterTest {
         expected.add("");
 
         sb.setLength(0);
-        underTest.writeList(true, Arrays.asList(entries));
+        underTest.appendList(true, Arrays.asList(entries));
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "ordered list failed");
 
@@ -145,25 +145,25 @@ public final class TextHelpWriterTest {
             expected.add(format("  * %s", entries[i]));
         }
         expected.add("");
-        underTest.writeList(false, Arrays.asList(entries));
+        underTest.appendList(false, Arrays.asList(entries));
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "unordered list failed");
 
         sb.setLength(0);
         expected.clear();
-        underTest.writeList(false, Collections.emptyList());
+        underTest.appendList(false, Collections.emptyList());
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "empty list failed");
 
         sb.setLength(0);
         expected.clear();
-        underTest.writeList(false, null);
+        underTest.appendList(false, null);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "null list failed");
     }
 
     @Test
-    public void testWriteTable() throws IOException {
+    public void testAppendTable() throws IOException {
         TextStyle.Builder styleBuilder = new TextStyle.Builder();
         List<TextStyle> styles = new ArrayList<>();
         styles.add(styleBuilder.setIndent(2).get());
@@ -191,7 +191,7 @@ public final class TextHelpWriterTest {
         TableDefinition table = TableDefinition.from("Common Phrases", styles, Arrays.asList(headers), Arrays.asList(rows));
         sb.setLength(0);
         underTest.setMaxWidth(80);
-        underTest.writeTable(table);
+        underTest.appendTable(table);
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "full table failed");
 
@@ -199,7 +199,7 @@ public final class TextHelpWriterTest {
         expected.remove(1);
         expected.remove(0);
         sb.setLength(0);
-        underTest.writeTable(table);
+        underTest.appendTable(table);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual);
 
@@ -208,7 +208,7 @@ public final class TextHelpWriterTest {
         expected.add(" fox     time");
         expected.add("");
         sb.setLength(0);
-        underTest.writeTable(table);
+        underTest.appendTable(table);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "no rows test failed");
     }

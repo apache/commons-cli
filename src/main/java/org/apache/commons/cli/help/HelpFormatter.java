@@ -216,11 +216,11 @@ public class HelpFormatter extends AbstractHelpFormatter {
     public TableDefinition getTableDefinition(final Iterable<Option> options) {
         // set up the base TextStyle for the columns configured for the Option opt and arg values..
         TextStyle.Builder builder = new TextStyle.Builder().setAlignment(TextStyle.Alignment.LEFT)
-                .setIndent(DEFAULT_LEFT_PAD).setScaling(TextStyle.Scaling.UNSCALED);
+                .setIndent(DEFAULT_LEFT_PAD).setScalable(false);
         List<TextStyle> styles = new ArrayList<>();
         styles.add(builder.get());
         // set up showSince column
-        builder.setScaling(TextStyle.Scaling.SCALED).setLeftPad(DEFAULT_COLUMN_SPACING);
+        builder.setScalable(true).setLeftPad(DEFAULT_COLUMN_SPACING);
         if (showSince) {
             builder.setAlignment(TextStyle.Alignment.CENTER);
             styles.add(builder.get());

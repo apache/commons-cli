@@ -45,6 +45,9 @@ public class TextHelpWriter extends AbstractHelpWriter {
     /** Number of space characters before a list continuation line */
     public static final int DEFAULT_LIST_INDENT = 7;
 
+    /** A blank line in the output */
+    private static final String BLANK_LINE = "";
+
     /** Defines the TextStyle for paragraph, and associated output formats. */
     private final TextStyle.Builder styleBuilder;
 
@@ -126,27 +129,27 @@ public class TextHelpWriter extends AbstractHelpWriter {
     }
 
     @Override
-    public void writeTitle(final CharSequence title) throws IOException {
+    public void appendTitle(final CharSequence title) throws IOException {
         if (!Util.isEmpty(title)) {
             TextStyle style = styleBuilder.get();
             Queue<String> queue = makeColumnQueue(title, style);
             queue.add(Util.createPadding(style.getLeftPad()) + Util.filledString(Math.min(title.length(), style.getMaxWidth()), '#'));
-            queue.add("");
+            queue.add(BLANK_LINE);
             printQueue(queue);
         }
     }
 
     @Override
-    public void writePara(final CharSequence paragraph) throws IOException {
+    public void appendParagraph(final CharSequence paragraph) throws IOException {
         if (!Util.isEmpty(paragraph)) {
             Queue<String> queue = makeColumnQueue(paragraph, styleBuilder.get());
-            queue.add("");
+            queue.add(BLANK_LINE);
             printQueue(queue);
         }
     }
 
     @Override
-    public void writeHeader(final int level, final CharSequence text) throws IOException {
+    public void appendHeader(final int level, final CharSequence text) throws IOException {
         if (!Util.isEmpty(text)) {
             if (level < 1) {
                 throw new IllegalArgumentException("level must be at least 1");
@@ -156,19 +159,19 @@ public class TextHelpWriter extends AbstractHelpWriter {
             TextStyle style = styleBuilder.get();
             Queue<String> queue = makeColumnQueue(text, style);
             queue.add(Util.createPadding(style.getLeftPad()) + Util.filledString(Math.min(text.length(), style.getMaxWidth()), fillChars[idx]));
-            queue.add("");
+            queue.add(BLANK_LINE);
             printQueue(queue);
         }
     }
 
     @Override
-    public void writeList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
+    public void appendList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
         if (list != null && !list.isEmpty()) {
             TextStyle.Builder builder = new TextStyle.Builder().setLeftPad(styleBuilder.getLeftPad()).setIndent(DEFAULT_LIST_INDENT);
             int i = 1;
             for (CharSequence line : list) {
-                String entry = ordered ? format(" %s. %s", i++, Util.defaultValue(line, "")) :
-                        format(" * %s", Util.defaultValue(line, ""));
+                String entry = ordered ? format(" %s. %s", i++, Util.defaultValue(line, BLANK_LINE)) :
+                        format(" * %s", Util.defaultValue(line, BLANK_LINE));
                 builder.setMaxWidth(Math.min(styleBuilder.getMaxWidth(), entry.length()));
                 printQueue(makeColumnQueue(entry, builder.get()));
             }
@@ -248,7 +251,7 @@ public class TextHelpWriter extends AbstractHelpWriter {
         int adjustedMaxWidth = styleBuilder.getMaxWidth();
         for (TextStyle.Builder builder : styleBuilders) {
             adjustedMaxWidth -= builder.getLeftPad();
-            if (builder.getScaling() == TextStyle.Scaling.SCALED) {
+            if (builder.isScalable()) {
                 calcWidth += builder.getMaxWidth();
             } else {
                 adjustedMaxWidth -= builder.getMaxWidth();
@@ -260,7 +263,7 @@ public class TextHelpWriter extends AbstractHelpWriter {
             double fraction = adjustedMaxWidth * 1.0 / calcWidth;
             for (int i = 0; i < styleBuilders.size(); i++) {
                 TextStyle.Builder builder = styleBuilders.get(i);
-                if (builder.getScaling() == TextStyle.Scaling.SCALED) {
+                if (builder.isScalable()) {
                     // resize and remove the padding from the maxWidth calculation.
                     styleBuilders.set(i, resize(builder, fraction));
                 }
@@ -277,10 +280,10 @@ public class TextHelpWriter extends AbstractHelpWriter {
     }
 
     @Override
-    public void writeTable(final TableDefinition rawTable) throws IOException {
+    public void appendTable(final TableDefinition rawTable) throws IOException {
         TableDefinition table = adjustTableFormat(rawTable);
         // write the table
-        writePara(table.caption());
+        appendParagraph(table.caption());
 
         List<TextStyle> headerStyles = new ArrayList<>();
         for (TextStyle style : table.columnStyle()) {
@@ -350,15 +353,13 @@ public class TextHelpWriter extends AbstractHelpWriter {
         String indent = Util.createPadding(style.getIndent());
         Queue<String> result = new LinkedList<>();
         int wrapPos = 0;
-        int nextPos = 0;
+        int nextPos;
         int wrappedMaxWidth = style.getMaxWidth() - indent.length();
         while (wrapPos < columnData.length()) {
             int workingWidth = wrapPos == 0 ? style.getMaxWidth() : wrappedMaxWidth;
             nextPos = Util.findWrapPos(columnData, workingWidth, wrapPos);
             CharSequence working = columnData.subSequence(wrapPos, nextPos);
-            StringBuilder sb = new StringBuilder(lpad);
-            sb.append(style.pad(wrapPos > 0, working));
-            result.add(sb.toString());
+            result.add(lpad + style.pad(wrapPos > 0, working));
             wrapPos = Util.findNonWhitespacePos(columnData, nextPos);
             wrapPos = wrapPos == -1 ? nextPos : wrapPos;
         }

@@ -17,6 +17,7 @@
 package org.apache.commons.cli.help;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class TextStyleTests {
     public void verifyDefaultStyle() {
         TextStyle underTest = TextStyle.DEFAULT;
         assertEquals(TextStyle.Alignment.LEFT, underTest.getAlignment());
-        assertEquals(TextStyle.Scaling.SCALED, underTest.getScaling());
+        assertTrue(underTest.isScalable());
         assertEquals(0, underTest.getLeftPad());
         assertEquals(0, underTest.getMinWidth());
         assertEquals(TextStyle.UNSET_MAX_WIDTH, underTest.getMaxWidth());
@@ -52,7 +53,7 @@ public class TextStyleTests {
         builder.setIndent(5);
         builder.setLeftPad(5);
         builder.setMinWidth(4);
-        builder.setScaling(TextStyle.Scaling.SCALED);
+        builder.setScalable(true);
 
         // undefined creates result of original text + indent
         builder.setMaxWidth(TextStyle.UNSET_MAX_WIDTH);

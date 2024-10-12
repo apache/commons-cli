@@ -38,45 +38,45 @@ public class XhtmlHelpWriterTest {
     private XhtmlHelpWriter underTest = new XhtmlHelpWriter(sb);
 
     @Test
-    public void writeTitleTest() throws IOException {
+    public void appendTitleTest() throws IOException {
         sb.setLength(0);
-        underTest.writeTitle("Hello World");
+        underTest.appendTitle("Hello World");
         assertEquals(format("<span class='commons_cli_title'>Hello World</span>%n"), sb.toString());
     }
 
     @Test
-    public void writeParaTest() throws IOException {
+    public void appendParagraphTest() throws IOException {
         sb.setLength(0);
-        underTest.writePara("Hello World");
+        underTest.appendParagraph("Hello World");
         assertEquals(format("<p>Hello World</p>%n"), sb.toString());
     }
 
     @Test
-    public void writeHeaderTest() throws IOException {
+    public void appendHeaderTest() throws IOException {
         sb.setLength(0);
-        underTest.writeHeader(1, "Hello World");
+        underTest.appendHeader(1, "Hello World");
         assertEquals(format("<h1>Hello World</h1>%n"), sb.toString());
         sb.setLength(0);
-        underTest.writeHeader(2, "Hello World");
+        underTest.appendHeader(2, "Hello World");
         assertEquals(format("<h2>Hello World</h2>%n"), sb.toString());
         sb.setLength(0);
-        assertThrows(IllegalArgumentException.class, () -> underTest.writeHeader(0, "Hello World"));
+        assertThrows(IllegalArgumentException.class, () -> underTest.appendHeader(0, "Hello World"));
     }
 
     @Test
-    public void writeListTest() throws IOException {
+    public void appendListTest() throws IOException {
         String[] entries = {"one", "two", "three"};
         sb.setLength(0);
-        underTest.writeList(true, Arrays.asList(entries));
+        underTest.appendList(true, Arrays.asList(entries));
         assertEquals(format("<ol>%n  <li>one</li>%n  <li>two</li>%n  <li>three</li>%n</ol>%n"), sb.toString());
 
         sb.setLength(0);
-        underTest.writeList(false, Arrays.asList(entries));
+        underTest.appendList(false, Arrays.asList(entries));
         assertEquals(format("<ul>%n  <li>one</li>%n  <li>two</li>%n  <li>three</li>%n</ul>%n"), sb.toString());
     }
 
     @Test
-    public void writeTableTest() throws IOException {
+    public void appendTableTest() throws IOException {
         List<TextStyle> styles = Arrays.asList(TextStyle.DEFAULT, TextStyle.DEFAULT, TextStyle.DEFAULT);
         String[] headers = {"one", "two", "three"};
         List[] rows = {
@@ -112,7 +112,7 @@ public class XhtmlHelpWriterTest {
 
         TableDefinition table = TableDefinition.from("The caption", styles, Arrays.asList(headers), Arrays.asList(rows));
         sb.setLength(0);
-        underTest.writeTable(table);
+        underTest.appendTable(table);
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "full table failed");
 
@@ -120,7 +120,7 @@ public class XhtmlHelpWriterTest {
         table = TableDefinition.from(null, styles, Arrays.asList(headers), Arrays.asList(rows));
         expected.remove(1);
         sb.setLength(0);
-        underTest.writeTable(table);
+        underTest.appendTable(table);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual);
 
@@ -135,7 +135,7 @@ public class XhtmlHelpWriterTest {
         expected.add("</table>");
 
         sb.setLength(0);
-        underTest.writeTable(table);
+        underTest.appendTable(table);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "no rows test failed");
 

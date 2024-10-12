@@ -21,55 +21,55 @@ import java.util.Collection;
 
 /**
  * The definition of a semantic scribe.  The semantic scribe write string to output based on the semantic meaning
- * of the type of string.  e.g. a Paragraph -vs- a Heading.
+ * of the type of string.  e.g. a Paragraph versus a Heading.
  * <p>
  *     The representation of the semantics is dependant upon the format being output.  For example the plain text
  *     output for a paragraph may print the text followed by two line breaks, while an XHTML output would print the
- *     text surrounded by &lt;p&gt; and &lt;/p&gt;
+ *     text surrounded by &lt;p&gt; and &lt;/p&gt;.
  * </p>
  * @since 1.10.0
  */
 public interface HelpWriter extends Appendable {
 
     /**
-     * Write a title.
+     * Appends a title.
      *
      * @param title the title to write.
      * @throws IOException on write failure
      */
-    void writeTitle(CharSequence title) throws IOException;
+    void appendTitle(CharSequence title) throws IOException;
 
     /**
-     * Writes a paragraph.
+     * Appends a paragraph.
      *
      * @param paragraph the paragraph to write.
      * @throws IOException on write failure
      */
-    void writePara(CharSequence paragraph) throws IOException;
+    void appendParagraph(CharSequence paragraph) throws IOException;
 
     /**
-     * Writes a header.
+     * Appends a header.
      *
      * @param level  the level of the header.  This is equivalent to the "1", "2", or "3" in the HTML "h1", "h2", "h3" tags.
      * @param text   the text for the header
      * @throws IOException on write failure
      */
-    void writeHeader(int level, CharSequence text) throws IOException;
+    void appendHeader(int level, CharSequence text) throws IOException;
 
     /**
-     * Writes a list.
+     * Appends a list.
      *
      * @param ordered {@code true} if the list should be ordered.
      * @param list   the list to write.
      * @throws IOException on write failure
      */
-    void writeList(boolean ordered, Collection<CharSequence> list) throws IOException;
+    void appendList(boolean ordered, Collection<CharSequence> list) throws IOException;
 
     /**
-     * Writes a table.
+     * Appends a table.
      *
      * @param table   the table definition to write.
      * @throws IOException on write failure
      */
-    void writeTable(TableDefinition table) throws IOException;
+    void appendTable(TableDefinition table) throws IOException;
 }

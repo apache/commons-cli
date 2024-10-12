@@ -169,19 +169,19 @@ public abstract class AbstractHelpFormatter {
         }
 
         if (autoUsage) {
-            helpWriter.writePara(format("%s %s %s", syntaxPrefix, cmdLineSyntax, asSyntaxOptions(options)));
+            helpWriter.appendParagraph(format("%s %s %s", syntaxPrefix, cmdLineSyntax, asSyntaxOptions(options)));
         } else {
-            helpWriter.writePara(format("%s %s", syntaxPrefix, cmdLineSyntax));
+            helpWriter.appendParagraph(format("%s %s", syntaxPrefix, cmdLineSyntax));
         }
 
         if (!Util.isEmpty(header)) {
-            helpWriter.writePara(header);
+            helpWriter.appendParagraph(header);
         }
 
-        helpWriter.writeTable(getTableDefinition(options));
+        helpWriter.appendTable(getTableDefinition(options));
 
         if (!Util.isEmpty(footer)) {
-            helpWriter.writePara(footer);
+            helpWriter.appendParagraph(footer);
         }
     }
 
@@ -208,7 +208,7 @@ public abstract class AbstractHelpFormatter {
      * @throws IOException If the output could not be written to the {@link HelpWriter}
      */
     public final void printOptions(final TableDefinition tableDefinition) throws IOException {
-        helpWriter.writeTable(tableDefinition);
+        helpWriter.appendTable(tableDefinition);
     }
 
     /**

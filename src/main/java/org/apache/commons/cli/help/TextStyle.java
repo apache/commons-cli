@@ -21,8 +21,9 @@ import java.util.function.Supplier;
 import org.apache.commons.cli.Util;
 
 /**
- * The definition for styling blocks of text.  Most common usage is to style columns in a table, but may also be used to
- * specify default stylings for a {@link HelpWriter}.
+ * The definition for styling recommendations blocks of text.  Most common usage is to style columns in a table, but may also be used to
+ * specify default styling for a {@link HelpWriter}.  HelpWriters are free to ignore the TextStyle recommendations
+ * particularly where they are not supported or contradict common usage.
  * @since 1.10.0
  */
 public final class TextStyle {
@@ -36,13 +37,6 @@ public final class TextStyle {
         CENTER,
         /** right justify the text */
         RIGHT }
-    /** Types scaling */
-    public enum Scaling {
-        /** do not scale */
-        UNSCALED,
-        /** text may be scaled */
-        SCALED
-    }
 
     /** the alignment */
     private final Alignment alignment;
@@ -51,7 +45,7 @@ public final class TextStyle {
     /** The size of the indent on the second and any subsequent lines of text */
     private final int indent;
     /** The scaling allowed for the block */
-    private final Scaling scaling;
+    private final boolean scalable;
     /** The minimum size of the text  */
     private final int minWidth;
     /** The maximum size of the text */
@@ -67,8 +61,8 @@ public final class TextStyle {
         private int leftPad;
         /** the subsequent line indentation */
         private int indent;
-        /** the scaling */
-        private Scaling scaling;
+        /** the scalable flag. Identifies text blocks that can be made narrower or wider as needed by the HelpWriter. */
+        private boolean scalable;
         /** the minimum width */
         private int minWidth;
         /** the maximum width */
@@ -86,7 +80,7 @@ public final class TextStyle {
          */
         public Builder() {
             alignment = Alignment.LEFT;
-            scaling = Scaling.SCALED;
+            scalable = true;
             maxWidth = UNSET_MAX_WIDTH;
         }
 
@@ -98,7 +92,7 @@ public final class TextStyle {
             this.alignment = style.alignment;
             this.leftPad = style.leftPad;
             this.indent = style.indent;
-            this.scaling = style.scaling;
+            this.scalable = style.scalable;
             this.minWidth = style.minWidth;
             this.maxWidth = style.maxWidth;
         }
@@ -155,21 +149,23 @@ public final class TextStyle {
         }
 
         /**
-         * Sets the scaling value.
-         * @param scaling the new scaling value.
+         * Specifies if the column can be made wider or to narrower width to fit constraints of the HelpWriter and
+         * formatting.
+         * @param scalable if {@code true} the text width can be adjusted.
          * @return this.
          */
-        public Builder setScaling(final Scaling scaling) {
-            this.scaling = scaling;
+        public Builder setScalable(final boolean scalable) {
+            this.scalable = scalable;
             return this;
         }
 
         /**
-         * Gets the currently specified scaling value.
+         * Specifies if the column can be made wider or to narrower width to fit constraints of the HelpWriter and
+         * formatting.
          * @return The currently specified scaling value.
          */
-        public Scaling getScaling() {
-            return scaling;
+        public boolean isScalable() {
+            return scalable;
         }
 
         /**
@@ -222,7 +218,7 @@ public final class TextStyle {
         this.alignment = builder.alignment;
         this.leftPad = builder.leftPad;
         this.indent = builder.indent;
-        this.scaling = builder.scaling;
+        this.scalable = builder.scalable;
         this.minWidth = builder.minWidth;
         this.maxWidth = builder.maxWidth;
     }
@@ -252,11 +248,12 @@ public final class TextStyle {
     }
 
     /**
-     * Gets the scaling value.
+     * Specifies if the column can be made wider or to narrower width to fit constraints of the HelpWriter and
+     * formatting.
      * @return the scaling value.
      */
-    public Scaling getScaling() {
-        return scaling;
+    public boolean isScalable() {
+        return scalable;
     }
 
     /**
@@ -278,7 +275,7 @@ public final class TextStyle {
     @Override
     public String toString() {
         return String.format("TextStyle{%s, l:%s, i:%s, %s, min:%s, max:%s}",
-                alignment, leftPad, indent, scaling, minWidth, maxWidth == UNSET_MAX_WIDTH ? "unset" : maxWidth);
+                alignment, leftPad, indent, scalable, minWidth, maxWidth == UNSET_MAX_WIDTH ? "unset" : maxWidth);
     }
 
     /**

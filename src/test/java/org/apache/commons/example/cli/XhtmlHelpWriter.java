@@ -35,19 +35,19 @@ public class XhtmlHelpWriter extends AbstractHelpWriter {
     }
 
     @Override
-    public void writeTitle(final CharSequence title) throws IOException {
+    public void appendTitle(final CharSequence title) throws IOException {
         output.append(format("<span class='commons_cli_title'>%s</span>%n", StringEscapeUtils.escapeHtml4(title.toString())));
     }
 
     @Override
-    public void writePara(final CharSequence paragraph) throws IOException {
+    public void appendParagraph(final CharSequence paragraph) throws IOException {
         if (!Util.isEmpty(paragraph)) {
             output.append(format("<p>%s</p>%n", StringEscapeUtils.escapeHtml4(paragraph.toString())));
         }
     }
 
     @Override
-    public void writeHeader(final int level, final CharSequence text) throws IOException {
+    public void appendHeader(final int level, final CharSequence text) throws IOException {
         if (!Util.isEmpty(text)) {
             if (level < 1) {
                 throw new IllegalArgumentException("level must be at least 1");
@@ -57,7 +57,7 @@ public class XhtmlHelpWriter extends AbstractHelpWriter {
     }
 
     @Override
-    public void writeList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
+    public void appendList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
         output.append(format("<%sl>%n", ordered ? "o" : "u"));
         for (CharSequence line : list) {
             output.append(format("  <li>%s</li>%n", StringEscapeUtils.escapeHtml4(Util.defaultValue(line, "").toString())));
@@ -66,7 +66,7 @@ public class XhtmlHelpWriter extends AbstractHelpWriter {
     }
 
     @Override
-    public void writeTable(final TableDefinition table) throws IOException {
+    public void appendTable(final TableDefinition table) throws IOException {
         output.append(format("<table class='commons_cli_table'>%n"));
 
         if (!Util.isEmpty(table.caption())) {

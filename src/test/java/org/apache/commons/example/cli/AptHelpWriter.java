@@ -55,21 +55,21 @@ public class AptHelpWriter extends AbstractHelpWriter {
     }
 
     @Override
-    public void writeTitle(final CharSequence title) throws IOException {
+    public void appendTitle(final CharSequence title) throws IOException {
         if (!Util.isEmpty(title)) {
             output.append(format("        -----%n        %1$s%n        -----%n%n%1$s%n%n", title));
         }
     }
 
     @Override
-    public void writePara(final CharSequence paragraph) throws IOException {
+    public void appendParagraph(final CharSequence paragraph) throws IOException {
         if (!Util.isEmpty(paragraph)) {
             output.append(format("  %s%n%n", ESCAPE_APT.translate(paragraph)));
         }
     }
 
     @Override
-    public void writeHeader(final int level, final CharSequence text) throws IOException {
+    public void appendHeader(final int level, final CharSequence text) throws IOException {
         if (!Util.isEmpty(text)) {
             if (level < 1) {
                 throw new IllegalArgumentException("level must be at least 1");
@@ -82,7 +82,7 @@ public class AptHelpWriter extends AbstractHelpWriter {
     }
 
     @Override
-    public void writeList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
+    public void appendList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
         if (null != list) {
             if (ordered) {
                 int idx = 1;
@@ -99,7 +99,7 @@ public class AptHelpWriter extends AbstractHelpWriter {
     }
 
     @Override
-    public void writeTable(final TableDefinition table) throws IOException {
+    public void appendTable(final TableDefinition table) throws IOException {
         if (table != null) {
             // create the row separator string
             StringBuilder sb = new StringBuilder("*");
