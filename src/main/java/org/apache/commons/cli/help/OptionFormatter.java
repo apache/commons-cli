@@ -203,7 +203,7 @@ public final class OptionFormatter {
          * @param argName the name of the argument.
          * @return the formatted argument.
          */
-        public String asArgName(final String argName) {
+        public String toArgName(final String argName) {
             return argNameDelimiters[0] + Util.defaultValue(argName, "") + argNameDelimiters[1];
         }
 
@@ -321,7 +321,7 @@ public final class OptionFormatter {
                         buff.append(optArgSeparator).append(argName);
                     }
                     boolean requiredFlg = required == null ? o.isRequired() : required;
-                    return requiredFlg ? buff.toString() : o.asOptional(buff.toString());
+                    return requiredFlg ? buff.toString() : o.toOptional(buff.toString());
                 };
     }
 
@@ -382,7 +382,7 @@ public final class OptionFormatter {
      * @param text the text to wrap.
      * @return The text wrapped in the optional delimiters or an eppty string of the text is null or an empty string.
      */
-    public String asOptional(final String text) {
+    public String toOptional(final String text) {
         if (Util.isEmpty(text)) {
             return "";
         }
@@ -411,8 +411,8 @@ public final class OptionFormatter {
      * Gets the syntax format for this option.
      * @return the syntax format for this option as specified by the syntaxFormatFunction.
      */
-    public String asSyntaxOption() {
-        return asSyntaxOption(this.isRequired());
+    public String toSyntaxOption() {
+        return toSyntaxOption(this.isRequired());
     }
 
     /**
@@ -420,7 +420,7 @@ public final class OptionFormatter {
      * @param isRequired if {@code true} the options is printed as a required option, otherwise it is optional.
      * @return the syntax format for this option as specified by the syntaxFormatFunction.
      */
-    public String asSyntaxOption(final boolean isRequired) {
+    public String toSyntaxOption(final boolean isRequired) {
         return syntaxFormatFunction.apply(this, isRequired);
     }
 }

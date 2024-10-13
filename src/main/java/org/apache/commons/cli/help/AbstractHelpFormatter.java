@@ -169,7 +169,7 @@ public abstract class AbstractHelpFormatter {
         }
 
         if (autoUsage) {
-            helpWriter.appendParagraph(format("%s %s %s", syntaxPrefix, cmdLineSyntax, asSyntaxOptions(options)));
+            helpWriter.appendParagraph(format("%s %s %s", syntaxPrefix, cmdLineSyntax, toSyntaxOptions(options)));
         } else {
             helpWriter.appendParagraph(format("%s %s", syntaxPrefix, cmdLineSyntax));
         }
@@ -217,7 +217,7 @@ public abstract class AbstractHelpFormatter {
      * @return the {@code argName} formatted as an argument.
      */
     public final String asArgName(final String argName) {
-        return optionFormatBuilder.asArgName(argName);
+        return optionFormatBuilder.toArgName(argName);
     }
 
     /**
@@ -225,8 +225,8 @@ public abstract class AbstractHelpFormatter {
      * @param options The {@link Options} to create the string representation for.
      * @return the string representation of the options as used in the syntax display.
      */
-    public String asSyntaxOptions(final Options options) {
-        return asSyntaxOptions(options.getOptions(), options::getOptionGroup);
+    public String toSyntaxOptions(final Options options) {
+        return toSyntaxOptions(options.getOptions(), options::getOptionGroup);
     }
 
     /**
@@ -234,8 +234,8 @@ public abstract class AbstractHelpFormatter {
      * @param options The collection of {@link Option} instances to create the string representation for.
      * @return the string representation of the options as used in the syntax display.
      */
-    public String asSyntaxOptions(final Iterable<Option> options) {
-        return asSyntaxOptions(options, o -> null);
+    public String toSyntaxOptions(final Iterable<Option> options) {
+        return toSyntaxOptions(options, o -> null);
     }
 
     /**
@@ -267,8 +267,8 @@ public abstract class AbstractHelpFormatter {
      * @param lookup a function to determine if the Option is part of an OptionGroup that has already been processed.
      * @return the string representation of the options as used in the syntax display.
      */
-    protected String asSyntaxOptions(final Iterable<Option> options,
-                                          final Function<Option, OptionGroup> lookup) {
+    protected String toSyntaxOptions(final Iterable<Option> options,
+                                     final Function<Option, OptionGroup> lookup) {
         // list of groups that have been processed.
         final Collection<OptionGroup> processedGroups = new ArrayList<>();
         final List<Option> optList = sort(options);
@@ -286,14 +286,14 @@ public abstract class AbstractHelpFormatter {
                     // add the group to the processed list
                     processedGroups.add(group);
                     // add the usage clause
-                    buff.append(pfx).append(asSyntaxOptions(group));
+                    buff.append(pfx).append(toSyntaxOptions(group));
                     pfx = " ";
                 }
                 // otherwise the option was displayed in the group previously so ignore it.
             }
             // if the Option is not part of an OptionGroup
             else {
-                buff.append(pfx).append(optionFormatBuilder.build(option).asSyntaxOption());
+                buff.append(pfx).append(optionFormatBuilder.build(option).toSyntaxOption());
                 pfx = " ";
             }
         }
@@ -305,7 +305,7 @@ public abstract class AbstractHelpFormatter {
      * @param group The OptionGroup to create the string representation for.
      * @return the string representation of the options as used in the syntax display.
      */
-    public String asSyntaxOptions(final OptionGroup group) {
+    public String toSyntaxOptions(final OptionGroup group) {
         StringBuilder buff = new StringBuilder();
         final List<Option> optList = sort(group.getOptions());
         OptionFormatter formatter = null;
@@ -314,14 +314,14 @@ public abstract class AbstractHelpFormatter {
         while (iter.hasNext()) {
             formatter = optionFormatBuilder.build(iter.next());
             // whether the option is required or not is handled at group level
-            buff.append(formatter.asSyntaxOption(true));
+            buff.append(formatter.toSyntaxOption(true));
 
             if (iter.hasNext()) {
                 buff.append(optionGroupSeparator);
             }
         }
         if (formatter != null) {
-            return group.isRequired() ? buff.toString() : formatter.asOptional(buff.toString());
+            return group.isRequired() ? buff.toString() : formatter.toOptional(buff.toString());
         }
         return ""; // there were no entries in the group.
     }

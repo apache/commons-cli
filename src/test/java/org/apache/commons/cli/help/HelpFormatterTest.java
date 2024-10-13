@@ -238,13 +238,13 @@ public class HelpFormatterTest {
                 .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
                 .addOption(Option.builder().option("s").longOpt("sevem").hasArg().build());
         assertEquals("[-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th]",
-                underTest.asSyntaxOptions(group));
+                underTest.toSyntaxOptions(group));
 
         group.setRequired(true);
         assertEquals("-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th",
-                underTest.asSyntaxOptions(group));
+                underTest.toSyntaxOptions(group));
 
-        assertEquals("", underTest.asSyntaxOptions(new OptionGroup()), "empty group should return empty string");
+        assertEquals("", underTest.toSyntaxOptions(new OptionGroup()), "empty group should return empty string");
     }
 
     @Test
@@ -253,7 +253,7 @@ public class HelpFormatterTest {
         Options options = getTestGroups();
         assertEquals("[-1 <arg> | --aon <arg> | --uno <arg>] [--dos <arg> | --dó <arg> | --two <arg>] " +
                         "[--three <arg> | --tres <arg> | --trí <arg>]",
-                underTest.asSyntaxOptions(options),
+                underTest.toSyntaxOptions(options),
                 "getTestGroup options failed");
 
           options = new Options()
@@ -265,7 +265,7 @@ public class HelpFormatterTest {
                 .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
                 .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
         assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> -th",
-                underTest.asSyntaxOptions(options),
+                underTest.toSyntaxOptions(options),
                 "assorted options failed");
 
 
@@ -280,7 +280,7 @@ public class HelpFormatterTest {
                 .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
                 .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
         assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> [-t <other> | -th]",
-                underTest.asSyntaxOptions(options),
+                underTest.toSyntaxOptions(options),
                 "option with group failed");
 
         OptionGroup group1 = new OptionGroup()
@@ -295,7 +295,7 @@ public class HelpFormatterTest {
                 .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
                 .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
         assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> | -th",
-                underTest.asSyntaxOptions(options),
+                underTest.toSyntaxOptions(options),
                 "options with required group failed");
     }
 
@@ -312,7 +312,7 @@ public class HelpFormatterTest {
         options.add(Option.builder().longOpt("six").required().hasArg().argName("other").build());
         options.add(Option.builder().option("s").longOpt("sevem").hasArg().build());
         assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> -th",
-                underTest.asSyntaxOptions(options));
+                underTest.toSyntaxOptions(options));
 
     }
 
@@ -394,7 +394,7 @@ public class HelpFormatterTest {
     public void setOptionGroupSeparatorTest() {
         HelpFormatter.Builder underTest = new HelpFormatter.Builder().setOptionGroupSeparator(" and ");
         HelpFormatter formatter = underTest.build();
-        String result = formatter.asSyntaxOptions(new OptionGroup().addOption(Option.builder("this").build())
+        String result = formatter.toSyntaxOptions(new OptionGroup().addOption(Option.builder("this").build())
                 .addOption(Option.builder("that").build()));
         assertTrue(result.contains("-that and -this"));
     }

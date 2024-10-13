@@ -40,35 +40,35 @@ public class OptionFormatterTest {
 
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
         underTest = OptionFormatter.from(option);
-        assertEquals("[-o <arg>]", underTest.asSyntaxOption(), "optional arg failed");
+        assertEquals("[-o <arg>]", underTest.toSyntaxOption(), "optional arg failed");
 
         option = Option.builder().option("o").longOpt("opt").hasArg().argName("other").build();
         underTest = OptionFormatter.from(option);
-        assertEquals("[-o <other>]", underTest.asSyntaxOption(), "optional 'other' arg failed");
+        assertEquals("[-o <other>]", underTest.toSyntaxOption(), "optional 'other' arg failed");
 
         option = Option.builder().option("o").longOpt("opt").hasArg().required().argName("other").build();
         underTest = OptionFormatter.from(option);
-        assertEquals("-o <other>", underTest.asSyntaxOption(), "required 'other' arg failed");
+        assertEquals("-o <other>", underTest.toSyntaxOption(), "required 'other' arg failed");
 
         option = Option.builder().option("o").longOpt("opt").required().argName("other").build();
         underTest = OptionFormatter.from(option);
-        assertEquals("-o", underTest.asSyntaxOption(), "required no arg failed");
+        assertEquals("-o", underTest.toSyntaxOption(), "required no arg failed");
 
         option = Option.builder().option("o").argName("other").build();
         underTest = OptionFormatter.from(option);
-        assertEquals("[-o]", underTest.asSyntaxOption(), "optional no arg arg failed");
+        assertEquals("[-o]", underTest.toSyntaxOption(), "optional no arg arg failed");
 
         option = Option.builder().longOpt("opt").hasArg().argName("other").build();
         underTest = OptionFormatter.from(option);
-        assertEquals("[--opt <other>]", underTest.asSyntaxOption(), "optional longOpt 'other' arg failed");
+        assertEquals("[--opt <other>]", underTest.toSyntaxOption(), "optional longOpt 'other' arg failed");
 
         option = Option.builder().longOpt("opt").required().hasArg().argName("other").build();
         underTest = OptionFormatter.from(option);
-        assertEquals("--opt <other>", underTest.asSyntaxOption(), "required longOpt 'other' arg failed");
+        assertEquals("--opt <other>", underTest.toSyntaxOption(), "required longOpt 'other' arg failed");
 
         option = Option.builder().option("ot").longOpt("opt").hasArg().build();
         underTest = OptionFormatter.from(option);
-        assertEquals("[-ot <arg>]", underTest.asSyntaxOption(), "optional multi char opt arg failed");
+        assertEquals("[-ot <arg>]", underTest.toSyntaxOption(), "optional multi char opt arg failed");
     }
 
     @Test
@@ -151,12 +151,12 @@ public class OptionFormatterTest {
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
 
         underTest = OptionFormatter.from(option);
-        assertEquals("[what]", underTest.asOptional("what"));
-        assertEquals("", underTest.asOptional(""), "enpty string should return empty string");
-        assertEquals("", underTest.asOptional(null), "null should return empty string");
+        assertEquals("[what]", underTest.toOptional("what"));
+        assertEquals("", underTest.toOptional(""), "enpty string should return empty string");
+        assertEquals("", underTest.toOptional(null), "null should return empty string");
 
         underTest = new OptionFormatter.Builder().setOptionalDelimiters("-> ", " <-").build(option);
-        assertEquals("-> what <-", underTest.asOptional("what"));
+        assertEquals("-> what <-", underTest.toOptional("what"));
 
     }
 
@@ -182,13 +182,13 @@ public class OptionFormatterTest {
 
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
         OptionFormatter formatter = OptionFormatter.from(option);
-        assertEquals("[-o <arg>]", formatter.asSyntaxOption());
-        assertEquals("-o <arg>", formatter.asSyntaxOption(true));
+        assertEquals("[-o <arg>]", formatter.toSyntaxOption());
+        assertEquals("-o <arg>", formatter.toSyntaxOption(true));
 
         option = Option.builder().option("o").longOpt("opt").hasArg().required().build();
         formatter = OptionFormatter.from(option);
-        assertEquals("-o <arg>", formatter.asSyntaxOption());
-        assertEquals("[-o <arg>]", formatter.asSyntaxOption(false));
+        assertEquals("-o <arg>", formatter.toSyntaxOption());
+        assertEquals("[-o <arg>]", formatter.toSyntaxOption(false));
     }
 
     @Test
@@ -249,13 +249,13 @@ public class OptionFormatterTest {
     public void testSetOptArgumentSeparator() {
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
         OptionFormatter.Builder builder = new OptionFormatter.Builder().setOptArgSeparator(" with argument named ");
-        assertEquals("[-o with argument named <arg>]", builder.build(option).asSyntaxOption());
+        assertEquals("[-o with argument named <arg>]", builder.build(option).toSyntaxOption());
 
         builder = new OptionFormatter.Builder().setOptArgSeparator(null);
-        assertEquals("[-o<arg>]", builder.build(option).asSyntaxOption());
+        assertEquals("[-o<arg>]", builder.build(option).toSyntaxOption());
 
         builder = new OptionFormatter.Builder().setOptArgSeparator("=");
-        assertEquals("[-o=<arg>]", builder.build(option).asSyntaxOption());
+        assertEquals("[-o=<arg>]", builder.build(option).toSyntaxOption());
     }
 
     @Test
@@ -264,22 +264,22 @@ public class OptionFormatterTest {
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();
 
         OptionFormatter.Builder builder = new OptionFormatter.Builder().setSyntaxFormatFunction(func);
-        assertEquals("Yep, it worked", builder.build(option).asSyntaxOption());
+        assertEquals("Yep, it worked", builder.build(option).toSyntaxOption());
 
         builder = new OptionFormatter.Builder().setSyntaxFormatFunction(null);
-        assertEquals("[-o <arg>]", builder.build(option).asSyntaxOption());
+        assertEquals("[-o <arg>]", builder.build(option).toSyntaxOption());
     }
 
     private void assertEquivalent(final OptionFormatter formatter, final OptionFormatter formatter2) {
-        assertEquals(formatter.asSyntaxOption(), formatter2.asSyntaxOption());
-        assertEquals(formatter.asSyntaxOption(true), formatter2.asSyntaxOption(true));
-        assertEquals(formatter.asSyntaxOption(false), formatter2.asSyntaxOption(false));
+        assertEquals(formatter.toSyntaxOption(), formatter2.toSyntaxOption());
+        assertEquals(formatter.toSyntaxOption(true), formatter2.toSyntaxOption(true));
+        assertEquals(formatter.toSyntaxOption(false), formatter2.toSyntaxOption(false));
         assertEquals(formatter.getOpt(), formatter2.getOpt());
         assertEquals(formatter.getLongOpt(), formatter2.getLongOpt());
         assertEquals(formatter.getBothOpt(), formatter2.getBothOpt());
         assertEquals(formatter.getDescription(), formatter2.getDescription());
         assertEquals(formatter.getArgName(), formatter2.getArgName());
-        assertEquals(formatter.asOptional("foo"), formatter2.asOptional("foo"));
+        assertEquals(formatter.toOptional("foo"), formatter2.toOptional("foo"));
     }
     @Test
     public void testCopyConstructor() {
