@@ -32,6 +32,8 @@ import java.util.Queue;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public final class TextHelpWriterTest {
 
@@ -43,6 +45,29 @@ public final class TextHelpWriterTest {
         sb = new StringBuilder();
         underTest = new TextHelpWriter(sb);
     }
+
+    @Test
+    public void testFindWrapPos() {
+        String testString = "The quick brown fox jumps over\tthe lazy dog";
+
+        assertEquals(9, TextHelpWriter.findWrapPos(testString, 10, 0), "did not find end of word");
+        assertEquals(9, TextHelpWriter.findWrapPos(testString, 14, 0), "did not backup to end of word");
+        assertEquals(15, TextHelpWriter.findWrapPos(testString, 15, 0), "did not find word at 15");
+        assertEquals(15, TextHelpWriter.findWrapPos(testString, 16, 0));
+        assertEquals(30, TextHelpWriter.findWrapPos(testString, 15, 20), "did not find break character");
+        assertEquals(30, TextHelpWriter.findWrapPos(testString, 150, 0), "did not handle text shorter than width");
+
+        assertThrows(IllegalArgumentException.class, () -> TextHelpWriter.findWrapPos("", 0, 0));
+        assertEquals(3, TextHelpWriter.findWrapPos("Hello", 4, 0));
+    }
+
+    @ParameterizedTest
+    @MethodSource("org.apache.commons.cli.help.UtilTest#charArgs")
+    public void testFindWrapPosWithWhitespace(final Character c, final boolean isWhitespace) {
+        String text = format("Hello%cWorld", c);
+        assertEquals(isWhitespace ? 5 : 6, TextHelpWriter.findWrapPos(text, 7, 0));
+    }
+
 
     @Test
     public void testAppendTitle() throws IOException {
@@ -141,8 +166,8 @@ public final class TextHelpWriterTest {
 
         sb.setLength(0);
         expected.clear();
-        for (int i = 0; i < entries.length; i++) {
-            expected.add(format("  * %s", entries[i]));
+        for (String entry : entries) {
+            expected.add(format("  * %s", entry));
         }
         expected.add("");
         underTest.appendList(false, Arrays.asList(entries));
@@ -325,9 +350,10 @@ public final class TextHelpWriterTest {
     @Test
     public void testResizeTableFormat() {
         underTest.setMaxWidth(150);
-        TableDefinition tableDefinition = TableDefinition.from("Caption", Arrays.asList(new TextStyle.Builder().setMinWidth(20)
-                .setMaxWidth(100).get()),
-                Arrays.asList("header"), Arrays.asList(Arrays.asList("one")));
+        TableDefinition tableDefinition = TableDefinition.from("Caption", Collections.singletonList(new TextStyle.Builder()
+                        .setMinWidth(20)
+                        .setMaxWidth(100).get()),
+                Collections.singletonList("header"), Collections.singletonList(Collections.singletonList("one")));
         TableDefinition result = underTest.adjustTableFormat(tableDefinition);
         assertEquals(20, result.columnStyle().get(0).getMinWidth(), "Minimum width should not be reset");
         assertEquals(100, result.columnStyle().get(0).getMaxWidth(), "Maximum width should not be reset");
@@ -412,10 +438,10 @@ public final class TextHelpWriterTest {
     public void testAdjustTableFormat() {
         // test width smaller than header
         TableDefinition tableDefinition = TableDefinition.from("Testing",
-                Arrays.asList(new TextStyle.Builder().setMaxWidth(3).get()),
-                Arrays.asList("header"),
+                Collections.singletonList(new TextStyle.Builder().setMaxWidth(3).get()),
+                Collections.singletonList("header"),
                 // "data" shorter than "header"
-                Arrays.asList(Arrays.asList("data"))
+                Collections.singletonList(Collections.singletonList("data"))
         );
         TableDefinition actual = underTest.adjustTableFormat(tableDefinition);
         assertEquals("header".length(), actual.columnStyle().get(0).getMaxWidth());

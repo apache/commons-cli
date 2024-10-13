@@ -18,8 +18,6 @@ package org.apache.commons.cli.help;
 
 import java.util.function.Supplier;
 
-import org.apache.commons.cli.Util;
-
 /**
  * The definition for styling recommendations blocks of text.  Most common usage is to style columns in a table, but may also be used to
  * specify default styling for a {@link HelpWriter}.  HelpWriters are free to ignore the TextStyle recommendations

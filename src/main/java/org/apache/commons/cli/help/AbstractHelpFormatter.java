@@ -30,7 +30,6 @@ import java.util.function.Function;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.Util;
 
 /**
  * The class for help formatters provides the framework to link the {@link HelpWriter} with the {@link OptionFormatter}
@@ -85,7 +84,7 @@ public abstract class AbstractHelpFormatter {
         this.helpWriter = Objects.requireNonNull(helpWriter, "helpWriter");
         this.optionFormatBuilder = Objects.requireNonNull(optionFormatBuilder, "optionFormatBuilder");
         this.comparator = Objects.requireNonNull(comparator, "comparator");
-        this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "").toString();
+        this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "");
     }
 
     /**

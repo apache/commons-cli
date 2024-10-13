@@ -19,14 +19,15 @@ package org.apache.commons.example.cli;
 import static java.lang.String.format;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.cli.Util;
 import org.apache.commons.cli.help.AbstractHelpWriter;
 import org.apache.commons.cli.help.TableDefinition;
 import org.apache.commons.cli.help.TextStyle;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.translate.CharSequenceTranslator;
 import org.apache.commons.text.translate.LookupTranslator;
 
@@ -56,21 +57,21 @@ public class AptHelpWriter extends AbstractHelpWriter {
 
     @Override
     public void appendTitle(final CharSequence title) throws IOException {
-        if (!Util.isEmpty(title)) {
+        if (StringUtils.isNotEmpty(title)) {
             output.append(format("        -----%n        %1$s%n        -----%n%n%1$s%n%n", title));
         }
     }
 
     @Override
     public void appendParagraph(final CharSequence paragraph) throws IOException {
-        if (!Util.isEmpty(paragraph)) {
+        if (StringUtils.isNotEmpty(paragraph)) {
             output.append(format("  %s%n%n", ESCAPE_APT.translate(paragraph)));
         }
     }
 
     @Override
     public void appendHeader(final int level, final CharSequence text) throws IOException {
-        if (!Util.isEmpty(text)) {
+        if (StringUtils.isNotEmpty(text)) {
             if (level < 1) {
                 throw new IllegalArgumentException("level must be at least 1");
             }
@@ -96,6 +97,17 @@ public class AptHelpWriter extends AbstractHelpWriter {
             }
             output.append(System.lineSeparator());
         }
+    }    /**
+     * Constructs a string of specified length filled with the specified char.
+     * @param len the length of the final string.
+     * @param fillChar the character to file it will.
+     * @return A string of specified length filled with the specified char.
+     * @since 1.10.0
+     */
+    static String filledString(final int len, final char fillChar) {
+        final char[] padding = new char[len];
+        Arrays.fill(padding, fillChar);
+        return new String(padding);
     }
 
     @Override
@@ -106,7 +118,7 @@ public class AptHelpWriter extends AbstractHelpWriter {
             for (int i = 0; i < table.headers().size(); i++) {
                 String header = table.headers().get(i);
                 TextStyle style = table.columnStyle().get(i);
-                sb.append(Util.filledString(header.length() + 2, '-'));
+                sb.append(filledString(header.length() + 2, '-'));
                 switch (style.getAlignment()) {
                     case LEFT:
                         sb.append("+");
@@ -119,8 +131,7 @@ public class AptHelpWriter extends AbstractHelpWriter {
                         break;
                 }
             }
-            ;
-            String rowSeparator = System.lineSeparator() + sb.append(System.lineSeparator()).toString();
+            String rowSeparator = System.lineSeparator() + sb.append(System.lineSeparator());
 
             // output the header line.
             output.append(sb.toString());
@@ -140,7 +151,7 @@ public class AptHelpWriter extends AbstractHelpWriter {
             }
 
             // write the caption
-            if (!Util.isEmpty(table.caption())) {
+            if (StringUtils.isNotEmpty(table.caption())) {
                 output.append(format("%s%n", ESCAPE_APT.translate(table.caption())));
             }
 

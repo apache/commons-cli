@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Util;
 import org.apache.commons.cli.help.TableDefinition;
 import org.apache.commons.cli.help.TextStyle;
+import org.apache.commons.lang3.StringUtils;
 
 public class WeirdOptionFormat implements Function<Iterable<Option>, TableDefinition> {
     private String[] headers = {"Opt", "Since", "Required", "LongOpt", "Deprecated", "Arg Name", "Type", "Description"};
@@ -50,7 +50,7 @@ public class WeirdOptionFormat implements Function<Iterable<Option>, TableDefini
             for (Option option : options) {
                 List<String> row = new ArrayList<>();
                 row.add(option.getOpt());
-                row.add(Util.defaultValue(option.getSince(), "--"));
+                row.add(StringUtils.defaultIfEmpty(option.getSince(), "--"));
                 row.add(option.isRequired() ? "T" : "F");
                 row.add(option.getLongOpt());
                 row.add(option.isDeprecated() ? "T" : "F");

@@ -22,9 +22,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.cli.Util;
 import org.apache.commons.cli.help.AbstractHelpWriter;
 import org.apache.commons.cli.help.TableDefinition;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
 /** An example XML helpWriter */
@@ -41,14 +41,14 @@ public class XhtmlHelpWriter extends AbstractHelpWriter {
 
     @Override
     public void appendParagraph(final CharSequence paragraph) throws IOException {
-        if (!Util.isEmpty(paragraph)) {
+        if (StringUtils.isNotEmpty(paragraph)) {
             output.append(format("<p>%s</p>%n", StringEscapeUtils.escapeHtml4(paragraph.toString())));
         }
     }
 
     @Override
     public void appendHeader(final int level, final CharSequence text) throws IOException {
-        if (!Util.isEmpty(text)) {
+        if (StringUtils.isNotEmpty(text)) {
             if (level < 1) {
                 throw new IllegalArgumentException("level must be at least 1");
             }
@@ -60,7 +60,7 @@ public class XhtmlHelpWriter extends AbstractHelpWriter {
     public void appendList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
         output.append(format("<%sl>%n", ordered ? "o" : "u"));
         for (CharSequence line : list) {
-            output.append(format("  <li>%s</li>%n", StringEscapeUtils.escapeHtml4(Util.defaultValue(line, "").toString())));
+            output.append(format("  <li>%s</li>%n", StringEscapeUtils.escapeHtml4(StringUtils.defaultIfEmpty(line, "").toString())));
         }
         output.append(format("</%sl>%n", ordered ? "o" : "u"));
     }
@@ -69,7 +69,7 @@ public class XhtmlHelpWriter extends AbstractHelpWriter {
     public void appendTable(final TableDefinition table) throws IOException {
         output.append(format("<table class='commons_cli_table'>%n"));
 
-        if (!Util.isEmpty(table.caption())) {
+        if (StringUtils.isNotEmpty(table.caption())) {
             output.append(format("  <caption>%s</caption>%n", StringEscapeUtils.escapeHtml4(table.caption())));
         }
 

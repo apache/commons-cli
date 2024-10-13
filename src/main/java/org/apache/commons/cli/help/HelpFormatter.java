@@ -23,7 +23,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Util;
 
 /**
  * A default formatter implementation for standard usage.

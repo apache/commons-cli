@@ -21,11 +21,11 @@ import static java.lang.String.format;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
-import org.apache.commons.cli.Util;
+import java.util.Set;
 
 /**
  * Writes text format output.
@@ -48,6 +48,26 @@ public class TextHelpWriter extends AbstractHelpWriter {
     /** A blank line in the output */
     private static final String BLANK_LINE = "";
 
+    /** An array of chars that are breaks in text */
+    private static final char[] BREAK_CHARS = {'\t', '\n', '\f', '\r',
+            Character.LINE_SEPARATOR,
+            Character.PARAGRAPH_SEPARATOR,
+            '\u000B', // VERTICAL TABULATION.
+            '\u001C', // FILE SEPARATOR.
+            '\u001D', // GROUP SEPARATOR.
+            '\u001E', // RECORD SEPARATOR.
+            '\u001F', // UNIT SEPARATOR.
+    };
+
+    /** The list of characters that are breaks in text. */
+    private static final Set<Character> BREAK_CHAR_SET = new HashSet<>();
+
+    static {
+        for (char c : BREAK_CHARS) {
+            BREAK_CHAR_SET.add(c);
+        }
+    }
+
     /** Defines the TextStyle for paragraph, and associated output formats. */
     private final TextStyle.Builder styleBuilder;
 
@@ -59,6 +79,46 @@ public class TextHelpWriter extends AbstractHelpWriter {
         super(output);
         styleBuilder = new TextStyle.Builder().setMaxWidth(DEFAULT_WIDTH)
                 .setLeftPad(DEFAULT_LEFT_PAD).setIndent(DEFAULT_INDENT);
+    }
+
+    /**
+     * Finds the next text wrap position after {@code startPos} for the text in {@code text} with the column width
+     * {@code width}. The wrap point is the last position before startPos+width having a whitespace character (space,
+     * \n, \r). If there is no whitespace character before startPos+width, it will return startPos+width.
+     *
+     * @param text The text being searched for the wrap position
+     * @param width width of the wrapped text
+     * @param startPos position from which to start the lookup whitespace character
+     * @return position on which the text must be wrapped or @{code text.length()} if the wrap position is at the end of the text.
+     * @since 1.10.0
+     */
+    public static int findWrapPos(final CharSequence text, final int width, final int startPos) {
+        if (width < 1) {
+            throw new IllegalArgumentException("Width must be greater than 0");
+        }
+        // handle case of width > text.
+        // the line ends before the max wrap pos or a new line char found
+        int limit = Math.min(startPos + width, text.length() - 1);
+
+        for (int idx = startPos; idx < limit; idx++) {
+            if (BREAK_CHAR_SET.contains(text.charAt(idx))) {
+                return idx;
+            }
+        }
+
+        if ((startPos + width) >= text.length()) {
+            return text.length();
+        }
+
+        int pos;
+        // look for the last whitespace character before limit
+        for (pos = limit; pos >= startPos; --pos) {
+            if (Util.isWhitespace(text.charAt(pos))) {
+                break;
+            }
+        }
+        // if we found it return it, otherwise just chop at limit
+        return pos > startPos ? pos : limit - 1;
     }
 
     /**
@@ -357,7 +417,7 @@ public class TextHelpWriter extends AbstractHelpWriter {
         int wrappedMaxWidth = style.getMaxWidth() - indent.length();
         while (wrapPos < columnData.length()) {
             int workingWidth = wrapPos == 0 ? style.getMaxWidth() : wrappedMaxWidth;
-            nextPos = Util.findWrapPos(columnData, workingWidth, wrapPos);
+            nextPos = findWrapPos(columnData, workingWidth, wrapPos);
             CharSequence working = columnData.subSequence(wrapPos, nextPos);
             result.add(lpad + style.pad(wrapPos > 0, working));
             wrapPos = Util.findNonWhitespacePos(columnData, nextPos);

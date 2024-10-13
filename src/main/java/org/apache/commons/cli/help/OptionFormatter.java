@@ -22,7 +22,6 @@ import java.util.function.Function;
 
 import org.apache.commons.cli.DeprecatedAttributes;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Util;
 
 /**
  * The definition of how to display Option attributes.
