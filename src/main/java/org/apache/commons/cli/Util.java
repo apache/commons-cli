@@ -192,6 +192,7 @@ public final class Util {
         return s.substring(0, pos);
     }
 
+    // work around for https://bugs.java.com/bugdatabase/view_bug?bug_id=8341522
     private static boolean isWhitespace(final char c) {
         return Character.isWhitespace(c) || Character.PARAGRAPH_SEPARATOR == c;
     }
