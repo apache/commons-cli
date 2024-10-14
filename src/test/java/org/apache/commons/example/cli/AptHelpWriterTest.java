@@ -34,25 +34,11 @@ import org.junit.jupiter.api.Test;
 
 public class AptHelpWriterTest {
 
-    private StringBuilder sb = new StringBuilder();
-    private AptHelpWriter underTest = new AptHelpWriter(sb);
+    private final StringBuilder sb = new StringBuilder();
+    private final AptHelpWriter underTest = new AptHelpWriter(sb);
 
     @Test
-    public void appendTitleTest() throws IOException {
-        sb.setLength(0);
-        underTest.appendTitle("Hello World");
-        assertEquals(format("        -----%n        Hello World%n        -----%n%nHello World%n%n"), sb.toString());
-    }
-
-    @Test
-    public void appendParagraphTest() throws IOException {
-        sb.setLength(0);
-        underTest.appendParagraph("Hello World");
-        assertEquals(format("  Hello World%n%n"), sb.toString());
-    }
-
-    @Test
-    public void appendHeaderTest() throws IOException {
+    public void testAppendHeaderTest() throws IOException {
         sb.setLength(0);
         underTest.appendHeader(1, "Hello World");
         assertEquals(format("* Hello World%n%n"), sb.toString());
@@ -64,8 +50,8 @@ public class AptHelpWriterTest {
     }
 
     @Test
-    public void appendListTest() throws IOException {
-        String[] entries = {"one", "two", "three"};
+    public void testAppendListTest() throws IOException {
+        final String[] entries = { "one", "two", "three" };
         sb.setLength(0);
         underTest.appendList(true, Arrays.asList(entries));
         assertEquals(format("    [[1]] one%n    [[2]] two%n    [[3]] three%n%n"), sb.toString());
@@ -76,14 +62,23 @@ public class AptHelpWriterTest {
     }
 
     @Test
-    public void appendTableTest() throws IOException {
-        List<TextStyle> styles = Arrays.asList(TextStyle.DEFAULT, TextStyle.DEFAULT, TextStyle.DEFAULT);
-        String[] headers = {"one", "two", "three"};
-        List[] rows = {
+    public void testAppendParagraphTest() throws IOException {
+        sb.setLength(0);
+        underTest.appendParagraph("Hello World");
+        assertEquals(format("  Hello World%n%n"), sb.toString());
+    }
+
+    @Test
+    public void testAppendTableTest() throws IOException {
+        final List<TextStyle> styles = Arrays.asList(TextStyle.DEFAULT, TextStyle.DEFAULT, TextStyle.DEFAULT);
+        final String[] headers = { "one", "two", "three" };
+        // @formatter:off
+        final List[] rows = {
                 Arrays.asList(new String[]{"uno", "dos", "tres"}),
                 Arrays.asList(new String[]{"aon", "dhá", "trí"}),
                 Arrays.asList(new String[]{"واحد", "اثنين", "ثلاثة"})
         };
+        // @formatter:on
 
         List<String> expected = new ArrayList<>();
         expected.add("*-----+-----+-------+");
@@ -104,7 +99,6 @@ public class AptHelpWriterTest {
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "full table failed");
 
-
         table = TableDefinition.from(null, styles, Arrays.asList(headers), Arrays.asList(rows));
         expected.remove(9);
         sb.setLength(0);
@@ -124,5 +118,12 @@ public class AptHelpWriterTest {
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "no rows test failed");
 
+    }
+
+    @Test
+    public void testAppendTitleTest() throws IOException {
+        sb.setLength(0);
+        underTest.appendTitle("Hello World");
+        assertEquals(format("        -----%n        Hello World%n        -----%n%nHello World%n%n"), sb.toString());
     }
 }

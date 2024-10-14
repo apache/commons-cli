@@ -34,25 +34,11 @@ import org.junit.jupiter.api.Test;
 
 public class XhtmlHelpWriterTest {
 
-    private StringBuilder sb = new StringBuilder();
-    private XhtmlHelpWriter underTest = new XhtmlHelpWriter(sb);
+    private final StringBuilder sb = new StringBuilder();
+    private final XhtmlHelpWriter underTest = new XhtmlHelpWriter(sb);
 
     @Test
-    public void appendTitleTest() throws IOException {
-        sb.setLength(0);
-        underTest.appendTitle("Hello World");
-        assertEquals(format("<span class='commons_cli_title'>Hello World</span>%n"), sb.toString());
-    }
-
-    @Test
-    public void appendParagraphTest() throws IOException {
-        sb.setLength(0);
-        underTest.appendParagraph("Hello World");
-        assertEquals(format("<p>Hello World</p>%n"), sb.toString());
-    }
-
-    @Test
-    public void appendHeaderTest() throws IOException {
+    public void testAppendHeaderTest() throws IOException {
         sb.setLength(0);
         underTest.appendHeader(1, "Hello World");
         assertEquals(format("<h1>Hello World</h1>%n"), sb.toString());
@@ -64,8 +50,8 @@ public class XhtmlHelpWriterTest {
     }
 
     @Test
-    public void appendListTest() throws IOException {
-        String[] entries = {"one", "two", "three"};
+    public void testAppendListTest() throws IOException {
+        final String[] entries = { "one", "two", "three" };
         sb.setLength(0);
         underTest.appendList(true, Arrays.asList(entries));
         assertEquals(format("<ol>%n  <li>one</li>%n  <li>two</li>%n  <li>three</li>%n</ol>%n"), sb.toString());
@@ -76,14 +62,23 @@ public class XhtmlHelpWriterTest {
     }
 
     @Test
-    public void appendTableTest() throws IOException {
-        List<TextStyle> styles = Arrays.asList(TextStyle.DEFAULT, TextStyle.DEFAULT, TextStyle.DEFAULT);
-        String[] headers = {"one", "two", "three"};
-        List[] rows = {
+    public void testAppendParagraphTest() throws IOException {
+        sb.setLength(0);
+        underTest.appendParagraph("Hello World");
+        assertEquals(format("<p>Hello World</p>%n"), sb.toString());
+    }
+
+    @Test
+    public void testAppendTableTest() throws IOException {
+        final List<TextStyle> styles = Arrays.asList(TextStyle.DEFAULT, TextStyle.DEFAULT, TextStyle.DEFAULT);
+        final String[] headers = { "one", "two", "three" };
+        // @formatter:off
+        final List[] rows = {
                 Arrays.asList(new String[]{"uno", "dos", "tres"}),
                 Arrays.asList(new String[]{"aon", "dhá", "trí"}),
                 Arrays.asList(new String[]{"واحد", "اثنين", "ثلاثة"})
         };
+        // @formatter:on
 
         List<String> expected = new ArrayList<>();
         expected.add("<table class='commons_cli_table'>");
@@ -116,7 +111,6 @@ public class XhtmlHelpWriterTest {
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "full table failed");
 
-
         table = TableDefinition.from(null, styles, Arrays.asList(headers), Arrays.asList(rows));
         expected.remove(1);
         sb.setLength(0);
@@ -138,6 +132,12 @@ public class XhtmlHelpWriterTest {
         underTest.appendTable(table);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "no rows test failed");
+    }
 
+    @Test
+    public void testAppendTitleTest() throws IOException {
+        sb.setLength(0);
+        underTest.appendTitle("Hello World");
+        assertEquals(format("<span class='commons_cli_title'>Hello World</span>%n"), sb.toString());
     }
 }

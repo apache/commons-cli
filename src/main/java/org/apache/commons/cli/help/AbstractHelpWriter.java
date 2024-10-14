@@ -20,9 +20,11 @@ import java.io.IOException;
 
 /**
  * An abstract implementation of {@link HelpWriter} that writes output to an {@link Appendable} instance.
+ *
  * @since 1.10.0
  */
 public abstract class AbstractHelpWriter implements HelpWriter {
+
     /**
      * The Appendable instance to write to.
      */
@@ -30,6 +32,7 @@ public abstract class AbstractHelpWriter implements HelpWriter {
 
     /**
      * Constructs an instance using the provided Appendable instance.
+     *
      * @param output the Appendable instance to write to.
      */
     protected AbstractHelpWriter(final Appendable output) {
@@ -37,14 +40,14 @@ public abstract class AbstractHelpWriter implements HelpWriter {
     }
 
     @Override
-    public Appendable append(final CharSequence text) throws IOException {
-        output.append(text);
+    public Appendable append(final char ch) throws IOException {
+        output.append(ch);
         return this;
     }
 
     @Override
-    public Appendable append(final char ch) throws IOException {
-        output.append(ch);
+    public Appendable append(final CharSequence text) throws IOException {
+        output.append(text);
         return this;
     }
 

@@ -21,31 +21,52 @@ import java.util.Arrays;
 
 /**
  * Contains useful helper methods for classes within this package.
- * @since 1.10.0
  */
 final class Util {
 
-    private Util() {
-        // no instances
+    /**
+     * Creates a String of padding of length {@code len}.
+     *
+     * @param len The length of the String of padding to create.
+     *
+     * @return The String of padding
+     * @since 1.10.0
+     */
+    static String createPadding(final int len) {
+        return filledString(len, ' ');
     }
 
     /**
-     * Tests whether the given string is null or empty.
+     * Returns the {@code defaultValue} if {@code str} is empty.
      *
-     * @param str The string to test.
-     * @return Whether the given string is null or empty.
-     * @since 1.10.0
+     * @param str          The string to check
+     * @param defaultValue the default value if the string is empty.
+     * @param <T>          The type of arguments.
+     * @return the {@code defaultValue} if {@code str} is empty,
      */
-    static boolean isEmpty(final CharSequence str) {
-        return str == null || str.length() == 0;
+    static <T extends CharSequence> T defaultValue(final T str, final T defaultValue) {
+        return isEmpty(str) ? defaultValue : str;
+    }
+
+    /**
+     * Constructs a string of specified length filled with the specified char.
+     *
+     * @param len      the length of the final string.
+     * @param fillChar the character to file it will.
+     * @return A string of specified length filled with the specified char.
+     */
+    static String filledString(final int len, final char fillChar) {
+        final char[] padding = new char[len];
+        Arrays.fill(padding, fillChar);
+        return new String(padding);
     }
 
     /**
      * Finds the position of the first non whitespace character.
-     * @param text the text to search in.
+     *
+     * @param text     the text to search in.
      * @param startPos the starting position to search from.
      * @return the index of the first non whitespace character or -1 if non found.
-     * @since 1.10.0
      */
     static int findNonWhitespacePos(final CharSequence text, final int startPos) {
         if (isEmpty(text)) {
@@ -60,11 +81,40 @@ final class Util {
     }
 
     /**
+     * Tests whether the given string is null or empty.
+     *
+     * @param str The string to test.
+     * @return Whether the given string is null or empty.
+     */
+    static boolean isEmpty(final CharSequence str) {
+        return str == null || str.length() == 0;
+    }
+
+    /**
+     * Works around https://bugs.java.com/bugdatabase/view_bug?bug_id=8341522
+     *
+     * Affected Version: 8,11,17,21,24
+     */
+    static boolean isWhitespace(final char c) {
+        return Character.isWhitespace(c) || Character.PARAGRAPH_SEPARATOR == c;
+    }
+
+    /**
+     * Removes the leading whitespace from the specified String.
+     *
+     * @param s The String to remove the leading padding from.
+     * @return The String of without the leading padding
+     */
+    static String ltrim(final String s) {
+        final int pos = findNonWhitespacePos(s, 0);
+        return pos == -1 ? "" : s.substring(pos);
+    }
+
+    /**
      * Removes the trailing whitespace from the specified String.
      *
      * @param s The String to remove the trailing padding from.
      * @return The String of without the trailing padding
-     * @since 1.10.0
      */
     static String rtrim(final String s) {
         if (isEmpty(s)) {
@@ -77,57 +127,7 @@ final class Util {
         return s.substring(0, pos);
     }
 
-    /**
-     * Removes the leading whitespace from the specified String.
-     *
-     * @param s The String to remove the leading padding from.
-     * @return The String of without the leading padding
-     * @since 1.10.0
-     */
-    static String ltrim(final String s) {
-        int pos = findNonWhitespacePos(s, 0);
-        return pos == -1 ? "" : s.substring(pos);
-    }
-
-    // work around for https://bugs.java.com/bugdatabase/view_bug?bug_id=8341522
-    static boolean isWhitespace(final char c) {
-        return Character.isWhitespace(c) || Character.PARAGRAPH_SEPARATOR == c;
-    }
-
-    /**
-     * Returns the {@code defaultValue} if {@code str} is empty.
-     * @param str The string to check
-     * @param defaultValue the default value if the string is empty.
-     * @param <T> The type of arguments.
-     * @return the {@code defaultValue} if {@code str} is empty,
-     * @since 1.9.0
-     */
-    static <T extends CharSequence> T defaultValue(final T str, final T defaultValue) {
-        return isEmpty(str) ? defaultValue : str;
-    }
-
-    /**
-     * Constructs a string of specified length filled with the specified char.
-     * @param len the length of the final string.
-     * @param fillChar the character to file it will.
-     * @return A string of specified length filled with the specified char.
-     * @since 1.10.0
-     */
-    static String filledString(final int len, final char fillChar) {
-        final char[] padding = new char[len];
-        Arrays.fill(padding, fillChar);
-        return new String(padding);
-    }
-
-    /**
-     * Creates a String of padding of length {@code len}.
-     *
-     * @param len The length of the String of padding to create.
-     *
-     * @return The String of padding
-     * @since 1.10.0
-     */
-    static String createPadding(final int len) {
-        return filledString(len, ' ');
+    private Util() {
+        // no instances
     }
 }

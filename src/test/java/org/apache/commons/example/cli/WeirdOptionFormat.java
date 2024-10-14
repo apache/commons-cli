@@ -27,13 +27,13 @@ import org.apache.commons.cli.help.TextStyle;
 import org.apache.commons.lang3.StringUtils;
 
 public class WeirdOptionFormat implements Function<Iterable<Option>, TableDefinition> {
-    private String[] headers = {"Opt", "Since", "Required", "LongOpt", "Deprecated", "Arg Name", "Type", "Description"};
+    private final String[] headers = { "Opt", "Since", "Required", "LongOpt", "Deprecated", "Arg Name", "Type", "Description" };
 
-    private List<TextStyle> styles;
+    private final List<TextStyle> styles;
 
     public WeirdOptionFormat() {
         styles = new ArrayList<>();
-        TextStyle.Builder builder = new TextStyle.Builder();
+        final TextStyle.Builder builder = new TextStyle.Builder();
         styles.add(builder.setLeftPad(1).setIndent(3).get());
         styles.add(builder.setLeftPad(5).get());
         styles.add(builder.get());
@@ -46,19 +46,19 @@ public class WeirdOptionFormat implements Function<Iterable<Option>, TableDefini
 
     @Override
     public TableDefinition apply(final Iterable<Option> options) {
-        List<List<String>> rows = new ArrayList<>();
-            for (Option option : options) {
-                List<String> row = new ArrayList<>();
-                row.add(option.getOpt());
-                row.add(StringUtils.defaultIfEmpty(option.getSince(), "--"));
-                row.add(option.isRequired() ? "T" : "F");
-                row.add(option.getLongOpt());
-                row.add(option.isDeprecated() ? "T" : "F");
-                row.add(option.hasArg() ? option.getArgName() : "--");
-                row.add(option.getType() == null ? "--" : option.getValue().toString());
-                row.add(option.getDescription());
-                rows.add(row);
-            }
+        final List<List<String>> rows = new ArrayList<>();
+        for (final Option option : options) {
+            final List<String> row = new ArrayList<>();
+            row.add(option.getOpt());
+            row.add(StringUtils.defaultIfEmpty(option.getSince(), "--"));
+            row.add(option.isRequired() ? "T" : "F");
+            row.add(option.getLongOpt());
+            row.add(option.isDeprecated() ? "T" : "F");
+            row.add(option.hasArg() ? option.getArgName() : "--");
+            row.add(option.getType() == null ? "--" : option.getValue().toString());
+            row.add(option.getDescription());
+            rows.add(row);
+        }
 
         return TableDefinition.from("", styles, Arrays.asList(headers), rows);
     }

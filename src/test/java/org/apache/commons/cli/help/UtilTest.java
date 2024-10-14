@@ -33,20 +33,10 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 public class UtilTest {
-    @ParameterizedTest
-    @MethodSource("charArgs")
-    public void testRtrim(final Character c, final boolean isWhitespace) {
-        if (isWhitespace) {
-            assertEquals("worx", Util.rtrim(format("worx%s", c)), () -> format("Did not process character 0x%x", (int) c));
-        } else {
-            assertNotEquals("worx", Util.rtrim(format("worx%s", c)), () -> format("Did not process character 0x%x", (int) c));
-        }
-        String text = format("%c%c%c", c, c, c);
-        assertEquals(isWhitespace ? "" : text, Util.ltrim(text));
-    }
 
     public static Stream<Arguments> charArgs() {
-        List<Arguments> lst = new ArrayList<>();
+        final List<Arguments> lst = new ArrayList<>();
+        // @formatter:off
         final char[] whitespace = {' ', '\t', '\n', '\f', '\r',
                 Character.SPACE_SEPARATOR,
                 Character.LINE_SEPARATOR,
@@ -57,16 +47,30 @@ public class UtilTest {
                 '\u001E', // RECORD SEPARATOR.
                 '\u001F', // UNIT SEPARATOR.
         };
-
-        final char[] nonBreakingSpace = {  '\u00A0', '\u2007', '\u202F' };
-
-        for (char c : whitespace) {
+        // @formatter:on
+        final char[] nonBreakingSpace = { '\u00A0', '\u2007', '\u202F' };
+        for (final char c : whitespace) {
             lst.add(Arguments.of(Character.valueOf(c), Boolean.TRUE));
         }
-        for (char c : nonBreakingSpace) {
+        for (final char c : nonBreakingSpace) {
             lst.add(Arguments.of(Character.valueOf(c), Boolean.FALSE));
         }
         return lst.stream();
+    }
+
+    @Test
+    public void testFindNonWhitespacePos() {
+        assertEquals(-1, Util.findNonWhitespacePos(null, 0));
+        assertEquals(-1, Util.findNonWhitespacePos("", 0));
+    }
+
+    @ParameterizedTest
+    @MethodSource("charArgs")
+    public void testFindNonWhitespacePos(final Character c, final boolean isWhitespace) {
+        String text = format("%cWorld", c);
+        assertEquals(isWhitespace ? 1 : 0, Util.findNonWhitespacePos(text, 0));
+        text = format("%c%c%c", c, c, c);
+        assertEquals(isWhitespace ? -1 : 0, Util.findNonWhitespacePos(text, 0));
     }
 
     @Test
@@ -81,16 +85,13 @@ public class UtilTest {
 
     @ParameterizedTest
     @MethodSource("charArgs")
-    public void testFindNonWhitespacePos(final Character c, final boolean isWhitespace) {
-        String text = format("%cWorld", c);
-        assertEquals(isWhitespace ? 1 : 0, Util.findNonWhitespacePos(text, 0));
-        text = format("%c%c%c", c, c, c);
-        assertEquals(isWhitespace ? -1 : 0, Util.findNonWhitespacePos(text, 0));
-    }
-
-    @Test
-    public void testFindNonWhitespacePos() {
-        assertEquals(-1, Util.findNonWhitespacePos(null, 0));
-        assertEquals(-1, Util.findNonWhitespacePos("", 0));
+    public void testRtrim(final Character c, final boolean isWhitespace) {
+        if (isWhitespace) {
+            assertEquals("worx", Util.rtrim(format("worx%s", c)), () -> format("Did not process character 0x%x", (int) c));
+        } else {
+            assertNotEquals("worx", Util.rtrim(format("worx%s", c)), () -> format("Did not process character 0x%x", (int) c));
+        }
+        final String text = format("%c%c%c", c, c, c);
+        assertEquals(isWhitespace ? "" : text, Util.ltrim(text));
     }
 }

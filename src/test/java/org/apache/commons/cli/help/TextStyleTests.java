@@ -30,26 +30,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class TextStyleTests {
 
-    @Test
-    public void verifyDefaultStyle() {
-        TextStyle underTest = TextStyle.DEFAULT;
-        assertEquals(TextStyle.Alignment.LEFT, underTest.getAlignment());
-        assertTrue(underTest.isScalable());
-        assertEquals(0, underTest.getLeftPad());
-        assertEquals(0, underTest.getMinWidth());
-        assertEquals(TextStyle.UNSET_MAX_WIDTH, underTest.getMaxWidth());
-    }
-
-    @ParameterizedTest(name = "{index} {0}")
-    @MethodSource("padTestData")
-    public void padTest(final TextStyle underTest, final String unindentedString, final String indentedString) {
-        assertEquals(unindentedString, underTest.pad(false, "Hello world"), "Unindented string test failed");
-        assertEquals(indentedString, underTest.pad(true, "Hello world"), "Indented string test failed");
-    }
-
     public static Stream<Arguments> padTestData() {
-        List<Arguments> lst = new ArrayList<>();
-        TextStyle.Builder builder = new TextStyle.Builder();
+        final List<Arguments> lst = new ArrayList<>();
+        final TextStyle.Builder builder = new TextStyle.Builder();
         builder.setIndent(5);
         builder.setLeftPad(5);
         builder.setMinWidth(4);
@@ -65,7 +48,6 @@ public class TextStyleTests {
 
         builder.setAlignment(TextStyle.Alignment.CENTER);
         lst.add(Arguments.of(builder.get(), "Hello world", "  Hello world   "));
-
 
         // width less than text length creates result of original text
         builder.setMaxWidth(5);
@@ -101,5 +83,22 @@ public class TextStyleTests {
         lst.add(Arguments.of(builder.get(), " Hello world  ", " Hello world  "));
 
         return lst.stream();
+    }
+
+    @Test
+    public void testDefaultStyle() {
+        final TextStyle underTest = TextStyle.DEFAULT;
+        assertEquals(TextStyle.Alignment.LEFT, underTest.getAlignment());
+        assertTrue(underTest.isScalable());
+        assertEquals(0, underTest.getLeftPad());
+        assertEquals(0, underTest.getMinWidth());
+        assertEquals(TextStyle.UNSET_MAX_WIDTH, underTest.getMaxWidth());
+    }
+
+    @ParameterizedTest(name = "{index} {0}")
+    @MethodSource("padTestData")
+    public void testPad(final TextStyle underTest, final String unindentedString, final String indentedString) {
+        assertEquals(unindentedString, underTest.pad(false, "Hello world"), "Unindented string test failed");
+        assertEquals(indentedString, underTest.pad(true, "Hello world"), "Indented string test failed");
     }
 }

@@ -54,17 +54,17 @@ import java.util.function.Supplier;
  * <p>
  * This produces the following output:
  * </p>
- * <pre>
- * usage: myapp -f &lt;FILE&gt; [-h] [-v]
+ * <pre>{@code
+ * usage: myapp -f <FILE> [-h] [-v]
  * Do something useful with an input file
  *
- *  -f,--file &lt;FILE&gt;   The file to be processed
+ *  -f,--file <FILE>   The file to be processed
  *  -h,--help
  *  -v,--version       Print the version of the application
  *
  * Please report issues at https://example.com/issues
- * </pre>
- * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter}
+ * }</pre>
+ * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter}.
  */
 @Deprecated
 public class HelpFormatter {
