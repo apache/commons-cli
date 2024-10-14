@@ -60,17 +60,17 @@ public class UtilTest {
 
     @Test
     public void testFindNonWhitespacePos() {
-        assertEquals(-1, Util.findNonWhitespacePos(null, 0));
-        assertEquals(-1, Util.findNonWhitespacePos("", 0));
+        assertEquals(-1, Util.indexOfNonWhitespace(null, 0));
+        assertEquals(-1, Util.indexOfNonWhitespace("", 0));
     }
 
     @ParameterizedTest
     @MethodSource("charArgs")
     public void testFindNonWhitespacePos(final Character c, final boolean isWhitespace) {
         String text = format("%cWorld", c);
-        assertEquals(isWhitespace ? 1 : 0, Util.findNonWhitespacePos(text, 0));
+        assertEquals(isWhitespace ? 1 : 0, Util.indexOfNonWhitespace(text, 0));
         text = format("%c%c%c", c, c, c);
-        assertEquals(isWhitespace ? -1 : 0, Util.findNonWhitespacePos(text, 0));
+        assertEquals(isWhitespace ? -1 : 0, Util.indexOfNonWhitespace(text, 0));
     }
 
     @Test

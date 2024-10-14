@@ -318,7 +318,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
             nextPos = findWrapPos(columnData, workingWidth, wrapPos);
             final CharSequence working = columnData.subSequence(wrapPos, nextPos);
             result.add(lpad + style.pad(wrapPos > 0, working));
-            wrapPos = Util.findNonWhitespacePos(columnData, nextPos);
+            wrapPos = Util.indexOfNonWhitespace(columnData, nextPos);
             wrapPos = wrapPos == -1 ? nextPos : wrapPos;
         }
         return result;

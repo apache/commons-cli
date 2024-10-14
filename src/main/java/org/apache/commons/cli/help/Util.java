@@ -49,13 +49,13 @@ final class Util {
     }
 
     /**
-     * Finds the position of the first non whitespace character.
+     * Finds the index of the first non whitespace character.
      *
      * @param text     the text to search in.
      * @param startPos the starting position to search from.
      * @return the index of the first non whitespace character or -1 if non found.
      */
-    static int findNonWhitespacePos(final CharSequence text, final int startPos) {
+    static int indexOfNonWhitespace(final CharSequence text, final int startPos) {
         if (isEmpty(text)) {
             return -1;
         }
@@ -93,7 +93,7 @@ final class Util {
      * @return The String of without the leading padding
      */
     static String ltrim(final String s) {
-        final int pos = findNonWhitespacePos(s, 0);
+        final int pos = indexOfNonWhitespace(s, 0);
         return pos == -1 ? "" : s.substring(pos);
     }
 
