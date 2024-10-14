@@ -29,7 +29,7 @@ import java.util.Collection;
  *
  * @since 1.10.0
  */
-public interface HelpWriter extends Appendable {
+public interface HelpAppendable extends Appendable {
 
     /**
      * Appends a header.

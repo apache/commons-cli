@@ -67,7 +67,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
      * A builder for the HelpFormatter. Intended to make more complex uses of the HelpFormatter class easier. Default values are:
      * <ul>
      * <li>showSince = true</li>
-     * <li>helpWriter = a {@link TextHelpWriter} writing to {@code System.out}</li>
+     * <li>helpAppendable = a {@link TextHelpAppendable} writing to {@code System.out}</li>
      * <li>optionFormatter.Builder = the default {@link OptionFormatter.Builder}</li>
      * </ul>
      */
@@ -76,8 +76,8 @@ public class HelpFormatter extends AbstractHelpFormatter {
         /** If {@code true} show the "Since" column, otherwise ignore it. */
         private boolean showSince;
 
-        /** The {@link HelpWriter} to use */
-        private HelpWriter helpWriter;
+        /** The {@link HelpAppendable} to use */
+        private HelpAppendable helpAppendable;
 
         /** The {@link OptionFormatter.Builder} to use to format options in the table. */
         private OptionFormatter.Builder optionFormatBuilder;
@@ -144,13 +144,13 @@ public class HelpFormatter extends AbstractHelpFormatter {
         }
 
         /**
-         * Sets the {@link HelpWriter}.
+         * Sets the {@link HelpAppendable}.
          *
-         * @param helpWriter the {@link HelpWriter} to use.
+         * @param helpAppendable the {@link HelpAppendable} to use.
          * @return this
          */
-        public Builder setSerializer(final HelpWriter helpWriter) {
-            this.helpWriter = helpWriter;
+        public Builder setSerializer(final HelpAppendable helpAppendable) {
+            this.helpAppendable = helpAppendable;
             return this;
         }
 
@@ -171,8 +171,8 @@ public class HelpFormatter extends AbstractHelpFormatter {
          * @return this.
          */
         private Builder validate() {
-            if (helpWriter == null) {
-                helpWriter = new TextHelpWriter(System.out);
+            if (helpAppendable == null) {
+                helpAppendable = new TextHelpAppendable(System.out);
             }
             if (optionFormatBuilder == null) {
                 optionFormatBuilder = new OptionFormatter.Builder();
@@ -211,18 +211,18 @@ public class HelpFormatter extends AbstractHelpFormatter {
      * @param builder the Builder to build from.
      */
     private HelpFormatter(final Builder builder) {
-        super(builder.helpWriter, builder.optionFormatBuilder, builder.comparator, builder.optionGroupSeparator);
+        super(builder.helpAppendable, builder.optionFormatBuilder, builder.comparator, builder.optionGroupSeparator);
 
         this.showSince = builder.showSince;
     }
 
     /**
-     * Convenience constructor to create an instance using the specified {@link HelpWriter} and the remaining default {@link Builder}.
+     * Convenience constructor to create an instance using the specified {@link HelpAppendable} and the remaining default {@link Builder}.
      *
-     * @param helpWriter the {@link HelpWriter} to use.
+     * @param helpAppendable the {@link HelpAppendable} to use.
      */
-    public HelpFormatter(final HelpWriter helpWriter) {
-        this(new Builder().setSerializer(helpWriter).validate());
+    public HelpFormatter(final HelpAppendable helpAppendable) {
+        this(new Builder().setSerializer(helpAppendable).validate());
     }
 
     /**

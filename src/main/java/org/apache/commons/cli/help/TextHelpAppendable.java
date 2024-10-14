@@ -32,7 +32,7 @@ import java.util.Set;
  *
  * @since 1.10.0
  */
-public class TextHelpWriter extends AbstractHelpWriter {
+public class TextHelpAppendable extends FilterHelpAppendable {
 
     /** Default number of characters per line */
     public static final int DEFAULT_WIDTH = 74;
@@ -118,7 +118,7 @@ public class TextHelpWriter extends AbstractHelpWriter {
      * Construct from an output.
      * @param output the Appendable to write the output to.
      */
-    public TextHelpWriter(final Appendable output) {
+    public TextHelpAppendable(final Appendable output) {
         super(output);
         styleBuilder = new TextStyle.Builder().setMaxWidth(DEFAULT_WIDTH)
                 .setLeftPad(DEFAULT_LEFT_PAD).setIndent(DEFAULT_INDENT);
@@ -349,7 +349,7 @@ public class TextHelpWriter extends AbstractHelpWriter {
     }
 
     /**
-     * Print wrapped text using the TextHelpWriter output style.
+     * Print wrapped text using the TextHelpAppendable output style.
      * @param text the text to wrap
      * @throws IOException on output error.
      */

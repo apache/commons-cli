@@ -19,11 +19,11 @@ package org.apache.commons.cli.help;
 import java.io.IOException;
 
 /**
- * An abstract implementation of {@link HelpWriter} that writes output to an {@link Appendable} instance.
+ * An abstract implementation of {@link HelpAppendable} that writes output to an {@link Appendable} instance.
  *
  * @since 1.10.0
  */
-public abstract class AbstractHelpWriter implements HelpWriter {
+public abstract class FilterHelpAppendable implements HelpAppendable {
 
     /**
      * The Appendable instance to write to.
@@ -35,7 +35,7 @@ public abstract class AbstractHelpWriter implements HelpWriter {
      *
      * @param output the Appendable instance to write to.
      */
-    protected AbstractHelpWriter(final Appendable output) {
+    protected FilterHelpAppendable(final Appendable output) {
         this.output = output;
     }
 

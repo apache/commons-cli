@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 public class XhtmlHelpWriterTest {
 
     private final StringBuilder sb = new StringBuilder();
-    private final XhtmlHelpWriter underTest = new XhtmlHelpWriter(sb);
+    private final XhtmlHelpAppendable underTest = new XhtmlHelpAppendable(sb);
 
     @Test
     public void testAppendHeaderTest() throws IOException {

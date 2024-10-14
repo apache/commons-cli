@@ -32,8 +32,8 @@ import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 
 /**
- * The class for help formatters provides the framework to link the {@link HelpWriter} with the {@link OptionFormatter} and a default {@link TableDefinition} so
- * to produce a standard format help page.
+ * The class for help formatters provides the framework to link the {@link HelpAppendable} with the {@link OptionFormatter} and a default
+ * {@link TableDefinition} so to produce a standard format help page.
  *
  * @since 1.10.0
  */
@@ -53,9 +53,9 @@ public abstract class AbstractHelpFormatter {
     public static final Comparator<Option> DEFAULT_COMPARATOR = (opt1, opt2) -> opt1.getKey().compareToIgnoreCase(opt2.getKey());
 
     /**
-     * The {@link HelpWriter} that produces the final output.
+     * The {@link HelpAppendable} that produces the final output.
      */
-    protected final HelpWriter helpWriter;
+    protected final HelpAppendable helpAppendable;
     /**
      * The OptionFormatter.Builder used to display options within the help page
      */
@@ -74,14 +74,14 @@ public abstract class AbstractHelpFormatter {
     /**
      * Constructs the base formatter.
      *
-     * @param helpWriter           the helpWriter to output with
+     * @param helpAppendable       the helpAppendable to output with
      * @param optionFormatBuilder  the builder of {@link OptionFormatter} to format options for display.
      * @param comparator           The comparator to use for sorting options.
      * @param optionGroupSeparator the string to separate option groups.
      */
-    protected AbstractHelpFormatter(final HelpWriter helpWriter, final OptionFormatter.Builder optionFormatBuilder, final Comparator<Option> comparator,
+    protected AbstractHelpFormatter(final HelpAppendable helpAppendable, final OptionFormatter.Builder optionFormatBuilder, final Comparator<Option> comparator,
             final String optionGroupSeparator) {
-        this.helpWriter = Objects.requireNonNull(helpWriter, "helpWriter");
+        this.helpAppendable = Objects.requireNonNull(helpAppendable, "helpAppendable");
         this.optionFormatBuilder = Objects.requireNonNull(optionFormatBuilder, "optionFormatBuilder");
         this.comparator = Objects.requireNonNull(comparator, "comparator");
         this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "");
@@ -107,12 +107,12 @@ public abstract class AbstractHelpFormatter {
     }
 
     /**
-     * Gets the {@link HelpWriter} associated with this help formatter.
+     * Gets the {@link HelpAppendable} associated with this help formatter.
      *
-     * @return The {@link HelpWriter} associated with this help formatter.
+     * @return The {@link HelpAppendable} associated with this help formatter.
      */
-    public final HelpWriter getSerializer() {
-        return helpWriter;
+    public final HelpAppendable getSerializer() {
+        return helpAppendable;
     }
 
     /**
@@ -140,7 +140,7 @@ public abstract class AbstractHelpFormatter {
      * @param options       the collection of {@link Option} objects to print.
      * @param footer        the banner to display at the end of the help
      * @param autoUsage     whether to print an automatically generated usage statement
-     * @throws IOException If the output could not be written to the {@link HelpWriter}
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}
      */
     public void printHelp(final String cmdLineSyntax, final String header, final Iterable<Option> options, final String footer, final boolean autoUsage)
             throws IOException {
@@ -148,16 +148,16 @@ public abstract class AbstractHelpFormatter {
             throw new IllegalArgumentException("cmdLineSyntax not provided");
         }
         if (autoUsage) {
-            helpWriter.appendParagraph(format("%s %s %s", syntaxPrefix, cmdLineSyntax, toSyntaxOptions(options)));
+            helpAppendable.appendParagraph(format("%s %s %s", syntaxPrefix, cmdLineSyntax, toSyntaxOptions(options)));
         } else {
-            helpWriter.appendParagraph(format("%s %s", syntaxPrefix, cmdLineSyntax));
+            helpAppendable.appendParagraph(format("%s %s", syntaxPrefix, cmdLineSyntax));
         }
         if (!Util.isEmpty(header)) {
-            helpWriter.appendParagraph(header);
+            helpAppendable.appendParagraph(header);
         }
-        helpWriter.appendTable(getTableDefinition(options));
+        helpAppendable.appendTable(getTableDefinition(options));
         if (!Util.isEmpty(footer)) {
-            helpWriter.appendParagraph(footer);
+            helpAppendable.appendParagraph(footer);
         }
     }
 
@@ -169,7 +169,7 @@ public abstract class AbstractHelpFormatter {
      * @param options       the {@link Options} to print
      * @param footer        the banner to display at the end of the help
      * @param autoUsage     whether to print an automatically generated usage statement
-     * @throws IOException If the output could not be written to the {@link HelpWriter}
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}
      */
     public final void printHelp(final String cmdLineSyntax, final String header, final Options options, final String footer, final boolean autoUsage)
             throws IOException {
@@ -177,33 +177,33 @@ public abstract class AbstractHelpFormatter {
     }
 
     /**
-     * Prints the option table for a collection of {@link Option} objects to the {@link HelpWriter}.
+     * Prints the option table for a collection of {@link Option} objects to the {@link HelpAppendable}.
      *
      * @param options the collection of Option objects to print in the table.
-     * @throws IOException If the output could not be written to the {@link HelpWriter}
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}
      */
     public final void printOptions(final Iterable<Option> options) throws IOException {
         printOptions(getTableDefinition(options));
     }
 
     /**
-     * Prints the option table for the specified {@link Options} to the {@link HelpWriter}.
+     * Prints the option table for the specified {@link Options} to the {@link HelpAppendable}.
      *
      * @param options the Options to print in the table.
-     * @throws IOException If the output could not be written to the {@link HelpWriter}
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}
      */
     public final void printOptions(final Options options) throws IOException {
         printOptions(options.getOptions());
     }
 
     /**
-     * Prints a {@link TableDefinition} to the {@link HelpWriter}.
+     * Prints a {@link TableDefinition} to the {@link HelpAppendable}.
      *
      * @param tableDefinition the {@link TableDefinition} to print.
-     * @throws IOException If the output could not be written to the {@link HelpWriter}
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}
      */
     public final void printOptions(final TableDefinition tableDefinition) throws IOException {
-        helpWriter.appendTable(tableDefinition);
+        helpAppendable.appendTable(tableDefinition);
     }
 
     /**

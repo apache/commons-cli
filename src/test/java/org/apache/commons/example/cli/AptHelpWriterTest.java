@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 public class AptHelpWriterTest {
 
     private final StringBuilder sb = new StringBuilder();
-    private final AptHelpWriter underTest = new AptHelpWriter(sb);
+    private final AptHelpAppendable underTest = new AptHelpAppendable(sb);
 
     @Test
     public void testAppendHeaderTest() throws IOException {

@@ -38,12 +38,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 public final class TextHelpWriterTest {
 
     private StringBuilder sb;
-    private TextHelpWriter underTest;
+    private TextHelpAppendable underTest;
 
     @BeforeEach
     public void setUp() {
         sb = new StringBuilder();
-        underTest = new TextHelpWriter(sb);
+        underTest = new TextHelpAppendable(sb);
     }
 
     @Test
@@ -299,30 +299,30 @@ public final class TextHelpWriterTest {
     public void testFindWrapPos() {
         final String testString = "The quick brown fox jumps over\tthe lazy dog";
 
-        assertEquals(9, TextHelpWriter.findWrapPos(testString, 10, 0), "did not find end of word");
-        assertEquals(9, TextHelpWriter.findWrapPos(testString, 14, 0), "did not backup to end of word");
-        assertEquals(15, TextHelpWriter.findWrapPos(testString, 15, 0), "did not find word at 15");
-        assertEquals(15, TextHelpWriter.findWrapPos(testString, 16, 0));
-        assertEquals(30, TextHelpWriter.findWrapPos(testString, 15, 20), "did not find break character");
-        assertEquals(30, TextHelpWriter.findWrapPos(testString, 150, 0), "did not handle text shorter than width");
+        assertEquals(9, TextHelpAppendable.findWrapPos(testString, 10, 0), "did not find end of word");
+        assertEquals(9, TextHelpAppendable.findWrapPos(testString, 14, 0), "did not backup to end of word");
+        assertEquals(15, TextHelpAppendable.findWrapPos(testString, 15, 0), "did not find word at 15");
+        assertEquals(15, TextHelpAppendable.findWrapPos(testString, 16, 0));
+        assertEquals(30, TextHelpAppendable.findWrapPos(testString, 15, 20), "did not find break character");
+        assertEquals(30, TextHelpAppendable.findWrapPos(testString, 150, 0), "did not handle text shorter than width");
 
-        assertThrows(IllegalArgumentException.class, () -> TextHelpWriter.findWrapPos("", 0, 0));
-        assertEquals(3, TextHelpWriter.findWrapPos("Hello", 4, 0));
+        assertThrows(IllegalArgumentException.class, () -> TextHelpAppendable.findWrapPos("", 0, 0));
+        assertEquals(3, TextHelpAppendable.findWrapPos("Hello", 4, 0));
     }
 
     @ParameterizedTest
     @MethodSource("org.apache.commons.cli.help.UtilTest#charArgs")
     public void testFindWrapPosWithWhitespace(final Character c, final boolean isWhitespace) {
         final String text = format("Hello%cWorld", c);
-        assertEquals(isWhitespace ? 5 : 6, TextHelpWriter.findWrapPos(text, 7, 0));
+        assertEquals(isWhitespace ? 5 : 6, TextHelpAppendable.findWrapPos(text, 7, 0));
     }
 
     @Test
     public void testGetStyleBuilder() {
         final TextStyle.Builder builder = underTest.getStyleBuilder();
-        assertEquals(TextHelpWriter.DEFAULT_INDENT, builder.getIndent(), "Default indent value was changed, some tests may fail");
-        assertEquals(TextHelpWriter.DEFAULT_LEFT_PAD, builder.getLeftPad(), "Default left pad value was changed, some tests may fail");
-        assertEquals(TextHelpWriter.DEFAULT_WIDTH, builder.getMaxWidth(), "Default width value was changed, some tests may fail");
+        assertEquals(TextHelpAppendable.DEFAULT_INDENT, builder.getIndent(), "Default indent value was changed, some tests may fail");
+        assertEquals(TextHelpAppendable.DEFAULT_LEFT_PAD, builder.getLeftPad(), "Default left pad value was changed, some tests may fail");
+        assertEquals(TextHelpAppendable.DEFAULT_WIDTH, builder.getMaxWidth(), "Default width value was changed, some tests may fail");
     }
 
     @Test
@@ -412,9 +412,9 @@ public final class TextHelpWriterTest {
 
     @Test
     public void testSetIndent() {
-        assertEquals(TextHelpWriter.DEFAULT_INDENT, underTest.getIndent(), "Default indent value was changed, some tests may fail");
-        underTest.setIndent(TextHelpWriter.DEFAULT_INDENT + 2);
-        assertEquals(underTest.getIndent(), TextHelpWriter.DEFAULT_INDENT + 2);
+        assertEquals(TextHelpAppendable.DEFAULT_INDENT, underTest.getIndent(), "Default indent value was changed, some tests may fail");
+        underTest.setIndent(TextHelpAppendable.DEFAULT_INDENT + 2);
+        assertEquals(underTest.getIndent(), TextHelpAppendable.DEFAULT_INDENT + 2);
     }
 
     @Test

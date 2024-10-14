@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.cli.help.AbstractHelpWriter;
+import org.apache.commons.cli.help.FilterHelpAppendable;
 import org.apache.commons.cli.help.TableDefinition;
 import org.apache.commons.cli.help.TextStyle;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +34,7 @@ import org.apache.commons.text.translate.LookupTranslator;
 /**
  * A class to write APT formatted text.
  */
-public class AptHelpWriter extends AbstractHelpWriter {
+public class AptHelpAppendable extends FilterHelpAppendable {
 
     /**
      * Translator object for escaping APT codes
@@ -65,7 +65,7 @@ public class AptHelpWriter extends AbstractHelpWriter {
         return new String(padding);
     }
 
-    public AptHelpWriter(final Appendable output) {
+    public AptHelpAppendable(final Appendable output) {
         super(output);
     }
 

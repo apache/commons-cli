@@ -20,7 +20,8 @@ import java.util.function.Supplier;
 
 /**
  * The definition for styling recommendations blocks of text. Most common usage is to style columns in a table, but may also be used to specify default styling
- * for a {@link HelpWriter}. HelpWriters are free to ignore the TextStyle recommendations particularly where they are not supported or contradict common usage.
+ * for a {@link HelpAppendable}. HelpWriters are free to ignore the TextStyle recommendations particularly where they are not supported or contradict common
+ * usage.
  *
  * @since 1.10.0
  */
@@ -53,7 +54,7 @@ public final class TextStyle {
         /** The subsequent line indentation. */
         private int indent;
 
-        /** The scalable flag. Identifies text blocks that can be made narrower or wider as needed by the HelpWriter. */
+        /** The scalable flag. Identifies text blocks that can be made narrower or wider as needed by the HelpAppendable. */
         private boolean scalable;
 
         /** The minimum width. */
@@ -134,7 +135,7 @@ public final class TextStyle {
         }
 
         /**
-         * Specifies if the column can be made wider or to narrower width to fit constraints of the HelpWriter and formatting.
+         * Specifies if the column can be made wider or to narrower width to fit constraints of the HelpAppendable and formatting.
          *
          * @return The currently specified scaling value.
          */
@@ -198,7 +199,7 @@ public final class TextStyle {
         }
 
         /**
-         * Specifies if the column can be made wider or to narrower width to fit constraints of the HelpWriter and formatting.
+         * Specifies if the column can be made wider or to narrower width to fit constraints of the HelpAppendable and formatting.
          *
          * @param scalable if {@code true} the text width can be adjusted.
          * @return this.
@@ -295,7 +296,7 @@ public final class TextStyle {
     }
 
     /**
-     * Specifies if the column can be made wider or to narrower width to fit constraints of the HelpWriter and formatting.
+     * Specifies if the column can be made wider or to narrower width to fit constraints of the HelpAppendable and formatting.
      *
      * @return the scaling value.
      */

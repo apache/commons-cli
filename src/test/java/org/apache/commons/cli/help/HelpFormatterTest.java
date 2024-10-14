@@ -29,7 +29,7 @@ import java.util.List;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
-import org.apache.commons.example.cli.XhtmlHelpWriter;
+import org.apache.commons.example.cli.XhtmlHelpAppendable;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
@@ -59,9 +59,9 @@ public class HelpFormatterTest {
     @Test
     public void testDefault() {
         final StringBuilder sb = new StringBuilder();
-        final TextHelpWriter serializer = new TextHelpWriter(sb);
+        final TextHelpAppendable serializer = new TextHelpAppendable(sb);
         final HelpFormatter formatter = new HelpFormatter(serializer);
-        assertEquals(serializer, formatter.getSerializer(), "Unexpected helpWriter tests may fail unexpectedly");
+        assertEquals(serializer, formatter.getSerializer(), "Unexpected helpAppendable tests may fail unexpectedly");
         assertEquals(AbstractHelpFormatter.DEFAULT_COMPARATOR, formatter.getComparator(), "Unexpected comparator tests may fail unexpectedly");
         assertEquals(AbstractHelpFormatter.DEFAULT_SYNTAX_PREFIX, formatter.getSyntaxPrefix(), "Unexpected syntax prefix tests may fail unexpectedly");
     }
@@ -69,7 +69,7 @@ public class HelpFormatterTest {
     @Test
     public void testPrintHelp() throws IOException {
         final StringBuilder sb = new StringBuilder();
-        final TextHelpWriter serializer = new TextHelpWriter(sb);
+        final TextHelpAppendable serializer = new TextHelpAppendable(sb);
         HelpFormatter formatter = new HelpFormatter(serializer);
 
         final Options options = new Options().addOption(Option.builder("a").since("1853").hasArg().desc("aaaa aaaa aaaa aaaa aaaa").build());
@@ -147,7 +147,7 @@ public class HelpFormatterTest {
     @Test
     public void testPrintHelpXML() throws IOException {
         final StringBuilder sb = new StringBuilder();
-        final XhtmlHelpWriter serializer = new XhtmlHelpWriter(sb);
+        final XhtmlHelpAppendable serializer = new XhtmlHelpAppendable(sb);
         final HelpFormatter formatter = new HelpFormatter(serializer);
 
         final Options options = new Options().addOption("a", false, "aaaa aaaa aaaa aaaa aaaa");
@@ -178,16 +178,16 @@ public class HelpFormatterTest {
     @Test
     public void testPrintOptions() throws IOException {
         final StringBuilder sb = new StringBuilder();
-        final TextHelpWriter serializer = new TextHelpWriter(sb);
+        final TextHelpAppendable serializer = new TextHelpAppendable(sb);
         final HelpFormatter formatter = new HelpFormatter.Builder().setSerializer(serializer).setShowSince(false).build();
 
         // help format default column styles
-        // col options description helpWriter
+        // col options description helpAppendable
         // styl FIXED VARIABLE VARIABLE
         // LPad 0 5 1
         // indent 1 1 3
         //
-        // default helpWriter
+        // default helpAppendable
 
         Options options;
         List<String> expected = new ArrayList<>();
@@ -292,7 +292,7 @@ public class HelpFormatterTest {
     @Test
     public void testSyntaxPrefix() {
         final StringBuilder sb = new StringBuilder();
-        final TextHelpWriter serializer = new TextHelpWriter(sb);
+        final TextHelpAppendable serializer = new TextHelpAppendable(sb);
         final HelpFormatter formatter = new HelpFormatter(serializer);
         formatter.setSyntaxPrefix("Something new");
         assertEquals("Something new", formatter.getSyntaxPrefix());
@@ -302,7 +302,7 @@ public class HelpFormatterTest {
     @Test
     public void testToArgNameTest() {
         final StringBuilder sb = new StringBuilder();
-        final TextHelpWriter serializer = new TextHelpWriter(sb);
+        final TextHelpAppendable serializer = new TextHelpAppendable(sb);
         final HelpFormatter formatter = new HelpFormatter(serializer);
 
         assertEquals("<some Arg>", formatter.toArgName("some Arg"));

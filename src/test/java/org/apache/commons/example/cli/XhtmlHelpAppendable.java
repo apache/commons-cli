@@ -22,15 +22,15 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.cli.help.AbstractHelpWriter;
+import org.apache.commons.cli.help.FilterHelpAppendable;
 import org.apache.commons.cli.help.TableDefinition;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
-/** An example XML helpWriter */
-public class XhtmlHelpWriter extends AbstractHelpWriter {
+/** An example XML helpAppendable */
+public class XhtmlHelpAppendable extends FilterHelpAppendable {
 
-    public XhtmlHelpWriter(final Appendable output) {
+    public XhtmlHelpAppendable(final Appendable output) {
         super(output);
     }
 
