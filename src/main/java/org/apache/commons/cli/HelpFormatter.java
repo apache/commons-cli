@@ -64,7 +64,9 @@ import java.util.function.Supplier;
  *
  * Please report issues at https://example.com/issues
  * </pre>
+ * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter}
  */
+@Deprecated
 public class HelpFormatter {
 
     /**
