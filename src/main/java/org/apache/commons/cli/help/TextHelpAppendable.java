@@ -208,7 +208,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
             final int idx = Math.min(level, fillChars.length) - 1;
             final TextStyle style = styleBuilder.get();
             final Queue<String> queue = makeColumnQueue(text, style);
-            queue.add(Util.createPadding(style.getLeftPad()) + Util.filledString(Math.min(text.length(), style.getMaxWidth()), fillChars[idx]));
+            queue.add(Util.createPadding(style.getLeftPad()) + Util.repeat(Math.min(text.length(), style.getMaxWidth()), fillChars[idx]));
             queue.add(BLANK_LINE);
             printQueue(queue);
         }
@@ -261,7 +261,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         if (!Util.isEmpty(title)) {
             final TextStyle style = styleBuilder.get();
             final Queue<String> queue = makeColumnQueue(title, style);
-            queue.add(Util.createPadding(style.getLeftPad()) + Util.filledString(Math.min(title.length(), style.getMaxWidth()), '#'));
+            queue.add(Util.createPadding(style.getLeftPad()) + Util.repeat(Math.min(title.length(), style.getMaxWidth()), '#'));
             queue.add(BLANK_LINE);
             printQueue(queue);
         }

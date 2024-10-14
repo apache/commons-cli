@@ -33,7 +33,7 @@ final class Util {
      * @since 1.10.0
      */
     static String createPadding(final int len) {
-        return filledString(len, ' ');
+        return repeat(len, ' ');
     }
 
     /**
@@ -46,19 +46,6 @@ final class Util {
      */
     static <T extends CharSequence> T defaultValue(final T str, final T defaultValue) {
         return isEmpty(str) ? defaultValue : str;
-    }
-
-    /**
-     * Constructs a string of specified length filled with the specified char.
-     *
-     * @param len      the length of the final string.
-     * @param fillChar the character to file it will.
-     * @return A string of specified length filled with the specified char.
-     */
-    static String filledString(final int len, final char fillChar) {
-        final char[] padding = new char[len];
-        Arrays.fill(padding, fillChar);
-        return new String(padding);
     }
 
     /**
@@ -108,6 +95,19 @@ final class Util {
     static String ltrim(final String s) {
         final int pos = findNonWhitespacePos(s, 0);
         return pos == -1 ? "" : s.substring(pos);
+    }
+
+    /**
+     * Constructs a string of specified length filled with the specified char.
+     *
+     * @param len      the length of the final string.
+     * @param fillChar the character to file it will.
+     * @return A string of specified length filled with the specified char.
+     */
+    static String repeat(final int len, final char fillChar) {
+        final char[] padding = new char[len];
+        Arrays.fill(padding, fillChar);
+        return new String(padding);
     }
 
     /**
