@@ -32,19 +32,19 @@ import org.apache.commons.cli.help.TextStyle;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
-public class XhtmlHelpWriterTest {
+public class AptHelpAppendableTest {
 
     private final StringBuilder sb = new StringBuilder();
-    private final XhtmlHelpAppendable underTest = new XhtmlHelpAppendable(sb);
+    private final AptHelpAppendable underTest = new AptHelpAppendable(sb);
 
     @Test
     public void testAppendHeaderTest() throws IOException {
         sb.setLength(0);
         underTest.appendHeader(1, "Hello World");
-        assertEquals(format("<h1>Hello World</h1>%n"), sb.toString());
+        assertEquals(format("* Hello World%n%n"), sb.toString());
         sb.setLength(0);
         underTest.appendHeader(2, "Hello World");
-        assertEquals(format("<h2>Hello World</h2>%n"), sb.toString());
+        assertEquals(format("** Hello World%n%n"), sb.toString());
         sb.setLength(0);
         assertThrows(IllegalArgumentException.class, () -> underTest.appendHeader(0, "Hello World"));
     }
@@ -54,18 +54,18 @@ public class XhtmlHelpWriterTest {
         final String[] entries = { "one", "two", "three" };
         sb.setLength(0);
         underTest.appendList(true, Arrays.asList(entries));
-        assertEquals(format("<ol>%n  <li>one</li>%n  <li>two</li>%n  <li>three</li>%n</ol>%n"), sb.toString());
+        assertEquals(format("    [[1]] one%n    [[2]] two%n    [[3]] three%n%n"), sb.toString());
 
         sb.setLength(0);
         underTest.appendList(false, Arrays.asList(entries));
-        assertEquals(format("<ul>%n  <li>one</li>%n  <li>two</li>%n  <li>three</li>%n</ul>%n"), sb.toString());
+        assertEquals(format("    * one%n    * two%n    * three%n%n"), sb.toString());
     }
 
     @Test
     public void testAppendParagraphTest() throws IOException {
         sb.setLength(0);
         underTest.appendParagraph("Hello World");
-        assertEquals(format("<p>Hello World</p>%n"), sb.toString());
+        assertEquals(format("  Hello World%n%n"), sb.toString());
     }
 
     @Test
@@ -81,29 +81,17 @@ public class XhtmlHelpWriterTest {
         // @formatter:on
 
         List<String> expected = new ArrayList<>();
-        expected.add("<table class='commons_cli_table'>");
-        expected.add("  <caption>The caption</caption>");
-        expected.add("  <tr>");
-        expected.add("    <th>one</th>");
-        expected.add("    <th>two</th>");
-        expected.add("    <th>three</th>");
-        expected.add("  </tr>");
-        expected.add("  <tr>");
-        expected.add("    <td>uno</td>");
-        expected.add("    <td>dos</td>");
-        expected.add("    <td>tres</td>");
-        expected.add("  </tr>");
-        expected.add("  <tr>");
-        expected.add("    <td>aon</td>");
-        expected.add("    <td>dh&aacute;</td>");
-        expected.add("    <td>tr&iacute;</td>");
-        expected.add("  </tr>");
-        expected.add("  <tr>");
-        expected.add("    <td>واحد</td>");
-        expected.add("    <td>اثنين</td>");
-        expected.add("    <td>ثلاثة</td>");
-        expected.add("  </tr>");
-        expected.add("</table>");
+        expected.add("*-----+-----+-------+");
+        expected.add("| one | two | three |");
+        expected.add("*-----+-----+-------+");
+        expected.add("| uno | dos | tres |");
+        expected.add("*-----+-----+-------+");
+        expected.add("| aon | dhá | trí |");
+        expected.add("*-----+-----+-------+");
+        expected.add("| واحد | اثنين | ثلاثة |");
+        expected.add("*-----+-----+-------+");
+        expected.add("The caption");
+        expected.add("");
 
         TableDefinition table = TableDefinition.from("The caption", styles, Arrays.asList(headers), Arrays.asList(rows));
         sb.setLength(0);
@@ -112,7 +100,7 @@ public class XhtmlHelpWriterTest {
         assertEquals(expected, actual, "full table failed");
 
         table = TableDefinition.from(null, styles, Arrays.asList(headers), Arrays.asList(rows));
-        expected.remove(1);
+        expected.remove(9);
         sb.setLength(0);
         underTest.appendTable(table);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
@@ -120,24 +108,22 @@ public class XhtmlHelpWriterTest {
 
         table = TableDefinition.from(null, styles, Arrays.asList(headers), Collections.emptyList());
         expected = new ArrayList<>();
-        expected.add("<table class='commons_cli_table'>");
-        expected.add("  <tr>");
-        expected.add("    <th>one</th>");
-        expected.add("    <th>two</th>");
-        expected.add("    <th>three</th>");
-        expected.add("  </tr>");
-        expected.add("</table>");
+        expected.add("*-----+-----+-------+");
+        expected.add("| one | two | three |");
+        expected.add("*-----+-----+-------+");
+        expected.add("");
 
         sb.setLength(0);
         underTest.appendTable(table);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "no rows test failed");
+
     }
 
     @Test
     public void testAppendTitleTest() throws IOException {
         sb.setLength(0);
         underTest.appendTitle("Hello World");
-        assertEquals(format("<span class='commons_cli_title'>Hello World</span>%n"), sb.toString());
+        assertEquals(format("        -----%n        Hello World%n        -----%n%nHello World%n%n"), sb.toString());
     }
 }
