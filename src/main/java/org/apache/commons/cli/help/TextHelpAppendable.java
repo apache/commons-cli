@@ -208,7 +208,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
             final int idx = Math.min(level, fillChars.length) - 1;
             final TextStyle style = styleBuilder.get();
             final Queue<String> queue = makeColumnQueue(text, style);
-            queue.add(Util.createPadding(style.getLeftPad()) + Util.repeat(Math.min(text.length(), style.getMaxWidth()), fillChars[idx]));
+            queue.add(Util.repeatSpace(style.getLeftPad()) + Util.repeat(Math.min(text.length(), style.getMaxWidth()), fillChars[idx]));
             queue.add(BLANK_LINE);
             printQueue(queue);
         }
@@ -261,7 +261,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         if (!Util.isEmpty(title)) {
             final TextStyle style = styleBuilder.get();
             final Queue<String> queue = makeColumnQueue(title, style);
-            queue.add(Util.createPadding(style.getLeftPad()) + Util.repeat(Math.min(title.length(), style.getMaxWidth()), '#'));
+            queue.add(Util.repeatSpace(style.getLeftPad()) + Util.repeat(Math.min(title.length(), style.getMaxWidth()), '#'));
             queue.add(BLANK_LINE);
             printQueue(queue);
         }
@@ -307,8 +307,8 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      * @return A queue of the string wrapped.
      */
     protected Queue<String> makeColumnQueue(final CharSequence columnData, final TextStyle style) {
-        final String lpad = Util.createPadding(style.getLeftPad());
-        final String indent = Util.createPadding(style.getIndent());
+        final String lpad = Util.repeatSpace(style.getLeftPad());
+        final String indent = Util.repeatSpace(style.getIndent());
         final Queue<String> result = new LinkedList<>();
         int wrapPos = 0;
         int nextPos;
@@ -431,7 +431,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      */
     protected void writeColumnQueues(final List<Queue<String>> columnQueues, final List<TextStyle> styles) throws IOException {
         boolean moreData = true;
-        final String lPad = Util.createPadding(styleBuilder.get().getLeftPad());
+        final String lPad = Util.repeatSpace(styleBuilder.get().getLeftPad());
         while (moreData) {
             output.append(lPad);
             moreData = false;
@@ -440,7 +440,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
                 final Queue<String> columnQueue = columnQueues.get(i);
                 final String line = columnQueue.poll();
                 if (Util.isEmpty(line)) {
-                    output.append(Util.createPadding(style.getMaxWidth() + style.getLeftPad()));
+                    output.append(Util.repeatSpace(style.getMaxWidth() + style.getLeftPad()));
                 } else {
                     output.append(line);
                 }

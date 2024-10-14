@@ -331,25 +331,25 @@ public final class TextStyle {
                 padLen = maxWidth - text.length();
             }
             final int left = padLen / 2;
-            indentPad = Util.createPadding(left);
-            rest = Util.createPadding(padLen - left);
+            indentPad = Util.repeatSpace(left);
+            rest = Util.repeatSpace(padLen - left);
             sb.append(indentPad).append(text).append(rest);
             break;
         case LEFT:
         case RIGHT:
         default: // default should never happen. It is here to keep code coverage happy.
             if (maxWidth == UNSET_MAX_WIDTH) {
-                indentPad = addIndent ? Util.createPadding(indent) : "";
+                indentPad = addIndent ? Util.repeatSpace(indent) : "";
                 rest = "";
             } else {
                 int restLen = maxWidth - text.length();
                 if (addIndent && restLen > indent) {
-                    indentPad = Util.createPadding(indent);
+                    indentPad = Util.repeatSpace(indent);
                     restLen -= indent;
                 } else {
                     indentPad = "";
                 }
-                rest = Util.createPadding(restLen);
+                rest = Util.repeatSpace(restLen);
             }
 
             if (alignment == Alignment.LEFT) {

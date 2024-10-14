@@ -25,18 +25,6 @@ import java.util.Arrays;
 final class Util {
 
     /**
-     * Creates a String of padding of length {@code len}.
-     *
-     * @param len The length of the String of padding to create.
-     *
-     * @return The String of padding
-     * @since 1.10.0
-     */
-    static String createPadding(final int len) {
-        return repeat(len, ' ');
-    }
-
-    /**
      * Returns the {@code defaultValue} if {@code str} is empty.
      *
      * @param str          The string to check
@@ -108,6 +96,18 @@ final class Util {
         final char[] padding = new char[len];
         Arrays.fill(padding, fillChar);
         return new String(padding);
+    }
+
+    /**
+     * Creates a String of padding of length {@code len}.
+     *
+     * @param len The length of the String of padding to create.
+     *
+     * @return The String of padding
+     * @since 1.10.0
+     */
+    static String repeatSpace(final int len) {
+        return repeat(len, ' ');
     }
 
     /**
