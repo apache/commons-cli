@@ -20,6 +20,14 @@ import java.io.IOException;
 
 /**
  * An abstract implementation of {@link HelpAppendable} that writes output to an {@link Appendable} instance.
+ * <p>
+ * This class is the superclass of all classes that filter help appendables. These appendable sit on top of an existing appendable (the <em>underlying</em>
+ * appendable) which it uses as its basic sink of data, but possibly transforming the data along the way or providing additional functionality.
+ * </p>
+ * <p>
+ * The class {@code FilterHelpAppendable} itself simply overrides all methods of {@code HelpAppendable} with versions that pass all requests to the underlying
+ * appendable. Subclasses of {@code FilterHelpAppendable} may further override some of these methods as well as provide additional methods and fields.
+ * </p>
  *
  * @since 1.10.0
  */

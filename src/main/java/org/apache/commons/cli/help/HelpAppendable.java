@@ -20,11 +20,14 @@ import java.io.IOException;
 import java.util.Collection;
 
 /**
- * The definition of a semantic scribe. The semantic scribe write string to output based on the semantic meaning of the type of string. e.g. a Paragraph versus
+ * Defines a semantic scribe. The semantic scribe appends text to an output based on the semantic meaning of the type of string. For example, a Paragraph versus
  * a Heading.
  * <p>
- * The representation of the semantics is dependant upon the format being output. For example the plain text output for a paragraph may print the text followed
+ * The representation of the semantics is dependent upon the format being output. For example, the plain text output for a paragraph may print the text followed
  * by two line breaks, while an XHTML output would print the text surrounded by &lt;p&gt; and &lt;/p&gt;.
+ * </p>
+ * <p>
+ * Note the {@link Appendable} documentation on the topics of Unicode and threading, these comments also apply here.
  * </p>
  *
  * @since 1.10.0
