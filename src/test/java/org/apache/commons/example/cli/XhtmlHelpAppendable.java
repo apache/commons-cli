@@ -27,9 +27,17 @@ import org.apache.commons.cli.help.TableDefinition;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
-/** An example XML helpAppendable */
+/**
+ * A class to write XHTML formatted text.
+ */
 public class XhtmlHelpAppendable extends FilterHelpAppendable {
 
+    /**
+     * Constructs an appendable filter built on top of the specified underlying appendable.
+     *
+     * @param output the underlying appendable to be assigned to the field {@code this.output} for later use, or {@code null} if this instance is to be created
+     *               without an underlying stream.
+     */
     public XhtmlHelpAppendable(final Appendable output) {
         super(output);
     }

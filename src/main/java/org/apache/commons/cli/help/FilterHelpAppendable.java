@@ -39,9 +39,10 @@ public abstract class FilterHelpAppendable implements HelpAppendable {
     protected final Appendable output;
 
     /**
-     * Constructs an instance using the provided Appendable instance.
+     * Constructs an appendable filter built on top of the specified underlying appendable.
      *
-     * @param output the Appendable instance to write to.
+     * @param output the underlying appendable to be assigned to the field {@code this.output} for later use, or {@code null} if this instance is to be created
+     *               without an underlying stream.
      */
     protected FilterHelpAppendable(final Appendable output) {
         this.output = output;

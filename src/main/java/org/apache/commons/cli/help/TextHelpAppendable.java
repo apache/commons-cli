@@ -115,8 +115,10 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     private final TextStyle.Builder styleBuilder;
 
     /**
-     * Construct from an output.
-     * @param output the Appendable to write the output to.
+     * Constructs an appendable filter built on top of the specified underlying appendable.
+     *
+     * @param output the underlying appendable to be assigned to the field {@code this.output} for later use, or {@code null} if this instance is to be created
+     *               without an underlying stream.
      */
     public TextHelpAppendable(final Appendable output) {
         super(output);

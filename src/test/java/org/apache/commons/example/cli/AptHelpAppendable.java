@@ -65,6 +65,12 @@ public class AptHelpAppendable extends FilterHelpAppendable {
         return new String(padding);
     }
 
+    /**
+     * Constructs an appendable filter built on top of the specified underlying appendable.
+     *
+     * @param output the underlying appendable to be assigned to the field {@code this.output} for later use, or {@code null} if this instance is to be created
+     *               without an underlying stream.
+     */
     public AptHelpAppendable(final Appendable output) {
         super(output);
     }
