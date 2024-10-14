@@ -104,7 +104,6 @@ final class Util {
      * @param len The length of the String of padding to create.
      *
      * @return The String of padding
-     * @since 1.10.0
      */
     static String repeatSpace(final int len) {
         return repeat(len, ' ');
