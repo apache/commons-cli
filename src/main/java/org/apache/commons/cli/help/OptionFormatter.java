@@ -31,7 +31,7 @@ import org.apache.commons.cli.Option;
 public final class OptionFormatter {
 
     /**
-     * A Builder for OptionFormatters.
+     * Builds instances of {@link OptionFormatter}.
      */
     public static final class Builder {
 
@@ -47,13 +47,13 @@ public final class OptionFormatter {
         /** The long option prefix */
         private String longOptPrefix;
 
-        /** the option prefix */
+        /** The option prefix */
         private String optPrefix;
 
         /** The separator between long and short options */
         private String optSeparator;
 
-        /** the separator between the opt and/or longOpt and the argument name */
+        /** The separator between the opt and/or longOpt and the argument name */
         private String optArgSeparator;
 
         /** The delimiters surrounding optional {@link Option} instances. */
