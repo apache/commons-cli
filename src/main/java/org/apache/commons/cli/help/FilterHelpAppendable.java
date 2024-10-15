@@ -34,7 +34,7 @@ import java.io.IOException;
 public abstract class FilterHelpAppendable implements HelpAppendable {
 
     /**
-     * The Appendable instance to write to.
+     * The underlying appendable to be filtered.
      */
     protected final Appendable output;
 
