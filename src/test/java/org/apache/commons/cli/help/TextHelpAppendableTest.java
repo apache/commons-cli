@@ -16,7 +16,6 @@
  */
 package org.apache.commons.cli.help;
 
-import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -35,6 +34,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+/**
+ * Tests {@link TextHelpAppendable}.
+ */
 public final class TextHelpAppendableTest {
 
     private StringBuilder sb;
@@ -173,7 +175,7 @@ public final class TextHelpAppendableTest {
         final List<String> expected = new ArrayList<>();
         final String[] entries = { "one", "two", "three" };
         for (int i = 0; i < entries.length; i++) {
-            expected.add(format("  %s. %s", i + 1, entries[i]));
+            expected.add(String.format("  %s. %s", i + 1, entries[i]));
         }
         expected.add("");
 
@@ -185,7 +187,7 @@ public final class TextHelpAppendableTest {
         sb.setLength(0);
         expected.clear();
         for (final String entry : entries) {
-            expected.add(format("  * %s", entry));
+            expected.add(String.format("  * %s", entry));
         }
         expected.add("");
         underTest.appendList(false, Arrays.asList(entries));
@@ -311,7 +313,7 @@ public final class TextHelpAppendableTest {
     @ParameterizedTest
     @MethodSource("org.apache.commons.cli.help.UtilTest#charArgs")
     public void testindexOfWrapPosWithWhitespace(final Character c, final boolean isWhitespace) {
-        final String text = format("Hello%cWorld", c);
+        final String text = String.format("Hello%cWorld", c);
         assertEquals(isWhitespace ? 5 : 6, TextHelpAppendable.indexOfWrap(text, 7, 0));
     }
 

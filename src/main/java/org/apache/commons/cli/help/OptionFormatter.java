@@ -66,7 +66,7 @@ public final class OptionFormatter {
         /**
          * Default constructor. Uses the defaults specified in {@link OptionFormatter}.
          */
-        public Builder() {
+        private Builder() {
             argNameDelimiters = Arrays.copyOf(DEFAULT_ARG_NAME_DELIMITERS, 2);
             defaultArgName = DEFAULT_ARG_NAME;
             deprecatedFormatFunction = NO_DEPRECATED_FORMAT;
@@ -101,6 +101,12 @@ public final class OptionFormatter {
          */
         public OptionFormatter build(final Option option) {
             return new OptionFormatter(option, this);
+        }
+
+        @Override
+        public OptionFormatter get() {
+            // TODO Auto-generated method stub
+            return null;
         }
 
         /**
@@ -217,12 +223,6 @@ public final class OptionFormatter {
         public String toArgName(final String argName) {
             return argNameDelimiters[0] + Util.defaultValue(argName, "") + argNameDelimiters[1];
         }
-
-        @Override
-        public OptionFormatter get() {
-            // TODO Auto-generated method stub
-            return null;
-        }
     }
 
     /** The default delimiters for optional arguments */
@@ -290,6 +290,15 @@ public final class OptionFormatter {
      * The default separator between the opt and/or longOpt and the argument name.
      */
     public static final String DEFAULT_OPT_ARG_SEPARATOR = " ";
+
+    /**
+     * Creates a new builder.
+     *
+     * @return a new builder.
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
 
     /**
      * Construct the {@link OptionFormatter} from an {@link Option} using the default {@link OptionFormatter.Builder}.

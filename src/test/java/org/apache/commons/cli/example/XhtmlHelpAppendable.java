@@ -16,8 +16,6 @@
  */
 package org.apache.commons.cli.example;
 
-import static java.lang.String.format;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
@@ -48,53 +46,53 @@ public class XhtmlHelpAppendable extends FilterHelpAppendable {
             if (level < 1) {
                 throw new IllegalArgumentException("level must be at least 1");
             }
-            output.append(format("<h%s>%s</h%1$s>%n", level, StringEscapeUtils.escapeHtml4(text.toString())));
+            output.append(String.format("<h%s>%s</h%1$s>%n", level, StringEscapeUtils.escapeHtml4(text.toString())));
         }
     }
 
     @Override
     public void appendList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
-        output.append(format("<%sl>%n", ordered ? "o" : "u"));
+        output.append(String.format("<%sl>%n", ordered ? "o" : "u"));
         for (final CharSequence line : list) {
-            output.append(format("  <li>%s</li>%n", StringEscapeUtils.escapeHtml4(StringUtils.defaultIfEmpty(line, "").toString())));
+            output.append(String.format("  <li>%s</li>%n", StringEscapeUtils.escapeHtml4(StringUtils.defaultIfEmpty(line, "").toString())));
         }
-        output.append(format("</%sl>%n", ordered ? "o" : "u"));
+        output.append(String.format("</%sl>%n", ordered ? "o" : "u"));
     }
 
     @Override
     public void appendParagraph(final CharSequence paragraph) throws IOException {
         if (StringUtils.isNotEmpty(paragraph)) {
-            output.append(format("<p>%s</p>%n", StringEscapeUtils.escapeHtml4(paragraph.toString())));
+            output.append(String.format("<p>%s</p>%n", StringEscapeUtils.escapeHtml4(paragraph.toString())));
         }
     }
 
     @Override
     public void appendTable(final TableDefinition table) throws IOException {
-        output.append(format("<table class='commons_cli_table'>%n"));
+        output.append(String.format("<table class='commons_cli_table'>%n"));
         if (StringUtils.isNotEmpty(table.caption())) {
-            output.append(format("  <caption>%s</caption>%n", StringEscapeUtils.escapeHtml4(table.caption())));
+            output.append(String.format("  <caption>%s</caption>%n", StringEscapeUtils.escapeHtml4(table.caption())));
         }
         // write the headers
         if (!table.headers().isEmpty()) {
-            output.append(format("  <tr>%n"));
+            output.append(String.format("  <tr>%n"));
             for (final String header : table.headers()) {
-                output.append(format("    <th>%s</th>%n", StringEscapeUtils.escapeHtml4(header)));
+                output.append(String.format("    <th>%s</th>%n", StringEscapeUtils.escapeHtml4(header)));
             }
-            output.append(format("  </tr>%n"));
+            output.append(String.format("  </tr>%n"));
         }
         // write the data
         for (final List<String> row : table.rows()) {
-            output.append(format("  <tr>%n"));
+            output.append(String.format("  <tr>%n"));
             for (final String column : row) {
-                output.append(format("    <td>%s</td>%n", StringEscapeUtils.escapeHtml4(column)));
+                output.append(String.format("    <td>%s</td>%n", StringEscapeUtils.escapeHtml4(column)));
             }
-            output.append(format("  </tr>%n"));
+            output.append(String.format("  </tr>%n"));
         }
-        output.append(format("</table>%n"));
+        output.append(String.format("</table>%n"));
     }
 
     @Override
     public void appendTitle(final CharSequence title) throws IOException {
-        output.append(format("<span class='commons_cli_title'>%s</span>%n", StringEscapeUtils.escapeHtml4(title.toString())));
+        output.append(String.format("<span class='commons_cli_title'>%s</span>%n", StringEscapeUtils.escapeHtml4(title.toString())));
     }
 }

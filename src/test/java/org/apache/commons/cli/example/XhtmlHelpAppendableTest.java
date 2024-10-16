@@ -16,7 +16,6 @@
  */
 package org.apache.commons.cli.example;
 
-import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -41,10 +40,10 @@ public class XhtmlHelpAppendableTest {
     public void testAppendHeaderTest() throws IOException {
         sb.setLength(0);
         underTest.appendHeader(1, "Hello World");
-        assertEquals(format("<h1>Hello World</h1>%n"), sb.toString());
+        assertEquals(String.format("<h1>Hello World</h1>%n"), sb.toString());
         sb.setLength(0);
         underTest.appendHeader(2, "Hello World");
-        assertEquals(format("<h2>Hello World</h2>%n"), sb.toString());
+        assertEquals(String.format("<h2>Hello World</h2>%n"), sb.toString());
         sb.setLength(0);
         assertThrows(IllegalArgumentException.class, () -> underTest.appendHeader(0, "Hello World"));
     }
@@ -54,17 +53,17 @@ public class XhtmlHelpAppendableTest {
         final String[] entries = { "one", "two", "three" };
         sb.setLength(0);
         underTest.appendList(true, Arrays.asList(entries));
-        assertEquals(format("<ol>%n  <li>one</li>%n  <li>two</li>%n  <li>three</li>%n</ol>%n"), sb.toString());
+        assertEquals(String.format("<ol>%n  <li>one</li>%n  <li>two</li>%n  <li>three</li>%n</ol>%n"), sb.toString());
         sb.setLength(0);
         underTest.appendList(false, Arrays.asList(entries));
-        assertEquals(format("<ul>%n  <li>one</li>%n  <li>two</li>%n  <li>three</li>%n</ul>%n"), sb.toString());
+        assertEquals(String.format("<ul>%n  <li>one</li>%n  <li>two</li>%n  <li>three</li>%n</ul>%n"), sb.toString());
     }
 
     @Test
     public void testAppendParagraphTest() throws IOException {
         sb.setLength(0);
         underTest.appendParagraph("Hello World");
-        assertEquals(format("<p>Hello World</p>%n"), sb.toString());
+        assertEquals(String.format("<p>Hello World</p>%n"), sb.toString());
     }
 
     @Test
@@ -132,6 +131,6 @@ public class XhtmlHelpAppendableTest {
     public void testAppendTitleTest() throws IOException {
         sb.setLength(0);
         underTest.appendTitle("Hello World");
-        assertEquals(format("<span class='commons_cli_title'>Hello World</span>%n"), sb.toString());
+        assertEquals(String.format("<span class='commons_cli_title'>Hello World</span>%n"), sb.toString());
     }
 }

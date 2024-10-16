@@ -33,6 +33,9 @@ import org.apache.commons.cli.example.XhtmlHelpAppendable;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests {@link HelpFormatter}.
+ */
 public class HelpFormatterTest {
 
     private Options getTestGroups() {
@@ -89,7 +92,7 @@ public class HelpFormatterTest {
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual);
 
-        formatter = new HelpFormatter.Builder().setShowSince(false).setHelpAppendable(serializer).get();
+        formatter = HelpFormatter.builder().setShowSince(false).setHelpAppendable(serializer).get();
         expected = new ArrayList<>();
         expected.add(" usage:  commandSyntax [-a <arg>]");
         expected.add("");
@@ -179,7 +182,7 @@ public class HelpFormatterTest {
     public void testPrintOptions() throws IOException {
         final StringBuilder sb = new StringBuilder();
         final TextHelpAppendable serializer = new TextHelpAppendable(sb);
-        final HelpFormatter formatter = new HelpFormatter.Builder().setHelpAppendable(serializer).setShowSince(false).get();
+        final HelpFormatter formatter = HelpFormatter.builder().setHelpAppendable(serializer).setShowSince(false).get();
 
         // help format default column styles
         // col options description helpAppendable
@@ -227,8 +230,8 @@ public class HelpFormatterTest {
 
     @Test
     public void testSetOptionFormatBuilderTest() {
-        final HelpFormatter.Builder underTest = new HelpFormatter.Builder();
-        final OptionFormatter.Builder ofBuilder = new OptionFormatter.Builder().setOptPrefix("Just Another ");
+        final HelpFormatter.Builder underTest = HelpFormatter.builder();
+        final OptionFormatter.Builder ofBuilder = OptionFormatter.builder().setOptPrefix("Just Another ");
         underTest.setOptionFormatBuilder(ofBuilder);
         final HelpFormatter formatter = underTest.get();
         final OptionFormatter oFormatter = formatter.getOptionFormatter(Option.builder("thing").build());
@@ -281,7 +284,7 @@ public class HelpFormatterTest {
 
         expected.set(0, expected.get(2));
         expected.set(2, options.getOption("a"));
-        underTest = new HelpFormatter.Builder().setComparator(AbstractHelpFormatter.DEFAULT_COMPARATOR.reversed()).get();
+        underTest = HelpFormatter.builder().setComparator(AbstractHelpFormatter.DEFAULT_COMPARATOR.reversed()).get();
         assertEquals(expected, underTest.sort(options));
 
         assertEquals(0, underTest.sort(Collections.emptyList()).size(), "empty colleciton should return empty list");

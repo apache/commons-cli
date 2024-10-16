@@ -54,10 +54,10 @@ public abstract class AbstractHelpFormatter {
         private Comparator<Option> comparator = DEFAULT_COMPARATOR;
 
         /** The {@link HelpAppendable} to use */
-        private HelpAppendable helpAppendable = defaultTextHelpAppendable();
+        private HelpAppendable helpAppendable = TextHelpAppendable.systemOut();
 
         /** The {@link OptionFormatter.Builder} to use to format options in the table. */
-        private OptionFormatter.Builder optionFormatBuilder = defaultOptionFormatterBuilder();
+        private OptionFormatter.Builder optionFormatBuilder = OptionFormatter.builder();
 
         /** The string to separate option groups with */
         private String optionGroupSeparator = DEFAULT_OPTION_GROUP_SEPARATOR;
@@ -80,14 +80,6 @@ public abstract class AbstractHelpFormatter {
         @SuppressWarnings("unchecked")
         protected B asThis() {
             return (B) this;
-        }
-
-        protected OptionFormatter.Builder defaultOptionFormatterBuilder() {
-            return new OptionFormatter.Builder();
-        }
-
-        protected TextHelpAppendable defaultTextHelpAppendable() {
-            return new TextHelpAppendable(System.out);
         }
 
         protected Comparator<Option> getComparator() {
@@ -124,7 +116,7 @@ public abstract class AbstractHelpFormatter {
          * @return this
          */
         public B setHelpAppendable(final HelpAppendable helpAppendable) {
-            this.helpAppendable = helpAppendable != null ? helpAppendable : defaultTextHelpAppendable();
+            this.helpAppendable = helpAppendable != null ? helpAppendable : TextHelpAppendable.systemOut();
             return asThis();
         }
 
@@ -135,7 +127,7 @@ public abstract class AbstractHelpFormatter {
          * @return this
          */
         public B setOptionFormatBuilder(final OptionFormatter.Builder optionFormatBuilder) {
-            this.optionFormatBuilder = optionFormatBuilder != null ? optionFormatBuilder : defaultOptionFormatterBuilder();
+            this.optionFormatBuilder = optionFormatBuilder != null ? optionFormatBuilder : OptionFormatter.builder();
             return asThis();
         }
 

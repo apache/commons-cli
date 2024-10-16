@@ -16,7 +16,6 @@
  */
 package org.apache.commons.cli.example;
 
-import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -41,10 +40,10 @@ public class AptHelpAppendableTest {
     public void testAppendHeaderTest() throws IOException {
         sb.setLength(0);
         underTest.appendHeader(1, "Hello World");
-        assertEquals(format("* Hello World%n%n"), sb.toString());
+        assertEquals(String.format("* Hello World%n%n"), sb.toString());
         sb.setLength(0);
         underTest.appendHeader(2, "Hello World");
-        assertEquals(format("** Hello World%n%n"), sb.toString());
+        assertEquals(String.format("** Hello World%n%n"), sb.toString());
         sb.setLength(0);
         assertThrows(IllegalArgumentException.class, () -> underTest.appendHeader(0, "Hello World"));
     }
@@ -54,17 +53,17 @@ public class AptHelpAppendableTest {
         final String[] entries = { "one", "two", "three" };
         sb.setLength(0);
         underTest.appendList(true, Arrays.asList(entries));
-        assertEquals(format("    [[1]] one%n    [[2]] two%n    [[3]] three%n%n"), sb.toString());
+        assertEquals(String.format("    [[1]] one%n    [[2]] two%n    [[3]] three%n%n"), sb.toString());
         sb.setLength(0);
         underTest.appendList(false, Arrays.asList(entries));
-        assertEquals(format("    * one%n    * two%n    * three%n%n"), sb.toString());
+        assertEquals(String.format("    * one%n    * two%n    * three%n%n"), sb.toString());
     }
 
     @Test
     public void testAppendParagraphTest() throws IOException {
         sb.setLength(0);
         underTest.appendParagraph("Hello World");
-        assertEquals(format("  Hello World%n%n"), sb.toString());
+        assertEquals(String.format("  Hello World%n%n"), sb.toString());
     }
 
     @Test
@@ -118,6 +117,6 @@ public class AptHelpAppendableTest {
     public void testAppendTitleTest() throws IOException {
         sb.setLength(0);
         underTest.appendTitle("Hello World");
-        assertEquals(format("        -----%n        Hello World%n        -----%n%nHello World%n%n"), sb.toString());
+        assertEquals(String.format("        -----%n        Hello World%n        -----%n%nHello World%n%n"), sb.toString());
     }
 }

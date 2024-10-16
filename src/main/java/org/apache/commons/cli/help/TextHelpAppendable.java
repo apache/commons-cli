@@ -16,8 +16,6 @@
  */
 package org.apache.commons.cli.help;
 
-import static java.lang.String.format;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,6 +98,10 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         }
         // if we found it return it, otherwise just chop at limit
         return pos > startPos ? pos : limit - 1;
+    }
+
+    protected static TextHelpAppendable systemOut() {
+        return new TextHelpAppendable(System.out);
     }
 
     /** Defines the TextStyle for paragraph, and associated output formats. */
@@ -213,8 +215,8 @@ public class TextHelpAppendable extends FilterHelpAppendable {
             final TextStyle.Builder builder = TextStyle.builder().setLeftPad(textStyleBuilder.getLeftPad()).setIndent(DEFAULT_LIST_INDENT);
             int i = 1;
             for (final CharSequence line : list) {
-                final String entry = ordered ? format(" %s. %s", i++, Util.defaultValue(line, BLANK_LINE))
-                        : format(" * %s", Util.defaultValue(line, BLANK_LINE));
+                final String entry = ordered ? String.format(" %s. %s", i++, Util.defaultValue(line, BLANK_LINE))
+                        : String.format(" * %s", Util.defaultValue(line, BLANK_LINE));
                 builder.setMaxWidth(Math.min(textStyleBuilder.getMaxWidth(), entry.length()));
                 printQueue(makeColumnQueue(entry, builder.get()));
             }
@@ -343,7 +345,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      */
     private void printQueue(final Queue<String> queue) throws IOException {
         for (final String s : queue) {
-            output.append(format("%s%n", Util.rtrim(s)));
+            output.append(String.format("%s%n", Util.rtrim(s)));
         }
     }
 

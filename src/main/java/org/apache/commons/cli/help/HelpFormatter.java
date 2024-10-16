@@ -85,6 +85,11 @@ public class HelpFormatter extends AbstractHelpFormatter {
             // empty
         }
 
+        @Override
+        public HelpFormatter get() {
+            return new HelpFormatter(this);
+        }
+
         /**
          * Sets the showSince flag.
          *
@@ -94,11 +99,6 @@ public class HelpFormatter extends AbstractHelpFormatter {
         public Builder setShowSince(final boolean showSince) {
             this.showSince = showSince;
             return this;
-        }
-
-        @Override
-        public HelpFormatter get() {
-            return new HelpFormatter(this);
         }
     }
 

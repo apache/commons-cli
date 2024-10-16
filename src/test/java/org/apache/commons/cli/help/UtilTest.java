@@ -17,7 +17,6 @@
 
 package org.apache.commons.cli.help;
 
-import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -67,9 +66,9 @@ public class UtilTest {
     @ParameterizedTest
     @MethodSource("charArgs")
     public void testFindNonWhitespacePos(final Character c, final boolean isWhitespace) {
-        String text = format("%cWorld", c);
+        String text = String.format("%cWorld", c);
         assertEquals(isWhitespace ? 1 : 0, Util.indexOfNonWhitespace(text, 0));
-        text = format("%c%c%c", c, c, c);
+        text = String.format("%c%c%c", c, c, c);
         assertEquals(isWhitespace ? -1 : 0, Util.indexOfNonWhitespace(text, 0));
     }
 
@@ -87,11 +86,11 @@ public class UtilTest {
     @MethodSource("charArgs")
     public void testRtrim(final Character c, final boolean isWhitespace) {
         if (isWhitespace) {
-            assertEquals("worx", Util.rtrim(format("worx%s", c)), () -> format("Did not process character 0x%x", (int) c));
+            assertEquals("worx", Util.rtrim(String.format("worx%s", c)), () -> String.format("Did not process character 0x%x", (int) c));
         } else {
-            assertNotEquals("worx", Util.rtrim(format("worx%s", c)), () -> format("Did not process character 0x%x", (int) c));
+            assertNotEquals("worx", Util.rtrim(String.format("worx%s", c)), () -> String.format("Did not process character 0x%x", (int) c));
         }
-        final String text = format("%c%c%c", c, c, c);
+        final String text = String.format("%c%c%c", c, c, c);
         assertEquals(isWhitespace ? "" : text, Util.ltrim(text));
     }
 }
