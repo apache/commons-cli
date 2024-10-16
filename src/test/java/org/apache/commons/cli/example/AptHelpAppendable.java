@@ -67,7 +67,7 @@ public class AptHelpAppendable extends FilterHelpAppendable {
             for (int i = 0; i < level; i++) {
                 output.append("*");
             }
-            output.append(String.format(" %s%n%n", ESCAPE_APT.translate(text)));
+            appendFormat(" %s%n%n", ESCAPE_APT.translate(text));
         }
     }
 
@@ -77,11 +77,11 @@ public class AptHelpAppendable extends FilterHelpAppendable {
             if (ordered) {
                 int idx = 1;
                 for (final CharSequence s : list) {
-                    output.append(String.format("    [[%s]] %s%n", idx++, ESCAPE_APT.translate(s)));
+                    appendFormat("    [[%s]] %s%n", idx++, ESCAPE_APT.translate(s));
                 }
             } else {
                 for (final CharSequence s : list) {
-                    output.append(String.format("    * %s%n", ESCAPE_APT.translate(s)));
+                    appendFormat("    * %s%n", ESCAPE_APT.translate(s));
                 }
             }
             output.append(System.lineSeparator());
@@ -91,7 +91,7 @@ public class AptHelpAppendable extends FilterHelpAppendable {
     @Override
     public void appendParagraph(final CharSequence paragraph) throws IOException {
         if (StringUtils.isNotEmpty(paragraph)) {
-            output.append(String.format("  %s%n%n", ESCAPE_APT.translate(paragraph)));
+            appendFormat("  %s%n%n", ESCAPE_APT.translate(paragraph));
         }
     }
 
@@ -121,20 +121,20 @@ public class AptHelpAppendable extends FilterHelpAppendable {
             output.append(sb.toString());
             output.append("|");
             for (final String header : table.headers()) {
-                output.append(String.format(" %s |", ESCAPE_APT.translate(header)));
+                appendFormat(" %s |", ESCAPE_APT.translate(header));
             }
             output.append(rowSeparator);
             // write the table entries
             for (final Collection<String> row : table.rows()) {
                 output.append("|");
                 for (final String cell : row) {
-                    output.append(String.format(" %s |", ESCAPE_APT.translate(cell)));
+                    appendFormat(" %s |", ESCAPE_APT.translate(cell));
                 }
                 output.append(rowSeparator);
             }
             // write the caption
             if (StringUtils.isNotEmpty(table.caption())) {
-                output.append(String.format("%s%n", ESCAPE_APT.translate(table.caption())));
+                appendFormat("%s%n", ESCAPE_APT.translate(table.caption()));
             }
             output.append(System.lineSeparator());
         }
@@ -143,7 +143,7 @@ public class AptHelpAppendable extends FilterHelpAppendable {
     @Override
     public void appendTitle(final CharSequence title) throws IOException {
         if (StringUtils.isNotEmpty(title)) {
-            output.append(String.format("        -----%n        %1$s%n        -----%n%n%1$s%n%n", title));
+            appendFormat("        -----%n        %1$s%n        -----%n%n%1$s%n%n", title);
         }
     }
 }

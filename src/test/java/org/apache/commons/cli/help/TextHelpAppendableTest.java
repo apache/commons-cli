@@ -226,6 +226,20 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
+    public void testAppendParagraphFormat() throws IOException {
+        final String[] expected = { " Hello Joe World 309", "" };
+
+        sb.setLength(0);
+        underTest.appendParagraphFormat("Hello %s World %,d", "Joe", 309);
+        final List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(Arrays.asList(expected), actual);
+
+        sb.setLength(0);
+        underTest.appendParagraphFormat("");
+        assertEquals(0, sb.length(), "empty string test failed");
+    }
+
+    @Test
     public void testAppendTable() throws IOException {
         final TextStyle.Builder styleBuilder = TextStyle.builder();
         final List<TextStyle> styles = new ArrayList<>();
@@ -296,6 +310,14 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
+    public void testGetStyleBuilder() {
+        final TextStyle.Builder builder = underTest.getTextStyleBuilder();
+        assertEquals(TextHelpAppendable.DEFAULT_INDENT, builder.getIndent(), "Default indent value was changed, some tests may fail");
+        assertEquals(TextHelpAppendable.DEFAULT_LEFT_PAD, builder.getLeftPad(), "Default left pad value was changed, some tests may fail");
+        assertEquals(TextHelpAppendable.DEFAULT_WIDTH, builder.getMaxWidth(), "Default width value was changed, some tests may fail");
+    }
+
+    @Test
     public void testindexOfWrapPos() {
         final String testString = "The quick brown fox jumps over\tthe lazy dog";
 
@@ -315,14 +337,6 @@ public final class TextHelpAppendableTest {
     public void testindexOfWrapPosWithWhitespace(final Character c, final boolean isWhitespace) {
         final String text = String.format("Hello%cWorld", c);
         assertEquals(isWhitespace ? 5 : 6, TextHelpAppendable.indexOfWrap(text, 7, 0));
-    }
-
-    @Test
-    public void testGetStyleBuilder() {
-        final TextStyle.Builder builder = underTest.getTextStyleBuilder();
-        assertEquals(TextHelpAppendable.DEFAULT_INDENT, builder.getIndent(), "Default indent value was changed, some tests may fail");
-        assertEquals(TextHelpAppendable.DEFAULT_LEFT_PAD, builder.getLeftPad(), "Default left pad value was changed, some tests may fail");
-        assertEquals(TextHelpAppendable.DEFAULT_WIDTH, builder.getMaxWidth(), "Default width value was changed, some tests may fail");
     }
 
     @Test

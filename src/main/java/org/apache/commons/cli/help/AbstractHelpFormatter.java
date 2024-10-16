@@ -53,13 +53,13 @@ public abstract class AbstractHelpFormatter {
         /** The comparator to sort lists of options */
         private Comparator<Option> comparator = DEFAULT_COMPARATOR;
 
-        /** The {@link HelpAppendable} to use */
+        /** The {@link HelpAppendable}. */
         private HelpAppendable helpAppendable = TextHelpAppendable.systemOut();
 
         /** The {@link OptionFormatter.Builder} to use to format options in the table. */
         private OptionFormatter.Builder optionFormatBuilder = OptionFormatter.builder();
 
-        /** The string to separate option groups with */
+        /** The string to separate option groups. */
         private String optionGroupSeparator = DEFAULT_OPTION_GROUP_SEPARATOR;
 
         /**
@@ -82,18 +82,38 @@ public abstract class AbstractHelpFormatter {
             return (B) this;
         }
 
+        /**
+         * Gets the comparator to sort lists of options.
+         *
+         * @return the comparator to sort lists of options.
+         */
         protected Comparator<Option> getComparator() {
             return comparator;
         }
 
+        /**
+         * Gets {@link HelpAppendable}.
+         *
+         * @return the {@link HelpAppendable}.
+         */
         protected HelpAppendable getHelpAppendable() {
             return helpAppendable;
         }
 
+        /**
+         * Gets {@link OptionFormatter.Builder} to use to format options in the table.
+         *
+         * @return the {@link OptionFormatter.Builder} to use to format options in the table.
+         */
         protected OptionFormatter.Builder getOptionFormatBuilder() {
             return optionFormatBuilder;
         }
 
+        /**
+         * Gets string to separate option groups.
+         *
+         * @return the string to separate option groups.
+         */
         protected String getOptionGroupSeparator() {
             return optionGroupSeparator;
         }
@@ -253,9 +273,9 @@ public abstract class AbstractHelpFormatter {
             throw new IllegalArgumentException("cmdLineSyntax not provided");
         }
         if (autoUsage) {
-            helpAppendable.appendParagraph(String.format("%s %s %s", syntaxPrefix, cmdLineSyntax, toSyntaxOptions(options)));
+            helpAppendable.appendParagraphFormat("%s %s %s", syntaxPrefix, cmdLineSyntax, toSyntaxOptions(options));
         } else {
-            helpAppendable.appendParagraph(String.format("%s %s", syntaxPrefix, cmdLineSyntax));
+            helpAppendable.appendParagraphFormat("%s %s", syntaxPrefix, cmdLineSyntax);
         }
         if (!Util.isEmpty(header)) {
             helpAppendable.appendParagraph(header);

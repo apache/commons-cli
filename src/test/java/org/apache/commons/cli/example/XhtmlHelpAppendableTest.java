@@ -60,6 +60,13 @@ public class XhtmlHelpAppendableTest {
     }
 
     @Test
+    public void testAppendParagraphFormatTest() throws IOException {
+        sb.setLength(0);
+        underTest.appendParagraphFormat("Hello %s World %,d", "Joe", 309);
+        assertEquals(String.format("<p>Hello Joe World 309</p>%n"), sb.toString());
+    }
+
+    @Test
     public void testAppendParagraphTest() throws IOException {
         sb.setLength(0);
         underTest.appendParagraph("Hello World");

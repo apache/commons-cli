@@ -100,6 +100,11 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         return pos > startPos ? pos : limit - 1;
     }
 
+    /**
+     * Creates a new TextHelpAppendable on {@link System#out}.
+     *
+     * @return a new TextHelpAppendable on {@link System#out}.
+     */
     protected static TextHelpAppendable systemOut() {
         return new TextHelpAppendable(System.out);
     }
@@ -345,7 +350,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      */
     private void printQueue(final Queue<String> queue) throws IOException {
         for (final String s : queue) {
-            output.append(String.format("%s%n", Util.rtrim(s)));
+            appendFormat("%s%n", Util.rtrim(s));
         }
     }
 

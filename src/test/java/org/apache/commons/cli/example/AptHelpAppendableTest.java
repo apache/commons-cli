@@ -37,6 +37,13 @@ public class AptHelpAppendableTest {
     private final AptHelpAppendable underTest = new AptHelpAppendable(sb);
 
     @Test
+    public void testAppendFormatTest() throws IOException {
+        sb.setLength(0);
+        underTest.appendFormat("Big %s and Phantom %,d", "Joe", 309);
+        assertEquals(String.format("Big Joe and Phantom 309"), sb.toString());
+    }
+
+    @Test
     public void testAppendHeaderTest() throws IOException {
         sb.setLength(0);
         underTest.appendHeader(1, "Hello World");
@@ -57,6 +64,13 @@ public class AptHelpAppendableTest {
         sb.setLength(0);
         underTest.appendList(false, Arrays.asList(entries));
         assertEquals(String.format("    * one%n    * two%n    * three%n%n"), sb.toString());
+    }
+
+    @Test
+    public void testAppendParagraphFormatTest() throws IOException {
+        sb.setLength(0);
+        underTest.appendParagraphFormat("Hello %s World %,d", "Big Joe", 309);
+        assertEquals(String.format("  Hello Big Joe World 309%n%n"), sb.toString());
     }
 
     @Test
