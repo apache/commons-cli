@@ -710,7 +710,7 @@ public class DefaultParser implements CommandLineParser {
         for (final OptionGroup group : options.getOptionGroups()) {
             group.setSelected(null);
         }
-        cmd = CommandLine.builder().setDeprecatedHandler(deprecatedHandler).build();
+        cmd = CommandLine.builder().setDeprecatedHandler(deprecatedHandler).get();
         if (arguments != null) {
             for (final String argument : arguments) {
                 handleToken(argument);

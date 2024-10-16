@@ -149,7 +149,7 @@ public abstract class Parser implements CommandLineParser {
         }
         // initialize members
         setOptions(options);
-        cmd = CommandLine.builder().build();
+        cmd = CommandLine.builder().get();
         boolean eatTheRest = false;
         final List<String> tokenList = Arrays.asList(flatten(getOptions(), arguments == null ? new String[0] : arguments, stopAtNonOption));
         final ListIterator<String> iterator = tokenList.listIterator();

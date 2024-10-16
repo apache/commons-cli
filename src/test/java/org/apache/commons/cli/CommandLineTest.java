@@ -218,12 +218,22 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testBuilder() {
+    public void testBuilderBuild() {
         final CommandLine.Builder builder = new CommandLine.Builder();
         builder.addArg("foo").addArg("bar");
         builder.addOption(Option.builder("T").build());
         final CommandLine cmd = builder.build();
+        assertEquals("foo", cmd.getArgs()[0]);
+        assertEquals("bar", cmd.getArgList().get(1));
+        assertEquals("T", cmd.getOptions()[0].getOpt());
+    }
 
+    @Test
+    public void testBuilderGet() {
+        final CommandLine.Builder builder = new CommandLine.Builder();
+        builder.addArg("foo").addArg("bar");
+        builder.addOption(Option.builder("T").build());
+        final CommandLine cmd = builder.get();
         assertEquals("foo", cmd.getArgs()[0]);
         assertEquals("bar", cmd.getArgList().get(1));
         assertEquals("T", cmd.getOptions()[0].getOpt());
