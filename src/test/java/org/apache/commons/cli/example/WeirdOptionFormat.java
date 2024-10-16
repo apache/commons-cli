@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package org.apache.commons.example.cli;
+package org.apache.commons.cli.example;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +33,7 @@ public class WeirdOptionFormat implements Function<Iterable<Option>, TableDefini
 
     public WeirdOptionFormat() {
         styles = new ArrayList<>();
-        final TextStyle.Builder builder = new TextStyle.Builder();
+        final TextStyle.Builder builder = TextStyle.builder();
         styles.add(builder.setLeftPad(1).setIndent(3).get());
         styles.add(builder.setLeftPad(5).get());
         styles.add(builder.get());
@@ -59,7 +59,6 @@ public class WeirdOptionFormat implements Function<Iterable<Option>, TableDefini
             row.add(option.getDescription());
             rows.add(row);
         }
-
         return TableDefinition.from("", styles, Arrays.asList(headers), rows);
     }
 }

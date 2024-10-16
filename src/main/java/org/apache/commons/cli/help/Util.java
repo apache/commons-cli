@@ -25,6 +25,11 @@ import java.util.Arrays;
 final class Util {
 
     /**
+     * A special value for index not found.
+     */
+    private static final int NOT_FOUND = -1;
+
+    /**
      * Returns the {@code defaultValue} if {@code str} is empty.
      *
      * @param str          The string to check
@@ -45,14 +50,14 @@ final class Util {
      */
     static int indexOfNonWhitespace(final CharSequence text, final int startPos) {
         if (isEmpty(text)) {
-            return -1;
+            return NOT_FOUND;
         }
         // the line ends before the max wrap pos or a new line char found
         int idx = startPos;
         while (idx < text.length() && isWhitespace(text.charAt(idx))) {
             idx++;
         }
-        return idx < text.length() ? idx : -1;
+        return idx < text.length() ? idx : NOT_FOUND;
     }
 
     /**
@@ -68,7 +73,7 @@ final class Util {
     /**
      * Works around https://bugs.java.com/bugdatabase/view_bug?bug_id=8341522
      *
-     * Affected Version: 8,11,17,21,24
+     * Affected Version: 8, 11, 17, 21, 24.
      */
     static boolean isWhitespace(final char c) {
         return Character.isWhitespace(c) || Character.PARAGRAPH_SEPARATOR == c;
@@ -78,11 +83,11 @@ final class Util {
      * Removes the leading whitespace from the specified String.
      *
      * @param s The String to remove the leading padding from.
-     * @return The String of without the leading padding
+     * @return The String of without the leading padding.
      */
     static String ltrim(final String s) {
         final int pos = indexOfNonWhitespace(s, 0);
-        return pos == -1 ? "" : s.substring(pos);
+        return pos == NOT_FOUND ? "" : s.substring(pos);
     }
 
     /**
@@ -103,7 +108,7 @@ final class Util {
      *
      * @param len The length of the String of padding to create.
      *
-     * @return The String of padding
+     * @return The String of padding.
      */
     static String repeatSpace(final int len) {
         return repeat(len, ' ');
@@ -113,7 +118,7 @@ final class Util {
      * Removes the trailing whitespace from the specified String.
      *
      * @param s The String to remove the trailing padding from.
-     * @return The String of without the trailing padding
+     * @return The String of without the trailing padding.
      */
     static String rtrim(final String s) {
         if (isEmpty(s)) {

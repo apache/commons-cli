@@ -18,7 +18,6 @@ package org.apache.commons.cli.help;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -94,7 +93,7 @@ public class OptionFormatterTest {
     }
 
     @Test
-    public void testAsSyntaxOption() throws IOException {
+    public void testAsSyntaxOption() {
         OptionFormatter underTest;
 
         Option option = Option.builder().option("o").longOpt("opt").hasArg().build();

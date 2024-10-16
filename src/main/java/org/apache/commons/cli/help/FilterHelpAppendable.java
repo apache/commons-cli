@@ -49,19 +49,19 @@ public abstract class FilterHelpAppendable implements HelpAppendable {
     }
 
     @Override
-    public Appendable append(final char ch) throws IOException {
+    public FilterHelpAppendable append(final char ch) throws IOException {
         output.append(ch);
         return this;
     }
 
     @Override
-    public Appendable append(final CharSequence text) throws IOException {
+    public FilterHelpAppendable append(final CharSequence text) throws IOException {
         output.append(text);
         return this;
     }
 
     @Override
-    public Appendable append(final CharSequence csq, final int start, final int end) throws IOException {
+    public FilterHelpAppendable append(final CharSequence csq, final int start, final int end) throws IOException {
         output.append(csq, start, end);
         return this;
     }

@@ -14,12 +14,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package org.apache.commons.example.cli;
+package org.apache.commons.cli.example;
 
 import static java.lang.String.format;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,20 +48,6 @@ public class AptHelpAppendable extends FilterHelpAppendable {
         escapeAptMap.put("+", "\\+");
         escapeAptMap.put("|", "\\|");
         ESCAPE_APT = new LookupTranslator(escapeAptMap);
-    }
-
-    /**
-     * Constructs a string of specified length filled with the specified char.
-     *
-     * @param len      the length of the final string.
-     * @param fillChar the character to file it will.
-     * @return A string of specified length filled with the specified char.
-     * @since 1.10.0
-     */
-    static String filledString(final int len, final char fillChar) {
-        final char[] padding = new char[len];
-        Arrays.fill(padding, fillChar);
-        return new String(padding);
     }
 
     /**
@@ -119,8 +104,8 @@ public class AptHelpAppendable extends FilterHelpAppendable {
             final StringBuilder sb = new StringBuilder("*");
             for (int i = 0; i < table.headers().size(); i++) {
                 final String header = table.headers().get(i);
-                final TextStyle style = table.columnStyle().get(i);
-                sb.append(filledString(header.length() + 2, '-'));
+                final TextStyle style = table.columnTextStyles().get(i);
+                sb.append(StringUtils.repeat('-', header.length() + 2));
                 switch (style.getAlignment()) {
                 case LEFT:
                     sb.append("+");
@@ -134,7 +119,6 @@ public class AptHelpAppendable extends FilterHelpAppendable {
                 }
             }
             final String rowSeparator = System.lineSeparator() + sb.append(System.lineSeparator());
-
             // output the header line.
             output.append(sb.toString());
             output.append("|");
@@ -142,7 +126,6 @@ public class AptHelpAppendable extends FilterHelpAppendable {
                 output.append(format(" %s |", ESCAPE_APT.translate(header)));
             }
             output.append(rowSeparator);
-
             // write the table entries
             for (final Collection<String> row : table.rows()) {
                 output.append("|");
@@ -151,12 +134,10 @@ public class AptHelpAppendable extends FilterHelpAppendable {
                 }
                 output.append(rowSeparator);
             }
-
             // write the caption
             if (StringUtils.isNotEmpty(table.caption())) {
                 output.append(format("%s%n", ESCAPE_APT.translate(table.caption())));
             }
-
             output.append(System.lineSeparator());
         }
     }

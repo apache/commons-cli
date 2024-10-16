@@ -32,7 +32,7 @@ public class TextStyleTests {
 
     public static Stream<Arguments> padTestData() {
         final List<Arguments> lst = new ArrayList<>();
-        final TextStyle.Builder builder = new TextStyle.Builder();
+        final TextStyle.Builder builder = TextStyle.builder();
         builder.setIndent(5);
         builder.setLeftPad(5);
         builder.setMinWidth(4);

@@ -20,7 +20,9 @@ import static java.lang.String.format;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,55 +36,45 @@ import java.util.Set;
  */
 public class TextHelpAppendable extends FilterHelpAppendable {
 
-    /** Default number of characters per line */
+    /** The default number of characters per line: {@value}. */
     public static final int DEFAULT_WIDTH = 74;
 
-    /** Default padding to the left of each line */
+    /** The default padding to the left of each line: {@value}. */
     public static final int DEFAULT_LEFT_PAD = 1;
 
-    /** Number of space characters to be prefixed to each description line */
+    /** The number of space characters to be prefixed to each description line: {@value}. */
     public static final int DEFAULT_INDENT = 3;
 
-    /** Number of space characters before a list continuation line */
+    /** The number of space characters before a list continuation line: {@value}. */
     public static final int DEFAULT_LIST_INDENT = 7;
 
-    /** A blank line in the output */
+    /** A blank line in the output: {@value}. */
     private static final String BLANK_LINE = "";
 
-    /** An array of chars that are breaks in text */
+    /** The set of characters that are breaks in text. */
     // @formatter:off
-    private static final char[] BREAK_CHARS = {'\t', '\n', '\f', '\r',
-            Character.LINE_SEPARATOR,
-            Character.PARAGRAPH_SEPARATOR,
-            '\u000B', // VERTICAL TABULATION.
-            '\u001C', // FILE SEPARATOR.
-            '\u001D', // GROUP SEPARATOR.
-            '\u001E', // RECORD SEPARATOR.
-            '\u001F', // UNIT SEPARATOR.
-    };
-    // @formatter:off
-
-    /** The list of characters that are breaks in text. */
-    private static final Set<Character> BREAK_CHAR_SET = new HashSet<>();
-
-    static {
-        for (final char c : BREAK_CHARS) {
-            BREAK_CHAR_SET.add(c);
-        }
-    }
+    private static final Set<Character> BREAK_CHAR_SET = Collections.unmodifiableSet(new HashSet<>(Arrays.asList('\t', '\n', '\f', '\r',
+            (char) Character.LINE_SEPARATOR,
+            (char) Character.PARAGRAPH_SEPARATOR,
+            '\u000b', // VERTICAL TABULATION.
+            '\u001c', // FILE SEPARATOR.
+            '\u001d', // GROUP SEPARATOR.
+            '\u001e', // RECORD SEPARATOR.
+            '\u001f' // UNIT SEPARATOR.
+    )));
+    // @formatter:on
 
     /**
-     * Finds the next text wrap position after {@code startPos} for the text in {@code text} with the column width
-     * {@code width}. The wrap point is the last position before startPos+width having a whitespace character (space,
-     * \n, \r). If there is no whitespace character before startPos+width, it will return startPos+width.
+     * Finds the next text wrap position after {@code startPos} for the text in {@code text} with the column width {@code width}. The wrap point is the last
+     * position before startPos+width having a whitespace character (space, \n, \r). If there is no whitespace character before startPos+width, it will return
+     * startPos+width.
      *
-     * @param text The text being searched for the wrap position
-     * @param width width of the wrapped text
+     * @param text     The text being searched for the wrap position
+     * @param width    width of the wrapped text
      * @param startPos position from which to start the lookup whitespace character
      * @return position on which the text must be wrapped or @{code text.length()} if the wrap position is at the end of the text.
-     * @since 1.10.0
      */
-    public static int findWrapPos(final CharSequence text, final int width, final int startPos) {
+    public static int indexOfWrap(final CharSequence text, final int width, final int startPos) {
         if (width < 1) {
             throw new IllegalArgumentException("Width must be greater than 0");
         }
@@ -95,7 +87,6 @@ public class TextHelpAppendable extends FilterHelpAppendable {
                 return idx;
             }
         }
-
         if (startPos + width >= text.length()) {
             return text.length();
         }
@@ -112,7 +103,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     }
 
     /** Defines the TextStyle for paragraph, and associated output formats. */
-    private final TextStyle.Builder styleBuilder;
+    private final TextStyle.Builder textStyleBuilder;
 
     /**
      * Constructs an appendable filter built on top of the specified underlying appendable.
@@ -122,32 +113,37 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      */
     public TextHelpAppendable(final Appendable output) {
         super(output);
-        styleBuilder = new TextStyle.Builder().setMaxWidth(DEFAULT_WIDTH)
-                .setLeftPad(DEFAULT_LEFT_PAD).setIndent(DEFAULT_INDENT);
+        // @formatter:off
+        textStyleBuilder = TextStyle.builder()
+            .setMaxWidth(DEFAULT_WIDTH)
+            .setLeftPad(DEFAULT_LEFT_PAD)
+            .setIndent(DEFAULT_INDENT);
+        // @formatter:on
     }
 
     /**
      * Adjust the table format.
      * <p>
-     *     Given the width of the page and the size of the table attempt to resize the columns to fit the page width
-     *     if necessary.  Adjustments are made as follows:
+     * Given the width of the page and the size of the table attempt to resize the columns to fit the page width if necessary. Adjustments are made as follows:
      * </p>
      * <ul>
-     *     <li>The minimum size for a column may not be smaller than the length of the column header</li>
-     *     <li>The maximum size is set to the maximum of the length of the header or the longest line length.</li>
-     *     <li>If the total size of the columns is greater than the page wight, adjust the size of VARIABLE columns
-     *     to attempt reduce the width to the the maximum size.
+     * <li>The minimum size for a column may not be smaller than the length of the column header</li>
+     * <li>The maximum size is set to the maximum of the length of the header or the longest line length.</li>
+     * <li>If the total size of the columns is greater than the page wight, adjust the size of VARIABLE columns to attempt reduce the width to the the maximum
+     * size.
      * </ul>
-     * <p>Note: it is possible for the size of the columns to exceed the declared page width.  In this case the table
-     * will extend beyond the desired page width.</p>
+     * <p>
+     * Note: it is possible for the size of the columns to exceed the declared page width. In this case the table will extend beyond the desired page width.
+     * </p>
+     *
      * @param table the table to adjust.
      * @return a new TableDefinition with adjusted values.
      */
     protected TableDefinition adjustTableFormat(final TableDefinition table) {
         final List<TextStyle.Builder> styleBuilders = new ArrayList<>();
-        for (int i = 0; i < table.columnStyle().size(); i++) {
-            final TextStyle style = table.columnStyle().get(i);
-            final TextStyle.Builder builder = new TextStyle.Builder(style);
+        for (int i = 0; i < table.columnTextStyles().size(); i++) {
+            final TextStyle style = table.columnTextStyles().get(i);
+            final TextStyle.Builder builder = TextStyle.builder(style);
             styleBuilders.add(builder);
             final String header = table.headers().get(i);
 
@@ -164,10 +160,9 @@ public class TextHelpAppendable extends FilterHelpAppendable {
                 }
             }
         }
-
         // calculate the total width.
         int calcWidth = 0;
-        int adjustedMaxWidth = styleBuilder.getMaxWidth();
+        int adjustedMaxWidth = textStyleBuilder.getMaxWidth();
         for (final TextStyle.Builder builder : styleBuilders) {
             adjustedMaxWidth -= builder.getLeftPad();
             if (builder.isScalable()) {
@@ -176,7 +171,6 @@ public class TextHelpAppendable extends FilterHelpAppendable {
                 adjustedMaxWidth -= builder.getMaxWidth();
             }
         }
-
         // rescale if necessary
         if (calcWidth > adjustedMaxWidth) {
             final double fraction = adjustedMaxWidth * 1.0 / calcWidth;
@@ -194,7 +188,6 @@ public class TextHelpAppendable extends FilterHelpAppendable {
             // adjust by removing the padding as it was not accounted for above.
             styles.add(builder.get());
         }
-
         return TableDefinition.from(table.caption(), styles, table.headers(), table.rows());
     }
 
@@ -204,9 +197,9 @@ public class TextHelpAppendable extends FilterHelpAppendable {
             if (level < 1) {
                 throw new IllegalArgumentException("level must be at least 1");
             }
-            final char[] fillChars = {'=', '%', '+', '_'};
+            final char[] fillChars = { '=', '%', '+', '_' };
             final int idx = Math.min(level, fillChars.length) - 1;
-            final TextStyle style = styleBuilder.get();
+            final TextStyle style = textStyleBuilder.get();
             final Queue<String> queue = makeColumnQueue(text, style);
             queue.add(Util.repeatSpace(style.getLeftPad()) + Util.repeat(Math.min(text.length(), style.getMaxWidth()), fillChars[idx]));
             queue.add(BLANK_LINE);
@@ -217,12 +210,12 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     @Override
     public void appendList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
         if (list != null && !list.isEmpty()) {
-            final TextStyle.Builder builder = new TextStyle.Builder().setLeftPad(styleBuilder.getLeftPad()).setIndent(DEFAULT_LIST_INDENT);
+            final TextStyle.Builder builder = TextStyle.builder().setLeftPad(textStyleBuilder.getLeftPad()).setIndent(DEFAULT_LIST_INDENT);
             int i = 1;
             for (final CharSequence line : list) {
-                final String entry = ordered ? format(" %s. %s", i++, Util.defaultValue(line, BLANK_LINE)) :
-                        format(" * %s", Util.defaultValue(line, BLANK_LINE));
-                builder.setMaxWidth(Math.min(styleBuilder.getMaxWidth(), entry.length()));
+                final String entry = ordered ? format(" %s. %s", i++, Util.defaultValue(line, BLANK_LINE))
+                        : format(" * %s", Util.defaultValue(line, BLANK_LINE));
+                builder.setMaxWidth(Math.min(textStyleBuilder.getMaxWidth(), entry.length()));
                 printQueue(makeColumnQueue(entry, builder.get()));
             }
             output.append(System.lineSeparator());
@@ -232,7 +225,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     @Override
     public void appendParagraph(final CharSequence paragraph) throws IOException {
         if (!Util.isEmpty(paragraph)) {
-            final Queue<String> queue = makeColumnQueue(paragraph, styleBuilder.get());
+            final Queue<String> queue = makeColumnQueue(paragraph, textStyleBuilder.get());
             queue.add(BLANK_LINE);
             printQueue(queue);
         }
@@ -243,23 +236,21 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         final TableDefinition table = adjustTableFormat(rawTable);
         // write the table
         appendParagraph(table.caption());
-
         final List<TextStyle> headerStyles = new ArrayList<>();
-        for (final TextStyle style : table.columnStyle()) {
-            headerStyles.add(new TextStyle.Builder(style).setAlignment(TextStyle.Alignment.CENTER).get());
+        for (final TextStyle style : table.columnTextStyles()) {
+            headerStyles.add(TextStyle.builder(style).setAlignment(TextStyle.Alignment.CENTER).get());
         }
         writeColumnQueues(makeColumnQueues(table.headers(), headerStyles), headerStyles);
         for (final List<String> row : table.rows()) {
-            writeColumnQueues(makeColumnQueues(row, table.columnStyle()), table.columnStyle());
+            writeColumnQueues(makeColumnQueues(row, table.columnTextStyles()), table.columnTextStyles());
         }
-
         output.append(System.lineSeparator());
     }
 
     @Override
     public void appendTitle(final CharSequence title) throws IOException {
         if (!Util.isEmpty(title)) {
-            final TextStyle style = styleBuilder.get();
+            final TextStyle style = textStyleBuilder.get();
             final Queue<String> queue = makeColumnQueue(title, style);
             queue.add(Util.repeatSpace(style.getLeftPad()) + Util.repeat(Math.min(title.length(), style.getMaxWidth()), '#'));
             queue.add(BLANK_LINE);
@@ -269,41 +260,45 @@ public class TextHelpAppendable extends FilterHelpAppendable {
 
     /**
      * Gets the indent for the output.
+     *
      * @return the indent ofr the page.
      */
     public int getIndent() {
-        return styleBuilder.getIndent();
+        return textStyleBuilder.getIndent();
     }
 
     /**
      * Returns the left padding for the output.
+     *
      * @return The left padding for the output.
      */
     public int getLeftPad() {
-        return styleBuilder.getLeftPad();
+        return textStyleBuilder.getLeftPad();
     }
 
     /**
      * Gets the maximum width for the output
+     *
      * @return the maximum width for the output.
      */
     public int getMaxWidth() {
-        return styleBuilder.getMaxWidth();
+        return textStyleBuilder.getMaxWidth();
     }
 
     /**
      * Gets the style builder used to format text that is not otherwise formatted.
+     *
      * @return The style builder used to format text that is not otherwise formatted.
      */
-    public TextStyle.Builder getStyleBuilder() {
-        return styleBuilder;
+    public TextStyle.Builder getTextStyleBuilder() {
+        return textStyleBuilder;
     }
 
     /**
-     * Creates a queue comprising strings extracted from columnData where the alignment and length are determined
-     * by the style.
+     * Creates a queue comprising strings extracted from columnData where the alignment and length are determined by the style.
+     *
      * @param columnData The string to wrap
-     * @param style The TextStyle to guide the wrapping.
+     * @param style      The TextStyle to guide the wrapping.
      * @return A queue of the string wrapped.
      */
     protected Queue<String> makeColumnQueue(final CharSequence columnData, final TextStyle style) {
@@ -315,7 +310,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         final int wrappedMaxWidth = style.getMaxWidth() - indent.length();
         while (wrapPos < columnData.length()) {
             final int workingWidth = wrapPos == 0 ? style.getMaxWidth() : wrappedMaxWidth;
-            nextPos = findWrapPos(columnData, workingWidth, wrapPos);
+            nextPos = indexOfWrap(columnData, workingWidth, wrapPos);
             final CharSequence working = columnData.subSequence(wrapPos, nextPos);
             result.add(lpad + style.pad(wrapPos > 0, working));
             wrapPos = Util.indexOfNonWhitespace(columnData, nextPos);
@@ -325,10 +320,11 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     }
 
     /**
-     * For each column in the {@code columnData} apply the associated {@link TextStyle} and generated a queue of strings
-     * that are the maximum size of the column + the left pad.
+     * For each column in the {@code columnData} apply the associated {@link TextStyle} and generated a queue of strings that are the maximum size of the column
+     * + the left pad.
+     *
      * @param columnData The column data to output.
-     * @param styles the styles to apply.
+     * @param styles     the styles to apply.
      * @return A list of queues of strings that represent each column in the table.
      */
     protected List<Queue<String>> makeColumnQueues(final List<String> columnData, final List<TextStyle> styles) {
@@ -341,6 +337,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
 
     /**
      * Print a queue of text.
+     *
      * @param queue the queue of text to print.
      * @throws IOException on output error.
      */
@@ -352,16 +349,18 @@ public class TextHelpAppendable extends FilterHelpAppendable {
 
     /**
      * Print wrapped text using the TextHelpAppendable output style.
+     *
      * @param text the text to wrap
      * @throws IOException on output error.
      */
     public void printWrapped(final String text) throws IOException {
-        printQueue(makeColumnQueue(text, this.styleBuilder.get()));
+        printQueue(makeColumnQueue(text, this.textStyleBuilder.get()));
     }
 
     /**
      * Print wrapped text.
-     * @param text the text to wrap
+     *
+     * @param text  the text to wrap
      * @param style the style for the wrapped text.
      * @throws IOException on output error.
      */
@@ -371,7 +370,8 @@ public class TextHelpAppendable extends FilterHelpAppendable {
 
     /**
      * Resizes an original width based on the fractional size it should be.
-     * @param orig the original size.
+     *
+     * @param orig     the original size.
      * @param fraction the fractional adjustment.
      * @return the resized value.
      */
@@ -381,7 +381,8 @@ public class TextHelpAppendable extends FilterHelpAppendable {
 
     /**
      * Resize a TextBuilder based on the fractional size.
-     * @param builder the builder to adjust.
+     *
+     * @param builder  the builder to adjust.
      * @param fraction the fractional size (e.g. percentage of the current size) that the builder should be.
      * @return the builder with the maximum width and indent values resized.
      */
@@ -399,39 +400,42 @@ public class TextHelpAppendable extends FilterHelpAppendable {
 
     /**
      * Sets the indent for the output.
+     *
      * @param indent the indent used for paragraphs.
      */
     public void setIndent(final int indent) {
-        styleBuilder.setIndent(indent);
+        textStyleBuilder.setIndent(indent);
     }
 
     /**
      * Sets the left padding: the number of characters from the left edge to start output.
+     *
      * @param leftPad the left padding.
      */
     public void setLeftPad(final int leftPad) {
-        styleBuilder.setLeftPad(leftPad);
+        textStyleBuilder.setLeftPad(leftPad);
     }
 
     /**
      * Sets the maximum width for the output.
+     *
      * @param maxWidth the maximum width for the output.
      */
     public void setMaxWidth(final int maxWidth) {
-        styleBuilder.setMaxWidth(maxWidth);
+        textStyleBuilder.setMaxWidth(maxWidth);
     }
 
     /**
-     * Write one line from each of the {@code columnQueues} until all the queues are exhausted.
-     * If an exhausted queue is encountered while other queues continue to have content the exhausted queue will
-     * produce empty text for the output width of the column (maximum width + left pad).
+     * Write one line from each of the {@code columnQueues} until all the queues are exhausted. If an exhausted queue is encountered while other queues continue
+     * to have content the exhausted queue will produce empty text for the output width of the column (maximum width + left pad).
+     *
      * @param columnQueues the List of queues that represent the columns of data.
-     * @param styles the TextStyle for each column.
+     * @param styles       the TextStyle for each column.
      * @throws IOException on output error.
      */
     protected void writeColumnQueues(final List<Queue<String>> columnQueues, final List<TextStyle> styles) throws IOException {
         boolean moreData = true;
-        final String lPad = Util.repeatSpace(styleBuilder.get().getLeftPad());
+        final String lPad = Util.repeatSpace(textStyleBuilder.get().getLeftPad());
         while (moreData) {
             output.append(lPad);
             moreData = false;

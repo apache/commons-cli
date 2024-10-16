@@ -16,8 +16,6 @@
  */
 package org.apache.commons.cli.help;
 
-import static java.lang.String.format;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,32 +24,149 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 
 /**
- * The class for help formatters provides the framework to link the {@link HelpAppendable} with the {@link OptionFormatter} and a default
- * {@link TableDefinition} so to produce a standard format help page.
+ * Helps formatters provides the framework to link a {@link HelpAppendable} with a {@link OptionFormatter} and a default {@link TableDefinition} so to produce
+ * standardized format help output.
  *
  * @since 1.10.0
  */
 public abstract class AbstractHelpFormatter {
 
-    /** The string to display at the beginning of the usage statement */
-    public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
-
     /**
-     * The default separator between {@link OptionGroup} elements.
+     * Abstracts building instances for subclasses.
+     * <ul>
+     * <li>helpAppendable = a {@link TextHelpAppendable} writing to {@code System.out}</li>
+     * <li>optionFormatter.Builder = the default {@link OptionFormatter.Builder}</li>
+     * </ul>
+     *
+     * @param <B> The builder type.
+     * @param <T> The type to build.
      */
-    public static final String DEFAULT_OPTION_GROUP_SEPARATOR = " | ";
+    public abstract static class Builder<B extends Builder<B, T>, T extends AbstractHelpFormatter> implements Supplier<T> {
+
+        /** The comparator to sort lists of options */
+        private Comparator<Option> comparator = DEFAULT_COMPARATOR;
+
+        /** The {@link HelpAppendable} to use */
+        private HelpAppendable helpAppendable = defaultTextHelpAppendable();
+
+        /** The {@link OptionFormatter.Builder} to use to format options in the table. */
+        private OptionFormatter.Builder optionFormatBuilder = defaultOptionFormatterBuilder();
+
+        /** The string to separate option groups with */
+        private String optionGroupSeparator = DEFAULT_OPTION_GROUP_SEPARATOR;
+
+        /**
+         * Constructs a new instace.
+         * <p>
+         * Sets {@code showSince} to {@code true}.
+         * </p>
+         */
+        protected Builder() {
+            // empty
+        }
+
+        /**
+         * Returns this instance cast to {@code B}.
+         *
+         * @return this instance cast to {@code B}.
+         */
+        @SuppressWarnings("unchecked")
+        protected B asThis() {
+            return (B) this;
+        }
+
+        protected OptionFormatter.Builder defaultOptionFormatterBuilder() {
+            return new OptionFormatter.Builder();
+        }
+
+        protected TextHelpAppendable defaultTextHelpAppendable() {
+            return new TextHelpAppendable(System.out);
+        }
+
+        protected Comparator<Option> getComparator() {
+            return comparator;
+        }
+
+        protected HelpAppendable getHelpAppendable() {
+            return helpAppendable;
+        }
+
+        protected OptionFormatter.Builder getOptionFormatBuilder() {
+            return optionFormatBuilder;
+        }
+
+        protected String getOptionGroupSeparator() {
+            return optionGroupSeparator;
+        }
+
+        /**
+         * Sets the comparator to use for sorting options. If set to {@code null} no sorting is performed.
+         *
+         * @param comparator The comparator to use for sorting options.
+         * @return this
+         */
+        public B setComparator(final Comparator<Option> comparator) {
+            this.comparator = comparator;
+            return asThis();
+        }
+
+        /**
+         * Sets the {@link HelpAppendable}.
+         *
+         * @param helpAppendable the {@link HelpAppendable} to use.
+         * @return this
+         */
+        public B setHelpAppendable(final HelpAppendable helpAppendable) {
+            this.helpAppendable = helpAppendable != null ? helpAppendable : defaultTextHelpAppendable();
+            return asThis();
+        }
+
+        /**
+         * Sets the {@link OptionFormatter.Builder}.
+         *
+         * @param optionFormatBuilder the {@link OptionFormatter.Builder} to use.
+         * @return this
+         */
+        public B setOptionFormatBuilder(final OptionFormatter.Builder optionFormatBuilder) {
+            this.optionFormatBuilder = optionFormatBuilder != null ? optionFormatBuilder : defaultOptionFormatterBuilder();
+            return asThis();
+        }
+
+        /**
+         * Sets the OptionGroup separator. Normally " | " or something similar to denote that only one option may be chosen.
+         *
+         * @param optionGroupSeparator the string to separate option group elements with.
+         * @return this
+         */
+        public B setOptionGroupSeparator(final String optionGroupSeparator) {
+            this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "");
+            return asThis();
+        }
+
+    }
 
     /**
      * The default comparator for {@link Option} implementations.
      */
     public static final Comparator<Option> DEFAULT_COMPARATOR = (opt1, opt2) -> opt1.getKey().compareToIgnoreCase(opt2.getKey());
 
+    /**
+     * The default separator between {@link OptionGroup} elements.
+     */
+    public static final String DEFAULT_OPTION_GROUP_SEPARATOR = " | ";
+
+    /** The string to display at the beginning of the usage statement */
+    public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
+
+    /** The comparator for sorting {@link Option} collections */
+    protected Comparator<Option> comparator;
     /**
      * The {@link HelpAppendable} that produces the final output.
      */
@@ -60,16 +175,14 @@ public abstract class AbstractHelpFormatter {
      * The OptionFormatter.Builder used to display options within the help page
      */
     protected final OptionFormatter.Builder optionFormatBuilder;
+
+    /** The separator between {@link OptionGroup} components. */
+    protected final String optionGroupSeparator;
+
     /**
      * The phrase printed before the syntax line.
      */
     protected String syntaxPrefix = DEFAULT_SYNTAX_PREFIX;
-
-    /** The comparator for sorting {@link Option} collections */
-    protected Comparator<Option> comparator;
-
-    /** The separator between {@link OptionGroup} components. */
-    protected final String optionGroupSeparator;
 
     /**
      * Constructs the base formatter.
@@ -148,9 +261,9 @@ public abstract class AbstractHelpFormatter {
             throw new IllegalArgumentException("cmdLineSyntax not provided");
         }
         if (autoUsage) {
-            helpAppendable.appendParagraph(format("%s %s %s", syntaxPrefix, cmdLineSyntax, toSyntaxOptions(options)));
+            helpAppendable.appendParagraph(String.format("%s %s %s", syntaxPrefix, cmdLineSyntax, toSyntaxOptions(options)));
         } else {
-            helpAppendable.appendParagraph(format("%s %s", syntaxPrefix, cmdLineSyntax));
+            helpAppendable.appendParagraph(String.format("%s %s", syntaxPrefix, cmdLineSyntax));
         }
         if (!Util.isEmpty(header)) {
             helpAppendable.appendParagraph(header);

@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package org.apache.commons.example.cli;
+package org.apache.commons.cli.example;
 
 import static java.lang.String.format;
 
@@ -71,11 +71,9 @@ public class XhtmlHelpAppendable extends FilterHelpAppendable {
     @Override
     public void appendTable(final TableDefinition table) throws IOException {
         output.append(format("<table class='commons_cli_table'>%n"));
-
         if (StringUtils.isNotEmpty(table.caption())) {
             output.append(format("  <caption>%s</caption>%n", StringEscapeUtils.escapeHtml4(table.caption())));
         }
-
         // write the headers
         if (!table.headers().isEmpty()) {
             output.append(format("  <tr>%n"));
@@ -84,7 +82,6 @@ public class XhtmlHelpAppendable extends FilterHelpAppendable {
             }
             output.append(format("  </tr>%n"));
         }
-
         // write the data
         for (final List<String> row : table.rows()) {
             output.append(format("  <tr>%n"));

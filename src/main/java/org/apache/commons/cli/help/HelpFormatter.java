@@ -19,7 +19,6 @@ package org.apache.commons.cli.help;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.cli.Option;
@@ -71,22 +70,10 @@ public class HelpFormatter extends AbstractHelpFormatter {
      * <li>optionFormatter.Builder = the default {@link OptionFormatter.Builder}</li>
      * </ul>
      */
-    public static class Builder {
+    public static class Builder extends AbstractHelpFormatter.Builder<Builder, HelpFormatter> {
 
         /** If {@code true} show the "Since" column, otherwise ignore it. */
-        private boolean showSince;
-
-        /** The {@link HelpAppendable} to use */
-        private HelpAppendable helpAppendable;
-
-        /** The {@link OptionFormatter.Builder} to use to format options in the table. */
-        private OptionFormatter.Builder optionFormatBuilder;
-
-        /** The string to separate option groups with */
-        private String optionGroupSeparator;
-
-        /** The comparator to sort lists of options */
-        private Comparator<Option> comparator;
+        private boolean showSince = true;
 
         /**
          * Constructs a new instace.
@@ -94,64 +81,8 @@ public class HelpFormatter extends AbstractHelpFormatter {
          * Sets {@code showSince} to {@code true}.
          * </p>
          */
-        public Builder() {
-            showSince = true;
-            comparator = DEFAULT_COMPARATOR;
-            optionGroupSeparator = DEFAULT_OPTION_GROUP_SEPARATOR;
-        }
-
-        /**
-         * Constructs the {@link HelpFormatter}.
-         *
-         * @return this.
-         */
-        public HelpFormatter build() {
-            validate();
-            return new HelpFormatter(this);
-        }
-
-        /**
-         * Sets the comparator to use for sorting opitons. If set to {@code null} no sorting is performed.
-         *
-         * @param comparator The comparator to use for sorting opitons.
-         * @return this
-         */
-        public Builder setComparator(final Comparator<Option> comparator) {
-            this.comparator = comparator;
-            return this;
-        }
-
-        /**
-         * Sets the {@link OptionFormatter.Builder}.
-         *
-         * @param optionFormatBuilder the {@link OptionFormatter.Builder} to use.
-         * @return this
-         */
-        public Builder setOptionFormatBuilder(final OptionFormatter.Builder optionFormatBuilder) {
-            this.optionFormatBuilder = optionFormatBuilder;
-            return this;
-        }
-
-        /**
-         * Sets the OptionGroup separator. Normally " | " or something similar to denote that only one option may be chosen.
-         *
-         * @param optionGroupSeparator the string to separate option group elements with.
-         * @return this
-         */
-        public Builder setOptionGroupSeparator(final String optionGroupSeparator) {
-            this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "");
-            return this;
-        }
-
-        /**
-         * Sets the {@link HelpAppendable}.
-         *
-         * @param helpAppendable the {@link HelpAppendable} to use.
-         * @return this
-         */
-        public Builder setSerializer(final HelpAppendable helpAppendable) {
-            this.helpAppendable = helpAppendable;
-            return this;
+        protected Builder() {
+            // empty
         }
 
         /**
@@ -165,19 +96,9 @@ public class HelpFormatter extends AbstractHelpFormatter {
             return this;
         }
 
-        /**
-         * Performs a sanity check and sets default values if they are not set.
-         *
-         * @return this.
-         */
-        private Builder validate() {
-            if (helpAppendable == null) {
-                helpAppendable = new TextHelpAppendable(System.out);
-            }
-            if (optionFormatBuilder == null) {
-                optionFormatBuilder = new OptionFormatter.Builder();
-            }
-            return this;
+        @Override
+        public HelpFormatter get() {
+            return new HelpFormatter(this);
         }
     }
 
@@ -187,42 +108,29 @@ public class HelpFormatter extends AbstractHelpFormatter {
     /** Default padding to the left of each line */
     public static final int DEFAULT_LEFT_PAD = 1;
 
-    /** Number of space characters to be prefixed to each description line */
-    public static final int DEFAULT_INDENT = 3;
-
     /** The default number of spaces between columns in the options table */
     public static final int DEFAULT_COLUMN_SPACING = 5;
 
+    /**
+     * Constructs a new builder.
+     *
+     * @return a new builder.
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
     /** If {@code true} show the "Since" column, otherwise ignore it. */
     private final boolean showSince;
-
-    /**
-     * Constructs a new instance using the default {@link Builder}.
-     *
-     * @see Builder
-     */
-    public HelpFormatter() {
-        this(new Builder().validate());
-    }
 
     /**
      * Constructs the Help formatter.
      *
      * @param builder the Builder to build from.
      */
-    private HelpFormatter(final Builder builder) {
-        super(builder.helpAppendable, builder.optionFormatBuilder, builder.comparator, builder.optionGroupSeparator);
-
+    protected HelpFormatter(final Builder builder) {
+        super(builder.getHelpAppendable(), builder.getOptionFormatBuilder(), builder.getComparator(), builder.getOptionGroupSeparator());
         this.showSince = builder.showSince;
-    }
-
-    /**
-     * Convenience constructor to create an instance using the specified {@link HelpAppendable} and the remaining default {@link Builder}.
-     *
-     * @param helpAppendable the {@link HelpAppendable} to use.
-     */
-    public HelpFormatter(final HelpAppendable helpAppendable) {
-        this(new Builder().setSerializer(helpAppendable).validate());
     }
 
     /**
@@ -234,7 +142,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
     @Override
     public TableDefinition getTableDefinition(final Iterable<Option> options) {
         // set up the base TextStyle for the columns configured for the Option opt and arg values..
-        final TextStyle.Builder builder = new TextStyle.Builder().setAlignment(TextStyle.Alignment.LEFT).setIndent(DEFAULT_LEFT_PAD).setScalable(false);
+        final TextStyle.Builder builder = TextStyle.builder().setAlignment(TextStyle.Alignment.LEFT).setIndent(DEFAULT_LEFT_PAD).setScalable(false);
         final List<TextStyle> styles = new ArrayList<>();
         styles.add(builder.get());
         // set up showSince column
@@ -246,7 +154,6 @@ public class HelpFormatter extends AbstractHelpFormatter {
         // set up the description column.
         builder.setAlignment(TextStyle.Alignment.LEFT);
         styles.add(builder.get());
-
         // setup the rows for the table.
         final List<List<String>> rows = new ArrayList<>();
         final StringBuilder sb = new StringBuilder();
@@ -270,9 +177,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
             row.add(formatter.getDescription());
             rows.add(row);
         }
-
         // return the TableDefinition with the proper column headers.
-        return showSince ? TableDefinition.from("", styles, Arrays.asList("Options", "Since", "Description"), rows)
-                : TableDefinition.from("", styles, Arrays.asList("Options", "Description"), rows);
+        return TableDefinition.from("", styles, showSince ? Arrays.asList("Options", "Since", "Description") : Arrays.asList("Options", "Description"), rows);
     }
 }

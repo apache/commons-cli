@@ -19,6 +19,7 @@ package org.apache.commons.cli.help;
 import java.util.Arrays;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.apache.commons.cli.DeprecatedAttributes;
 import org.apache.commons.cli.Option;
@@ -33,7 +34,7 @@ public final class OptionFormatter {
     /**
      * Builds instances of {@link OptionFormatter}.
      */
-    public static final class Builder {
+    public static final class Builder implements Supplier<OptionFormatter> {
 
         /** The argument name delimiters */
         private final String[] argNameDelimiters;
@@ -216,6 +217,12 @@ public final class OptionFormatter {
         public String toArgName(final String argName) {
             return argNameDelimiters[0] + Util.defaultValue(argName, "") + argNameDelimiters[1];
         }
+
+        @Override
+        public OptionFormatter get() {
+            // TODO Auto-generated method stub
+            return null;
+        }
     }
 
     /** The default delimiters for optional arguments */
@@ -291,7 +298,7 @@ public final class OptionFormatter {
      * @return an OptionFormatter for the specified @{code option}.
      */
     public static OptionFormatter from(final Option option) {
-        return new OptionFormatter.Builder().build(option);
+        return new Builder().build(option);
     }
 
     /**

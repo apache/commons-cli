@@ -38,10 +38,10 @@ public interface TableDefinition {
     /**
      * A helper function to create a table instance from the various components.
      *
-     * @param caption     The caption, May be {@code null}
+     * @param caption     The caption, may be {@code null}.
      * @param columnStyle a list of TextStyle elements defining the columns.
      * @param headers     the list of column headers.
-     * @param rows        a collection of Rows.
+     * @param rows        a collection of rows.
      * @return A TableDefinition returning the parameters as appropriate.
      */
     static TableDefinition from(final String caption, final List<TextStyle> columnStyle, final List<String> headers, final Iterable<List<String>> rows) {
@@ -53,7 +53,7 @@ public interface TableDefinition {
             }
 
             @Override
-            public List<TextStyle> columnStyle() {
+            public List<TextStyle> columnTextStyles() {
                 return columnStyle;
             }
 
@@ -81,7 +81,7 @@ public interface TableDefinition {
      *
      * @return the list of TextStyles.
      */
-    List<TextStyle> columnStyle();
+    List<TextStyle> columnTextStyles();
 
     /**
      * Gets the list of header strings. One for each column in order.

@@ -16,18 +16,19 @@
  */
 
 /**
- * Commons client help production system.
+ * The help production system.
  * <p>
- * This package contains the classes used by commons-cli to produce the help output.
- * In general there are 4 classes that users/developers may be interested in.
+ * This package contains the classes to produce help output. In general,, there are 4 classes that may interest users.
  * </p>
  * <ul>
- *     <li>HelpFormatter - the class used to produce the help output for most users.</li>
- *     <li>Scribe - Writes the output in a specific output serialization format (e.g. text, XHTML, Markdown, etc.)</li>
- *     <li>OptionFormatter - Determines how to format the various data elements in an Option</li>
- *     <li>TableDefinition - Useful for developers who want to build custom option displays or use the help system to produce
- *     additional information in the help system</li>
+ * <li>{@link org.apache.commons.cli.help.HelpFormatter HelpFormatter} - The class used to produce the help output for most users.</li>
+ * <li>{@link org.apache.commons.cli.help.HelpAppendable HelpAppendable} - Writes the output in a specific output format. For example
+ * {@link org.apache.commons.cli.help.TextHelpAppendable TextHelpAppendable} for text, other classes for XHTML, Markdown, and so on.</li>
+ * <li>{@link org.apache.commons.cli.help.OptionFormatter OptionFormatter} - Determines how to format the various data elements in an Option</li>
+ * <li>{@link org.apache.commons.cli.help.TableDefinition TableDefinition} - Useful for developers who want to build custom option displays or use the help
+ * system to produce additional information in the help system.</li>
  * </ul>
+ *
  * @since 1.10.0
  */
 package org.apache.commons.cli.help;

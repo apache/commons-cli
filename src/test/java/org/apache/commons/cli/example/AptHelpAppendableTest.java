@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
-package org.apache.commons.example.cli;
+package org.apache.commons.cli.example;
 
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,7 +55,6 @@ public class AptHelpAppendableTest {
         sb.setLength(0);
         underTest.appendList(true, Arrays.asList(entries));
         assertEquals(format("    [[1]] one%n    [[2]] two%n    [[3]] three%n%n"), sb.toString());
-
         sb.setLength(0);
         underTest.appendList(false, Arrays.asList(entries));
         assertEquals(format("    * one%n    * two%n    * three%n%n"), sb.toString());
@@ -73,13 +72,12 @@ public class AptHelpAppendableTest {
         final List<TextStyle> styles = Arrays.asList(TextStyle.DEFAULT, TextStyle.DEFAULT, TextStyle.DEFAULT);
         final String[] headers = { "one", "two", "three" };
         // @formatter:off
-        final List[] rows = {
+        final List<List<String>> rows = Arrays.asList(
                 Arrays.asList(new String[]{"uno", "dos", "tres"}),
                 Arrays.asList(new String[]{"aon", "dhá", "trí"}),
                 Arrays.asList(new String[]{"واحد", "اثنين", "ثلاثة"})
-        };
+        );
         // @formatter:on
-
         List<String> expected = new ArrayList<>();
         expected.add("*-----+-----+-------+");
         expected.add("| one | two | three |");
@@ -92,27 +90,23 @@ public class AptHelpAppendableTest {
         expected.add("*-----+-----+-------+");
         expected.add("The caption");
         expected.add("");
-
-        TableDefinition table = TableDefinition.from("The caption", styles, Arrays.asList(headers), Arrays.asList(rows));
+        TableDefinition table = TableDefinition.from("The caption", styles, Arrays.asList(headers), rows);
         sb.setLength(0);
         underTest.appendTable(table);
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "full table failed");
-
-        table = TableDefinition.from(null, styles, Arrays.asList(headers), Arrays.asList(rows));
+        table = TableDefinition.from(null, styles, Arrays.asList(headers), rows);
         expected.remove(9);
         sb.setLength(0);
         underTest.appendTable(table);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual);
-
         table = TableDefinition.from(null, styles, Arrays.asList(headers), Collections.emptyList());
         expected = new ArrayList<>();
         expected.add("*-----+-----+-------+");
         expected.add("| one | two | three |");
         expected.add("*-----+-----+-------+");
         expected.add("");
-
         sb.setLength(0);
         underTest.appendTable(table);
         actual = IOUtils.readLines(new StringReader(sb.toString()));
