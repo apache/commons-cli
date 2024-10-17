@@ -65,7 +65,7 @@ public class CommandLine implements Serializable {
         /**
          * Constructs a new instance.
          *
-         * @deprecated Use {@link #build()}.
+         * @deprecated Use {@link #builder()}.
          */
         @Deprecated
         public Builder() {
