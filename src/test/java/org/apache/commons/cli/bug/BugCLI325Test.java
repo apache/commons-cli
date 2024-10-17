@@ -40,7 +40,7 @@ public class BugCLI325Test {
                 .build();
         // @formatter:on
         final String[] args = {"-x", "A=a", "B=b"};
-        final CommandLine cmdLine = DefaultParser.builder().build().parse(new Options().addOption(option), args);
+        final CommandLine cmdLine = DefaultParser.builder().get().parse(new Options().addOption(option), args);
         final Properties props = cmdLine.getOptionProperties(option);
         assertEquals(2, props.size());
         assertEquals("a", props.get("A"));

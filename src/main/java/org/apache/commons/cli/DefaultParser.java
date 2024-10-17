@@ -22,6 +22,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Default parser.
@@ -44,7 +45,7 @@ public class DefaultParser implements CommandLineParser {
      *
      * @since 1.5.0
      */
-    public static final class Builder {
+    public static final class Builder implements Supplier<DefaultParser> {
 
         /** Flag indicating if partial matching of long options is supported. */
         private boolean allowPartialMatching = true;
@@ -74,8 +75,20 @@ public class DefaultParser implements CommandLineParser {
          *
          * @return the new {@link DefaultParser}
          * @since 1.5.0
+         * @deprecated Use {@link #get()}.
          */
+        @Deprecated
         public DefaultParser build() {
+            return get();
+        }
+
+        /**
+         * Builds an DefaultParser with the values declared by this {@link Builder}.
+         *
+         * @return the new {@link DefaultParser}
+         * @since 1.10.0
+         */
+        public DefaultParser get() {
             return new DefaultParser(allowPartialMatching, stripLeadingAndTrailingQuotes, deprecatedHandler);
         }
 

@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.cli.DefaultParser.Builder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,12 +43,14 @@ public class DefaultParserTest extends AbstractParserTestCase {
     @Test
     public void testBuilder() {
         // @formatter:off
-        parser = DefaultParser.builder()
+        final Builder builder = DefaultParser.builder()
                 .setStripLeadingAndTrailingQuotes(false)
                 .setAllowPartialMatching(false)
-                .setDeprecatedHandler(null)
-                .build();
+                .setDeprecatedHandler(null);
         // @formatter:on
+        parser = builder.build();
+        assertEquals(DefaultParser.class, parser.getClass());
+        parser = builder.get();
         assertEquals(DefaultParser.class, parser.getClass());
     }
 
@@ -82,7 +85,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
     @Test
     public void testLongOptionQuoteHandlingWithoutStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).get();
         final String[] args = {"--bfile", "\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
@@ -92,7 +95,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
     @Test
     public void testLongOptionQuoteHandlingWithStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).build();
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).get();
         final String[] args = {"--bfile", "\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
@@ -112,7 +115,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
     @Test
     public void testLongOptionWithEqualsQuoteHandlingWithoutStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).get();
         final String[] args = {"--bfile=\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
@@ -122,7 +125,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
     @Test
     public void testLongOptionWithEqualsQuoteHandlingWithStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).build();
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).get();
         final String[] args = {"--bfile=\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
@@ -143,7 +146,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
     @Test
     public void testShortOptionQuoteHandlingWithoutStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).build();
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(false).get();
         final String[] args = {"-b", "\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
@@ -153,7 +156,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
 
     @Test
     public void testShortOptionQuoteHandlingWithStrip() throws Exception {
-        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).build();
+        parser = DefaultParser.builder().setStripLeadingAndTrailingQuotes(true).get();
         final String[] args = {"-b", "\"quoted string\""};
 
         final CommandLine cl = parser.parse(options, args);
