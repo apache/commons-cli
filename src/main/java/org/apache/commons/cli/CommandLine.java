@@ -63,6 +63,16 @@ public class CommandLine implements Serializable {
         private Consumer<Option> deprecatedHandler = DEPRECATED_HANDLER;
 
         /**
+         * Constructs a new instance.
+         *
+         * @deprecated Use {@link #build()}.
+         */
+        @Deprecated
+        public Builder() {
+            // empty
+        }
+
+        /**
          * Adds left-over unrecognized option/argument.
          *
          * @param arg the unrecognized option/argument.

@@ -219,10 +219,13 @@ public class CommandLineTest {
 
     @Test
     public void testBuilderBuild() {
-        final CommandLine.Builder builder = new CommandLine.Builder();
-        builder.addArg("foo").addArg("bar");
-        builder.addOption(Option.builder("T").build());
-        final CommandLine cmd = builder.build();
+        // @formatter:off
+        final CommandLine cmd = CommandLine.builder()
+                .addArg("foo")
+                .addArg("bar")
+                .addOption(Option.builder("T").build())
+                .build();
+        // @formatter:on
         assertEquals("foo", cmd.getArgs()[0]);
         assertEquals("bar", cmd.getArgList().get(1));
         assertEquals("T", cmd.getOptions()[0].getOpt());
@@ -230,10 +233,13 @@ public class CommandLineTest {
 
     @Test
     public void testBuilderGet() {
-        final CommandLine.Builder builder = new CommandLine.Builder();
-        builder.addArg("foo").addArg("bar");
-        builder.addOption(Option.builder("T").build());
-        final CommandLine cmd = builder.get();
+        // @formatter:off
+        final CommandLine cmd = CommandLine.builder()
+                .addArg("foo")
+                .addArg("bar")
+                .addOption(Option.builder("T").build())
+                .get();
+        // @formatter:on
         assertEquals("foo", cmd.getArgs()[0]);
         assertEquals("bar", cmd.getArgList().get(1));
         assertEquals("T", cmd.getOptions()[0].getOpt());
@@ -241,7 +247,7 @@ public class CommandLineTest {
 
     @Test
     public void testBuilderNullArgs() {
-        final CommandLine.Builder builder = new CommandLine.Builder();
+        final CommandLine.Builder builder = CommandLine.builder();
         builder.addArg(null).addArg(null);
         builder.addOption(Option.builder("T").build());
         final CommandLine cmd = builder.build();
@@ -252,7 +258,7 @@ public class CommandLineTest {
 
     @Test
     public void testBuilderNullOption() {
-        final CommandLine.Builder builder = new CommandLine.Builder();
+        final CommandLine.Builder builder = CommandLine.builder();
         builder.addArg("foo").addArg("bar");
         builder.addOption(null);
         builder.addOption(null);

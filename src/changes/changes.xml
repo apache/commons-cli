@@ -24,6 +24,7 @@
   <body>
     <release version="1.9.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
       <!-- FIX -->
+      <action type="add" issue="CLI-339" dev="ggregory" due-to="Gary Gregory">Deprecate CommandLine.Builder() in favor of CommandLine.builder().</action>
       <!-- ADD -->
       <action type="add" issue="CLI-339" dev="ggregory" due-to="Claude Warren, Gary Gregory">Help formatter extension in the new package #314.</action>
       <action type="add" dev="ggregory" due-to="Gary Gregory">CommandLine.Builder implements Supplier&lt;CommandLine&gt;.</action>
