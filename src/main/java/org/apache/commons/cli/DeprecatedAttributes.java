@@ -55,6 +55,17 @@ public final class DeprecatedAttributes {
          */
         private String since;
 
+
+        /**
+         * Constructs a new instance.
+         *
+         * @deprecated Use {@link #builder()}.
+         */
+        @Deprecated
+        public Builder() {
+            // empty
+        }
+
         @Override
         public DeprecatedAttributes get() {
             return new DeprecatedAttributes(description, since, forRemoval);
