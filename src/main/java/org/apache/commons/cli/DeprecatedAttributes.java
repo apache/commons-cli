@@ -55,7 +55,6 @@ public final class DeprecatedAttributes {
          */
         private String since;
 
-
         /**
          * Constructs a new instance.
          *
