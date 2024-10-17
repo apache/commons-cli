@@ -28,6 +28,10 @@ import java.io.IOException;
  * The class {@code FilterHelpAppendable} itself simply overrides all methods of {@code HelpAppendable} with versions that pass all requests to the underlying
  * appendable. Subclasses of {@code FilterHelpAppendable} may further override some of these methods as well as provide additional methods and fields.
  * </p>
+ * <p>
+ * <em>Implementation Note</em>: This class is similar to FilterOutputStream in relation to OutputStream. We could further split FilterHelpAppendable into a
+ * FilterAppendable but that seems like YAGNI.
+ * </p>
  *
  * @since 1.10.0
  */
