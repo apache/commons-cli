@@ -29,23 +29,28 @@ import java.util.List;
 import org.apache.commons.cli.help.TableDefinition;
 import org.apache.commons.cli.help.TextStyle;
 import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AptHelpAppendableTest {
 
-    private final StringBuilder sb = new StringBuilder();
-    private final AptHelpAppendable underTest = new AptHelpAppendable(sb);
+    private StringBuilder sb;
+    private AptHelpAppendable underTest;
+
+    @BeforeEach
+    public void beforeEach() {
+        sb = new StringBuilder();
+        underTest = new AptHelpAppendable(sb);
+    }
 
     @Test
     public void testAppendFormatTest() throws IOException {
-        sb.setLength(0);
         underTest.appendFormat("Big %s and Phantom %,d", "Joe", 309);
         assertEquals(String.format("Big Joe and Phantom 309"), sb.toString());
     }
 
     @Test
     public void testAppendHeaderTest() throws IOException {
-        sb.setLength(0);
         underTest.appendHeader(1, "Hello World");
         assertEquals(String.format("* Hello World%n%n"), sb.toString());
         sb.setLength(0);
@@ -58,7 +63,6 @@ public class AptHelpAppendableTest {
     @Test
     public void testAppendListTest() throws IOException {
         final String[] entries = { "one", "two", "three" };
-        sb.setLength(0);
         underTest.appendList(true, Arrays.asList(entries));
         assertEquals(String.format("    [[1]] one%n    [[2]] two%n    [[3]] three%n%n"), sb.toString());
         sb.setLength(0);
@@ -68,14 +72,12 @@ public class AptHelpAppendableTest {
 
     @Test
     public void testAppendParagraphFormatTest() throws IOException {
-        sb.setLength(0);
         underTest.appendParagraphFormat("Hello %s World %,d", "Big Joe", 309);
         assertEquals(String.format("  Hello Big Joe World 309%n%n"), sb.toString());
     }
 
     @Test
     public void testAppendParagraphTest() throws IOException {
-        sb.setLength(0);
         underTest.appendParagraph("Hello World");
         assertEquals(String.format("  Hello World%n%n"), sb.toString());
     }
@@ -104,7 +106,6 @@ public class AptHelpAppendableTest {
         expected.add("The caption");
         expected.add("");
         TableDefinition table = TableDefinition.from("The caption", styles, Arrays.asList(headers), rows);
-        sb.setLength(0);
         underTest.appendTable(table);
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "full table failed");
