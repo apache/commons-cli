@@ -268,7 +268,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Gets the indent for the output.
      *
-     * @return the indent ofr the page.
+     * @return the indent of the page.
      */
     public int getIndent() {
         return textStyleBuilder.getIndent();
