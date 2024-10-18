@@ -433,8 +433,8 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     }
 
     /**
-     * Writes one line from each of the {@code columnQueues} until all the queues are exhausted. If an exhausted queue is encountered while other queues continue
-     * to have content the exhausted queue will produce empty text for the output width of the column (maximum width + left pad).
+     * Writes one line from each of the {@code columnQueues} until all the queues are exhausted. If an exhausted queue is encountered while other queues
+     * continue to have content the exhausted queue will produce empty text for the output width of the column (maximum width + left pad).
      *
      * @param columnQueues the List of queues that represent the columns of data.
      * @param styles       the TextStyle for each column.
