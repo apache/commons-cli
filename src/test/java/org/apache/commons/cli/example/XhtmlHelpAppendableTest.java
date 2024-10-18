@@ -29,16 +29,25 @@ import java.util.List;
 import org.apache.commons.cli.help.TableDefinition;
 import org.apache.commons.cli.help.TextStyle;
 import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests {@link XhtmlHelpAppendable}.
+ */
 public class XhtmlHelpAppendableTest {
 
-    private final StringBuilder sb = new StringBuilder();
-    private final XhtmlHelpAppendable underTest = new XhtmlHelpAppendable(sb);
+    private StringBuilder sb;
+    private XhtmlHelpAppendable underTest;
+
+    @BeforeEach
+    public void beforeEach() {
+        sb = new StringBuilder();
+        underTest = new XhtmlHelpAppendable(sb);
+    }
 
     @Test
     public void testAppendHeaderTest() throws IOException {
-        sb.setLength(0);
         underTest.appendHeader(1, "Hello World");
         assertEquals(String.format("<h1>Hello World</h1>%n"), sb.toString());
         sb.setLength(0);
@@ -51,7 +60,6 @@ public class XhtmlHelpAppendableTest {
     @Test
     public void testAppendListTest() throws IOException {
         final String[] entries = { "one", "two", "three" };
-        sb.setLength(0);
         underTest.appendList(true, Arrays.asList(entries));
         assertEquals(String.format("<ol>%n  <li>one</li>%n  <li>two</li>%n  <li>three</li>%n</ol>%n"), sb.toString());
         sb.setLength(0);
@@ -61,14 +69,12 @@ public class XhtmlHelpAppendableTest {
 
     @Test
     public void testAppendParagraphFormatTest() throws IOException {
-        sb.setLength(0);
         underTest.appendParagraphFormat("Hello %s World %,d", "Joe", 309);
         assertEquals(String.format("<p>Hello Joe World 309</p>%n"), sb.toString());
     }
 
     @Test
     public void testAppendParagraphTest() throws IOException {
-        sb.setLength(0);
         underTest.appendParagraph("Hello World");
         assertEquals(String.format("<p>Hello World</p>%n"), sb.toString());
     }
@@ -109,7 +115,6 @@ public class XhtmlHelpAppendableTest {
         expected.add("  </tr>");
         expected.add("</table>");
         TableDefinition table = TableDefinition.from("The caption", styles, Arrays.asList(headers), rows);
-        sb.setLength(0);
         underTest.appendTable(table);
         List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual, "full table failed");
@@ -136,7 +141,6 @@ public class XhtmlHelpAppendableTest {
 
     @Test
     public void testAppendTitleTest() throws IOException {
-        sb.setLength(0);
         underTest.appendTitle("Hello World");
         assertEquals(String.format("<span class='commons_cli_title'>Hello World</span>%n"), sb.toString());
     }
