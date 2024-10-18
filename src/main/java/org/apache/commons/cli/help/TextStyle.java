@@ -222,7 +222,9 @@ public final class TextStyle {
         }
     }
 
-    /** The unset value for maxWidth */
+    /**
+     * The unset value for maxWidth: {@value}.
+     */
     public static final int UNSET_MAX_WIDTH = Integer.MAX_VALUE;
 
     /**
