@@ -27,7 +27,7 @@ import java.util.function.Supplier;
  */
 public final class TextStyle {
 
-    /** 
+    /**
      * The alignment possibilities.
       */
     public enum Alignment {
@@ -89,28 +89,6 @@ public final class TextStyle {
          * </ul>
          */
         private Builder() {
-        }
-
-        /**
-         * Constructs a builder from an existing TextStyle. The default values are:
-         * <ul>
-         * <li>alignment = LEFT</li>
-         * <li>leftPad = 0</li>
-         * <li>scaling = VARIABLE</li>
-         * <li>minWidth = 0</li>
-         * <li>maxWidth = UNSET_MAX_WIDTH</li>
-         * </ul>
-         * *
-         *
-         * @param style the TextStyle to set all values from.
-         */
-        private Builder(final TextStyle style) {
-            this.alignment = style.alignment;
-            this.leftPad = style.leftPad;
-            this.indent = style.indent;
-            this.scalable = style.scalable;
-            this.minWidth = style.minWidth;
-            this.maxWidth = style.maxWidth;
         }
 
         @Override
@@ -228,6 +206,23 @@ public final class TextStyle {
             this.scalable = scalable;
             return this;
         }
+
+        /**
+         * Sets all properties from the given text style.
+         *
+         * @param style the source text style.
+         * @return this instance.
+         */
+        public Builder setTextStyle(final TextStyle style) {
+            this.alignment = style.alignment;
+            this.leftPad = style.leftPad;
+            this.indent = style.indent;
+            this.scalable = style.scalable;
+            this.minWidth = style.minWidth;
+            this.maxWidth = style.maxWidth;
+            return this;
+        }
+
     }
 
     /**
@@ -247,16 +242,6 @@ public final class TextStyle {
      */
     public static Builder builder() {
         return new Builder();
-    }
-
-    /**
-     * Creates a new builder.
-     *
-     * @param textStyle The new builder values are copied from the given TextStyle.
-     * @return a new builder.
-     */
-    public static Builder builder(final TextStyle textStyle) {
-        return new Builder(textStyle);
     }
 
     /** The alignment. */

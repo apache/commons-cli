@@ -150,7 +150,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         final List<TextStyle.Builder> styleBuilders = new ArrayList<>();
         for (int i = 0; i < table.columnTextStyles().size(); i++) {
             final TextStyle style = table.columnTextStyles().get(i);
-            final TextStyle.Builder builder = TextStyle.builder(style);
+            final TextStyle.Builder builder = TextStyle.builder().setTextStyle(style);
             styleBuilders.add(builder);
             final String header = table.headers().get(i);
 
@@ -245,7 +245,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         appendParagraph(table.caption());
         final List<TextStyle> headerStyles = new ArrayList<>();
         for (final TextStyle style : table.columnTextStyles()) {
-            headerStyles.add(TextStyle.builder(style).setAlignment(TextStyle.Alignment.CENTER).get());
+            headerStyles.add(TextStyle.builder().setTextStyle(style).setAlignment(TextStyle.Alignment.CENTER).get());
         }
         writeColumnQueues(makeColumnQueues(table.headers(), headerStyles), headerStyles);
         for (final List<String> row : table.rows()) {
