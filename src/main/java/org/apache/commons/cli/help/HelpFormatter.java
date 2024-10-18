@@ -129,7 +129,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
      * @param builder the Builder to build from.
      */
     protected HelpFormatter(final Builder builder) {
-        super(builder.getHelpAppendable(), builder.getOptionFormatBuilder(), builder.getComparator(), builder.getOptionGroupSeparator());
+        super(builder);
         this.showSince = builder.showSince;
     }
 

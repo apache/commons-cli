@@ -183,6 +183,7 @@ public abstract class AbstractHelpFormatter {
      * The {@link HelpAppendable} that produces the final output.
      */
     protected final HelpAppendable helpAppendable;
+
     /**
      * The OptionFormatter.Builder used to display options within the help page
      */
@@ -199,17 +200,13 @@ public abstract class AbstractHelpFormatter {
     /**
      * Constructs the base formatter.
      *
-     * @param helpAppendable       the helpAppendable to output with
-     * @param optionFormatBuilder  the builder of {@link OptionFormatter} to format options for display.
-     * @param comparator           The comparator to use for sorting options.
-     * @param optionGroupSeparator the string to separate option groups.
+     * @param builder the builder
      */
-    protected AbstractHelpFormatter(final HelpAppendable helpAppendable, final OptionFormatter.Builder optionFormatBuilder, final Comparator<Option> comparator,
-            final String optionGroupSeparator) {
-        this.helpAppendable = Objects.requireNonNull(helpAppendable, "helpAppendable");
-        this.optionFormatBuilder = Objects.requireNonNull(optionFormatBuilder, "optionFormatBuilder");
-        this.comparator = Objects.requireNonNull(comparator, "comparator");
-        this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "");
+    protected AbstractHelpFormatter(final Builder<?, ?> builder) {
+        this.helpAppendable = Objects.requireNonNull(builder.getHelpAppendable(), "helpAppendable");
+        this.optionFormatBuilder = Objects.requireNonNull(builder.getOptionFormatBuilder(), "optionFormatBuilder");
+        this.comparator = Objects.requireNonNull(builder.getComparator(), "comparator");
+        this.optionGroupSeparator = Util.defaultValue(builder.getOptionGroupSeparator(), "");
     }
 
     /**
