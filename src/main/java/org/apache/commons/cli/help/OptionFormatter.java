@@ -231,7 +231,9 @@ public final class OptionFormatter {
     /** The default delimiters for an argument name */
     private static final String[] DEFAULT_ARG_NAME_DELIMITERS = { "<", ">" };
 
-    /** The default argument name */
+    /**
+     * The default argument name: {@value}.
+     */
     public static final String DEFAULT_ARG_NAME = "arg";
 
     /**
@@ -267,27 +269,27 @@ public final class OptionFormatter {
     public static final Function<Option, String> NO_DEPRECATED_FORMAT = o -> Util.defaultValue(o.getDescription(), "");
 
     /**
-     * The string to display at the beginning of the usage statement.
+     * The string to display at the beginning of the usage statement: {@value}.
      */
     public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
 
     /**
-     * Default prefix for short options.
+     * Default prefix for short options: {@value}.
      */
     public static final String DEFAULT_OPT_PREFIX = "-";
 
     /**
-     * Default prefix for long options.
+     * Default prefix for long options: {@value}.
      */
     public static final String DEFAULT_LONG_OPT_PREFIX = "--";
 
     /**
-     * The default separator between options.
+     * The default separator between options: {@value}.
      */
     public static final String DEFAULT_OPT_SEPARATOR = ", ";
 
     /**
-     * The default separator between the opt and/or longOpt and the argument name.
+     * The default separator between the opt and/or longOpt and the argument name: {@value}.
      */
     public static final String DEFAULT_OPT_ARG_SEPARATOR = " ";
 
