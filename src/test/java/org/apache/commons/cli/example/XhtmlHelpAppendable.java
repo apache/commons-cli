@@ -19,6 +19,7 @@ package org.apache.commons.cli.example;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.cli.help.FilterHelpAppendable;
 import org.apache.commons.cli.help.TableDefinition;
@@ -46,7 +47,7 @@ public class XhtmlHelpAppendable extends FilterHelpAppendable {
             if (level < 1) {
                 throw new IllegalArgumentException("level must be at least 1");
             }
-            appendFormat("<h%s>%s</h%1$s>%n", level, StringEscapeUtils.escapeHtml4(text.toString()));
+            appendFormat("<h%s>%s</h%1$s>%n", level, StringEscapeUtils.escapeHtml4(Objects.toString(text)));
         }
     }
 
@@ -62,7 +63,7 @@ public class XhtmlHelpAppendable extends FilterHelpAppendable {
     @Override
     public void appendParagraph(final CharSequence paragraph) throws IOException {
         if (StringUtils.isNotEmpty(paragraph)) {
-            appendFormat("<p>%s</p>%n", StringEscapeUtils.escapeHtml4(paragraph.toString()));
+            appendFormat("<p>%s</p>%n", StringEscapeUtils.escapeHtml4(Objects.toString(paragraph)));
         }
     }
 
@@ -93,6 +94,6 @@ public class XhtmlHelpAppendable extends FilterHelpAppendable {
 
     @Override
     public void appendTitle(final CharSequence title) throws IOException {
-        appendFormat("<span class='commons_cli_title'>%s</span>%n", StringEscapeUtils.escapeHtml4(title.toString()));
+        appendFormat("<span class='commons_cli_title'>%s</span>%n", StringEscapeUtils.escapeHtml4(Objects.toString(title)));
     }
 }
