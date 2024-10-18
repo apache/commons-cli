@@ -79,7 +79,6 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         // handle case of width > text.
         // the line ends before the max wrap pos or a new line char found
         final int limit = Math.min(startPos + width, text.length() - 1);
-
         for (int idx = startPos; idx < limit; idx++) {
             if (BREAK_CHAR_SET.contains(text.charAt(idx))) {
                 return idx;
@@ -88,7 +87,6 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         if (startPos + width >= text.length()) {
             return text.length();
         }
-
         int pos;
         // look for the last whitespace character before limit
         for (pos = limit; pos >= startPos; --pos) {
