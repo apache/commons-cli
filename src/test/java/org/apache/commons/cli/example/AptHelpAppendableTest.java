@@ -32,6 +32,9 @@ import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test {@link AptHelpAppendable}.
+ */
 public class AptHelpAppendableTest {
 
     private StringBuilder sb;
