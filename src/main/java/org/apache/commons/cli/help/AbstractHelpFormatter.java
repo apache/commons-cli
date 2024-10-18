@@ -170,11 +170,13 @@ public abstract class AbstractHelpFormatter {
     public static final Comparator<Option> DEFAULT_COMPARATOR = (opt1, opt2) -> opt1.getKey().compareToIgnoreCase(opt2.getKey());
 
     /**
-     * The default separator between {@link OptionGroup} elements.
+     * The default separator between {@link OptionGroup} elements: {@value}.
      */
     public static final String DEFAULT_OPTION_GROUP_SEPARATOR = " | ";
 
-    /** The string to display at the beginning of the usage statement */
+    /**
+     * The string to display at the beginning of the usage statement: {@value}.
+     */
     public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
 
     /** The comparator for sorting {@link Option} collections */
