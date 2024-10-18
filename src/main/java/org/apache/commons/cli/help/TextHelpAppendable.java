@@ -343,7 +343,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     }
 
     /**
-     * Print a queue of text.
+     * Prints a queue of text.
      *
      * @param queue the queue of text to print.
      * @throws IOException on output error.
@@ -355,7 +355,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     }
 
     /**
-     * Print wrapped text using the TextHelpAppendable output style.
+     * Prints wrapped text using the TextHelpAppendable output style.
      *
      * @param text the text to wrap
      * @throws IOException on output error.
@@ -365,7 +365,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     }
 
     /**
-     * Print wrapped text.
+     * Prints wrapped text.
      *
      * @param text  the text to wrap
      * @param style the style for the wrapped text.
@@ -387,7 +387,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     }
 
     /**
-     * Resize a TextBuilder based on the fractional size.
+     * Resizes a TextBuilder based on the fractional size.
      *
      * @param builder  the builder to adjust.
      * @param fraction the fractional size (e.g. percentage of the current size) that the builder should be.
@@ -433,7 +433,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     }
 
     /**
-     * Write one line from each of the {@code columnQueues} until all the queues are exhausted. If an exhausted queue is encountered while other queues continue
+     * Writes one line from each of the {@code columnQueues} until all the queues are exhausted. If an exhausted queue is encountered while other queues continue
      * to have content the exhausted queue will produce empty text for the output width of the column (maximum width + left pad).
      *
      * @param columnQueues the List of queues that represent the columns of data.
