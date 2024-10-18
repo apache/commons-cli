@@ -27,16 +27,24 @@ import java.util.function.Supplier;
  */
 public final class TextStyle {
 
-    /** The alignment possibilities */
+    /** 
+     * The alignment possibilities.
+      */
     public enum Alignment {
 
-        /** Left justify the text */
+        /**
+         * Left justifies the text.
+         */
         LEFT,
 
-        /** Center the text */
+        /**
+         * Centers the text.
+         */
         CENTER,
 
-        /** Right justify the text */
+        /**
+         * Right justifies the text.
+         */
         RIGHT
     }
 
@@ -211,9 +219,9 @@ public final class TextStyle {
         }
 
         /**
-         * Specifies if the column can be made wider or to narrower width to fit constraints of the HelpAppendable and formatting.
+         * Sets whether the column can be made wider or to narrower width to fit constraints of the HelpAppendable and formatting.
          *
-         * @param scalable if {@code true} the text width can be adjusted.
+         * @param scalable Whether the text width can be adjusted.
          * @return this.
          */
         public Builder setScalable(final boolean scalable) {
