@@ -26,6 +26,7 @@
       <!-- FIX -->
       <action type="add" issue="CLI-339" dev="ggregory" due-to="Gary Gregory">Deprecate CommandLine.Builder() in favor of CommandLine.builder().</action>
       <action type="add" issue="CLI-339" dev="ggregory" due-to="Gary Gregory">Deprecate DeprecatedAttributes.Builder() in favor of DeprecatedAttributes.builder().</action>
+      <action type="add" issue="CLI-339" dev="ggregory" due-to="Dávid Szigecsán">Refactor default parser test #294.</action> 
       <!-- ADD -->
       <action type="add" issue="CLI-339" dev="ggregory" due-to="Claude Warren, Gary Gregory">Help formatter extension in the new package #314.</action>
       <action type="add" dev="ggregory" due-to="Gary Gregory">CommandLine.Builder implements Supplier&lt;CommandLine&gt;.</action>
