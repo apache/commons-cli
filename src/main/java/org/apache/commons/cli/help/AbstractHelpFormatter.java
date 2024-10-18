@@ -180,7 +180,7 @@ public abstract class AbstractHelpFormatter {
     public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
 
     /** The comparator for sorting {@link Option} collections */
-    protected Comparator<Option> comparator;
+    protected final Comparator<Option> comparator;
     /**
      * The {@link HelpAppendable} that produces the final output.
      */
