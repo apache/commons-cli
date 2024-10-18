@@ -88,6 +88,7 @@ public class DefaultParser implements CommandLineParser {
          * @return the new {@link DefaultParser}
          * @since 1.10.0
          */
+        @Override
         public DefaultParser get() {
             return new DefaultParser(allowPartialMatching, stripLeadingAndTrailingQuotes, deprecatedHandler);
         }
