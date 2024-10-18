@@ -129,7 +129,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     }
 
     /**
-     * Adjust the table format.
+     * Adjusts the table format.
      * <p>
      * Given the width of the page and the size of the table attempt to resize the columns to fit the page width if necessary. Adjustments are made as follows:
      * </p>
