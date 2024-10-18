@@ -108,7 +108,8 @@ public class HelpFormatter extends AbstractHelpFormatter {
     public static final int DEFAULT_WIDTH = 74;
 
     /**
-     * Default padding to the left of each line: {@value}. */
+     * Default padding to the left of each line: {@value}.
+     */
     public static final int DEFAULT_LEFT_PAD = 1;
 
     /**
