@@ -178,7 +178,7 @@ public final class TextStyle {
         }
 
         /**
-         * Sets teh left padding.
+         * Sets the left padding.
          *
          * @param leftPad the new left padding.
          * @return this
