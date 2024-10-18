@@ -63,7 +63,7 @@ public abstract class AbstractHelpFormatter {
         private String optionGroupSeparator = DEFAULT_OPTION_GROUP_SEPARATOR;
 
         /**
-         * Constructs a new instace.
+         * Constructs a new instance.
          * <p>
          * Sets {@code showSince} to {@code true}.
          * </p>
@@ -180,24 +180,24 @@ public abstract class AbstractHelpFormatter {
     public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
 
     /** The comparator for sorting {@link Option} collections */
-    protected final Comparator<Option> comparator;
+    private final Comparator<Option> comparator;
     /**
      * The {@link HelpAppendable} that produces the final output.
      */
-    protected final HelpAppendable helpAppendable;
+    private final HelpAppendable helpAppendable;
 
     /**
      * The OptionFormatter.Builder used to display options within the help page
      */
-    protected final OptionFormatter.Builder optionFormatBuilder;
+    private final OptionFormatter.Builder optionFormatBuilder;
 
     /** The separator between {@link OptionGroup} components. */
-    protected final String optionGroupSeparator;
+    private final String optionGroupSeparator;
 
     /**
      * The phrase printed before the syntax line.
      */
-    protected String syntaxPrefix = DEFAULT_SYNTAX_PREFIX;
+    private String syntaxPrefix = DEFAULT_SYNTAX_PREFIX;
 
     /**
      * Constructs the base formatter.
@@ -212,12 +212,30 @@ public abstract class AbstractHelpFormatter {
     }
 
     /**
-     * Gets the comparator used by this HelpFormatter.
+     * Gets the comparator for sorting options.
      *
-     * @return The comparator used by this HelpFormatter.
+     * @return The comparator for sorting options.
      */
-    public Comparator<Option> getComparator() {
+    protected Comparator<Option> getComparator() {
         return comparator;
+    }
+
+    /**
+     * Gets the help appendable.
+     *
+     * @return The help appendable.
+     */
+    protected HelpAppendable getHelpAppendable() {
+        return helpAppendable;
+    }
+
+    /**
+     * Gets the option formatter builder.
+     *
+     * @return The option formatter builder.
+     */
+    protected OptionFormatter.Builder getOptionFormatBuilder() {
+        return optionFormatBuilder;
     }
 
     /**
@@ -228,6 +246,15 @@ public abstract class AbstractHelpFormatter {
      */
     public final OptionFormatter getOptionFormatter(final Option option) {
         return optionFormatBuilder.build(option);
+    }
+
+    /**
+     * Gets the option group separator.
+     *
+     * @return The option group separator.
+     */
+    protected String getOptionGroupSeparator() {
+        return optionGroupSeparator;
     }
 
     /**

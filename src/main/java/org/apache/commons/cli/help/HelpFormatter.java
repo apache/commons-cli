@@ -166,7 +166,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
         for (final Option option : options) {
             final List<String> row = new ArrayList<>();
             // create an option formatter to correctly format the parts of the option
-            final OptionFormatter formatter = optionFormatBuilder.build(option);
+            final OptionFormatter formatter = getOptionFormatBuilder().build(option);
             sb.setLength(0);
             // append the opt values.
             sb.append(formatter.getBothOpt());
