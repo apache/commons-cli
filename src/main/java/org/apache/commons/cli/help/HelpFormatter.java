@@ -102,13 +102,18 @@ public class HelpFormatter extends AbstractHelpFormatter {
         }
     }
 
-    /** Default number of characters per line */
+    /**
+     * Default number of characters per line: {@value}.
+     */
     public static final int DEFAULT_WIDTH = 74;
 
-    /** Default padding to the left of each line */
+    /**
+     * Default padding to the left of each line: {@value}. */
     public static final int DEFAULT_LEFT_PAD = 1;
 
-    /** The default number of spaces between columns in the options table */
+    /**
+     * The default number of spaces between columns in the options table: {@value}.
+     */
     public static final int DEFAULT_COLUMN_SPACING = 5;
 
     /**
