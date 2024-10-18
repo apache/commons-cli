@@ -387,7 +387,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     }
 
     /**
-     * Resizes a TextBuilder based on the fractional size.
+     * Resizes a TextStyle builder based on the fractional size.
      *
      * @param builder  the builder to adjust.
      * @param fraction the fractional size (e.g. percentage of the current size) that the builder should be.
