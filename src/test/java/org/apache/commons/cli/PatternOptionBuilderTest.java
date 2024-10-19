@@ -24,8 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
@@ -104,13 +102,9 @@ public class PatternOptionBuilderTest {
     public void testRequiredOption() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("!n%m%");
         final CommandLineParser parser = new PosixParser();
-        try {
-            parser.parse(options, new String[] {""});
-            fail("MissingOptionException wasn't thrown");
-        } catch (final MissingOptionException e) {
-            assertEquals(1, e.getMissingOptions().size());
-            assertTrue(e.getMissingOptions().contains("n"));
-        }
+        final MissingOptionException e = assertThrows(MissingOptionException.class, () -> parser.parse(options, new String[] { "" }));
+        assertEquals(1, e.getMissingOptions().size());
+        assertTrue(e.getMissingOptions().contains("n"));
     }
 
     @Test
