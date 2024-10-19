@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -42,6 +43,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.Parser;
 import org.apache.commons.cli.PosixParser;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
@@ -214,19 +216,10 @@ public class BugsTest {
             .hasArg()
             .create('n');
         //@formatter:on
-
         final String[] args = {"-o", "-n", "newpassword"};
-
         options.addOption(oldpass);
         options.addOption(newpass);
-
-        final Parser parser = new PosixParser();
-
-        try {
-            parser.parse(options, args);
-            fail("MissingArgumentException not caught.");
-        } catch (final MissingArgumentException expected) {
-        }
+        assertThrows(MissingArgumentException.class, () -> new PosixParser().parse(options, args));
     }
 
     @Test
@@ -279,21 +272,10 @@ public class BugsTest {
 
         final CommandLineParser parser = new PosixParser();
 
-        String[] args = {};
-        try {
-            parser.parse(opts, args);
-            fail("Expected ParseException");
-        } catch (final ParseException expected) {
-        }
+        assertThrows(ParseException.class, () -> parser.parse(opts, ArrayUtils.EMPTY_STRING_ARRAY));
+        assertThrows(ParseException.class, () -> parser.parse(opts, new String[] {"-s"}));
 
-        args = new String[] {"-s"};
-        try {
-            parser.parse(opts, args);
-            fail("Expected ParseException");
-        } catch (final ParseException expected) {
-        }
-
-        args = new String[] {"-s", "-l"};
+        String[] args = {"-s", "-l"};
         CommandLine line = parser.parse(opts, args);
         assertNotNull(line);
 

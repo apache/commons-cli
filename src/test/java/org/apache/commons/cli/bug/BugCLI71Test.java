@@ -18,6 +18,7 @@
 package org.apache.commons.cli.bug;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.apache.commons.cli.CommandLine;
@@ -69,13 +70,10 @@ public class BugCLI71Test {
 
     @Test
     public void testLackOfError() throws Exception {
-        final String[] args = {"-k", "-a", "Caesar"};
-        try {
-            parser.parse(options, args);
-            fail("MissingArgumentException expected");
-        } catch (final MissingArgumentException e) {
-            assertEquals("k", e.getOption().getOpt(), "option missing an argument");
-        }
+        final String[] args = { "-k", "-a", "Caesar" };
+        final MissingArgumentException e = assertThrows(MissingArgumentException.class, () -> parser.parse(options, args));
+        parser.parse(options, args);
+        assertEquals("k", e.getOption().getOpt(), "option missing an argument");
     }
 
     @Test
