@@ -27,7 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
 /**
- * A class to write XHTML formatted text.
+ * Appends XHTML formatted text to an {@link Appendable}.
  */
 public class XhtmlHelpAppendable extends FilterHelpAppendable {
 
@@ -53,11 +53,13 @@ public class XhtmlHelpAppendable extends FilterHelpAppendable {
 
     @Override
     public void appendList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
-        appendFormat("<%sl>%n", ordered ? "o" : "u");
-        for (final CharSequence line : list) {
-            appendFormat("  <li>%s</li>%n", StringEscapeUtils.escapeHtml4(StringUtils.defaultIfEmpty(line, "").toString()));
+        if (list != null) {
+            appendFormat("<%sl>%n", ordered ? "o" : "u");
+            for (final CharSequence line : list) {
+                appendFormat("  <li>%s</li>%n", StringEscapeUtils.escapeHtml4(StringUtils.defaultIfEmpty(line, "").toString()));
+            }
+            appendFormat("</%sl>%n", ordered ? "o" : "u");
         }
-        appendFormat("</%sl>%n", ordered ? "o" : "u");
     }
 
     @Override
@@ -69,31 +71,35 @@ public class XhtmlHelpAppendable extends FilterHelpAppendable {
 
     @Override
     public void appendTable(final TableDefinition table) throws IOException {
-        appendFormat("<table class='commons_cli_table'>%n");
-        if (StringUtils.isNotEmpty(table.caption())) {
-            appendFormat("  <caption>%s</caption>%n", StringEscapeUtils.escapeHtml4(table.caption()));
-        }
-        // write the headers
-        if (!table.headers().isEmpty()) {
-            appendFormat("  <tr>%n");
-            for (final String header : table.headers()) {
-                appendFormat("    <th>%s</th>%n", StringEscapeUtils.escapeHtml4(header));
+        if (table != null) {
+            appendFormat("<table class='commons_cli_table'>%n");
+            if (StringUtils.isNotEmpty(table.caption())) {
+                appendFormat("  <caption>%s</caption>%n", StringEscapeUtils.escapeHtml4(table.caption()));
             }
-            appendFormat("  </tr>%n");
-        }
-        // write the data
-        for (final List<String> row : table.rows()) {
-            appendFormat("  <tr>%n");
-            for (final String column : row) {
-                appendFormat("    <td>%s</td>%n", StringEscapeUtils.escapeHtml4(column));
+            // write the headers
+            if (!table.headers().isEmpty()) {
+                appendFormat("  <tr>%n");
+                for (final String header : table.headers()) {
+                    appendFormat("    <th>%s</th>%n", StringEscapeUtils.escapeHtml4(header));
+                }
+                appendFormat("  </tr>%n");
             }
-            appendFormat("  </tr>%n");
+            // write the data
+            for (final List<String> row : table.rows()) {
+                appendFormat("  <tr>%n");
+                for (final String column : row) {
+                    appendFormat("    <td>%s</td>%n", StringEscapeUtils.escapeHtml4(column));
+                }
+                appendFormat("  </tr>%n");
+            }
+            appendFormat("</table>%n");
         }
-        appendFormat("</table>%n");
     }
 
     @Override
     public void appendTitle(final CharSequence title) throws IOException {
-        appendFormat("<span class='commons_cli_title'>%s</span>%n", StringEscapeUtils.escapeHtml4(Objects.toString(title)));
+        if (StringUtils.isNotEmpty(title)) {
+            appendFormat("<span class='commons_cli_title'>%s</span>%n", StringEscapeUtils.escapeHtml4(Objects.toString(title)));
+        }
     }
 }

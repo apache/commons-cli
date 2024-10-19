@@ -29,7 +29,7 @@ import org.apache.commons.text.translate.CharSequenceTranslator;
 import org.apache.commons.text.translate.LookupTranslator;
 
 /**
- * A class to write APT formatted text.
+ * Appends APT formatted text to an {@link Appendable}.
  */
 public class AptHelpAppendable extends FilterHelpAppendable {
 
@@ -73,7 +73,7 @@ public class AptHelpAppendable extends FilterHelpAppendable {
 
     @Override
     public void appendList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
-        if (null != list) {
+        if (list != null) {
             if (ordered) {
                 int idx = 1;
                 for (final CharSequence s : list) {
