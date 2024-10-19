@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -241,10 +240,8 @@ public class OptionsTest {
     @Test
     public void testLong() {
         final Options options = new Options();
-
         options.addOption("a", "--a", false, "toggle -a");
         options.addOption("b", "--b", true, "set -b");
-
         assertTrue(options.hasOption("a"));
         assertTrue(options.hasOption("b"));
     }
@@ -254,12 +251,8 @@ public class OptionsTest {
         final Options options = new Options();
         OptionBuilder.isRequired();
         options.addOption(OptionBuilder.create("f"));
-        try {
-            new PosixParser().parse(options, new String[0]);
-            fail("Expected MissingOptionException to be thrown");
-        } catch (final MissingOptionException e) {
-            assertEquals("Missing required option: f", e.getMessage());
-        }
+        final MissingOptionException e = assertThrows(MissingOptionException.class, () -> new PosixParser().parse(options, new String[0]));
+        assertEquals("Missing required option: f", e.getMessage());
     }
 
     @Test
@@ -269,21 +262,15 @@ public class OptionsTest {
         options.addOption(OptionBuilder.create("f"));
         OptionBuilder.isRequired();
         options.addOption(OptionBuilder.create("x"));
-        try {
-            new PosixParser().parse(options, new String[0]);
-            fail("Expected MissingOptionException to be thrown");
-        } catch (final MissingOptionException e) {
-            assertEquals("Missing required options: f, x", e.getMessage());
-        }
+        final MissingOptionException e = assertThrows(MissingOptionException.class, () -> new PosixParser().parse(options, new String[0]));
+        assertEquals("Missing required options: f, x", e.getMessage());
     }
 
     @Test
     public void testSimple() {
         final Options options = new Options();
-
         options.addOption("a", false, "toggle -a");
         options.addOption("b", true, "toggle -b");
-
         assertTrue(options.hasOption("a"));
         assertTrue(options.hasOption("b"));
     }
@@ -293,7 +280,6 @@ public class OptionsTest {
         final Options options = new Options();
         options.addOption("f", "foo", true, "Foo");
         options.addOption("b", "bar", false, "Bar");
-
         final String s = options.toString();
         assertNotNull(s, "null string returned");
         assertTrue(s.toLowerCase().contains("foo"), "foo option missing");
