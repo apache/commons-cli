@@ -20,10 +20,11 @@ package org.apache.commons.cli;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 @SuppressWarnings("deprecation") // OptionBuilder is marked deprecated
 public class OptionBuilderTest {
@@ -47,20 +48,9 @@ public class OptionBuilderTest {
 
     @Test
     public void testBuilderIsResettedAlways() {
-        try {
-            OptionBuilder.withDescription("JUnit").create('"');
-            fail("IllegalArgumentException expected");
-        } catch (final IllegalArgumentException e) {
-            // expected
-        }
+        assertThrows(IllegalArgumentException.class, () -> OptionBuilder.withDescription("JUnit").create('"'));
         assertNull(OptionBuilder.create('x').getDescription(), "we inherited a description");
-
-        try {
-            OptionBuilder.withDescription("JUnit").create();
-            fail("IllegalArgumentException expected");
-        } catch (final IllegalArgumentException e) {
-            // expected
-        }
+        assertThrows(IllegalArgumentException.class, (Executable) OptionBuilder::create);
         assertNull(OptionBuilder.create('x').getDescription(), "we inherited a description");
     }
 
@@ -87,42 +77,19 @@ public class OptionBuilderTest {
 
     @Test
     public void testCreateIncompleteOption() {
-        try {
-            OptionBuilder.hasArg().create();
-            fail("Incomplete option should be rejected");
-        } catch (final IllegalArgumentException e) {
-            // expected
-
-            // implicitly reset the builder
-            OptionBuilder.create("opt");
-        }
+        assertThrows(IllegalArgumentException.class, (Executable) OptionBuilder::create);
+        // implicitly reset the builder
+        OptionBuilder.create("opt");
     }
 
     @Test
     public void testIllegalOptions() {
         // bad single character option
-        try {
-            OptionBuilder.withDescription("option description").create('"');
-            fail("IllegalArgumentException not caught");
-        } catch (final IllegalArgumentException exp) {
-            // success
-        }
-
+        assertThrows(IllegalArgumentException.class, () -> OptionBuilder.withDescription("option description").create('"'));
         // bad character in option string
-        try {
-            OptionBuilder.create("opt`");
-            fail("IllegalArgumentException not caught");
-        } catch (final IllegalArgumentException exp) {
-            // success
-        }
-
+        assertThrows(IllegalArgumentException.class, () -> OptionBuilder.create("opt`"));
         // valid option
-        try {
-            OptionBuilder.create("opt");
-            // success
-        } catch (final IllegalArgumentException exp) {
-            fail("IllegalArgumentException caught");
-        }
+        OptionBuilder.create("opt");
     }
 
     @Test
@@ -140,18 +107,11 @@ public class OptionBuilderTest {
         // '?'
         final Option opt1 = OptionBuilder.withDescription("help options").create('?');
         assertEquals("?", opt1.getOpt());
-
         // '@'
         final Option opt2 = OptionBuilder.withDescription("read from stdin").create('@');
         assertEquals("@", opt2.getOpt());
-
         // ' '
-        try {
-            OptionBuilder.create(' ');
-            fail("IllegalArgumentException not caught");
-        } catch (final IllegalArgumentException e) {
-            // success
-        }
+        assertThrows(IllegalArgumentException.class, () -> OptionBuilder.create(' '));
     }
 
     @Test
