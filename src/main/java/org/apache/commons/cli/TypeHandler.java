@@ -158,7 +158,7 @@ public class TypeHandler {
     public static <T> T createValue(final String string, final Class<T> clazz) throws ParseException {
         try {
             return getDefault().getConverter(clazz).apply(string);
-        } catch (final Throwable e) {
+        } catch (final Exception e) {
             throw ParseException.wrap(e);
         }
     }

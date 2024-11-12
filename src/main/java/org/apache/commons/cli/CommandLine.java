@@ -580,7 +580,7 @@ public class CommandLine implements Serializable {
                 return get(defaultValue);
             }
             return (T) option.getConverter().apply(res);
-        } catch (final Throwable e) {
+        } catch (final Exception e) {
             throw ParseException.wrap(e);
         }
     }

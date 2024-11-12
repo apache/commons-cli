@@ -33,7 +33,7 @@ import java.util.Date;
  * @since 1.7.0
  */
 @FunctionalInterface
-public interface Converter<T, E extends Throwable> {
+public interface Converter<T, E extends Exception> {
     // See also Apache Commons Lang FailableFunction
 
     /**
