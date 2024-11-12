@@ -423,7 +423,7 @@ public abstract class AbstractHelpFormatter {
         final Collection<OptionGroup> processedGroups = new ArrayList<>();
         final List<Option> optList = sort(options);
         final StringBuilder buff = new StringBuilder();
-        String pfx = "";
+        String prefix = "";
         // iterate over the options
         for (final Option option : optList) {
             // get the next Option
@@ -436,15 +436,15 @@ public abstract class AbstractHelpFormatter {
                     // add the group to the processed list
                     processedGroups.add(group);
                     // add the usage clause
-                    buff.append(pfx).append(toSyntaxOptions(group));
-                    pfx = " ";
+                    buff.append(prefix).append(toSyntaxOptions(group));
+                    prefix = " ";
                 }
                 // otherwise the option was displayed in the group previously so ignore it.
             }
             // if the Option is not part of an OptionGroup
             else {
-                buff.append(pfx).append(optionFormatBuilder.build(option).toSyntaxOption());
-                pfx = " ";
+                buff.append(prefix).append(optionFormatBuilder.build(option).toSyntaxOption());
+                prefix = " ";
             }
         }
         return buff.toString();
