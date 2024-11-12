@@ -713,9 +713,9 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the values of this Option as a String array or null if there are no values.
+     * Gets the values of this Option as a String array or an empty array if there are no values.
      *
-     * @return the values of this Option as a String array or null if there are no values.
+     * @return the values of this Option as a String array or an empty array if there are no values.
      */
     public String[] getValues() {
         return hasNoValues() ? null : values.toArray(EMPTY_STRING_ARRAY);
@@ -731,9 +731,9 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the values of this Option as a List or null if there are no values.
+     * Gets the values of this Option as a List.  Will return an empty list if there are no values.
      *
-     * @return the values of this Option as a List or null if there are no values.
+     * @return the values of this Option as a List or an empty List if there are no values.
      */
     public List<String> getValuesList() {
         return values;
