@@ -777,13 +777,8 @@ public class CommandLine implements Serializable {
                 result[i] = clazz.cast(option.getConverter().apply(values[i]));
             }
             return result;
-        } catch (final Error t) {
-            throw t;
         } catch (final Exception t) {
             throw ParseException.wrap(t);
-        }  catch (final Throwable t) {
-            // this should not be reached.
-            throw new RuntimeException(t);
         }
     }
 
