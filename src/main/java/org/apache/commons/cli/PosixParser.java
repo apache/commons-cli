@@ -46,20 +46,20 @@ public class PosixParser extends Parser {
      * Breaks {@code token} into its constituent parts using the following algorithm.
      *
      * <ul>
-     * <li>ignore the first character ("<b>-</b>")</li>
+     * <li>ignore the first character ("<strong>-</strong>")</li>
      * <li>for each remaining character check if an {@link Option} exists with that id.</li>
-     * <li>if an {@link Option} does exist then add that character prepended with "<b>-</b>" to the list of processed
+     * <li>if an {@link Option} does exist then add that character prepended with "<strong>-</strong>" to the list of processed
      * tokens.</li>
      * <li>if the {@link Option} can have an argument value and there are remaining characters in the token then add the
      * remaining characters as a token to the list of processed tokens.</li>
-     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS</b> set then add the
-     * special token "<b>--</b>" followed by the remaining characters and also the remaining tokens directly to the
+     * <li>if an {@link Option} does <strong>NOT</strong> exist <strong>AND</strong> {@code stopAtNonOption} <strong>IS</strong> set then add the
+     * special token "<strong>--</strong>" followed by the remaining characters and also the remaining tokens directly to the
      * processed tokens list.</li>
-     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS NOT</b> set then add
-     * that character prepended with "<b>-</b>".</li>
+     * <li>if an {@link Option} does <strong>NOT</strong> exist <strong>AND</strong> {@code stopAtNonOption} <strong>IS NOT</strong> set then add
+     * that character prepended with "<strong>-</strong>".</li>
      * </ul>
      *
-     * @param token The current token to be <b>burst</b>
+     * @param token The current token to be <strong>burst</strong>
      * @param stopAtNonOption Specifies whether to stop processing at the first non-Option encountered.
      */
     protected void burstToken(final String token, final boolean stopAtNonOption) {
@@ -94,17 +94,17 @@ public class PosixParser extends Parser {
      * The following are the rules used by this flatten method.
      * </p>
      * <ol>
-     * <li>if {@code stopAtNonOption} is <b>true</b> then do not burst anymore of {@code arguments} entries, just
+     * <li>if {@code stopAtNonOption} is <strong>true</strong> then do not burst anymore of {@code arguments} entries, just
      * add each successive entry without further processing. Otherwise, ignore {@code stopAtNonOption}.</li>
-     * <li>if the current {@code arguments} entry is "<b>--</b>" just add the entry to the list of processed
+     * <li>if the current {@code arguments} entry is "<strong>--</strong>" just add the entry to the list of processed
      * tokens</li>
-     * <li>if the current {@code arguments} entry is "<b>-</b>" just add the entry to the list of processed tokens</li>
-     * <li>if the current {@code arguments} entry is two characters in length and the first character is "<b>-</b>"
+     * <li>if the current {@code arguments} entry is "<strong>-</strong>" just add the entry to the list of processed tokens</li>
+     * <li>if the current {@code arguments} entry is two characters in length and the first character is "<strong>-</strong>"
      * then check if this is a valid {@link Option} id. If it is a valid id, then add the entry to the list of processed
      * tokens and set the current {@link Option} member. If it is not a valid id and {@code stopAtNonOption} is true,
      * then the remaining entries are copied to the list of processed tokens. Otherwise, the current entry is ignored.</li>
      * <li>if the current {@code arguments} entry is more than two characters in length and the first character is
-     * "<b>-</b>" then we need to burst the entry to determine its constituents. For more information on the bursting
+     * "<strong>-</strong>" then we need to burst the entry to determine its constituents. For more information on the bursting
      * algorithm see {@link PosixParser#burstToken(String, boolean) burstToken}.</li>
      * <li>if the current {@code arguments} entry is not handled by any of the previous rules, then the entry is added
      * to the list of processed tokens.</li>
@@ -195,7 +195,7 @@ public class PosixParser extends Parser {
     }
 
     /**
-     * Add the special token "<b>--</b>" and the current {@code value} to the processed tokens list. Then add all the
+     * Add the special token "<strong>--</strong>" and the current {@code value} to the processed tokens list. Then add all the
      * remaining {@code argument} values to the processed tokens list.
      *
      * @param value The current token

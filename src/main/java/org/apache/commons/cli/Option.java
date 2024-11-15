@@ -31,7 +31,7 @@ import java.util.Objects;
  * An Option is not created independently, but is created through an instance of {@link Options}. An Option is required to have at least a short or a long-name.
  * </p>
  * <p>
- * <b>Note:</b> once an {@link Option} has been added to an instance of {@link Options}, its required flag cannot be changed.
+ * <strong>Note:</strong> once an {@link Option} has been added to an instance of {@link Options}, its required flag cannot be changed.
  * </p>
  *
  * @see org.apache.commons.cli.Options
@@ -317,7 +317,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * The Option will use {@code sep} as a means to separate argument values.
          * <p>
-         * <b>Example:</b>
+         * <strong>Example:</strong>
          * </p>
          *
          * <pre>
@@ -955,7 +955,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Sets the type of this Option.
      * <p>
-     * <b>Note:</b> this method is kept for binary compatibility and the input type is supposed to be a {@link Class} object.
+     * <strong>Note:</strong> this method is kept for binary compatibility and the input type is supposed to be a {@link Class} object.
      * </p>
      *
      * @param type the type of this Option.

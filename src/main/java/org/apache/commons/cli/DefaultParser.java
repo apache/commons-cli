@@ -336,20 +336,20 @@ public class DefaultParser implements CommandLineParser {
      * Breaks {@code token} into its constituent parts using the following algorithm.
      *
      * <ul>
-     * <li>ignore the first character ("<b>-</b>")</li>
+     * <li>ignore the first character ("<strong>-</strong>")</li>
      * <li>for each remaining character check if an {@link Option} exists with that id.</li>
-     * <li>if an {@link Option} does exist then add that character prepended with "<b>-</b>" to the list of processed
+     * <li>if an {@link Option} does exist then add that character prepended with "<strong>-</strong>" to the list of processed
      * tokens.</li>
      * <li>if the {@link Option} can have an argument value and there are remaining characters in the token then add the
      * remaining characters as a token to the list of processed tokens.</li>
-     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS</b> set then add the
-     * special token "<b>--</b>" followed by the remaining characters and also the remaining tokens directly to the
+     * <li>if an {@link Option} does <strong>NOT</strong> exist <strong>AND</strong> {@code stopAtNonOption} <strong>IS</strong> set then add the
+     * special token "<strong>--</strong>" followed by the remaining characters and also the remaining tokens directly to the
      * processed tokens list.</li>
-     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b> {@code stopAtNonOption} <b>IS NOT</b> set then add
-     * that character prepended with "<b>-</b>".</li>
+     * <li>if an {@link Option} does <strong>NOT</strong> exist <strong>AND</strong> {@code stopAtNonOption} <strong>IS NOT</strong> set then add
+     * that character prepended with "<strong>-</strong>".</li>
      * </ul>
      *
-     * @param token The current token to be <b>burst</b> at the first non-Option encountered.
+     * @param token The current token to be <strong>burst</strong> at the first non-Option encountered.
      * @throws ParseException if there are any problems encountered while parsing the command line token.
      */
     protected void handleConcatenatedOptions(final String token) throws ParseException {

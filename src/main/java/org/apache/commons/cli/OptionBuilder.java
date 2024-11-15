@@ -279,7 +279,7 @@ public final class OptionBuilder {
     /**
      * The next Option created will have a value that will be an instance of {@code type}.
      * <p>
-     * <b>Note:</b> this method is kept for binary compatibility and the input type is supposed to be a {@link Class}
+     * <strong>Note:</strong> this method is kept for binary compatibility and the input type is supposed to be a {@link Class}
      * object.
      *
      * @param newType the type of the Options argument value
@@ -294,7 +294,7 @@ public final class OptionBuilder {
     /**
      * The next Option created uses '{@code =}' as a means to separate argument values.
      *
-     * <b>Example:</b>
+     * <strong>Example:</strong>
      *
      * <pre>
      * Option opt = withValueSeparator().create('D');
@@ -314,7 +314,7 @@ public final class OptionBuilder {
     /**
      * The next Option created uses {@code sep} as a means to separate argument values.
      * <p>
-     * <b>Example:</b>
+     * <strong>Example:</strong>
      *
      * <pre>
      * Option opt = OptionBuilder.withValueSeparator('=').create('D');

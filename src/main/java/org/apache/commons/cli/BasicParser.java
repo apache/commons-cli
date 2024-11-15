@@ -32,7 +32,7 @@ public class BasicParser extends Parser {
      * </p>
      *
      * <p>
-     * <b>Note:</b> {@code options} and {@code stopAtNonOption} are not used in this {@code flatten} method.
+     * <strong>Note:</strong> {@code options} and {@code stopAtNonOption} are not used in this {@code flatten} method.
      * </p>
      *
      * @param options The command line {@link Options}
