@@ -29,7 +29,7 @@ import java.util.Properties;
  *
  * @deprecated since 1.3, the two-pass parsing with the flatten method is not enough flexible to handle complex cases
  */
-@Deprecated
+@Deprecated(since = "1.3")
 public abstract class Parser implements CommandLineParser {
     /** CommandLine instance */
     protected CommandLine cmd;
@@ -327,5 +327,4 @@ public abstract class Parser implements CommandLineParser {
             group.setSelected(opt);
         }
     }
-
 }

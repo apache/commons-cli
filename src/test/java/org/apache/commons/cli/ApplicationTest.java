@@ -231,47 +231,48 @@ public class ApplicationTest {
         final StringWriter out = new StringWriter();
         hf.printHelp(new PrintWriter(out), 60, cmdLine, null, options, HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, null, false);
         //@formatter:off
-        assertEquals("usage: man [-c|-f|-k|-w|-tZT device] [-adlhu7V] [-Mpath]" + eol +
-                        "           [-Ppager] [-Slist] [-msystem] [-pstring]" + eol +
-                        "           [-Llocale] [-eextension] [section] page ..." + eol +
-                        " -7,--ascii                display ASCII translation or" + eol +
-                        "                           certain latin1 chars." + eol +
-                        " -a,--all                  find all matching manual pages." + eol +
-                        " -c,--catman               used by catman to reformat out of" + eol +
-                        "                           date cat pages." + eol +
-                        " -d,--debug                emit debugging messages." + eol +
-                        " -D,--default              reset all options to their" + eol +
-                        "                           default values." + eol +
-                        " -e,--extension            limit search to extension type" + eol +
-                        "                           'extension'." + eol +
-                        " -f,--whatis               equivalent to whatis." + eol +
-                        " -h,--help                 show this usage message." + eol +
-                        " -k,--apropos              equivalent to apropos." + eol +
-                        " -l,--local-file           interpret 'page' argument(s) as" + eol +
-                        "                           local file name(s)" + eol +
-                        " -L,--locale <arg>         define the locale for this" + eol +
-                        "                           particular man search." + eol +
-                        " -M,--manpath <arg>        set search path for manual pages" + eol +
-                        "                           to 'path'." + eol +
-                        " -m,--systems <arg>        search for man pages from other" + eol +
-                        "                           UNIX system(s)." + eol +
-                        " -P,--pager <arg>          use program 'pager' to display" + eol +
-                        "                           output." + eol +
-                        " -p,--preprocessor <arg>   string indicates which" + eol +
-                        "                           preprocessor to run." + eol +
-                        "                           e - [n]eqn  p - pic     t - tbl" + eol +
-                        "                           g - grap    r - refer   v -" + eol +
-                        "                           vgrind" + eol +
-                        " -r,--prompt <arg>         provide 'less' pager with prompt." + eol +
-                        " -S,--sections <arg>       use colon separated section list." + eol +
-                        " -t,--troff                use troff format pages." + eol +
-                        " -T,--troff-device <arg>   use groff with selected device." + eol +
-                        " -u,--update               force a cache consistency check." + eol +
-                        " -V,--version              show version." + eol +
-                        " -w,--location             print physical location of man" + eol +
-                        "                           page(s)." + eol +
-                        " -Z,--ditroff              use groff with selected device." + eol,
-                out.toString());
+        assertEquals("""
+            usage: man [-c|-f|-k|-w|-tZT device] [-adlhu7V] [-Mpath]
+                       [-Ppager] [-Slist] [-msystem] [-pstring]
+                       [-Llocale] [-eextension] [section] page ...
+             -7,--ascii                display ASCII translation or
+                                       certain latin1 chars.
+             -a,--all                  find all matching manual pages.
+             -c,--catman               used by catman to reformat out of
+                                       date cat pages.
+             -d,--debug                emit debugging messages.
+             -D,--default              reset all options to their
+                                       default values.
+             -e,--extension            limit search to extension type
+                                       'extension'.
+             -f,--whatis               equivalent to whatis.
+             -h,--help                 show this usage message.
+             -k,--apropos              equivalent to apropos.
+             -l,--local-file           interpret 'page' argument(s) as
+                                       local file name(s)
+             -L,--locale <arg>         define the locale for this
+                                       particular man search.
+             -M,--manpath <arg>        set search path for manual pages
+                                       to 'path'.
+             -m,--systems <arg>        search for man pages from other
+                                       UNIX system(s).
+             -P,--pager <arg>          use program 'pager' to display
+                                       output.
+             -p,--preprocessor <arg>   string indicates which
+                                       preprocessor to run.
+                                       e - [n]eqn  p - pic     t - tbl
+                                       g - grap    r - refer   v -
+                                       vgrind
+             -r,--prompt <arg>         provide 'less' pager with prompt.
+             -S,--sections <arg>       use colon separated section list.
+             -t,--troff                use troff format pages.
+             -T,--troff-device <arg>   use groff with selected device.
+             -u,--update               force a cache consistency check.
+             -V,--version              show version.
+             -w,--location             print physical location of man
+                                       page(s).
+             -Z,--ditroff              use groff with selected device.
+            """, out.toString());
         //@formatter:on
     }
 

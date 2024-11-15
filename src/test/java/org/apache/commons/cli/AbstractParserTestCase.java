@@ -144,8 +144,7 @@ public abstract class AbstractParserTestCase {
 
     @Test
     public void testArgumentStartingWithHyphen() throws Exception {
-        final String[] args = { "-b", "-foo" };
-        final CommandLine cl = parser.parse(options, args);
+        final CommandLine cl = parser.parse(options, new String[] { "-b", "-foo" });
         assertEquals("-foo", cl.getOptionValue("b"));
     }
 

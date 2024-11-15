@@ -77,7 +77,7 @@ public class DefaultParser implements CommandLineParser {
          * @since 1.5.0
          * @deprecated Use {@link #get()}.
          */
-        @Deprecated
+        @Deprecated(since = "1.5.0")
         public DefaultParser build() {
             return get();
         }

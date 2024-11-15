@@ -71,7 +71,6 @@ public class OptionValidatorTest {
     private static String notRestChars;
 
     private static Stream<Arguments> optionParameters() {
-
         final List<Arguments> args = new ArrayList<>();
 
         args.add(Arguments.of("CamelCase", true, "Camel case error"));
@@ -156,7 +155,6 @@ public class OptionValidatorTest {
             }
         }
         notRestChars = sb.toString();
-
     }
 
     @Test

@@ -28,7 +28,7 @@ package org.apache.commons.cli;
  * @since 1.0
  * @deprecated since 1.3, use {@link Option#builder(String)} instead
  */
-@Deprecated
+@Deprecated(since = "1.3")
 public final class OptionBuilder {
 
     /** Long option */
@@ -286,7 +286,7 @@ public final class OptionBuilder {
      * @return the OptionBuilder instance
      * @deprecated since 1.3, use {@link #withType(Class)} instead
      */
-    @Deprecated
+    @Deprecated(since = "1.3")
     public static OptionBuilder withType(final Object newType) {
         return withType((Class<?>) newType);
     }

@@ -518,7 +518,7 @@ public class Option implements Cloneable, Serializable {
      * @throws UnsupportedOperationException always.
      * @deprecated Unused.
      */
-    @Deprecated
+    @Deprecated(since = "1.0")
     public boolean addValue(final String value) {
         throw new UnsupportedOperationException(
                 "The addValue method is not intended for client use. Subclasses should use the processValue method instead.");
@@ -961,7 +961,7 @@ public class Option implements Cloneable, Serializable {
      * @param type the type of this Option.
      * @deprecated since 1.3, use {@link #setType(Class)} instead.
      */
-    @Deprecated
+    @Deprecated(since = "1.3")
     public void setType(final Object type) {
         setType((Class<?>) type);
     }
@@ -1011,7 +1011,7 @@ public class Option implements Cloneable, Serializable {
         }
         if (hasArgs()) {
             buf.append("[ARG...]");
-        } else if (hasArg()) {
+        } else if (hasArg())  {
             buf.append(" [ARG]");
         }
         // @formatter:off

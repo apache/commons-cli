@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @deprecated since 1.3, use the {@link DefaultParser} instead
  */
-@Deprecated
+@Deprecated(since = "1.3")
 public class PosixParser extends Parser {
     /** Holder for flattened tokens */
     private final List<String> tokens = new ArrayList<>();

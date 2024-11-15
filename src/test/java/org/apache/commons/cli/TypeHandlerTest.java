@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -161,11 +162,10 @@ public class TypeHandlerTest {
         list.add(Arguments.of("String", PatternOptionBuilder.STRING_VALUE, "String"));
 
         final String urlString = "https://commons.apache.org";
-        list.add(Arguments.of(urlString, PatternOptionBuilder.URL_VALUE, new URL(urlString)));
+        list.add(Arguments.of(urlString, PatternOptionBuilder.URL_VALUE, URI.create(urlString).toURL()));
         list.add(Arguments.of("Malformed-url", PatternOptionBuilder.URL_VALUE, ParseException.class));
 
         return list.stream();
-
     }
 
     @Test
@@ -257,5 +257,4 @@ public class TypeHandlerTest {
             assertEquals(Converter.DEFAULT, typeHandler.getConverter(Path.class));
         }
     }
-
 }

@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @deprecated since 1.3, use the {@link DefaultParser} instead
  */
-@Deprecated
+@Deprecated(since = "1.3")
 public class GnuParser extends Parser {
     /**
      * This flatten method does so using the following rules:

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.net.URL;
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -131,7 +131,7 @@ public class PatternOptionBuilderTest {
         assertEquals(new File("build.xml"), line.getOptionObject("e"), "file flag e");
         assertEquals(Calendar.class, line.getOptionObject("f"), "class flag f");
         assertEquals(Double.valueOf(4.5), line.getOptionObject("n"), "number flag n");
-        assertEquals(new URL("https://commons.apache.org"), line.getOptionObject("t"), "url flag t");
+        assertEquals(URI.create("https://commons.apache.org").toURL(), line.getOptionObject("t"), "url flag t");
         // tests the char methods of CommandLine that delegate to the String methods
         assertEquals("foo", line.getOptionValue('a'), "flag a");
         assertEquals("foo", line.getOptionObject('a'), "string flag a");
@@ -141,11 +141,10 @@ public class PatternOptionBuilderTest {
         assertEquals(new File("build.xml"), line.getOptionObject('e'), "file flag e");
         assertEquals(Calendar.class, line.getOptionObject('f'), "class flag f");
         assertEquals(Double.valueOf(4.5), line.getOptionObject('n'), "number flag n");
-        assertEquals(new URL("https://commons.apache.org"), line.getOptionObject('t'), "url flag t");
+        assertEquals(URI.create("https://commons.apache.org").toURL(), line.getOptionObject('t'), "url flag t");
         // FILES NOT SUPPORTED YET
         assertThrows(UnsupportedOperationException.class, () -> line.getOptionObject('m'));
         assertEquals(expectedDate, line.getOptionObject('z'), "date flag z");
-
     }
 
     @Test
@@ -166,7 +165,7 @@ public class PatternOptionBuilderTest {
         final Options options = PatternOptionBuilder.parsePattern("u/v/");
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, new String[] {"-u", "https://commons.apache.org", "-v", "foo://commons.apache.org"});
-        assertEquals(new URL("https://commons.apache.org"), line.getOptionObject("u"), "u value");
+        assertEquals(URI.create("https://commons.apache.org").toURL(), line.getOptionObject("u"), "u value");
         assertNull(line.getOptionObject("v"), "v value");
     }
 }

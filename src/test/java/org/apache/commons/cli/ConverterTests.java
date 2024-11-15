@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.net.URI;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -122,7 +123,7 @@ public class ConverterTests {
 
     @Test
     public void testUrl() throws Exception {
-        assertEquals(new URL("http://apache.org"), Converter.URL.apply("http://apache.org"));
-        assertThrows(java.net.MalformedURLException.class, () -> Converter.URL.apply("foo.bar"));
+        assertEquals(URI.create("http://apache.org").toURL(), Converter.URL.apply("http://apache.org"));
+        assertThrows(java.lang.IllegalArgumentException.class, () -> Converter.URL.apply("foo.bar"));
     }
 }

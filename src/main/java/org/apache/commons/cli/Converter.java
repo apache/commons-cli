@@ -18,6 +18,7 @@ package org.apache.commons.cli;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -71,7 +72,7 @@ public interface Converter<T, E extends Throwable> {
     /**
      * Creates a URL. Calls {@link URL#URL(String)}.
      */
-    Converter<URL, MalformedURLException> URL = URL::new;
+    Converter<URL, MalformedURLException> URL = s -> URI.create(s).toURL();
 
     /**
      * Converts to a date using the format string Form "EEE MMM dd HH:mm:ss zzz yyyy".
