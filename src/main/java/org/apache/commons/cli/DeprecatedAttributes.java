@@ -60,7 +60,7 @@ public final class DeprecatedAttributes {
          *
          * @deprecated Use {@link #builder()}.
          */
-        @Deprecated
+        @Deprecated(since = "1.7.0")
         public Builder() {
             // empty
         }

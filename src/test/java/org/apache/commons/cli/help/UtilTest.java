@@ -49,10 +49,10 @@ public class UtilTest {
         // @formatter:on
         final char[] nonBreakingSpace = { '\u00A0', '\u2007', '\u202F' };
         for (final char c : whitespace) {
-            lst.add(Arguments.of(Character.valueOf(c), Boolean.TRUE));
+            lst.add(Arguments.of(Character.valueOf(c), true));
         }
         for (final char c : nonBreakingSpace) {
-            lst.add(Arguments.of(Character.valueOf(c), Boolean.FALSE));
+            lst.add(Arguments.of(Character.valueOf(c), false));
         }
         return lst.stream();
     }

@@ -103,7 +103,7 @@ public class TypeHandler {
      * @throws UnsupportedOperationException always
      * @deprecated with no replacement
      */
-    @Deprecated // since 1.7.0
+    @Deprecated(since = "1.7.0")
     public static File[] createFiles(final String string) {
         // to implement/port:
         // return FileW.findFiles(string);
@@ -117,7 +117,7 @@ public class TypeHandler {
      * @return the number represented by {@code string}
      * @throws ParseException if {@code string} is not a number
      */
-    @Deprecated // since 1.7.0
+    @Deprecated(since = "1.7.0")
     public static Number createNumber(final String string) throws ParseException {
         return createValue(string, Number.class);
     }
@@ -130,7 +130,7 @@ public class TypeHandler {
      * @throws ParseException if the class could not be found or the object could not be created
      * @deprecated use {@link #createValue(String, Class)}
      */
-    @Deprecated // since 1.7.0
+    @Deprecated(since = "1.7.0")
     public static Object createObject(final String className) throws ParseException {
         return createValue(className, Object.class);
     }
@@ -172,7 +172,7 @@ public class TypeHandler {
      * @throws ParseException if the value creation for the given object type failed
      * @deprecated use {@link #createValue(String, Class)}
      */
-    @Deprecated // since 1.7.0
+    @Deprecated(since = "1.7.0")
     public static Object createValue(final String string, final Object obj) throws ParseException {
         return createValue(string, (Class<?>) obj);
     }
@@ -212,7 +212,7 @@ public class TypeHandler {
      * @throws ParseException if the file is not exist or not readable
      * @deprecated use {@link #createValue(String, Class)}
      */
-    @Deprecated // since 1.7.0
+    @Deprecated(since = "1.7.0")
     public static FileInputStream openFile(final String string) throws ParseException {
         return createValue(string, FileInputStream.class);
     }

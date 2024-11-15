@@ -117,7 +117,7 @@ public class PatternOptionBuilder {
      * @return The class that {@code ch} represents
      * @deprecated use {@link #getValueType(char)}
      */
-    @Deprecated // since="1.7.0"
+    @Deprecated(since = "1.7.0")
     public static Object getValueClass(final char ch) {
         return getValueType(ch);
     }
@@ -130,28 +130,18 @@ public class PatternOptionBuilder {
      * @since 1.7.0
      */
     public static Class<?> getValueType(final char ch) {
-        switch (ch) {
-        case '@':
-            return OBJECT_VALUE;
-        case ':':
-            return STRING_VALUE;
-        case '%':
-            return NUMBER_VALUE;
-        case '+':
-            return CLASS_VALUE;
-        case '#':
-            return DATE_VALUE;
-        case '<':
-            return EXISTING_FILE_VALUE;
-        case '>':
-            return FILE_VALUE;
-        case '*':
-            return FILES_VALUE;
-        case '/':
-            return URL_VALUE;
-        }
-
-        return null;
+        return switch (ch) {
+            case '@' -> OBJECT_VALUE;
+            case ':' -> STRING_VALUE;
+            case '%' -> NUMBER_VALUE;
+            case '+' -> CLASS_VALUE;
+            case '#' -> DATE_VALUE;
+            case '<' -> EXISTING_FILE_VALUE;
+            case '>' -> FILE_VALUE;
+            case '*' -> FILES_VALUE;
+            case '/' -> URL_VALUE;
+            default -> null;
+        };
     }
 
     /**

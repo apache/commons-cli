@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@Deprecated(since = "1.3")
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class ArgumentIsOptionTest {
 

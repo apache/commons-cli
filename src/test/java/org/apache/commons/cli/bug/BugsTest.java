@@ -111,17 +111,16 @@ public class BugsTest {
         while (iter.hasNext()) {
             final Option opt = iter.next();
             switch (opt.getId()) {
-            case 'D':
-                assertEquals(opt.getValue(0), "JAVA_HOME");
-                assertEquals(opt.getValue(1), "/opt/java");
-                break;
-            case 'p':
-                assertEquals(opt.getValue(0), "file1");
-                assertEquals(opt.getValue(1), "file2");
-                assertEquals(opt.getValue(2), "file3");
-                break;
-            default:
-                fail("-D option not found");
+                case 'D' -> {
+                    assertEquals(opt.getValue(0), "JAVA_HOME");
+                    assertEquals(opt.getValue(1), "/opt/java");
+                }
+                case 'p' -> {
+                    assertEquals(opt.getValue(0), "file1");
+                    assertEquals(opt.getValue(1), "file2");
+                    assertEquals(opt.getValue(2), "file3");
+                }
+                default -> fail("-D option not found");
             }
         }
     }
@@ -345,5 +344,4 @@ public class BugsTest {
         assertTrue(cl.hasOption('o'));
         assertEquals("ovalue", cl.getOptionValue('o'));
     }
-
 }

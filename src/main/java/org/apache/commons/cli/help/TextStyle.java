@@ -345,47 +345,43 @@ public final class TextStyle {
         if (text.length() >= maxWidth) {
             return text;
         }
-        String indentPad;
-        String rest;
         final StringBuilder sb = new StringBuilder();
-        switch (alignment) {
-        case CENTER:
-            int padLen;
-            if (maxWidth == UNSET_MAX_WIDTH) {
-                padLen = addIndent ? indent : 0;
-            } else {
-                padLen = maxWidth - text.length();
-            }
-            final int left = padLen / 2;
-            indentPad = Util.repeatSpace(left);
-            rest = Util.repeatSpace(padLen - left);
-            sb.append(indentPad).append(text).append(rest);
-            break;
-        case LEFT:
-        case RIGHT:
-        default: // default should never happen. It is here to keep code coverage happy.
-            if (maxWidth == UNSET_MAX_WIDTH) {
-                indentPad = addIndent ? Util.repeatSpace(indent) : "";
-                rest = "";
-            } else {
-                int restLen = maxWidth - text.length();
-                if (addIndent && restLen > indent) {
-                    indentPad = Util.repeatSpace(indent);
-                    restLen -= indent;
+        return switch (alignment) {
+            case CENTER -> {
+                int padLen;
+                if (maxWidth == UNSET_MAX_WIDTH) {
+                    padLen = addIndent ? indent : 0;
                 } else {
-                    indentPad = "";
+                    padLen = maxWidth - text.length();
                 }
-                rest = Util.repeatSpace(restLen);
+                final int left = padLen / 2;
+                String indentPad = Util.repeatSpace(left);
+                String rest = Util.repeatSpace(padLen - left);
+                yield sb.append(indentPad).append(text).append(rest).toString();
             }
-
-            if (alignment == Alignment.LEFT) {
-                sb.append(indentPad).append(text).append(rest);
-            } else {
-                sb.append(indentPad).append(rest).append(text);
+            case LEFT, RIGHT -> {
+                String indentPad;
+                String rest;
+                if (maxWidth == UNSET_MAX_WIDTH) {
+                    indentPad = addIndent ? Util.repeatSpace(indent) : "";
+                    rest = "";
+                } else {
+                    int restLen = maxWidth - text.length();
+                    if (addIndent && restLen > indent) {
+                        indentPad = Util.repeatSpace(indent);
+                        restLen -= indent;
+                    } else {
+                        indentPad = "";
+                    }
+                    rest = Util.repeatSpace(restLen);
+                }
+                if (alignment == Alignment.LEFT) {
+                    yield sb.append(indentPad).append(text).append(rest).toString();
+                } else {
+                    yield sb.append(indentPad).append(rest).append(text).toString();
+                }
             }
-            break;
-        }
-        return sb.toString();
+        };
     }
 
     @Override

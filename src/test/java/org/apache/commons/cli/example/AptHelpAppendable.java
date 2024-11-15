@@ -104,17 +104,12 @@ public class AptHelpAppendable extends FilterHelpAppendable {
                 final String header = table.headers().get(i);
                 final TextStyle style = table.columnTextStyles().get(i);
                 sb.append(StringUtils.repeat('-', header.length() + 2));
-                switch (style.getAlignment()) {
-                case LEFT:
-                    sb.append("+");
-                    break;
-                case CENTER:
-                    sb.append("*");
-                    break;
-                case RIGHT:
-                    sb.append(":");
-                    break;
-                }
+                String appendChar = switch (style.getAlignment()) {
+                    case LEFT -> "+";
+                    case CENTER -> "*";
+                    case RIGHT -> ":";
+                };
+                sb.append(appendChar);
             }
             final String rowSeparator = System.lineSeparator() + sb.append(System.lineSeparator());
             // output the header line.

@@ -67,7 +67,7 @@ public class CommandLine implements Serializable {
          *
          * @deprecated Use {@link #builder()}.
          */
-        @Deprecated
+        @Deprecated(since = "1.4")
         public Builder() {
             // empty
         }
@@ -106,7 +106,7 @@ public class CommandLine implements Serializable {
          * @return a new instance.
          * @deprecated Use {@link #get()}.
          */
-        @Deprecated
+        @Deprecated(since = "1.4")
         public CommandLine build() {
             return get();
         }
@@ -229,7 +229,7 @@ public class CommandLine implements Serializable {
      * @param opt the name of the option.
      * @return the type of opt.
      */
-    @Deprecated
+    @Deprecated(since = "1.0")
     public Object getOptionObject(final char opt) {
         return getOptionObject(String.valueOf(opt));
     }
@@ -241,7 +241,7 @@ public class CommandLine implements Serializable {
      * @return the type of this {@code Option}.
      * @deprecated due to System.err message. Instead use getParsedOptionValue(String)
      */
-    @Deprecated
+    @Deprecated(since = "1.0")
     public Object getOptionObject(final String opt) {
         try {
             return getParsedOptionValue(opt);

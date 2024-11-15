@@ -87,24 +87,12 @@ public class BugCLI312Test {
                 defineOptionsFound++;
 
                 switch (defineOptionsFound) {
-                case 1:
-                    assertArrayEquals(new String[] {"v"}, o.getValues());
-                    break;
-                case 2:
-                    assertArrayEquals(new String[] {"w", "1"}, o.getValues());
-                    break;
-                case 3:
-                    assertArrayEquals(new String[] {"x", "2"}, o.getValues());
-                    break;
-                case 4:
-                    assertArrayEquals(new String[] {"y"}, o.getValues());
-                    break;
-                case 5:
-                    assertArrayEquals(new String[] {"z", "3"}, o.getValues());
-                    break;
-                default:
-                    fail("Didn't expect " + defineOptionsFound + " occurrences of -D");
-                    break;
+                    case 1 -> assertArrayEquals(new String[] {"v"}, o.getValues());
+                    case 2 -> assertArrayEquals(new String[] {"w", "1"}, o.getValues());
+                    case 3 -> assertArrayEquals(new String[] {"x", "2"}, o.getValues());
+                    case 4 -> assertArrayEquals(new String[] {"y"}, o.getValues());
+                    case 5 -> assertArrayEquals(new String[] {"z", "3"}, o.getValues());
+                    default -> fail("Didn't expect " + defineOptionsFound + " occurrences of -D");
                 }
             }
         }
