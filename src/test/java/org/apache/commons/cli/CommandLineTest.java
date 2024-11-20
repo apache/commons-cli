@@ -59,7 +59,6 @@ public class CommandLineTest {
         lst.add(Arguments.of(new String[] {"--you"}, optT, optionGroup, false, false, false, true, optU));
         lst.add(Arguments.of(new String[] {"--you", "foo", "bar"}, optT, optionGroup, false, false, false, true, optU));
 
-
         // U set
         lst.add(Arguments.of(new String[] {"-T"}, optU, optionGroup, false, false, true, true, optT));
         lst.add(Arguments.of(new String[] {"-T", "foo", "bar"}, optU, optionGroup, false, false, true, true, optT));
@@ -156,7 +155,6 @@ public class CommandLineTest {
         lst.add(Arguments.of(new String[] {"-U", "1"}, optT, optionGroup, false, null, false, expected, optU));
         lst.add(Arguments.of(new String[] {"--you"}, optT, optionGroup, false, null, false, null, optU));
         lst.add(Arguments.of(new String[] {"--you", "1"}, optT, optionGroup, false, null, false, expected, optU));
-
 
         // U set
         lst.add(Arguments.of(new String[] {"-T"}, optU, optionGroup, false, null, true, null, optT));
@@ -491,7 +489,6 @@ public class CommandLineTest {
         assertArrayEquals(optValue, commandLine.getOptionValues(opt));
         checkHandler(optDep, handler, opt);
 
-
         // test OptionGroup arg
         assertArrayEquals(grpValue, commandLine.getOptionValues(optionGroup));
         checkHandler(grpDep, handler, grpOpt);
@@ -552,7 +549,6 @@ public class CommandLineTest {
         assertEquals(optValue == null ? thing : optValue, commandLine.getParsedOptionValue(opt.getLongOpt(), thinger));
         checkHandler(optDep, handler, opt);
 
-
         // test Option arg
         assertEquals(optValue, commandLine.getParsedOptionValue(opt));
         checkHandler(optDep, handler, opt);
@@ -592,7 +588,6 @@ public class CommandLineTest {
 
         assertEquals(thing, commandLine.getParsedOptionValue(nullGroup, thinger));
         checkHandler(false, handler, grpOpt);
-
 
         // test not an option
         assertNull(commandLine.getParsedOptionValue("Nope"));
@@ -652,7 +647,6 @@ public class CommandLineTest {
         assertFalse(commandLine.hasOption(otherGroup));
         checkHandler(false, handler, grpOpt);
 
-
         // test null group arg
         assertFalse(commandLine.hasOption(nullGroup));
         checkHandler(false, handler, grpOpt);
@@ -688,7 +682,6 @@ public class CommandLineTest {
             // test char option arg
             assertEquals(has, commandLine.hasOption(asChar(opt)));
             assertWritten(optDep, baos);
-
 
             // test short option arg
             assertEquals(has, commandLine.hasOption(opt.getOpt()));
@@ -740,7 +733,6 @@ public class CommandLineTest {
             // test char option arg
             assertEquals(has, commandLine.hasOption(asChar(opt)));
             assertWritten(false, baos);
-
 
             // test short option arg
             assertEquals(has, commandLine.hasOption(opt.getOpt()));
@@ -949,7 +941,6 @@ public class CommandLineTest {
         assertArrayEquals(optValue == null ? thing : optValue, commandLine.getParsedOptionValues(opt.getLongOpt(), thinger));
         checkHandler(optDep, handler, opt);
 
-
         // test Option arg
         assertArrayEquals(optValue, commandLine.getParsedOptionValues(opt));
         checkHandler(optDep, handler, opt);
@@ -990,7 +981,6 @@ public class CommandLineTest {
         assertArrayEquals(thing, commandLine.getParsedOptionValues(nullGroup, thinger));
         checkHandler(false, handler, grpOpt);
 
-
         // test not an option
         assertNull(commandLine.getParsedOptionValues("Nope"));
         checkHandler(false, handler, opt);
@@ -1019,7 +1009,6 @@ public class CommandLineTest {
         lst.add(Arguments.of(new String[] {"-U", "1", "2"}, optT, optionGroup, false, null, false, expected, optU));
         lst.add(Arguments.of(new String[] {"--you"}, optT, optionGroup, false, null, false, null, optU));
         lst.add(Arguments.of(new String[] {"--you", "1", "2"}, optT, optionGroup, false, null, false, expected, optU));
-
 
         // U set
         lst.add(Arguments.of(new String[] {"-T"}, optU, optionGroup, false, null, true, null, optT));
