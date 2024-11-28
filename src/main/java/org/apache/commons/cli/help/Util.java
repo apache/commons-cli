@@ -107,7 +107,6 @@ final class Util {
      * Creates a String of padding of length {@code len}.
      *
      * @param len The length of the String of padding to create.
-     *
      * @return The String of padding.
      */
     static String repeatSpace(final int len) {

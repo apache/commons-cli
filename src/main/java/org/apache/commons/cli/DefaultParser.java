@@ -693,7 +693,6 @@ public class DefaultParser implements CommandLineParser {
      * @param arguments the command line arguments
      * @param properties command line option name-value pairs
      * @return the list of atomic option and value tokens
-     *
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      */
     public CommandLine parse(final Options options, final String[] arguments, final Properties properties) throws ParseException {

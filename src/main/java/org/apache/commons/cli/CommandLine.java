@@ -76,7 +76,6 @@ public class CommandLine implements Serializable {
          * Adds left-over unrecognized option/argument.
          *
          * @param arg the unrecognized option/argument.
-         *
          * @return this Builder instance for method chaining.
          */
         public Builder addArg(final String arg) {
@@ -90,7 +89,6 @@ public class CommandLine implements Serializable {
          * Adds an option to the command line. The values of the option are stored.
          *
          * @param opt the processed option.
-         *
          * @return this Builder instance for method chaining.
          */
         public Builder addOption(final Option opt) {

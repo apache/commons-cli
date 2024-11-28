@@ -326,7 +326,6 @@ public final class OptionBuilder {
      * </pre>
      *
      * @param sep The value separator to be used for the argument values.
-     *
      * @return the OptionBuilder instance
      */
     public static OptionBuilder withValueSeparator(final char sep) {
