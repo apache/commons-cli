@@ -549,33 +549,54 @@ public class HelpFormatter {
      * @return position on which the text must be wrapped or -1 if the wrap position is at the end of the text
      */
     protected int findWrapPos(final String text, final int width, final int startPos) {
-        // the line ends before the max wrap pos or a new line char found
-        int pos = text.indexOf(Char.LF, startPos);
-        if (pos != -1 && pos <= width) {
+        // Check for line breaks or tabs within the width limit.
+        int pos = findWrapPosAtWidth(text, startPos, width, Char.LF);
+        if (pos != -1) {
             return pos + 1;
         }
-        pos = text.indexOf(Char.TAB, startPos);
-        if (pos != -1 && pos <= width) {
+
+        pos = findWrapPosAtWidth(text, startPos, width, Char.TAB);
+        if (pos != -1) {
             return pos + 1;
         }
+
+        // If the width goes beyond the string length, no wrap is needed
         if (startPos + width >= text.length()) {
             return -1;
         }
-        // look for the last whitespace character before startPos+width
-        for (pos = startPos + width; pos >= startPos; --pos) {
-            final char c = text.charAt(pos);
-            if (c == Char.SP || c == Char.LF || c == Char.CR) {
-                break;
-            }
-        }
-        // if we found it - just return
+
+        // Look for the last whitespace before the width limit
+        pos = findLastWhitespaceBeforeWidth(text, startPos, width);
+
+        // If whitespace was found, return its position
         if (pos > startPos) {
             return pos;
         }
-        // if we didn't find one, simply chop at startPos+width
+
+        // If no whitespace found, just chop at the width position
         pos = startPos + width;
         return pos == text.length() ? -1 : pos;
     }
+
+    private int findWrapPosAtWidth(String text, int startPos, int width, char checkChar) {
+        int pos = text.indexOf(checkChar, startPos);
+        if (pos != -1 && pos <= width) {
+            return pos;
+        }
+        return -1;
+    }
+
+    private int findLastWhitespaceBeforeWidth(String text, int startPos, int width) {
+        int pos = startPos + width;
+        for ( ; pos >= startPos; --pos) {
+            final char c = text.charAt(pos);
+            if (c == Char.SP || c == Char.LF || c == Char.CR) {
+                return pos;
+            }
+        }
+        return -1;
+    }
+
 
     /**
      * Gets the 'argName'.
