@@ -19,6 +19,8 @@ package org.apache.commons.cli;
 
 import static org.apache.commons.cli.Util.EMPTY_STRING_ARRAY;
 
+import org.apache.commons.cli.processor.ArgumentProcessor;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -502,7 +504,7 @@ public class Option implements Cloneable, Serializable {
      *
      * @param value The value to be added to this Option.
      */
-    private void add(final String value) {
+    public void add(final String value) {
         if (!acceptsArg()) {
             throw new IllegalArgumentException("Cannot add value, list full.");
         }
@@ -834,32 +836,7 @@ public class Option implements Cloneable, Serializable {
      * @param value The String to be processed.
      */
     void processValue(final String value) {
-        if (argCount == UNINITIALIZED) {
-            throw new IllegalArgumentException("NO_ARGS_ALLOWED");
-        }
-        String add = value;
-        // this Option has a separator character
-        if (hasValueSeparator()) {
-            // get the separator character
-            final char sep = getValueSeparator();
-            // store the index for the value separator
-            int index = add.indexOf(sep);
-            // while there are more value separators
-            while (index != -1) {
-                // next value to be added
-                if (values.size() == argCount - 1) {
-                    break;
-                }
-                // store
-                add(add.substring(0, index));
-                // parse
-                add = add.substring(index + 1);
-                // get new index
-                index = add.indexOf(sep);
-            }
-        }
-        // store the actual value or the last value that has been parsed
-        add(add);
+        ArgumentProcessor.processValue(this, value);
     }
 
     /**
