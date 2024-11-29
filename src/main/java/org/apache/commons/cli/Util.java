@@ -26,6 +26,13 @@ final class Util {
      * An empty immutable {@code String} array.
      */
     static final String[] EMPTY_STRING_ARRAY = {};
+    /**
+    *Constant representing the hyphen Strings
+    */
+    private static final String HYPHEN = "-";
+    private static final String DOUBLE_HYPHEN = "--";
+
+
 
     /**
      * Tests whether the given array is null or empty.
@@ -74,10 +81,10 @@ final class Util {
         if (isEmpty(str)) {
             return str;
         }
-        if (str.startsWith("--")) {
+        if (str.startsWith(DOUBLE_HYPHEN)) {
             return str.substring(2);
         }
-        if (str.startsWith("-")) {
+        if (str.startsWith(HYPHEN)) {
             return str.substring(1);
         }
         return str;
