@@ -168,6 +168,7 @@ public class HelpFormatter {
             return opt1.getKey().compareToIgnoreCase(opt2.getKey());
         }
     }
+
     /** "Options" text for options header */
     private static final String HEADER_OPTIONS = "Options";
 
