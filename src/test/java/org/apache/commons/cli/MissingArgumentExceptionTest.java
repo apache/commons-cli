@@ -17,21 +17,28 @@
 
 package org.apache.commons.cli;
 
-/**
- * Base class for exceptions related to command-line parsing.
- */
-public class CliException extends ParseException {
-    private static final long serialVersionUID = 1L;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-    /** The option related to the exception */
-    protected Option option;
+public class MissingArgumentExceptionTest {
 
-    public CliException(String message) {
-        super(message);
+    @Test
+    public void testGetOption() {
+        Option option = new Option("file", "f");
+        MissingArgumentException exception = new MissingArgumentException(option);
+
+        assertNotNull(exception.getOption());
+        assertEquals(option, exception.getOption());
     }
 
-    public Option getOption() {
-        return option;
+    @Test
+    public void testNoOptionProvided() {
+        MissingArgumentException exception = new MissingArgumentException("No argument provided");
+
+        assertEquals("No argument provided", exception.getMessage());
+        assertNull(exception.getOption());
     }
+
+
+
 }
-
