@@ -147,7 +147,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
      */
     @Override
     public TableDefinition getTableDefinition(final Iterable<Option> options) {
-        // set up the base TextStyle for the columns configured for the Option opt and arg values..
+        // set up the base TextStyle for the columns configured for the Option opt and arg values.
         final TextStyle.Builder builder = TextStyle.builder().setAlignment(TextStyle.Alignment.LEFT).setIndent(DEFAULT_LEFT_PAD).setScalable(false);
         final List<TextStyle> styles = new ArrayList<>();
         styles.add(builder.get());

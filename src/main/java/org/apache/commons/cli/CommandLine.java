@@ -18,6 +18,7 @@
 package org.apache.commons.cli;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -503,7 +504,7 @@ public class CommandLine implements Serializable {
      *
      * @param opt the name of the option.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or null if the option is not set.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.5.0
@@ -518,7 +519,7 @@ public class CommandLine implements Serializable {
      * @param opt the name of the option.
      * @param defaultValue the default value to return if opt is not set.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or the defaultValue if the option is not set.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.7.0
@@ -533,7 +534,7 @@ public class CommandLine implements Serializable {
      * @param opt the name of the option.
      * @param defaultValue the default value to return if opt is not set.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or the defaultValue if the option is not set.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.7.0
@@ -547,7 +548,7 @@ public class CommandLine implements Serializable {
      *
      * @param option the option.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or null if the option is not set.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.5.0
@@ -562,7 +563,7 @@ public class CommandLine implements Serializable {
      * @param option the option.
      * @param defaultValue the default value to return if opt is not set.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or the defaultValue if the option is not set.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.7.0
@@ -589,7 +590,7 @@ public class CommandLine implements Serializable {
      * @param option the option.
      * @param defaultValue the default value to return if opt is not set.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or the defaultValue if the option is not set.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.7.0
@@ -603,7 +604,7 @@ public class CommandLine implements Serializable {
      *
      * @param optionGroup the option group.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or null if no option in the OptionGroup is set.
      * @throws ParseException if there are problems turning the selected option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.9.0
@@ -618,7 +619,7 @@ public class CommandLine implements Serializable {
      * @param optionGroup the option group.
      * @param defaultValue the default value to return if opt is not set.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or the defaultValue if no option in the OptionGroup is set.
      * @throws ParseException if there are problems turning the selected option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.9.0
@@ -636,7 +637,7 @@ public class CommandLine implements Serializable {
      * @param optionGroup the option group.
      * @param defaultValue the default value to return if an option is not selected.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or the defaultValue if no option in the OptionGroup is set.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.9.0
@@ -650,7 +651,7 @@ public class CommandLine implements Serializable {
      *
      * @param opt the name of the option.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or null if the option is not set.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.2
@@ -665,7 +666,7 @@ public class CommandLine implements Serializable {
      * @param opt the name of the option.
      * @param defaultValue the default value to return if opt is not set.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or the defaultValue if the option is not set.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.7.0
@@ -680,13 +681,209 @@ public class CommandLine implements Serializable {
      * @param opt the name of the option.
      * @param defaultValue the default value to return if opt is not set.
      * @param <T> The return type for the method.
-     * @return the value parsed into a particular object.
+     * @return the value parsed into a particular object or the defaultValue if the option is not set.
      * @throws ParseException if there are problems turning the option value into the desired type
      * @see PatternOptionBuilder
      * @since 1.7.0
      */
     public <T> T getParsedOptionValue(final String opt, final T defaultValue) throws ParseException {
         return getParsedOptionValue(resolveOption(opt), defaultValue);
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to an array of a particular type.
+     *
+     * @param opt the name of the option.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or null if the option is not set.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    public <T> T[] getParsedOptionValues(final char opt) throws ParseException {
+        return getParsedOptionValues(String.valueOf(opt));
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to an array of a particular type.
+     *
+     * @param opt the name of the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or the defaultValue if the option is not set.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    public <T> T[] getParsedOptionValues(final char opt, final Supplier<T[]> defaultValue) throws ParseException {
+        return getParsedOptionValues(String.valueOf(opt), defaultValue);
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to an array of a particular type.
+     *
+     * @param opt the name of the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or the defaultValue if the option is not set.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    public <T> T[] getParsedOptionValues(final char opt, final T[] defaultValue) throws ParseException {
+        return getParsedOptionValues(String.valueOf(opt), defaultValue);
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to an array of a particular type.
+     *
+     * @param option the option.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or null if the option is not set.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    public <T> T[] getParsedOptionValues(final Option option) throws ParseException {
+        return getParsedOptionValues(option, () -> null);
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to an array of a particular type.
+     *
+     * @param option the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or the defaultValue if the option is not set.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T[] getParsedOptionValues(final Option option, final Supplier<T[]> defaultValue) throws ParseException {
+        if (option == null) {
+            return get(defaultValue);
+        }
+        Class<? extends T> clazz = (Class<? extends T>) option.getType();
+        String[] values = getOptionValues(option);
+        if (values == null) {
+            return get(defaultValue);
+        }
+        T[] result = (T[]) Array.newInstance(clazz, values.length);
+        try {
+            for (int i = 0; i < values.length; i++) {
+                result[i] = clazz.cast(option.getConverter().apply(values[i]));
+            }
+            return result;
+        } catch (final Exception t) {
+            throw ParseException.wrap(t);
+        }
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to an array of a particular type.
+     *
+     * @param option the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or the defaultValue if the option is not set.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    public <T> T[] getParsedOptionValues(final Option option, final T[] defaultValue) throws ParseException {
+        return getParsedOptionValues(option, () -> defaultValue);
+    }
+
+    /**
+     * Gets a version of this {@code OptionGroup} converted to an array of a particular type.
+     *
+     * @param optionGroup the option group.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or null if no option in the OptionGroup is set.
+     * @throws ParseException if there are problems turning the selected option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    public <T> T[] getParsedOptionValues(final OptionGroup optionGroup) throws ParseException {
+        return getParsedOptionValues(optionGroup, () -> null);
+    }
+
+    /**
+     * Gets a version of this {@code OptionGroup} converted to an array of a particular type.
+     *
+     * @param optionGroup the option group.
+     * @param defaultValue the default value to return if opt is not set.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or null if no option in the OptionGroup is set.
+     * @throws ParseException if there are problems turning the selected option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    public <T> T[] getParsedOptionValues(final OptionGroup optionGroup, final Supplier<T[]> defaultValue) throws ParseException {
+        if (optionGroup == null || !optionGroup.isSelected()) {
+            return get(defaultValue);
+        }
+        return getParsedOptionValues(optionGroup.getSelected(), defaultValue);
+    }
+
+    /**
+     * Gets a version of this {@code OptionGroup} converted to an array of a particular type.
+     *
+     * @param optionGroup the option group.
+     * @param defaultValue the default value to return if an option is not selected.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or null if no option in the OptionGroup is set.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    public <T> T[] getParsedOptionValues(final OptionGroup optionGroup, final T[] defaultValue) throws ParseException {
+        return getParsedOptionValues(optionGroup, () -> defaultValue);
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to an array of a particular type.
+     *
+     * @param opt the name of the option.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or null if the option is not set.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    public <T> T[] getParsedOptionValues(final String opt) throws ParseException {
+        return getParsedOptionValues(resolveOption(opt));
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to an array of a particular type.
+     *
+     * @param opt the name of the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or defaultValues if the option is not set.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    public <T> T[] getParsedOptionValues(final String opt, final Supplier<T[]> defaultValue) throws ParseException {
+        return getParsedOptionValues(resolveOption(opt), defaultValue);
+    }
+
+    /**
+     * Gets a version of this {@code Option} converted to an array of a particular type.
+     *
+     * @param opt the name of the option.
+     * @param defaultValue the default value to return if opt is not set.
+     * @param <T> The array type for the return value.
+     * @return the values parsed into an array of objects or defaultValues if the option is not set.
+     * @throws ParseException if there are problems turning the option value into the desired type
+     * @see PatternOptionBuilder
+     * @since 1.10.0
+     */
+    public <T> T[] getParsedOptionValues(final String opt, final T[] defaultValue) throws ParseException {
+        return getParsedOptionValues(resolveOption(opt), defaultValue);
     }
 
     /**
