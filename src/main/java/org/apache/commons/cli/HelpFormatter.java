@@ -17,6 +17,8 @@
 
 package org.apache.commons.cli;
 
+import org.apache.commons.cli.config.HelpFormatterConfig;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,7 +32,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -74,74 +75,104 @@ public class HelpFormatter {
      *
      * @since 1.7.0
      */
+//    public static class Builder implements Supplier<HelpFormatter> {
+//        // TODO All other instance HelpFormatter instance variables.
+//        // Make HelpFormatter immutable for 2.0
+//
+//        /**
+//         * A function to convert a description (not null) and a deprecated Option (not null) to help description
+//         */
+//        private static final Function<Option, String> DEFAULT_DEPRECATED_FORMAT = o -> "[Deprecated] " + getDescription(o);
+//
+//        /**
+//         * Formatter for deprecated options.
+//         */
+//        private Function<Option, String> deprecatedFormatFunction = DEFAULT_DEPRECATED_FORMAT;
+//
+//        /**
+//         * The output PrintWriter, defaults to wrapping {@link System#out}.
+//         */
+//        private PrintWriter printStream = createDefaultPrintWriter();
+//
+//        /** The flag to determine if the since values should be dispalyed */
+//        private boolean showSince;
+//
+//        @Override
+//        public HelpFormatter get() {
+//            return new HelpFormatter(deprecatedFormatFunction, printStream, showSince);
+//        }
+//
+//        /**
+//         * Sets the output PrintWriter, defaults to wrapping {@link System#out}.
+//         *
+//         * @param printWriter the output PrintWriter, not null.
+//         * @return {@code this} instance.
+//         */
+//        public Builder setPrintWriter(final PrintWriter printWriter) {
+//            this.printStream = Objects.requireNonNull(printWriter, "printWriter");
+//            return this;
+//        }
+//
+//        /**
+//         * Sets whether to show deprecated options.
+//         *
+//         * @param useDefaultFormat if {@code true} use the default format, otherwise clear the formatter.
+//         * @return {@code this} instance.
+//         */
+//        public Builder setShowDeprecated(final boolean useDefaultFormat) {
+//            return setShowDeprecated(useDefaultFormat ? DEFAULT_DEPRECATED_FORMAT : null);
+//        }
+//
+//        /**
+//         * Sets whether to show deprecated options.
+//         *
+//         * @param deprecatedFormatFunction Specify the format for the deprecated options.
+//         * @return {@code this} instance.
+//         * @since 1.8.0
+//         */
+//        public Builder setShowDeprecated(final Function<Option, String> deprecatedFormatFunction) {
+//            this.deprecatedFormatFunction = deprecatedFormatFunction;
+//            return this;
+//        }
+//
+//        /**
+//         * Sets whether to show the date the option was first added.
+//         * @param showSince if @{code true} the date the options was first added will be shown.
+//         * @return this builder.
+//         * @since 1.9.0
+//         */
+//        public Builder setShowSince(final boolean showSince) {
+//            this.showSince = showSince;
+//            return this;
+//        }
+//    }
+
     public static class Builder implements Supplier<HelpFormatter> {
-        // TODO All other instance HelpFormatter instance variables.
-        // Make HelpFormatter immutable for 2.0
 
-        /**
-         * A function to convert a description (not null) and a deprecated Option (not null) to help description
-         */
-        private static final Function<Option, String> DEFAULT_DEPRECATED_FORMAT = o -> "[Deprecated] " + getDescription(o);
-
-        /**
-         * Formatter for deprecated options.
-         */
-        private Function<Option, String> deprecatedFormatFunction = DEFAULT_DEPRECATED_FORMAT;
-
-        /**
-         * The output PrintWriter, defaults to wrapping {@link System#out}.
-         */
-        private PrintWriter printStream = createDefaultPrintWriter();
-
-        /** The flag to determine if the since values should be dispalyed */
-        private boolean showSince;
+        private final HelpFormatterConfig config = new HelpFormatterConfig();
 
         @Override
         public HelpFormatter get() {
-            return new HelpFormatter(deprecatedFormatFunction, printStream, showSince);
+            return new HelpFormatter(config.getDeprecatedFormatFunction(), config.getPrintStream(), config.isShowSince());
         }
 
-        /**
-         * Sets the output PrintWriter, defaults to wrapping {@link System#out}.
-         *
-         * @param printWriter the output PrintWriter, not null.
-         * @return {@code this} instance.
-         */
-        public Builder setPrintWriter(final PrintWriter printWriter) {
-            this.printStream = Objects.requireNonNull(printWriter, "printWriter");
+        public Builder setPrintWriter(PrintWriter printWriter) {
+            config.setPrintWriter(printWriter);
             return this;
         }
 
-        /**
-         * Sets whether to show deprecated options.
-         *
-         * @param useDefaultFormat if {@code true} use the default format, otherwise clear the formatter.
-         * @return {@code this} instance.
-         */
-        public Builder setShowDeprecated(final boolean useDefaultFormat) {
-            return setShowDeprecated(useDefaultFormat ? DEFAULT_DEPRECATED_FORMAT : null);
-        }
-
-        /**
-         * Sets whether to show deprecated options.
-         *
-         * @param deprecatedFormatFunction Specify the format for the deprecated options.
-         * @return {@code this} instance.
-         * @since 1.8.0
-         */
-        public Builder setShowDeprecated(final Function<Option, String> deprecatedFormatFunction) {
-            this.deprecatedFormatFunction = deprecatedFormatFunction;
+        public Builder setShowDeprecated(boolean useDefaultFormat) {
+            config.setShowDeprecated(useDefaultFormat);
             return this;
         }
 
-        /**
-         * Sets whether to show the date the option was first added.
-         * @param showSince if @{code true} the date the options was first added will be shown.
-         * @return this builder.
-         * @since 1.9.0
-         */
-        public Builder setShowSince(final boolean showSince) {
-            this.showSince = showSince;
+        public Builder setShowDeprecated(Function<Option, String> deprecatedFormatFunction) {
+            config.setShowDeprecated(deprecatedFormatFunction);
+            return this;
+        }
+
+        public Builder setShowSince(boolean showSince) {
+            config.setShowSince(showSince);
             return this;
         }
     }
