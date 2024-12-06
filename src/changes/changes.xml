@@ -104,8 +104,7 @@
         Fix site links that are broken #155.
       </action>
       <action type="update" dev="ggregory" due-to="Arturo Bernal">
-        Use Math.max() #111. 
-        Delete unused assignment #112.
+        Use Math.max() #111. Delete unused assignment #112.
       </action>
       <action dev="ggregory" type="fix" due-to="step-security-bot, Gary Gregory">
         [StepSecurity] ci: Harden GitHub Actions #176.
