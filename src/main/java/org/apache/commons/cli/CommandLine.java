@@ -407,7 +407,6 @@ public class CommandLine implements Serializable {
         return answer != null ? answer : get(defaultValue);
     }
 
-
     /**
      * Gets the first argument, if any, of this option.
      *
@@ -440,7 +439,6 @@ public class CommandLine implements Serializable {
     public String getOptionValue(final String optionName, final Supplier<String> defaultValue) {
         return getOptionValue(resolveOption(optionName), defaultValue);
     }
-
 
     /**
      * Gets the array of values, if any, of an option.

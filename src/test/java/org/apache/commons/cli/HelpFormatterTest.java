@@ -40,7 +40,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-
 /**
  * Test case for the HelpFormatter class.
  */
@@ -56,7 +55,6 @@ public class HelpFormatterTest {
 
         HelpFormatter hf = HelpFormatter.builder().get();
         lst.add(Arguments.of(hf, option, "[Deprecated] dddd dddd dddd"));
-
 
         hf = HelpFormatter.builder().setShowDeprecated(false).get();
         lst.add(Arguments.of(hf, option, "dddd dddd dddd"));

@@ -665,7 +665,6 @@ public class Option implements Cloneable, Serializable {
         return since;
     }
 
-
     /**
      * Gets the type of this Option.
      *

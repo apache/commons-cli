@@ -90,7 +90,6 @@ public class CommandLineTest {
         lst.add(Arguments.of(new String[] {"--you"}, optT, optionGroup, false, null, false, null, optU));
         lst.add(Arguments.of(new String[] {"--you", "foo"}, optT, optionGroup, false, null, false, "foo", optU));
 
-
         // U set
         lst.add(Arguments.of(new String[] {"-T"}, optU, optionGroup, false, null, true, null, optT));
         lst.add(Arguments.of(new String[] {"-T", "foo"}, optU, optionGroup, false, null, true, "foo", optT));
@@ -122,7 +121,6 @@ public class CommandLineTest {
         lst.add(Arguments.of(new String[] {"-U", "foo", "bar"}, optT, optionGroup, false, null, false, foobar, optU));
         lst.add(Arguments.of(new String[] {"--you"}, optT, optionGroup, false, null, false, null, optU));
         lst.add(Arguments.of(new String[] {"--you", "foo", "bar"}, optT, optionGroup, false, null, false, foobar, optU));
-
 
         // U set
         lst.add(Arguments.of(new String[] {"-T"}, optU, optionGroup, false, null, true, null, optT));
@@ -238,7 +236,6 @@ public class CommandLineTest {
         final Options options = new Options();
         options.addOption(Option.builder("i").hasArg().type(Number.class).build());
         options.addOption(Option.builder("c").hasArg().converter(s -> Count.valueOf(s.toUpperCase())).build());
-
 
         final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(options, new String[] {"-i", "foo", "-c", "bar"});
@@ -359,7 +356,6 @@ public class CommandLineTest {
 
         assertEquals(3, cmd.getOptions().length);
     }
-
 
     @Test
     public void testGetOptionsCtor() {
