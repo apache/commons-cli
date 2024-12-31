@@ -388,7 +388,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      * Resizes a TextStyle builder based on the fractional size.
      *
      * @param builder  the builder to adjust.
-     * @param fraction the fractional size (e.g. percentage of the current size) that the builder should be.
+     * @param fraction the fractional size (for example percentage of the current size) that the builder should be.
      * @return the builder with the maximum width and indent values resized.
      */
     protected TextStyle.Builder resize(final TextStyle.Builder builder, final double fraction) {

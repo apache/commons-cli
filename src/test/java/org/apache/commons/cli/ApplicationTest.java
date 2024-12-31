@@ -125,7 +125,7 @@ public class ApplicationTest {
         options.addOption(
             OptionBuilder.withArgName("extension")
                 .hasOptionalArg()
-                .withDescription("modify files in place; create backup if extension is given (e.g. \'.bak\')")
+                .withDescription("modify files in place; create backup if extension is given (for example \'.bak\')")
                 .create('i'));
         options.addOption(
             OptionBuilder.hasArg(false)
