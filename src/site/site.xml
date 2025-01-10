@@ -26,7 +26,7 @@
         <menu name="Commons CLI">
             <item name="Overview"             href="/index.html"/>
             <item name="Download"             href="https://commons.apache.org/cli/download_cli.cgi"/>
-            <item name="Changes Report"       href="/changes-report.html"/>
+            <item name="Changes Report"       href="/changes.html"/>
             <item name="Mailing Lists"        href="/mail-lists.html"/>
             <item name="Issue Tracking"       href="/issue-tracking.html"/>
             <item name="Source Repository"    href="/scm.html"/>
