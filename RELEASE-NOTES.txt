@@ -1,4 +1,52 @@
-Apache Commons CLI Version 1.9.0 Release Notes
+Apache Commons CLI 1.10.0 Release Notes
+---------------------------------------
+
+Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+
+New Features
+------------
+
+* CLI-339:  Help formatter extension in the new package #314. Thanks to Claude Warren, Gary Gregory.
+*           CommandLine.Builder implements Supplier<CommandLine>. Thanks to Gary Gregory.
+*           DefaultParser.Builder implements Supplier<DefaultParser>. Thanks to Gary Gregory.
+* CLI-340:  Add CommandLine.getParsedOptionValues() #334. Thanks to Claude Warren, Gary Gregory.
+
+Fixed Bugs
+----------
+
+*           Deprecate CommandLine.Builder() in favor of CommandLine.builder(). Thanks to Gary Gregory.
+*           Deprecate DeprecatedAttributes.Builder() in favor of DeprecatedAttributes.builder(). Thanks to Gary Gregory.
+*           Refactor default parser test #294. Thanks to Dávid Szigecsán.
+*           Port to JUnit 5. Thanks to Gary Gregory.
+*           Generics for Converter should use Exception not Throwable. Thanks to Gary Gregory.
+*           Pick up maven-antrun-plugin version from parent POM org.apache:apache. Thanks to Gary Gregory.
+
+Updates
+-------
+
+*           Bump org.apache.commons:commons-parent from 72 to 79 #302, #304, #310, #315, #320, #327. Thanks to Gary Gregory, Dependabot.
+*           [test] Bump commons-io:commons-io from 2.16.1 to 2.18.0 #309, #337. Thanks to Gary Gregory, Dependabot.
+*           [test] Bump org.apache.commons:commons-text from 1.12.0 to 1.13.0 #344. Thanks to Gary Gregory, Dependabot.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-cli/changes-report.html
+
+For complete information on Apache Commons CLI, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons CLI website:
+
+https://commons.apache.org/proper/commons-cli/
+
+Download page: https://commons.apache.org/proper/commons-cli/download_cli.cgi
+
+Have fun!
+The Apache Commons Team
+
+------------------------------------------------------------------------------
+
+Apache Commons CLI 1.9.0 Release Notes
 
 Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
 
@@ -40,7 +88,7 @@ The Apache Commons Team
 
 ------------------------------------------------------------------------------
 
-Apache Commons CLI Version 1.8.0 Release Notes
+Apache Commons CLI 1.8.0 Release Notes
 
 Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
 

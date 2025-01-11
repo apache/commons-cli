@@ -45,7 +45,7 @@ Apache Commons CLI
 
 [![Java CI](https://github.com/apache/commons-cli/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-cli/actions/workflows/maven.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/commons-cli/commons-cli?label=Maven%20Central)](https://search.maven.org/artifact/commons-cli/commons-cli)
-[![Javadocs](https://javadoc.io/badge/commons-cli/commons-cli/1.9.0.svg)](https://javadoc.io/doc/commons-cli/commons-cli/1.9.0)
+[![Javadocs](https://javadoc.io/badge/commons-cli/commons-cli/1.10.0.svg)](https://javadoc.io/doc/commons-cli/commons-cli/1.10.0)
 [![CodeQL](https://github.com/apache/commons-cli/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-cli/actions/workflows/codeql-analysis.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-cli/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-cli)
 
@@ -68,7 +68,7 @@ Alternatively, you can pull it from the central Maven repositories:
 <dependency>
   <groupId>commons-cli</groupId>
   <artifactId>commons-cli</artifactId>
-  <version>1.9.0</version>
+  <version>1.10.0</version>
 </dependency>
 ```
 
