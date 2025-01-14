@@ -83,7 +83,7 @@ usage: ls
       <p>
         <a href="https://commons.apache.org/cli/download_cli.cgi">Download</a> the latest version. 
         <br/>
-        The <a href="changes-report.html">release notes</a> are also available.
+        The <a href="changes.html">release notes</a> are also available.
       </p>
       <p>
         For previous releases, see the <a href="https://archive.apache.org/dist/commons/cli/">Apache Archive</a>.
