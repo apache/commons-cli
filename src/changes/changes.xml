@@ -30,6 +30,7 @@
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Port to JUnit 5.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Generics for Converter should use Exception not Throwable.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Pick up maven-antrun-plugin version from parent POM org.apache:apache.</action>
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc is missing its Overview page.</action>
       <!-- ADD -->
       <action type="add" issue="CLI-339" dev="ggregory" due-to="Claude Warren, Gary Gregory">Help formatter extension in the new package #314.</action>
       <action type="add" dev="ggregory" due-to="Gary Gregory">CommandLine.Builder implements Supplier&lt;CommandLine&gt;.</action>
