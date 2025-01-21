@@ -52,6 +52,7 @@
     <module name="MethodName" />
     <module name="PackageName" />
     <module name="ParameterName" />
+    <module name="ParenPad" />
     <module name="StaticVariableName" />
     <module name="TypeName" />
 
