@@ -133,7 +133,7 @@
       <property name="ordered" value="true"/>
       <property name="separated" value="true"/>
     </module>
-
+    <module name="TypecastParenPad" />    
   </module>
 
   <!-- @author tags are deprecated -->
