@@ -31,6 +31,8 @@
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Generics for Converter should use Exception not Throwable.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Pick up maven-antrun-plugin version from parent POM org.apache:apache.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc is missing its Overview page.</action>
+      <action type="fix" dev="ggregory" due-to="Arnout Engelen">Get mockito version from parent pom (#351).</action>
+      
       <!-- ADD -->
       <action type="add" issue="CLI-339" dev="ggregory" due-to="Claude Warren, Gary Gregory">Help formatter extension in the new package #314.</action>
       <action type="add" dev="ggregory" due-to="Gary Gregory">CommandLine.Builder implements Supplier&lt;CommandLine&gt;.</action>
