@@ -17,11 +17,12 @@
   specific language governing permissions and limitations
   under the License.
 -->
-<document>
-
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="dev@commons.apache.org">commons-dev</author>
     <title>Using Apache Commons CLI</title>
+    <author email="dev@commons.apache.org">Apache Commons Team</author>
   </properties>
 
   <body>
@@ -91,7 +92,9 @@ else {
     // print the date
 }</source>
         <p>
-          <h4>Note.</h4>
+          <em>Note.</em>
+        </p>
+        <p>
           As of version 1.5, the
           <code>DefaultParser</code>'s constructor now has an override with
           the signature <code>DefaultParser(final boolean allowPartialMatching)</code>.
@@ -221,10 +224,10 @@ Option find = Option.builder("find")
                                 .hasArgs()
                                 .valueSeparator('=')
                                 .build();</source>
-
+        <p>
           The map of properties specified by this option can later be retrieved by
           calling <code>getOptionProperties("D")</code> on the <code>CommandLine</code>.
-
+        </p>
       </subsection>
       <subsection name="Creating the Options">
         <p>
@@ -418,25 +421,27 @@ public static void main(String[] args) {
 }       </source>
         <p>
             The value types natively supported by commons-cli are:
-            <ul>
-                <li>Object.class - The string value must be the name of a class with a no argument constructor</li>
-                <li>Class.class - The string value must be the name of a class</li>
-                <li>Date.class - The string value must be a date parsable by <code>new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")</code></li>
-                <li>File.class - The string value is the name of the file.</li>
-                <li>Path.class - The string value is the name of a Path.</li>
-                <li>Number.class - The string value is a number representation can can be converted into an Integer or a Double.</li>
-                <li>URL.class - The string value is the textual representation of a URL</li>
-                <li>FileInputStream.class - The string value is passed to <code>new FileInputStream(s)</code>.</li>
-                <li>Long.class - The string value is a valid argument to <code>Long.parseLong()</code>.</li>
-                <li>Integer.class - The string value is a valid argument to <code>Integer.parseInt()</code>.</li>
-                <li>Short.class - The string value is a valid argument to <code>Short.parseShort()</code>.</li>
-                <li>Byte.class - The string value is a valid argument to <code>Byte.parseByte()</code>.</li>
-                <li>Character.class - The string value is either a UTF-8 encoding for a character (e.g. "\\u0124") or the first character from the String."</li>
-                <li>Double.class - The string value is a valid argument to <code>Double.parseDouble()</code>.</li>
-                <li>Float.class - The string value is a valid argument to <code>Float.parseFloat()</code>.</li>
-                <li>BigInteger.class - The string value is a valid argument to <code>new BigInteger(s)</code>.</li>
-                <li>BigDecimal.class - The string value is a valid argument to <code>new BigDecimal(s)</code>.</li>
-            </ul>
+        </p>
+        <ul>
+          <li>Object.class - The string value must be the name of a class with a no argument constructor</li>
+          <li>Class.class - The string value must be the name of a class</li>
+          <li>Date.class - The string value must be a date parsable by <code>new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")</code></li>
+          <li>File.class - The string value is the name of the file.</li>
+          <li>Path.class - The string value is the name of a Path.</li>
+          <li>Number.class - The string value is a number representation can can be converted into an Integer or a Double.</li>
+          <li>URL.class - The string value is the textual representation of a URL</li>
+          <li>FileInputStream.class - The string value is passed to <code>new FileInputStream(s)</code>.</li>
+          <li>Long.class - The string value is a valid argument to <code>Long.parseLong()</code>.</li>
+          <li>Integer.class - The string value is a valid argument to <code>Integer.parseInt()</code>.</li>
+          <li>Short.class - The string value is a valid argument to <code>Short.parseShort()</code>.</li>
+          <li>Byte.class - The string value is a valid argument to <code>Byte.parseByte()</code>.</li>
+          <li>Character.class - The string value is either a UTF-8 encoding for a character (e.g. "\\u0124") or the first character from the String."</li>
+          <li>Double.class - The string value is a valid argument to <code>Double.parseDouble()</code>.</li>
+          <li>Float.class - The string value is a valid argument to <code>Float.parseFloat()</code>.</li>
+          <li>BigInteger.class - The string value is a valid argument to <code>new BigInteger(s)</code>.</li>
+          <li>BigDecimal.class - The string value is a valid argument to <code>new BigDecimal(s)</code>.</li>
+        </ul>
+        <p>
             Additional types may be added to the automatic parsing system by calling <code>TypeHandler.register(Class&lt;T&gt; clazz, Converter&lt;T&gt; converter)</code>.
             The <code>Class&lt;T&gt;</code> can be any defined class.  The converter is a function that takes a <code>String</code> argument and returns an instance of 
             the class.  Any exception thrown by the constructor will be caught and reported as a <code>ParseException</code>
@@ -580,11 +585,13 @@ public static void main(String[] args) {
           <p>
              The display of deprecated options may be changed through the use of the
               <code>HelpFormatter.Builder.setShowDeprecated()</code> method.
-              <ul>
-                  <li>Calling <code>HelpFormatter.Builder.setShowDeprecated(false)</code> will disable the "[Deprecated]" tag.</li>
-                  <li>Calling <code>HelpFormatter.Builder.setShowDeprecated</code> with a <code>Function&lt;Option, String></code>
+          </p>
+          <ul>
+            <li>Calling <code>HelpFormatter.Builder.setShowDeprecated(false)</code> will disable the "[Deprecated]" tag.</li>
+            <li>Calling <code>HelpFormatter.Builder.setShowDeprecated</code> with a <code>Function&lt;Option, String></code>
                       will use the output of the function as the description for the option.</li>
-              </ul>
+          </ul>
+          <p>
               As an example of the second case above, changing the implementation of <code>doSomething</code> to
               <source>
   void doSomething(Options options) {
