@@ -77,7 +77,7 @@ public class PatternOptionBuilder {
     /**
      * Deprecated, only provides static methods.
      *
-     * @deprecated Will be private or class will be final. 
+     * @deprecated Will be private or class will be final.
      */
     @Deprecated
     public PatternOptionBuilder() {

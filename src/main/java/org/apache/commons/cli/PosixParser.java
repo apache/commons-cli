@@ -30,6 +30,7 @@ import java.util.List;
  */
 @Deprecated
 public class PosixParser extends Parser {
+
     /** Holder for flattened tokens */
     private final List<String> tokens = new ArrayList<>();
 
@@ -41,6 +42,13 @@ public class PosixParser extends Parser {
 
     /** The command line Options */
     private Options options;
+
+    /**
+     * Constructs a new instance.
+     */
+    public PosixParser() {
+        // empty
+    }
 
     /**
      * Breaks {@code token} into its constituent parts using the following algorithm.

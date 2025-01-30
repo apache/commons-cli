@@ -25,6 +25,14 @@ package org.apache.commons.cli;
  */
 @Deprecated
 public class BasicParser extends Parser {
+
+    /**
+     * Constructs a new instance.
+     */
+    public BasicParser() {
+        // empty
+    }
+
     /**
      * <p>
      * A simple implementation of {@link Parser}'s abstract {@link Parser#flatten(Options, String[], boolean) flatten}
