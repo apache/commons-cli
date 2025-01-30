@@ -33,6 +33,7 @@
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Javadoc is missing its Overview page.</action>
       <action type="fix" dev="ggregory" due-to="Arnout Engelen">Get mockito version from parent pom (#351).</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Remove -nouses directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80).</action>
+      <action type="fix" dev="ggregory" due-to="Arnout Engelen">Deprecate PatternOptionBuilder.PatternOptionBuilder().</action>
       <!-- ADD -->
       <action type="add" issue="CLI-339" dev="ggregory" due-to="Claude Warren, Gary Gregory">Help formatter extension in the new package #314.</action>
       <action type="add" dev="ggregory" due-to="Gary Gregory">CommandLine.Builder implements Supplier&lt;CommandLine&gt;.</action>
