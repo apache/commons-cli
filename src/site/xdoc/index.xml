@@ -22,14 +22,14 @@
   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
     <title>Apache Commons CLI</title>
-    <author email="dev@commons.apache.org">commons-dev</author>
+    <author email="dev@commons.apache.org">Apache Commons Team</author>
   </properties>
 
   <body>
     <section name="Apache Commons CLI">
       <p>
-        The Apache Commons CLI library provides an API for parsing command line options passed to programs.
-        It's also able to print help messages detailing the options available for a command line tool.
+        The Apache Commons CLI library provides an API for parsing command-line options passed to an application.
+        It can also print help detailing the options available for that application.
       </p>
       <p>
         Commons CLI supports different types of options:
@@ -84,7 +84,7 @@ usage: ls
       <p>
         <a href="https://commons.apache.org/cli/download_cli.cgi">Download</a> the latest version. 
         <br/>
-        The <a href="changes-report.html">release notes</a> are also available.
+        The <a href="changes.html">release notes</a> are also available.
       </p>
       <p>
         For previous releases, see the <a href="https://archive.apache.org/dist/commons/cli/">Apache Archive</a>.

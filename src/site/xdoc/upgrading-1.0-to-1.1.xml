@@ -20,7 +20,7 @@ limitations under the License.
   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
  <properties>
   <title>Upgrading from 1.0 to 1.1</title>
-  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+  <author email="dev@commons.apache.org">Apache Commons Team</author>
  </properties>
 <body>
 <!-- ================================================== -->
@@ -43,7 +43,7 @@ limitations under the License.
 </section>
 <section name="Bugs fixed in 1.1">
   <p>The list of bugs fixed in 1.1 may be seen via the 
-    <a href="changes-report.html#1_1">changes report</a>. </p>
+    <a href="changes.html#1_1">changes report</a>. </p>
 </section>
 <!-- ================================================== -->
 </body>

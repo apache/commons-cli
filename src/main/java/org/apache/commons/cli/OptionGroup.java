@@ -28,6 +28,13 @@ import java.util.Map;
  */
 public class OptionGroup implements Serializable {
 
+    /**
+     * Constructs a new instance.
+     */
+    public OptionGroup() {
+        // empty
+    }
+
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 

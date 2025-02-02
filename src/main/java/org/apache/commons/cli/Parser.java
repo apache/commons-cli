@@ -31,6 +31,7 @@ import java.util.Properties;
  */
 @Deprecated
 public abstract class Parser implements CommandLineParser {
+
     /** CommandLine instance */
     protected CommandLine cmd;
 
@@ -39,6 +40,13 @@ public abstract class Parser implements CommandLineParser {
 
     /** List of required options strings */
     private List requiredOptions;
+
+    /**
+     * Constructs a new instance.
+     */
+    public Parser() {
+        // empty
+    }
 
     /**
      * Throws a {@link MissingOptionException} if all of the required options are not present.

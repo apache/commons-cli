@@ -19,7 +19,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>79</version>
+    <version>81</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>commons-cli</groupId>
@@ -78,7 +78,7 @@
   </dependencies>
   <properties>
     <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
-    <project.build.outputTimestamp>2024-08-14T23:15:56Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2025-01-11T14:52:17Z</project.build.outputTimestamp>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <commons.componentid>cli</commons.componentid>
@@ -181,9 +181,6 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
           <linksource>true</linksource>
-          <links>
-            <link>${commons.javadoc.java.link}</link>
-          </links>
         </configuration>
       </plugin>
       <plugin>
@@ -334,7 +331,7 @@
       <email>ggregory at apache.org</email>
       <url>https://www.garygregory.com</url>
       <organization>The Apache Software Foundation</organization>
-      <organizationUrl>https://www.apache.org/</organizationUrl>      
+      <organizationUrl>https://www.apache.org/</organizationUrl>
       <roles>
         <role>PMC Member</role>
       </roles>

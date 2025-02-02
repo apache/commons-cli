@@ -79,6 +79,13 @@ public class HelpFormatter {
         // Make HelpFormatter immutable for 2.0
 
         /**
+         * Constructs a new instance.
+         */
+        public Builder() {
+            // empty
+        }
+
+        /**
          * A function to convert a description (not null) and a deprecated Option (not null) to help description
          */
         private static final Function<Option, String> DEFAULT_DEPRECATED_FORMAT = o -> "[Deprecated] " + getDescription(o);

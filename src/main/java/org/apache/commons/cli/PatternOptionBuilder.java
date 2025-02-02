@@ -74,6 +74,16 @@ import java.util.Map;
  */
 public class PatternOptionBuilder {
 
+    /**
+     * Deprecated, only provides static methods.
+     *
+     * @deprecated Will be private or class will be final.
+     */
+    @Deprecated
+    public PatternOptionBuilder() {
+        // empty
+    }
+
     /** String class */
     public static final Class<String> STRING_VALUE = String.class;
 

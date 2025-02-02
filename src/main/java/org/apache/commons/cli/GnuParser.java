@@ -28,6 +28,14 @@ import java.util.List;
  */
 @Deprecated
 public class GnuParser extends Parser {
+
+    /**
+     * Constructs a new instance.
+     */
+    public GnuParser() {
+        // empty
+    }
+
     /**
      * This flatten method does so using the following rules:
      * <ol>
