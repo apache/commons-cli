@@ -33,7 +33,7 @@ import java.util.Map;
  * </p>
  * <p>
  * It may flexibly parse long and short options, with or without values. Additionally, it may parse only a portion of a
- * commandline, allowing for flexible multi-stage parsing.
+ * command-line, allowing for flexible multi-stage parsing.
  * </p>
  *
  * @see org.apache.commons.cli.CommandLine
