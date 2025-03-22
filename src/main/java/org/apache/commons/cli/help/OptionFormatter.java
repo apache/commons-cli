@@ -159,8 +159,8 @@ public final class OptionFormatter {
          * Sets the separator displayed between a options and the argument name. Typically ' ' or '='.
          *
          * @param optArgSeparator the separator.
-         * @since 1.3
          * @return this
+         * @since 1.3
          */
         public Builder setOptArgSeparator(final String optArgSeparator) {
             this.optArgSeparator = Util.defaultValue(optArgSeparator, "");
@@ -195,8 +195,8 @@ public final class OptionFormatter {
          * Sets the separator displayed between a long option and short options. Typically ',' or ' '.
          *
          * @param optSeparator the separator.
-         * @since 1.3
          * @return this
+         * @since 1.3
          */
         public Builder setOptSeparator(final String optSeparator) {
             this.optSeparator = Util.defaultValue(optSeparator, "");
