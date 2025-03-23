@@ -82,7 +82,7 @@ public final class DeprecatedAttributes {
         }
 
         /**
-         * Whether this option is subject to removal in a future version.
+         * Sets whether this option is subject to removal in a future version.
          *
          * @param forRemoval whether this is subject to removal in a future version.
          * @return {@code this} instance.
