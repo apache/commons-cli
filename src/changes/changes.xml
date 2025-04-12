@@ -41,7 +41,7 @@
       <action type="add" issue="CLI-340" dev="ggregory" due-to="Claude Warren, Gary Gregory">Add CommandLine.getParsedOptionValues() #334.</action> 
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 72 to 81 #302, #304, #310, #315, #320, #327.</action>
-      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[test] Bump commons-io:commons-io from 2.16.1 to 2.18.0 #309, #337.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[test] Bump commons-io:commons-io from 2.16.1 to 2.19.0 #309, #337.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">[test] Bump org.apache.commons:commons-text from 1.12.0 to 1.13.1 #344.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Update site documentation to https://maven.apache.org/xsd/xdoc-2.0.xsd.</action>
     </release>
