@@ -301,14 +301,14 @@ public class BugCLI162Test {
         //@formatter:on
         commandLineOptions.addOption(option);
         //
-        final OptionGroup pOutTypesOptionGroup = new OptionGroup();
-        final String pOutTypesOptionGroupDoc = OPT + OPT_PARAM_TYPES_INT + " and " + OPT + OPT_PARAM_TYPES_NAME + " are mutually exclusive.";
+        final OptionGroup outTypesOptionGroup = new OptionGroup();
+        final String outTypesOptionGroupDoc = OPT + OPT_PARAM_TYPES_INT + " and " + OPT + OPT_PARAM_TYPES_NAME + " are mutually exclusive.";
         final String typesClassName = Types.class.getName();
         //@formatter:off
         option = new Option(OPT_PARAM_TYPES_INT, "paramTypes", true, "Parameter types from "
             + typesClassName
             + ". "
-            + pOutTypesOptionGroupDoc
+            + outTypesOptionGroupDoc
             + " Example: "
             + OPT
             + OPT_PARAM_TYPES_INT
@@ -319,14 +319,14 @@ public class BugCLI162Test {
         option = new Option(OPT_PARAM_TYPES_NAME, "paramTypeNames", true, "Parameter "
             + typesClassName
             + " names. "
-            + pOutTypesOptionGroupDoc
+            + outTypesOptionGroupDoc
             + " Example: "
             + OPT
             + OPT_PARAM_TYPES_NAME
             + " \"CURSOR VARCHAR\"");
         //@formatter:on
         commandLineOptions.addOption(option);
-        commandLineOptions.addOptionGroup(pOutTypesOptionGroup);
+        commandLineOptions.addOptionGroup(outTypesOptionGroup);
         //
         final OptionGroup modesOptionGroup = new OptionGroup();
         final String modesOptionGroupDoc = OPT + OPT_PARAM_MODES_INT + " and " + OPT + OPT_PARAM_MODES_NAME + " are mutually exclusive.";
