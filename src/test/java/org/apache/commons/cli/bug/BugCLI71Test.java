@@ -50,7 +50,7 @@ public class BugCLI71Test {
     }
 
     @Test
-    public void testBasic() throws Exception {
+    void testBasic() throws Exception {
         final String[] args = {"-a", "Caesar", "-k", "A"};
         final CommandLine line = parser.parse(options, args);
         assertEquals("Caesar", line.getOptionValue("a"));
@@ -58,7 +58,7 @@ public class BugCLI71Test {
     }
 
     @Test
-    public void testGetsDefaultIfOptional() throws Exception {
+    void testGetsDefaultIfOptional() throws Exception {
         final String[] args = {"-k", "-a", "Caesar"};
         options.getOption("k").setOptionalArg(true);
         final CommandLine line = parser.parse(options, args);
@@ -68,14 +68,14 @@ public class BugCLI71Test {
     }
 
     @Test
-    public void testLackOfError() throws Exception {
+    void testLackOfError() throws Exception {
         final String[] args = { "-k", "-a", "Caesar" };
         final MissingArgumentException e = assertThrows(MissingArgumentException.class, () -> parser.parse(options, args));
         assertEquals("k", e.getOption().getOpt(), "option missing an argument");
     }
 
     @Test
-    public void testMistakenArgument() throws Exception {
+    void testMistakenArgument() throws Exception {
         String[] args = {"-a", "Caesar", "-k", "A"};
         CommandLine line = parser.parse(options, args);
         args = new String[] {"-a", "Caesar", "-k", "a"};

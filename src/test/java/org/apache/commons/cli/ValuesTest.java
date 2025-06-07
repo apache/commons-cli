@@ -73,7 +73,7 @@ public class ValuesTest {
     }
 
     @Test
-    public void testCharSeparator() {
+    void testCharSeparator() {
         // tests the char methods of CommandLine that delegate to the String methods
         assertTrue(cmd.hasOption("j"), "Option j is not set");
         assertTrue(cmd.hasOption('j'), "Option j is not set");
@@ -92,25 +92,25 @@ public class ValuesTest {
     }
 
     @Test
-    public void testComplexValues() {
+    void testComplexValues() {
         assertTrue(cmd.hasOption("i"), "Option i is not set");
         assertTrue(cmd.hasOption("h"), "Option h is not set");
         assertArrayEquals(new String[] {"val1", "val2"}, cmd.getOptionValues("h"));
     }
 
     @Test
-    public void testExtraArgs() {
+    void testExtraArgs() {
         assertArrayEquals(new String[] {"arg1", "arg2", "arg3"}, cmd.getArgs(), "Extra args");
     }
 
     @Test
-    public void testMultipleArgValues() {
+    void testMultipleArgValues() {
         assertTrue(cmd.hasOption("e"), "Option e is not set");
         assertArrayEquals(new String[] {"one", "two"}, cmd.getOptionValues("e"));
     }
 
     @Test
-    public void testShortArgs() {
+    void testShortArgs() {
         assertTrue(cmd.hasOption("a"), "Option a is not set");
         assertTrue(cmd.hasOption("c"), "Option c is not set");
 
@@ -119,7 +119,7 @@ public class ValuesTest {
     }
 
     @Test
-    public void testShortArgsWithValue() {
+    void testShortArgsWithValue() {
         assertTrue(cmd.hasOption("b"), "Option b is not set");
         assertEquals("foo", cmd.getOptionValue("b"));
         assertEquals(1, cmd.getOptionValues("b").length);
@@ -130,7 +130,7 @@ public class ValuesTest {
     }
 
     @Test
-    public void testTwoArgValues() {
+    void testTwoArgValues() {
         assertTrue(cmd.hasOption("g"), "Option g is not set");
         assertArrayEquals(new String[] {"val1", "val2"}, cmd.getOptionValues("g"));
     }

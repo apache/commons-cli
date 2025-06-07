@@ -47,13 +47,13 @@ public class AptHelpAppendableTest {
     }
 
     @Test
-    public void testAppendFormatTest() throws IOException {
+    void testAppendFormatTest() throws IOException {
         underTest.appendFormat("Big %s and Phantom %,d", "Joe", 309);
         assertEquals(String.format("Big Joe and Phantom 309"), sb.toString());
     }
 
     @Test
-    public void testAppendHeaderTest() throws IOException {
+    void testAppendHeaderTest() throws IOException {
         underTest.appendHeader(1, "Hello World");
         assertEquals(String.format("* Hello World%n%n"), sb.toString());
         sb.setLength(0);
@@ -64,7 +64,7 @@ public class AptHelpAppendableTest {
     }
 
     @Test
-    public void testAppendListTest() throws IOException {
+    void testAppendListTest() throws IOException {
         final String[] entries = { "one", "two", "three" };
         underTest.appendList(true, Arrays.asList(entries));
         assertEquals(String.format("    [[1]] one%n    [[2]] two%n    [[3]] three%n%n"), sb.toString());
@@ -74,19 +74,19 @@ public class AptHelpAppendableTest {
     }
 
     @Test
-    public void testAppendParagraphFormatTest() throws IOException {
+    void testAppendParagraphFormatTest() throws IOException {
         underTest.appendParagraphFormat("Hello %s World %,d", "Big Joe", 309);
         assertEquals(String.format("  Hello Big Joe World 309%n%n"), sb.toString());
     }
 
     @Test
-    public void testAppendParagraphTest() throws IOException {
+    void testAppendParagraphTest() throws IOException {
         underTest.appendParagraph("Hello World");
         assertEquals(String.format("  Hello World%n%n"), sb.toString());
     }
 
     @Test
-    public void testAppendTableTest() throws IOException {
+    void testAppendTableTest() throws IOException {
         final List<TextStyle> styles = Arrays.asList(TextStyle.DEFAULT, TextStyle.DEFAULT, TextStyle.DEFAULT);
         final String[] headers = { "one", "two", "three" };
         // @formatter:off
@@ -132,7 +132,7 @@ public class AptHelpAppendableTest {
     }
 
     @Test
-    public void testAppendTitleTest() throws IOException {
+    void testAppendTitleTest() throws IOException {
         sb.setLength(0);
         underTest.appendTitle("Hello World");
         assertEquals(String.format("        -----%n        Hello World%n        -----%n%nHello World%n%n"), sb.toString());

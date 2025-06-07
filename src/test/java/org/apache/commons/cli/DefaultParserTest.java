@@ -158,7 +158,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
     }
 
     @Test
-    public void testBuilder() {
+    void testBuilder() {
         // @formatter:off
         final Builder builder = DefaultParser.builder()
                 .setStripLeadingAndTrailingQuotes(false)
@@ -172,7 +172,7 @@ public class DefaultParserTest extends AbstractParserTestCase {
     }
 
     @Test
-    public void testDeprecated() throws ParseException {
+    void testDeprecated() throws ParseException {
         final Set<Option> handler = new HashSet<>();
         parser = DefaultParser.builder().setDeprecatedHandler(handler::add).build();
         final Option opt1 = Option.builder().option("d1").deprecated().build();

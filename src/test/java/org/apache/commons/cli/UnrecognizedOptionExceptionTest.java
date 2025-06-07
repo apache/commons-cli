@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 public class UnrecognizedOptionExceptionTest {
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertEquals("a", new UnrecognizedOptionException("a").getMessage());
         assertEquals("a", new UnrecognizedOptionException("a", "b").getMessage());
         assertEquals("b", new UnrecognizedOptionException("a", "b").getOption());

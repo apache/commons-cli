@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 public class UtilTest {
 
     @Test
-    public void testStripLeadingAndTrailingQuotes() {
+    void testStripLeadingAndTrailingQuotes() {
         assertNull(Util.stripLeadingAndTrailingQuotes(null));
         assertEquals("", Util.stripLeadingAndTrailingQuotes(""));
         assertEquals("foo", Util.stripLeadingAndTrailingQuotes("\"foo\""));
@@ -36,7 +36,7 @@ public class UtilTest {
     }
 
     @Test
-    public void testStripLeadingHyphens() {
+    void testStripLeadingHyphens() {
         assertEquals("f", Util.stripLeadingHyphens("-f"));
         assertEquals("foo", Util.stripLeadingHyphens("--foo"));
         assertEquals("-foo", Util.stripLeadingHyphens("---foo"));

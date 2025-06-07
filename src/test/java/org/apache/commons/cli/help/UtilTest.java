@@ -58,7 +58,7 @@ public class UtilTest {
     }
 
     @Test
-    public void testFindNonWhitespacePos() {
+    void testFindNonWhitespacePos() {
         assertEquals(-1, Util.indexOfNonWhitespace(null, 0));
         assertEquals(-1, Util.indexOfNonWhitespace("", 0));
     }
@@ -73,7 +73,7 @@ public class UtilTest {
     }
 
     @Test
-    public void testIsEmpty() {
+    void testIsEmpty() {
         String str = null;
         assertTrue(Util.isEmpty(str), "null string should be empty");
         str = "";

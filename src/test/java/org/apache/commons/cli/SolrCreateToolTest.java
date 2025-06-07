@@ -91,14 +91,14 @@ public class SolrCreateToolTest {
     }
 
     @Test
-    public void testHelpFormatter() {
+    void testHelpFormatter() {
         final HelpFormatter formatter = new HelpFormatter();
         final String actual = printHelp(formatter);
         assertFalse(actual.contains("Deprecated"));
     }
 
     @Test
-    public void testHelpFormatterDeprecated() {
+    void testHelpFormatterDeprecated() {
         final HelpFormatter formatter = HelpFormatter.builder().setShowDeprecated(true).get();
         final String actual = printHelp(formatter);
         assertTrue(actual.contains("-zkHost,--zkHost <HOST>          [Deprecated] Zookeeper connection"));

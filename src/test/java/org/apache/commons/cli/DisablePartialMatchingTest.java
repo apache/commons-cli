@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 public class DisablePartialMatchingTest {
     @Test
-    public void testDisablePartialMatching() throws Exception {
+    void testDisablePartialMatching() throws Exception {
         final CommandLineParser parser = new DefaultParser(false);
 
         final Options options = new Options();
@@ -41,7 +41,7 @@ public class DisablePartialMatchingTest {
     }
 
     @Test
-    public void testRegularPartialMatching() throws Exception {
+    void testRegularPartialMatching() throws Exception {
         final CommandLineParser parser = new DefaultParser();
 
         final Options options = new Options();

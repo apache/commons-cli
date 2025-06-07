@@ -169,7 +169,7 @@ public class TypeHandlerTest {
     }
 
     @Test
-    public void testCreateClass() throws ParseException {
+    void testCreateClass() throws ParseException {
         final Class<?> cls = getClass();
         assertEquals(cls, TypeHandler.createClass(cls.getName()));
     }
@@ -181,29 +181,29 @@ public class TypeHandlerTest {
     }
 
     @Test
-    public void testCreateFile() {
+    void testCreateFile() {
         final File file = new File("").getAbsoluteFile();
         assertEquals(file, TypeHandler.createFile(file.toString()));
     }
 
     @Test
-    public void testCreateFiles() {
+    void testCreateFiles() {
         assertThrows(UnsupportedOperationException.class, () -> TypeHandler.createFiles(null));
     }
 
     @Test
-    public void testCreateNumber() throws ParseException {
+    void testCreateNumber() throws ParseException {
         assertEquals(0L, TypeHandler.createNumber("0"));
         assertEquals(0d, TypeHandler.createNumber("0.0"));
     }
 
     @Test
-    public void testCreateObject() throws ParseException {
+    void testCreateObject() throws ParseException {
         assertTrue(TypeHandler.createObject(Date.class.getName()) instanceof Date);
     }
 
     @Test
-    public void testCreateURL() throws ParseException, MalformedURLException {
+    void testCreateURL() throws ParseException, MalformedURLException {
         final URL file = Paths.get("").toAbsolutePath().toUri().toURL();
         assertEquals(file, TypeHandler.createURL(file.toString()));
     }
@@ -224,7 +224,7 @@ public class TypeHandlerTest {
     }
 
     @Test
-    public void testCreateValueExistingFile() throws Exception {
+    void testCreateValueExistingFile() throws Exception {
         try (FileInputStream result = TypeHandler.createValue("src/test/resources/org/apache/commons/cli/existing-readable.file",
                 PatternOptionBuilder.EXISTING_FILE_VALUE)) {
             assertNotNull(result);
@@ -233,19 +233,19 @@ public class TypeHandlerTest {
 
     /* proof of equality for later tests */
     @Test
-    public void testnstantiableEquals() {
+    void testnstantiableEquals() {
         assertEquals(new Instantiable(), new Instantiable());
     }
 
     @Test
-    public void testOpenFile() throws ParseException, IOException {
+    void testOpenFile() throws ParseException, IOException {
         try (FileInputStream fis = TypeHandler.openFile("src/test/resources/org/apache/commons/cli/existing-readable.file")) {
             IOUtils.consume(fis);
         }
     }
 
     @Test
-    public void testRegister() {
+    void testRegister() {
         final Map<Class<?>, Converter<?, ? extends Throwable>> map = TypeHandler.createDefaultMap();
         final TypeHandler typeHandler = new TypeHandler(map);
         assertEquals(Converter.PATH, typeHandler.getConverter(Path.class));

@@ -105,7 +105,7 @@ public class BugCLI266Test {
     }
 
     @Test
-    public void testOptionComparatorDefaultOrder() {
+    void testOptionComparatorDefaultOrder() {
         final HelpFormatter formatter = new HelpFormatter();
         final List<Option> options = new ArrayList<>(getOptions().getOptions());
         Collections.sort(options, formatter.getOptionComparator());
@@ -117,7 +117,7 @@ public class BugCLI266Test {
     }
 
     @Test
-    public void testOptionComparatorInsertedOrder() {
+    void testOptionComparatorInsertedOrder() {
         final Collection<Option> options = getOptions().getOptions();
         int i = 0;
         for (final Option o : options) {

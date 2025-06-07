@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
  */
 public class BugCLI18Test {
     @Test
-    public void testCLI18() {
+    void testCLI18() {
         final Options options = new Options();
         options.addOption(new Option("a", "aaa", false, "aaaaaaa"));
         options.addOption(new Option(null, "bbb", false, "bbbbbbb dksh fkshd fkhs dkfhsdk fhskd hksdks dhfowehfsdhfkjshf skfhkshf sf jkshfk sfh skfh skf f"));

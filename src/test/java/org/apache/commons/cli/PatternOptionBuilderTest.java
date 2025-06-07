@@ -43,7 +43,7 @@ import org.junit.jupiter.api.Test;
 public class PatternOptionBuilderTest {
 
     @Test
-    public void testClassPattern() throws Exception {
+    void testClassPattern() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("c+d+");
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, new String[] {"-c", "java.util.Calendar", "-d", "System.DateTime"});
@@ -52,13 +52,13 @@ public class PatternOptionBuilderTest {
     }
 
     @Test
-    public void testEmptyPattern() {
+    void testEmptyPattern() {
         final Options options = PatternOptionBuilder.parsePattern("");
         assertTrue(options.getOptions().isEmpty());
     }
 
     @Test
-    public void testExistingFilePattern() throws Exception {
+    void testExistingFilePattern() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("g<");
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, new String[] {"-g", "src/test/resources/org/apache/commons/cli/existing-readable.file"});
@@ -68,7 +68,7 @@ public class PatternOptionBuilderTest {
     }
 
     @Test
-    public void testExistingFilePatternFileNotExist() throws Exception {
+    void testExistingFilePatternFileNotExist() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("f<");
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, new String[] {"-f", "non-existing.file"});
@@ -76,7 +76,7 @@ public class PatternOptionBuilderTest {
     }
 
     @Test
-    public void testNumberPattern() throws Exception {
+    void testNumberPattern() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("n%d%x%");
         final CommandLineParser parser = new PosixParser();
         // 3,5 fails validation.
@@ -90,7 +90,7 @@ public class PatternOptionBuilderTest {
     }
 
     @Test
-    public void testObjectPattern() throws Exception {
+    void testObjectPattern() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("o@i@n@");
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, new String[] {"-o", "java.lang.String", "-i", "java.util.Calendar", "-n", "System.DateTime"});
@@ -100,7 +100,7 @@ public class PatternOptionBuilderTest {
     }
 
     @Test
-    public void testRequiredOption() throws Exception {
+    void testRequiredOption() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("!n%m%");
         final CommandLineParser parser = new PosixParser();
         final MissingOptionException e = assertThrows(MissingOptionException.class, () -> parser.parse(options, new String[] { "" }));
@@ -109,7 +109,7 @@ public class PatternOptionBuilderTest {
     }
 
     @Test
-    public void testSimplePattern() throws Exception {
+    void testSimplePattern() throws Exception {
         /*
          * Dates calculated from strings are dependent upon configuration and environment settings for the
          * machine on which the test is running.  To avoid this problem, convert the time into a string
@@ -149,7 +149,7 @@ public class PatternOptionBuilderTest {
     }
 
     @Test
-    public void testUntypedPattern() throws Exception {
+    void testUntypedPattern() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("abc");
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, new String[] {"-abc"});
@@ -162,7 +162,7 @@ public class PatternOptionBuilderTest {
     }
 
     @Test
-    public void testURLPattern() throws Exception {
+    void testURLPattern() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("u/v/");
         final CommandLineParser parser = new PosixParser();
         final CommandLine line = parser.parse(options, new String[] {"-u", "https://commons.apache.org", "-v", "foo://commons.apache.org"});

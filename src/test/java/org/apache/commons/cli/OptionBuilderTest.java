@@ -29,7 +29,7 @@ import org.junit.jupiter.api.function.Executable;
 @SuppressWarnings("deprecation") // OptionBuilder is marked deprecated
 public class OptionBuilderTest {
     @Test
-    public void testBaseOptionCharOpt() {
+    void testBaseOptionCharOpt() {
         final Option base = OptionBuilder.withDescription("option description").create('o');
 
         assertEquals("o", base.getOpt());
@@ -38,7 +38,7 @@ public class OptionBuilderTest {
     }
 
     @Test
-    public void testBaseOptionStringOpt() {
+    void testBaseOptionStringOpt() {
         final Option base = OptionBuilder.withDescription("option description").create("o");
 
         assertEquals("o", base.getOpt());
@@ -47,7 +47,7 @@ public class OptionBuilderTest {
     }
 
     @Test
-    public void testBuilderIsResettedAlways() {
+    void testBuilderIsResettedAlways() {
         assertThrows(IllegalArgumentException.class, () -> OptionBuilder.withDescription("JUnit").create('"'));
         assertNull(OptionBuilder.create('x').getDescription(), "we inherited a description");
         assertThrows(IllegalArgumentException.class, (Executable) OptionBuilder::create);
@@ -55,7 +55,7 @@ public class OptionBuilderTest {
     }
 
     @Test
-    public void testCompleteOption() {
+    void testCompleteOption() {
         //@formatter:off
         final Option simple = OptionBuilder.withLongOpt("simple option")
                                      .hasArg()
@@ -76,14 +76,14 @@ public class OptionBuilderTest {
     }
 
     @Test
-    public void testCreateIncompleteOption() {
+    void testCreateIncompleteOption() {
         assertThrows(IllegalArgumentException.class, (Executable) OptionBuilder::create);
         // implicitly reset the builder
         OptionBuilder.create("opt");
     }
 
     @Test
-    public void testIllegalOptions() {
+    void testIllegalOptions() {
         // bad single character option
         assertThrows(IllegalArgumentException.class, () -> OptionBuilder.withDescription("option description").create('"'));
         // bad character in option string
@@ -93,7 +93,7 @@ public class OptionBuilderTest {
     }
 
     @Test
-    public void testOptionArgNumbers() {
+    void testOptionArgNumbers() {
         //@formatter:off
         final Option opt = OptionBuilder.withDescription("option description")
                                   .hasArgs(2)
@@ -103,7 +103,7 @@ public class OptionBuilderTest {
     }
 
     @Test
-    public void testSpecialOptChars() throws Exception {
+    void testSpecialOptChars() throws Exception {
         // '?'
         final Option opt1 = OptionBuilder.withDescription("help options").create('?');
         assertEquals("?", opt1.getOpt());
@@ -115,7 +115,7 @@ public class OptionBuilderTest {
     }
 
     @Test
-    public void testTwoCompleteOptions() {
+    void testTwoCompleteOptions() {
         //@formatter:off
         Option simple = OptionBuilder.withLongOpt("simple option")
                                      .hasArg()

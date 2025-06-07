@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 public class AlreadySelectedExceptionTest {
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertEquals("a", new AlreadySelectedException("a").getMessage());
         assertNull(new AlreadySelectedException("a").getOption());
         final Option option = new Option("a", "d");

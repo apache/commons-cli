@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugCLI133Test {
     @Test
-    public void testOrder() throws ParseException {
+    void testOrder() throws ParseException {
         final Option optionA = new Option("a", "first");
         final Options opts = new Options();
         opts.addOption(optionA);

@@ -101,56 +101,56 @@ public class OptionTest {
     }
 
     @Test
-    public void testAddValue() {
+    void testAddValue() {
         final Option option = new Option("f", null);
         assertThrows(UnsupportedOperationException.class, () -> option.addValue(""));
         assertThrows(IllegalArgumentException.class, () -> option.processValue(""));
     }
 
     @Test
-    public void testBuilderEmpty() {
+    void testBuilderEmpty() {
         assertThrows(IllegalArgumentException.class, () -> Option.builder().build());
     }
 
     @Test
-    public void testBuilderInsufficientParams1() {
+    void testBuilderInsufficientParams1() {
         assertThrows(IllegalArgumentException.class, () -> Option.builder().desc("desc").build());
     }
 
     @Test
-    public void testBuilderInsufficientParams2() {
+    void testBuilderInsufficientParams2() {
         assertThrows(IllegalArgumentException.class, () -> Option.builder(null).desc("desc").build());
     }
 
     @Test
-    public void testBuilderInvalidOptionName0() {
+    void testBuilderInvalidOptionName0() {
         assertThrows(IllegalArgumentException.class, () -> Option.builder().option(null).build());
         assertThrows(IllegalArgumentException.class, () -> Option.builder().option(""));
         assertThrows(IllegalArgumentException.class, () -> Option.builder().option(" "));
     }
 
     @Test
-    public void testBuilderInvalidOptionName1() {
+    void testBuilderInvalidOptionName1() {
         assertThrows(IllegalArgumentException.class, () -> Option.builder().option("invalid?"));
     }
 
     @Test
-    public void testBuilderInvalidOptionName2() {
+    void testBuilderInvalidOptionName2() {
         assertThrows(IllegalArgumentException.class, () -> Option.builder().option("invalid@"));
     }
 
     @Test
-    public void testBuilderInvalidOptionName3() {
+    void testBuilderInvalidOptionName3() {
         assertThrows(IllegalArgumentException.class, () -> Option.builder("invalid?"));
     }
 
     @Test
-    public void testBuilderInvalidOptionName4() {
+    void testBuilderInvalidOptionName4() {
         assertThrows(IllegalArgumentException.class, () -> Option.builder("invalid@"));
     }
 
     @Test
-    public void testBuilderMethods() {
+    void testBuilderMethods() {
         final char defaultSeparator = (char) 0;
 
         checkOption(Option.builder("a").desc("desc").build(), "a", "desc", null, Option.UNINITIALIZED, null, false, false, defaultSeparator, String.class, null,
@@ -204,7 +204,7 @@ public class OptionTest {
     }
 
     @Test
-    public void testClear() {
+    void testClear() {
         final TestOption option = new TestOption("x", true, "");
         assertEquals(0, option.getValuesList().size());
         option.addValue("a");
@@ -215,7 +215,7 @@ public class OptionTest {
 
     // See https://issues.apache.org/jira/browse/CLI-21
     @Test
-    public void testClone() {
+    void testClone() {
         final TestOption a = new TestOption("a", true, "");
         final TestOption b = (TestOption) a.clone();
         assertEquals(a, b);
@@ -231,7 +231,7 @@ public class OptionTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         final Option option1a = new Option("1", null);
         final Option option1b = new Option("1", null);
         final Option option2 = new Option("2", null);
@@ -245,7 +245,7 @@ public class OptionTest {
     }
 
     @Test
-    public void testGetValue() {
+    void testGetValue() {
         final Option option = new Option("f", null);
         option.setArgs(Option.UNLIMITED_VALUES);
 
@@ -260,7 +260,7 @@ public class OptionTest {
     }
 
     @Test
-    public void testHasArgName() {
+    void testHasArgName() {
         final Option option = new Option("f", null);
 
         option.setArgName(null);
@@ -274,7 +274,7 @@ public class OptionTest {
     }
 
     @Test
-    public void testHasArgs() {
+    void testHasArgs() {
         final Option option = new Option("f", null);
 
         option.setArgs(0);
@@ -294,14 +294,14 @@ public class OptionTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         assertNotEquals(Option.builder("test").build().hashCode(), Option.builder("test2").build().hashCode());
         assertNotEquals(Option.builder("test").build().hashCode(), Option.builder().longOpt("test").build().hashCode());
         assertNotEquals(Option.builder("test").build().hashCode(), Option.builder("test").longOpt("long test").build().hashCode());
     }
 
     @Test
-    public void testSerialization() throws IOException, ClassNotFoundException {
+    void testSerialization() throws IOException, ClassNotFoundException {
         final Option option = Option.builder("o").type(TypeHandlerTest.Instantiable.class).build();
         assertEquals(Converter.DEFAULT, option.getConverter());
         Option roundtrip = roundTrip(option);
@@ -320,7 +320,7 @@ public class OptionTest {
     }
 
     @Test
-    public void testSubclass() {
+    void testSubclass() {
         final Option option = new DefaultOption("f", "file", "myfile.txt");
         final Option clone = (Option) option.clone();
         assertEquals("myfile.txt", clone.getValue());
@@ -328,7 +328,7 @@ public class OptionTest {
     }
 
     @Test
-    public void testTypeClass() {
+    void testTypeClass() {
         final Option option = new Option("f", null);
         assertEquals(String.class, option.getType());
         option.setType(CharSequence.class);
@@ -336,7 +336,7 @@ public class OptionTest {
     }
 
     @Test
-    public void testTypeObject() {
+    void testTypeObject() {
         final Option option = new Option("f", null);
         assertEquals(String.class, option.getType());
         @SuppressWarnings("cast")

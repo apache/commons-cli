@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 public class BugCLI13Test {
 
     @Test
-    public void testCLI13() throws ParseException {
+    void testCLI13() throws ParseException {
         final String debugOpt = "debug";
         @SuppressWarnings("static-access")
         //@formatter:off

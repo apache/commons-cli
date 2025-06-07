@@ -49,7 +49,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void tesstMakeColumnQueue() {
+    void tesstMakeColumnQueue() {
         final String text = "The quick brown fox jumps over the lazy dog";
         final TextStyle.Builder styleBuilder = TextStyle.builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
 
@@ -99,7 +99,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testAdjustTableFormat() {
+    void testAdjustTableFormat() {
         // test width smaller than header
         // @formatter:off
         final TableDefinition tableDefinition = TableDefinition.from("Testing",
@@ -115,7 +115,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testAppend() throws IOException {
+    void testAppend() throws IOException {
         final char c = (char) 0x1F44D;
         underTest.append(c);
         assertEquals(1, sb.length());
@@ -127,7 +127,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testAppendHeader() throws IOException {
+    void testAppendHeader() throws IOException {
         final String[] expected = { " Hello World", " ===========", "" };
 
         sb.setLength(0);
@@ -171,7 +171,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testAppendList() throws IOException {
+    void testAppendList() throws IOException {
         final List<String> expected = new ArrayList<>();
         final String[] entries = { "one", "two", "three" };
         for (int i = 0; i < entries.length; i++) {
@@ -208,7 +208,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testAppendParagraph() throws IOException {
+    void testAppendParagraph() throws IOException {
         final String[] expected = { " Hello World", "" };
 
         sb.setLength(0);
@@ -226,7 +226,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testAppendParagraphFormat() throws IOException {
+    void testAppendParagraphFormat() throws IOException {
         final String[] expected = { " Hello Joe World 309", "" };
 
         sb.setLength(0);
@@ -240,7 +240,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testAppendTable() throws IOException {
+    void testAppendTable() throws IOException {
         final TextStyle.Builder styleBuilder = TextStyle.builder();
         final List<TextStyle> styles = new ArrayList<>();
         styles.add(styleBuilder.setIndent(2).get());
@@ -291,7 +291,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testAppendTitle() throws IOException {
+    void testAppendTitle() throws IOException {
         final String[] expected = { " Hello World", " ###########", "" };
 
         sb.setLength(0);
@@ -310,7 +310,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testGetStyleBuilder() {
+    void testGetStyleBuilder() {
         final TextStyle.Builder builder = underTest.getTextStyleBuilder();
         assertEquals(TextHelpAppendable.DEFAULT_INDENT, builder.getIndent(), "Default indent value was changed, some tests may fail");
         assertEquals(TextHelpAppendable.DEFAULT_LEFT_PAD, builder.getLeftPad(), "Default left pad value was changed, some tests may fail");
@@ -318,7 +318,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testindexOfWrapPos() {
+    void testindexOfWrapPos() {
         final String testString = "The quick brown fox jumps over\tthe lazy dog";
 
         assertEquals(9, TextHelpAppendable.indexOfWrap(testString, 10, 0), "did not find end of word");
@@ -340,7 +340,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testPrintWrapped() throws IOException {
+    void testPrintWrapped() throws IOException {
         String text = "The quick brown fox jumps over the lazy dog";
         final TextStyle.Builder styleBuilder = TextStyle.builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
 
@@ -403,7 +403,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testResize() {
+    void testResize() {
         TextStyle.Builder tsBuilder = TextStyle.builder().setIndent(2).setMaxWidth(3);
         underTest.resize(tsBuilder, 0.5);
         assertEquals(0, tsBuilder.getIndent());
@@ -414,7 +414,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testResizeTableFormat() {
+    void testResizeTableFormat() {
         underTest.setMaxWidth(150);
         final TableDefinition tableDefinition = TableDefinition.from("Caption",
                 Collections.singletonList(TextStyle.builder().setMinWidth(20).setMaxWidth(100).get()), Collections.singletonList("header"),
@@ -425,14 +425,14 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    public void testSetIndent() {
+    void testSetIndent() {
         assertEquals(TextHelpAppendable.DEFAULT_INDENT, underTest.getIndent(), "Default indent value was changed, some tests may fail");
         underTest.setIndent(TextHelpAppendable.DEFAULT_INDENT + 2);
         assertEquals(underTest.getIndent(), TextHelpAppendable.DEFAULT_INDENT + 2);
     }
 
     @Test
-    public void testWriteColumnQueues() throws IOException {
+    void testWriteColumnQueues() throws IOException {
         final List<Queue<String>> queues = new ArrayList<>();
 
         Queue<String> queue = new LinkedList<>();

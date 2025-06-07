@@ -86,7 +86,7 @@ public class TextStyleTests {
     }
 
     @Test
-    public void testDefaultStyle() {
+    void testDefaultStyle() {
         final TextStyle underTest = TextStyle.DEFAULT;
         assertEquals(TextStyle.Alignment.LEFT, underTest.getAlignment());
         assertTrue(underTest.isScalable());

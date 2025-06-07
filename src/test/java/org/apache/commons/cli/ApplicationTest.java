@@ -44,7 +44,7 @@ public class ApplicationTest {
      * Ant test
      */
     @Test
-    public void testAnt() throws Exception {
+    void testAnt() throws Exception {
         // use the GNU parser
         final CommandLineParser parser = new GnuParser();
         final Options options = new Options();
@@ -86,7 +86,7 @@ public class ApplicationTest {
     }
 
     @Test
-    public void testGroovy() throws Exception {
+    void testGroovy() throws Exception {
         final Options options = new Options();
 
         //@formatter:off
@@ -156,7 +156,7 @@ public class ApplicationTest {
     }
 
     @Test
-    public void testLs() throws Exception {
+    void testLs() throws Exception {
         // create the command line parser
         final CommandLineParser parser = new PosixParser();
         final Options options = new Options();
@@ -186,7 +186,7 @@ public class ApplicationTest {
      * author Slawek Zachcial
      */
     @Test
-    public void testMan() {
+    void testMan() {
         final String cmdLine = "man [-c|-f|-k|-w|-tZT device] [-adlhu7V] [-Mpath] [-Ppager] [-Slist] [-msystem] [-pstring] [-Llocale] [-eextension] [section]"
             + " page ...";
         //@formatter:off
@@ -279,7 +279,7 @@ public class ApplicationTest {
      * Real world test with long and short options.
      */
     @Test
-    public void testNLT() throws Exception {
+    void testNLT() throws Exception {
         final Option help = new Option("h", "help", false, "print this message");
         final Option version = new Option("v", "version", false, "print version information");
         final Option newRun = new Option("n", "new", false, "Create NLT cache entries only for new items");

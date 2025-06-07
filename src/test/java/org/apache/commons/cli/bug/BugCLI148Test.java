@@ -42,7 +42,7 @@ public class BugCLI148Test {
     }
 
     @Test
-    public void testWorkaround1() throws Exception {
+    void testWorkaround1() throws Exception {
         final CommandLineParser parser = new PosixParser();
         final String[] args = {"-t-something"};
 
@@ -51,7 +51,7 @@ public class BugCLI148Test {
     }
 
     @Test
-    public void testWorkaround2() throws Exception {
+    void testWorkaround2() throws Exception {
         final CommandLineParser parser = new PosixParser();
         final String[] args = {"-t", "\"-something\""};
 

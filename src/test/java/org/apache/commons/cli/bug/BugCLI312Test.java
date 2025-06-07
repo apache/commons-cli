@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
  */
 public class BugCLI312Test {
     @Test
-    public void testNoOptionValues() {
+    void testNoOptionValues() {
         final Option o1 = Option.builder("A").build();
         final Option o2 = Option.builder().option("D").longOpt("define").numberOfArgs(2).valueSeparator('=').build();
         final Options options = new Options().addOption(o1).addOption(o2);
@@ -48,7 +48,7 @@ public class BugCLI312Test {
     }
 
     @Test
-    public void testPropertyStyleOption_withGetOptionProperties() throws ParseException {
+    void testPropertyStyleOption_withGetOptionProperties() throws ParseException {
         final Option o1 = Option.builder().option("D").longOpt("define").numberOfArgs(2).valueSeparator('=').build();
 
         final Options options = new Options();
@@ -70,7 +70,7 @@ public class BugCLI312Test {
     }
 
     @Test
-    public void testPropertyStyleOption_withGetOptions() throws ParseException {
+    void testPropertyStyleOption_withGetOptions() throws ParseException {
         final Option o1 = Option.builder().option("D").longOpt("define").numberOfArgs(2).valueSeparator('=').build();
 
         final Options options = new Options();

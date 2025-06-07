@@ -175,7 +175,7 @@ public class BugCLI162Test {
     }
 
     @Test
-    public void testInfiniteLoop() {
+    void testInfiniteLoop() {
         final Options options = new Options();
         options.addOption("h", "help", false, "This is a looooong description");
         // used to hang & crash
@@ -194,7 +194,7 @@ public class BugCLI162Test {
     }
 
     @Test
-    public void testLongLineChunking() {
+    void testLongLineChunking() {
         final Options options = new Options();
         //@formatter:off
         options.addOption("x", "extralongarg", false,
@@ -229,7 +229,7 @@ public class BugCLI162Test {
     }
 
     @Test
-    public void testLongLineChunkingIndentIgnored() {
+    void testLongLineChunkingIndentIgnored() {
         final Options options = new Options();
         options.addOption("x", "extralongarg", false, "This description is Long.");
         formatter.printHelp(new PrintWriter(sw), 22, this.getClass().getName(), "Header", options, 0, 5, "Footer");
@@ -248,7 +248,7 @@ public class BugCLI162Test {
     }
 
     @Test
-    public void testPrintHelpLongLines() {
+    void testPrintHelpLongLines() {
         // Options build
         final Options commandLineOptions;
         commandLineOptions = new Options();

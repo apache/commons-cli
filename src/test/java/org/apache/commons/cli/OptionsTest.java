@@ -44,7 +44,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testAddConflictingOptions() {
+    void testAddConflictingOptions() {
         final Options options1 = new Options();
         final OptionGroup group1 = new OptionGroup();
         group1.addOption(Option.builder("a").build());
@@ -62,7 +62,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testAddNonConflictingOptions() {
+    void testAddNonConflictingOptions() {
         final Options options1 = new Options();
         final OptionGroup group1 = new OptionGroup();
         group1.addOption(Option.builder("a").build());
@@ -92,7 +92,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testAddOptions() {
+    void testAddOptions() {
         final Options options = new Options();
 
         final OptionGroup group1 = new OptionGroup();
@@ -112,7 +112,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testAddOptions2X() {
+    void testAddOptions2X() {
         final Options options = new Options();
 
         final OptionGroup group1 = new OptionGroup();
@@ -128,7 +128,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testDeprecated() {
+    void testDeprecated() {
         final Options options = new Options();
         options.addOption(Option.builder().option("a").build());
         options.addOption(Option.builder().option("b").deprecated().build());
@@ -150,7 +150,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testDuplicateLong() {
+    void testDuplicateLong() {
         final Options options = new Options();
         options.addOption("a", "--a", false, "toggle -a");
         options.addOption("a", "--a", false, "toggle -a*");
@@ -159,7 +159,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testDuplicateSimple() {
+    void testDuplicateSimple() {
         final Options options = new Options();
         options.addOption("a", false, "toggle -a");
         assertToStrings(options.getOption("a"));
@@ -169,7 +169,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testGetMatchingOpts() {
+    void testGetMatchingOpts() {
         final Options options = new Options();
         OptionBuilder.withLongOpt("version");
         options.addOption(OptionBuilder.create());
@@ -183,7 +183,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testGetOptionsGroups() {
+    void testGetOptionsGroups() {
         final Options options = new Options();
 
         final OptionGroup group1 = new OptionGroup();
@@ -202,7 +202,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testHelpOptions() {
+    void testHelpOptions() {
         OptionBuilder.withLongOpt("long-only1");
         final Option longOnly1 = OptionBuilder.create();
         OptionBuilder.withLongOpt("long-only2");
@@ -237,7 +237,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testLong() {
+    void testLong() {
         final Options options = new Options();
         options.addOption("a", "--a", false, "toggle -a");
         options.addOption("b", "--b", true, "set -b");
@@ -246,7 +246,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testMissingOptionException() throws ParseException {
+    void testMissingOptionException() throws ParseException {
         final Options options = new Options();
         OptionBuilder.isRequired();
         options.addOption(OptionBuilder.create("f"));
@@ -255,7 +255,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testMissingOptionsException() throws ParseException {
+    void testMissingOptionsException() throws ParseException {
         final Options options = new Options();
         OptionBuilder.isRequired();
         options.addOption(OptionBuilder.create("f"));
@@ -266,7 +266,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testSimple() {
+    void testSimple() {
         final Options options = new Options();
         options.addOption("a", false, "toggle -a");
         options.addOption("b", true, "toggle -b");
@@ -275,7 +275,7 @@ public class OptionsTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         final Options options = new Options();
         options.addOption("f", "foo", true, "Foo");
         options.addOption("b", "bar", false, "Bar");

@@ -62,7 +62,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testGetNames() {
+    void testGetNames() {
         final OptionGroup group = new OptionGroup();
         assertFalse(group.isSelected());
         group.addOption(OptionBuilder.create('a'));
@@ -74,7 +74,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testNoOptionsExtraArgs() throws Exception {
+    void testNoOptionsExtraArgs() throws Exception {
         final String[] args = {"arg1", "arg2"};
         final CommandLine cl = parser.parse(options, args);
         assertFalse(cl.hasOption("r"), "Confirm -r is NOT set");
@@ -86,7 +86,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testSingleLongOption() throws Exception {
+    void testSingleLongOption() throws Exception {
         final String[] args = {"--file"};
         final CommandLine cl = parser.parse(options, args);
         assertFalse(cl.hasOption("r"), "Confirm -r is NOT set");
@@ -98,7 +98,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testSingleOption() throws Exception {
+    void testSingleOption() throws Exception {
         final String[] args = {"-r"};
         final CommandLine cl = parser.parse(options, args);
         assertTrue(cl.hasOption("r"), "Confirm -r is set");
@@ -110,7 +110,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testSingleOptionFromGroup() throws Exception {
+    void testSingleOptionFromGroup() throws Exception {
         final String[] args = {"-f"};
         final CommandLine cl = parser.parse(options, args);
         assertFalse(cl.hasOption("r"), "Confirm -r is NOT set");
@@ -122,7 +122,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         final OptionGroup group1 = new OptionGroup();
         group1.addOption(new Option(null, "foo", false, "Foo"));
         group1.addOption(new Option(null, "bar", false, "Bar"));
@@ -138,7 +138,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testTwoLongOptionsFromGroup() throws Exception {
+    void testTwoLongOptionsFromGroup() throws Exception {
         final String[] args = { "--file", "--directory" };
         final AlreadySelectedException e = assertThrows(AlreadySelectedException.class, () -> parser.parse(options, args));
         assertNotNull(e.getOptionGroup(), "null option group");
@@ -148,7 +148,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testTwoOptionsFromDifferentGroup() throws Exception {
+    void testTwoOptionsFromDifferentGroup() throws Exception {
         final String[] args = {"-f", "-s"};
         final CommandLine cl = parser.parse(options, args);
         assertFalse(cl.hasOption("r"), "Confirm -r is NOT set");
@@ -160,7 +160,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testTwoOptionsFromGroup() throws Exception {
+    void testTwoOptionsFromGroup() throws Exception {
         final String[] args = { "-f", "-d" };
         final AlreadySelectedException e = assertThrows(AlreadySelectedException.class, () -> parser.parse(options, args));
         assertNotNull(e.getOptionGroup(), "null option group");
@@ -170,7 +170,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testTwoOptionsFromGroupWithProperties() throws Exception {
+    void testTwoOptionsFromGroupWithProperties() throws Exception {
         final String[] args = {"-f"};
         final Properties properties = new Properties();
         properties.put("d", "true");
@@ -180,7 +180,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testTwoValidLongOptions() throws Exception {
+    void testTwoValidLongOptions() throws Exception {
         final String[] args = {"--revision", "--file"};
         final CommandLine cl = parser.parse(options, args);
         assertTrue(cl.hasOption("r"), "Confirm -r is set");
@@ -192,7 +192,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testTwoValidOptions() throws Exception {
+    void testTwoValidOptions() throws Exception {
         final String[] args = {"-r", "-f"};
         final CommandLine cl = parser.parse(options, args);
         assertTrue(cl.hasOption("r"), "Confirm -r is set");
@@ -204,7 +204,7 @@ public class OptionGroupTest {
     }
 
     @Test
-    public void testValidLongOnlyOptions() throws Exception {
+    void testValidLongOnlyOptions() throws Exception {
         final CommandLine cl1 = parser.parse(options, new String[] {"--export"});
         assertTrue(cl1.hasOption("export"), "Confirm --export is set");
         final CommandLine cl2 = parser.parse(options, new String[] {"--import"});

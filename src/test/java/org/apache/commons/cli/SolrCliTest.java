@@ -145,7 +145,7 @@ class SolrCliTest {
     }
 
     @Test
-    public void testOptions() {
+    void testOptions() {
         // sanity checks
         assertNotNull(DEFAULT_CONFIG_SET);
         assertNotNull(OPTION_CREDENTIALS);

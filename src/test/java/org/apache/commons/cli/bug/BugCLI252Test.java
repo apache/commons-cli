@@ -36,14 +36,14 @@ public class BugCLI252Test {
     }
 
     @Test
-    public void testAmbiquousOptionName() {
+    void testAmbiquousOptionName() {
         assertThrows(AmbiguousOptionException.class, () ->
                 new DefaultParser().parse(getOptions(), new String[]{"--pref"})
         );
     }
 
     @Test
-    public void testExactOptionNameMatch() throws ParseException {
+    void testExactOptionNameMatch() throws ParseException {
         new DefaultParser().parse(getOptions(), new String[] {"--prefix"});
     }
 

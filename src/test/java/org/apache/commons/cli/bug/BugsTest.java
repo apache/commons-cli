@@ -49,7 +49,7 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("deprecation") // tests some deprecated classes
 public class BugsTest {
     @Test
-    public void test11456() throws Exception {
+    void test11456() throws Exception {
         // POSIX
         Options options = new Options();
         options.addOption(OptionBuilder.hasOptionalArg().create('a'));
@@ -74,7 +74,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test11457() throws Exception {
+    void test11457() throws Exception {
         final Options options = new Options();
         options.addOption(OptionBuilder.withLongOpt("verbose").create());
         final String[] args = {"--verbose"};
@@ -86,7 +86,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test11458() throws Exception {
+    void test11458() throws Exception {
         final Options options = new Options();
         options.addOption(OptionBuilder.withValueSeparator('=').hasArgs().create('D'));
         options.addOption(OptionBuilder.withValueSeparator(':').hasArgs().create('p'));
@@ -127,7 +127,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test11680() throws Exception {
+    void test11680() throws Exception {
         final Options options = new Options();
         final Option optionF = options.addOption("f", true, "foobar").getOption("f");
         final Option optionM = options.addOption("m", true, "missing").getOption("m");
@@ -152,7 +152,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test12210() throws Exception {
+    void test12210() throws Exception {
         // create the main options object which will handle the first parameter
         final Options mainOptions = new Options();
         // There can be 2 main exclusive options: -exec|-rep
@@ -204,7 +204,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test13425() throws Exception {
+    void test13425() throws Exception {
         final Options options = new Options();
         //@formatter:off
         final Option oldpass = OptionBuilder.withLongOpt("old-password")
@@ -223,7 +223,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test13666() throws Exception {
+    void test13666() throws Exception {
         final Options options = new Options();
         final Option dirOption = OptionBuilder.withDescription("dir").hasArg().create('d');
         options.addOption(dirOption);
@@ -241,7 +241,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test13666_Builder() throws Exception {
+    void test13666_Builder() throws Exception {
         final Options options = new Options();
         final Option dirOption = OptionBuilder.withDescription("dir").hasArg().create('d');
         options.addOption(dirOption);
@@ -253,7 +253,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test13935() throws Exception {
+    void test13935() throws Exception {
         final OptionGroup directions = new OptionGroup();
 
         final Option left = new Option("l", "left", false, "go left");
@@ -286,7 +286,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test14786() throws Exception {
+    void test14786() throws Exception {
         final Option o = OptionBuilder.isRequired().withDescription("test").create("test");
         final Options opts = new Options();
         opts.addOption(o);
@@ -301,7 +301,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test15046() throws Exception {
+    void test15046() throws Exception {
         final CommandLineParser parser = new PosixParser();
         final String[] cliArgs = {"-z", "c"};
 
@@ -318,7 +318,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test15648() throws Exception {
+    void test15648() throws Exception {
         final CommandLineParser parser = new PosixParser();
         final String[] args = {"-m", "\"Two Words\""};
         final Option m = OptionBuilder.hasArgs().create("m");
@@ -329,7 +329,7 @@ public class BugsTest {
     }
 
     @Test
-    public void test31148() throws ParseException {
+    void test31148() throws ParseException {
         final Option multiArgOption = new Option("o", "option with multiple args");
         multiArgOption.setArgs(1);
 

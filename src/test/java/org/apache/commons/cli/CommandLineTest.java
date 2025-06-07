@@ -231,7 +231,7 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testBadGetParsedOptionValue() throws Exception {
+    void testBadGetParsedOptionValue() throws Exception {
 
         final Options options = new Options();
         options.addOption(Option.builder("i").hasArg().type(Number.class).build());
@@ -245,7 +245,7 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testBuilderBuild() {
+    void testBuilderBuild() {
         // @formatter:off
         final CommandLine cmd = CommandLine.builder()
                 .addArg("foo")
@@ -259,7 +259,7 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testBuilderGet() {
+    void testBuilderGet() {
         // @formatter:off
         final CommandLine cmd = CommandLine.builder()
                 .addArg("foo")
@@ -273,7 +273,7 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testBuilderNullArgs() {
+    void testBuilderNullArgs() {
         final CommandLine.Builder builder = CommandLine.builder();
         builder.addArg(null).addArg(null);
         builder.addOption(Option.builder("T").build());
@@ -284,7 +284,7 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testBuilderNullOption() {
+    void testBuilderNullOption() {
         final CommandLine.Builder builder = CommandLine.builder();
         builder.addArg("foo").addArg("bar");
         builder.addOption(null);
@@ -298,7 +298,7 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testGetOptionProperties() throws Exception {
+    void testGetOptionProperties() throws Exception {
         final String[] args = {"-Dparam1=value1", "-Dparam2=value2", "-Dparam3", "-Dparam4=value4", "-D", "--property", "foo=bar"};
 
         final Options options = new Options();
@@ -320,7 +320,7 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testGetOptionPropertiesWithOption() throws Exception {
+    void testGetOptionPropertiesWithOption() throws Exception {
         final String[] args = {"-Dparam1=value1", "-Dparam2=value2", "-Dparam3", "-Dparam4=value4", "-D", "--property", "foo=bar"};
 
         final Options options = new Options();
@@ -344,7 +344,7 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testGetOptionsBuilder() {
+    void testGetOptionsBuilder() {
         final CommandLine cmd = CommandLine.builder().build();
         assertNotNull(cmd.getOptions());
         assertEquals(0, cmd.getOptions().length);
@@ -358,7 +358,7 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testGetOptionsCtor() {
+    void testGetOptionsCtor() {
         final CommandLine cmd = new CommandLine();
         assertNotNull(cmd.getOptions());
         assertEquals(0, cmd.getOptions().length);
@@ -1006,7 +1006,7 @@ public class CommandLineTest {
     }
 
     @Test
-    public void testNullOption() throws Exception {
+    void testNullOption() throws Exception {
         final Options options = new Options();
         final Option optI = Option.builder("i").hasArg().type(Number.class).build();
         final Option optF = Option.builder("f").hasArg().build();

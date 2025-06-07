@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 public class ParseExceptionTest {
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertEquals("a", new ParseException("a").getMessage());
         final Throwable t = new IOException();
         assertEquals(t, new ParseException(t).getCause());

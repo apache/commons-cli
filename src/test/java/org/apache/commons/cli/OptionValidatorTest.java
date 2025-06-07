@@ -160,7 +160,7 @@ public class OptionValidatorTest {
     }
 
     @Test
-    public void testExclusivity() {
+    void testExclusivity() {
         /* since we modify acceptable chars by add and removing ADDITIONAL* chars we must verify that they do not exist in the
          * base javaIdentiferPart that is used in OptionValidator to validate basic characters  */
         for (final char c : OptionValidator.ADDITIONAL_LONG_CHARS) {

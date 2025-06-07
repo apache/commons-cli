@@ -61,7 +61,7 @@ public class ConverterTests {
     }
 
     @Test
-    public void testClass() throws Exception {
+    void testClass() throws Exception {
 
         assertNotNull(Converter.CLASS.apply(this.getClass().getName()), this.getClass().getName());
         assertNotNull(Converter.CLASS.apply(this.getClass().getCanonicalName()), this.getClass().getCanonicalName());
@@ -74,7 +74,7 @@ public class ConverterTests {
     }
 
     @Test
-    public void testDate() throws Exception {
+    void testDate() throws Exception {
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("whatever"));
 
         /*
@@ -92,7 +92,7 @@ public class ConverterTests {
     }
 
     @Test
-    public void testFile() throws Exception {
+    void testFile() throws Exception {
         final URL url = this.getClass().getClassLoader().getResource("./org/apache/commons/cli/existing-readable.file");
         final String fileName = url.toString().substring("file:".length());
         assertNotNull(Converter.FILE.apply(fileName));
@@ -109,7 +109,7 @@ public class ConverterTests {
     }
 
     @Test
-    public void testObject() throws Exception {
+    void testObject() throws Exception {
         assertNotNull(Converter.OBJECT.apply(this.getClass().getName()), this.getClass().getName());
         assertNotNull(Converter.OBJECT.apply(this.getClass().getCanonicalName()), this.getClass().getCanonicalName());
         assertThrows(ClassNotFoundException.class, () -> Converter.OBJECT.apply(this.getClass().getSimpleName()),
@@ -121,7 +121,7 @@ public class ConverterTests {
     }
 
     @Test
-    public void testUrl() throws Exception {
+    void testUrl() throws Exception {
         assertEquals(new URL("http://apache.org"), Converter.URL.apply("http://apache.org"));
         assertThrows(java.net.MalformedURLException.class, () -> Converter.URL.apply("foo.bar"));
     }

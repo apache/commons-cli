@@ -64,13 +64,13 @@ public class ValueTest {
     }
 
     @Test
-    public void testLongNoArg() {
+    void testLongNoArg() {
         assertTrue(cl.hasOption("c"));
         assertNull(cl.getOptionValue("c"));
     }
 
     @Test
-    public void testLongNoArgWithOption() {
+    void testLongNoArgWithOption() {
         assertTrue(cl.hasOption(opts.getOption("c")));
         assertNull(cl.getOptionValue(opts.getOption("c")));
     }
@@ -167,27 +167,27 @@ public class ValueTest {
     }
 
     @Test
-    public void testLongWithArg() {
+    void testLongWithArg() {
         assertTrue(cl.hasOption("d"));
         assertNotNull(cl.getOptionValue("d"));
         assertEquals(cl.getOptionValue("d"), "bar");
     }
 
     @Test
-    public void testLongWithArgWithOption() {
+    void testLongWithArgWithOption() {
         assertTrue(cl.hasOption(opts.getOption("d")));
         assertNotNull(cl.getOptionValue(opts.getOption("d")));
         assertEquals(cl.getOptionValue(opts.getOption("d")), "bar");
     }
 
     @Test
-    public void testShortNoArg() {
+    void testShortNoArg() {
         assertTrue(cl.hasOption("a"));
         assertNull(cl.getOptionValue("a"));
     }
 
     @Test
-    public void testShortNoArgWithOption() {
+    void testShortNoArgWithOption() {
         assertTrue(cl.hasOption(opts.getOption("a")));
         assertNull(cl.getOptionValue(opts.getOption("a")));
     }
@@ -273,7 +273,7 @@ public class ValueTest {
     }
 
     @Test
-    public void testShortOptionalNArgValuesSeparated() throws Exception {
+    void testShortOptionalNArgValuesSeparated() throws Exception {
         final String[] args = { "-v=ink", "-v=idea", "-v=isotope", "-v=ice" };
         final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(opts, args);
@@ -288,7 +288,7 @@ public class ValueTest {
     }
 
     @Test
-    public void testShortOptionalNArgValuesWithOption() throws Exception {
+    void testShortOptionalNArgValuesWithOption() throws Exception {
         final String[] args = { "-i", "ink", "idea", "isotope", "ice" };
         final CommandLineParser parser = new PosixParser();
         final CommandLine cmd = parser.parse(opts, args);
@@ -304,14 +304,14 @@ public class ValueTest {
     }
 
     @Test
-    public void testShortWithArg() {
+    void testShortWithArg() {
         assertTrue(cl.hasOption("b"));
         assertNotNull(cl.getOptionValue("b"));
         assertEquals(cl.getOptionValue("b"), "foo");
     }
 
     @Test
-    public void testShortWithArgWithOption() {
+    void testShortWithArgWithOption() {
         assertTrue(cl.hasOption(opts.getOption("b")));
         assertNotNull(cl.getOptionValue(opts.getOption("b")));
         assertEquals(cl.getOptionValue(opts.getOption("b")), "foo");
