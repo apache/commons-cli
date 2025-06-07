@@ -64,6 +64,7 @@ public abstract class AbstractParserTestCase {
         //@formatter:on
     }
 
+    @Test
     public void testAmbiguousArgParsing() throws Exception {
         final String[] args = { "-=-" };
         final Options options = new Options();
