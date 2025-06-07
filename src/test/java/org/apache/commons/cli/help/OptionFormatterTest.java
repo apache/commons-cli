@@ -134,7 +134,7 @@ public class OptionFormatterTest {
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("deprecatedAttributesData")
-    public void testComplexDeprecationFormat(final DeprecatedAttributes da, final String expected) {
+    void testComplexDeprecationFormat(final DeprecatedAttributes da, final String expected) {
         final Option.Builder builder = Option.builder("o").deprecated(da);
         final Option.Builder builderWithDesc = Option.builder("o").desc("The description").deprecated(da);
 

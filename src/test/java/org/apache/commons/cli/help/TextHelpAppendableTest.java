@@ -334,7 +334,7 @@ public final class TextHelpAppendableTest {
 
     @ParameterizedTest
     @MethodSource("org.apache.commons.cli.help.UtilTest#charArgs")
-    public void testindexOfWrapPosWithWhitespace(final Character c, final boolean isWhitespace) {
+    void testindexOfWrapPosWithWhitespace(final Character c, final boolean isWhitespace) {
         final String text = String.format("Hello%cWorld", c);
         assertEquals(isWhitespace ? 5 : 6, TextHelpAppendable.indexOfWrap(text, 7, 0));
     }

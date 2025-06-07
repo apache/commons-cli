@@ -140,7 +140,7 @@ public class ValuesTest {
      * in case I get a brainwave on how to resolve this.
      */
     /*
-     * public void testGetValue() { // the 'm' option assertTrue(_option.getValues().length == 2); assertEquals(
+     * void testGetValue() { // the 'm' option assertTrue(_option.getValues().length == 2); assertEquals(
      * _option.getValue(), "key"); assertEquals(_option.getValue(0), "key"); assertEquals(_option.getValue(1),
      * "value");
      *

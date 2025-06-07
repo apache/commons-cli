@@ -173,7 +173,7 @@ public class OptionValidatorTest {
 
     @ParameterizedTest(name = "{2}")
     @MethodSource("optionParameters")
-    public void testValidate(final String str, final boolean expected, final String name) {
+    void testValidate(final String str, final boolean expected, final String name) {
         if (expected) {
             assertEquals(str, OptionValidator.validate(str));
         } else {

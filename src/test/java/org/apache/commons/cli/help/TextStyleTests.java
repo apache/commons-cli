@@ -97,7 +97,7 @@ public class TextStyleTests {
 
     @ParameterizedTest(name = "{index} {0}")
     @MethodSource("padTestData")
-    public void testPad(final TextStyle underTest, final String unindentedString, final String indentedString) {
+    void testPad(final TextStyle underTest, final String unindentedString, final String indentedString) {
         assertEquals(unindentedString, underTest.pad(false, "Hello world"), "Unindented string test failed");
         assertEquals(indentedString, underTest.pad(true, "Hello world"), "Indented string test failed");
     }

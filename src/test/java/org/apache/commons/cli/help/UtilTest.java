@@ -65,7 +65,7 @@ public class UtilTest {
 
     @ParameterizedTest
     @MethodSource("charArgs")
-    public void testFindNonWhitespacePos(final Character c, final boolean isWhitespace) {
+    void testFindNonWhitespacePos(final Character c, final boolean isWhitespace) {
         String text = String.format("%cWorld", c);
         assertEquals(isWhitespace ? 1 : 0, Util.indexOfNonWhitespace(text, 0));
         text = String.format("%c%c%c", c, c, c);
@@ -84,7 +84,7 @@ public class UtilTest {
 
     @ParameterizedTest
     @MethodSource("charArgs")
-    public void testRtrim(final Character c, final boolean isWhitespace) {
+    void testRtrim(final Character c, final boolean isWhitespace) {
         if (isWhitespace) {
             assertEquals("worx", Util.rtrim(String.format("worx%s", c)), () -> String.format("Did not process character 0x%x", (int) c));
         } else {

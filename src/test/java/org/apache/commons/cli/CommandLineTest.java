@@ -386,7 +386,7 @@ public class CommandLineTest {
      */
     @ParameterizedTest(name = "{0}, {1}")
     @MethodSource("createOptionValueParameters")
-    public void testGetOptionValue(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
+    void testGetOptionValue(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
                                    final String optValue, final boolean grpDep, final String grpValue, final Option grpOpt) throws ParseException {
         final Options options = new Options().addOptionGroup(optionGroup);
         final List<Option> handler = new ArrayList<>();
@@ -492,7 +492,7 @@ public class CommandLineTest {
      */
     @ParameterizedTest(name = "{0}, {1}")
     @MethodSource("createOptionValuesParameters")
-    public void testGetOptionValues(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
+    void testGetOptionValues(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
                                     final String[] optValue, final boolean grpDep, final String[] grpValue, final Option grpOpt) throws ParseException {
         final Options options = new Options().addOptionGroup(optionGroup);
         final List<Option> handler = new ArrayList<>();
@@ -536,7 +536,7 @@ public class CommandLineTest {
 
     @ParameterizedTest(name = "{0}, {1}")
     @MethodSource("createParsedOptionValueParameters")
-    public void testGetParsedOptionValue(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
+    void testGetParsedOptionValue(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
                                          final Integer optValue, final boolean grpDep, final Integer grpValue, final Option grpOpt) throws ParseException {
         final Options options = new Options().addOptionGroup(optionGroup);
         final List<Option> handler = new ArrayList<>();
@@ -630,7 +630,7 @@ public class CommandLineTest {
 
     @ParameterizedTest(name = "{0}, {1}")
     @MethodSource("createParsedOptionValuesParameters")
-    public void testGetParsedOptionValues(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
+    void testGetParsedOptionValues(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
                                          final Integer[] optValue, final boolean grpDep, final Integer[] grpValue, final Option grpOpt) throws ParseException {
         final Options options = new Options().addOptionGroup(optionGroup);
         final List<Option> handler = new ArrayList<>();
@@ -736,7 +736,7 @@ public class CommandLineTest {
      */
     @ParameterizedTest(name = "{0}, {1}")
     @MethodSource("createHasOptionParameters")
-    public void testHasOption(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
+    void testHasOption(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
                               final boolean has, final boolean grpDep, final boolean hasGrp, final Option grpOpt) throws ParseException {
         final Options options = new Options().addOptionGroup(optionGroup);
         final List<Option> handler = new ArrayList<>();
@@ -792,7 +792,7 @@ public class CommandLineTest {
      */
     @ParameterizedTest(name = "{0}, {1}")
     @MethodSource("createHasOptionParameters")
-    public void testHasOptionNoDeprecationHandler(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
+    void testHasOptionNoDeprecationHandler(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
                               final boolean has, final boolean grpDep, final boolean hasGrp, final Option grpOpt) throws ParseException {
         final Options options = new Options().addOptionGroup(optionGroup);
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -843,7 +843,7 @@ public class CommandLineTest {
      */
     @ParameterizedTest(name = "{0}, {1}")
     @MethodSource("createHasOptionParameters")
-    public void testHasOptionNullDeprecationHandler(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
+    void testHasOptionNullDeprecationHandler(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
                                                   final boolean has, final boolean grpDep, final boolean hasGrp, final Option grpOpt) throws ParseException {
         final Options options = new Options().addOptionGroup(optionGroup);
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -882,7 +882,7 @@ public class CommandLineTest {
 
     @ParameterizedTest(name = "{0}, {1}")
     @MethodSource("createOptionValueParameters")
-    public void testNoDeprecationHandler(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
+    void testNoDeprecationHandler(final String[] args, final Option opt, final OptionGroup optionGroup, final boolean optDep,
                                    final String optValue, final boolean grpDep, final String grpValue, final Option grpOpt) throws ParseException {
         final Options options = new Options().addOptionGroup(optionGroup);
         final CommandLine commandLine = DefaultParser.builder().get().parse(options, args);

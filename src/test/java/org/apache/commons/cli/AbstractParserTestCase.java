@@ -65,7 +65,7 @@ public abstract class AbstractParserTestCase {
     }
 
     @Test
-    public void testAmbiguousArgParsing() throws Exception {
+    void testAmbiguousArgParsing() throws Exception {
         final String[] args = { "-=-" };
         final Options options = new Options();
         assertThrows(UnrecognizedOptionException.class, () -> parser.parse(options, args));

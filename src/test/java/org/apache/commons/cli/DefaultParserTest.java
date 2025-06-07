@@ -203,12 +203,12 @@ public class DefaultParserTest extends AbstractParserTestCase {
     @Override
     @Test
     @Disabled("Test case handled in the parameterized tests as \"DEFAULT behavior\"")
-    public void testLongOptionWithEqualsQuoteHandling() throws Exception {
+    void testLongOptionWithEqualsQuoteHandling() throws Exception {
     }
 
     @ParameterizedTest(name = "{index}. {0}")
     @ArgumentsSource(ExternalArgumentsProvider.class)
-    public void testParameterized(final String testName, final CommandLineParser parser, final String[] args, final String expected,
+    void testParameterized(final String testName, final CommandLineParser parser, final String[] args, final String expected,
         final String option, final String message) throws Exception {
         final CommandLine cl = parser.parse(options, args);
 
@@ -218,6 +218,6 @@ public class DefaultParserTest extends AbstractParserTestCase {
     @Override
     @Test
     @Disabled("Test case handled in the parameterized tests as \"DEFAULT behavior\"")
-    public void testShortOptionConcatenatedQuoteHandling() throws Exception {
+    void testShortOptionConcatenatedQuoteHandling() throws Exception {
     }
 }

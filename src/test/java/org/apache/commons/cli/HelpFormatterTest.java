@@ -413,7 +413,7 @@ public class HelpFormatterTest {
 
     @ParameterizedTest
     @MethodSource("deprecatedOptionsProvider")
-    public void testPrintDeprecatedOptions(final HelpFormatter hf, final Option option, final String expectedTxt) {
+    void testPrintDeprecatedOptions(final HelpFormatter hf, final Option option, final String expectedTxt) {
         final StringBuffer sb = new StringBuffer();
 
         final int leftPad = 1;

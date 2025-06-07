@@ -100,7 +100,7 @@ public class ConverterTests {
 
     @ParameterizedTest
     @MethodSource("numberTestParameters")
-    public void testNumber(final String str, final Number expected) throws Exception {
+    void testNumber(final String str, final Number expected) throws Exception {
         if (expected != null) {
             assertEquals(expected, Converter.NUMBER.apply(str));
         } else {

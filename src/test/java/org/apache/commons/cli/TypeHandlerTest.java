@@ -176,7 +176,7 @@ public class TypeHandlerTest {
 
     @ParameterizedTest
     @MethodSource("createDateFixtures")
-    public void testCreateDate(final Date date) {
+    void testCreateDate(final Date date) {
         assertEquals(date, TypeHandler.createDate(date.toString()));
     }
 
@@ -211,7 +211,7 @@ public class TypeHandlerTest {
     @SuppressWarnings("unchecked")
     @ParameterizedTest(name = "{0} as {1}")
     @MethodSource("createValueTestParameters")
-    public void testCreateValue(final String str, final Class<?> type, final Object expected) throws Exception {
+    void testCreateValue(final String str, final Class<?> type, final Object expected) throws Exception {
         @SuppressWarnings("cast")
         final Object objectApiTest = type; // KEEP this cast
         if (expected instanceof Class<?> && Throwable.class.isAssignableFrom((Class<?>) expected)) {
