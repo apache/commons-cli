@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link UnrecognizedOptionException}.
  */
-public class UnrecognizedOptionExceptionTest {
+class UnrecognizedOptionExceptionTest {
 
     @Test
     void testConstructor() {

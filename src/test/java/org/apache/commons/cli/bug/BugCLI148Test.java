@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
  * https://issues.apache.org/jira/browse/CLI-148
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI148Test {
+class BugCLI148Test {
     private Options options;
 
     @BeforeEach

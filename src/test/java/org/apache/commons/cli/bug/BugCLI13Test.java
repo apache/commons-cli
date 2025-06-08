@@ -29,7 +29,7 @@ import org.apache.commons.cli.PosixParser;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI13Test {
+class BugCLI13Test {
 
     @Test
     void testCLI13() throws ParseException {

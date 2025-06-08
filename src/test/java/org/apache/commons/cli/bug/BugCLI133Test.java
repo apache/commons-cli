@@ -27,7 +27,7 @@ import org.apache.commons.cli.PosixParser;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI133Test {
+class BugCLI133Test {
     @Test
     void testOrder() throws ParseException {
         final Option optionA = new Option("a", "first");

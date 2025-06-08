@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Demonstrates inconsistencies in parsing Java property-style options.
  */
-public class BugCLI312Test {
+class BugCLI312Test {
     @Test
     void testNoOptionValues() {
         final Option o1 = Option.builder("A").build();

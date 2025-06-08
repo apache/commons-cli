@@ -30,7 +30,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugCLI71Test {
+class BugCLI71Test {
     private Options options;
     private CommandLineParser parser;
 

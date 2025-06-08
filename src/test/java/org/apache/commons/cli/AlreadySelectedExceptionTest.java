@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link AlreadySelectedException}.
  */
-public class AlreadySelectedExceptionTest {
+class AlreadySelectedExceptionTest {
 
     @Test
     void testConstructor() {

@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
  * <p>
  * The issue is that a short option with an optional value will use whatever comes next as value.
  */
-public class BugCLI265Test {
+class BugCLI265Test {
 
     private DefaultParser parser;
     private Options options;

@@ -26,7 +26,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class ValuesTest {
+class ValuesTest {
     private CommandLine cmd;
 
     @BeforeEach

@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class DisablePartialMatchingTest {
+class DisablePartialMatchingTest {
     @Test
     void testDisablePartialMatching() throws Exception {
         final CommandLineParser parser = new DefaultParser(false);

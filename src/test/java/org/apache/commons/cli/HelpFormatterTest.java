@@ -43,7 +43,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Test case for the HelpFormatter class.
  */
-public class HelpFormatterTest {
+class HelpFormatterTest {
     private static final String EOL = System.lineSeparator();
 
     static Stream<Arguments> deprecatedOptionsProvider() {

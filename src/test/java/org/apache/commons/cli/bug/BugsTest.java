@@ -47,7 +47,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class BugsTest {
+class BugsTest {
     @Test
     void test11456() throws Exception {
         // POSIX

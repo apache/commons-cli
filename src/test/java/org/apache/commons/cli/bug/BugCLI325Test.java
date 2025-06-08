@@ -28,7 +28,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.junit.jupiter.api.Test;
 
-public class BugCLI325Test {
+class BugCLI325Test {
 
     @Test
     void testCli325() throws ParseException {

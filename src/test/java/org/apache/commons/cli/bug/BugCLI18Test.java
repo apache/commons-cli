@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * https://issues.apache.org/jira/browse/CLI-18
  */
-public class BugCLI18Test {
+class BugCLI18Test {
     @Test
     void testCLI18() {
         final Options options = new Options();

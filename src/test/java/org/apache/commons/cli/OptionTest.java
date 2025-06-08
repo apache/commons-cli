@@ -33,7 +33,7 @@ import java.io.ObjectOutputStream;
 
 import org.junit.jupiter.api.Test;
 
-public class OptionTest {
+class OptionTest {
 
     private static final class DefaultOption extends Option {
         private static final long serialVersionUID = 1L;

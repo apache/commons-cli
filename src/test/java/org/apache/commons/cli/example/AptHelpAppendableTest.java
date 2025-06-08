@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link AptHelpAppendable}.
  */
-public class AptHelpAppendableTest {
+class AptHelpAppendableTest {
 
     private StringBuilder sb;
     private AptHelpAppendable underTest;

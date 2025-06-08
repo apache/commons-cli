@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 @SuppressWarnings("deprecation") // OptionBuilder is marked deprecated
-public class OptionBuilderTest {
+class OptionBuilderTest {
     @Test
     void testBaseOptionCharOpt() {
         final Option base = OptionBuilder.withDescription("option description").create('o');

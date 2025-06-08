@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link XhtmlHelpAppendable}.
  */
-public class XhtmlHelpAppendableTest {
+class XhtmlHelpAppendableTest {
 
     private StringBuilder sb;
     private XhtmlHelpAppendable underTest;

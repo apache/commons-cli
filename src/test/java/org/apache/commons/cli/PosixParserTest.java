@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
  *
  * TODO Needs a rework using JUnit parameterized tests.
  */
-public class PosixParserTest extends AbstractParserTestCase {
+class PosixParserTest extends AbstractParserTestCase {
     @Override
     @SuppressWarnings("deprecation")
     @BeforeEach

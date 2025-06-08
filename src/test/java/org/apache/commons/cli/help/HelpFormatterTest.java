@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link HelpFormatter}.
  */
-public class HelpFormatterTest {
+class HelpFormatterTest {
 
     private Options getTestGroups() {
         // @formatter:off

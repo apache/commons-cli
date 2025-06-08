@@ -35,7 +35,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-public class DefaultParserTest extends AbstractParserTestCase {
+class DefaultParserTest extends AbstractParserTestCase {
 
     static class ExternalArgumentsProvider implements ArgumentsProvider {
 

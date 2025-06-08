@@ -34,7 +34,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class OptionsTest {
+class OptionsTest {
 
     private void assertToStrings(final Option option) {
         // Should never throw.

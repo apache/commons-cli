@@ -31,7 +31,7 @@ import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.junit.jupiter.api.Test;
 
-public class BugCLI266Test {
+class BugCLI266Test {
 
     private final List<String> insertedOrder = Arrays.asList("h", "d", "f", "x", "s", "p", "t", "w", "o");
     private final List<String> sortOrder = Arrays.asList("d", "f", "h", "o", "p", "s", "t", "w", "x");

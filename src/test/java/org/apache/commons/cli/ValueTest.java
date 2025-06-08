@@ -30,7 +30,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class ValueTest {
+class ValueTest {
 
     private static final Option NULL_OPTION = null;
     private static final String NULL_STRING = null;

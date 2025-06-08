@@ -40,7 +40,7 @@ import org.junit.jupiter.api.Test;
  * Test case for the PatternOptionBuilder class.
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
-public class PatternOptionBuilderTest {
+class PatternOptionBuilderTest {
 
     @Test
     void testClassPattern() throws Exception {

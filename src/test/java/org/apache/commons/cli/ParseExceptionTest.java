@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests {@link ParseException}.
  */
-public class ParseExceptionTest {
+class ParseExceptionTest {
 
     @Test
     void testConstructor() {

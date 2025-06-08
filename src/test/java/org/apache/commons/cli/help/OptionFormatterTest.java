@@ -34,7 +34,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link OptionFormatter}.
  */
-public class OptionFormatterTest {
+class OptionFormatterTest {
 
     public static Stream<Arguments> deprecatedAttributesData() {
         final List<Arguments> lst = new ArrayList<>();
