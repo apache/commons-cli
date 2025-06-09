@@ -582,8 +582,9 @@ public class DefaultParser implements CommandLineParser {
      * the remaining tokens are added as-is in the arguments of the command line.
      *
      * @param token the command line token to handle
+     * @throws ParseException if parsing should fail
      */
-    private void handleUnknownToken(final String token) throws ParseException {
+    protected void handleUnknownToken(final String token) throws ParseException {
         if (token.startsWith("-") && token.length() > 1 && !stopAtNonOption) {
             throw new UnrecognizedOptionException("Unrecognized option: " + token, token);
         }
