@@ -558,7 +558,7 @@ public class DefaultParser implements CommandLineParser {
         if (token != null) {
             currentToken = token;
             if (skipParsing) {
-                cmd.addArg(token);
+                addArg(token);
             } else if ("--".equals(token)) {
                 skipParsing = true;
             } else if (currentOption != null && currentOption.acceptsArg() && isArgument(token)) {
@@ -588,10 +588,20 @@ public class DefaultParser implements CommandLineParser {
         if (token.startsWith("-") && token.length() > 1 && !stopAtNonOption) {
             throw new UnrecognizedOptionException("Unrecognized option: " + token, token);
         }
-        cmd.addArg(token);
+        addArg(token);
         if (stopAtNonOption) {
             skipParsing = true;
         }
+    }
+
+    /**
+     * Adds token to command line {@link CommandLine#addArg(String)}.
+     *
+     * @param token the unrecognized option/argument.
+     * @since 1.10.0
+     */
+    protected void addArg(final String token) {
+        cmd.addArg(token);
     }
 
     /**
