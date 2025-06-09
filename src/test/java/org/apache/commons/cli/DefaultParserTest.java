@@ -234,6 +234,33 @@ class DefaultParserTest extends AbstractParserTestCase {
     }
 
     @Test
+    void legacyStopAtNonOption() throws ParseException {
+        Option a = Option.builder().option("a").longOpt("first-letter").build();
+        Option b = Option.builder().option("b").longOpt("second-letter").build();
+        Option c = Option.builder().option("c").longOpt("third-letter").build();
+
+        Options options = new Options();
+        options.addOption(a);
+        options.addOption(b);
+        options.addOption(c);
+
+        String[] args = {"-a", "-b", "-c", "-d", "arg1", "arg2"}; // -d is rogue option
+
+        DefaultParser parser = new DefaultParser();
+
+        CommandLine commandLine = parser.parse(options, args, null, true);
+        assertEquals(3, commandLine.getOptions().length);
+        assertEquals(3, commandLine.getArgs().length);
+        assertFalse(commandLine.getArgList().contains("-c"));
+        assertTrue(commandLine.getArgList().contains("-d"));
+        assertTrue(commandLine.getArgList().contains("arg1"));
+        assertTrue(commandLine.getArgList().contains("arg2"));
+
+        UnrecognizedOptionException e = assertThrows(UnrecognizedOptionException.class, () -> parser.parse(options, args, null, false));
+        assertTrue(e.getMessage().contains("-d"));
+    }
+
+    @Test
     void testBuilder() {
         // @formatter:off
         final Builder builder = DefaultParser.builder()
