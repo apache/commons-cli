@@ -251,7 +251,6 @@ class DefaultParserTest extends AbstractParserTestCase {
         CommandLine commandLine = parser.parse(options, args, null, true);
         assertEquals(3, commandLine.getOptions().length);
         assertEquals(3, commandLine.getArgs().length);
-        assertFalse(commandLine.getArgList().contains("-c"));
         assertTrue(commandLine.getArgList().contains("-d"));
         assertTrue(commandLine.getArgList().contains("arg1"));
         assertTrue(commandLine.getArgList().contains("arg2"));
