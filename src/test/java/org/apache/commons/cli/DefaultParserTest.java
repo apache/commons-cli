@@ -21,7 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -155,6 +157,25 @@ class DefaultParserTest extends AbstractParserTestCase {
     public void setUp() {
         super.setUp();
         parser = new DefaultParser();
+    }
+
+    @Test
+    void testSkip() throws ParseException {
+        final Options options = new Options();
+        options.addOption(Option.builder("a").longOpt("first-letter").build());
+        options.addOption(Option.builder("b").longOpt("second-letter").build());
+
+        final DefaultParser parser = DefaultParser.builder().get();
+        final CommandLine commandLine = parser.parse(options, new String[] {"-a", "-b", "-c", "-d"}, DefaultParser.UnrecognizedTokensOperation.SKIP);
+        assertTrue(commandLine.hasOption("a"));
+        assertTrue(commandLine.hasOption("b"));
+        assertFalse(commandLine.hasOption("c"));
+        assertFalse(commandLine.hasOption("d"));
+
+        assertFalse(commandLine.getArgList().contains("-a"));
+        assertFalse(commandLine.getArgList().contains("-b"));
+        assertTrue(commandLine.getArgList().contains("-c"));
+        assertTrue(commandLine.getArgList().contains("-d"));
     }
 
     @Test

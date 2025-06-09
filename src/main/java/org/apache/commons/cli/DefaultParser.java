@@ -154,6 +154,24 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
+     * The operation to execute when unrecognized token is found.
+     */
+    public enum UnrecognizedTokensOperation {
+        /**
+         * Equivalent of old {@code stopAtNonOption = true}.
+         */
+        STOP,
+        /**
+         * Unrecognized token is added to args list and parsing continues.
+         */
+        SKIP,
+        /**
+         * Equivalent of old {@code stopAtNonOption = false}.
+         */
+        THROW
+    }
+
+    /**
      * Creates a new {@link Builder} to create an {@link DefaultParser} using descriptive
      * methods.
      *
@@ -178,7 +196,7 @@ public class DefaultParser implements CommandLineParser {
      * Flag indicating how unrecognized tokens are handled. {@code true} to stop the parsing and add the remaining
      * tokens to the args list. {@code false} to throw an exception.
      */
-    protected boolean stopAtNonOption;
+    protected UnrecognizedTokensOperation unrecognizedTokensOperation = UnrecognizedTokensOperation.THROW;
 
     /** The token currently processed. */
     protected String currentToken;
@@ -356,7 +374,7 @@ public class DefaultParser implements CommandLineParser {
         for (int i = 1; i < token.length(); i++) {
             final String ch = String.valueOf(token.charAt(i));
             if (!options.hasOption(ch)) {
-                handleUnknownToken(stopAtNonOption && i > 1 ? token.substring(i) : token);
+                handleUnknownToken(unrecognizedTokensOperation == UnrecognizedTokensOperation.STOP && i > 1 ? token.substring(i) : token);
                 break;
             }
             handleOption(options.getOption(ch));
@@ -580,15 +598,16 @@ public class DefaultParser implements CommandLineParser {
      * Handles an unknown token. If the token starts with a dash an UnrecognizedOptionException is thrown. Otherwise the
      * token is added to the arguments of the command line. If the stopAtNonOption flag is set, this stops the parsing and
      * the remaining tokens are added as-is in the arguments of the command line.
+     * <p>
      *
      * @param token the command line token to handle
      */
-    private void handleUnknownToken(final String token) throws ParseException {
-        if (token.startsWith("-") && token.length() > 1 && !stopAtNonOption) {
+    protected void handleUnknownToken(final String token) throws ParseException {
+        if (token.startsWith("-") && token.length() > 1 && unrecognizedTokensOperation == UnrecognizedTokensOperation.THROW) {
             throw new UnrecognizedOptionException("Unrecognized option: " + token, token);
         }
         cmd.addArg(token);
-        if (stopAtNonOption) {
+        if (unrecognizedTokensOperation == UnrecognizedTokensOperation.STOP) {
             skipParsing = true;
         }
     }
@@ -678,12 +697,16 @@ public class DefaultParser implements CommandLineParser {
 
     @Override
     public CommandLine parse(final Options options, final String[] arguments) throws ParseException {
-        return parse(options, arguments, null);
+        return parse(options, arguments, (Properties) null);
     }
 
     @Override
     public CommandLine parse(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException {
         return parse(options, arguments, null, stopAtNonOption);
+    }
+
+    public CommandLine parse(final Options options, final String[] arguments, final UnrecognizedTokensOperation uto) throws ParseException {
+        return parse(options, arguments, null, uto);
     }
 
     /**
@@ -713,9 +736,25 @@ public class DefaultParser implements CommandLineParser {
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      */
     public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption)
+            throws ParseException {
+        return parse(options, arguments, properties, stopAtNonOption ? UnrecognizedTokensOperation.STOP : UnrecognizedTokensOperation.THROW);
+    }
+
+    /**
+     * Parses the arguments according to the specified options and properties.
+     *
+     * @param options the specified Options
+     * @param arguments the command line arguments
+     * @param properties command line option name-value pairs
+     * @param uto The operation to perform when unrecognized token is found.
+     *
+     * @return the list of atomic option and value tokens
+     * @throws ParseException if there are any problems encountered while parsing the command line tokens.
+     */
+    public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final UnrecognizedTokensOperation uto)
         throws ParseException {
         this.options = options;
-        this.stopAtNonOption = stopAtNonOption;
+        this.unrecognizedTokensOperation = uto;
         skipParsing = false;
         currentOption = null;
         expectedOpts = new ArrayList<>(options.getRequiredOptions());
