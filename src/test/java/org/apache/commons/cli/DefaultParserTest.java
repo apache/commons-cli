@@ -212,7 +212,6 @@ class DefaultParserTest extends AbstractParserTestCase {
         Option a = Option.builder().option("a").longOpt("first-letter").build();
         Option b = Option.builder().option("b").longOpt("second-letter").build();
         Option c = Option.builder().option("c").longOpt("third-letter").build();
-        Option d = Option.builder().option("d").longOpt("fourth-letter").build();
 
         Options baseOptions = new Options();
         baseOptions.addOption(a);
@@ -221,18 +220,17 @@ class DefaultParserTest extends AbstractParserTestCase {
         specificOptions.addOption(a);
         specificOptions.addOption(b);
         specificOptions.addOption(c);
-        specificOptions.addOption(d);
 
-        String[] args = {"-a", "-b", "-c", "-d", "arg1", "arg2", "--rogue-option"};
+        String[] args = {"-a", "-b", "-c", "-d", "arg1", "arg2"}; // -d is rogue option
 
         DefaultParser parser = new DefaultParser();
 
         CommandLine baseCommandLine = parser.parse(baseOptions, args, null, false, false);
         assertEquals(2, baseCommandLine.getOptions().length);
-        assertEquals(5, baseCommandLine.getArgs().length);
+        assertEquals(4, baseCommandLine.getArgs().length);
 
         UnrecognizedOptionException e = assertThrows(UnrecognizedOptionException.class, () -> parser.parse(specificOptions, args, null, false, true));
-        assertTrue(e.getMessage().contains("--rogue-option"));
+        assertTrue(e.getMessage().contains("-d"));
     }
 
     @Test
