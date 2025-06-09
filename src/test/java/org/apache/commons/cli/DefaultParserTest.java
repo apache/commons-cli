@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
@@ -155,6 +156,83 @@ class DefaultParserTest extends AbstractParserTestCase {
     public void setUp() {
         super.setUp();
         parser = new DefaultParser();
+    }
+
+    @Test
+    void chainingParsersHappyPath() throws ParseException {
+        Option a = Option.builder().option("a").longOpt("first-letter").build();
+        Option b = Option.builder().option("b").longOpt("second-letter").build();
+        Option c = Option.builder().option("c").longOpt("third-letter").build();
+        Option d = Option.builder().option("d").longOpt("fourth-letter").build();
+
+        Options baseOptions = new Options();
+        baseOptions.addOption(a);
+        baseOptions.addOption(b);
+        Options specificOptions = new Options();
+        specificOptions.addOption(a);
+        specificOptions.addOption(b);
+        specificOptions.addOption(c);
+        specificOptions.addOption(d);
+
+        String[] args = {"-a", "-b", "-c", "-d", "arg1", "arg2"};
+
+        DefaultParser parser = new DefaultParser();
+
+        CommandLine baseCommandLine = parser.parse(baseOptions, args, null, false, false);
+        assertEquals(2, baseCommandLine.getOptions().length);
+        assertEquals(4, baseCommandLine.getArgs().length);
+        assertTrue(baseCommandLine.hasOption("a"));
+        assertTrue(baseCommandLine.hasOption("b"));
+        assertFalse(baseCommandLine.hasOption("c"));
+        assertFalse(baseCommandLine.hasOption("d"));
+        assertFalse(baseCommandLine.getArgList().contains("-a"));
+        assertFalse(baseCommandLine.getArgList().contains("-b"));
+        assertTrue(baseCommandLine.getArgList().contains("-c"));
+        assertTrue(baseCommandLine.getArgList().contains("-d"));
+        assertTrue(baseCommandLine.getArgList().contains("arg1"));
+        assertTrue(baseCommandLine.getArgList().contains("arg2"));
+
+        CommandLine specificCommandLine = parser.parse(specificOptions, args, null, false, true);
+        assertEquals(4, specificCommandLine.getOptions().length);
+        assertEquals(2, specificCommandLine.getArgs().length);
+        assertTrue(specificCommandLine.hasOption("a"));
+        assertTrue(specificCommandLine.hasOption("b"));
+        assertTrue(specificCommandLine.hasOption("c"));
+        assertTrue(specificCommandLine.hasOption("d"));
+        assertFalse(specificCommandLine.getArgList().contains("-a"));
+        assertFalse(specificCommandLine.getArgList().contains("-b"));
+        assertFalse(specificCommandLine.getArgList().contains("-c"));
+        assertFalse(specificCommandLine.getArgList().contains("-d"));
+        assertTrue(specificCommandLine.getArgList().contains("arg1"));
+        assertTrue(specificCommandLine.getArgList().contains("arg2"));
+    }
+
+    @Test
+    void chainingParsersNonHappyPath() throws ParseException {
+        Option a = Option.builder().option("a").longOpt("first-letter").build();
+        Option b = Option.builder().option("b").longOpt("second-letter").build();
+        Option c = Option.builder().option("c").longOpt("third-letter").build();
+        Option d = Option.builder().option("d").longOpt("fourth-letter").build();
+
+        Options baseOptions = new Options();
+        baseOptions.addOption(a);
+        baseOptions.addOption(b);
+        Options specificOptions = new Options();
+        specificOptions.addOption(a);
+        specificOptions.addOption(b);
+        specificOptions.addOption(c);
+        specificOptions.addOption(d);
+
+        String[] args = {"-a", "-b", "-c", "-d", "arg1", "arg2", "--rogue-option"};
+
+        DefaultParser parser = new DefaultParser();
+
+        CommandLine baseCommandLine = parser.parse(baseOptions, args, null, false, false);
+        assertEquals(2, baseCommandLine.getOptions().length);
+        assertEquals(5, baseCommandLine.getArgs().length);
+
+        UnrecognizedOptionException e = assertThrows(UnrecognizedOptionException.class, () -> parser.parse(specificOptions, args, null, false, true));
+        assertTrue(e.getMessage().contains("--rogue-option"));
     }
 
     @Test
