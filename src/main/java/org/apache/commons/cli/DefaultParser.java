@@ -732,7 +732,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * @see #parse(Options, String[], Properties, NonOptionAction)
+     * @see #parse(Options, Properties, NonOptionAction, String[])
      */
     @Override
     public CommandLine parse(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException {
@@ -764,26 +764,26 @@ public class DefaultParser implements CommandLineParser {
      *
      * @return the list of atomic option and value tokens
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
-     * @see #parse(Options, String[], Properties, NonOptionAction)
+     * @see #parse(Options, Properties, NonOptionAction, String[])
      */
     public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption)
         throws ParseException {
-        return parse(options, arguments, properties, stopAtNonOption ? NonOptionAction.STOP : NonOptionAction.THROW);
+        return parse(options, properties, stopAtNonOption ? NonOptionAction.STOP : NonOptionAction.THROW, arguments);
     }
 
     /**
      * Parses the arguments according to the specified options and properties.
      *
      * @param options the specified Options
-     * @param arguments the command line arguments
      * @param properties command line option name-value pairs
      * @param nonOptionAction see {@link NonOptionAction}.
+     * @param arguments the command line arguments
      *
      * @return the list of atomic option and value tokens
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      * @since 1.10.0
      */
-    public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final NonOptionAction nonOptionAction)
+    public CommandLine parse(final Options options, final Properties properties, final NonOptionAction nonOptionAction, final String... arguments)
             throws ParseException {
         this.options = options;
         this.nonOptionAction = nonOptionAction;

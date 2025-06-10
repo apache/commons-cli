@@ -178,7 +178,7 @@ class DefaultParserTest extends AbstractParserTestCase {
 
         DefaultParser parser = new DefaultParser();
 
-        CommandLine baseCommandLine = parser.parse(baseOptions, args, null, DefaultParser.NonOptionAction.SKIP);
+        CommandLine baseCommandLine = parser.parse(baseOptions, null, DefaultParser.NonOptionAction.SKIP, args);
         assertEquals(2, baseCommandLine.getOptions().length);
         assertEquals(4, baseCommandLine.getArgs().length);
         assertTrue(baseCommandLine.hasOption("a"));
@@ -192,7 +192,7 @@ class DefaultParserTest extends AbstractParserTestCase {
         assertTrue(baseCommandLine.getArgList().contains("arg1"));
         assertTrue(baseCommandLine.getArgList().contains("arg2"));
 
-        CommandLine specificCommandLine = parser.parse(specificOptions, args, null, DefaultParser.NonOptionAction.THROW);
+        CommandLine specificCommandLine = parser.parse(specificOptions, null, DefaultParser.NonOptionAction.THROW, args);
         assertEquals(4, specificCommandLine.getOptions().length);
         assertEquals(2, specificCommandLine.getArgs().length);
         assertTrue(specificCommandLine.hasOption("a"));
@@ -225,12 +225,12 @@ class DefaultParserTest extends AbstractParserTestCase {
 
         DefaultParser parser = new DefaultParser();
 
-        CommandLine baseCommandLine = parser.parse(baseOptions, args, null, DefaultParser.NonOptionAction.SKIP);
+        CommandLine baseCommandLine = parser.parse(baseOptions, null, DefaultParser.NonOptionAction.SKIP, args);
         assertEquals(2, baseCommandLine.getOptions().length);
         assertEquals(4, baseCommandLine.getArgs().length);
 
         UnrecognizedOptionException e = assertThrows(UnrecognizedOptionException.class,
-                () -> parser.parse(specificOptions, args, null, DefaultParser.NonOptionAction.THROW));
+                () -> parser.parse(specificOptions, null, DefaultParser.NonOptionAction.THROW, args));
         assertTrue(e.getMessage().contains("-d"));
     }
 
@@ -254,7 +254,7 @@ class DefaultParserTest extends AbstractParserTestCase {
 
         DefaultParser parser = new DefaultParser();
 
-        CommandLine baseCommandLine = parser.parse(baseOptions, args, null, DefaultParser.NonOptionAction.IGNORE);
+        CommandLine baseCommandLine = parser.parse(baseOptions, null, DefaultParser.NonOptionAction.IGNORE, args);
         assertEquals(2, baseCommandLine.getOptions().length);
         assertEquals(2, baseCommandLine.getArgs().length);
         assertTrue(baseCommandLine.hasOption("a"));
@@ -268,7 +268,7 @@ class DefaultParserTest extends AbstractParserTestCase {
         assertTrue(baseCommandLine.getArgList().contains("arg1"));
         assertTrue(baseCommandLine.getArgList().contains("arg2"));
 
-        CommandLine specificCommandLine = parser.parse(specificOptions, args, null, DefaultParser.NonOptionAction.THROW);
+        CommandLine specificCommandLine = parser.parse(specificOptions, null, DefaultParser.NonOptionAction.THROW, args);
         assertEquals(4, specificCommandLine.getOptions().length);
         assertEquals(2, specificCommandLine.getArgs().length);
         assertTrue(specificCommandLine.hasOption("a"));
@@ -301,12 +301,12 @@ class DefaultParserTest extends AbstractParserTestCase {
 
         DefaultParser parser = new DefaultParser();
 
-        CommandLine baseCommandLine = parser.parse(baseOptions, args, null, DefaultParser.NonOptionAction.IGNORE);
+        CommandLine baseCommandLine = parser.parse(baseOptions, null, DefaultParser.NonOptionAction.IGNORE, args);
         assertEquals(2, baseCommandLine.getOptions().length);
         assertEquals(2, baseCommandLine.getArgs().length);
 
         UnrecognizedOptionException e = assertThrows(UnrecognizedOptionException.class,
-                () -> parser.parse(specificOptions, args, null, DefaultParser.NonOptionAction.THROW));
+                () -> parser.parse(specificOptions, null, DefaultParser.NonOptionAction.THROW, args));
         assertTrue(e.getMessage().contains("-d"));
     }
 
