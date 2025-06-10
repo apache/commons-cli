@@ -762,12 +762,12 @@ public class CommandLine implements Serializable {
         if (option == null) {
             return get(defaultValue);
         }
-        Class<? extends T> clazz = (Class<? extends T>) option.getType();
-        String[] values = getOptionValues(option);
+        final Class<? extends T> clazz = (Class<? extends T>) option.getType();
+        final String[] values = getOptionValues(option);
         if (values == null) {
             return get(defaultValue);
         }
-        T[] result = (T[]) Array.newInstance(clazz, values.length);
+        final T[] result = (T[]) Array.newInstance(clazz, values.length);
         try {
             for (int i = 0; i < values.length; i++) {
                 result[i] = clazz.cast(option.getConverter().apply(values[i]));
