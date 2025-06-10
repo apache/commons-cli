@@ -173,7 +173,7 @@ class CommandLineTest {
         final Option optT = Option.builder().option("T").longOpt("tee").deprecated().type(Integer.class).optionalArg(true).hasArgs().build();
         final Option optU = Option.builder("U").longOpt("you").type(Integer.class).optionalArg(true).hasArgs().build();
         final OptionGroup optionGroup = new OptionGroup().addOption(optT).addOption(optU);
-        final Integer[] expected = new Integer[]{1, 2};
+        final Integer[] expected = {1, 2};
 
         // T set
         lst.add(Arguments.of(new String[] {"-T"}, optT, optionGroup, true, null, true, null, optT));
