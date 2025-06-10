@@ -168,6 +168,32 @@ public class DefaultParser implements CommandLineParser {
         return token.indexOf(Char.EQUAL);
     }
 
+    /**
+     * Enum representing possible actions that may be done when "non option" is discovered during parsing.
+     *
+     * @since 1.10.0
+     */
+    public enum NonOptionAction {
+        /**
+         * Parsing continues and current token is ignored.
+         */
+        IGNORE,
+        /**
+         * Parsing continues and current token is added to command line arguments.
+         */
+        SKIP,
+        /**
+         * Parsing will stop and remaining tokens are added to command line arguments.
+         * Equivalent of {@code stopAtNonOption = true}.
+         */
+        STOP,
+        /**
+         * Parsing will abort and exception is thrown.
+         * Equivalent of {@code stopAtNonOption = false}.
+         */
+        THROW;
+    }
+
     /** The command-line instance. */
     protected CommandLine cmd;
 
@@ -175,18 +201,20 @@ public class DefaultParser implements CommandLineParser {
     protected Options options;
 
     /**
-     * Flag indicating how unrecognized tokens are handled: {@code true} to stop the parsing and add the remaining
-     * tokens to the args list. {@code false} add current token to the arg list and continue parsing.
+     * Flag indicating how unrecognized tokens are handled. {@code true} to stop the parsing and add the remaining
+     * tokens to the args list. {@code false} to throw an exception.
+     *
+     * @deprecated Use {@link #nonOptionAction} instead. This field is unused, and left for binary compatibility reasons.
      */
+    @Deprecated
     protected boolean stopAtNonOption;
 
     /**
-     * Flag indicating how unrecognized tokens are handled: {@code true} to abort parsing by throwing {@link ParseException}.
-     * {@code false} to ignore it.
+     * Action to happen when "non option" token is discovered.
      *
      * @since 1.10.0
      */
-    protected boolean throwAtNonOption = true;
+    protected NonOptionAction nonOptionAction;
 
     /** The token currently processed. */
     protected String currentToken;
@@ -364,7 +392,7 @@ public class DefaultParser implements CommandLineParser {
         for (int i = 1; i < token.length(); i++) {
             final String ch = String.valueOf(token.charAt(i));
             if (!options.hasOption(ch)) {
-                handleUnknownToken(stopAtNonOption && i > 1 ? token.substring(i) : token);
+                handleUnknownToken(nonOptionAction == NonOptionAction.STOP && i > 1 ? token.substring(i) : token);
                 break;
             }
             handleOption(options.getOption(ch));
@@ -594,11 +622,13 @@ public class DefaultParser implements CommandLineParser {
      * @since 1.10.0
      */
     protected void handleUnknownToken(final String token) throws ParseException {
-        if (token.startsWith("-") && token.length() > 1 && throwAtNonOption) {
+        if (token.startsWith("-") && token.length() > 1 && nonOptionAction == NonOptionAction.THROW) {
             throw new UnrecognizedOptionException("Unrecognized option: " + token, token);
         }
-        addArg(token);
-        if (stopAtNonOption) {
+        if (!token.startsWith("-") || token.equals("-") || token.length() > 1 && nonOptionAction != NonOptionAction.IGNORE) {
+            addArg(token);
+        }
+        if (nonOptionAction == NonOptionAction.STOP) {
             skipParsing = true;
         }
     }
@@ -702,7 +732,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * @see #parse(Options, String[], Properties, boolean, boolean)
+     * @see #parse(Options, String[], Properties, NonOptionAction)
      */
     @Override
     public CommandLine parse(final Options options, final String[] arguments, final boolean stopAtNonOption) throws ParseException {
@@ -734,11 +764,11 @@ public class DefaultParser implements CommandLineParser {
      *
      * @return the list of atomic option and value tokens
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
-     * @see #parse(Options, String[], Properties, boolean, boolean)
+     * @see #parse(Options, String[], Properties, NonOptionAction)
      */
     public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption)
         throws ParseException {
-        return parse(options, arguments, properties, stopAtNonOption, !stopAtNonOption);
+        return parse(options, arguments, properties, stopAtNonOption ? NonOptionAction.STOP : NonOptionAction.THROW);
     }
 
     /**
@@ -747,18 +777,16 @@ public class DefaultParser implements CommandLineParser {
      * @param options the specified Options
      * @param arguments the command line arguments
      * @param properties command line option name-value pairs
-     * @param stopAtNonOption see {@link #stopAtNonOption}.
-     * @param throwAtNonOption see {@link #throwAtNonOption}.
+     * @param nonOptionAction see {@link NonOptionAction}.
      *
      * @return the list of atomic option and value tokens
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      * @since 1.10.0
      */
-    public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption,
-                             final boolean throwAtNonOption) throws ParseException {
+    public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final NonOptionAction nonOptionAction)
+            throws ParseException {
         this.options = options;
-        this.stopAtNonOption = stopAtNonOption;
-        this.throwAtNonOption = throwAtNonOption;
+        this.nonOptionAction = nonOptionAction;
         skipParsing = false;
         currentOption = null;
         expectedOpts = new ArrayList<>(options.getRequiredOptions());
