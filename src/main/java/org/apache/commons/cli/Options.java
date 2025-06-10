@@ -40,13 +40,6 @@ import java.util.Map;
  */
 public class Options implements Serializable {
 
-    /**
-     * Constructs new instance.
-     */
-    public Options() {
-        // empty
-    }
-
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
@@ -63,6 +56,13 @@ public class Options implements Serializable {
 
     /** A map of the option groups */
     private final Map<String, OptionGroup> optionGroups = new LinkedHashMap<>();
+
+    /**
+     * Constructs new instance.
+     */
+    public Options() {
+        // empty
+    }
 
     /**
      * Adds an option instance

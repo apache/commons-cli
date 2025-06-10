@@ -154,21 +154,6 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Creates a new {@link Builder} to create an {@link DefaultParser} using descriptive
-     * methods.
-     *
-     * @return a new {@link Builder} instance
-     * @since 1.5.0
-     */
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    static int indexOfEqual(final String token) {
-        return token.indexOf(Char.EQUAL);
-    }
-
-    /**
      * Enum representing possible actions that may be done when "non option" is discovered during parsing.
      *
      * @since 1.10.0
@@ -192,6 +177,21 @@ public class DefaultParser implements CommandLineParser {
          * Equivalent of {@code stopAtNonOption = false}.
          */
         THROW;
+    }
+
+    /**
+     * Creates a new {@link Builder} to create an {@link DefaultParser} using descriptive
+     * methods.
+     *
+     * @return a new {@link Builder} instance
+     * @since 1.5.0
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    static int indexOfEqual(final String token) {
+        return token.indexOf(Char.EQUAL);
     }
 
     /** The command-line instance. */
@@ -306,6 +306,16 @@ public class DefaultParser implements CommandLineParser {
         this.allowPartialMatching = allowPartialMatching;
         this.stripLeadingAndTrailingQuotes = stripLeadingAndTrailingQuotes;
         this.deprecatedHandler = deprecatedHandler;
+    }
+
+    /**
+     * Adds token to command line {@link CommandLine#addArg(String)}.
+     *
+     * @param token the unrecognized option/argument.
+     * @since 1.10.0
+     */
+    protected void addArg(final String token) {
+        cmd.addArg(token);
     }
 
     /**
@@ -634,16 +644,6 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Adds token to command line {@link CommandLine#addArg(String)}.
-     *
-     * @param token the unrecognized option/argument.
-     * @since 1.10.0
-     */
-    protected void addArg(final String token) {
-        cmd.addArg(token);
-    }
-
-    /**
      * Tests if the token is a valid argument.
      *
      * @param token
@@ -726,6 +726,43 @@ public class DefaultParser implements CommandLineParser {
         return !optName.isEmpty() && options.hasShortOption(String.valueOf(optName.charAt(0)));
     }
 
+    /**
+     * Parses the arguments according to the specified options and properties.
+     *
+     * @param options the specified Options
+     * @param properties command line option name-value pairs
+     * @param nonOptionAction see {@link NonOptionAction}.
+     * @param arguments the command line arguments
+     *
+     * @return the list of atomic option and value tokens
+     * @throws ParseException if there are any problems encountered while parsing the command line tokens.
+     * @since 1.10.0
+     */
+    public CommandLine parse(final Options options, final Properties properties, final NonOptionAction nonOptionAction, final String... arguments)
+            throws ParseException {
+        this.options = options;
+        this.nonOptionAction = nonOptionAction;
+        skipParsing = false;
+        currentOption = null;
+        expectedOpts = new ArrayList<>(options.getRequiredOptions());
+        // clear the data from the groups
+        for (final OptionGroup group : options.getOptionGroups()) {
+            group.setSelected(null);
+        }
+        cmd = CommandLine.builder().setDeprecatedHandler(deprecatedHandler).get();
+        if (arguments != null) {
+            for (final String argument : arguments) {
+                handleToken(argument);
+            }
+        }
+        // check the arguments of the last option
+        checkRequiredArgs();
+        // add the default options
+        handleProperties(properties);
+        checkRequiredOptions();
+        return cmd;
+    }
+
     @Override
     public CommandLine parse(final Options options, final String[] arguments) throws ParseException {
         return parse(options, arguments, null);
@@ -769,43 +806,6 @@ public class DefaultParser implements CommandLineParser {
     public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption)
         throws ParseException {
         return parse(options, properties, stopAtNonOption ? NonOptionAction.STOP : NonOptionAction.THROW, arguments);
-    }
-
-    /**
-     * Parses the arguments according to the specified options and properties.
-     *
-     * @param options the specified Options
-     * @param properties command line option name-value pairs
-     * @param nonOptionAction see {@link NonOptionAction}.
-     * @param arguments the command line arguments
-     *
-     * @return the list of atomic option and value tokens
-     * @throws ParseException if there are any problems encountered while parsing the command line tokens.
-     * @since 1.10.0
-     */
-    public CommandLine parse(final Options options, final Properties properties, final NonOptionAction nonOptionAction, final String... arguments)
-            throws ParseException {
-        this.options = options;
-        this.nonOptionAction = nonOptionAction;
-        skipParsing = false;
-        currentOption = null;
-        expectedOpts = new ArrayList<>(options.getRequiredOptions());
-        // clear the data from the groups
-        for (final OptionGroup group : options.getOptionGroups()) {
-            group.setSelected(null);
-        }
-        cmd = CommandLine.builder().setDeprecatedHandler(deprecatedHandler).get();
-        if (arguments != null) {
-            for (final String argument : arguments) {
-                handleToken(argument);
-            }
-        }
-        // check the arguments of the last option
-        checkRequiredArgs();
-        // add the default options
-        handleProperties(properties);
-        checkRequiredOptions();
-        return cmd;
     }
 
     /**
