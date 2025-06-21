@@ -40,6 +40,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Test case for the HelpFormatter class.
@@ -154,19 +155,21 @@ class HelpFormatterTest {
         assertEquals("usage: app -f <argument>" + EOL, out.toString());
     }
 
-    @Test
-    public void testDeprecatedFindWrapPosZeroWidth() {
-        final int pos = new HelpFormatter().findWrapPos("Hello World", 0, 0);
-        assertEquals(0, pos);
+    @ParameterizedTest
+    @ValueSource(ints = { -100, -1, 0 })
+    public void testDeprecatedFindWrapPosZeroWidth(final int width) {
+        final int pos = new HelpFormatter().findWrapPos("Hello World", width, 0);
+        assertEquals(width, pos);
     }
 
-    @Test
-    public void testDeprecatedPrintOptionsZeroWidth() {
+    @ParameterizedTest
+    @ValueSource(ints = { -100, -1, 0 })
+    public void testDeprecatedPrintOptionsZeroWidth(final int width) {
         final Options options = new Options();
         options.addOption("h", "help", false, "Show help");
         final StringWriter out = new StringWriter();
         final PrintWriter pw = new PrintWriter(out);
-        new HelpFormatter().printOptions(pw, 0, options, 1, 3);
+        new HelpFormatter().printOptions(pw, width, options, 1, 3);
         final String result = out.toString();
         assertNotNull(result);
     }
