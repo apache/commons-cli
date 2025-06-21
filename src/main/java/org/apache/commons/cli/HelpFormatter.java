@@ -499,6 +499,9 @@ public class HelpFormatter {
      * @throws IOException if an I/O error occurs.
      */
     <A extends Appendable> A appendWrappedText(final A appendable, final int width, final int nextLineTabStop, final String text) throws IOException {
+        if (width <= 0) {
+            return appendable;
+        }
         String render = text;
         int nextLineTabStopPos = nextLineTabStop;
         int pos = findWrapPos(render, width, 0);

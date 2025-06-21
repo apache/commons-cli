@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.spy;
@@ -44,6 +45,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  * Test case for the HelpFormatter class.
  */
 class HelpFormatterTest {
+
     private static final String EOL = System.lineSeparator();
 
     static Stream<Arguments> deprecatedOptionsProvider() {
@@ -150,6 +152,23 @@ class HelpFormatterTest {
         formatter.printUsage(new PrintWriter(out), 80, "app", options);
 
         assertEquals("usage: app -f <argument>" + EOL, out.toString());
+    }
+
+    @Test
+    public void testDeprecatedFindWrapPosZeroWidth() {
+        final int pos = new HelpFormatter().findWrapPos("Hello World", 0, 0);
+        assertEquals(0, pos);
+    }
+
+    @Test
+    public void testDeprecatedPrintOptionsZeroWidth() {
+        final Options options = new Options();
+        options.addOption("h", "help", false, "Show help");
+        final StringWriter out = new StringWriter();
+        final PrintWriter pw = new PrintWriter(out);
+        new HelpFormatter().printOptions(pw, 0, options, 1, 3);
+        final String result = out.toString();
+        assertNotNull(result);
     }
 
     @Test
