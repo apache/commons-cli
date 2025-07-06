@@ -41,6 +41,10 @@
     <url>https://gitbox.apache.org/repos/asf?p=commons-cli.git</url>
     <tag>HEAD</tag>
   </scm>
+  <ciManagement>
+    <system>GitHub</system>
+    <url>https://github.com/apache/commons-cli/actions</url>
+  </ciManagement>
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
