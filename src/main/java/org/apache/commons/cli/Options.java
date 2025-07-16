@@ -94,7 +94,7 @@ public class Options implements Serializable {
      * </p>
      *
      * @param opt Short single-character name of the option.
-     * @param hasArg flag signalling if an argument is required after this option
+     * @param hasArg flag signaling if an argument is required after this option
      * @param description Self-documenting description
      * @return the resulting Options instance
      */
@@ -127,7 +127,7 @@ public class Options implements Serializable {
      *
      * @param opt Short single-character name of the option.
      * @param longOpt Long multi-character name of the option.
-     * @param hasArg flag signalling if an argument is required after this option
+     * @param hasArg flag signaling if an argument is required after this option
      * @param description Self-documenting description
      * @return the resulting Options instance
      */
@@ -191,7 +191,7 @@ public class Options implements Serializable {
      *
      * @param opt Short single-character name of the option.
      * @param longOpt Long multi-character name of the option.
-     * @param hasArg flag signalling if an argument is required after this option
+     * @param hasArg flag signaling if an argument is required after this option
      * @param description Self-documenting description
      * @return the resulting Options instance
      * @since 1.4
