@@ -339,8 +339,8 @@ class DefaultParserTest extends AbstractParserTestCase {
         final String[] args = {"-c", "red|blue|yellow", "b,c"};
         final DefaultParser parser = new DefaultParser();
         final CommandLine commandLine = parser.parse(options, args, null, true);
-        String [] colorValues = commandLine.getOptionValues(colors);
-        assertEquals(3, colorValues.length );
+        final String [] colorValues = commandLine.getOptionValues(colors);
+        assertEquals(3, colorValues.length);
         assertEquals("red", colorValues[0]);
         assertEquals("blue", colorValues[1]);
         assertEquals("yellow", colorValues[2]);
@@ -350,18 +350,18 @@ class DefaultParserTest extends AbstractParserTestCase {
     @ParameterizedTest
     @ValueSource(strings = {
             "--colors=red,blue,yellow b",
-            "--colors red,blue,yellow b" ,
-            "-c=red,blue,yellow b" ,
-            "-c red,blue,yellow b" })
-    void listValueSeparatorDefaultTest(String args) throws ParseException {
+            "--colors red,blue,yellow b",
+            "-c=red,blue,yellow b",
+            "-c red,blue,yellow b"})
+    void listValueSeparatorDefaultTest(final String args) throws ParseException {
         final Option colors = Option.builder().option("c").longOpt("colors").hasArgs().listValueSeparator().build();
         final Options options = new Options();
         options.addOption(colors);
 
         final DefaultParser parser = new DefaultParser();
         final CommandLine commandLine = parser.parse(options, args.split(" "), null, true);
-        String [] colorValues = commandLine.getOptionValues(colors);
-        assertEquals(3, colorValues.length );
+        final String [] colorValues = commandLine.getOptionValues(colors);
+        assertEquals(3, colorValues.length);
         assertEquals("red", colorValues[0]);
         assertEquals("blue", colorValues[1]);
         assertEquals("yellow", colorValues[2]);
@@ -386,7 +386,7 @@ class DefaultParserTest extends AbstractParserTestCase {
         final CommandLine commandLine = parser.parse(options, args.split(" "), null, false);
         final String [] colorValues = commandLine.getOptionValues(colors);
         final String fooValue = commandLine.getOptionValue(foo);
-        assertEquals(3, colorValues.length );
+        assertEquals(3, colorValues.length);
         assertEquals("red", colorValues[0]);
         assertEquals("blue", colorValues[1]);
         assertEquals("yellow", colorValues[2]);
