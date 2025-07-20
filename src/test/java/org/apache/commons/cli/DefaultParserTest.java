@@ -35,6 +35,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class DefaultParserTest extends AbstractParserTestCase {
 
@@ -327,6 +328,70 @@ class DefaultParserTest extends AbstractParserTestCase {
 
         final UnrecognizedOptionException e = assertThrows(UnrecognizedOptionException.class, () -> parser.parse(options, args, null, false));
         assertTrue(e.getMessage().contains("-d"));
+    }
+
+    @Test
+    void listValueSeparatorTest() throws ParseException {
+        final Option colors = Option.builder().option("c").longOpt("colors").hasArgs().listValueSeparator('|').build();
+        final Options options = new Options();
+        options.addOption(colors);
+
+        final String[] args = {"-c", "red|blue|yellow", "b,c"};
+        final DefaultParser parser = new DefaultParser();
+        final CommandLine commandLine = parser.parse(options, args, null, true);
+        String [] colorValues = commandLine.getOptionValues(colors);
+        assertEquals(3, colorValues.length );
+        assertEquals("red", colorValues[0]);
+        assertEquals("blue", colorValues[1]);
+        assertEquals("yellow", colorValues[2]);
+        assertEquals("b,c", commandLine.getArgs()[0]);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "--colors=red,blue,yellow b",
+            "--colors red,blue,yellow b" ,
+            "-c=red,blue,yellow b" ,
+            "-c red,blue,yellow b" })
+    void listValueSeparatorDefaultTest(String args) throws ParseException {
+        final Option colors = Option.builder().option("c").longOpt("colors").hasArgs().listValueSeparator().build();
+        final Options options = new Options();
+        options.addOption(colors);
+
+        final DefaultParser parser = new DefaultParser();
+        final CommandLine commandLine = parser.parse(options, args.split(" "), null, true);
+        String [] colorValues = commandLine.getOptionValues(colors);
+        assertEquals(3, colorValues.length );
+        assertEquals("red", colorValues[0]);
+        assertEquals("blue", colorValues[1]);
+        assertEquals("yellow", colorValues[2]);
+        assertEquals("b", commandLine.getArgs()[0]);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "--colors=red,blue,yellow -f bar b",
+            "-f bar --colors=red,blue,yellow b",
+            "b --colors=red,blue,yellow -f bar",
+            "b --colors=red -c blue --colors=yellow -f bar",
+        })
+    void listValueSeparatorSeriesDoesntMatter(final String args) throws ParseException {
+        final Option colors = Option.builder().option("c").longOpt("colors").hasArgs().listValueSeparator().build();
+        final Option foo = Option.builder().option("f").hasArg().build();
+        final Options options = new Options();
+        options.addOption(colors);
+        options.addOption(foo);
+
+        final DefaultParser parser = new DefaultParser();
+        final CommandLine commandLine = parser.parse(options, args.split(" "), null, false);
+        final String [] colorValues = commandLine.getOptionValues(colors);
+        final String fooValue = commandLine.getOptionValue(foo);
+        assertEquals(3, colorValues.length );
+        assertEquals("red", colorValues[0]);
+        assertEquals("blue", colorValues[1]);
+        assertEquals("yellow", colorValues[2]);
+        assertEquals("bar", fooValue);
+        assertEquals("b", commandLine.getArgs()[0]);
     }
 
     @Override

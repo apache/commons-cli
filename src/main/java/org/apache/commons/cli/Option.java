@@ -102,6 +102,9 @@ public class Option implements Cloneable, Serializable {
         /** The character that is the value separator. */
         private char valueSeparator;
 
+        /** multiple values are within a single argument separated by valueSeparator char */
+        private boolean valuesAsList;
+
         /**
          * Constructs a new {@code Builder} with the minimum required parameters for an {@code Option} instance.
          *
@@ -315,7 +318,9 @@ public class Option implements Cloneable, Serializable {
         }
 
         /**
-         * The Option will use {@code sep} as a means to separate argument values.
+         * The Option will use {@code sep} as a means to separate java-property-style argument values
+         *
+         * Method is mutually exclusive to listValueSeparator() method.
          * <p>
          * <strong>Example:</strong>
          * </p>
@@ -331,6 +336,10 @@ public class Option implements Cloneable, Serializable {
          * String propertyValue = line.getOptionValues("D")[1]; // will be "value"
          * </pre>
          *
+         * In the above example (unlimited args), followup arguments are interpreted
+         * to be additional values to this option, needs to be terminated with -- so that
+         * others options or args can follow.
+         *
          * @param valueSeparator The value separator.
          * @return this builder.
          */
@@ -339,6 +348,49 @@ public class Option implements Cloneable, Serializable {
             return this;
         }
 
+        /**
+         * The Option will use ',' to invoke listValueSeparator()
+         *
+         * @since 1.10.0
+         * @return this builder.
+         */
+        public Builder listValueSeparator() {
+            return listValueSeparator(Char.COMMA);
+        }
+
+        /**
+         * defines the separator used to separate a list of values passed in a single arg
+         *
+         * Method is mutually exclusive to valueSeparator() method.
+         * <p>
+         * <strong>Example:</strong>
+         * </p>
+         *
+         * <pre>
+         * final Option colors = Option.builder().option("c").longOpt("colors").hasArgs().listValueSeparator('|').build();
+         * final Options options = new Options();
+         * options.addOption(colors);
+         *
+         * final String[] args = {"-c", "red|blue|yellow", "b,c"};
+         * final DefaultParser parser = new DefaultParser();
+         * final CommandLine commandLine = parser.parse(options, args, null, true);
+         * String [] colorValues = commandLine.getOptionValues(colors);
+         * // colorValues[0] will be "red"
+         * // colorValues[1] will be "blue"
+         * // colorValues[2] will be "yellow"
+         * String arguments = commandLine.getArgs()[0]; // will be b,c
+         *
+         * </pre>
+         *
+         * @since 1.10.0
+         * @param listValueSeparator The char to be used to split the argument into mulitple values.
+         * @return this builder.
+         */
+        public Builder listValueSeparator(final char listValueSeparator) {
+            this.valueSeparator = listValueSeparator;
+            this.valuesAsList = true;
+            return this;
+        }
     }
 
     /** Empty array. */
@@ -419,6 +471,9 @@ public class Option implements Cloneable, Serializable {
     /** The character that is the value separator. */
     private char valueSeparator;
 
+    /** multiple values are within a single argument separated by valueSeparator char */
+    private boolean valuesAsList;
+
     /**
      * Private constructor used by the nested Builder class.
      *
@@ -437,6 +492,7 @@ public class Option implements Cloneable, Serializable {
         this.type = builder.type;
         this.valueSeparator = builder.valueSeparator;
         this.converter = builder.converter;
+        this.valuesAsList = builder.valuesAsList;
     }
 
     /**
@@ -818,6 +874,16 @@ public class Option implements Cloneable, Serializable {
      */
     public boolean isRequired() {
         return required;
+    }
+
+    /**
+     * Tests whether multiple values are expected in a single argument separated by a separation character
+     *
+     * @return boolean true when multiple values are expected in a single separated by a separation character
+     * @since 1.10.0
+     */
+    public boolean areValuesAsList() {
+        return valuesAsList;
     }
 
     /**

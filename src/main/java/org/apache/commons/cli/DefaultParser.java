@@ -609,6 +609,9 @@ public class DefaultParser implements CommandLineParser {
                 skipParsing = true;
             } else if (currentOption != null && currentOption.acceptsArg() && isArgument(token)) {
                 currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOn(token));
+                if (currentOption.areValuesAsList()) {
+                    currentOption = null;
+                }
             } else if (token.startsWith("--")) {
                 handleLongOption(token);
             } else if (token.startsWith("-") && !"-".equals(token)) {

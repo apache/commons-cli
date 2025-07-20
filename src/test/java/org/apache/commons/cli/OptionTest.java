@@ -344,4 +344,28 @@ class OptionTest {
         option.setType(type);
         assertEquals(CharSequence.class, option.getType());
     }
+
+    @Test
+    void testDefaultValueSeparator() {
+        final Option option = Option.builder().option("a").hasArgs().valueSeparator().build();
+        assertFalse(option.areValuesAsList());
+        assertTrue(option.hasValueSeparator());
+        assertEquals('=',option.getValueSeparator());
+    }
+
+    @Test
+    void testDefaultValueAsList() {
+        final Option option = Option.builder().option("a").hasArgs().listValueSeparator().build();
+        assertTrue(option.areValuesAsList());
+        assertTrue(option.hasValueSeparator());
+        assertEquals(',',option.getValueSeparator());
+    }
+    
+    @Test
+    void testValueAsList() {
+        final Option option = Option.builder().option("a").hasArgs().listValueSeparator('|').build();
+        assertTrue(option.areValuesAsList());
+        assertTrue(option.hasValueSeparator());
+        assertEquals('|',option.getValueSeparator());
+    }
 }
