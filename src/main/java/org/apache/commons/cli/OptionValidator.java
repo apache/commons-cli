@@ -129,7 +129,7 @@ final class OptionValidator {
             for (int i = 1; i < chars.length; i++) {
                 final char ch = chars[i];
                 if (!isValidChar(ch)) {
-                    throw new IllegalArgumentException(String.format("The option '%s' contains an illegal " + "character : '%s'.", option, ch));
+                    throw new IllegalArgumentException(String.format("The option '%s' contains an illegal character : '%s'.", option, ch));
                 }
             }
         }

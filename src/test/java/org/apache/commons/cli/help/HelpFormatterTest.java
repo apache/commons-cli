@@ -354,7 +354,7 @@ class HelpFormatterTest {
     void testToSyntaxOptionOptionsTest() {
         final HelpFormatter underTest = HelpFormatter.builder().get();
         Options options = getTestGroups();
-        assertEquals("[-1 <arg> | --aon <arg> | --uno <arg>] [--dos <arg> | --dó <arg> | --two <arg>] " + "[--three <arg> | --tres <arg> | --trí <arg>]",
+        assertEquals("[-1 <arg> | --aon <arg> | --uno <arg>] [--dos <arg> | --dó <arg> | --two <arg>] [--three <arg> | --tres <arg> | --trí <arg>]",
                 underTest.toSyntaxOptions(options), "getTestGroup options failed");
 
         // @formatter:off
