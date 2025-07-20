@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -141,7 +142,7 @@ class SolrCliTest {
         final String scheme = "http";
         final String host = "localhost";
         final String port = "8983";
-        return String.format(Locale.ROOT, "%s://%s:%s", scheme.toLowerCase(Locale.ROOT), host, port);
+        return String.format(Locale.ROOT, "%s://%s:%s", StringUtils.toRootLowerCase(scheme), host, port);
     }
 
     @Test
