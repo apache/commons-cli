@@ -21,7 +21,7 @@ limitations under the License.
 <body>
   <img src="../images/commons-logo.png" alt="Apache Commons CLI">
 
-    <p>The Commons CLI component parses command-line arguments for your application.</p>
+    <p>The Apacahe Commons CLI component parses command-line arguments for your application.</p>
 
     <p>Commons CLI parses command-line arguments using a descriptor of
     valid options (long and short), potentially with arguments.</p>
@@ -33,11 +33,622 @@ limitations under the License.
     'cvs-style' command-lines, where some global options are specified
     before a 'command' argument, and command-specific options are
     specified after the command argument:
-
-    <code>
+    </p>
+    <pre><code>
         myApp -p &lt;port&gt; command -p &lt;printer&gt;
-    </code>
+    </code></pre>
+    <p>
+    The homepage for the project is <a href="https://commons.apache.org">Apache Commons</a>
+    </p>
+    
+    <section id="Using">
+      <h1>Using Apache Commons CLI</h1>
+      <p>
+        The following sections describe some example scenarios on how to 
+        use CLI in applications.
+      </p>
 
-    <p>The homepage for the project is
-    <a href="https://commons.apache.org">Apache Commons</a>
+      <section>
+        <h2>Using a boolean option</h2>
+        <p>
+          A boolean option is represented on a command line by the presence
+          of the option, i.e. if the option is found then the option value
+          is <code>true</code>, otherwise the value is <code>false</code>.
+        </p>
+        <p>
+          The <code>DateApp</code> utility prints the current date to standard
+          output.  If the <code>-t</code> option is present the current time is 
+          also printed.
+        </p>
+      </section>
+      <section>
+        <h2>Creating the Options</h2>
+        <p>
+          An <a href="javadocs/api-release/org/apache/commons/cli/Options.html">
+          Options</a> object must be created and the <code>Option</code> must be 
+          added to it.
+        </p>
+        <pre><code>
+// create Options object
+Options options = new Options();
+
+// add t option
+options.addOption("t", false, "display current time");
+        </code></pre>
+          <p>
+            The <code>addOption</code> method has three parameters.  The first
+            parameter is a <code>java.lang.String</code> that represents the option. 
+            The second parameter is a <code>boolean</code> that specifies whether the
+            option requires an argument or not.  In the case of a boolean option
+            (sometimes referred to as a flag) an argument value is not present so
+            <code>false</code> is passed.  The third parameter is the description
+            of the option.  This description will be used in the usage text of the
+            application.
+          </p>
+      </section>
+      <section>
+        <h2>Parsing the command line arguments</h2>
+        <p>
+          The <code>parse</code> methods of <code>CommandLineParser</code> are used 
+          to parse the command line arguments. There may be several implementations
+          of the <code>CommandLineParser</code> interface, the recommended one is the
+          <code>DefaultParser</code>.
+        </p>
+        <code>CommandLineParser parser = new DefaultParser();
+CommandLine cmd = parser.parse(options, args);</code>
+        <p>
+          Now we need to check if the <code>t</code> option is present.  To do
+          this we will interrogate the 
+          <a href="javadocs/api-release/org/apache/commons/cli/CommandLine.html">CommandLine
+          </a> object.  The <code>hasOption</code> method takes a 
+          <code>java.lang.String</code> parameter and returns <code>true</code> if the option 
+          represented by the <code>java.lang.String</code> is present, otherwise 
+          it returns <code>false</code>.
+        </p>
+        <pre><code>if(cmd.hasOption("t")) {
+    // print the date and time
+}
+else {
+    // print the date
+}</code></pre>
+        <p>
+          <em>Note</em>
+        </p>
+        <p>
+          As of version 1.5, the
+          <code>DefaultParser</code>'s constructor now has an override with
+          the signature <code>DefaultParser(final boolean allowPartialMatching)</code>.
+          Given the following code:
+          <code>final Options options = new Options();
+options.addOption(new Option("d", "debug", false, "Turn on debug."));
+options.addOption(new Option("e", "extract", false, "Turn on extract."));
+options.addOption(new Option("o", "option", true, "Turn on option with argument."));</code>
+          we define "partial matching" as <code>-de</code> only matching the
+          <code>"debug"</code> option. We can consequently, now, turn this off and have
+          <code>-de</code> match both the <code>debug</code> option as well as the
+          <code>extract</code> option.
+        </p>
+      </section>
+      <section>
+        <h2>International Time</h2>
+        <p>
+          The <code>InternationalDateApp</code> utility extends the 
+          <code>DateApp</code> utility by providing the ability to print the
+          date and time in any country in the world.  To facilitate this a new
+          command line option, <code>c</code>, has been introduced.
+        </p>
+        <pre><code>// add c option
+options.addOption("c", true, "country code");</code></pre>
+        <p>
+          The second parameter is <code>true</code> this time.  This specifies that the
+          <code>c</code> option requires an argument value.  If the required option
+          argument value is specified on the command line it is returned,
+          otherwise <code>null</code> is returned.
+        </p>
+      </section>
+      <section>
+        <h2>Retrieving the argument value</h2>
+        <p>
+          The <code>getOptionValue</code> methods of <code>CommandLine</code> are
+          used to retrieve the argument values of options.
+        </p>
+        <pre><code>// get c option value
+String countryCode = cmd.getOptionValue("c");
+
+if(countryCode == null) {
+    // print default date
+}
+else {
+    // print date for country specified by countryCode
+}</code></pre>
+      </section>
+    </section>
+
+    <section>
+      <h1>Using Ant as an Example</h1>
+      <p>
+        <a href="http://ant.apache.org/">Ant</a> will be used
+        here to illustrate how to create the <code>Options</code> required.  The following
+        is the help output for Ant.
+      </p>
+      <pre><code>ant [options] [target [target2 [target3] ...]]
+  Options: 
+  -help                  print this message
+  -projecthelp           print project help information
+  -version               print the version information and exit
+  -quiet                 be extra quiet
+  -verbose               be extra verbose
+  -debug                 print debugging information
+  -emacs                 produce logging information without adornments
+  -logfile &lt;file&gt;        use given file for log
+  -logger &lt;classname&gt;    the class which is to perform logging
+  -listener &lt;classname&gt;  add an instance of class as a project listener
+  -buildfile &lt;file&gt;      use given buildfile
+  -D&lt;property>=&lt;value&gt;   use value for given property
+  -find &lt;file&gt;           search for buildfile towards the root of the
+                         filesystem and use it</code></pre>
+      <section>
+        <h2>Defining Boolean Options</h2>
+        <p>
+          Lets create the boolean options for the application as they
+          are the easiest to create.  For clarity the constructors for
+          <code>Option</code> are used here.
+        </p>
+        <pre><code>Option help = new Option("help", "print this message");
+Option projecthelp = new Option("projecthelp", "print project help information");
+Option version = new Option("version", "print the version information and exit");
+Option quiet = new Option("quiet", "be extra quiet");
+Option verbose = new Option("verbose", "be extra verbose");
+Option debug = new Option("debug", "print debugging information");
+Option emacs = new Option("emacs",
+                           "produce logging information without adornments");</code></pre>
+      </section>
+      <section>
+        <h2>Defining Argument Options</h2>
+        <p> 
+          The argument options are created using the <code>Option#Builder</code>.
+        </p>
+        <pre><code>Option logFile = Option.builder("logfile")
+                         .argName("file")
+                         .hasArg()
+                         .desc("use given file for log")
+                         .build();
+
+Option logger = Option.builder("logger")
+                         .argName("classname")
+                         .hasArg()
+                         .desc("the class which it to perform logging")
+                         .build();
+
+Option listener = Option.builder("listener")
+                         .argName("classname")
+                         .hasArg()
+                         .desc("add an instance of class as "
+                                + "a project listener")
+                         .build();
+
+Option buildFile = Option.builder("buildfile")
+                         .argName("file")
+                         .hasArg()
+                         .desc("use given buildfile")
+                         .build();
+
+Option find = Option.builder("find")
+                         .argName("file")
+                         .hasArg()
+                         .desc("search for buildfile towards the "
+                                + "root of the filesystem and use it")
+                         .build();</code></pre>
+      </section>
+      <section>
+        <h2>Defining Java Property Option</h2>
+        <p>
+          The last option to create is the Java property, and it is also created
+          using the Option class' Builder.
+        </p>
+        <code>Option property  = Option property  = Option.builder("D")
+                                .hasArgs()
+                                .valueSeparator('=')
+                                .build();</code>
+        <p>
+          The map of properties specified by this option can later be retrieved by
+          calling <code>getOptionProperties("D")</code> on the <code>CommandLine</code>.
+        </p>
+      </section>
+      <section>
+        <h2>Creating the Options</h2>
+        <p>
+          Now that we have created each 
+          <a href="javadocs/api-release/org/apache/commons/cli/Option.html">Option</a> we need
+          to create the 
+          <a href="javadocs/api-release/org/apache/commons/cli/Options.html">Options</a>
+          instance.  This is achieved using the 
+          <a href="javadocs/api-release/org/apache/commons/cli/CommandLine.html#addOption(org.apache.commons.cli.Option)">addOption</a>
+          method of <code>Options</code>.
+        </p>
+        <pre><code>Options options = new Options();
+
+options.addOption(help);
+options.addOption(projecthelp);
+options.addOption(version);
+options.addOption(quiet);
+options.addOption(verbose);
+options.addOption(debug);
+options.addOption(emacs);
+options.addOption(logfile);
+options.addOption(logger);
+options.addOption(listener);
+options.addOption(buildfile);
+options.addOption(find);
+options.addOption(property);</code></pre>
+        <p>
+          All the preparation is now complete, and we are now ready to
+          parse the command line arguments.
+        </p>
+      </section>
+      <section>
+        <h2>Creating the Parser</h2>
+        <p>
+          We now need to create a <code>CommandLineParser</code>. This will parse the command
+          line arguments, using the rules specified by the <code>Options</code> and
+          return an instance of <a href="javadocs/api-release/org/apache/commons/cli/CommandLine.html">CommandLine</a>.
+        </p>
+        <pre><code>public static void main(String[] args) {
+    // create the parser
+    CommandLineParser parser = new DefaultParser();
+    try {
+        // parse the command line arguments
+        CommandLine line = parser.parse(options, args);
+    }
+    catch (ParseException exp) {
+        // oops, something went wrong
+        System.err.println("Parsing failed.  Reason: " + exp.getMessage());
+    }
+}</code></pre>
+      </section>
+      <section>
+        <h2>Querying the commandline</h2>
+        <p>
+          To see if an option has been passed the <code>hasOption</code>
+          method is used.  The argument value can be retrieved using
+          the <code>getOptionValue</code> method.
+        </p>
+        <pre><code>// has the buildfile argument been passed?
+if (line.hasOption("buildfile")) {
+    // initialize the member variable
+    this.buildfile = line.getOptionValue("buildfile");
+}</code></pre>
+      </section>
+      <section>
+        <h2>Displaying Usage and Help</h2>
+        <p>
+          CLI also provides the means to automatically generate usage
+          and help information.  This is achieved with the
+          <a href="javadocs/api-release/org/apache/commons/cli/HelpFormatter.html">HelpFormatter</a>
+          class.
+        </p>
+        <pre><code>// automatically generate the help statement
+HelpFormatter formatter = new HelpFormatter();
+formatter.printHelp("ant", options);</code></pre>
+        <p>
+          When executed the following output is produced:
+        </p>
+        <pre><code>usage: ant
+-D &lt;property=value&gt;     use value for given property
+-buildfile &lt;file&gt;       use given buildfile
+-debug                  print debugging information
+-emacs                  produce logging information without adornments
+-file &lt;file&gt;            search for buildfile towards the root of the
+                        filesystem and use it
+-help                   print this message
+-listener &lt;classname&gt;   add an instance of class as a project listener
+-logger &lt;classname&gt;     the class which it to perform logging
+-projecthelp            print project help information
+-quiet                  be extra quiet
+-verbose                be extra verbose
+-version                print the version information and exit</code></pre>
+        <p>
+          If you also require to have a usage statement printed 
+          then calling <code>formatter.printHelp("ant", options, true)</code>
+          will generate a usage statement as well as the help information.
+        </p>
+      </section>
+    </section>
+
+    <section>
+      <h1>Creating an ls Example</h1>
+      <p>
+        One of the most widely used command line applications in the *nix world
+        is <code>ls</code>. Due to the large number of options required for <code>ls</code> 
+        this example will only cover a small proportion of the options.  The following
+        is a section of the help output.
+      </p>
+      <pre><code>Usage: ls [OPTION]... [FILE]...
+List information about the FILEs (the current directory by default).
+Sort entries alphabetically if none of -cftuSUX nor --sort.
+
+-a, --all                  do not hide entries starting with .
+-A, --almost-all           do not list implied . and ..
+-b, --escape               print octal escapes for non-graphic characters
+    --block-size=SIZE      use SIZE-byte blocks
+-B, --ignore-backups       do not list implied entries ending with ~
+-c                         with -lt: sort by, and show, ctime (time of last
+                           modification of file status information)
+                           with -l: show ctime and sort by name
+                           otherwise: sort by ctime
+-C                         list entries by columns</code></pre>
+      <p>
+        The following is the code that is used to create the 
+        <a href="javadocs/api-release/org/apache/commons/cli/Options.html">Options</a> for this example.
+      </p>
+      <pre><code>// create the command line parser
+CommandLineParser parser = new DefaultParser();
+
+// create the Options
+Options options = new Options();
+options.addOption("a", "all", false, "do not hide entries starting with .");
+options.addOption("A", "almost-all", false, "do not list implied . and ..");
+options.addOption("b", "escape", false, "print octal escapes for non-graphic "
+                                         + "characters");
+options.addOption(Option.builder("SIZE").longOpt("block-size")
+                                .desc("use SIZE-byte blocks")
+                                .hasArg()
+                                .build());
+options.addOption("B", "ignore-backups", false, "do not list implied entries "
+                                                 + "ending with ~");
+options.addOption("c", false, "with -lt: sort by, and show, ctime (time of last " 
+                               + "modification of file status information) with "
+                               + "-l:show ctime and sort by name otherwise: sort "
+                               + "by ctime");
+options.addOption("C", false, "list entries by columns");
+
+String[] args = new String[]{ "--block-size=10" };
+
+try {
+    // parse the command line arguments
+    CommandLine line = parser.parse(options, args);
+
+    // validate that block-size has been set
+    if (line.hasOption("block-size")) {
+        // print the value of block-size
+        System.out.println(line.getOptionValue("block-size"));
+    }
+}
+catch (ParseException exp) {
+    System.out.println("Unexpected exception:" + exp.getMessage());
+}     </code></pre>
+    </section>
+    <section>
+      <h1>Converting (Parsing) Option Values</h1>
+        <p>
+            By in most cases the values on the command line are retrieved as Strings via the 
+            <code>commandLine.getOptionValue(key)</code> command.  However, it is possible for
+            the CLI library to convert the string into a different object.  For example to specify 
+            that the "count" option should return an Integer the following code could be used:
+        </p>
+        <pre><code>
+public static void main(String[] args) {
+    Option count = Option.builder("count")
+                  .hasArg()
+                  .desc("the number of things")
+                  .type(Integer.class)
+                  .build();
+    Options options = new Options().addOption(count);
+    // create the parser
+    CommandLineParser parser = new DefaultParser();
+    try {
+        // parse the command line arguments
+        CommandLine line = parser.parse(options, args);
+    } catch (ParseException exp) {
+        // oops, something went wrong
+        System.err.println("Parsing failed.  Reason: " + exp.getMessage());
+    }
+
+    try {
+        Integer value = line.getParsedOptionValue(count);
+        System.out.format("The value is %s%n", value );
+    } catch (ParseException e) {
+        e.printStackTrace();
+    }
+}       </code></pre>
+        <p>
+            The value types natively supported by commons-cli are:
+        </p>
+        <ul>
+          <li>Object.class - The string value must be the name of a class with a no argument constructor</li>
+          <li>Class.class - The string value must be the name of a class</li>
+          <li>Date.class - The string value must be a date parsable by <code>new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy")</code></li>
+          <li>File.class - The string value is the name of the file.</li>
+          <li>Path.class - The string value is the name of a Path.</li>
+          <li>Number.class - The string value is a number representation can can be converted into an Integer or a Double.</li>
+          <li>URL.class - The string value is the textual representation of a URL</li>
+          <li>FileInputStream.class - The string value is passed to <code>new FileInputStream(s)</code>.</li>
+          <li>Long.class - The string value is a valid argument to <code>Long.parseLong()</code>.</li>
+          <li>Integer.class - The string value is a valid argument to <code>Integer.parseInt()</code>.</li>
+          <li>Short.class - The string value is a valid argument to <code>Short.parseShort()</code>.</li>
+          <li>Byte.class - The string value is a valid argument to <code>Byte.parseByte()</code>.</li>
+          <li>Character.class - The string value is either a UTF-8 encoding for a character (e.g. "\\u0124") or the first character from the String."</li>
+          <li>Double.class - The string value is a valid argument to <code>Double.parseDouble()</code>.</li>
+          <li>Float.class - The string value is a valid argument to <code>Float.parseFloat()</code>.</li>
+          <li>BigInteger.class - The string value is a valid argument to <code>new BigInteger(s)</code>.</li>
+          <li>BigDecimal.class - The string value is a valid argument to <code>new BigDecimal(s)</code>.</li>
+        </ul>
+        <p>
+            Additional types may be added to the automatic parsing system by calling <code>TypeHandler.register(Class&lt;T&gt; clazz, Converter&lt;T&gt; converter)</code>.
+            The <code>Class&lt;T&gt;</code> can be any defined class.  The converter is a function that takes a <code>String</code> argument and returns an instance of 
+            the class.  Any exception thrown by the constructor will be caught and reported as a <code>ParseException</code>
+        </p>
+        <p>
+            Conversions can be specified without using the <code>TypeHandler</code> class by specifying the converter 
+            directly during the option build.  For example: 
+        </p>
+            <pre><code>
+  Option fooOpt = Option.builder("foo")
+          .hasArg()
+          .desc("the foo arg")
+          .converter(Foo::new)
+          .build();</code></pre>
+        <p>
+            The above will create an option that passes the string value to the Foo constructor when <code>commandLine.getParsedOptionValue(fooOpt)</code> is called.
+        </p>
+        <p>
+            Conversions that are added to the TypeHandler or that are specified directly will not deserialize if the option is serialized unless the type is registered with the TypeHandler 
+            before deserialization begins.
+        </p>
+    </section>
+    <section>
+      <h1>Deprecating Options</h1>
+          <p>
+              Options may be marked as deprecated using ghe <code>Option.builder.deprecated()</code> method.
+              Additional information may be specified by passing a <code>DeprecatedAttributes</code> instance to the
+              <code>deprecated</code> method.
+
+              Usage of the deprecated option is announced when the presence of the option is checked
+              or the value of the option is retrieved.  By default, the announcement printed to Standard out.
+
+              The HelpFormatter output will by default show the description prefixed by "[Deprecated]"
+          </p>
+          <p>
+              The examples below will implement <code>doSomething</code> in the following code block.
+          </p>p>
+              <pre><code>
+  public static void main(String[] args) {
+      Option n = Option.builder("n")
+          .deprecated(DeprecatedAttributes.builder()
+              .setDescription("Use '-count' instead")
+              .setForRemoval(true)
+              .setSince("now").get())
+          .hasArg()
+          .desc("the number of things")
+          .type(Integer.class)
+          .build();
+      Option count = Option.builder("count")
+          .hasArg()
+          .desc("the number of things")
+          .type(Integer.class)
+          .build();
+      Options options = new Options().addOption(n).addOption(count);
+
+      doSomething(options);
+  }           </code></pre>
+
+          <section>
+            <h2>Changing Usage Announcement</h2>
+              <p>
+                  The usage announcement may be changed by providing a <code>Consumer&lt;Option></code> to the
+                  <code>CommandLine.Builder.deprecatedHandler</code> method.  This is commonly used to log usage
+                  of deprecated options rather than printing them on the standard output.
+              </p>
+              <p>
+                  for example if <code>doSomething</code> is implemented as:
+              </p>
+              <pre><code>
+  void doSomething(Options options) {
+      CommandLineParser parser = new DefaultParser();
+      CommandLine line;
+      try {
+          // parse the command line arguments
+          line = parser.parse(options, new String[] {"-n", "5"});
+          System.out.println("n=" + line.getParsedOptionValue("n"));
+      } catch (ParseException exp) {
+          // oops, something went wrong
+          System.err.println("Parsing failed. Reason: " + exp.getMessage());
+      }
+  }           </code></pre>
+              <p>
+                  The output of the run would be.
+              </p>
+
+              <pre><code>
+  Option 'n': Deprecated for removal since now: Use '-count' instead
+  n=5         </code></pre>
+
+              <p>
+                  for example if <code>doSomething</code> is implemented as:
+              </p>
+
+              <pre><code>
+  void doSomething(Options options) {
+      Consumer&lt;Option> deprecatedUsageAnnouncement = o -> {
+          final StringBuilder buf = new StringBuilder()
+              .append("'")
+              .append(o.getOpt())
+              .append("'");
+          if (o.getLongOpt() != null) {
+              buf.append("'").append(o.getLongOpt()).append("'");
+          }
+          System.err.printf("ERROR: Option %s: %s%n", buf, o.getDeprecated());
+      };
+      DefaultParser parser = DefaultParser.builder().setDeprecatedHandler(deprecatedUsageAnnouncement).build();
+      CommandLine line;
+      try {
+          // parse the command line arguments
+          line = parser.parse(options, new String[] {"-n", "5"});
+          System.out.println("n=" + line.getParsedOptionValue("n"));
+      } catch (ParseException exp) {
+        // oops, something went wrong
+        System.err.println("Parsing failed. Reason: " + exp.getMessage());
+      }
+  }           </code></pre>
+              <p>
+                  The output of the run would be.
+              </p>
+              <code>
+  ERROR: Option 'n': Deprecated for removal since now: Use '-count' instead
+  n=5         </code>
+              <p>
+                  However, the first line would be printed on system err instead of system out.
+              </p>
+
+          </section>
+          <section>
+            <h2>Changing help format</h2>
+              <p>By default the help formater prints "[Deprecated]" in front of the description for the option.  This can
+              be changed to display any values desired.
+              </p>
+              <p>
+              If <code>doSomething</code> is implemented as:
+              </p>
+              <pre><code>
+  void doSomething(Options options) {
+    HelpFormatter formatter = HelpFormatter.builder().get();
+    formatter.printHelp("Command line syntax:", options);
+  }           </code></pre>
+              <p>
+              To output is
+              </p>
+              <pre><code>
+  usage: Command line syntax:
+  -count &lt;arg>   the number of things
+  -n &lt;arg>       [Deprecated] the number of things</code></pre>
+          <p>
+             The display of deprecated options may be changed through the use of the
+              <code>HelpFormatter.Builder.setShowDeprecated()</code> method.
+          </p>
+          <ul>
+            <li>Calling <code>HelpFormatter.Builder.setShowDeprecated(false)</code> will disable the "[Deprecated]" tag.</li>
+            <li>Calling <code>HelpFormatter.Builder.setShowDeprecated</code> with a <code>Function&lt;Option, String></code>
+                      will use the output of the function as the description for the option.</li>
+          </ul>
+          <p>
+              As an example of the second case above, changing the implementation of <code>doSomething</code> to
+          </p>
+              <pre><code>
+  void doSomething(Options options) {
+      Function&lt;Option, String> disp = option -> String.format("%s. %s", HelpFormatter.getDescription(option),
+                  option.getDeprecated().toString());
+      HelpFormatter formatter = HelpFormatter.builder().setShowDeprecated(disp).get();
+      formatter.printHelp("Command line syntax:", options);
+  }           </code></pre>
+              <p>
+              changes the output to
+              </p>
+              <pre><code>
+  usage: Command line syntax:
+  -count &lt;arg>   the number of things
+  -n &lt;arg>       the number of things. Deprecated for removal since now:
+  Use '-count' instead</code></pre>
+      </section>
+      </section>
+    
 </body>
