@@ -227,6 +227,8 @@ public class DefaultParser implements CommandLineParser {
     protected boolean skipParsing;
 
     /** The required options and groups expected to be found when parsing the command line. */
+    // This can contain either a String (addOption) or an OptionGroup (addOptionGroup)
+    // TODO this seems wrong
     protected List expectedOpts;
 
     /** Flag indicating if partial matching of long options is supported. */
