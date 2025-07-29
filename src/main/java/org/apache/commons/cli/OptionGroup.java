@@ -31,13 +31,15 @@ public class OptionGroup implements Serializable {
     /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
-    /** Hold the options */
+    /**
+     * Maps options where keys are option name and values are the options.
+     */
     private final Map<String, Option> optionMap = new LinkedHashMap<>();
 
-    /** The name of the selected option */
+    /** The name of the selected option. */
     private String selected;
 
-    /** Specified whether this group is required */
+    /** Specified whether this group is required. */
     private boolean required;
 
     /**
@@ -50,12 +52,10 @@ public class OptionGroup implements Serializable {
     /**
      * Adds the given {@code Option} to this group.
      *
-     * @param option the option to add to this group
-     * @return this option group with the option added
+     * @param option the option to add to this group.
+     * @return this option group with the option added.
      */
     public OptionGroup addOption(final Option option) {
-        // key - option name
-        // value - the option
         optionMap.put(option.getKey(), option);
         return this;
     }
@@ -93,7 +93,7 @@ public class OptionGroup implements Serializable {
     /**
      * Tests whether this option group is required.
      *
-     * @return whether this option group is required
+     * @return whether this option group is required.
      */
     public boolean isRequired() {
         return required;
@@ -123,7 +123,7 @@ public class OptionGroup implements Serializable {
      * Sets the selected option of this group to {@code name}.
      *
      * If the selected option is deprecated <em>no warning is logged</em>.
-     * @param option the option that is selected
+     * @param option the option that is selected.
      * @throws AlreadySelectedException if an option from this group has already been selected.
      */
     public void setSelected(final Option option) throws AlreadySelectedException {
@@ -144,7 +144,7 @@ public class OptionGroup implements Serializable {
     /**
      * Returns the stringified version of this OptionGroup.
      *
-     * @return the stringified representation of this group
+     * @return the stringified representation of this group.
      */
     @Override
     public String toString() {
