@@ -840,7 +840,7 @@ public class Option implements Cloneable, Serializable {
      */
     void processValue(final String value) {
         if (argCount == UNINITIALIZED) {
-            throw new IllegalArgumentException("NO_ARGS_ALLOWED");
+            throw new IllegalStateException("NO_ARGS_ALLOWED");
         }
         String add = Objects.requireNonNull(value, "value");
         // this Option has a separator character
