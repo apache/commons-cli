@@ -36,6 +36,21 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("deprecation") // tests some deprecated classes
 class OptionsTest {
 
+    @Test
+    void testRequiredOptionInGroupShouldNotBeInRequiredList() {
+        final String key = "a";
+        final Option option = new Option(key, "along", false, "Option A");
+        option.setRequired(true);
+        final Options options = new Options();
+        options.addOption(option);
+        assertTrue(options.getRequiredOptions().contains(key));
+        final OptionGroup optionGroup = new OptionGroup();
+        optionGroup.addOption(option);
+        options.addOptionGroup(optionGroup);
+        assertFalse(options.getOption(key).isRequired());
+        assertFalse(options.getRequiredOptions().contains(key), "Option in group shouldn't be in required options list.");
+    }
+
     private void assertToStrings(final Option option) {
         // Should never throw.
         // Should return a String, not null.

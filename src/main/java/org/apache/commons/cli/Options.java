@@ -155,8 +155,10 @@ public class Options implements Serializable {
             // OptionGroup, either the group is required or
             // nothing is required
             option.setRequired(false);
+            final String key = option.getKey();
+            requiredOpts.remove(key);
             addOption(option);
-            optionGroups.put(option.getKey(), group);
+            optionGroups.put(key, group);
         }
         return this;
     }
