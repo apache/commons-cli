@@ -650,5 +650,98 @@ public static void main(String[] args) {
   Use '-count' instead</code></pre>
       </section>
       </section>
-    
+    <section id="Properties">
+      <h1>Defining Option Properties</h1>
+      <p>
+        The following are the properties that each 
+        <a href="javadocs/api-release/org/apache/commons/cli/Option.html">Option</a> has.  All of these
+        can be set using the accessors or using the methods
+        defined in the
+        <a href="javadocs/api-release/org/apache/commons/cli/Option.Builder.html">Option.Builder</a>.
+      </p>
+      <table>
+        <caption>Option Properties</caption>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>arg</td>
+          <td>boolean</td>
+          <td>A flag to say whether the option takes an argument.</td>
+        </tr>
+        <tr>
+          <td>args</td>
+          <td>boolean</td>
+          <td>A flag to say whether the option takes more than one argument.</td>
+        </tr>
+        <tr>
+          <td>argName</td>
+          <td>java.lang.String</td>
+          <td>The name of the argument value for the usage statement.</td>
+        </tr>
+        <tr>
+          <td>converter</td>
+          <td>org.apache.commons.cli.Converter&lt;T, E extends Throwable&gt;</td>
+          <td>A FunctionalInterface that converts a String to type T and may throw an exception E.  When
+            CommandLine.getParsedValue() is called this FunctionalInterface will perform the conversion from the
+            command line argument to the parsed type. This is used when a desired type is not registered, or to
+            provide a custom type implementation.  The 'type' property is not required to use the 'converter' property.</td>
+        </tr>
+        <tr>
+          <td>deprecated</td>
+          <td>org.apache.commons.cli.DeprecatedAttributes</td>
+          <td>Marks the option as deprecated and has the deprecation properties.</td>
+        </tr>
+        <tr>
+          <td>description</td>
+          <td>java.lang.String</td>
+          <td>A description of the function of the option.</td>
+        </tr>
+        <tr>
+          <td>longOpt</td>
+          <td>java.lang.String</td>
+          <td>An alias and more descriptive identification string. May be null or not specified if 'opt' is provided.</td>
+        </tr>
+        <tr>
+          <td>opt</td>
+          <td>java.lang.String</td>
+          <td>The identification string of the Option. May be null or not specified if 'longOpt' is provided.</td>
+        </tr>
+        <tr>
+          <td>optionalArg</td>
+          <td>boolean</td>
+          <td>A flag to say whether the option's argument is optional.</td>
+        </tr>
+        <tr>
+          <td>required</td>
+          <td>boolean</td>
+          <td>A flag to say whether the option <b>must</b> appear on the command line.</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td>java.lang.Class&lt;?&gt;</td>
+          <td>The class of the object returned from getParsedValue(). The class must be registered in TypeHandler instance.
+            See also 'converter' property.</td>
+        </tr>
+        <tr>
+          <td>value</td>
+          <td>java.lang.String</td>
+          <td>The value of the option.</td>
+        </tr>
+        <tr>
+          <td>values</td>
+          <td>java.lang.String[]</td>
+          <td>The values of the option.</td>
+        </tr>
+        <tr>
+          <td>valueSeparator</td>
+          <td>char</td>
+          <td>The character value used to split the argument string, that is used in conjunction with multipleArgs e.g.
+            if the separator is ',' and the argument string is 'a,b,c' then there are three argument values, 'a', 'b'
+            and 'c'.</td>
+        </tr>
+      </table>
+    </section>
 </body>
