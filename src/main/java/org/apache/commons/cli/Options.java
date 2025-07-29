@@ -65,10 +65,10 @@ public class Options implements Serializable {
     }
 
     /**
-     * Adds an option instance
+     * Adds an option instance.
      *
-     * @param opt the option that is to be added
-     * @return the resulting Options instance
+     * @param opt the option that is to be added.
+     * @return the resulting Options instance.
      */
     public Options addOption(final Option opt) {
         final String key = opt.getKey();
@@ -94,9 +94,9 @@ public class Options implements Serializable {
      * </p>
      *
      * @param opt Short single-character name of the option.
-     * @param hasArg flag signaling if an argument is required after this option
-     * @param description Self-documenting description
-     * @return the resulting Options instance
+     * @param hasArg flag signaling if an argument is required after this option.
+     * @param description Self-documenting description.
+     * @return the resulting Options instance.
      */
     public Options addOption(final String opt, final boolean hasArg, final String description) {
         addOption(opt, null, hasArg, description);
@@ -110,8 +110,8 @@ public class Options implements Serializable {
      * </p>
      *
      * @param opt Short single-character name of the option.
-     * @param description Self-documenting description
-     * @return the resulting Options instance
+     * @param description Self-documenting description.
+     * @return the resulting Options instance.
      * @since 1.3
      */
     public Options addOption(final String opt, final String description) {
@@ -127,9 +127,9 @@ public class Options implements Serializable {
      *
      * @param opt Short single-character name of the option.
      * @param longOpt Long multi-character name of the option.
-     * @param hasArg flag signaling if an argument is required after this option
-     * @param description Self-documenting description
-     * @return the resulting Options instance
+     * @param hasArg flag signaling if an argument is required after this option.
+     * @param description Self-documenting description.
+     * @return the resulting Options instance.
      */
     public Options addOption(final String opt, final String longOpt, final boolean hasArg, final String description) {
         addOption(new Option(opt, longOpt, hasArg, description));
@@ -139,8 +139,8 @@ public class Options implements Serializable {
     /**
      * Adds the specified option group.
      *
-     * @param group the OptionGroup that is to be added
-     * @return the resulting Options instance
+     * @param group the OptionGroup that is to be added.
+     * @return the resulting Options instance.
      */
     public Options addOptionGroup(final OptionGroup group) {
         if (group.isRequired()) {
@@ -159,7 +159,7 @@ public class Options implements Serializable {
 
     /**
      * Adds options to this option.  If any Option in {@code options} already exists
-     * in this Options an IllegalArgumentException is thrown
+     * in this Options an IllegalArgumentException is thrown.
      *
      * @param options the options to add.
      * @return The resulting Options instance.
@@ -191,9 +191,9 @@ public class Options implements Serializable {
      *
      * @param opt Short single-character name of the option.
      * @param longOpt Long multi-character name of the option.
-     * @param hasArg flag signaling if an argument is required after this option
-     * @param description Self-documenting description
-     * @return the resulting Options instance
+     * @param hasArg flag signaling if an argument is required after this option.
+     * @param description Self-documenting description.
+     * @return the resulting Options instance.
      * @since 1.4
      */
     public Options addRequiredOption(final String opt, final String longOpt, final boolean hasArg, final String description) {
@@ -206,8 +206,8 @@ public class Options implements Serializable {
     /**
      * Gets the options with a long name starting with the name specified.
      *
-     * @param opt the partial name of the option
-     * @return the options matching the partial name specified, or an empty list if none matches
+     * @param opt the partial name of the option.
+     * @return the options matching the partial name specified, or an empty list if none matches.
      * @since 1.3
      */
     public List<String> getMatchingOptions(final String opt) {
@@ -231,8 +231,8 @@ public class Options implements Serializable {
      * The leading hyphens in the name are ignored (up to 2).
      * </p>
      *
-     * @param opt short or long name of the {@link Option}
-     * @return the option represented by opt
+     * @param opt short or long name of the {@link Option}.
+     * @return the option represented by opt.
      */
     public Option getOption(final String opt) {
         final String clean = Util.stripLeadingHyphens(opt);
@@ -244,7 +244,7 @@ public class Options implements Serializable {
      * Gets the OptionGroup the {@code opt} belongs to.
      *
      * @param opt the option whose OptionGroup is being queried.
-     * @return the OptionGroup if {@code opt} is part of an OptionGroup, otherwise return null
+     * @return the OptionGroup if {@code opt} is part of an OptionGroup, otherwise return null.
      */
     public OptionGroup getOptionGroup(final Option opt) {
         return optionGroups.get(opt.getKey());
@@ -256,18 +256,18 @@ public class Options implements Serializable {
      * @return a Collection of OptionGroup instances.
      */
     Collection<OptionGroup> getOptionGroups() {
-        /* The optionGroups map will have duplicates in the values() results.  We
-         * use the HashSet to filter out duplicates and return a collection of
-         * OpitonGroup.  The decision to return a Collection rather than a set
-         * was probably to keep symmetry with the getOptions() method.
-         */
+
+        // The optionGroups map will have duplicates in the values() results. We
+        // use the HashSet to filter out duplicates and return a collection of
+        // OpitonGroup. The decision to return a Collection rather than a set
+        // was probably to keep symmetry with the getOptions() method.
         return new HashSet<>(optionGroups.values());
     }
 
     /**
-     * Gets a read-only list of options in this set
+     * Gets a read-only list of options in this set.
      *
-     * @return read-only Collection of {@link Option} objects in this descriptor
+     * @return read-only Collection of {@link Option} objects in this descriptor.
      */
     public Collection<Option> getOptions() {
         return Collections.unmodifiableCollection(helpOptions());
@@ -276,7 +276,7 @@ public class Options implements Serializable {
     /**
      * Gets the required options.
      *
-     * @return read-only List of required options
+     * @return read-only List of required options.
      */
     public List<?> getRequiredOptions() {
         return Collections.unmodifiableList(requiredOpts);
@@ -285,8 +285,8 @@ public class Options implements Serializable {
     /**
      * Tests whether the named {@link Option} is a member of this {@link Options}.
      *
-     * @param opt long name of the {@link Option}
-     * @return true if the named {@link Option} is a member of this {@link Options}
+     * @param opt long name of the {@link Option}.
+     * @return true if the named {@link Option} is a member of this {@link Options}.
      * @since 1.3
      */
     public boolean hasLongOption(final String opt) {
@@ -296,8 +296,8 @@ public class Options implements Serializable {
     /**
      * Tests whether the named {@link Option} is a member of this {@link Options}.
      *
-     * @param opt short or long name of the {@link Option}
-     * @return true if the named {@link Option} is a member of this {@link Options}
+     * @param opt short or long name of the {@link Option}.
+     * @return true if the named {@link Option} is a member of this {@link Options}.
      */
     public boolean hasOption(final String opt) {
         final String clean = Util.stripLeadingHyphens(opt);
@@ -307,8 +307,8 @@ public class Options implements Serializable {
     /**
      * Tests whether the named {@link Option} is a member of this {@link Options}.
      *
-     * @param opt short name of the {@link Option}
-     * @return true if the named {@link Option} is a member of this {@link Options}
+     * @param opt short name of the {@link Option}.
+     * @return true if the named {@link Option} is a member of this {@link Options}.
      * @since 1.3
      */
     public boolean hasShortOption(final String opt) {
@@ -319,7 +319,7 @@ public class Options implements Serializable {
     /**
      * Returns the Options for use by the HelpFormatter.
      *
-     * @return the List of Options
+     * @return the List of Options.
      */
     List<Option> helpOptions() {
         return new ArrayList<>(shortOpts.values());
@@ -328,7 +328,7 @@ public class Options implements Serializable {
     /**
      * Dump state, suitable for debugging.
      *
-     * @return Stringified form of this object
+     * @return Stringified form of this object.
      */
     @Override
     public String toString() {
