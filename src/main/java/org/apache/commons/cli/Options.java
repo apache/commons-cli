@@ -138,6 +138,10 @@ public class Options implements Serializable {
 
     /**
      * Adds the specified option group.
+     * <p>
+     * An Option cannot be required if it is in an {@link OptionGroup}, either the group is required or nothing is required. This means that {@link Option} in
+     * the given group are set to optional.
+     * </p>
      *
      * @param group the OptionGroup that is to be added.
      * @return the resulting Options instance.
