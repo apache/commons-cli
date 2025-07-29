@@ -137,19 +137,6 @@ public class Option implements Cloneable, Serializable {
         }
 
         /**
-         * Constructs an Option with the values declared by this {@link Builder}.
-         *
-         * @return the new {@link Option}.
-         * @throws IllegalArgumentException if neither {@code opt} or {@code longOpt} has been set.
-         */
-        public Option get() {
-            if (option == null && longOption == null) {
-                throw new IllegalArgumentException("Either opt or longOpt must be specified");
-            }
-            return new Option(this);
-        }
-
-        /**
          * Sets the converter for the option.
          * <p>
          * Note: See {@link TypeHandler} for serialization discussion.
@@ -195,6 +182,19 @@ public class Option implements Cloneable, Serializable {
         public Builder desc(final String description) {
             this.description = description;
             return this;
+        }
+
+        /**
+         * Constructs an Option with the values declared by this {@link Builder}.
+         *
+         * @return the new {@link Option}.
+         * @throws IllegalArgumentException if neither {@code opt} or {@code longOpt} has been set.
+         */
+        public Option get() {
+            if (option == null && longOption == null) {
+                throw new IllegalArgumentException("Either opt or longOpt must be specified");
+            }
+            return new Option(this);
         }
 
         /**
