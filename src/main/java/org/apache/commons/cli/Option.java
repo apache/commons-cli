@@ -191,9 +191,6 @@ public class Option implements Cloneable, Serializable {
          * @throws IllegalStateException if neither {@code opt} or {@code longOpt} has been set.
          */
         public Option get() {
-            if (option == null && longOption == null) {
-                throw new IllegalStateException("Either opt or longOpt must be specified");
-            }
             return new Option(this);
         }
 
@@ -436,8 +433,12 @@ public class Option implements Cloneable, Serializable {
      * Private constructor used by the nested Builder class.
      *
      * @param builder builder used to create this option.
+     * @throws IllegalStateException if neither {@code opt} or {@code longOpt} has been set.
      */
     private Option(final Builder builder) {
+        if (builder.option == null && builder.longOption == null) {
+            throw new IllegalStateException("Either opt or longOpt must be specified");
+        }
         this.argName = builder.argName;
         this.description = builder.description;
         this.longOption = builder.longOption;
