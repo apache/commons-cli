@@ -116,7 +116,7 @@ public class Option implements Cloneable, Serializable {
          * Sets the display name for the argument value.
          *
          * @param argName the display name for the argument value.
-         * @return this builder, to allow method chaining.
+         * @return {@code this} instance..
          */
         public Builder argName(final String argName) {
             this.argName = argName;
@@ -143,7 +143,7 @@ public class Option implements Cloneable, Serializable {
          * </p>
          *
          * @param converter the Converter to use.
-         * @return this builder, to allow method chaining.
+         * @return {@code this} instance..
          * @since 1.7.0
          */
         public Builder converter(final Converter<?, ?> converter) {
@@ -177,7 +177,7 @@ public class Option implements Cloneable, Serializable {
          * Sets the description for this option.
          *
          * @param description the description of the option.
-         * @return this builder, to allow method chaining.
+         * @return {@code this} instance..
          */
         public Builder desc(final String description) {
             this.description = description;
@@ -187,7 +187,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * Tests whether the Option will require an argument.
          *
-         * @return this builder, to allow method chaining.
+         * @return {@code this} instance..
          */
         public Builder hasArg() {
             return hasArg(true);
@@ -197,7 +197,7 @@ public class Option implements Cloneable, Serializable {
          * Tests whether the Option has an argument or not.
          *
          * @param hasArg specifies whether the Option takes an argument or not.
-         * @return this builder, to allow method chaining.
+         * @return {@code this} instance..
          */
         public Builder hasArg(final boolean hasArg) {
             // set to UNINITIALIZED when no arg is specified to be compatible with OptionBuilder
