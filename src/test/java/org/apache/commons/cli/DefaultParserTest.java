@@ -394,6 +394,12 @@ class DefaultParserTest extends AbstractParserTestCase {
         assertEquals(expected, cl.getOptionValue(option), message);
     }
 
+    @Test
+    void testParseNullOption() throws ParseException {
+        // Edge case
+        assertThrows(NullPointerException.class, () -> new DefaultParser().parse(null, null, DefaultParser.NonOptionAction.IGNORE, "-a"));
+    }
+
     @Override
     @Test
     @Disabled("Test case handled in the parameterized tests as \"DEFAULT behavior\"")

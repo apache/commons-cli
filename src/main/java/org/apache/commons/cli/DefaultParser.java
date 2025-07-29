@@ -20,6 +20,7 @@ package org.apache.commons.cli;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -740,7 +741,7 @@ public class DefaultParser implements CommandLineParser {
      */
     public CommandLine parse(final Options options, final Properties properties, final NonOptionAction nonOptionAction, final String... arguments)
             throws ParseException {
-        this.options = options;
+        this.options = Objects.requireNonNull(options, "options");
         this.nonOptionAction = nonOptionAction;
         skipParsing = false;
         currentOption = null;
