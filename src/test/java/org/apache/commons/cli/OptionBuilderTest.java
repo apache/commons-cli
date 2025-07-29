@@ -50,7 +50,7 @@ class OptionBuilderTest {
     void testBuilderIsResettedAlways() {
         assertThrows(IllegalArgumentException.class, () -> OptionBuilder.withDescription("JUnit").create('"'));
         assertNull(OptionBuilder.create('x').getDescription(), "we inherited a description");
-        assertThrows(IllegalArgumentException.class, (Executable) OptionBuilder::create);
+        assertThrows(IllegalStateException.class, (Executable) OptionBuilder::create);
         assertNull(OptionBuilder.create('x').getDescription(), "we inherited a description");
     }
 
@@ -77,7 +77,7 @@ class OptionBuilderTest {
 
     @Test
     void testCreateIncompleteOption() {
-        assertThrows(IllegalArgumentException.class, (Executable) OptionBuilder::create);
+        assertThrows(IllegalStateException.class, (Executable) OptionBuilder::create);
         // implicitly reset the builder
         OptionBuilder.create("opt");
     }

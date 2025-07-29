@@ -40,6 +40,7 @@
       <action type="fix" issue="CLI-347" dev="ggregory" due-to="Ruiqi Dong, Gary Gregory">Options.addOptionGroup(OptionGroup) does not remove required options from requiredOpts list.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">org.apache.commons.cli.Option.Builder.get() should throw IllegalStateException instead of IllegalArgumentException.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">org.apache.commons.cli.Option.processValue(String) should throw IllegalStateException instead of IllegalArgumentException.</action>
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">org.apache.commons.cli.OptionBuilder.create() should throw IllegalStateException instead of IllegalArgumentException.</action>
       <!-- ADD -->
       <action type="add" issue="CLI-339" dev="ggregory" due-to="Claude Warren, Gary Gregory">Help formatter extension in the new package #314.</action>
       <action type="add" dev="ggregory" due-to="Gary Gregory">CommandLine.Builder implements Supplier&lt;CommandLine&gt;.</action>
