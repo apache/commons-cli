@@ -31,6 +31,16 @@ import org.junit.jupiter.api.Test;
 public class MissingOptionExceptionTest {
 
     @Test
+    void testGetMessage() {
+        final List<String> originalList = new ArrayList<>();
+        originalList.add("optA");
+        originalList.add("optB");
+        final MissingOptionException exception = new MissingOptionException(originalList);
+        assertEquals("Missing required options: optA, optB", exception.getMessage());
+        assertEquals("Missing required options: ", new MissingOptionException(new ArrayList<>()).getMessage());
+    }
+
+    @Test
     void testGetMissingOptions() {
         final List<String> originalList = new ArrayList<>();
         originalList.add("optA");
