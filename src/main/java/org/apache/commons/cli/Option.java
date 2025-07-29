@@ -830,7 +830,7 @@ public class Option implements Cloneable, Serializable {
         if (argCount == UNINITIALIZED) {
             throw new IllegalArgumentException("NO_ARGS_ALLOWED");
         }
-        String add = value;
+        String add = Objects.requireNonNull(value, "value");
         // this Option has a separator character
         if (hasValueSeparator()) {
             // get the separator character

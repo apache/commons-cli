@@ -301,6 +301,14 @@ class OptionTest {
     }
 
     @Test
+    public void testProcessValue() {
+        final Option option = new Option("D", true, "Define property");
+        option.setValueSeparator('=');
+        final NullPointerException exception = assertThrows(NullPointerException.class, () -> option.processValue(null));
+        assertTrue(exception.getMessage().contains("value"));
+    }
+
+    @Test
     void testSerialization() throws IOException, ClassNotFoundException {
         final Option option = Option.builder("o").type(TypeHandlerTest.Instantiable.class).build();
         assertEquals(Converter.DEFAULT, option.getConverter());
