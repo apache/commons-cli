@@ -40,7 +40,82 @@ limitations under the License.
     <p>
     The homepage for the project is <a href="https://commons.apache.org">Apache Commons</a>
     </p>
-    
+    <section id="Introducing">
+      <h1>Introducing Apache Commons CLI</h1>
+      <p>
+        There are three stages to command line processing.  They are the
+        definition, parsing and interrogation stages.  The following 
+        sections discuss each of these stages in turn, and show how
+        to implement them with CLI.
+      </p>
+    <section>
+      <h2>Defining the CLI</h2>
+      <p>
+        Each command line must define the set of options that will be used 
+        to define the interface to the application.
+      </p>
+      <p>
+        CLI uses the <a href="javadocs/api-release/org/apache/commons/cli/Options.html">
+        Options</a> class, as a container for 
+        <a href="javadocs/api-release/org/apache/commons/cli/Option.html">
+        Option</a> instances.  There are two ways to create
+        <code>Option</code>s in CLI.  One of them is via the constructors,
+        the other way is via the factory methods defined in 
+        <code>Options</code>.
+      </p>
+      <p>
+        The <a href="usage.html">Usage Scenarios</a> document provides
+        examples how to create an <code>Options</code> object and also
+        provides some real world examples.
+      </p>
+      <p>
+        The result of the definition stage is an <code>Options</code> 
+        instance.
+      </p>
+    </section>
+    <section>
+      <h2>Parsing the CLI</h2>
+      <p>
+        The parsing stage is where the text passed into the 
+        application via the command line is processed.  The text is 
+        processed according to the rules defined by the parser 
+        implementation.
+      </p>
+      <p>
+        The <code>parse</code> method defined on 
+        <a href="javadocs/api-release/org/apache/commons/cli/CommandLineParser.html">
+        CommandLineParser</a> takes an <code>Options</code>
+        instance and a <code>String[]</code> of arguments and 
+        returns a 
+        <a href="javadocs/api-release/org/apache/commons/cli/CommandLine.html">
+        CommandLine</a>.
+      </p>
+      <p>
+        The result of the parsing stage is a <code>CommandLine</code>
+        instance.
+      </p>
+    </section>
+    <section>
+      <h2>Interrogating the CLI</h2>
+      <p>
+        The interrogation stage is where the application queries the
+        <code>CommandLine</code> to decide what execution branch to
+        take depending on boolean options and uses the option values
+        to provide the application data.
+      </p>
+      <p>
+        This stage is implemented in the user code.  The accessor methods 
+        on <code>CommandLine</code> provide the interrogation capability
+        to the user code.
+      </p>
+      <p>
+        The result of the interrogation stage is that the user code 
+        is fully informed of all the text that was supplied on the command
+        line and processed according to the parser and <code>Options</code>
+        rules.
+      </p>
+    </section>
+    </section>
     <section id="Using">
       <h1>Using Apache Commons CLI</h1>
       <p>
