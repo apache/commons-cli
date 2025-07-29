@@ -109,27 +109,27 @@ class OptionTest {
 
     @Test
     void testBuilderDeprecatedBuildEmpty() {
-        assertThrows(IllegalArgumentException.class, () -> Option.builder().build());
+        assertThrows(IllegalStateException.class, () -> Option.builder().build());
     }
 
     @Test
     void testBuilderEmpty() {
-        assertThrows(IllegalArgumentException.class, () -> Option.builder().get());
+        assertThrows(IllegalStateException.class, () -> Option.builder().get());
     }
 
     @Test
     void testBuilderInsufficientParams1() {
-        assertThrows(IllegalArgumentException.class, () -> Option.builder().desc("desc").get());
+        assertThrows(IllegalStateException.class, () -> Option.builder().desc("desc").get());
     }
 
     @Test
     void testBuilderInsufficientParams2() {
-        assertThrows(IllegalArgumentException.class, () -> Option.builder(null).desc("desc").get());
+        assertThrows(IllegalStateException.class, () -> Option.builder(null).desc("desc").get());
     }
 
     @Test
     void testBuilderInvalidOptionName0() {
-        assertThrows(IllegalArgumentException.class, () -> Option.builder().option(null).get());
+        assertThrows(IllegalStateException.class, () -> Option.builder().option(null).get());
         assertThrows(IllegalArgumentException.class, () -> Option.builder().option(""));
         assertThrows(IllegalArgumentException.class, () -> Option.builder().option(" "));
     }

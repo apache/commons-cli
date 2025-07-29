@@ -188,11 +188,11 @@ public class Option implements Cloneable, Serializable {
          * Constructs an Option with the values declared by this {@link Builder}.
          *
          * @return the new {@link Option}.
-         * @throws IllegalArgumentException if neither {@code opt} or {@code longOpt} has been set.
+         * @throws IllegalStateException if neither {@code opt} or {@code longOpt} has been set.
          */
         public Option get() {
             if (option == null && longOption == null) {
-                throw new IllegalArgumentException("Either opt or longOpt must be specified");
+                throw new IllegalStateException("Either opt or longOpt must be specified");
             }
             return new Option(this);
         }
@@ -530,8 +530,7 @@ public class Option implements Cloneable, Serializable {
      */
     @Deprecated
     public boolean addValue(final String value) {
-        throw new UnsupportedOperationException(
-                "The addValue method is not intended for client use. Subclasses should use the processValue method instead.");
+        throw new UnsupportedOperationException("The addValue method is not intended for client use. Subclasses should use the processValue method instead.");
     }
 
     /**
