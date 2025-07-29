@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 /**
  * Describes a single command-line option. It maintains information regarding the short-name of the option, the long-name, if any exists, a flag indicating if
@@ -51,7 +52,7 @@ public class Option implements Cloneable, Serializable {
      *
      * @since 1.3
      */
-    public static final class Builder {
+    public static final class Builder implements Supplier<Option> {
 
         /** The default type. */
         private static final Class<String> DEFAULT_TYPE = String.class;
@@ -128,8 +129,20 @@ public class Option implements Cloneable, Serializable {
          *
          * @return the new {@link Option}.
          * @throws IllegalArgumentException if neither {@code opt} or {@code longOpt} has been set.
+         * @deprecated Use {@link #get()}.
          */
+        @Deprecated
         public Option build() {
+            return get();
+        }
+
+        /**
+         * Constructs an Option with the values declared by this {@link Builder}.
+         *
+         * @return the new {@link Option}.
+         * @throws IllegalArgumentException if neither {@code opt} or {@code longOpt} has been set.
+         */
+        public Option get() {
             if (option == null && longOption == null) {
                 throw new IllegalArgumentException("Either opt or longOpt must be specified");
             }

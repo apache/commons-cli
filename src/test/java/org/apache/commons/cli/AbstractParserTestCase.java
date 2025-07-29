@@ -87,8 +87,8 @@ public abstract class AbstractParserTestCase {
     void testAmbiguousLongWithoutEqualSingleDash2() throws Exception {
         final String[] args = { "-b", "-foobar" };
         final Options options = new Options();
-        options.addOption(Option.builder().longOpt("foo").option("f").optionalArg(true).build());
-        options.addOption(Option.builder().longOpt("bar").option("b").optionalArg(false).build());
+        options.addOption(Option.builder().longOpt("foo").option("f").optionalArg(true).get());
+        options.addOption(Option.builder().longOpt("bar").option("b").optionalArg(false).get());
         final CommandLine cl = parser.parse(options, args);
         assertTrue(cl.hasOption("b"));
         assertTrue(cl.hasOption("f"));
@@ -380,7 +380,7 @@ public abstract class AbstractParserTestCase {
     @Test
     void testOptionalArgsOptionDotBuilder() throws Exception {
         final Options options = new Options();
-        options.addOption(Option.builder("i").numberOfArgs(2).optionalArg(true).build());
+        options.addOption(Option.builder("i").numberOfArgs(2).optionalArg(true).get());
         final Properties properties = new Properties();
 
         CommandLine cmd = parse(parser, options, new String[] { "-i" }, properties);
@@ -400,7 +400,7 @@ public abstract class AbstractParserTestCase {
         assertArrayEquals(new String[] { "paper", "scissors" }, cmd.getOptionValues("i"));
         assertArrayEquals(new String[] { "rock" }, cmd.getArgs());
 
-        options.addOption(Option.builder("j").numberOfArgs(3).optionalArg(true).build());
+        options.addOption(Option.builder("j").numberOfArgs(3).optionalArg(true).get());
         cmd = parse(parser, options, new String[] { "-j" }, properties);
     }
 

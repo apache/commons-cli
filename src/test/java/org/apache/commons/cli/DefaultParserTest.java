@@ -176,14 +176,14 @@ class DefaultParserTest extends AbstractParserTestCase {
     void testDeprecated() throws ParseException {
         final Set<Option> handler = new HashSet<>();
         parser = DefaultParser.builder().setDeprecatedHandler(handler::add).build();
-        final Option opt1 = Option.builder().option("d1").deprecated().build();
+        final Option opt1 = Option.builder().option("d1").deprecated().get();
         // @formatter:off
         final Option opt2 = Option.builder().option("d2").deprecated(DeprecatedAttributes.builder()
-                .setForRemoval(true)
-                .setSince("1.0")
-                .setDescription("Do this instead.").get()).build();
+        .setForRemoval(true)
+        .setSince("1.0")
+        .setDescription("Do this instead.").get()).get();
         // @formatter:on
-        final Option opt3 = Option.builder().option("a").build();
+        final Option opt3 = Option.builder().option("a").get();
         // @formatter:off
         final CommandLine cl = parser.parse(new Options()
                 .addOption(opt1)
@@ -203,9 +203,9 @@ class DefaultParserTest extends AbstractParserTestCase {
 
     @Test
     void testLegacyStopAtNonOption() throws ParseException {
-        final Option a = Option.builder().option("a").longOpt("first-letter").build();
-        final Option b = Option.builder().option("b").longOpt("second-letter").build();
-        final Option c = Option.builder().option("c").longOpt("third-letter").build();
+        final Option a = Option.builder().option("a").longOpt("first-letter").get();
+        final Option b = Option.builder().option("b").longOpt("second-letter").get();
+        final Option c = Option.builder().option("c").longOpt("third-letter").get();
 
         final Options options = new Options();
         options.addOption(a);
@@ -244,10 +244,10 @@ class DefaultParserTest extends AbstractParserTestCase {
 
     @Test
     void testParseIgnoreHappyPath() throws ParseException {
-        final Option a = Option.builder().option("a").longOpt("first-letter").build();
-        final Option b = Option.builder().option("b").longOpt("second-letter").build();
-        final Option c = Option.builder().option("c").longOpt("third-letter").build();
-        final Option d = Option.builder().option("d").longOpt("fourth-letter").build();
+        final Option a = Option.builder().option("a").longOpt("first-letter").get();
+        final Option b = Option.builder().option("b").longOpt("second-letter").get();
+        final Option c = Option.builder().option("c").longOpt("third-letter").get();
+        final Option d = Option.builder().option("d").longOpt("fourth-letter").get();
 
         final Options baseOptions = new Options();
         baseOptions.addOption(a);
@@ -293,9 +293,9 @@ class DefaultParserTest extends AbstractParserTestCase {
 
     @Test
     void testParseIgnoreNonHappyPath() throws ParseException {
-        final Option a = Option.builder().option("a").longOpt("first-letter").build();
-        final Option b = Option.builder().option("b").longOpt("second-letter").build();
-        final Option c = Option.builder().option("c").longOpt("third-letter").build();
+        final Option a = Option.builder().option("a").longOpt("first-letter").get();
+        final Option b = Option.builder().option("b").longOpt("second-letter").get();
+        final Option c = Option.builder().option("c").longOpt("third-letter").get();
 
         final Options baseOptions = new Options();
         baseOptions.addOption(a);
@@ -326,10 +326,10 @@ class DefaultParserTest extends AbstractParserTestCase {
 
     @Test
     void testParseSkipHappyPath() throws ParseException {
-        final Option a = Option.builder().option("a").longOpt("first-letter").build();
-        final Option b = Option.builder().option("b").longOpt("second-letter").build();
-        final Option c = Option.builder().option("c").longOpt("third-letter").build();
-        final Option d = Option.builder().option("d").longOpt("fourth-letter").build();
+        final Option a = Option.builder().option("a").longOpt("first-letter").get();
+        final Option b = Option.builder().option("b").longOpt("second-letter").get();
+        final Option c = Option.builder().option("c").longOpt("third-letter").get();
+        final Option d = Option.builder().option("d").longOpt("fourth-letter").get();
 
         final Options baseOptions = new Options();
         baseOptions.addOption(a);
@@ -375,9 +375,9 @@ class DefaultParserTest extends AbstractParserTestCase {
 
     @Test
     void testParseSkipNonHappyPath() throws ParseException {
-        final Option a = Option.builder().option("a").longOpt("first-letter").build();
-        final Option b = Option.builder().option("b").longOpt("second-letter").build();
-        final Option c = Option.builder().option("c").longOpt("third-letter").build();
+        final Option a = Option.builder().option("a").longOpt("first-letter").get();
+        final Option b = Option.builder().option("b").longOpt("second-letter").get();
+        final Option c = Option.builder().option("c").longOpt("third-letter").get();
 
         final Options baseOptions = new Options();
         baseOptions.addOption(a);

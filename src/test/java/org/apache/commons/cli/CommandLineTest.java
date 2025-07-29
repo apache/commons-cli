@@ -43,8 +43,8 @@ class CommandLineTest {
 
     private static Stream<Arguments> createHasOptionParameters() throws ParseException {
         final List<Arguments> lst = new ArrayList<>();
-        final Option optT = Option.builder().option("T").longOpt("tee").deprecated().optionalArg(true).build();
-        final Option optU = Option.builder("U").longOpt("you").optionalArg(true).build();
+        final Option optT = Option.builder().option("T").longOpt("tee").deprecated().optionalArg(true).get();
+        final Option optU = Option.builder("U").longOpt("you").optionalArg(true).get();
         final OptionGroup optionGroup = new OptionGroup().addOption(optT).addOption(optU);
 
         final String[] foobar = { "foo", "bar" };
@@ -75,8 +75,8 @@ class CommandLineTest {
 
     private static Stream<Arguments> createOptionValueParameters() throws ParseException {
         final List<Arguments> lst = new ArrayList<>();
-        final Option optT = Option.builder().option("T").longOpt("tee").deprecated().optionalArg(true).build();
-        final Option optU = Option.builder("U").longOpt("you").optionalArg(true).build();
+        final Option optT = Option.builder().option("T").longOpt("tee").deprecated().optionalArg(true).get();
+        final Option optU = Option.builder("U").longOpt("you").optionalArg(true).get();
         final OptionGroup optionGroup = new OptionGroup().addOption(optT).addOption(optU);
 
         // T set
@@ -106,8 +106,8 @@ class CommandLineTest {
 
     private static Stream<Arguments> createOptionValuesParameters() throws ParseException {
         final List<Arguments> lst = new ArrayList<>();
-        final Option optT = Option.builder().option("T").longOpt("tee").numberOfArgs(2).deprecated().optionalArg(true).build();
-        final Option optU = Option.builder("U").longOpt("you").numberOfArgs(2).optionalArg(true).build();
+        final Option optT = Option.builder().option("T").longOpt("tee").numberOfArgs(2).deprecated().optionalArg(true).get();
+        final Option optU = Option.builder("U").longOpt("you").numberOfArgs(2).optionalArg(true).get();
         final OptionGroup optionGroup = new OptionGroup().addOption(optT).addOption(optU);
 
         final String[] foobar = { "foo", "bar" };
@@ -138,8 +138,8 @@ class CommandLineTest {
 
     private static Stream<Arguments> createParsedOptionValueParameters() throws ParseException {
         final List<Arguments> lst = new ArrayList<>();
-        final Option optT = Option.builder().option("T").longOpt("tee").deprecated().type(Integer.class).optionalArg(true).build();
-        final Option optU = Option.builder("U").longOpt("you").type(Integer.class).optionalArg(true).build();
+        final Option optT = Option.builder().option("T").longOpt("tee").deprecated().type(Integer.class).optionalArg(true).get();
+        final Option optU = Option.builder("U").longOpt("you").type(Integer.class).optionalArg(true).get();
         final OptionGroup optionGroup = new OptionGroup().addOption(optT).addOption(optU);
         final Integer expected = Integer.valueOf(1);
 
@@ -170,8 +170,8 @@ class CommandLineTest {
 
     private static Stream<Arguments> createParsedOptionValuesParameters() throws ParseException {
         final List<Arguments> lst = new ArrayList<>();
-        final Option optT = Option.builder().option("T").longOpt("tee").deprecated().type(Integer.class).optionalArg(true).hasArgs().build();
-        final Option optU = Option.builder("U").longOpt("you").type(Integer.class).optionalArg(true).hasArgs().build();
+        final Option optT = Option.builder().option("T").longOpt("tee").deprecated().type(Integer.class).optionalArg(true).hasArgs().get();
+        final Option optU = Option.builder("U").longOpt("you").type(Integer.class).optionalArg(true).hasArgs().get();
         final OptionGroup optionGroup = new OptionGroup().addOption(optT).addOption(optU);
         final Integer[] expected = {1, 2};
 
@@ -234,8 +234,8 @@ class CommandLineTest {
     void testBadGetParsedOptionValue() throws Exception {
 
         final Options options = new Options();
-        options.addOption(Option.builder("i").hasArg().type(Number.class).build());
-        options.addOption(Option.builder("c").hasArg().converter(s -> Count.valueOf(s.toUpperCase())).build());
+        options.addOption(Option.builder("i").hasArg().type(Number.class).get());
+        options.addOption(Option.builder("c").hasArg().converter(s -> Count.valueOf(s.toUpperCase())).get());
 
         final CommandLineParser parser = new DefaultParser();
         final CommandLine cmd = parser.parse(options, new String[] {"-i", "foo", "-c", "bar"});
@@ -250,7 +250,7 @@ class CommandLineTest {
         final CommandLine cmd = CommandLine.builder()
                 .addArg("foo")
                 .addArg("bar")
-                .addOption(Option.builder("T").build())
+                .addOption(Option.builder("T").get())
                 .build();
         // @formatter:on
         assertEquals("foo", cmd.getArgs()[0]);
@@ -264,7 +264,7 @@ class CommandLineTest {
         final CommandLine cmd = CommandLine.builder()
                 .addArg("foo")
                 .addArg("bar")
-                .addOption(Option.builder("T").build())
+                .addOption(Option.builder("T").get())
                 .get();
         // @formatter:on
         assertEquals("foo", cmd.getArgs()[0]);
@@ -276,7 +276,7 @@ class CommandLineTest {
     void testBuilderNullArgs() {
         final CommandLine.Builder builder = CommandLine.builder();
         builder.addArg(null).addArg(null);
-        builder.addOption(Option.builder("T").build());
+        builder.addOption(Option.builder("T").get());
         final CommandLine cmd = builder.build();
 
         assertEquals(0, cmd.getArgs().length);
@@ -302,8 +302,8 @@ class CommandLineTest {
         final String[] args = {"-Dparam1=value1", "-Dparam2=value2", "-Dparam3", "-Dparam4=value4", "-D", "--property", "foo=bar"};
 
         final Options options = new Options();
-        options.addOption(Option.builder("D").valueSeparator().optionalArg(true).numberOfArgs(2).build());
-        options.addOption(Option.builder().valueSeparator().numberOfArgs(2).longOpt("property").build());
+        options.addOption(Option.builder("D").valueSeparator().optionalArg(true).numberOfArgs(2).get());
+        options.addOption(Option.builder().valueSeparator().numberOfArgs(2).longOpt("property").get());
 
         final Parser parser = new GnuParser();
         final CommandLine cl = parser.parse(options, args);
@@ -324,8 +324,8 @@ class CommandLineTest {
         final String[] args = {"-Dparam1=value1", "-Dparam2=value2", "-Dparam3", "-Dparam4=value4", "-D", "--property", "foo=bar"};
 
         final Options options = new Options();
-        final Option optionD = Option.builder("D").valueSeparator().numberOfArgs(2).optionalArg(true).build();
-        final Option optionProperty = Option.builder().valueSeparator().numberOfArgs(2).longOpt("property").build();
+        final Option optionD = Option.builder("D").valueSeparator().numberOfArgs(2).optionalArg(true).get();
+        final Option optionProperty = Option.builder().valueSeparator().numberOfArgs(2).longOpt("property").get();
         options.addOption(optionD);
         options.addOption(optionProperty);
 
@@ -392,8 +392,8 @@ class CommandLineTest {
         final List<Option> handler = new ArrayList<>();
         final CommandLine commandLine = DefaultParser.builder().setDeprecatedHandler(handler::add).get().parse(options, args);
         final Supplier<String> thinger = () -> "thing";
-        final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().build())
-                .addOption(Option.builder().option("p").longOpt("part").hasArg().build());
+        final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().get())
+                .addOption(Option.builder().option("p").longOpt("part").hasArg().get());
         final OptionGroup nullGroup = null;
 
         // test char option
@@ -497,8 +497,8 @@ class CommandLineTest {
         final Options options = new Options().addOptionGroup(optionGroup);
         final List<Option> handler = new ArrayList<>();
         final CommandLine commandLine = DefaultParser.builder().setDeprecatedHandler(handler::add).get().parse(options, args);
-        final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().build())
-                .addOption(Option.builder().option("p").longOpt("part").hasArg().build());
+        final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().get())
+                .addOption(Option.builder().option("p").longOpt("part").hasArg().get());
         final OptionGroup nullGroup = null;
 
         // test char option arg
@@ -542,8 +542,8 @@ class CommandLineTest {
         final List<Option> handler = new ArrayList<>();
         final CommandLine commandLine = DefaultParser.builder().setDeprecatedHandler(handler::add).get().parse(options, args);
         final Supplier<Integer> thinger = () -> 2;
-        final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().build())
-                .addOption(Option.builder().option("p").longOpt("part").hasArg().build());
+        final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().get())
+                .addOption(Option.builder().option("p").longOpt("part").hasArg().get());
         final OptionGroup nullGroup = null;
         final Integer thing = 2;
 
@@ -636,8 +636,8 @@ class CommandLineTest {
         final List<Option> handler = new ArrayList<>();
         final CommandLine commandLine = DefaultParser.builder().setDeprecatedHandler(handler::add).get().parse(options, args);
         final Supplier<Integer[]> thinger = () -> new Integer[]{2, 3};
-        final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().build())
-                .addOption(Option.builder().option("p").longOpt("part").hasArg().build());
+        final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().get())
+                .addOption(Option.builder().option("p").longOpt("part").hasArg().get());
         final OptionGroup nullGroup = null;
         final Integer[] thing = {2, 3};
 
@@ -741,8 +741,8 @@ class CommandLineTest {
         final Options options = new Options().addOptionGroup(optionGroup);
         final List<Option> handler = new ArrayList<>();
         final CommandLine commandLine = DefaultParser.builder().setDeprecatedHandler(handler::add).get().parse(options, args);
-        final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().build())
-                .addOption(Option.builder().option("p").longOpt("part").hasArg().build());
+        final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().get())
+                .addOption(Option.builder().option("p").longOpt("part").hasArg().get());
         final OptionGroup nullGroup = null;
 
         // test char option arg
@@ -893,8 +893,8 @@ class CommandLineTest {
         try {
             System.setOut(new PrintStream(baos));
 
-            final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().build())
-                    .addOption(Option.builder().option("p").longOpt("part").hasArg().build());
+            final OptionGroup otherGroup = new OptionGroup().addOption(Option.builder("o").longOpt("other").hasArg().get())
+                    .addOption(Option.builder().option("p").longOpt("part").hasArg().get());
             final OptionGroup nullGroup = null;
 
             // test char option
@@ -1008,8 +1008,8 @@ class CommandLineTest {
     @Test
     void testNullOption() throws Exception {
         final Options options = new Options();
-        final Option optI = Option.builder("i").hasArg().type(Number.class).build();
-        final Option optF = Option.builder("f").hasArg().build();
+        final Option optI = Option.builder("i").hasArg().type(Number.class).get();
+        final Option optF = Option.builder("f").hasArg().get();
         options.addOption(optI);
         options.addOption(optF);
         final CommandLineParser parser = new DefaultParser();

@@ -47,17 +47,17 @@ class OptionsTest {
     void testAddConflictingOptions() {
         final Options options1 = new Options();
         final OptionGroup group1 = new OptionGroup();
-        group1.addOption(Option.builder("a").build());
-        group1.addOption(Option.builder("b").build());
+        group1.addOption(Option.builder("a").get());
+        group1.addOption(Option.builder("b").get());
         options1.addOptionGroup(group1);
-        options1.addOption(Option.builder("x").build());
-        options1.addOption(Option.builder("y").build());
+        options1.addOption(Option.builder("x").get());
+        options1.addOption(Option.builder("y").get());
         final Options options2 = new Options();
         final OptionGroup group2 = new OptionGroup();
-        group2.addOption(Option.builder("x").type(Integer.class).build());
-        group2.addOption(Option.builder("b").type(Integer.class).build());
+        group2.addOption(Option.builder("x").type(Integer.class).get());
+        group2.addOption(Option.builder("b").type(Integer.class).get());
         options2.addOptionGroup(group2);
-        options2.addOption(Option.builder("c").build());
+        options2.addOption(Option.builder("c").get());
         assertThrows(IllegalArgumentException.class, () -> options1.addOptions(options2));
     }
 
@@ -65,19 +65,19 @@ class OptionsTest {
     void testAddNonConflictingOptions() {
         final Options options1 = new Options();
         final OptionGroup group1 = new OptionGroup();
-        group1.addOption(Option.builder("a").build());
-        group1.addOption(Option.builder("b").build());
+        group1.addOption(Option.builder("a").get());
+        group1.addOption(Option.builder("b").get());
         options1.addOptionGroup(group1);
-        options1.addOption(Option.builder("x").build());
-        options1.addOption(Option.builder("y").build());
+        options1.addOption(Option.builder("x").get());
+        options1.addOption(Option.builder("y").get());
 
         final Options options2 = new Options();
         final OptionGroup group2 = new OptionGroup();
-        group2.addOption(Option.builder("c").type(Integer.class).build());
-        group2.addOption(Option.builder("d").type(Integer.class).build());
+        group2.addOption(Option.builder("c").type(Integer.class).get());
+        group2.addOption(Option.builder("d").type(Integer.class).get());
         options2.addOptionGroup(group2);
-        options1.addOption(Option.builder("e").build());
-        options1.addOption(Option.builder("f").build());
+        options1.addOption(Option.builder("e").get());
+        options1.addOption(Option.builder("f").get());
 
         final Options underTest = new Options();
         underTest.addOptions(options1);
@@ -96,13 +96,13 @@ class OptionsTest {
         final Options options = new Options();
 
         final OptionGroup group1 = new OptionGroup();
-        group1.addOption(Option.builder("a").build());
-        group1.addOption(Option.builder("b").build());
+        group1.addOption(Option.builder("a").get());
+        group1.addOption(Option.builder("b").get());
 
         options.addOptionGroup(group1);
 
-        options.addOption(Option.builder("X").build());
-        options.addOption(Option.builder("y").build());
+        options.addOption(Option.builder("X").get());
+        options.addOption(Option.builder("y").get());
 
         final Options underTest = new Options();
         underTest.addOptions(options);
@@ -116,13 +116,13 @@ class OptionsTest {
         final Options options = new Options();
 
         final OptionGroup group1 = new OptionGroup();
-        group1.addOption(Option.builder("a").build());
-        group1.addOption(Option.builder("b").build());
+        group1.addOption(Option.builder("a").get());
+        group1.addOption(Option.builder("b").get());
 
         options.addOptionGroup(group1);
 
-        options.addOption(Option.builder("X").build());
-        options.addOption(Option.builder("y").build());
+        options.addOption(Option.builder("X").get());
+        options.addOption(Option.builder("y").get());
 
         assertThrows(IllegalArgumentException.class, () -> options.addOptions(options));
     }
@@ -130,11 +130,11 @@ class OptionsTest {
     @Test
     void testDeprecated() {
         final Options options = new Options();
-        options.addOption(Option.builder().option("a").build());
-        options.addOption(Option.builder().option("b").deprecated().build());
+        options.addOption(Option.builder().option("a").get());
+        options.addOption(Option.builder().option("b").deprecated().get());
         options.addOption(Option.builder().option("c")
-                .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("2.0").setDescription("Use X.").get()).build());
-        options.addOption(Option.builder().option("d").deprecated().longOpt("longD").hasArgs().build());
+        .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("2.0").setDescription("Use X.").get()).get());
+        options.addOption(Option.builder().option("d").deprecated().longOpt("longD").hasArgs().get());
         // toString()
         assertTrue(options.getOption("a").toString().startsWith("[ Option a"));
         assertTrue(options.getOption("b").toString().startsWith("[ Option b"));

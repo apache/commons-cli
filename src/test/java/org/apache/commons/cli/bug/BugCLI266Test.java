@@ -44,28 +44,23 @@ class BugCLI266Test {
 
         //@formatter:off
         firstGroup.addOption(Option.builder("d")
-                .longOpt("db")
-                .hasArg()
-                .argName("table-name")
-                .build());
+        .longOpt("db")
+        .hasArg()
+        .argName("table-name").get());
         firstGroup.addOption(Option.builder("f")
-                .longOpt("flat-file")
-                .hasArg()
-                .argName("input.csv")
-                .build());
+        .longOpt("flat-file")
+        .hasArg()
+        .argName("input.csv").get());
         //@formatter:on
         options.addOptionGroup(firstGroup);
         //@formatter:off
         secondGroup.addOption(Option.builder("x")
-                .hasArg()
-                .argName("arg1")
-                .build());
-        secondGroup.addOption(Option.builder("s")
-                .build());
+        .hasArg()
+        .argName("arg1").get());
+        secondGroup.addOption(Option.builder("s").get());
         secondGroup.addOption(Option.builder("p")
-                .hasArg()
-                .argName("arg1")
-                .build());
+        .hasArg()
+        .argName("arg1").get());
         //@formatter:on
         options.addOptionGroup(secondGroup);
     }
@@ -74,9 +69,8 @@ class BugCLI266Test {
         final Options options = new Options();
         //@formatter:off
         final Option help = Option.builder("h")
-                .longOpt("help")
-                .desc("Prints this help message")
-                .build();
+        .longOpt("help")
+        .desc("Prints this help message").get();
         //@formatter:on
         options.addOption(help);
 
@@ -84,19 +78,16 @@ class BugCLI266Test {
 
         //@formatter:off
         final Option t = Option.builder("t")
-                .required()
-                .hasArg()
-                .argName("file")
-                .build();
+        .required()
+        .hasArg()
+        .argName("file").get();
         final Option w = Option.builder("w")
-                .required()
-                .hasArg()
-                .argName("word")
-                .build();
+        .required()
+        .hasArg()
+        .argName("word").get();
         final Option o = Option.builder("o")
-                .hasArg()
-                .argName("directory")
-                .build();
+        .hasArg()
+        .argName("directory").get();
         //@formatter:on
         options.addOption(t);
         options.addOption(w);
