@@ -259,7 +259,7 @@ else {
   -logger &lt;classname&gt;    the class which is to perform logging
   -listener &lt;classname&gt;  add an instance of class as a project listener
   -buildfile &lt;file&gt;      use given buildfile
-  -D&lt;property>=&lt;value&gt;   use value for given property
+  -D&lt;property&gt;=&lt;value&gt;   use value for given property
   -find &lt;file&gt;           search for buildfile towards the root of the
                          filesystem and use it</code></pre>
       <section>
@@ -610,7 +610,7 @@ public static void main(String[] args) {
           <section>
             <h2>Changing Usage Announcement</h2>
               <p>
-                  The usage announcement may be changed by providing a <code>Consumer&lt;Option></code> to the
+                  The usage announcement may be changed by providing a <code>Consumer&lt;Option&gt;</code> to the
                   <code>CommandLine.Builder.deprecatedHandler</code> method.  This is commonly used to log usage
                   of deprecated options rather than printing them on the standard output.
               </p>
@@ -644,7 +644,7 @@ public static void main(String[] args) {
 
               <pre><code>
   void doSomething(Options options) {
-      Consumer&lt;Option> deprecatedUsageAnnouncement = o -> {
+      Consumer&lt;Option&gt; deprecatedUsageAnnouncement = o -&gt; {
           final StringBuilder buf = new StringBuilder()
               .append("'")
               .append(o.getOpt())
@@ -694,15 +694,15 @@ public static void main(String[] args) {
               </p>
               <pre><code>
   usage: Command line syntax:
-  -count &lt;arg>   the number of things
-  -n &lt;arg>       [Deprecated] the number of things</code></pre>
+  -count &lt;arg&gt;   the number of things
+  -n &lt;arg&gt;       [Deprecated] the number of things</code></pre>
           <p>
              The display of deprecated options may be changed through the use of the
               <code>HelpFormatter.Builder.setShowDeprecated()</code> method.
           </p>
           <ul>
             <li>Calling <code>HelpFormatter.Builder.setShowDeprecated(false)</code> will disable the "[Deprecated]" tag.</li>
-            <li>Calling <code>HelpFormatter.Builder.setShowDeprecated</code> with a <code>Function&lt;Option, String></code>
+            <li>Calling <code>HelpFormatter.Builder.setShowDeprecated</code> with a <code>Function&lt;Option, String&gt;</code>
                       will use the output of the function as the description for the option.</li>
           </ul>
           <p>
@@ -710,7 +710,7 @@ public static void main(String[] args) {
           </p>
               <pre><code>
   void doSomething(Options options) {
-      Function&lt;Option, String> disp = option -> String.format("%s. %s", HelpFormatter.getDescription(option),
+      Function&lt;Option, String&gt; disp = option -&gt; String.format("%s. %s", HelpFormatter.getDescription(option),
                   option.getDeprecated().toString());
       HelpFormatter formatter = HelpFormatter.builder().setShowDeprecated(disp).get();
       formatter.printHelp("Command line syntax:", options);
@@ -720,8 +720,8 @@ public static void main(String[] args) {
               </p>
               <pre><code>
   usage: Command line syntax:
-  -count &lt;arg>   the number of things
-  -n &lt;arg>       the number of things. Deprecated for removal since now:
+  -count &lt;arg&gt;   the number of things
+  -n &lt;arg&gt;       the number of things. Deprecated for removal since now:
   Use '-count' instead</code></pre>
       </section>
       </section>
