@@ -5,7 +5,6 @@ Apache Commons CLI provides a simple API for presenting, processing, and validat
 
 This is a feature and maintenance release. Java 8 or later is required.
 
-
 New Features
 ------------
 
