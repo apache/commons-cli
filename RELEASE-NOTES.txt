@@ -1,4 +1,67 @@
 Apache Commons CLI 1.10.0 Release Notes
+------------------------------------------------
+
+The Apache Commons CLI team is pleased to announce the release of Apache Commons CLI 1.10.0.
+
+Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+
+New Features
+------------
+
+* CLI-339:  Help formatter extension in the new package #314. Thanks to Claude Warren, Gary Gregory.
+*           CommandLine.Builder implements Supplier<CommandLine>. Thanks to Gary Gregory.
+*           DefaultParser.Builder implements Supplier<DefaultParser>. Thanks to Gary Gregory.
+* CLI-340:  Add CommandLine.getParsedOptionValues() #334. Thanks to Claude Warren, Gary Gregory.
+* CLI-333:  org.apache.commons.cli.Option.Builder implements Supplier<Option>. Thanks to Claude Warren, Gary Gregory.
+
+Fixed Bugs
+----------
+
+*           Deprecate CommandLine.Builder() in favor of CommandLine.builder(). Thanks to Gary Gregory.
+*           Deprecate DeprecatedAttributes.Builder() in favor of DeprecatedAttributes.builder(). Thanks to Gary Gregory.
+*           Refactor default parser test #294. Thanks to Dávid Szigecsán.
+*           Port to JUnit 5. Thanks to Gary Gregory.
+*           Generics for Converter should use Exception not Throwable. Thanks to Gary Gregory.
+*           Pick up maven-antrun-plugin version from parent POM org.apache:apache. Thanks to Gary Gregory.
+*           Javadoc is missing its Overview page. Thanks to Gary Gregory.
+*           Get mockito version from parent pom (#351). Thanks to Arnout Engelen.
+*           Remove -nouses directive from maven-bundle-plugin. OSGi package imports now state 'uses' definitions for package imports, this doesn't affect JPMS (from org.apache.commons:commons-parent:80). Thanks to Gary Gregory.
+*           Deprecate PatternOptionBuilder.PatternOptionBuilder(). Thanks to Arnout Engelen.
+* CLI-341:  HelpFormatter infinite loop with 0 width input. Thanks to Ruiqi Dong, Gary Gregory.
+* CLI-349:  Fail faster with a more precise NullPointerException: Option.processValue() throws NullPointerException when passed null value with value separator configured. Thanks to Leo Fernandes, Gary Gregory.
+* CLI-344:  Fail faster with a more precise NullPointerException: DefaultParser.parse() throws NullPointerException when options parameter is null. Thanks to Ruiqi Dong, Gary Gregory.
+* CLI-347:  Options.addOptionGroup(OptionGroup) does not remove required options from requiredOpts list. Thanks to Ruiqi Dong, Gary Gregory.
+*           org.apache.commons.cli.Option.Builder.get() should throw IllegalStateException instead of IllegalArgumentException. Thanks to Gary Gregory.
+*           org.apache.commons.cli.Option.processValue(String) should throw IllegalStateException instead of IllegalArgumentException. Thanks to Gary Gregory.
+*           org.apache.commons.cli.OptionBuilder.create() should throw IllegalStateException instead of IllegalArgumentException. Thanks to Gary Gregory.
+
+Updates
+-------
+
+*           Bump org.apache.commons:commons-parent from 72 to 85 #302, #304, #310, #315, #320, #327, #371. Thanks to Gary Gregory, Dependabot.
+*           [test] Bump commons-io:commons-io from 2.16.1 to 2.20.0 #309, #337. Thanks to Gary Gregory, Dependabot.
+*           [test] Bump org.apache.commons:commons-text from 1.12.0 to 1.14.0 #344. Thanks to Gary Gregory, Dependabot.
+*           Update site documentation to https://maven.apache.org/xsd/xdoc-2.0.xsd. Thanks to Gary Gregory.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-cli/changes.html
+
+For complete information on Apache Commons CLI, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons CLI website:
+
+https://commons.apache.org/proper/commons-cli/
+
+Download page: https://commons.apache.org/proper/commons-cli/download_cli.cgi
+
+Have fun!
+The Apache Commons Team
+
+------------------------------------------------------------------------------
+
+Apache Commons CLI 1.10.0 Release Notes
 ---------------------------------------
 
 Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
