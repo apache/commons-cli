@@ -17,6 +17,7 @@
 package org.apache.commons.cli.help;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +131,18 @@ class OptionFormatterTest {
         option = Option.builder().option("ot").longOpt("opt").hasArg().get();
         underTest = OptionFormatter.from(option);
         assertEquals("[-ot <arg>]", underTest.toSyntaxOption(), "optional multi char opt arg failed");
+    }
+
+    @Test
+    void testCli343Part1() {
+        assertThrows(IllegalStateException.class, () -> Option.builder().required(false).build());
+        assertThrows(IllegalStateException.class, () -> Option.builder().required(false).get());
+    }
+
+    @Test
+    void testCli343Part2() {
+        assertThrows(IllegalStateException.class, () -> Option.builder().desc("description").build());
+        assertThrows(IllegalStateException.class, () -> Option.builder().desc("description").get());
     }
 
     @ParameterizedTest(name = "{index} {0}")
