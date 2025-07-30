@@ -428,15 +428,15 @@ public abstract class AbstractHelpFormatter {
         for (final Option option : optList) {
             // get the next Option
             // check if the option is part of an OptionGroup
-            final OptionGroup group = lookup.apply(option);
+            final OptionGroup optionGroup = lookup.apply(option);
             // if the option is part of a group
-            if (group != null) {
+            if (optionGroup != null) {
                 // and if the group has not already been processed
-                if (!processedGroups.contains(group)) {
+                if (!processedGroups.contains(optionGroup)) {
                     // add the group to the processed list
-                    processedGroups.add(group);
+                    processedGroups.add(optionGroup);
                     // add the usage clause
-                    buff.append(prefix).append(toSyntaxOptions(group));
+                    buff.append(prefix).append(toSyntaxOptions(optionGroup));
                     prefix = " ";
                 }
                 // otherwise the option was displayed in the group previously so ignore it.

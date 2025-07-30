@@ -52,9 +52,8 @@ class HelpFormatterTest {
     static Stream<Arguments> deprecatedOptionsProvider() {
         final List<Arguments> lst = new ArrayList<>();
         Option option = Option.builder("a").longOpt("aaa").desc("dddd dddd dddd")
-                .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("now")
-                        .setDescription("Why why why").get())
-                .build();
+        .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("now")
+                .setDescription("Why why why").get()).get();
 
         HelpFormatter hf = HelpFormatter.builder().get();
         lst.add(Arguments.of(hf, option, "[Deprecated] dddd dddd dddd"));
@@ -69,9 +68,8 @@ class HelpFormatterTest {
         lst.add(Arguments.of(hf, option, "dddd dddd dddd [Deprecated for removal since now: Why why why]"));
 
         option = Option.builder("a").longOpt("aaa")
-                .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("now")
-                        .setDescription("Why why why").get())
-                .build();
+        .deprecated(DeprecatedAttributes.builder().setForRemoval(true).setSince("now")
+                .setDescription("Why why why").get()).get();
 
         hf = HelpFormatter.builder().get();
         lst.add(Arguments.of(hf, option, "[Deprecated]"));
@@ -141,7 +139,7 @@ class HelpFormatterTest {
 
     @Test
     void testDefaultArgName() {
-        final Option option = Option.builder("f").hasArg().required(true).build();
+        final Option option = Option.builder("f").hasArg().required(true).get();
 
         final Options options = new Options();
         options.addOption(option);
@@ -157,14 +155,14 @@ class HelpFormatterTest {
 
     @ParameterizedTest
     @ValueSource(ints = { -100, -1, 0 })
-    public void testDeprecatedFindWrapPosZeroWidth(final int width) {
+    void testDeprecatedFindWrapPosZeroWidth(final int width) {
         final int pos = new HelpFormatter().findWrapPos("Hello World", width, 0);
         assertEquals(width, pos);
     }
 
     @ParameterizedTest
     @ValueSource(ints = { -100, -1, 0 })
-    public void testDeprecatedPrintOptionsZeroWidth(final int width) {
+    void testDeprecatedPrintOptionsZeroWidth(final int width) {
         final Options options = new Options();
         options.addOption("h", "help", false, "Show help");
         final StringWriter out = new StringWriter();
@@ -297,8 +295,8 @@ class HelpFormatterTest {
     void testHelpWithLongOptSeparator() {
         final Options options = new Options();
         options.addOption("f", true, "the file");
-        options.addOption(Option.builder("s").longOpt("size").desc("the size").hasArg().argName("SIZE").build());
-        options.addOption(Option.builder().longOpt("age").desc("the age").hasArg().build());
+        options.addOption(Option.builder("s").longOpt("size").desc("the size").hasArg().argName("SIZE").get());
+        options.addOption(Option.builder().longOpt("age").desc("the age").hasArg().get());
 
         final HelpFormatter formatter = new HelpFormatter();
         assertEquals(HelpFormatter.DEFAULT_LONG_OPT_SEPARATOR, formatter.getLongOptSeparator());
@@ -372,31 +370,26 @@ class HelpFormatterTest {
         final Option trackerRun = new Option("t", "tracker", false, "Create NLT cache entries only for tracker items");
         //@formatter:off
         final Option timeLimit = Option.builder("l")
-                .longOpt("limit")
-                .hasArg()
-                .valueSeparator()
-                .desc("Set time limit for execution, in mintues")
-                .build();
+        .longOpt("limit")
+        .hasArg()
+        .valueSeparator()
+        .desc("Set time limit for execution, in mintues").get();
         final Option age = Option.builder("a").longOpt("age")
-                .hasArg()
-                .valueSeparator()
-                .desc("Age (in days) of cache item before being recomputed")
-                .build();
+        .hasArg()
+        .valueSeparator()
+        .desc("Age (in days) of cache item before being recomputed").get();
         final Option server = Option.builder("s").longOpt("server")
-                .hasArg()
-                .valueSeparator()
-                .desc("The NLT server address")
-                .build();
+        .hasArg()
+        .valueSeparator()
+        .desc("The NLT server address").get();
         final Option numResults = Option.builder("r").longOpt("results")
-                .hasArg()
-                .valueSeparator()
-                .desc("Number of results per item")
-                .build();
+        .hasArg()
+        .valueSeparator()
+        .desc("Number of results per item").get();
         final Option configFile = Option.builder().longOpt("config")
-                .hasArg()
-                .valueSeparator()
-                .desc("Use the specified configuration file")
-                .build();
+        .hasArg()
+        .valueSeparator()
+        .desc("Use the specified configuration file").get();
         //@formatter:on
 
         final Options mOptions = new Options();
@@ -522,8 +515,8 @@ class HelpFormatterTest {
         final String [] expected = {"usage: Command syntax", "Header", "Options            Since   Description",
                 "  -n,--no-since    -          Description for n", "  -W,--with-since  1.19.0     Descripton for W", "footer"};
         final Options options = new Options()
-                .addOption(Option.builder("W").longOpt("with-since").since("1.19.0").desc("Descripton for W").build())
-                .addOption(Option.builder("n").longOpt("no-since").desc("Description for n").build());
+                .addOption(Option.builder("W").longOpt("with-since").since("1.19.0").desc("Descripton for W").get())
+                .addOption(Option.builder("n").longOpt("no-since").desc("Description for n").get());
 
         final HelpFormatter formatter = HelpFormatter.builder().setShowSince(true).get();
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -535,13 +528,13 @@ class HelpFormatterTest {
 
     @Test
     void testPrintOptionGroupUsage() {
-        final OptionGroup group = new OptionGroup();
-        group.addOption(Option.builder("a").build());
-        group.addOption(Option.builder("b").build());
-        group.addOption(Option.builder("c").build());
+        final OptionGroup optionGroup = new OptionGroup();
+        optionGroup.addOption(Option.builder("a").get());
+        optionGroup.addOption(Option.builder("b").get());
+        optionGroup.addOption(Option.builder("c").get());
 
         final Options options = new Options();
-        options.addOptionGroup(group);
+        options.addOptionGroup(optionGroup);
 
         final StringWriter out = new StringWriter();
 
@@ -612,14 +605,14 @@ class HelpFormatterTest {
 
     @Test
     void testPrintRequiredOptionGroupUsage() {
-        final OptionGroup group = new OptionGroup();
-        group.addOption(Option.builder("a").build());
-        group.addOption(Option.builder("b").build());
-        group.addOption(Option.builder("c").build());
-        group.setRequired(true);
+        final OptionGroup optionGroup = new OptionGroup();
+        optionGroup.addOption(Option.builder("a").get());
+        optionGroup.addOption(Option.builder("b").get());
+        optionGroup.addOption(Option.builder("c").get());
+        optionGroup.setRequired(true);
 
         final Options options = new Options();
-        options.addOptionGroup(group);
+        options.addOptionGroup(optionGroup);
 
         final StringWriter out = new StringWriter();
 
@@ -686,8 +679,8 @@ class HelpFormatterTest {
         final String[] expected = {"Options            Since   Description", "  -n,--no-since    -          Description for n",
             "  -W,--with-since  1.19.0     Descripton for W"};
         final Options options = new Options()
-                .addOption(Option.builder("W").longOpt("with-since").since("1.19.0").desc("Descripton for W").build())
-                .addOption(Option.builder("n").longOpt("no-since").desc("Description for n").build());
+                .addOption(Option.builder("W").longOpt("with-since").since("1.19.0").desc("Descripton for W").get())
+                .addOption(Option.builder("n").longOpt("no-since").desc("Description for n").get());
         final HelpFormatter formatter = HelpFormatter.builder().setShowSince(true).get();
 
         final StringBuffer sb = new StringBuffer();
@@ -808,8 +801,8 @@ class HelpFormatterTest {
     void testUsageWithLongOptSeparator() {
         final Options options = new Options();
         options.addOption("f", true, "the file");
-        options.addOption(Option.builder("s").longOpt("size").desc("the size").hasArg().argName("SIZE").build());
-        options.addOption(Option.builder().longOpt("age").desc("the age").hasArg().build());
+        options.addOption(Option.builder("s").longOpt("size").desc("the size").hasArg().argName("SIZE").get());
+        options.addOption(Option.builder().longOpt("age").desc("the age").hasArg().get());
 
         final HelpFormatter formatter = new HelpFormatter();
         formatter.setLongOptSeparator("=");

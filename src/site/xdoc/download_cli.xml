@@ -56,10 +56,12 @@ limitations under the License.
  |                                                                      |
  +======================================================================+
 -->
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 https://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
     <title>Download Apache Commons CLI</title>
-    <author email="dev@commons.apache.org">Apache Commons Documentation Team</author>
+    <author email="dev@commons.apache.org">Apache Commons Team</author>
   </properties>
   <body>
     <section name="Download Apache Commons CLI">
@@ -79,7 +81,7 @@ limitations under the License.
         mirrors (at the end of the mirrors list) that should be
         available.
         <br></br>
-        [if-any logo]<a href="[link]"><img align="right" src="[logo]" border="0"></img></a>[end]
+        [if-any logo]<a href="[link]"><img align="right" src="[logo]" border="0" alt="Logo"></img></a>[end]
       </p>
 
       <form action="[location]" method="get" id="SelectMirror">

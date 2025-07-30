@@ -33,9 +33,9 @@ class AlreadySelectedExceptionTest {
         assertEquals("a", new AlreadySelectedException("a").getMessage());
         assertNull(new AlreadySelectedException("a").getOption());
         final Option option = new Option("a", "d");
-        final OptionGroup group = new OptionGroup();
-        assertNotNull(new AlreadySelectedException(group, option).getMessage());
-        assertEquals(option, new AlreadySelectedException(group, option).getOption());
-        assertEquals(group, new AlreadySelectedException(group, option).getOptionGroup());
+        final OptionGroup optionGroup = new OptionGroup();
+        assertNotNull(new AlreadySelectedException(optionGroup, option).getMessage());
+        assertEquals(option, new AlreadySelectedException(optionGroup, option).getOption());
+        assertEquals(optionGroup, new AlreadySelectedException(optionGroup, option).getOptionGroup());
     }
 }

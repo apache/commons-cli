@@ -37,46 +37,40 @@ class BugCLI266Test {
     private final List<String> sortOrder = Arrays.asList("d", "f", "h", "o", "p", "s", "t", "w", "x");
 
     private void buildOptionsGroup(final Options options) {
-        final OptionGroup firstGroup = new OptionGroup();
-        final OptionGroup secondGroup = new OptionGroup();
-        firstGroup.setRequired(true);
-        secondGroup.setRequired(true);
+        final OptionGroup optionGroup1 = new OptionGroup();
+        final OptionGroup optionGroup2 = new OptionGroup();
+        optionGroup1.setRequired(true);
+        optionGroup2.setRequired(true);
 
         //@formatter:off
-        firstGroup.addOption(Option.builder("d")
-                .longOpt("db")
-                .hasArg()
-                .argName("table-name")
-                .build());
-        firstGroup.addOption(Option.builder("f")
-                .longOpt("flat-file")
-                .hasArg()
-                .argName("input.csv")
-                .build());
+        optionGroup1.addOption(Option.builder("d")
+        .longOpt("db")
+        .hasArg()
+        .argName("table-name").get());
+        optionGroup1.addOption(Option.builder("f")
+        .longOpt("flat-file")
+        .hasArg()
+        .argName("input.csv").get());
         //@formatter:on
-        options.addOptionGroup(firstGroup);
+        options.addOptionGroup(optionGroup1);
         //@formatter:off
-        secondGroup.addOption(Option.builder("x")
-                .hasArg()
-                .argName("arg1")
-                .build());
-        secondGroup.addOption(Option.builder("s")
-                .build());
-        secondGroup.addOption(Option.builder("p")
-                .hasArg()
-                .argName("arg1")
-                .build());
+        optionGroup2.addOption(Option.builder("x")
+        .hasArg()
+        .argName("arg1").get());
+        optionGroup2.addOption(Option.builder("s").get());
+        optionGroup2.addOption(Option.builder("p")
+        .hasArg()
+        .argName("arg1").get());
         //@formatter:on
-        options.addOptionGroup(secondGroup);
+        options.addOptionGroup(optionGroup2);
     }
 
     private Options getOptions() {
         final Options options = new Options();
         //@formatter:off
         final Option help = Option.builder("h")
-                .longOpt("help")
-                .desc("Prints this help message")
-                .build();
+        .longOpt("help")
+        .desc("Prints this help message").get();
         //@formatter:on
         options.addOption(help);
 
@@ -84,19 +78,16 @@ class BugCLI266Test {
 
         //@formatter:off
         final Option t = Option.builder("t")
-                .required()
-                .hasArg()
-                .argName("file")
-                .build();
+        .required()
+        .hasArg()
+        .argName("file").get();
         final Option w = Option.builder("w")
-                .required()
-                .hasArg()
-                .argName("word")
-                .build();
+        .required()
+        .hasArg()
+        .argName("word").get();
         final Option o = Option.builder("o")
-                .hasArg()
-                .argName("directory")
-                .build();
+        .hasArg()
+        .argName("directory").get();
         //@formatter:on
         options.addOption(t);
         options.addOption(w);

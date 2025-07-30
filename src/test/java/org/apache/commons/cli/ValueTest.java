@@ -56,7 +56,7 @@ class ValueTest {
         opts.addOption(OptionBuilder.hasOptionalArgs(2).withLongOpt("hide").create());
         opts.addOption(OptionBuilder.hasOptionalArgs(2).create('i'));
         opts.addOption(OptionBuilder.hasOptionalArgs().create('j'));
-        opts.addOption(Option.builder().option("v").hasArg().valueSeparator().build());
+        opts.addOption(Option.builder().option("v").hasArg().valueSeparator().get());
 
         final String[] args = { "-a", "-b", "foo", "--c", "--d", "bar" };
 

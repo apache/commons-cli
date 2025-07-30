@@ -152,12 +152,103 @@ class DefaultParserTest extends AbstractParserTestCase {
         }
     }
 
+    @Override
+    @BeforeEach
+    public void setUp() {
+        super.setUp();
+        parser = new DefaultParser();
+    }
+
     @Test
-    void chainingParsersIgnoreHappyPath() throws ParseException {
-        final Option a = Option.builder().option("a").longOpt("first-letter").build();
-        final Option b = Option.builder().option("b").longOpt("second-letter").build();
-        final Option c = Option.builder().option("c").longOpt("third-letter").build();
-        final Option d = Option.builder().option("d").longOpt("fourth-letter").build();
+    void testBuilder() {
+        // @formatter:off
+        final Builder builder = DefaultParser.builder()
+                .setStripLeadingAndTrailingQuotes(false)
+                .setAllowPartialMatching(false)
+                .setDeprecatedHandler(null);
+        // @formatter:on
+        parser = builder.build();
+        assertEquals(DefaultParser.class, parser.getClass());
+        parser = builder.get();
+        assertEquals(DefaultParser.class, parser.getClass());
+    }
+
+    @Test
+    void testDeprecated() throws ParseException {
+        final Set<Option> handler = new HashSet<>();
+        parser = DefaultParser.builder().setDeprecatedHandler(handler::add).build();
+        final Option opt1 = Option.builder().option("d1").deprecated().get();
+        // @formatter:off
+        final Option opt2 = Option.builder().option("d2").deprecated(DeprecatedAttributes.builder()
+        .setForRemoval(true)
+        .setSince("1.0")
+        .setDescription("Do this instead.").get()).get();
+        // @formatter:on
+        final Option opt3 = Option.builder().option("a").get();
+        // @formatter:off
+        final CommandLine cl = parser.parse(new Options()
+                .addOption(opt1)
+                .addOption(opt2)
+                .addOption(opt3),
+                new String[] {"-d1", "-d2", "-a"});
+        // @formatter:on
+        // Trigger handler:
+        assertTrue(cl.hasOption(opt1.getOpt()));
+        assertTrue(cl.hasOption(opt2.getOpt()));
+        assertTrue(cl.hasOption(opt3.getOpt()));
+        // Assert handler was triggered
+        assertTrue(handler.contains(opt1));
+        assertTrue(handler.contains(opt2));
+        assertFalse(handler.contains(opt3));
+    }
+
+    @Test
+    void testLegacyStopAtNonOption() throws ParseException {
+        final Option a = Option.builder().option("a").longOpt("first-letter").get();
+        final Option b = Option.builder().option("b").longOpt("second-letter").get();
+        final Option c = Option.builder().option("c").longOpt("third-letter").get();
+
+        final Options options = new Options();
+        options.addOption(a);
+        options.addOption(b);
+        options.addOption(c);
+
+        final String[] args = {"-a", "-b", "-c", "-d", "arg1", "arg2"}; // -d is rogue option
+
+        final DefaultParser parser = new DefaultParser();
+
+        final CommandLine commandLine = parser.parse(options, args, null, true);
+        assertEquals(3, commandLine.getOptions().length);
+        assertEquals(3, commandLine.getArgs().length);
+        assertTrue(commandLine.getArgList().contains("-d"));
+        assertTrue(commandLine.getArgList().contains("arg1"));
+        assertTrue(commandLine.getArgList().contains("arg2"));
+
+        final UnrecognizedOptionException e = assertThrows(UnrecognizedOptionException.class, () -> parser.parse(options, args, null, false));
+        assertTrue(e.getMessage().contains("-d"));
+    }
+
+    @Override
+    @Test
+    @Disabled("Test case handled in the parameterized tests as \"DEFAULT behavior\"")
+    void testLongOptionWithEqualsQuoteHandling() throws Exception {
+    }
+
+    @ParameterizedTest(name = "{index}. {0}")
+    @ArgumentsSource(ExternalArgumentsProvider.class)
+    void testParameterized(final String testName, final CommandLineParser parser, final String[] args, final String expected,
+        final String option, final String message) throws Exception {
+        final CommandLine cl = parser.parse(options, args);
+
+        assertEquals(expected, cl.getOptionValue(option), message);
+    }
+
+    @Test
+    void testParseIgnoreHappyPath() throws ParseException {
+        final Option a = Option.builder().option("a").longOpt("first-letter").get();
+        final Option b = Option.builder().option("b").longOpt("second-letter").get();
+        final Option c = Option.builder().option("c").longOpt("third-letter").get();
+        final Option d = Option.builder().option("d").longOpt("fourth-letter").get();
 
         final Options baseOptions = new Options();
         baseOptions.addOption(a);
@@ -202,10 +293,10 @@ class DefaultParserTest extends AbstractParserTestCase {
     }
 
     @Test
-    void chainingParsersIgnoreNonHappyPath() throws ParseException {
-        final Option a = Option.builder().option("a").longOpt("first-letter").build();
-        final Option b = Option.builder().option("b").longOpt("second-letter").build();
-        final Option c = Option.builder().option("c").longOpt("third-letter").build();
+    void testParseIgnoreNonHappyPath() throws ParseException {
+        final Option a = Option.builder().option("a").longOpt("first-letter").get();
+        final Option b = Option.builder().option("b").longOpt("second-letter").get();
+        final Option c = Option.builder().option("c").longOpt("third-letter").get();
 
         final Options baseOptions = new Options();
         baseOptions.addOption(a);
@@ -229,11 +320,17 @@ class DefaultParserTest extends AbstractParserTestCase {
     }
 
     @Test
-    void chainingParsersSkipHappyPath() throws ParseException {
-        final Option a = Option.builder().option("a").longOpt("first-letter").build();
-        final Option b = Option.builder().option("b").longOpt("second-letter").build();
-        final Option c = Option.builder().option("c").longOpt("third-letter").build();
-        final Option d = Option.builder().option("d").longOpt("fourth-letter").build();
+    void testParseNullOption() throws ParseException {
+        // Edge case
+        assertThrows(NullPointerException.class, () -> new DefaultParser().parse(null, null, DefaultParser.NonOptionAction.IGNORE, "-a"));
+    }
+
+    @Test
+    void testParseSkipHappyPath() throws ParseException {
+        final Option a = Option.builder().option("a").longOpt("first-letter").get();
+        final Option b = Option.builder().option("b").longOpt("second-letter").get();
+        final Option c = Option.builder().option("c").longOpt("third-letter").get();
+        final Option d = Option.builder().option("d").longOpt("fourth-letter").get();
 
         final Options baseOptions = new Options();
         baseOptions.addOption(a);
@@ -278,10 +375,10 @@ class DefaultParserTest extends AbstractParserTestCase {
     }
 
     @Test
-    void chainingParsersSkipNonHappyPath() throws ParseException {
-        final Option a = Option.builder().option("a").longOpt("first-letter").build();
-        final Option b = Option.builder().option("b").longOpt("second-letter").build();
-        final Option c = Option.builder().option("c").longOpt("third-letter").build();
+    void testParseSkipNonHappyPath() throws ParseException {
+        final Option a = Option.builder().option("a").longOpt("first-letter").get();
+        final Option b = Option.builder().option("b").longOpt("second-letter").get();
+        final Option c = Option.builder().option("c").longOpt("third-letter").get();
 
         final Options baseOptions = new Options();
         baseOptions.addOption(a);
@@ -392,71 +489,6 @@ class DefaultParserTest extends AbstractParserTestCase {
         assertEquals("yellow", colorValues[2]);
         assertEquals("bar", fooValue);
         assertEquals("b", commandLine.getArgs()[0]);
-    }
-
-    @Override
-    @BeforeEach
-    public void setUp() {
-        super.setUp();
-        parser = new DefaultParser();
-    }
-
-    @Test
-    void testBuilder() {
-        // @formatter:off
-        final Builder builder = DefaultParser.builder()
-                .setStripLeadingAndTrailingQuotes(false)
-                .setAllowPartialMatching(false)
-                .setDeprecatedHandler(null);
-        // @formatter:on
-        parser = builder.build();
-        assertEquals(DefaultParser.class, parser.getClass());
-        parser = builder.get();
-        assertEquals(DefaultParser.class, parser.getClass());
-    }
-
-    @Test
-    void testDeprecated() throws ParseException {
-        final Set<Option> handler = new HashSet<>();
-        parser = DefaultParser.builder().setDeprecatedHandler(handler::add).build();
-        final Option opt1 = Option.builder().option("d1").deprecated().build();
-        // @formatter:off
-        final Option opt2 = Option.builder().option("d2").deprecated(DeprecatedAttributes.builder()
-                .setForRemoval(true)
-                .setSince("1.0")
-                .setDescription("Do this instead.").get()).build();
-        // @formatter:on
-        final Option opt3 = Option.builder().option("a").build();
-        // @formatter:off
-        final CommandLine cl = parser.parse(new Options()
-                .addOption(opt1)
-                .addOption(opt2)
-                .addOption(opt3),
-                new String[] {"-d1", "-d2", "-a"});
-        // @formatter:on
-        // Trigger handler:
-        assertTrue(cl.hasOption(opt1.getOpt()));
-        assertTrue(cl.hasOption(opt2.getOpt()));
-        assertTrue(cl.hasOption(opt3.getOpt()));
-        // Assert handler was triggered
-        assertTrue(handler.contains(opt1));
-        assertTrue(handler.contains(opt2));
-        assertFalse(handler.contains(opt3));
-    }
-
-    @Override
-    @Test
-    @Disabled("Test case handled in the parameterized tests as \"DEFAULT behavior\"")
-    void testLongOptionWithEqualsQuoteHandling() throws Exception {
-    }
-
-    @ParameterizedTest(name = "{index}. {0}")
-    @ArgumentsSource(ExternalArgumentsProvider.class)
-    void testParameterized(final String testName, final CommandLineParser parser, final String[] args, final String expected,
-        final String option, final String message) throws Exception {
-        final CommandLine cl = parser.parse(options, args);
-
-        assertEquals(expected, cl.getOptionValue(option), message);
     }
 
     @Override

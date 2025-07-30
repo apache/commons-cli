@@ -28,7 +28,7 @@ public class AlreadySelectedException extends ParseException {
     private static final long serialVersionUID = 3674381532418544760L;
 
     /** The option group selected. */
-    private final OptionGroup group;
+    private final OptionGroup optionGroup;
 
     /** The option that triggered the exception. */
     private final Option option;
@@ -36,13 +36,13 @@ public class AlreadySelectedException extends ParseException {
     /**
      * Constructs a new {@code AlreadySelectedException} for the specified option group.
      *
-     * @param group the option group already selected
+     * @param optionGroup the option group already selected
      * @param option the option that triggered the exception
      * @since 1.2
      */
-    public AlreadySelectedException(final OptionGroup group, final Option option) {
-        this(String.format("The option '%s' was specified but an option from this group has already been selected: '%s'", option.getKey(), group.getSelected()),
-                group, option);
+    public AlreadySelectedException(final OptionGroup optionGroup, final Option option) {
+        this(String.format("The option '%s' was specified but an option from this group has already been selected: '%s'", option.getKey(),
+                optionGroup.getSelected()), optionGroup, option);
     }
 
     /**
@@ -54,9 +54,9 @@ public class AlreadySelectedException extends ParseException {
         this(message, null, null);
     }
 
-    private AlreadySelectedException(final String message, final OptionGroup group, final Option option) {
+    private AlreadySelectedException(final String message, final OptionGroup optionGroup, final Option option) {
         super(message);
-        this.group = group;
+        this.optionGroup = optionGroup;
         this.option = option;
     }
 
@@ -77,6 +77,6 @@ public class AlreadySelectedException extends ParseException {
      * @since 1.2
      */
     public OptionGroup getOptionGroup() {
-        return group;
+        return optionGroup;
     }
 }

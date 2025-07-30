@@ -45,11 +45,11 @@
     </menu>
     <!-- Specific to this component: -->
     <menu name="User Guide">
-      <item name="Getting started"      href="/introduction.html"/>
-      <item name="Using CLI"            href="/usage.html"/>
-      <item name="Option properties"    href="/properties.html"/>
-      <item name="Javadoc"              href="/apidocs/index.html"/>
-      <item name="Javadoc Archive"      href="https://javadoc.io/doc/commons-cli/commons-cli/latest/index.html"/>
+      <item name="Getting started"    href="/apidocs/index.html#Introducing"/>
+      <item name="Using CLI"          href="/apidocs/index.html#Using"/>
+      <item name="Option properties"  href="/apidocs/index.html#Properties"/>
+      <item name="Javadoc"            href="/apidocs/index.html"/>
+      <item name="Javadoc Archive"    href="https://javadoc.io/doc/commons-cli/commons-cli/latest/index.html"/>
     </menu>
   </body>
 </site>

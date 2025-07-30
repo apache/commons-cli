@@ -160,13 +160,13 @@ class BugsTest {
         // Therefore, place them in an option group
 
         String[] argv = {"-exec", "-exec_opt1", "-exec_opt2"};
-        final OptionGroup grp = new OptionGroup();
+        final OptionGroup optionGroup = new OptionGroup();
 
-        grp.addOption(new Option("exec", false, "description for this option"));
+        optionGroup.addOption(new Option("exec", false, "description for this option"));
 
-        grp.addOption(new Option("rep", false, "description for this option"));
+        optionGroup.addOption(new Option("rep", false, "description for this option"));
 
-        mainOptions.addOptionGroup(grp);
+        mainOptions.addOptionGroup(optionGroup);
 
         // for the exec option, there are 2 options...
         final Options execOptions = new Options();

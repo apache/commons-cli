@@ -191,7 +191,7 @@ public class PatternOptionBuilder {
                             .required(required)
                             .type(type)
                             .converter(converter)
-                            .build();
+                            .get();
                     // @formatter:on
                     // we have a previous one to deal with
                     options.addOption(option);
@@ -213,7 +213,7 @@ public class PatternOptionBuilder {
         }
 
         if (opt != Char.SP) {
-            final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type).build();
+            final Option option = Option.builder(String.valueOf(opt)).hasArg(type != null).required(required).type(type).get();
 
             // we have a final one to deal with
             options.addOption(option);

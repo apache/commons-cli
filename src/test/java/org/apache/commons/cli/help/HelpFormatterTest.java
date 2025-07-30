@@ -42,19 +42,19 @@ class HelpFormatterTest {
         // @formatter:off
         return new Options()
             .addOptionGroup(new OptionGroup()
-                .addOption(Option.builder("1").longOpt("one").hasArg().desc("English one").build())
-                .addOption(Option.builder().longOpt("aon").hasArg().desc("Irish one").build())
-                .addOption(Option.builder().longOpt("uno").hasArg().desc("Spanish one").build())
+                .addOption(Option.builder("1").longOpt("one").hasArg().desc("English one").get())
+                .addOption(Option.builder().longOpt("aon").hasArg().desc("Irish one").get())
+                .addOption(Option.builder().longOpt("uno").hasArg().desc("Spanish one").get())
             )
             .addOptionGroup(new OptionGroup()
-                .addOption(Option.builder().longOpt("two").hasArg().desc("English two").build())
-                .addOption(Option.builder().longOpt("dó").hasArg().desc("Irish twp").build())
-                .addOption(Option.builder().longOpt("dos").hasArg().desc("Spanish two").build())
+                .addOption(Option.builder().longOpt("two").hasArg().desc("English two").get())
+                .addOption(Option.builder().longOpt("dó").hasArg().desc("Irish twp").get())
+                .addOption(Option.builder().longOpt("dos").hasArg().desc("Spanish two").get())
             )
             .addOptionGroup(new OptionGroup()
-                .addOption(Option.builder().longOpt("three").hasArg().desc("English three").build())
-                .addOption(Option.builder().longOpt("trí").hasArg().desc("Irish three").build())
-                .addOption(Option.builder().longOpt("tres").hasArg().desc("Spanish three").build())
+                .addOption(Option.builder().longOpt("three").hasArg().desc("English three").get())
+                .addOption(Option.builder().longOpt("trí").hasArg().desc("Irish three").get())
+                .addOption(Option.builder().longOpt("tres").hasArg().desc("Spanish three").get())
             );
         // @formatter:on
     }
@@ -75,7 +75,7 @@ class HelpFormatterTest {
         final TextHelpAppendable serializer = new TextHelpAppendable(sb);
         HelpFormatter formatter = HelpFormatter.builder().setHelpAppendable(serializer).get();
 
-        final Options options = new Options().addOption(Option.builder("a").since("1853").hasArg().desc("aaaa aaaa aaaa aaaa aaaa").build());
+        final Options options = new Options().addOption(Option.builder("a").since("1853").hasArg().desc("aaaa aaaa aaaa aaaa aaaa").get());
 
         List<String> expected = new ArrayList<>();
         expected.add(" usage:  commandSyntax [-a <arg>]");
@@ -234,7 +234,7 @@ class HelpFormatterTest {
         final OptionFormatter.Builder ofBuilder = OptionFormatter.builder().setOptPrefix("Just Another ");
         underTest.setOptionFormatBuilder(ofBuilder);
         final HelpFormatter formatter = underTest.get();
-        final OptionFormatter oFormatter = formatter.getOptionFormatter(Option.builder("thing").build());
+        final OptionFormatter oFormatter = formatter.getOptionFormatter(Option.builder("thing").get());
         assertEquals("Just Another thing", oFormatter.getOpt());
 
     }
@@ -243,7 +243,7 @@ class HelpFormatterTest {
     void testSetOptionGroupSeparatorTest() {
         final HelpFormatter.Builder underTest = HelpFormatter.builder().setOptionGroupSeparator(" and ");
         final HelpFormatter formatter = underTest.get();
-        final String result = formatter.toSyntaxOptions(new OptionGroup().addOption(Option.builder("this").build()).addOption(Option.builder("that").build()));
+        final String result = formatter.toSyntaxOptions(new OptionGroup().addOption(Option.builder("this").get()).addOption(Option.builder("that").get()));
         assertTrue(result.contains("-that and -this"));
     }
 
@@ -269,9 +269,9 @@ class HelpFormatterTest {
     void testSortOptionsTest() {
         // @formatter:off
         final Options options = new Options()
-            .addOption(Option.builder("a").longOpt("optA").hasArg().desc("The description of A").build())
-            .addOption(Option.builder("b").longOpt("BOpt").hasArg().desc("B description").build())
-            .addOption(Option.builder().longOpt("COpt").hasArg().desc("A COpt description").build());
+            .addOption(Option.builder("a").longOpt("optA").hasArg().desc("The description of A").get())
+            .addOption(Option.builder("b").longOpt("BOpt").hasArg().desc("B description").get())
+            .addOption(Option.builder().longOpt("COpt").hasArg().desc("A COpt description").get());
         // @formatter:on
 
         HelpFormatter underTest = HelpFormatter.builder().get();
@@ -317,19 +317,19 @@ class HelpFormatterTest {
     void testToSyntaxOptionGroupTest() {
         final HelpFormatter underTest = HelpFormatter.builder().get();
         // @formatter:off
-        final OptionGroup group = new OptionGroup()
-            .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
-            .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
-            .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build())
-            .addOption(Option.builder().option("f").argName("other").build())
-            .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
-            .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
-            .addOption(Option.builder().option("s").longOpt("sevem").hasArg().build());
+        final OptionGroup optionGroup = new OptionGroup()
+            .addOption(Option.builder().option("o").longOpt("one").hasArg().get())
+            .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").get())
+            .addOption(Option.builder().option("th").longOpt("three").required().argName("other").get())
+            .addOption(Option.builder().option("f").argName("other").get())
+            .addOption(Option.builder().longOpt("five").hasArg().argName("other").get())
+            .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").get())
+            .addOption(Option.builder().option("s").longOpt("sevem").hasArg().get());
         // @formatter:on
-        assertEquals("[-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th]", underTest.toSyntaxOptions(group));
+        assertEquals("[-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th]", underTest.toSyntaxOptions(optionGroup));
 
-        group.setRequired(true);
-        assertEquals("-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th", underTest.toSyntaxOptions(group));
+        optionGroup.setRequired(true);
+        assertEquals("-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th", underTest.toSyntaxOptions(optionGroup));
 
         assertEquals("", underTest.toSyntaxOptions(new OptionGroup()), "empty group should return empty string");
     }
@@ -339,13 +339,13 @@ class HelpFormatterTest {
         final HelpFormatter underTest = HelpFormatter.builder().get();
         final List<Option> options = new ArrayList<>();
 
-        options.add(Option.builder().option("o").longOpt("one").hasArg().build());
-        options.add(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build());
-        options.add(Option.builder().option("th").longOpt("three").required().argName("other").build());
-        options.add(Option.builder().option("f").argName("other").build());
-        options.add(Option.builder().longOpt("five").hasArg().argName("other").build());
-        options.add(Option.builder().longOpt("six").required().hasArg().argName("other").build());
-        options.add(Option.builder().option("s").longOpt("sevem").hasArg().build());
+        options.add(Option.builder().option("o").longOpt("one").hasArg().get());
+        options.add(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").get());
+        options.add(Option.builder().option("th").longOpt("three").required().argName("other").get());
+        options.add(Option.builder().option("f").argName("other").get());
+        options.add(Option.builder().longOpt("five").hasArg().argName("other").get());
+        options.add(Option.builder().longOpt("six").required().hasArg().argName("other").get());
+        options.add(Option.builder().option("s").longOpt("sevem").hasArg().get());
         assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> -th", underTest.toSyntaxOptions(options));
 
     }
@@ -354,49 +354,49 @@ class HelpFormatterTest {
     void testToSyntaxOptionOptionsTest() {
         final HelpFormatter underTest = HelpFormatter.builder().get();
         Options options = getTestGroups();
-        assertEquals("[-1 <arg> | --aon <arg> | --uno <arg>] [--dos <arg> | --dó <arg> | --two <arg>] " + "[--three <arg> | --tres <arg> | --trí <arg>]",
+        assertEquals("[-1 <arg> | --aon <arg> | --uno <arg>] [--dos <arg> | --dó <arg> | --two <arg>] [--three <arg> | --tres <arg> | --trí <arg>]",
                 underTest.toSyntaxOptions(options), "getTestGroup options failed");
 
         // @formatter:off
         options = new Options()
-            .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
-            .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
-            .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build())
-            .addOption(Option.builder().option("f").argName("other").build())
-            .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
-            .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
-            .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
+            .addOption(Option.builder().option("o").longOpt("one").hasArg().get())
+            .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").get())
+            .addOption(Option.builder().option("th").longOpt("three").required().argName("other").get())
+            .addOption(Option.builder().option("f").argName("other").get())
+            .addOption(Option.builder().longOpt("five").hasArg().argName("other").get())
+            .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").get())
+            .addOption(Option.builder().option("s").longOpt("seven").hasArg().get());
         // @formatter:on
         assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> -th", underTest.toSyntaxOptions(options), "assorted options failed");
         // @formatter:off
         options = new Options()
-            .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
+            .addOption(Option.builder().option("o").longOpt("one").hasArg().get())
             .addOptionGroup(
                 new OptionGroup()
-                    .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
-                    .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build()))
-            .addOption(Option.builder().option("f").argName("other").build())
-            .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
-            .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
-            .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
+                    .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").get())
+                    .addOption(Option.builder().option("th").longOpt("three").required().argName("other").get()))
+            .addOption(Option.builder().option("f").argName("other").get())
+            .addOption(Option.builder().longOpt("five").hasArg().argName("other").get())
+            .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").get())
+            .addOption(Option.builder().option("s").longOpt("seven").hasArg().get());
         // @formatter:on
         assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> [-t <other> | -th]", underTest.toSyntaxOptions(options),
                 "option with group failed");
 
         // @formatter:off
         final OptionGroup group1 = new OptionGroup()
-            .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").build())
-            .addOption(Option.builder().option("th").longOpt("three").required().argName("other").build());
+            .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").get())
+            .addOption(Option.builder().option("th").longOpt("three").required().argName("other").get());
         // @formatter:on
         group1.setRequired(true);
         // @formatter:off
         options = new Options()
-            .addOption(Option.builder().option("o").longOpt("one").hasArg().build())
+            .addOption(Option.builder().option("o").longOpt("one").hasArg().get())
             .addOptionGroup(group1)
-            .addOption(Option.builder().option("f").argName("other").build())
-            .addOption(Option.builder().longOpt("five").hasArg().argName("other").build())
-            .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").build())
-            .addOption(Option.builder().option("s").longOpt("seven").hasArg().build());
+            .addOption(Option.builder().option("f").argName("other").get())
+            .addOption(Option.builder().longOpt("five").hasArg().argName("other").get())
+            .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").get())
+            .addOption(Option.builder().option("s").longOpt("seven").hasArg().get());
         // @formatter:on
         assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> | -th", underTest.toSyntaxOptions(options),
                 "options with required group failed");

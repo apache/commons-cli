@@ -38,39 +38,39 @@ class OptionGroupTest {
     public void setUp() {
         final Option file = new Option("f", "file", false, "file to process");
         final Option dir = new Option("d", "directory", false, "directory to process");
-        final OptionGroup group = new OptionGroup();
-        group.addOption(file);
-        group.addOption(dir);
-        options = new Options().addOptionGroup(group);
+        final OptionGroup optionGroup1 = new OptionGroup();
+        optionGroup1.addOption(file);
+        optionGroup1.addOption(dir);
+        options = new Options().addOptionGroup(optionGroup1);
 
         final Option section = new Option("s", "section", false, "section to process");
         final Option chapter = new Option("c", "chapter", false, "chapter to process");
-        final OptionGroup group2 = new OptionGroup();
-        group2.addOption(section);
-        group2.addOption(chapter);
+        final OptionGroup optionGroup2 = new OptionGroup();
+        optionGroup2.addOption(section);
+        optionGroup2.addOption(chapter);
 
-        options.addOptionGroup(group2);
+        options.addOptionGroup(optionGroup2);
 
         final Option importOpt = new Option(null, "import", false, "section to process");
         final Option exportOpt = new Option(null, "export", false, "chapter to process");
-        final OptionGroup group3 = new OptionGroup();
-        group3.addOption(importOpt);
-        group3.addOption(exportOpt);
-        options.addOptionGroup(group3);
+        final OptionGroup optionGroup3 = new OptionGroup();
+        optionGroup3.addOption(importOpt);
+        optionGroup3.addOption(exportOpt);
+        options.addOptionGroup(optionGroup3);
 
         options.addOption("r", "revision", false, "revision number");
     }
 
     @Test
     void testGetNames() {
-        final OptionGroup group = new OptionGroup();
-        assertFalse(group.isSelected());
-        group.addOption(OptionBuilder.create('a'));
-        group.addOption(OptionBuilder.create('b'));
-        assertNotNull(group.getNames(), "null names");
-        assertEquals(2, group.getNames().size());
-        assertTrue(group.getNames().contains("a"));
-        assertTrue(group.getNames().contains("b"));
+        final OptionGroup optionGroup = new OptionGroup();
+        assertFalse(optionGroup.isSelected());
+        optionGroup.addOption(OptionBuilder.create('a'));
+        optionGroup.addOption(OptionBuilder.create('b'));
+        assertNotNull(optionGroup.getNames(), "null names");
+        assertEquals(2, optionGroup.getNames().size());
+        assertTrue(optionGroup.getNames().contains("a"));
+        assertTrue(optionGroup.getNames().contains("b"));
     }
 
     @Test
@@ -123,17 +123,17 @@ class OptionGroupTest {
 
     @Test
     void testToString() {
-        final OptionGroup group1 = new OptionGroup();
-        group1.addOption(new Option(null, "foo", false, "Foo"));
-        group1.addOption(new Option(null, "bar", false, "Bar"));
-        if (!"[--bar Bar, --foo Foo]".equals(group1.toString())) {
-            assertEquals("[--foo Foo, --bar Bar]", group1.toString());
+        final OptionGroup optionGroup1 = new OptionGroup();
+        optionGroup1.addOption(new Option(null, "foo", false, "Foo"));
+        optionGroup1.addOption(new Option(null, "bar", false, "Bar"));
+        if (!"[--bar Bar, --foo Foo]".equals(optionGroup1.toString())) {
+            assertEquals("[--foo Foo, --bar Bar]", optionGroup1.toString());
         }
-        final OptionGroup group2 = new OptionGroup();
-        group2.addOption(new Option("f", "foo", false, "Foo"));
-        group2.addOption(new Option("b", "bar", false, "Bar"));
-        if (!"[-b Bar, -f Foo]".equals(group2.toString())) {
-            assertEquals("[-f Foo, -b Bar]", group2.toString());
+        final OptionGroup optionGroup2 = new OptionGroup();
+        optionGroup2.addOption(new Option("f", "foo", false, "Foo"));
+        optionGroup2.addOption(new Option("b", "bar", false, "Bar"));
+        if (!"[-b Bar, -f Foo]".equals(optionGroup2.toString())) {
+            assertEquals("[-f Foo, -b Bar]", optionGroup2.toString());
         }
     }
 

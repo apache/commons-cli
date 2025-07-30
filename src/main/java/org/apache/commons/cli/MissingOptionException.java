@@ -17,13 +17,13 @@
 
 package org.apache.commons.cli;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * Thrown when a required option has not been provided.
  */
 public class MissingOptionException extends ParseException {
+
     /** This exception {@code serialVersionUID}. */
     private static final long serialVersionUID = 8161889051578563249L;
 
@@ -34,18 +34,9 @@ public class MissingOptionException extends ParseException {
      */
     private static String createMessage(final List<?> missingOptions) {
         final StringBuilder buf = new StringBuilder("Missing required option");
-        buf.append(missingOptions.size() == 1 ? "" : "s");
-        buf.append(": ");
-
-        final Iterator<?> it = missingOptions.iterator();
-        while (it.hasNext()) {
-            buf.append(it.next());
-            if (it.hasNext()) {
-                buf.append(", ");
-            }
-        }
-
-        return buf.toString();
+        buf.append(missingOptions.size() == 1 ? "" : "s").append(": ");
+        final String string = missingOptions.toString();
+        return buf.append(string.substring(1, string.length() - 1)).toString();
     }
 
     /** The list of missing options and groups */

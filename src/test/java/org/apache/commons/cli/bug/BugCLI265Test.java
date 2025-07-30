@@ -44,10 +44,10 @@ class BugCLI265Test {
     public void setUp() {
         parser = new DefaultParser();
 
-        final Option optionT1 = Option.builder("t1").hasArg().numberOfArgs(1).optionalArg(true).argName("t1_path").build();
-        final Option optionA = Option.builder("a").hasArg(false).build();
-        final Option optionB = Option.builder("b").hasArg(false).build();
-        final Option optionLast = Option.builder("last").hasArg(false).build();
+        final Option optionT1 = Option.builder("t1").hasArg().numberOfArgs(1).optionalArg(true).argName("t1_path").get();
+        final Option optionA = Option.builder("a").hasArg(false).get();
+        final Option optionB = Option.builder("b").hasArg(false).get();
+        final Option optionLast = Option.builder("last").hasArg(false).get();
 
         options = new Options().addOption(optionT1).addOption(optionA).addOption(optionB).addOption(optionLast);
     }
