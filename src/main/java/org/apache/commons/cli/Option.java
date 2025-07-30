@@ -190,6 +190,7 @@ public class Option implements Cloneable, Serializable {
          * @return the new {@link Option}.
          * @throws IllegalStateException if neither {@code opt} or {@code longOpt} has been set.
          */
+        @Override
         public Option get() {
             return new Option(this);
         }
