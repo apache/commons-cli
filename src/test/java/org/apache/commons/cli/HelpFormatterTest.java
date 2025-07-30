@@ -155,14 +155,14 @@ class HelpFormatterTest {
 
     @ParameterizedTest
     @ValueSource(ints = { -100, -1, 0 })
-    public void testDeprecatedFindWrapPosZeroWidth(final int width) {
+    void testDeprecatedFindWrapPosZeroWidth(final int width) {
         final int pos = new HelpFormatter().findWrapPos("Hello World", width, 0);
         assertEquals(width, pos);
     }
 
     @ParameterizedTest
     @ValueSource(ints = { -100, -1, 0 })
-    public void testDeprecatedPrintOptionsZeroWidth(final int width) {
+    void testDeprecatedPrintOptionsZeroWidth(final int width) {
         final Options options = new Options();
         options.addOption("h", "help", false, "Show help");
         final StringWriter out = new StringWriter();
