@@ -509,8 +509,8 @@ public class DefaultParser implements CommandLineParser {
                 throw new UnrecognizedOptionException("Default option wasn't defined", option);
             }
             // if the option is part of a group, check if another option of the group has been selected
-            final OptionGroup group = options.getOptionGroup(opt);
-            final boolean selected = group != null && group.isSelected();
+            final OptionGroup optionGroup = options.getOptionGroup(opt);
+            final boolean selected = optionGroup != null && optionGroup.isSelected();
             if (!cmd.hasOption(option) && !selected) {
                 // get the value from the properties
                 final String value = properties.getProperty(option);
@@ -754,8 +754,8 @@ public class DefaultParser implements CommandLineParser {
         currentOption = null;
         expectedOpts = new ArrayList<>(options.getRequiredOptions());
         // clear the data from the groups
-        for (final OptionGroup group : options.getOptionGroups()) {
-            group.setSelected(null);
+        for (final OptionGroup optionGroup : options.getOptionGroups()) {
+            optionGroup.setSelected(null);
         }
         cmd = CommandLine.builder().setDeprecatedHandler(deprecatedHandler).get();
         if (arguments != null) {
@@ -854,11 +854,11 @@ public class DefaultParser implements CommandLineParser {
         }
         // if the option is in an OptionGroup make that option the selected option of the group
         if (options.getOptionGroup(option) != null) {
-            final OptionGroup group = options.getOptionGroup(option);
-            if (group.isRequired()) {
-                expectedOpts.remove(group);
+            final OptionGroup optionGroup = options.getOptionGroup(option);
+            if (optionGroup.isRequired()) {
+                expectedOpts.remove(optionGroup);
             }
-            group.setSelected(option);
+            optionGroup.setSelected(option);
         }
     }
 }

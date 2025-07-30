@@ -46,17 +46,17 @@ class OptionsTest {
     @Test
     void testAddConflictingOptions() {
         final Options options1 = new Options();
-        final OptionGroup group1 = new OptionGroup();
-        group1.addOption(Option.builder("a").get());
-        group1.addOption(Option.builder("b").get());
-        options1.addOptionGroup(group1);
+        final OptionGroup optionGroup1 = new OptionGroup();
+        optionGroup1.addOption(Option.builder("a").get());
+        optionGroup1.addOption(Option.builder("b").get());
+        options1.addOptionGroup(optionGroup1);
         options1.addOption(Option.builder("x").get());
         options1.addOption(Option.builder("y").get());
         final Options options2 = new Options();
-        final OptionGroup group2 = new OptionGroup();
-        group2.addOption(Option.builder("x").type(Integer.class).get());
-        group2.addOption(Option.builder("b").type(Integer.class).get());
-        options2.addOptionGroup(group2);
+        final OptionGroup optionGroup2 = new OptionGroup();
+        optionGroup2.addOption(Option.builder("x").type(Integer.class).get());
+        optionGroup2.addOption(Option.builder("b").type(Integer.class).get());
+        options2.addOptionGroup(optionGroup2);
         options2.addOption(Option.builder("c").get());
         assertThrows(IllegalArgumentException.class, () -> options1.addOptions(options2));
     }
@@ -64,10 +64,10 @@ class OptionsTest {
     @Test
     void testAddNonConflictingOptions() {
         final Options options1 = new Options();
-        final OptionGroup group1 = new OptionGroup();
-        group1.addOption(Option.builder("a").get());
-        group1.addOption(Option.builder("b").get());
-        options1.addOptionGroup(group1);
+        final OptionGroup optionGroup1 = new OptionGroup();
+        optionGroup1.addOption(Option.builder("a").get());
+        optionGroup1.addOption(Option.builder("b").get());
+        options1.addOptionGroup(optionGroup1);
         options1.addOption(Option.builder("x").get());
         options1.addOption(Option.builder("y").get());
 
@@ -83,7 +83,7 @@ class OptionsTest {
         underTest.addOptions(options1);
         underTest.addOptions(options2);
 
-        final List<OptionGroup> expected = Arrays.asList(group1, group2);
+        final List<OptionGroup> expected = Arrays.asList(optionGroup1, group2);
         assertTrue(expected.size() == underTest.getOptionGroups().size() && expected.containsAll(underTest.getOptionGroups()));
         final Set<Option> expectOpt = new HashSet<>(options1.getOptions());
         expectOpt.addAll(options2.getOptions());
@@ -95,11 +95,11 @@ class OptionsTest {
     void testAddOptions() {
         final Options options = new Options();
 
-        final OptionGroup group1 = new OptionGroup();
-        group1.addOption(Option.builder("a").get());
-        group1.addOption(Option.builder("b").get());
+        final OptionGroup optionGroup1 = new OptionGroup();
+        optionGroup1.addOption(Option.builder("a").get());
+        optionGroup1.addOption(Option.builder("b").get());
 
-        options.addOptionGroup(group1);
+        options.addOptionGroup(optionGroup1);
 
         options.addOption(Option.builder("X").get());
         options.addOption(Option.builder("y").get());
@@ -115,11 +115,11 @@ class OptionsTest {
     void testAddOptions2X() {
         final Options options = new Options();
 
-        final OptionGroup group1 = new OptionGroup();
-        group1.addOption(Option.builder("a").get());
-        group1.addOption(Option.builder("b").get());
+        final OptionGroup optionGroup1 = new OptionGroup();
+        optionGroup1.addOption(Option.builder("a").get());
+        optionGroup1.addOption(Option.builder("b").get());
 
-        options.addOptionGroup(group1);
+        options.addOptionGroup(optionGroup1);
 
         options.addOption(Option.builder("X").get());
         options.addOption(Option.builder("y").get());
@@ -186,16 +186,16 @@ class OptionsTest {
     void testGetOptionsGroups() {
         final Options options = new Options();
 
-        final OptionGroup group1 = new OptionGroup();
-        group1.addOption(OptionBuilder.create('a'));
-        group1.addOption(OptionBuilder.create('b'));
+        final OptionGroup optionGroup1 = new OptionGroup();
+        optionGroup1.addOption(OptionBuilder.create('a'));
+        optionGroup1.addOption(OptionBuilder.create('b'));
 
-        final OptionGroup group2 = new OptionGroup();
-        group2.addOption(OptionBuilder.create('x'));
-        group2.addOption(OptionBuilder.create('y'));
+        final OptionGroup optionGroup2 = new OptionGroup();
+        optionGroup2.addOption(OptionBuilder.create('x'));
+        optionGroup2.addOption(OptionBuilder.create('y'));
 
-        options.addOptionGroup(group1);
-        options.addOptionGroup(group2);
+        options.addOptionGroup(optionGroup1);
+        options.addOptionGroup(optionGroup2);
 
         assertNotNull(options.getOptionGroups());
         assertEquals(2, options.getOptionGroups().size());

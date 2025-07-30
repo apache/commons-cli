@@ -260,12 +260,12 @@ public abstract class AbstractParserTestCase {
 
     @Test
     void testMissingRequiredGroup() throws Exception {
-        final OptionGroup group = new OptionGroup();
-        group.addOption(OptionBuilder.create("a"));
-        group.addOption(OptionBuilder.create("b"));
-        group.setRequired(true);
+        final OptionGroup optionGroup = new OptionGroup();
+        optionGroup.addOption(OptionBuilder.create("a"));
+        optionGroup.addOption(OptionBuilder.create("b"));
+        optionGroup.setRequired(true);
         final Options options = new Options();
-        options.addOptionGroup(group);
+        options.addOptionGroup(optionGroup);
         options.addOption(OptionBuilder.isRequired().create("c"));
         final MissingOptionException e = assertThrows(MissingOptionException.class, () -> parser.parse(options, new String[] { "-c" }));
         assertEquals(1, e.getMissingOptions().size());
@@ -422,34 +422,34 @@ public abstract class AbstractParserTestCase {
 
     @Test
     void testOptionGroup() throws Exception {
-        final OptionGroup group = new OptionGroup();
-        assertFalse(group.isSelected());
-        group.addOption(OptionBuilder.create("a"));
-        group.addOption(OptionBuilder.create("b"));
+        final OptionGroup optionGroup = new OptionGroup();
+        assertFalse(optionGroup.isSelected());
+        optionGroup.addOption(OptionBuilder.create("a"));
+        optionGroup.addOption(OptionBuilder.create("b"));
 
         final Options options = new Options();
-        options.addOptionGroup(group);
+        options.addOptionGroup(optionGroup);
 
         parser.parse(options, new String[] { "-b" });
 
-        assertTrue(group.isSelected());
-        assertEquals("b", group.getSelected(), "selected option");
+        assertTrue(optionGroup.isSelected());
+        assertEquals("b", optionGroup.getSelected(), "selected option");
     }
 
     @Test
     void testOptionGroupLong() throws Exception {
-        final OptionGroup group = new OptionGroup();
-        group.addOption(OptionBuilder.withLongOpt("foo").create());
-        group.addOption(OptionBuilder.withLongOpt("bar").create());
+        final OptionGroup optionGroup = new OptionGroup();
+        optionGroup.addOption(OptionBuilder.withLongOpt("foo").create());
+        optionGroup.addOption(OptionBuilder.withLongOpt("bar").create());
 
         final Options options = new Options();
-        options.addOptionGroup(group);
+        options.addOptionGroup(optionGroup);
 
         final CommandLine cl = parser.parse(options, new String[] { "--bar" });
 
         assertTrue(cl.hasOption("bar"));
-        assertTrue(group.isSelected());
-        assertEquals("bar", group.getSelected(), "selected option");
+        assertTrue(optionGroup.isSelected());
+        assertEquals("bar", optionGroup.getSelected(), "selected option");
     }
 
     @Test
@@ -566,15 +566,15 @@ public abstract class AbstractParserTestCase {
     void testPropertyOptionGroup() throws Exception {
         final Options options = new Options();
 
-        final OptionGroup group1 = new OptionGroup();
-        group1.addOption(new Option("a", null));
-        group1.addOption(new Option("b", null));
-        options.addOptionGroup(group1);
+        final OptionGroup optionGroup1 = new OptionGroup();
+        optionGroup1.addOption(new Option("a", null));
+        optionGroup1.addOption(new Option("b", null));
+        options.addOptionGroup(optionGroup1);
 
-        final OptionGroup group2 = new OptionGroup();
-        group2.addOption(new Option("x", null));
-        group2.addOption(new Option("y", null));
-        options.addOptionGroup(group2);
+        final OptionGroup optionGroup2 = new OptionGroup();
+        optionGroup2.addOption(new Option("x", null));
+        optionGroup2.addOption(new Option("y", null));
+        options.addOptionGroup(optionGroup2);
 
         final String[] args = { "-a" };
 

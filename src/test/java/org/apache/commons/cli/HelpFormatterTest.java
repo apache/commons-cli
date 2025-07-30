@@ -528,13 +528,13 @@ class HelpFormatterTest {
 
     @Test
     void testPrintOptionGroupUsage() {
-        final OptionGroup group = new OptionGroup();
-        group.addOption(Option.builder("a").get());
-        group.addOption(Option.builder("b").get());
-        group.addOption(Option.builder("c").get());
+        final OptionGroup optionGroup = new OptionGroup();
+        optionGroup.addOption(Option.builder("a").get());
+        optionGroup.addOption(Option.builder("b").get());
+        optionGroup.addOption(Option.builder("c").get());
 
         final Options options = new Options();
-        options.addOptionGroup(group);
+        options.addOptionGroup(optionGroup);
 
         final StringWriter out = new StringWriter();
 
@@ -605,14 +605,14 @@ class HelpFormatterTest {
 
     @Test
     void testPrintRequiredOptionGroupUsage() {
-        final OptionGroup group = new OptionGroup();
-        group.addOption(Option.builder("a").get());
-        group.addOption(Option.builder("b").get());
-        group.addOption(Option.builder("c").get());
-        group.setRequired(true);
+        final OptionGroup optionGroup = new OptionGroup();
+        optionGroup.addOption(Option.builder("a").get());
+        optionGroup.addOption(Option.builder("b").get());
+        optionGroup.addOption(Option.builder("c").get());
+        optionGroup.setRequired(true);
 
         final Options options = new Options();
-        options.addOptionGroup(group);
+        options.addOptionGroup(optionGroup);
 
         final StringWriter out = new StringWriter();
 

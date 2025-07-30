@@ -143,14 +143,14 @@ public class Options implements Serializable {
      * the given group are set to optional.
      * </p>
      *
-     * @param group the OptionGroup that is to be added.
+     * @param optionGroup the OptionGroup that is to be added.
      * @return the resulting Options instance.
      */
-    public Options addOptionGroup(final OptionGroup group) {
-        if (group.isRequired()) {
-            requiredOpts.add(group);
+    public Options addOptionGroup(final OptionGroup optionGroup) {
+        if (optionGroup.isRequired()) {
+            requiredOpts.add(optionGroup);
         }
-        for (final Option option : group.getOptions()) {
+        for (final Option option : optionGroup.getOptions()) {
             // an Option cannot be required if it is in an
             // OptionGroup, either the group is required or
             // nothing is required
@@ -158,7 +158,7 @@ public class Options implements Serializable {
             final String key = option.getKey();
             requiredOpts.remove(key);
             addOption(option);
-            optionGroups.put(key, group);
+            optionGroups.put(key, optionGroup);
         }
         return this;
     }
@@ -249,11 +249,11 @@ public class Options implements Serializable {
     /**
      * Gets the OptionGroup the {@code opt} belongs to.
      *
-     * @param opt the option whose OptionGroup is being queried.
+     * @param option the option whose OptionGroup is being queried.
      * @return the OptionGroup if {@code opt} is part of an OptionGroup, otherwise return null.
      */
-    public OptionGroup getOptionGroup(final Option opt) {
-        return optionGroups.get(opt.getKey());
+    public OptionGroup getOptionGroup(final Option option) {
+        return optionGroups.get(option.getKey());
     }
 
     /**

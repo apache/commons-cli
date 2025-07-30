@@ -378,14 +378,14 @@ public class HelpFormatter {
      * is required. The display of the options is handled by appendOption
      *
      * @param buff the StringBuilder to append to
-     * @param group the group to append
+     * @param optionGroup the group to append
      * @see #appendOption(StringBuilder,Option,boolean)
      */
-    private void appendOptionGroup(final StringBuilder buff, final OptionGroup group) {
-        if (!group.isRequired()) {
+    private void appendOptionGroup(final StringBuilder buff, final OptionGroup optionGroup) {
+        if (!optionGroup.isRequired()) {
             buff.append("[");
         }
-        final List<Option> optList = new ArrayList<>(group.getOptions());
+        final List<Option> optList = new ArrayList<>(optionGroup.getOptions());
         if (getOptionComparator() != null) {
             Collections.sort(optList, getOptionComparator());
         }
@@ -398,7 +398,7 @@ public class HelpFormatter {
                 buff.append(" | ");
             }
         }
-        if (!group.isRequired()) {
+        if (!optionGroup.isRequired()) {
             buff.append("]");
         }
     }

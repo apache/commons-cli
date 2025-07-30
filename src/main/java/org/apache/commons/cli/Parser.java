@@ -152,8 +152,8 @@ public abstract class Parser implements CommandLineParser {
             opt.clearValues();
         }
         // clear the data from the groups
-        for (final OptionGroup group : options.getOptionGroups()) {
-            group.setSelected(null);
+        for (final OptionGroup optionGroup : options.getOptionGroups()) {
+            optionGroup.setSelected(null);
         }
         // initialize members
         setOptions(options);
@@ -280,8 +280,8 @@ public abstract class Parser implements CommandLineParser {
                 throw new UnrecognizedOptionException("Default option wasn't defined", option);
             }
             // if the option is part of a group, check if another option of the group has been selected
-            final OptionGroup group = options.getOptionGroup(opt);
-            final boolean selected = group != null && group.isSelected();
+            final OptionGroup optionGroup = options.getOptionGroup(opt);
+            final boolean selected = optionGroup != null && optionGroup.isSelected();
             if (!cmd.hasOption(option) && !selected) {
                 // get the value from the properties instance
                 final String value = properties.getProperty(option);
@@ -328,11 +328,11 @@ public abstract class Parser implements CommandLineParser {
         // if the option is in an OptionGroup make that option the selected
         // option of the group
         if (getOptions().getOptionGroup(opt) != null) {
-            final OptionGroup group = getOptions().getOptionGroup(opt);
-            if (group.isRequired()) {
-                getRequiredOptions().remove(group);
+            final OptionGroup optionGroup = getOptions().getOptionGroup(opt);
+            if (optionGroup.isRequired()) {
+                getRequiredOptions().remove(optionGroup);
             }
-            group.setSelected(opt);
+            optionGroup.setSelected(opt);
         }
     }
 

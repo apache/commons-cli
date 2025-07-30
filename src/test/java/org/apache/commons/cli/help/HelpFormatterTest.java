@@ -317,7 +317,7 @@ class HelpFormatterTest {
     void testToSyntaxOptionGroupTest() {
         final HelpFormatter underTest = HelpFormatter.builder().get();
         // @formatter:off
-        final OptionGroup group = new OptionGroup()
+        final OptionGroup optionGroup = new OptionGroup()
             .addOption(Option.builder().option("o").longOpt("one").hasArg().get())
             .addOption(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").get())
             .addOption(Option.builder().option("th").longOpt("three").required().argName("other").get())
@@ -326,10 +326,10 @@ class HelpFormatterTest {
             .addOption(Option.builder().longOpt("six").required().hasArg().argName("other").get())
             .addOption(Option.builder().option("s").longOpt("sevem").hasArg().get());
         // @formatter:on
-        assertEquals("[-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th]", underTest.toSyntaxOptions(group));
+        assertEquals("[-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th]", underTest.toSyntaxOptions(optionGroup));
 
-        group.setRequired(true);
-        assertEquals("-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th", underTest.toSyntaxOptions(group));
+        optionGroup.setRequired(true);
+        assertEquals("-f | --five <other> | -o <arg> | -s <arg> | --six <other> | -t <other> | -th", underTest.toSyntaxOptions(optionGroup));
 
         assertEquals("", underTest.toSyntaxOptions(new OptionGroup()), "empty group should return empty string");
     }
