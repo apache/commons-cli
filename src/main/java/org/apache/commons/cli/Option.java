@@ -103,7 +103,7 @@ public class Option implements Cloneable, Serializable {
         /** The character that is the value separator. */
         private char valueSeparator;
 
-        /** multiple values are within a single argument separated by valueSeparator char */
+        /** Multiple values are within a single argument separated by valueSeparator char */
         private boolean valueSeparatorUsedForSingleArgument;
 
         /**
@@ -362,15 +362,15 @@ public class Option implements Cloneable, Serializable {
         /**
          * The Option will use ',' to invoke listValueSeparator()
          *
-         * @since 1.11.0
          * @return this builder.
+         * @since 1.11.0
          */
         public Builder listValueSeparator() {
             return listValueSeparator(Char.COMMA);
         }
 
         /**
-         * defines the separator used to split a list of values passed in a single argument.
+         * Defines the separator used to split a list of values passed in a single argument.
          *
          * Method is mutually exclusive to valueSeparator() method. In the resulting option,
          * isValueSeparatorUsedForSingleArgument() will return true.
@@ -395,9 +395,9 @@ public class Option implements Cloneable, Serializable {
          *
          * </pre>
          *
-         * @since 1.11.0
          * @param listValueSeparator The char to be used to split the argument into mulitple values.
          * @return this builder.
+         * @since 1.11.0
          */
         public Builder listValueSeparator(final char listValueSeparator) {
             this.valueSeparator = listValueSeparator;
@@ -484,7 +484,7 @@ public class Option implements Cloneable, Serializable {
     /** The character that is the value separator. */
     private char valueSeparator;
 
-    /** multiple values are within a single argument separated by valueSeparator char */
+    /** Multiple values are within a single argument separated by valueSeparator char */
     private boolean valueSeparatorUsedForSingleArgument;
 
     /**
@@ -897,7 +897,7 @@ public class Option implements Cloneable, Serializable {
      *
      * @return boolean true when the builder's listValueSeparator() method was used. Multiple values are expected in a single argument and
      *                 are split by a separation character.
-     * @since 1.10.0
+     * @since 1.11.0
      */
     public boolean isValueSeparatorUsedForSingleArgument() {
         return valueSeparatorUsedForSingleArgument;
@@ -907,7 +907,7 @@ public class Option implements Cloneable, Serializable {
      * Set this to true to use the valueSeparator only on a single argument. See also builder's listValueSeparator() method.
      *
      * @param valueSeparatorUsedForSingleArgument the new value for this property
-     * @since 1.10.0
+     * @since 1.11.0
      */
     public void setValueSeparatorUsedForSingleArgument(final boolean valueSeparatorUsedForSingleArgument) {
         this.valueSeparatorUsedForSingleArgument = valueSeparatorUsedForSingleArgument;
