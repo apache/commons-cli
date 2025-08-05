@@ -362,7 +362,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * The Option will use ',' to invoke listValueSeparator()
          *
-         * @since 1.10.0
+         * @since 1.11.0
          * @return this builder.
          */
         public Builder listValueSeparator() {
@@ -395,7 +395,7 @@ public class Option implements Cloneable, Serializable {
          *
          * </pre>
          *
-         * @since 1.10.0
+         * @since 1.11.0
          * @param listValueSeparator The char to be used to split the argument into mulitple values.
          * @return this builder.
          */
