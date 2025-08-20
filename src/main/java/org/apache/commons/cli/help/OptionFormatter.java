@@ -114,7 +114,7 @@ public final class OptionFormatter {
          *
          * @param begin the beginning delimiter.
          * @param end   the ending delimiter.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder setArgumentNameDelimiters(final String begin, final String end) {
             this.argNameDelimiters[0] = Util.defaultValue(begin, "");
@@ -137,7 +137,7 @@ public final class OptionFormatter {
          * Specifies the function to construct the deprecated massage for the Option. Should include the description text if desired.
          *
          * @param deprecatedFormatFunction the function to specify the deprecated message for the option.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder setDeprecatedFormatFunction(final Function<Option, String> deprecatedFormatFunction) {
             this.deprecatedFormatFunction = deprecatedFormatFunction;
@@ -172,7 +172,7 @@ public final class OptionFormatter {
          *
          * @param begin the beginning delimiter.
          * @param end   the ending delimiter.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder setOptionalDelimiters(final String begin, final String end) {
             this.optionalDelimiters[0] = Util.defaultValue(begin, "");
@@ -184,7 +184,7 @@ public final class OptionFormatter {
          * Specifies the short option prefix.
          *
          * @param optPrefix the prefix for short options.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder setOptPrefix(final String optPrefix) {
             this.optPrefix = Util.defaultValue(optPrefix, "");

@@ -75,7 +75,7 @@ public abstract class AbstractHelpFormatter {
         /**
          * Returns this instance cast to {@code B}.
          *
-         * @return this instance cast to {@code B}.
+         * @return {@code this} instance cast to {@code B}.
          */
         @SuppressWarnings("unchecked")
         protected B asThis() {

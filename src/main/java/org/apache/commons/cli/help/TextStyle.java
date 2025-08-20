@@ -200,7 +200,7 @@ public final class TextStyle {
          * Sets whether the column can be made wider or to narrower width to fit constraints of the HelpAppendable and formatting.
          *
          * @param scalable Whether the text width can be adjusted.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder setScalable(final boolean scalable) {
             this.scalable = scalable;
@@ -211,7 +211,7 @@ public final class TextStyle {
          * Sets all properties from the given text style.
          *
          * @param style the source text style.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder setTextStyle(final TextStyle style) {
             this.alignment = style.alignment;

@@ -94,7 +94,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
          * Sets the showSince flag.
          *
          * @param showSince the desired value of the showSince flag.
-         * @return this instance.
+         * @return {@code this} instance.
          */
         public Builder setShowSince(final boolean showSince) {
             this.showSince = showSince;
