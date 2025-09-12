@@ -40,6 +40,9 @@ final class Char {
     /** Tab. */
     static final char TAB = '\t';
 
+    /** Comma. */
+    static final char COMMA = ',';
+
     private Char() {
         // empty
     }
