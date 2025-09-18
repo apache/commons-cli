@@ -44,14 +44,14 @@ public final class DeprecatedAttributes {
         /**
          * Whether this option is subject to removal in a future version.
          *
-         * @see <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Deprecated.html#forRemoval()">Deprecated.forRemoval</a>
+         * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html#forRemoval()">Deprecated.forRemoval</a>
          */
         private boolean forRemoval;
 
         /**
          * The version in which the option became deprecated.
          *
-         * @see <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Deprecated.html#forRemoval()">Deprecated.since</a>
+         * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html#forRemoval()">Deprecated.since</a>
          */
         private String since;
 
@@ -86,7 +86,7 @@ public final class DeprecatedAttributes {
          *
          * @param forRemoval whether this is subject to removal in a future version.
          * @return {@code this} instance.
-         * @see <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Deprecated.html#forRemoval()">Deprecated.forRemoval</a>
+         * @see <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html#forRemoval()">Deprecated.forRemoval</a>
          */
         public Builder setForRemoval(final boolean forRemoval) {
             this.forRemoval = forRemoval;
