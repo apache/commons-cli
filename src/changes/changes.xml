@@ -26,6 +26,7 @@
       <!-- FIX -->
       <!-- ADD -->
       <!-- UPDATE -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 85 to 87 #393.</action>
     </release>
     <release version="1.10.0" date="2025-07-30" description="This is a feature and maintenance release. Java 8 or later is required.">
       <!-- FIX -->
