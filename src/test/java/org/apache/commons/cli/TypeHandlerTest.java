@@ -46,6 +46,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junitpioneer.jupiter.DefaultLocale;
 
 class TypeHandlerTest {
 
@@ -176,6 +177,7 @@ class TypeHandlerTest {
 
     @ParameterizedTest
     @MethodSource("createDateFixtures")
+    @DefaultLocale(language = "en", country = "US")
     void testCreateDate(final Date date) {
         assertEquals(date, TypeHandler.createDate(date.toString()));
     }
