@@ -179,7 +179,7 @@ class TypeHandlerTest {
     @MethodSource("createDateFixtures")
     @DefaultLocale(language = "en", country = "US")
     void testCreateDate(final Date date) {
-        assertEquals(date, TypeHandler.createDate(date.toString()));
+        assertEquals(date, TypeHandler.createDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").format(date)));
     }
 
     @Test
