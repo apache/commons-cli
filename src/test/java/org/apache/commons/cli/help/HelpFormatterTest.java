@@ -147,6 +147,19 @@ class HelpFormatterTest {
         assertEquals(0, sb.length(), "Should not write to output");
     }
 
+    /**
+     * Tests example from the mailing list that caused an infinite loop.
+     * 
+     * @see <a href="https://issues.apache.org/jira/browse/CLI-351">[CLI-351] Multiple traililng BREAK_CHAR_SET characters cause infinite loop in
+     *      HelpFormatter</a>
+     */
+    @Test
+    void testPrintHelpHeader() throws IOException {
+        HelpFormatter.builder().get().printHelp("CL syntax", "Header", Collections.emptyList(), "Footer", true);
+        HelpFormatter.builder().get().printHelp("CL syntax", "Header\n\n", // This makes printHelp enter into an infinite loop
+                Collections.emptyList(), "Footer", true);
+    }
+
     @Test
     void testPrintHelpXML() throws IOException {
         final StringBuilder sb = new StringBuilder();
