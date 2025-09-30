@@ -49,7 +49,7 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    void tesstMakeColumnQueue() {
+    void testMakeColumnQueue() {
         final String text = "The quick brown fox jumps over the lazy dog";
         final TextStyle.Builder styleBuilder = TextStyle.builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
 
@@ -96,6 +96,20 @@ public final class TextHelpAppendableTest {
 
         result = underTest.makeColumnQueue(text, styleBuilder.get());
         assertEquals(expected, result, "right aligned failed");
+    }
+
+    @Test
+    void testMakeColumnQueueWithMultipleTrailingLineBreaks() {
+        // this test should work with any n>1 multiple trailing characters from TestHelpAppendable.BREAK_CHAR_SET.
+        final String text = "Header\t" + (char) Character.PARAGRAPH_SEPARATOR;
+        final TextStyle.Builder styleBuilder = TextStyle.builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
+
+        Queue<String> expected = new LinkedList<>();
+        expected.add("Header    ");
+        expected.add("          ");
+
+        Queue<String> result = underTest.makeColumnQueue(text, styleBuilder.get());
+        assertEquals(expected, result, "left aligned failed");
     }
 
     @Test
