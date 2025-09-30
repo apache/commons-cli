@@ -78,7 +78,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         }
         // handle case of width > text.
         // the line ends before the max wrap pos or a new line char found
-        final int limit = Math.min(startPos + width, text.length() - 1);
+        int limit = Math.min(startPos + width, text.length());
         for (int idx = startPos; idx < limit; idx++) {
             if (BREAK_CHAR_SET.contains(text.charAt(idx))) {
                 return idx;
@@ -87,6 +87,8 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         if (startPos + width >= text.length()) {
             return text.length();
         }
+
+        limit = Math.min(startPos + width, text.length() - 1);
         int pos;
         // look for the last whitespace character before limit
         for (pos = limit; pos >= startPos; --pos) {
@@ -311,15 +313,15 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         final String indent = Util.repeatSpace(style.getIndent());
         final Queue<String> result = new LinkedList<>();
         int wrapPos = 0;
-        int nextPos;
+        int lastPos;
         final int wrappedMaxWidth = style.getMaxWidth() - indent.length();
         while (wrapPos < columnData.length()) {
             final int workingWidth = wrapPos == 0 ? style.getMaxWidth() : wrappedMaxWidth;
-            nextPos = indexOfWrap(columnData, workingWidth, wrapPos);
-            final CharSequence working = columnData.subSequence(wrapPos, nextPos);
+            lastPos = indexOfWrap(columnData, workingWidth, wrapPos);
+            final CharSequence working = columnData.subSequence(wrapPos, lastPos);
             result.add(lpad + style.pad(wrapPos > 0, working));
-            wrapPos = Util.indexOfNonWhitespace(columnData, nextPos);
-            wrapPos = wrapPos == -1 ? nextPos : wrapPos;
+            wrapPos = Util.indexOfNonWhitespace(columnData, lastPos);
+            wrapPos = wrapPos == -1 ? lastPos + 1 : wrapPos;
         }
         return result;
     }
