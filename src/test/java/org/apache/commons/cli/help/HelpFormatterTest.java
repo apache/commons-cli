@@ -149,7 +149,7 @@ class HelpFormatterTest {
 
     /**
      * Tests example from the mailing list that caused an infinite loop.
-     * 
+     *
      * @see <a href="https://issues.apache.org/jira/browse/CLI-351">[CLI-351] Multiple traililng BREAK_CHAR_SET characters cause infinite loop in
      *      HelpFormatter</a>
      */

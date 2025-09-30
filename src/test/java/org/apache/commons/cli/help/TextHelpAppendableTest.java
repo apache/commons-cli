@@ -49,70 +49,6 @@ public final class TextHelpAppendableTest {
     }
 
     @Test
-    void testMakeColumnQueue() {
-        final String text = "The quick brown fox jumps over the lazy dog";
-        final TextStyle.Builder styleBuilder = TextStyle.builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
-
-        Queue<String> expected = new LinkedList<>();
-        expected.add("The quick ");
-        expected.add("brown fox ");
-        expected.add("jumps over");
-        expected.add("the lazy  ");
-        expected.add("dog       ");
-
-        Queue<String> result = underTest.makeColumnQueue(text, styleBuilder.get());
-        assertEquals(expected, result, "left aligned failed");
-
-        expected.clear();
-        expected.add(" The quick");
-        expected.add(" brown fox");
-        expected.add("jumps over");
-        expected.add("  the lazy");
-        expected.add("       dog");
-        styleBuilder.setAlignment(TextStyle.Alignment.RIGHT);
-
-        result = underTest.makeColumnQueue(text, styleBuilder.get());
-        assertEquals(expected, result, "right aligned failed");
-
-        expected.clear();
-        expected.add("The quick ");
-        expected.add("brown fox ");
-        expected.add("jumps over");
-        expected.add(" the lazy ");
-        expected.add("   dog    ");
-        styleBuilder.setAlignment(TextStyle.Alignment.CENTER);
-
-        result = underTest.makeColumnQueue(text, styleBuilder.get());
-        assertEquals(expected, result, "center aligned failed");
-
-        expected = new LinkedList<>();
-        expected.add("      The quick");
-        expected.add("          brown");
-        expected.add("            fox");
-        expected.add("          jumps");
-        expected.add("       over the");
-        expected.add("       lazy dog");
-        styleBuilder.setAlignment(TextStyle.Alignment.RIGHT).setLeftPad(5).setIndent(2);
-
-        result = underTest.makeColumnQueue(text, styleBuilder.get());
-        assertEquals(expected, result, "right aligned failed");
-    }
-
-    @Test
-    void testMakeColumnQueueWithMultipleTrailingLineBreaks() {
-        // this test should work with any n>1 multiple trailing characters from TestHelpAppendable.BREAK_CHAR_SET.
-        final String text = "Header\t" + (char) Character.PARAGRAPH_SEPARATOR;
-        final TextStyle.Builder styleBuilder = TextStyle.builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
-
-        Queue<String> expected = new LinkedList<>();
-        expected.add("Header    ");
-        expected.add("          ");
-
-        Queue<String> result = underTest.makeColumnQueue(text, styleBuilder.get());
-        assertEquals(expected, result, "left aligned failed");
-    }
-
-    @Test
     void testAdjustTableFormat() {
         // test width smaller than header
         // @formatter:off
@@ -351,6 +287,70 @@ public final class TextHelpAppendableTest {
     void testindexOfWrapPosWithWhitespace(final Character c, final boolean isWhitespace) {
         final String text = String.format("Hello%cWorld", c);
         assertEquals(isWhitespace ? 5 : 6, TextHelpAppendable.indexOfWrap(text, 7, 0));
+    }
+
+    @Test
+    void testMakeColumnQueue() {
+        final String text = "The quick brown fox jumps over the lazy dog";
+        final TextStyle.Builder styleBuilder = TextStyle.builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
+
+        Queue<String> expected = new LinkedList<>();
+        expected.add("The quick ");
+        expected.add("brown fox ");
+        expected.add("jumps over");
+        expected.add("the lazy  ");
+        expected.add("dog       ");
+
+        Queue<String> result = underTest.makeColumnQueue(text, styleBuilder.get());
+        assertEquals(expected, result, "left aligned failed");
+
+        expected.clear();
+        expected.add(" The quick");
+        expected.add(" brown fox");
+        expected.add("jumps over");
+        expected.add("  the lazy");
+        expected.add("       dog");
+        styleBuilder.setAlignment(TextStyle.Alignment.RIGHT);
+
+        result = underTest.makeColumnQueue(text, styleBuilder.get());
+        assertEquals(expected, result, "right aligned failed");
+
+        expected.clear();
+        expected.add("The quick ");
+        expected.add("brown fox ");
+        expected.add("jumps over");
+        expected.add(" the lazy ");
+        expected.add("   dog    ");
+        styleBuilder.setAlignment(TextStyle.Alignment.CENTER);
+
+        result = underTest.makeColumnQueue(text, styleBuilder.get());
+        assertEquals(expected, result, "center aligned failed");
+
+        expected = new LinkedList<>();
+        expected.add("      The quick");
+        expected.add("          brown");
+        expected.add("            fox");
+        expected.add("          jumps");
+        expected.add("       over the");
+        expected.add("       lazy dog");
+        styleBuilder.setAlignment(TextStyle.Alignment.RIGHT).setLeftPad(5).setIndent(2);
+
+        result = underTest.makeColumnQueue(text, styleBuilder.get());
+        assertEquals(expected, result, "right aligned failed");
+    }
+
+    @Test
+    void testMakeColumnQueueWithMultipleTrailingLineBreaks() {
+        // this test should work with any n>1 multiple trailing characters from TestHelpAppendable.BREAK_CHAR_SET.
+        final String text = "Header\t" + (char) Character.PARAGRAPH_SEPARATOR;
+        final TextStyle.Builder styleBuilder = TextStyle.builder().setMaxWidth(10).setIndent(0).setLeftPad(0);
+
+        final Queue<String> expected = new LinkedList<>();
+        expected.add("Header    ");
+        expected.add("          ");
+
+        final Queue<String> result = underTest.makeColumnQueue(text, styleBuilder.get());
+        assertEquals(expected, result, "left aligned failed");
     }
 
     @Test
