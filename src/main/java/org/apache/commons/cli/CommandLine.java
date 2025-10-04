@@ -240,13 +240,7 @@ public class CommandLine implements Serializable {
      * @since 1.11.0
      */
     public int getOptionCount(final Option option) {
-        int result = 0;
-        for (Option opt : options) {
-            if (Objects.equals(opt, option)) {
-                ++result;
-            }
-        }
-        return result;
+        return (int) options.stream().filter(opt -> Objects.equals(opt, option)).count();
     }
 
     /**
