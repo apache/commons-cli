@@ -26,6 +26,7 @@
       <!-- FIX -->
       <action type="fix" issue="CLI-351" dev="ggregory" due-to="Damien Carbonne, Claude Warren, Gary Gregory">Multiple trailing BREAK_CHAR_SET characters cause infinite loop in HelpFormatter.</action>
       <!-- ADD -->
+      <action type="add" dev="ggregory" due-to="David Larochette, Gary Gregory">Add CommandLine.getOptionCount() to measure option repetition #396.</action>
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 85 to 88 #393.</action>
     </release>
