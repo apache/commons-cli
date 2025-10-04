@@ -1008,6 +1008,7 @@ public class CommandLine implements Serializable {
      * Parses a list of values as properties.  All odd numbered values are property keys
      * and even numbered values are property values.  If there are an odd number of values
      * the last value is assumed to be a boolean with a value of "true".
+     *
      * @param props the properties to update.
      * @param values the list of values to parse.
      */
