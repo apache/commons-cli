@@ -222,6 +222,45 @@ public class CommandLine implements Serializable {
     }
 
     /**
+     * Gets the number of times this option appears in the command line
+     *
+     * @param optionChar the character name of the option.
+     * @return Number of times the option is present
+     * @since 1.11.0
+     */
+    public int getOptionCount(final char optionChar) {
+        return getOptionCount(String.valueOf(optionChar));
+    }
+
+    /**
+     * Gets the number of times this option appears in the command line.
+     *
+     * @param option the option.
+     * @return Number of times the option is present
+     * @since 1.11.0
+     */
+    public int getOptionCount(final Option option) {
+        int result = 0;
+        for (Option opt : options) {
+            if (Objects.equals(opt, option)) {
+                ++result;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Gets the number of times this option appears in the command line
+     *
+     * @param optionName the name of the option.
+     * @return Number of times the option is present
+     * @since 1.11.0
+     */
+    public int getOptionCount(final String optionName) {
+        return getOptionCount(resolveOption(optionName));
+    }
+
+    /**
      * Gets the {@code Object} type of this {@code Option}.
      *
      * @deprecated due to System.err message. Instead use getParsedOptionValue(char)
@@ -298,45 +337,6 @@ public class CommandLine implements Serializable {
      */
     public Option[] getOptions() {
         return options.toArray(Option.EMPTY_ARRAY);
-    }
-
-    /**
-     * Gets the number of times this option appears in the command line.
-     *
-     * @param option the option.
-     * @return Number of times the option is present
-     * @since 1.11.0
-     */
-    public int getOptionCount(final Option option) {
-        int result = 0;
-        for (Option opt : options) {
-            if (Objects.equals(opt, option)) {
-                ++result;
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Gets the number of times this option appears in the command line
-     *
-     * @param optionChar the character name of the option.
-     * @return Number of times the option is present
-     * @since 1.11.0
-     */
-    public int getOptionCount(final char optionChar) {
-        return getOptionCount(String.valueOf(optionChar));
-    }
-
-    /**
-     * Gets the number of times this option appears in the command line
-     *
-     * @param optionName the name of the option.
-     * @return Number of times the option is present
-     * @since 1.11.0
-     */
-    public int getOptionCount(final String optionName) {
-        return getOptionCount(resolveOption(optionName));
     }
 
     /**

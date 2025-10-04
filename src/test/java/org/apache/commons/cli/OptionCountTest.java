@@ -26,6 +26,12 @@ class OptionCountTest {
     private static final Options OPTIONS   = new Options().addOption(VERBOSITY);
 
     @Test
+    void testFiveSwitchesMixed() throws ParseException {
+        final CommandLine cmdLine = new DefaultParser().parse(OPTIONS, new String[]{"-v", "-vvv", "-v"});
+        assertEquals(5, cmdLine.getOptionCount(VERBOSITY));
+    }
+
+    @Test
     void testNoSwitch() throws ParseException {
         final CommandLine cmdLine = new DefaultParser().parse(OPTIONS, new String[]{});
         assertEquals(0, cmdLine.getOptionCount(VERBOSITY));
@@ -49,11 +55,5 @@ class OptionCountTest {
     void testThreeSwitchesCompact() throws ParseException {
         final CommandLine cmdLine = new DefaultParser().parse(OPTIONS, new String[]{"-vvv"});
         assertEquals(3, cmdLine.getOptionCount(VERBOSITY));
-    }
-
-    @Test
-    void testFiveSwitchesMixed() throws ParseException {
-        final CommandLine cmdLine = new DefaultParser().parse(OPTIONS, new String[]{"-v", "-vvv", "-v"});
-        assertEquals(5, cmdLine.getOptionCount(VERBOSITY));
     }
 }
