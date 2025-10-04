@@ -1030,11 +1030,9 @@ public class CommandLine implements Serializable {
     private Option resolveOption(final String optionName) {
         final String actual = Util.stripLeadingHyphens(optionName);
         if (actual != null) {
-            for (final Option option : options) {
-                if (actual.equals(option.getOpt()) || actual.equals(option.getLongOpt())) {
-                    return option;
-                }
-            }
+            return options.stream()
+                    .filter(opt -> actual.equals(opt.getOpt()) || actual.equals(opt.getLongOpt()))
+                    .findFirst().orElse(null);
         }
         return null;
     }
