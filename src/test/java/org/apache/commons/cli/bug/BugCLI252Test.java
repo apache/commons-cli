@@ -37,9 +37,7 @@ class BugCLI252Test {
 
     @Test
     void testAmbiquousOptionName() {
-        assertThrows(AmbiguousOptionException.class, () ->
-                new DefaultParser().parse(getOptions(), new String[]{"--pref"})
-        );
+        assertThrows(AmbiguousOptionException.class, () -> new DefaultParser().parse(getOptions(), new String[] { "--pref" }));
     }
 
     @Test
