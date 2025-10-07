@@ -28,10 +28,11 @@ import org.junit.jupiter.api.function.Executable;
 
 @SuppressWarnings("deprecation") // OptionBuilder is marked deprecated
 class OptionBuilderTest {
+
     @Test
     void testBaseOptionCharOpt() {
-        final Option base = OptionBuilder.withDescription("option description").create('o');
-
+        OptionBuilder.withDescription("option description");
+        final Option base = OptionBuilder.create('o');
         assertEquals("o", base.getOpt());
         assertEquals("option description", base.getDescription());
         assertFalse(base.hasArg());
@@ -39,8 +40,8 @@ class OptionBuilderTest {
 
     @Test
     void testBaseOptionStringOpt() {
-        final Option base = OptionBuilder.withDescription("option description").create("o");
-
+        OptionBuilder.withDescription("option description");
+        final Option base = OptionBuilder.create("o");
         assertEquals("o", base.getOpt());
         assertEquals("option description", base.getDescription());
         assertFalse(base.hasArg());
@@ -48,7 +49,8 @@ class OptionBuilderTest {
 
     @Test
     void testBuilderIsResettedAlways() {
-        assertThrows(IllegalArgumentException.class, () -> OptionBuilder.withDescription("JUnit").create('"'));
+        OptionBuilder.withDescription("JUnit");
+        assertThrows(IllegalArgumentException.class, () -> OptionBuilder.create('"'));
         assertNull(OptionBuilder.create('x').getDescription(), "we inherited a description");
         assertThrows(IllegalStateException.class, (Executable) OptionBuilder::create);
         assertNull(OptionBuilder.create('x').getDescription(), "we inherited a description");
@@ -56,16 +58,13 @@ class OptionBuilderTest {
 
     @Test
     void testCompleteOption() {
-        //@formatter:off
-        final Option simple = OptionBuilder.withLongOpt("simple option")
-                                     .hasArg()
-                                     .isRequired()
-                                     .hasArgs()
-                                     .withType(Float.class)
-                                     .withDescription("this is a simple option")
-                                     .create('s');
-        //@formatter:on
-
+        OptionBuilder.withLongOpt("simple option");
+        OptionBuilder.hasArg();
+        OptionBuilder.isRequired();
+        OptionBuilder.hasArgs();
+        OptionBuilder.withType(Float.class);
+        OptionBuilder.withDescription("this is a simple option");
+        final Option simple = OptionBuilder.create('s');
         assertEquals("s", simple.getOpt());
         assertEquals("simple option", simple.getLongOpt());
         assertEquals("this is a simple option", simple.getDescription());
@@ -84,8 +83,9 @@ class OptionBuilderTest {
 
     @Test
     void testIllegalOptions() {
+        OptionBuilder.withDescription("option description");
         // bad single character option
-        assertThrows(IllegalArgumentException.class, () -> OptionBuilder.withDescription("option description").create('"'));
+        assertThrows(IllegalArgumentException.class, () -> OptionBuilder.create('"'));
         // bad character in option string
         assertThrows(IllegalArgumentException.class, () -> OptionBuilder.create("opt`"));
         // valid option
@@ -94,21 +94,21 @@ class OptionBuilderTest {
 
     @Test
     void testOptionArgNumbers() {
-        //@formatter:off
-        final Option opt = OptionBuilder.withDescription("option description")
-                                  .hasArgs(2)
-                                  .create('o');
-        //@formatter:on
+        OptionBuilder.withDescription("option description");
+        OptionBuilder.hasArgs(2);
+        final Option opt = OptionBuilder.create('o');
         assertEquals(2, opt.getArgs());
     }
 
     @Test
     void testSpecialOptChars() throws Exception {
+        OptionBuilder.withDescription("help options");
         // '?'
-        final Option opt1 = OptionBuilder.withDescription("help options").create('?');
+        final Option opt1 = OptionBuilder.create('?');
         assertEquals("?", opt1.getOpt());
+        OptionBuilder.withDescription("read from stdin");
         // '@'
-        final Option opt2 = OptionBuilder.withDescription("read from stdin").create('@');
+        final Option opt2 = OptionBuilder.create('@');
         assertEquals("@", opt2.getOpt());
         // ' '
         assertThrows(IllegalArgumentException.class, () -> OptionBuilder.create(' '));
@@ -116,16 +116,13 @@ class OptionBuilderTest {
 
     @Test
     void testTwoCompleteOptions() {
-        //@formatter:off
-        Option simple = OptionBuilder.withLongOpt("simple option")
-                                     .hasArg()
-                                     .isRequired()
-                                     .hasArgs()
-                                     .withType(Float.class)
-                                     .withDescription("this is a simple option")
-                                     .create('s');
-        //@formatter:on
-
+        OptionBuilder.withLongOpt("simple option");
+        OptionBuilder.hasArg();
+        OptionBuilder.isRequired();
+        OptionBuilder.hasArgs();
+        OptionBuilder.withType(Float.class);
+        OptionBuilder.withDescription("this is a simple option");
+        Option simple = OptionBuilder.create('s');
         assertEquals("s", simple.getOpt());
         assertEquals("simple option", simple.getLongOpt());
         assertEquals("this is a simple option", simple.getDescription());
@@ -133,14 +130,10 @@ class OptionBuilderTest {
         assertTrue(simple.hasArg());
         assertTrue(simple.isRequired());
         assertTrue(simple.hasArgs());
-
-        //@formatter:off
-        simple = OptionBuilder.withLongOpt("dimple option")
-                              .hasArg()
-                              .withDescription("this is a dimple option")
-                              .create('d');
-        //@formatter:on
-
+        OptionBuilder.withLongOpt("dimple option");
+        OptionBuilder.hasArg();
+        OptionBuilder.withDescription("this is a dimple option");
+        simple = OptionBuilder.create('d');
         assertEquals("d", simple.getOpt());
         assertEquals("dimple option", simple.getLongOpt());
         assertEquals("this is a dimple option", simple.getDescription());
