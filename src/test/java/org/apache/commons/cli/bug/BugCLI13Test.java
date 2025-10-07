@@ -34,19 +34,14 @@ class BugCLI13Test {
     @Test
     void testCLI13() throws ParseException {
         final String debugOpt = "debug";
-        @SuppressWarnings("static-access")
-        //@formatter:off
-        final Option debug = OptionBuilder
-            .withArgName(debugOpt)
-            .withDescription("turn on debugging")
-            .withLongOpt(debugOpt)
-            .hasArg()
-            .create('d');
-        //@formatter:on
+        OptionBuilder.withArgName(debugOpt);
+        OptionBuilder.withDescription("turn on debugging");
+        OptionBuilder.withLongOpt(debugOpt);
+        OptionBuilder.hasArg();
+        final Option debug = OptionBuilder.create('d');
         final Options options = new Options();
         options.addOption(debug);
-        final CommandLine commandLine = new PosixParser().parse(options, new String[] {"-d", "true"});
-
+        final CommandLine commandLine = new PosixParser().parse(options, new String[] { "-d", "true" });
         assertEquals("true", commandLine.getOptionValue(debugOpt));
         assertEquals("true", commandLine.getOptionValue('d'));
         assertTrue(commandLine.hasOption('d'));
