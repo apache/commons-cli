@@ -317,22 +317,22 @@ public final class OptionFormatter {
      */
     private final String[] argNameDelimiters;
 
-    /** The default argument name */
+    /** The default argument name. */
     private final String defaultArgName;
 
-    /** The function to display the deprecated option message */
+    /** The function to display the deprecated option message. */
     private final Function<Option, String> deprecatedFormatFunction;
 
-    /** The prefix for the long option text */
+    /** The prefix for the long option text. */
     private final String longOptPrefix;
 
-    /** The prefix for the short option text */
+    /** The prefix for the short option text. */
     private final String optPrefix;
 
-    /** The separator between the options */
+    /** The separator between the options. */
     private final String optSeparator;
 
-    /** the separator between the opt and/or longOpt and the argument name */
+    /** the separator between the opt and/or longOpt and the argument name. */
     private final String optArgSeparator;
 
     /** The delimiters for optional {@link Option}s. */
@@ -341,7 +341,7 @@ public final class OptionFormatter {
     /** The method to convert an Option formatter into a syntax notation. */
     private final BiFunction<OptionFormatter, Boolean, String> syntaxFormatFunction;
 
-    /** The {@link Option} being formatted */
+    /** The {@link Option} being formatted. */
     private final Option option;
 
     /**

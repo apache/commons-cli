@@ -187,7 +187,7 @@ public abstract class AbstractHelpFormatter {
     private final HelpAppendable helpAppendable;
 
     /**
-     * The OptionFormatter.Builder used to display options within the help page
+     * The OptionFormatter.Builder used to display options within the help page.
      */
     private final OptionFormatter.Builder optionFormatBuilder;
 
@@ -202,7 +202,7 @@ public abstract class AbstractHelpFormatter {
     /**
      * Constructs the base formatter.
      *
-     * @param builder the builder
+     * @param builder the builder.
      */
     protected AbstractHelpFormatter(final Builder<?, ?> builder) {
         this.helpAppendable = Objects.requireNonNull(builder.getHelpAppendable(), "helpAppendable");
@@ -286,12 +286,12 @@ public abstract class AbstractHelpFormatter {
     /**
      * Prints the help for a collection of {@link Option}s with the specified command line syntax.
      *
-     * @param cmdLineSyntax the syntax for this application
-     * @param header        the banner to display at the beginning of the help
+     * @param cmdLineSyntax the syntax for this application.
+     * @param header        the banner to display at the beginning of the help.
      * @param options       the collection of {@link Option} objects to print.
-     * @param footer        the banner to display at the end of the help
-     * @param autoUsage     whether to print an automatically generated usage statement
-     * @throws IOException If the output could not be written to the {@link HelpAppendable}
+     * @param footer        the banner to display at the end of the help.
+     * @param autoUsage     whether to print an automatically generated usage statement.
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
     public void printHelp(final String cmdLineSyntax, final String header, final Iterable<Option> options, final String footer, final boolean autoUsage)
             throws IOException {
@@ -315,12 +315,12 @@ public abstract class AbstractHelpFormatter {
     /**
      * Prints the help for {@link Options} with the specified command line syntax.
      *
-     * @param cmdLineSyntax the syntax for this application
-     * @param header        the banner to display at the beginning of the help
-     * @param options       the {@link Options} to print
-     * @param footer        the banner to display at the end of the help
-     * @param autoUsage     whether to print an automatically generated usage statement
-     * @throws IOException If the output could not be written to the {@link HelpAppendable}
+     * @param cmdLineSyntax the syntax for this application.
+     * @param header        the banner to display at the beginning of the help.
+     * @param options       the {@link Options} to print.
+     * @param footer        the banner to display at the end of the help.
+     * @param autoUsage     whether to print an automatically generated usage statement.
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
     public final void printHelp(final String cmdLineSyntax, final String header, final Options options, final String footer, final boolean autoUsage)
             throws IOException {
@@ -331,7 +331,7 @@ public abstract class AbstractHelpFormatter {
      * Prints the option table for a collection of {@link Option} objects to the {@link HelpAppendable}.
      *
      * @param options the collection of Option objects to print in the table.
-     * @throws IOException If the output could not be written to the {@link HelpAppendable}
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
     public final void printOptions(final Iterable<Option> options) throws IOException {
         printOptions(getTableDefinition(options));
@@ -341,7 +341,7 @@ public abstract class AbstractHelpFormatter {
      * Prints the option table for the specified {@link Options} to the {@link HelpAppendable}.
      *
      * @param options the Options to print in the table.
-     * @throws IOException If the output could not be written to the {@link HelpAppendable}
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
     public final void printOptions(final Options options) throws IOException {
         printOptions(options.getOptions());
@@ -351,7 +351,7 @@ public abstract class AbstractHelpFormatter {
      * Prints a {@link TableDefinition} to the {@link HelpAppendable}.
      *
      * @param tableDefinition the {@link TableDefinition} to print.
-     * @throws IOException If the output could not be written to the {@link HelpAppendable}
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
     public final void printOptions(final TableDefinition tableDefinition) throws IOException {
         helpAppendable.appendTable(tableDefinition);
@@ -392,7 +392,7 @@ public abstract class AbstractHelpFormatter {
     }
 
     /**
-     * Formats the {@code argName} as an argument a defined in the enclosed {@link OptionFormatter.Builder}
+     * Formats the {@code argName} as an argument a defined in the enclosed {@link OptionFormatter.Builder}.
      *
      * @param argName the string to format as an argument.
      * @return the {@code argName} formatted as an argument.

@@ -32,7 +32,7 @@ final class Util {
     /**
      * Returns the {@code defaultValue} if {@code str} is empty.
      *
-     * @param str          The string to check
+     * @param str          The string to check.
      * @param defaultValue the default value if the string is empty.
      * @param <T>          The type of arguments.
      * @return the {@code defaultValue} if {@code str} is empty,
