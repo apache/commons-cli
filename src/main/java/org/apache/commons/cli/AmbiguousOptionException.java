@@ -42,7 +42,6 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
         final StringBuilder buf = new StringBuilder("Ambiguous option: '");
         buf.append(option);
         buf.append("'  (could be: ");
-
         final Iterator<String> it = matchingOptions.iterator();
         while (it.hasNext()) {
             buf.append(Char.APOS);
@@ -53,7 +52,6 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
             }
         }
         buf.append(")");
-
         return buf.toString();
     }
 
@@ -63,8 +61,8 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
     /**
      * Constructs a new AmbiguousOptionException.
      *
-     * @param option the partial option name
-     * @param matchingOptions the options matching the name
+     * @param option the partial option name.
+     * @param matchingOptions the options matching the name.
      */
     public AmbiguousOptionException(final String option, final Collection<String> matchingOptions) {
         super(createMessage(option, matchingOptions), option);
@@ -74,7 +72,7 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
     /**
      * Gets the options matching the partial name.
      *
-     * @return a collection of options matching the name
+     * @return a collection of options matching the name.
      */
     public Collection<String> getMatchingOptions() {
         return matchingOptions;

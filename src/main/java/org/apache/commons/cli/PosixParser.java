@@ -67,13 +67,12 @@ public class PosixParser extends Parser {
      * that character prepended with "<strong>-</strong>".</li>
      * </ul>
      *
-     * @param token The current token to be <strong>burst</strong>
+     * @param token The current token to be <strong>burst</strong>.
      * @param stopAtNonOption Specifies whether to stop processing at the first non-Option encountered.
      */
     protected void burstToken(final String token, final boolean stopAtNonOption) {
         for (int i = 1; i < token.length(); i++) {
             final String ch = String.valueOf(token.charAt(i));
-
             if (!options.hasOption(ch)) {
                 if (stopAtNonOption) {
                     processNonOptionToken(token.substring(i), true);
@@ -84,10 +83,8 @@ public class PosixParser extends Parser {
             }
             tokens.add("-" + ch);
             currentOption = options.getOption(ch);
-
             if (currentOption.hasArg() && token.length() != i + 1) {
                 tokens.add(token.substring(i + 1));
-
                 break;
             }
         }
@@ -118,8 +115,8 @@ public class PosixParser extends Parser {
      * to the list of processed tokens.</li>
      * </ol>
      *
-     * @param options The command line {@link Options}
-     * @param arguments The command line arguments to be parsed
+     * @param options The command line {@link Options}.
+     * @param arguments The command line arguments to be parsed.
      * @param stopAtNonOption Specifies whether to stop flattening when an non option is found.
      * @return The flattened {@code arguments} String array.
      */
@@ -141,16 +138,13 @@ public class PosixParser extends Parser {
                     // handle long option --foo or --foo=bar
                     final int pos = DefaultParser.indexOfEqual(token);
                     final String opt = pos == -1 ? token : token.substring(0, pos); // --foo
-
                     final List<String> matchingOpts = options.getMatchingOptions(opt);
-
                     if (matchingOpts.isEmpty()) {
                         processNonOptionToken(token, stopAtNonOption);
                     } else if (matchingOpts.size() > 1) {
                         throw new AmbiguousOptionException(opt, matchingOpts);
                     } else {
                         currentOption = options.getOption(matchingOpts.get(0));
-
                         tokens.add("--" + currentOption.getLongOpt());
                         if (pos != -1) {
                             tokens.add(token.substring(pos + 1));
@@ -206,14 +200,13 @@ public class PosixParser extends Parser {
      * Add the special token "<strong>--</strong>" and the current {@code value} to the processed tokens list. Then add all the
      * remaining {@code argument} values to the processed tokens list.
      *
-     * @param value The current token
+     * @param value The current token.
      */
     private void processNonOptionToken(final String value, final boolean stopAtNonOption) {
         if (stopAtNonOption && (currentOption == null || !currentOption.hasArg())) {
             eatTheRest = true;
             tokens.add("--");
         }
-
         tokens.add(value);
     }
 
@@ -227,18 +220,16 @@ public class PosixParser extends Parser {
      * processed tokens list directly.
      * </p>
      *
-     * @param token The current option token
+     * @param token The current option token.
      * @param stopAtNonOption Specifies whether flattening should halt at the first non option.
      */
     private void processOptionToken(final String token, final boolean stopAtNonOption) {
         if (stopAtNonOption && !options.hasOption(token)) {
             eatTheRest = true;
         }
-
         if (options.hasOption(token)) {
             currentOption = options.getOption(token);
         }
-
         tokens.add(token);
     }
 }

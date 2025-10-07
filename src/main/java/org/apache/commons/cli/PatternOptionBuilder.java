@@ -113,9 +113,9 @@ public class PatternOptionBuilder {
     /**
      * Retrieve the class that {@code ch} represents.
      *
-     * @param ch the specified character
-     * @return The class that {@code ch} represents
-     * @deprecated use {@link #getValueType(char)}
+     * @param ch the specified character.
+     * @return The class that {@code ch} represents.
+     * @deprecated Use {@link #getValueType(char)}.
      */
     @Deprecated // since="1.7.0"
     public static Object getValueClass(final char ch) {

@@ -108,7 +108,7 @@ final class OptionValidator {
      * </p><p>
      * In case {@code opt} is {@code null} no further validation is performed.
      *
-     * @param option The option string to validate, may be null
+     * @param option The option string to validate, may be null.
      * @throws IllegalArgumentException if the Option is not valid.
      */
     static String validate(final String option) throws IllegalArgumentException {

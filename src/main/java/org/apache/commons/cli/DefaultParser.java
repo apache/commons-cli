@@ -64,9 +64,9 @@ public class DefaultParser implements CommandLineParser {
 
         /**
          * Constructs a new {@code Builder} for a {@code DefaultParser} instance.
-         *
-         * Both allowPartialMatching and stripLeadingAndTrailingQuotes are true by default,
-         * mimicking the argument-less constructor.
+         * <p>
+         * Both allowPartialMatching and stripLeadingAndTrailingQuotes are true by default, mimicking the argument-less constructor.
+         * </p>
          */
         private Builder() {
         }
@@ -96,10 +96,12 @@ public class DefaultParser implements CommandLineParser {
 
         /**
          * Sets if partial matching of long options is supported.
-         *
+         * <p>
          * By "partial matching" we mean that given the following code:
+         * </p>
          *
          * <pre>
+         *
          * {
          *     &#64;code
          *     final Options options = new Options();
@@ -108,12 +110,13 @@ public class DefaultParser implements CommandLineParser {
          *     options.addOption(new Option("o", "option", true, "Turn on option with argument."));
          * }
          * </pre>
-         *
-         * If "partial matching" is turned on, {@code -de} only matches the {@code "debug"} option. However, with
-         * "partial matching" disabled, {@code -de} would enable both {@code debug} as well as {@code extract}
+         * <p>
+         * If "partial matching" is turned on, {@code -de} only matches the {@code "debug"} option. However, with "partial matching" disabled, {@code -de} would
+         * enable both {@code debug} as well as {@code extract}
+         * </p>
          *
          * @param allowPartialMatching whether to allow partial matching of long options.
-         * @return {@code this} instance..
+         * @return {@code this} instance.
          * @since 1.5.0
          */
         public Builder setAllowPartialMatching(final boolean allowPartialMatching) {
@@ -136,13 +139,14 @@ public class DefaultParser implements CommandLineParser {
         /**
          * Sets if balanced leading and trailing double quotes should be stripped from option arguments.
          *
-         * If "stripping of balanced leading and trailing double quotes from option arguments" is true,
-         * the outermost balanced double quotes of option arguments values will be removed.
-         * For example, {@code -o '"x"'} getValue() will return {@code x}, instead of {@code "x"}
-         *
-         * If "stripping of balanced leading and trailing double quotes from option arguments" is null,
-         * then quotes will be stripped from option values separated by space from the option, but
-         * kept in other cases, which is the historic behavior.
+         * <p>
+         * If "stripping of balanced leading and trailing double quotes from option arguments" is true, the outermost balanced double quotes of option arguments
+         * values will be removed. For example, {@code -o '"x"'} getValue() will return {@code x}, instead of {@code "x"}
+         * </p>
+         * <p>
+         * If "stripping of balanced leading and trailing double quotes from option arguments" is null, then quotes will be stripped from option values
+         * separated by space from the option, but kept in other cases, which is the historic behavior.
+         * </p>
          *
          * @param stripLeadingAndTrailingQuotes whether balanced leading and trailing double quotes should be stripped from option arguments.
          * @return {@code this} instance.
@@ -248,8 +252,9 @@ public class DefaultParser implements CommandLineParser {
 
     /**
      * Creates a new DefaultParser instance with partial matching enabled.
-     *
+     * <p>
      * By "partial matching" we mean that given the following code:
+     * </p>
      *
      * <pre>
      * {
@@ -273,9 +278,9 @@ public class DefaultParser implements CommandLineParser {
 
     /**
      * Create a new DefaultParser instance with the specified partial matching policy.
-     *
+     * <p>
      * By "partial matching" we mean that given the following code:
-     *
+     * </p>
      * <pre>
      * {
      *     &#64;code
@@ -285,10 +290,11 @@ public class DefaultParser implements CommandLineParser {
      *     options.addOption(new Option("o", "option", true, "Turn on option with argument."));
      * }
      * </pre>
-     *
+     * <p>
      * with "partial matching" turned on, {@code -de} only matches the {@code "debug"} option. However, with
      * "partial matching" disabled, {@code -de} would enable both {@code debug} as well as {@code extract}
      * options.
+     * </p>
      *
      * @param allowPartialMatching if partial matching of long options shall be enabled
      */

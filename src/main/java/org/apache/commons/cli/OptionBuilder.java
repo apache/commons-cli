@@ -26,47 +26,47 @@ package org.apache.commons.cli;
  * This class is NOT thread safe. See <a href="https://issues.apache.org/jira/browse/CLI-209">CLI-209</a>
  *
  * @since 1.0
- * @deprecated since 1.3, use {@link Option#builder(String)} instead
+ * @deprecated since 1.3, use {@link Option#builder(String)} instead.
  */
 @Deprecated
 public final class OptionBuilder {
 
-    /** Long option */
+    /** Long option. */
     private static String longOption;
 
-    /** Option description */
+    /** Option description. */
     private static String description;
 
-    /** Argument name */
+    /** Argument name. */
     private static String argName;
 
-    /** Is required? */
+    /** Required test. */
     private static boolean required;
 
-    /** The number of arguments */
+    /** The number of arguments. */
     private static int argCount = Option.UNINITIALIZED;
 
-    /** Option type */
+    /** Option type. */
     private static Class<?> type;
 
-    /** Option can have an optional argument value */
+    /** Option can have an optional argument value. */
     private static boolean optionalArg;
 
-    /** Value separator for argument value */
+    /** Value separator for argument value. */
     private static char valueSeparator;
 
-    /** Option builder instance */
+    /** Option builder instance. */
     private static final OptionBuilder INSTANCE = new OptionBuilder();
 
     static {
-        // ensure the consistency of the initial values
+        // ensure the consistency of the initial values.
         reset();
     }
 
     /**
-     * Creates an Option using the current settings
+     * Creates an Option using the current settings.
      *
-     * @return the Option instance
+     * @return the Option instance.
      * @throws IllegalArgumentException if {@code longOpt} has not been set.
      */
     public static Option create() throws IllegalArgumentException {
@@ -74,15 +74,14 @@ public final class OptionBuilder {
             reset();
             throw new IllegalStateException("must specify longopt");
         }
-
         return create(null);
     }
 
     /**
      * Creates an Option using the current settings and with the specified Option {@code char}.
      *
-     * @param opt the character representation of the Option
-     * @return the Option instance
+     * @param opt the character representation of the Option.
+     * @return the Option instance.
      * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
      */
     public static Option create(final char opt) throws IllegalArgumentException {
@@ -92,8 +91,8 @@ public final class OptionBuilder {
     /**
      * Creates an Option using the current settings and with the specified Option {@code char}.
      *
-     * @param opt the {@code String} representation of the Option
-     * @return the Option instance
+     * @param opt the {@code String} representation of the Option.
+     * @return the Option instance.
      * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
      */
     public static Option create(final String opt) throws IllegalArgumentException {
@@ -101,7 +100,6 @@ public final class OptionBuilder {
         try {
             // create the option
             option = new Option(opt, description);
-
             // set the option properties
             option.setLongOpt(longOption);
             option.setRequired(required);
@@ -115,7 +113,6 @@ public final class OptionBuilder {
             // reset the OptionBuilder properties
             reset();
         }
-
         // return the Option instance
         return option;
     }
@@ -133,8 +130,8 @@ public final class OptionBuilder {
     /**
      * The next Option created will require an argument value if {@code hasArg} is true.
      *
-     * @param hasArg if true then the Option has an argument value
-     * @return the OptionBuilder instance
+     * @param hasArg if true then the Option has an argument value.
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder hasArg(final boolean hasArg) {
         argCount = hasArg ? 1 : Option.UNINITIALIZED;
@@ -144,7 +141,7 @@ public final class OptionBuilder {
     /**
      * The next Option created can have unlimited argument values.
      *
-     * @return the OptionBuilder instance
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder hasArgs() {
         argCount = Option.UNLIMITED_VALUES;
@@ -154,8 +151,8 @@ public final class OptionBuilder {
     /**
      * The next Option created can have {@code num} argument values.
      *
-     * @param num the number of args that the option can have
-     * @return the OptionBuilder instance
+     * @param num the number of args that the option can have.
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder hasArgs(final int num) {
         argCount = num;
@@ -165,7 +162,7 @@ public final class OptionBuilder {
     /**
      * The next Option can have an optional argument.
      *
-     * @return the OptionBuilder instance
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder hasOptionalArg() {
         argCount = 1;
@@ -176,7 +173,7 @@ public final class OptionBuilder {
     /**
      * The next Option can have an unlimited number of optional arguments.
      *
-     * @return the OptionBuilder instance
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder hasOptionalArgs() {
         argCount = Option.UNLIMITED_VALUES;
@@ -188,7 +185,7 @@ public final class OptionBuilder {
      * The next Option can have the specified number of optional arguments.
      *
      * @param numArgs   the maximum number of optional arguments the next Option created can have.
-     * @return the OptionBuilder instance
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder hasOptionalArgs(final int numArgs) {
         argCount = numArgs;
@@ -199,7 +196,7 @@ public final class OptionBuilder {
     /**
      * The next Option created will be required.
      *
-     * @return the OptionBuilder instance
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder isRequired() {
         required = true;
@@ -209,8 +206,8 @@ public final class OptionBuilder {
     /**
      * The next Option created will be required if {@code required} is true.
      *
-     * @param newRequired if true then the Option is required
-     * @return the OptionBuilder instance
+     * @param newRequired if true then the Option is required.
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder isRequired(final boolean newRequired) {
         required = newRequired;
