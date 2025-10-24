@@ -28,7 +28,7 @@
       <!-- ADD -->
       <action type="add" dev="ggregory" due-to="David Larochette, Gary Gregory">Add CommandLine.getOptionCount() to measure option repetition #396.</action>
       <!-- UPDATE -->
-      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 85 to 89 #393.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 85 to 90 #393.</action>
     </release>
     <release version="1.10.0" date="2025-07-30" description="This is a feature and maintenance release. Java 8 or later is required.">
       <!-- FIX -->
