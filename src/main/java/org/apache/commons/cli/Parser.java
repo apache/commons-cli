@@ -25,7 +25,7 @@ import java.util.ListIterator;
 import java.util.Properties;
 
 /**
- * {@code Parser} creates {@link CommandLine}s.
+ * Creates {@link CommandLine} instances.
  *
  * @deprecated since 1.3, the two-pass parsing with the flatten method is not enough flexible to handle complex cases
  */
@@ -119,7 +119,7 @@ public abstract class Parser implements CommandLineParser {
     }
 
     /**
-     * Parse the arguments according to the specified options and properties.
+     * Parses the arguments according to the specified options and properties.
      *
      * @param options the specified Options.
      * @param arguments the command line arguments.
@@ -133,7 +133,7 @@ public abstract class Parser implements CommandLineParser {
     }
 
     /**
-     * Parse the arguments according to the specified options and properties.
+     * Parses the arguments according to the specified options and properties.
      *
      * @param options the specified Options.
      * @param arguments the command line arguments.
@@ -208,7 +208,7 @@ public abstract class Parser implements CommandLineParser {
     }
 
     /**
-     * Process the argument values for the specified Option {@code opt} using the values retrieved from the specified
+     * Processes the argument values for the specified Option {@code opt} using the values retrieved from the specified
      * iterator {@code iter}.
      *
      * @param opt The current Option.
@@ -238,7 +238,7 @@ public abstract class Parser implements CommandLineParser {
     }
 
     /**
-     * Process the Option specified by {@code arg} using the values retrieved from the specified iterator
+     * Processes the Option specified by {@code arg} using the values retrieved from the specified iterator
      * {@code iter}.
      *
      * @param arg The String value representing an Option.
