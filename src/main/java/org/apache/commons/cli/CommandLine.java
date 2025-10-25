@@ -199,6 +199,16 @@ public class CommandLine implements Serializable {
         }
     }
 
+    /**
+     * Gets the first element or null if values is null.
+     *
+     * @param values the array to query.
+     * @return the first element or null if values is null.
+     */
+    private String first(final String[] values) {
+        return values == null ? null : values[0];
+    }
+
     private <T> T get(final Supplier<T> supplier) {
         return supplier == null ? null : supplier.get();
     }
@@ -374,8 +384,7 @@ public class CommandLine implements Serializable {
      * @since 1.5.0
      */
     public String getOptionValue(final Option option) {
-        final String[] values = getOptionValues(option);
-        return values == null ? null : values[0];
+        return first(getOptionValues(option));
     }
 
     /**
@@ -411,8 +420,7 @@ public class CommandLine implements Serializable {
      * @since 1.9.0
      */
     public String getOptionValue(final OptionGroup optionGroup) {
-        final String[] values = getOptionValues(optionGroup);
-        return values == null ? null : values[0];
+        return first(getOptionValues(optionGroup));
     }
 
     /**
