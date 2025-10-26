@@ -357,4 +357,34 @@ class OptionTest {
         option.setType(type);
         assertEquals(CharSequence.class, option.getType());
     }
+
+    @Test
+    void testDefaultValueSeparator() {
+        final Option option = Option.builder().option("a").hasArgs().valueSeparator().build();
+        assertFalse(option.isValueSeparatorUsedForSingleArgument());
+        assertTrue(option.hasValueSeparator());
+        assertEquals('=', option.getValueSeparator());
+    }
+
+    @Test
+    void testDefaultListValueSeparator() {
+        final Option option = Option.builder().option("a").hasArgs().listValueSeparator().build();
+        assertTrue(option.isValueSeparatorUsedForSingleArgument());
+        assertTrue(option.hasValueSeparator());
+        assertEquals(',', option.getValueSeparator());
+    }
+
+    @Test
+    void testListValueSeparator() {
+        final Option option = Option.builder().option("a").hasArgs().listValueSeparator('|').build();
+        assertTrue(option.isValueSeparatorUsedForSingleArgument());
+        assertTrue(option.hasValueSeparator());
+        assertEquals('|', option.getValueSeparator());
+
+        option.setValueSeparatorUsedForSingleArgument(false);
+        assertFalse(option.isValueSeparatorUsedForSingleArgument());
+        assertTrue(option.hasValueSeparator());
+        assertEquals('|', option.getValueSeparator());
+
+    }
 }
