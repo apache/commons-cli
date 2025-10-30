@@ -1,3 +1,43 @@
+Apache Commons CLI 1.11.0 Release Notes
+---------------------------------------
+
+The Apache Commons CLI team is pleased to announce the release of Apache Commons CLI 1.11.0.
+
+Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
+
+This is a feature and maintenance release. Java 8 or later is required.
+
+
+New Features
+------------
+
+*           Add CommandLine.getOptionCount() to measure option repetition #396. Thanks to David Larochette, Gary Gregory.
+
+Fixed Bugs
+----------
+
+* CLI-351:  Multiple trailing BREAK_CHAR_SET characters cause infinite loop in HelpFormatter. Thanks to Damien Carbonne, Claude Warren, Gary Gregory.
+
+Updates
+-------
+
+*           Bump org.apache.commons:commons-parent from 85 to 91 #393. Thanks to Gary Gregory, Dependabot.
+
+
+Historical list of changes: https://commons.apache.org/proper/commons-cli/changes.html
+
+For complete information on Apache Commons CLI, including instructions on how to submit bug reports,
+patches, or suggestions for improvement, see the Apache Commons CLI website:
+
+https://commons.apache.org/proper/commons-cli/
+
+Download page: https://commons.apache.org/proper/commons-cli/download_cli.cgi
+
+Have fun!
+The Apache Commons Team
+
+------------------------------------------------------------------------------
+
 Apache Commons CLI 1.10.0 Release Notes
 ---------------------------------------
 
