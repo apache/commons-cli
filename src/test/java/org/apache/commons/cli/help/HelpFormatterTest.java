@@ -426,6 +426,21 @@ class HelpFormatterTest {
         assertEquals("", underTest.toSyntaxOptions(new OptionGroup()), "empty group should return empty string");
     }
 
+    @Test
+    void testToSyntaxOptionIterableTest() {
+        final HelpFormatter underTest = HelpFormatter.builder().get();
+        final List<Option> options = new ArrayList<>();
+
+        options.add(Option.builder().option("o").longOpt("one").hasArg().get());
+        options.add(Option.builder().option("t").longOpt("two").hasArg().required().argName("other").get());
+        options.add(Option.builder().option("th").longOpt("three").required().argName("other").get());
+        options.add(Option.builder().option("f").argName("other").get());
+        options.add(Option.builder().longOpt("five").hasArg().argName("other").get());
+        options.add(Option.builder().longOpt("six").required().hasArg().argName("other").get());
+        options.add(Option.builder().option("s").longOpt("sevem").hasArg().get());
+        assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> -th", underTest.toSyntaxOptions(options));
+
+    }
 
     @Test
     void testToSyntaxOptionOptionsTest() {
