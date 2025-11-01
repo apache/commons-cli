@@ -147,6 +147,85 @@ class HelpFormatterTest {
         assertEquals(0, sb.length(), "Should not write to output");
     }
 
+    @Test
+    public void testPrintHelpWithIterableOptions() throws IOException {
+        final StringBuilder sb = new StringBuilder();
+        final TextHelpAppendable serializer = new TextHelpAppendable(sb);
+        HelpFormatter formatter = HelpFormatter.builder().setHelpAppendable(serializer).get();
+
+        final List<Option> options = new ArrayList<>();
+        options.add(Option.builder("a").since("1853").hasArg().desc("aaaa aaaa aaaa aaaa aaaa").build());
+
+        List<String> expected = new ArrayList<>();
+        expected.add(" usage:  commandSyntax [-a <arg>]");
+        expected.add("");
+        expected.add(" header");
+        expected.add("");
+        expected.add(" Options      Since           Description       ");
+        expected.add(" -a <arg>     1853      aaaa aaaa aaaa aaaa aaaa");
+        expected.add("");
+        expected.add(" footer");
+        expected.add("");
+
+        formatter.printHelp("commandSyntax", "header", options, "footer", true);
+        List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+        formatter = HelpFormatter.builder().setShowSince(false).setHelpAppendable(serializer).get();
+        expected = new ArrayList<>();
+        expected.add(" usage:  commandSyntax [-a <arg>]");
+        expected.add("");
+        expected.add(" header");
+        expected.add("");
+        expected.add(" Options            Description       ");
+        expected.add(" -a <arg>     aaaa aaaa aaaa aaaa aaaa");
+        expected.add("");
+        expected.add(" footer");
+        expected.add("");
+
+        sb.setLength(0);
+        formatter.printHelp("commandSyntax", "header", options, "footer", true);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+        sb.setLength(0);
+        formatter.printHelp("commandSyntax", "header", options, "footer", false);
+        expected.set(0, " usage:  commandSyntax");
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+        sb.setLength(0);
+        formatter.printHelp("commandSyntax", "", options, "footer", false);
+        expected.remove(3);
+        expected.remove(2);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+        sb.setLength(0);
+        formatter.printHelp("commandSyntax", null, options, "footer", false);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+        sb.setLength(0);
+        formatter.printHelp("commandSyntax", null, options, "", false);
+        expected.remove(6);
+        expected.remove(5);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+        sb.setLength(0);
+        formatter.printHelp("commandSyntax", null, options, null, false);
+        actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+
+        sb.setLength(0);
+        final HelpFormatter fHelp = formatter;
+        assertThrows(IllegalArgumentException.class, () -> fHelp.printHelp("", "header", options, "footer", true));
+        assertEquals(0, sb.length(), "Should not write to output");
+        assertThrows(IllegalArgumentException.class, () -> fHelp.printHelp(null, "header", options, "footer", true));
+        assertEquals(0, sb.length(), "Should not write to output");
+    }
+
     /**
      * Tests example from the mailing list that caused an infinite loop.
      *
@@ -414,5 +493,29 @@ class HelpFormatterTest {
         assertEquals("[-f] [--five <other>] [-o <arg>] [-s <arg>] --six <other> -t <other> | -th", underTest.toSyntaxOptions(options),
                 "options with required group failed");
     }
+
+    @Test
+    void verifyOptionGroupingOutput() throws IOException {
+         // create options and groups
+         final Option o1 = new Option("o1", "Descr");
+         final Option o2 = new Option("o2", "Descr");
+
+         final Options options = new Options();
+         options.addOption(o1);
+         options.addOption(o2);
+
+         final OptionGroup group = new OptionGroup();
+         group.addOption(o1);
+         group.addOption(o2);
+         options.addOptionGroup(group);
+
+         final StringBuilder output = new StringBuilder();
+         //format options with new formatter
+         final org.apache.commons.cli.help.HelpFormatter newFormatter =
+                 org.apache.commons.cli.help.HelpFormatter.builder().setShowSince(false)
+        .setHelpAppendable(new TextHelpAppendable(output)).get();
+         newFormatter.printHelp("Command", null, options, null, true);
+         assertTrue(output.toString().contains("[-o1 | -o2]"));
+     }
 
 }
