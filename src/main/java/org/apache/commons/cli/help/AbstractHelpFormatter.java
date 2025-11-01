@@ -406,6 +406,16 @@ public abstract class AbstractHelpFormatter {
     /**
      * Return the string representation of the options as used in the syntax display.
      *
+     * @param options The collection of {@link Option} instances to create the string representation for.
+     * @return the string representation of the options as used in the syntax display.
+     */
+    public String toSyntaxOptions(final Iterable<Option> options) {
+        return toSyntaxOptions(options, o -> null);
+    }
+
+    /**
+     * Return the string representation of the options as used in the syntax display.
+     *
      * @param options The options to create the string representation for.
      * @param lookup  a function to determine if the Option is part of an OptionGroup that has already been processed.
      * @return the string representation of the options as used in the syntax display.
