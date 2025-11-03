@@ -322,7 +322,7 @@ public abstract class AbstractHelpFormatter {
      * @param autoUsage     whether to print an automatically generated usage statement.
      * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
-    public final void printHelp(final String cmdLineSyntax, final String header, final Iterable<Option> options, final String footer, final boolean autoUsage)
+    public void printHelp(final String cmdLineSyntax, final String header, final Iterable<Option> options, final String footer, final boolean autoUsage)
             throws IOException {
         Options optionsObject = new Options();
         options.forEach(optionsObject::addOption);
@@ -405,7 +405,11 @@ public abstract class AbstractHelpFormatter {
 
     /**
      * Return the string representation of the options as used in the syntax display.
-     *
+     * <p>
+     *     This is probably not the method you want.  This method does not track the presence
+     *     of option groups.  To display the option grouping use {@link #toSyntaxOptions(Options)} or
+     *     {@link #toSyntaxOptions(OptionGroup)} for individual groups.
+     * </p>
      * @param options The collection of {@link Option} instances to create the string representation for.
      * @return the string representation of the options as used in the syntax display.
      */
