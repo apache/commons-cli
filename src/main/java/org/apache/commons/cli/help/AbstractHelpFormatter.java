@@ -284,6 +284,23 @@ public abstract class AbstractHelpFormatter {
     protected abstract TableDefinition getTableDefinition(Iterable<Option> options);
 
     /**
+     * Prints the help for {@link Options} with the specified command line syntax.
+     *
+     * @param cmdLineSyntax the syntax for this application.
+     * @param header        the banner to display at the beginning of the help.
+     * @param options       the collection of {@link Option} objects to print.
+     * @param footer        the banner to display at the end of the help.
+     * @param autoUsage     whether to print an automatically generated usage statement.
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}.
+     */
+    public void printHelp(final String cmdLineSyntax, final String header, final Iterable<Option> options, final String footer, final boolean autoUsage)
+            throws IOException {
+        Options optionsObject = new Options();
+        options.forEach(optionsObject::addOption);
+        printHelp(cmdLineSyntax, header, optionsObject, footer, autoUsage);
+    }
+
+    /**
      * Prints the help for a collection of {@link Option}s with the specified command line syntax.
      *
      * @param cmdLineSyntax the syntax for this application.
@@ -310,23 +327,6 @@ public abstract class AbstractHelpFormatter {
         if (!Util.isEmpty(footer)) {
             helpAppendable.appendParagraph(footer);
         }
-    }
-
-    /**
-     * Prints the help for {@link Options} with the specified command line syntax.
-     *
-     * @param cmdLineSyntax the syntax for this application.
-     * @param header        the banner to display at the beginning of the help.
-     * @param options       the collection of {@link Option} objects to print.
-     * @param footer        the banner to display at the end of the help.
-     * @param autoUsage     whether to print an automatically generated usage statement.
-     * @throws IOException If the output could not be written to the {@link HelpAppendable}.
-     */
-    public void printHelp(final String cmdLineSyntax, final String header, final Iterable<Option> options, final String footer, final boolean autoUsage)
-            throws IOException {
-        Options optionsObject = new Options();
-        options.forEach(optionsObject::addOption);
-        printHelp(cmdLineSyntax, header, optionsObject, footer, autoUsage);
     }
 
     /**
