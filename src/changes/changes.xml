@@ -25,6 +25,7 @@
     <release version="1.11.0" date="2025-10-30" description="This is a feature and maintenance release. Java 8 or later is required.">
       <!-- FIX -->
       <action type="fix" issue="CLI-351" dev="ggregory" due-to="Damien Carbonne, Claude Warren, Gary Gregory">Multiple trailing BREAK_CHAR_SET characters cause infinite loop in HelpFormatter.</action>
+      <action type="fix" issue="CLI-351" dev="ggregory" due-to="Damien Carbonne, Claude Warren, Gary Gregory">Fix issue with groups not being reported in help output. #411.</action>
       <!-- ADD -->
       <action type="add" dev="ggregory" due-to="David Larochette, Gary Gregory">Add CommandLine.getOptionCount() to measure option repetition #396.</action>
       <!-- UPDATE -->
