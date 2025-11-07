@@ -39,7 +39,7 @@
     <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-cli.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-cli.git</developerConnection>
     <url>https://gitbox.apache.org/repos/asf?p=commons-cli.git</url>
-    <tag>HEAD</tag>
+    <tag>rel/common-${commons.componentid}-${commons.release.version}</tag>
   </scm>
   <ciManagement>
     <system>GitHub</system>
