@@ -878,10 +878,7 @@ public class Option implements Cloneable, Serializable {
         if (optionalArg) {
             return false;
         }
-        if (argCount == UNLIMITED_VALUES) {
-            return values.isEmpty();
-        }
-        return acceptsArg();
+        return argCount == UNLIMITED_VALUES ? values.isEmpty() : acceptsArg();
     }
 
     /**
