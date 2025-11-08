@@ -100,16 +100,12 @@ public class DefaultParser implements CommandLineParser {
          * By "partial matching" we mean that given the following code:
          * </p>
          *
-         * <pre>
-         *
-         * {
-         *     &#64;code
-         *     final Options options = new Options();
-         *     options.addOption(new Option("d", "debug", false, "Turn on debug."));
-         *     options.addOption(new Option("e", "extract", false, "Turn on extract."));
-         *     options.addOption(new Option("o", "option", true, "Turn on option with argument."));
-         * }
-         * </pre>
+         * <pre>{@code
+         * final Options options = new Options();
+         * options.addOption(new Option("d", "debug", false, "Turn on debug."));
+         * options.addOption(new Option("e", "extract", false, "Turn on extract."));
+         * options.addOption(new Option("o", "option", true, "Turn on option with argument."));
+         * }</pre>
          * <p>
          * If "partial matching" is turned on, {@code -de} only matches the {@code "debug"} option. However, with "partial matching" disabled, {@code -de} would
          * enable both {@code debug} as well as {@code extract}
@@ -256,13 +252,11 @@ public class DefaultParser implements CommandLineParser {
      * By "partial matching" we mean that given the following code:
      * </p>
      *
-     * <pre>
-     * {
-     *     &#64;code
-     *     final Options options = new Options();
-     *     options.addOption(new Option("d", "debug", false, "Turn on debug."));
-     *     options.addOption(new Option("e", "extract", false, "Turn on extract."));
-     *     options.addOption(new Option("o", "option", true, "Turn on option with argument."));
+     * <pre>{@code
+     * final Options options = new Options();
+     * options.addOption(new Option("d", "debug", false, "Turn on debug."));
+     * options.addOption(new Option("e", "extract", false, "Turn on extract."));
+     * options.addOption(new Option("o", "option", true, "Turn on option with argument."));
      * }
      * </pre>
      *
@@ -281,9 +275,7 @@ public class DefaultParser implements CommandLineParser {
      * <p>
      * By "partial matching" we mean that given the following code:
      * </p>
-     * <pre>
-     * {
-     *     &#64;code
+     * <pre>{@code
      *     final Options options = new Options();
      *     options.addOption(new Option("d", "debug", false, "Turn on debug."));
      *     options.addOption(new Option("e", "extract", false, "Turn on extract."));
