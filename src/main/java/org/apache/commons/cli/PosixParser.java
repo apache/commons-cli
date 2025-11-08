@@ -53,6 +53,17 @@ public class PosixParser extends Parser {
     }
 
     /**
+     * Adds the remaining tokens to the processed tokens list.
+     *
+     * @param iter An iterator over the remaining tokens
+     */
+    private void addRemaining(final Iterator<String> iter) {
+        if (eatTheRest) {
+            iter.forEachRemaining(tokens::add);
+        }
+    }
+
+    /**
      * Breaks {@code token} into its constituent parts using the following algorithm.
      *
      * <ul>
@@ -171,22 +182,9 @@ public class PosixParser extends Parser {
                     processNonOptionToken(token, stopAtNonOption);
                 }
             }
-            gobble(iter);
+            addRemaining(iter);
         }
         return tokens.toArray(Util.EMPTY_STRING_ARRAY);
-    }
-
-    /**
-     * Adds the remaining tokens to the processed tokens list.
-     *
-     * @param iter An iterator over the remaining tokens
-     */
-    private void gobble(final Iterator<String> iter) {
-        if (eatTheRest) {
-            while (iter.hasNext()) {
-                tokens.add(iter.next());
-            }
-        }
     }
 
     /**

@@ -472,7 +472,6 @@ public abstract class AbstractHelpFormatter {
             formatter = optionFormatBuilder.build(iter.next());
             // whether the option is required or not is handled at group level
             buff.append(formatter.toSyntaxOption(true));
-
             if (iter.hasNext()) {
                 buff.append(optionGroupSeparator);
             }

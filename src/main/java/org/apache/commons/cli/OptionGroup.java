@@ -162,12 +162,10 @@ public class OptionGroup implements Serializable {
                 buff.append(OptionFormatter.DEFAULT_LONG_OPT_PREFIX);
                 buff.append(option.getLongOpt());
             }
-
             if (option.getDescription() != null) {
                 buff.append(Char.SP);
                 buff.append(option.getDescription());
             }
-
             if (iter.hasNext()) {
                 buff.append(", ");
             }
