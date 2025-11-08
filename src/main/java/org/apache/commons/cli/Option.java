@@ -966,7 +966,7 @@ public class Option implements Cloneable, Serializable {
      * </p>
      *
      * @param type the type of this Option.
-     * @deprecated since 1.3, use {@link #setType(Class)} instead.
+     * @deprecated Since 1.3, use {@link #setType(Class)} instead.
      */
     @Deprecated
     public void setType(final Object type) {

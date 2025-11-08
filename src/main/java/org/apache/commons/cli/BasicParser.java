@@ -21,7 +21,7 @@ package org.apache.commons.cli;
  * The class BasicParser provides a very simple implementation of the {@link Parser#flatten(Options,String[],boolean)
  * flatten} method.
  *
- * @deprecated since 1.3, use the {@link DefaultParser} instead.
+ * @deprecated Since 1.3, use the {@link DefaultParser} instead.
  */
 @Deprecated
 public class BasicParser extends Parser {

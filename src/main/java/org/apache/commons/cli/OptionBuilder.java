@@ -26,7 +26,7 @@ package org.apache.commons.cli;
  * This class is NOT thread safe. See <a href="https://issues.apache.org/jira/browse/CLI-209">CLI-209</a>
  *
  * @since 1.0
- * @deprecated since 1.3, use {@link Option#builder(String)} instead.
+ * @deprecated Since 1.3, use {@link Option#builder(String)} instead.
  */
 @Deprecated
 public final class OptionBuilder {
@@ -281,7 +281,7 @@ public final class OptionBuilder {
      *
      * @param newType the type of the Options argument value
      * @return the OptionBuilder instance
-     * @deprecated since 1.3, use {@link #withType(Class)} instead
+     * @deprecated Since 1.3, use {@link #withType(Class)} instead
      */
     @Deprecated
     public static OptionBuilder withType(final Object newType) {

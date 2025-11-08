@@ -27,7 +27,7 @@ import java.util.Properties;
 /**
  * Creates {@link CommandLine} instances.
  *
- * @deprecated since 1.3, the two-pass parsing with the flatten method is not enough flexible to handle complex cases
+ * @deprecated Since 1.3, the two-pass parsing with the flatten method is not enough flexible to handle complex cases
  */
 @Deprecated
 public abstract class Parser implements CommandLineParser {
