@@ -377,8 +377,7 @@ options.addOption(property);</code></pre>
     try {
         // parse the command line arguments
         CommandLine line = parser.parse(options, args);
-    }
-    catch (ParseException exp) {
+    } catch (ParseException exp) {
         // oops, something went wrong
         System.err.println("Parsing failed.  Reason: " + exp.getMessage());
     }
@@ -491,8 +490,7 @@ try {
         // print the value of block-size
         System.out.println(line.getOptionValue("block-size"));
     }
-}
-catch (ParseException exp) {
+} catch (ParseException exp) {
     System.out.println("Unexpected exception:" + exp.getMessage());
 }     </code></pre>
     </section>
