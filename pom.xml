@@ -118,17 +118,6 @@
     <pluginManagement>
       <plugins>
         <plugin>
-            <groupId>org.apache.rat</groupId>
-            <artifactId>apache-rat-plugin</artifactId>
-            <version>${commons.rat.version}</version>
-            <!-- Should agree with config in build section -->
-            <configuration>
-              <excludes>
-                <exclude>.asf.yaml</exclude>
-              </excludes>
-            </configuration>
-        </plugin>
-        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
           <configuration>
@@ -197,17 +186,6 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <version>${commons.rat.version}</version>
-        <!-- Should agree with config in build section -->
-        <configuration>
-          <excludes>
-            <exclude>.asf.yaml</exclude>
-          </excludes>
-        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
