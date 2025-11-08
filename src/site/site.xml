@@ -39,7 +39,7 @@
       <item name="Download" href="https://commons.apache.org/proper/commons-bcel/download_bcel.cgi" />
       <item name="Javadoc">
         <item name="Javadoc Current" href="apidocs/index.html" />
-        <item name="Javadoc Archive" href="https://javadoc.io/doc/org.apache.bcel/bcel/" />
+        <item name="Javadoc Archive" href="https://javadoc.io/doc/commons-cli/commons-cli/" />
       </item>
       <!-- End: For all components. -->
     </menu>
