@@ -72,7 +72,7 @@ public final class OptionBuilder {
     public static Option create() throws IllegalArgumentException {
         if (longOption == null) {
             reset();
-            throw new IllegalStateException("must specify longopt");
+            throw new IllegalStateException("longopt missing");
         }
         return create(null);
     }
