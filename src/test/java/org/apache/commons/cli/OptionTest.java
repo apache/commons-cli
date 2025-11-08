@@ -211,11 +211,11 @@ class OptionTest {
     @Test
     void testClear() {
         final TestOption option = new TestOption("x", true, "");
-        assertEquals(0, option.getValuesList().size());
+        assertTrue(option.getValuesList().isEmpty());
         option.addValue("a");
         assertEquals(1, option.getValuesList().size());
         option.clearValues();
-        assertEquals(0, option.getValuesList().size());
+        assertTrue(option.getValuesList().isEmpty());
     }
 
     // See https://issues.apache.org/jira/browse/CLI-21
@@ -231,7 +231,7 @@ class OptionTest {
         b.addValue("b1");
         b.addValue("b2");
         assertEquals(1, a.getArgs());
-        assertEquals(0, a.getValuesList().size());
+        assertTrue(a.getValuesList().isEmpty());
         assertEquals(2, b.getValues().length);
     }
 
