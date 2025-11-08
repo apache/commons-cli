@@ -22,6 +22,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.cli.help.OptionFormatter;
+
 /**
  * The class PosixParser provides an implementation of the {@link Parser#flatten(Options,String[],boolean) flatten}
  * method.
@@ -81,7 +83,7 @@ public class PosixParser extends Parser {
                 }
                 break;
             }
-            tokens.add("-" + ch);
+            tokens.add(OptionFormatter.DEFAULT_OPT_PREFIX + ch);
             currentOption = options.getOption(ch);
             if (currentOption.hasArg() && token.length() != i + 1) {
                 tokens.add(token.substring(i + 1));
@@ -132,9 +134,9 @@ public class PosixParser extends Parser {
             final String token = iter.next();
             if (token != null) {
                 // single or double hyphen
-                if ("-".equals(token) || "--".equals(token)) {
+                if (OptionFormatter.DEFAULT_OPT_PREFIX.equals(token) || OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(token)) {
                     tokens.add(token);
-                } else if (token.startsWith("--")) {
+                } else if (token.startsWith(OptionFormatter.DEFAULT_LONG_OPT_PREFIX)) {
                     // handle long option --foo or --foo=bar
                     final int pos = DefaultParser.indexOfEqual(token);
                     final String opt = pos == -1 ? token : token.substring(0, pos); // --foo
@@ -145,12 +147,12 @@ public class PosixParser extends Parser {
                         throw new AmbiguousOptionException(opt, matchingOpts);
                     } else {
                         currentOption = options.getOption(matchingOpts.get(0));
-                        tokens.add("--" + currentOption.getLongOpt());
+                        tokens.add(OptionFormatter.DEFAULT_LONG_OPT_PREFIX + currentOption.getLongOpt());
                         if (pos != -1) {
                             tokens.add(token.substring(pos + 1));
                         }
                     }
-                } else if (token.startsWith("-")) {
+                } else if (token.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX)) {
                     if (token.length() == 2 || options.hasOption(token)) {
                         processOptionToken(token, stopAtNonOption);
                     } else if (!options.getMatchingOptions(token).isEmpty()) {
@@ -159,7 +161,7 @@ public class PosixParser extends Parser {
                             throw new AmbiguousOptionException(token, matchingOpts);
                         }
                         final Option opt = options.getOption(matchingOpts.get(0));
-                        processOptionToken("-" + opt.getLongOpt(), stopAtNonOption);
+                        processOptionToken(OptionFormatter.DEFAULT_OPT_PREFIX + opt.getLongOpt(), stopAtNonOption);
                     }
                     // requires bursting
                     else {
@@ -205,7 +207,7 @@ public class PosixParser extends Parser {
     private void processNonOptionToken(final String value, final boolean stopAtNonOption) {
         if (stopAtNonOption && (currentOption == null || !currentOption.hasArg())) {
             eatTheRest = true;
-            tokens.add("--");
+            tokens.add(OptionFormatter.DEFAULT_LONG_OPT_PREFIX);
         }
         tokens.add(value);
     }

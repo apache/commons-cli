@@ -34,6 +34,9 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import org.apache.commons.cli.help.AbstractHelpFormatter;
+import org.apache.commons.cli.help.OptionFormatter;
+
 /**
  * A formatter of help messages for command line options.
  * <p>
@@ -198,10 +201,10 @@ public class HelpFormatter {
     public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
 
     /** Default prefix for shortOpts */
-    public static final String DEFAULT_OPT_PREFIX = "-";
+    public static final String DEFAULT_OPT_PREFIX = OptionFormatter.DEFAULT_OPT_PREFIX;
 
     /** Default prefix for long Option */
-    public static final String DEFAULT_LONG_OPT_PREFIX = "--";
+    public static final String DEFAULT_LONG_OPT_PREFIX = OptionFormatter.DEFAULT_LONG_OPT_PREFIX;
 
     /**
      * Default separator displayed between a long Option and its value
@@ -358,9 +361,9 @@ public class HelpFormatter {
             buff.append("[");
         }
         if (option.getOpt() != null) {
-            buff.append("-").append(option.getOpt());
+            buff.append(OptionFormatter.DEFAULT_OPT_PREFIX).append(option.getOpt());
         } else {
-            buff.append("--").append(option.getLongOpt());
+            buff.append(OptionFormatter.DEFAULT_LONG_OPT_PREFIX).append(option.getLongOpt());
         }
         // if the Option has a value and a non blank argname
         if (option.hasArg() && (option.getArgName() == null || !option.getArgName().isEmpty())) {
@@ -394,7 +397,7 @@ public class HelpFormatter {
             // whether the option is required or not is handled at group level
             appendOption(buff, it.next(), true);
             if (it.hasNext()) {
-                buff.append(" | ");
+                buff.append(AbstractHelpFormatter.DEFAULT_OPTION_GROUP_SEPARATOR);
             }
         }
         if (!optionGroup.isRequired()) {
@@ -467,7 +470,7 @@ public class HelpFormatter {
             if (optBuf.length() < max) {
                 optBuf.append(createPadding(max - maxSince - optBuf.length()));
                 if (showSince) {
-                    optBuf.append(lpad).append(option.getSince() == null ? "-" : option.getSince());
+                    optBuf.append(lpad).append(option.getSince() == null ? OptionFormatter.DEFAULT_OPT_PREFIX : option.getSince());
                 }
                 optBuf.append(createPadding(max - optBuf.length()));
             }

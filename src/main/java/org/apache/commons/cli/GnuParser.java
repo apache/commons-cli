@@ -20,6 +20,8 @@ package org.apache.commons.cli;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.cli.help.OptionFormatter;
+
 /**
  * The class GnuParser provides an implementation of the {@link Parser#flatten(Options, String[], boolean) flatten}
  * method.
@@ -57,12 +59,12 @@ public class GnuParser extends Parser {
         for (int i = 0; i < arguments.length; i++) {
             final String arg = arguments[i];
             if (arg != null) {
-                if ("--".equals(arg)) {
+                if (OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(arg)) {
                     eatTheRest = true;
-                    tokens.add("--");
-                } else if ("-".equals(arg)) {
-                    tokens.add("-");
-                } else if (arg.startsWith("-")) {
+                    tokens.add(OptionFormatter.DEFAULT_LONG_OPT_PREFIX);
+                } else if (OptionFormatter.DEFAULT_OPT_PREFIX.equals(arg)) {
+                    tokens.add(OptionFormatter.DEFAULT_OPT_PREFIX);
+                } else if (arg.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX)) {
                     final String opt = Util.stripLeadingHyphens(arg);
                     if (options.hasOption(opt)) {
                         tokens.add(arg);

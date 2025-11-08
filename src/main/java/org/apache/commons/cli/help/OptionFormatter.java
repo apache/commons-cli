@@ -434,7 +434,7 @@ public final class OptionFormatter {
      * @return The since valeu from the option or "--" if no since value was set.
      */
     public String getSince() {
-        return Util.defaultValue(option.getSince(), "--");
+        return Util.defaultValue(option.getSince(), DEFAULT_LONG_OPT_PREFIX);
     }
 
     /**

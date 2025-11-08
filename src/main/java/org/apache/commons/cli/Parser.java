@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Properties;
 
+import org.apache.commons.cli.help.OptionFormatter;
+
 /**
  * Creates {@link CommandLine} instances.
  *
@@ -157,23 +159,23 @@ public abstract class Parser implements CommandLineParser {
         setOptions(options);
         cmd = CommandLine.builder().get();
         boolean eatTheRest = false;
-        final List<String> tokenList = Arrays.asList(flatten(getOptions(), arguments == null ? new String[0] : arguments, stopAtNonOption));
+        final List<String> tokenList = Arrays.asList(flatten(getOptions(), arguments == null ? Util.EMPTY_STRING_ARRAY : arguments, stopAtNonOption));
         final ListIterator<String> iterator = tokenList.listIterator();
         // process each flattened token
         while (iterator.hasNext()) {
             final String token = iterator.next();
             if (token != null) {
                 // the value is the double-dash
-                if ("--".equals(token)) {
+                if (OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(token)) {
                     eatTheRest = true;
-                } else if ("-".equals(token)) {
+                } else if (OptionFormatter.DEFAULT_OPT_PREFIX.equals(token)) {
                     // the value is a single dash
                     if (stopAtNonOption) {
                         eatTheRest = true;
                     } else {
                         cmd.addArg(token);
                     }
-                } else if (token.startsWith("-")) {
+                } else if (token.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX)) {
                     // the value is an option
                     if (stopAtNonOption && !getOptions().hasOption(token)) {
                         eatTheRest = true;
@@ -190,13 +192,12 @@ public abstract class Parser implements CommandLineParser {
                 }
                 // eat the remaining tokens
                 if (eatTheRest) {
-                    while (iterator.hasNext()) {
-                        final String str = iterator.next();
+                    iterator.forEachRemaining(str -> {
                         // ensure only one double-dash is added
-                        if (!"--".equals(str)) {
+                        if (!OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(str)) {
                             cmd.addArg(str);
                         }
-                    }
+                    });
                 }
             }
         }
@@ -218,7 +219,7 @@ public abstract class Parser implements CommandLineParser {
         while (iter.hasNext()) {
             final String str = iter.next();
             // found an Option, not an argument
-            if (getOptions().hasOption(str) && str.startsWith("-")) {
+            if (getOptions().hasOption(str) && str.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX)) {
                 iter.previous();
                 break;
             }

@@ -23,6 +23,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.commons.cli.help.OptionFormatter;
+
 /**
  * A group of mutually exclusive options.
  */
@@ -154,10 +156,10 @@ public class OptionGroup implements Serializable {
         while (iter.hasNext()) {
             final Option option = iter.next();
             if (option.getOpt() != null) {
-                buff.append("-");
+                buff.append(OptionFormatter.DEFAULT_OPT_PREFIX);
                 buff.append(option.getOpt());
             } else {
-                buff.append("--");
+                buff.append(OptionFormatter.DEFAULT_LONG_OPT_PREFIX);
                 buff.append(option.getLongOpt());
             }
 
