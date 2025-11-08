@@ -148,9 +148,7 @@ public abstract class Parser implements CommandLineParser {
     public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption)
             throws ParseException {
         // clear out the data in options in case it's been used before (CLI-71)
-        for (final Option opt : options.helpOptions()) {
-            opt.clearValues();
-        }
+        options.helpOptions().forEach(Option::clearValues);
         // clear the data from the groups
         for (final OptionGroup optionGroup : options.getOptionGroups()) {
             optionGroup.setSelected(null);

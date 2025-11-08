@@ -150,7 +150,7 @@ public class Options implements Serializable {
         if (optionGroup.isRequired()) {
             requiredOpts.add(optionGroup);
         }
-        for (final Option option : optionGroup.getOptions()) {
+        optionGroup.getOptions().forEach(option -> {
             // an Option cannot be required if it is in an
             // OptionGroup, either the group is required or
             // nothing is required
@@ -159,7 +159,7 @@ public class Options implements Serializable {
             requiredOpts.remove(key);
             addOption(option);
             optionGroups.put(key, optionGroup);
-        }
+        });
         return this;
     }
 
@@ -172,12 +172,12 @@ public class Options implements Serializable {
      * @since 1.7.0
      */
     public Options addOptions(final Options options) {
-        for (final Option opt : options.getOptions()) {
+        options.getOptions().forEach(opt -> {
             if (hasOption(opt.getKey())) {
                 throw new IllegalArgumentException("Duplicate key: " + opt.getKey());
             }
             addOption(opt);
-        }
+        });
         options.getOptionGroups().forEach(this::addOptionGroup);
         return this;
     }
@@ -223,11 +223,11 @@ public class Options implements Serializable {
         if (longOpts.containsKey(clean)) {
             return Collections.singletonList(clean);
         }
-        for (final String longOpt : longOpts.keySet()) {
+        longOpts.keySet().forEach(longOpt -> {
             if (longOpt.startsWith(clean)) {
                 matchingOpts.add(longOpt);
             }
-        }
+        });
         return matchingOpts;
     }
 

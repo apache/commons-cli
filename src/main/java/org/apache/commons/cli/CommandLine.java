@@ -306,11 +306,11 @@ public class CommandLine implements Serializable {
      */
     public Properties getOptionProperties(final Option option) {
         final Properties props = new Properties();
-        for (final Option processedOption : options) {
+        options.forEach(processedOption -> {
             if (processedOption.equals(option)) {
                 processPropertiesFromValues(props, processedOption.getValuesList());
             }
-        }
+        });
         return props;
     }
 
@@ -326,11 +326,11 @@ public class CommandLine implements Serializable {
      */
     public Properties getOptionProperties(final String optionName) {
         final Properties props = new Properties();
-        for (final Option option : options) {
+        options.forEach(option -> {
             if (optionName.equals(option.getOpt()) || optionName.equals(option.getLongOpt())) {
                 processPropertiesFromValues(props, option.getValuesList());
             }
-        }
+        });
         return props;
     }
 
@@ -503,14 +503,14 @@ public class CommandLine implements Serializable {
             return null;
         }
         final List<String> values = new ArrayList<>();
-        for (final Option processedOption : options) {
+        options.forEach(processedOption -> {
             if (processedOption.equals(option)) {
                 if (option.isDeprecated()) {
                     handleDeprecated(option);
                 }
                 values.addAll(processedOption.getValuesList());
             }
-        }
+        });
         return values.isEmpty() ? null : values.toArray(Util.EMPTY_STRING_ARRAY);
     }
 

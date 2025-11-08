@@ -163,7 +163,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
         // setup the rows for the table.
         final List<List<String>> rows = new ArrayList<>();
         final StringBuilder sb = new StringBuilder();
-        for (final Option option : options) {
+        options.forEach(option -> {
             final List<String> row = new ArrayList<>();
             // create an option formatter to correctly format the parts of the option
             final OptionFormatter formatter = getOptionFormatBuilder().build(option);
@@ -182,7 +182,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
             // add the option description
             row.add(formatter.getDescription());
             rows.add(row);
-        }
+        });
         // return the TableDefinition with the proper column headers.
         return TableDefinition.from("", styles, showSince ? Arrays.asList("Options", "Since", "Description") : Arrays.asList("Options", "Description"), rows);
     }

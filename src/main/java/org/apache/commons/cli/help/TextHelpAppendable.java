@@ -191,10 +191,8 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         }
         // regenerate the styles
         final List<TextStyle> styles = new ArrayList<>();
-        for (final TextStyle.Builder builder : styleBuilders) {
-            // adjust by removing the padding as it was not accounted for above.
-            styles.add(builder.get());
-        }
+        // adjust by removing the padding as it was not accounted for above.
+        styleBuilders.forEach(builder -> styles.add(builder.get()));
         return TableDefinition.from(table.caption(), styles, table.headers(), table.rows());
     }
 
@@ -244,9 +242,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         // write the table
         appendParagraph(table.caption());
         final List<TextStyle> headerStyles = new ArrayList<>();
-        for (final TextStyle style : table.columnTextStyles()) {
-            headerStyles.add(TextStyle.builder().setTextStyle(style).setAlignment(TextStyle.Alignment.CENTER).get());
-        }
+        table.columnTextStyles().forEach(style -> headerStyles.add(TextStyle.builder().setTextStyle(style).setAlignment(TextStyle.Alignment.CENTER).get()));
         writeColumnQueues(makeColumnQueues(table.headers(), headerStyles), headerStyles);
         for (final List<String> row : table.rows()) {
             writeColumnQueues(makeColumnQueues(row, table.columnTextStyles()), table.columnTextStyles());

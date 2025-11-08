@@ -393,7 +393,6 @@ public class HelpFormatter {
         for (final Iterator<Option> it = optList.iterator(); it.hasNext();) {
             // whether the option is required or not is handled at group level
             appendOption(buff, it.next(), true);
-
             if (it.hasNext()) {
                 buff.append(" | ");
             }
