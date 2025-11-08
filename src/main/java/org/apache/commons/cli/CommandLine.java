@@ -1022,11 +1022,7 @@ public class CommandLine implements Serializable {
      */
     private void processPropertiesFromValues(final Properties props, final List<String> values) {
         for (int i = 0; i < values.size(); i += 2) {
-            if (i + 1 < values.size()) {
-                props.put(values.get(i), values.get(i + 1));
-            } else {
-                props.put(values.get(i), "true");
-            }
+            props.put(values.get(i), i + 1 < values.size() ? values.get(i + 1) : "true");
         }
     }
 
