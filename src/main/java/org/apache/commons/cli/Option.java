@@ -694,7 +694,7 @@ public class Option implements Cloneable, Serializable {
      * @return the value/first value of this Option or {@code null} if there is no value.
      */
     public String getValue() {
-        return hasNoValues() ? null : values.get(0);
+        return isValuesEmpty() ? null : values.get(0);
     }
 
     /**
@@ -705,7 +705,7 @@ public class Option implements Cloneable, Serializable {
      * @throws IndexOutOfBoundsException if index is less than 1 or greater than the number of the values for this Option.
      */
     public String getValue(final int index) throws IndexOutOfBoundsException {
-        return hasNoValues() ? null : values.get(index);
+        return isValuesEmpty() ? null : values.get(index);
     }
 
     /**
@@ -725,7 +725,7 @@ public class Option implements Cloneable, Serializable {
      * @return the values of this Option as a String array or an empty array if there are no values.
      */
     public String[] getValues() {
-        return hasNoValues() ? null : values.toArray(EMPTY_STRING_ARRAY);
+        return isValuesEmpty() ? null : values.toArray(EMPTY_STRING_ARRAY);
     }
 
     /**
@@ -788,15 +788,6 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
-     * Tests whether this Option has any values.
-     *
-     * @return whether this Option has any values.
-     */
-    private boolean hasNoValues() {
-        return values.isEmpty();
-    }
-
-    /**
      * Tests whether this Option can have an optional argument.
      *
      * @return whether this Option can have an optional argument.
@@ -832,6 +823,15 @@ public class Option implements Cloneable, Serializable {
      */
     public boolean isRequired() {
         return required;
+    }
+
+    /**
+     * Tests whether this Option has any values.
+     *
+     * @return whether this Option has any values.
+     */
+    boolean isValuesEmpty() {
+        return values.isEmpty();
     }
 
     /**

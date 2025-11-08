@@ -516,7 +516,7 @@ public class DefaultParser implements CommandLineParser {
                 final String value = properties.getProperty(option);
 
                 if (opt.hasArg()) {
-                    if (Util.isEmpty(opt.getValues())) {
+                    if (opt.isValuesEmpty()) {
                         opt.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
                     }
                 } else if (!("yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value) || "1".equalsIgnoreCase(value))) {

@@ -231,7 +231,7 @@ public abstract class Parser implements CommandLineParser {
                 break;
             }
         }
-        if (opt.getValues() == null && !opt.hasOptionalArg()) {
+        if (opt.isValuesEmpty() && !opt.hasOptionalArg()) {
             throw new MissingArgumentException(opt);
         }
     }
@@ -285,7 +285,7 @@ public abstract class Parser implements CommandLineParser {
                 // get the value from the properties instance
                 final String value = properties.getProperty(option);
                 if (opt.hasArg()) {
-                    if (Util.isEmpty(opt.getValues())) {
+                    if (opt.isValuesEmpty()) {
                         try {
                             opt.processValue(value);
                         } catch (final RuntimeException exp) { // NOPMD
