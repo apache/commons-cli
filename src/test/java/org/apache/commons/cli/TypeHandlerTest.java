@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -184,7 +185,7 @@ class TypeHandlerTest {
 
     @Test
     void testCreateFile() {
-        final File file = new File("").getAbsoluteFile();
+        final File file = FileUtils.current().getAbsoluteFile();
         assertEquals(file, TypeHandler.createFile(file.toString()));
     }
 
