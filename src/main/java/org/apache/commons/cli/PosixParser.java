@@ -28,21 +28,21 @@ import org.apache.commons.cli.help.OptionFormatter;
  * The class PosixParser provides an implementation of the {@link Parser#flatten(Options,String[],boolean) flatten}
  * method.
  *
- * @deprecated Since 1.3, use the {@link DefaultParser} instead
+ * @deprecated Since 1.3, use the {@link DefaultParser} instead.
  */
 @Deprecated
 public class PosixParser extends Parser {
 
-    /** Holder for flattened tokens */
+    /** Holder for flattened tokens. */
     private final List<String> tokens = new ArrayList<>();
 
-    /** Specifies if bursting should continue */
+    /** Specifies if bursting should continue.. */
     private boolean eatTheRest;
 
     /** Holder for the current option */
     private Option currentOption;
 
-    /** The command line Options */
+    /** The command line Options. */
     private Options options;
 
     /**
@@ -55,7 +55,7 @@ public class PosixParser extends Parser {
     /**
      * Adds the remaining tokens to the processed tokens list.
      *
-     * @param iter An iterator over the remaining tokens
+     * @param iter An iterator over the remaining tokens.
      */
     private void addRemaining(final Iterator<String> iter) {
         if (eatTheRest) {

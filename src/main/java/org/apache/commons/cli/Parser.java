@@ -29,7 +29,7 @@ import org.apache.commons.cli.help.OptionFormatter;
 /**
  * Creates {@link CommandLine} instances.
  *
- * @deprecated Since 1.3, the two-pass parsing with the flatten method is not enough flexible to handle complex cases
+ * @deprecated Since 1.3, the two-pass parsing with the flatten method is not enough flexible to handle complex cases.
  */
 @Deprecated
 public abstract class Parser implements CommandLineParser {
@@ -316,7 +316,7 @@ public abstract class Parser implements CommandLineParser {
     /**
      * Removes the option or its group from the list of expected elements.
      *
-     * @param opt
+     * @param opt the option.
      */
     private void updateRequiredOptions(final Option opt) throws ParseException {
         // if the option is a required option remove the option from

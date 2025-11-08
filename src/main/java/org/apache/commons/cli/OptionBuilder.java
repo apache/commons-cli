@@ -231,8 +231,8 @@ public final class OptionBuilder {
     /**
      * The next Option created will have the specified argument value name.
      *
-     * @param name the name for the argument value
-     * @return the OptionBuilder instance
+     * @param name the name for the argument value.
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder withArgName(final String name) {
         argName = name;
@@ -242,8 +242,8 @@ public final class OptionBuilder {
     /**
      * The next Option created will have the specified description
      *
-     * @param newDescription a description of the Option's purpose
-     * @return the OptionBuilder instance
+     * @param newDescription a description of the Option's purpose.
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder withDescription(final String newDescription) {
         description = newDescription;
@@ -253,8 +253,8 @@ public final class OptionBuilder {
     /**
      * The next Option created will have the following long option value.
      *
-     * @param newLongopt the long option value
-     * @return the OptionBuilder instance
+     * @param newLongopt the long option value.
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder withLongOpt(final String newLongopt) {
         longOption = newLongopt;
@@ -264,8 +264,8 @@ public final class OptionBuilder {
     /**
      * The next Option created will have a value that will be an instance of {@code type}.
      *
-     * @param newType the type of the Options argument value
-     * @return the OptionBuilder instance
+     * @param newType the type of the Options argument value.
+     * @return the OptionBuilder instance.
      * @since 1.3
      */
     public static OptionBuilder withType(final Class<?> newType) {
@@ -279,9 +279,9 @@ public final class OptionBuilder {
      * <strong>Note:</strong> this method is kept for binary compatibility and the input type is supposed to be a {@link Class}
      * object.
      *
-     * @param newType the type of the Options argument value
-     * @return the OptionBuilder instance
-     * @deprecated Since 1.3, use {@link #withType(Class)} instead
+     * @param newType the type of the Options argument value.
+     * @return the OptionBuilder instance.
+     * @deprecated Since 1.3, use {@link #withType(Class)} instead.
      */
     @Deprecated
     public static OptionBuilder withType(final Object newType) {
@@ -301,7 +301,7 @@ public final class OptionBuilder {
      * String propertyValue = opt.getValue(1);
      * </pre>
      *
-     * @return the OptionBuilder instance
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder withValueSeparator() {
         valueSeparator = Char.EQUAL;
@@ -323,7 +323,7 @@ public final class OptionBuilder {
      * </pre>
      *
      * @param sep The value separator to be used for the argument values.
-     * @return the OptionBuilder instance
+     * @return the OptionBuilder instance.
      */
     public static OptionBuilder withValueSeparator(final char sep) {
         valueSeparator = sep;
@@ -331,7 +331,7 @@ public final class OptionBuilder {
     }
 
     /**
-     * private constructor to prevent instances being created
+     * private constructor to prevent instances being created.
      */
     private OptionBuilder() {
         // hide the constructor
