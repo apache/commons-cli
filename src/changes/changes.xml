@@ -22,6 +22,11 @@
     <title>Apache Commons CLI Release Notes</title>
   </properties>
   <body>
+    <release version="1.11.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
+      <!-- FIX -->
+      <!-- ADD -->
+      <!-- UPDATE -->
+    </release>
     <release version="1.11.0" date="2025-11-08" description="This is a feature and maintenance release. Java 8 or later is required.">
       <!-- FIX -->
       <action type="fix" issue="CLI-351" dev="ggregory" due-to="Damien Carbonne, Claude Warren, Gary Gregory">Multiple trailing BREAK_CHAR_SET characters cause infinite loop in HelpFormatter.</action>
