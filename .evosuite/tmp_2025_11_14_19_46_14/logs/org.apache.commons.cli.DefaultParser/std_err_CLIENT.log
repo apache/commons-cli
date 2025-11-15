@@ -1,0 +1,4 @@
+[MASTER] 19:46:24.941 [pool-2-thread-1] ERROR TestCluster - Failed to check cache for java.util.function.BiFunction<T, U, R> : Type points to itself
+[MASTER] 19:46:31.580 [pool-2-thread-1] ERROR TestCluster - Failed to check cache for java.util.function.Function<T, R> : Type points to itself
+[MASTER] 19:46:39.114 [pool-2-thread-1] ERROR TestCluster - Failed to check cache for java.util.Comparator<T> : Type points to itself
+[MASTER] 19:46:59.686 [pool-2-thread-1] ERROR TestCluster - Failed to check cache for java.util.Enumeration<E> : Type points to itself

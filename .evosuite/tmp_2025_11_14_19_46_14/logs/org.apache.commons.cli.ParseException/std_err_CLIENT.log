@@ -1,0 +1,2 @@
+[MASTER] 20:22:28.241 [pool-2-thread-1] ERROR TestCluster - Failed to check cache for java.util.function.BiFunction<T, U, R> : Type points to itself
+[MASTER] 20:22:38.281 [pool-2-thread-1] ERROR JUnitAnalyzer - Ran out of time while checking tests

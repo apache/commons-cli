@@ -1,0 +1,1 @@
+[MASTER] 20:24:49.991 [pool-2-thread-1] ERROR TestCluster - Failed to check cache for java.util.HashMap<K, V> : Type points to itself

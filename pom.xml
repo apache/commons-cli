@@ -19,7 +19,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>91</version>
+    <version>92</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>commons-cli</groupId>
@@ -44,10 +44,29 @@
     <system>GitHub</system>
     <url>https://github.com/apache/commons-cli/actions</url>
   </ciManagement>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>EvoSuite</id>
+      <name>EvoSuite Repository</name>
+      <url>http://www.evosuite.org/m2</url>
+    </pluginRepository>
+  </pluginRepositories>
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.evosuite</groupId>
+      <artifactId>evosuite-standalone-runtime</artifactId>
+      <version>${evosuite.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -111,10 +130,12 @@
     <commons.jacoco.branchRatio>0.95</commons.jacoco.branchRatio>
     <commons.jacoco.lineRatio>0.98</commons.jacoco.lineRatio>
     <commons.jacoco.complexityRatio>0.94</commons.jacoco.complexityRatio>
+    <evosuite.version>1.0.6</evosuite.version>
   </properties>
   <build>
     <defaultGoal>clean verify apache-rat:check japicmp:cmp checkstyle:check spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
     <pluginManagement>
+
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -125,14 +146,78 @@
             <enableRulesSummary>false</enableRulesSummary>
             <includeTestSourceDirectory>true</includeTestSourceDirectory>
           </configuration>
-        </plugin>      
-      <plugin>
-        <groupId>com.github.spotbugs</groupId>
-        <artifactId>spotbugs-maven-plugin</artifactId>
-        <configuration>
-          <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
-        </configuration>
-      </plugin>
+        </plugin>
+        <plugin>
+          <groupId>org.evosuite.plugins</groupId>
+          <artifactId>evosuite-maven-plugin</artifactId>
+          <version>${evosuite.version}</version>
+          <executions>
+            <!-- prepares the runtime listener so EvoSuite tests run with surefire -->
+            <execution>
+              <goals><goal>prepare</goal></goals>
+              <phase>process-test-classes</phase>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.2</version>
+          <configuration>
+            <properties>
+              <property>
+                <name>listener</name>
+                <value>org.evosuite.runtime.InitializingListener</value>
+              </property>
+            </properties>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.7</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report</id>
+              <phase>test</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.pitest</groupId>
+          <artifactId>pitest-maven</artifactId>
+          <version>1.14.0</version> <!-- Use latest stable version -->
+          <configuration>
+            <targetClasses>
+              <param>org.apache.commons.cli.*</param>
+            </targetClasses>
+            <targetTests>
+              <param>org.apache.commons.cli.*</param>
+            </targetTests>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.pitest</groupId>
+              <artifactId>pitest-junit5-plugin</artifactId>
+              <version>1.2.2</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <configuration>
+            <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
+          </configuration>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-scm-publish-plugin</artifactId>

@@ -1,0 +1,9 @@
+[MASTER] 19:57:33.015 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize net.bytebuddy.implementation.EqualsMethod: null
+[MASTER] 19:57:33.033 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize net.bytebuddy.implementation.HashCodeMethod: Could not initialize class net.bytebuddy.description.type.TypeDescription$ForLoadedType
+[MASTER] 19:57:33.051 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize net.bytebuddy.build.HashCodeAndEqualsPlugin: Could not initialize class net.bytebuddy.description.type.TypeDescription$ForLoadedType
+[MASTER] 19:57:33.468 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize net.bytebuddy.build.HashCodeAndEqualsPlugin: null
+[MASTER] 19:57:33.517 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize net.bytebuddy.description.type.TypeDefinition$Sort: null
+[MASTER] 19:57:33.521 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize net.bytebuddy.implementation.EqualsMethod: Could not initialize class net.bytebuddy.description.type.TypeDescription$ForLoadedType
+[MASTER] 19:57:33.521 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize net.bytebuddy.description.type.TypeDescription$ForLoadedType: Could not initialize class net.bytebuddy.description.type.TypeDescription$ForLoadedType
+[MASTER] 19:57:34.002 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize net.bytebuddy.implementation.HashCodeMethod: null
+[MASTER] 19:57:38.109 [pool-2-thread-1] ERROR JUnitAnalyzer - Ran out of time while checking tests

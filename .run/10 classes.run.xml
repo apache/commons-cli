@@ -1,0 +1,46 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="10 classes" type="MavenRunConfiguration" factoryName="Maven">
+    <MavenSettings>
+      <option name="myGeneralSettings" />
+      <option name="myRunnerSettings" />
+      <option name="myRunnerParameters">
+        <MavenRunnerParameters>
+          <option name="cmdOptions" />
+          <option name="profiles">
+            <set />
+          </option>
+          <option name="goals">
+            <list>
+              <option value="evosuite:generate" />
+              <option value="-Dclass=org.apache.commons.cli.AlreadySelectedException,\" />
+              <option value="org.apache.commons.cli.AmbiguousOptionException,\" />
+              <option value="org.apache.commons.cli.Option,\" />
+              <option value="org.apache.commons.cli.OptionBuilder,\" />
+              <option value="org.apache.commons.cli.DefaultParser,\" />
+              <option value="org.apache.commons.cli.PatternOptionBuilder,\" />
+              <option value="org.apache.commons.cli.CommandLine,\" />
+              <option value="org.apache.commons.cli.HelpFormatter,\" />
+              <option value="org.apache.commons.cli.MissingArgumentException,\" />
+              <option value="org.apache.commons.cli.MissingOptionException" />
+              <option value="-P" />
+              <option value="java-1.8" />
+            </list>
+          </option>
+          <option name="multimoduleDir" />
+          <option name="pomFileName" value="pom.xml" />
+          <option name="profilesMap">
+            <map>
+              <entry key="java-1.8" value="true" />
+            </map>
+          </option>
+          <option name="projectsCmdOptionValues">
+            <list />
+          </option>
+          <option name="resolveToWorkspace" value="false" />
+          <option name="workingDirPath" value="$PROJECT_DIR$" />
+        </MavenRunnerParameters>
+      </option>
+    </MavenSettings>
+    <method v="2" />
+  </configuration>
+</component>

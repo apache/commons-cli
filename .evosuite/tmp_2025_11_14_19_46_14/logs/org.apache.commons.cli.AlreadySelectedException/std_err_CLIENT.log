@@ -1,0 +1,1 @@
+[MASTER] 20:26:14.464 [pool-2-thread-1] ERROR TestCluster - Failed to check cache for java.util.Comparator<T> : Type points to itself

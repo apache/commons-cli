@@ -1,0 +1,10 @@
+org.apache.commons.cli.AlreadySelectedException_ESTest_scaffolding
+org.apache.commons.cli.AmbiguousOptionException_ESTest_scaffolding
+org.apache.commons.cli.CommandLine_ESTest_scaffolding
+org.apache.commons.cli.DefaultParser_ESTest_scaffolding
+org.apache.commons.cli.HelpFormatter_ESTest_scaffolding
+org.apache.commons.cli.MissingArgumentException_ESTest_scaffolding
+org.apache.commons.cli.MissingOptionException_ESTest_scaffolding
+org.apache.commons.cli.OptionBuilder_ESTest_scaffolding
+org.apache.commons.cli.Option_ESTest_scaffolding
+org.apache.commons.cli.PatternOptionBuilder_ESTest_scaffolding

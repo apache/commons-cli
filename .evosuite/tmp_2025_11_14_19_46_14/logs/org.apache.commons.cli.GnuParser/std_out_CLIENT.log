@@ -1,0 +1,93 @@
+* Starting client
+* Connecting to master process on port 3119
+* Analyzing classpath: 
+  - C:\Users\jakub\OneDrive\Documents\SCHOOL\assignment2\target\test-classes
+  - C:\Users\jakub\OneDrive\Documents\SCHOOL\assignment2\target\classes
+  - C:\Users\jakub\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.13.4\junit-jupiter-api-5.13.4.jar
+  - C:\Users\jakub\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar
+  - C:\Users\jakub\.m2\repository\org\junit\platform\junit-platform-commons\1.13.4\junit-platform-commons-1.13.4.jar
+  - C:\Users\jakub\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar
+  - C:\Users\jakub\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.13.4\junit-jupiter-engine-5.13.4.jar
+  - C:\Users\jakub\.m2\repository\org\junit\platform\junit-platform-engine\1.13.4\junit-platform-engine-1.13.4.jar
+  - C:\Users\jakub\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.13.4\junit-jupiter-params-5.13.4.jar
+  - C:\Users\jakub\.m2\repository\org\junit-pioneer\junit-pioneer\1.9.1\junit-pioneer-1.9.1.jar
+  - C:\Users\jakub\.m2\repository\org\junit\platform\junit-platform-launcher\1.13.4\junit-platform-launcher-1.13.4.jar
+  - C:\Users\jakub\.m2\repository\commons-io\commons-io\2.21.0\commons-io-2.21.0.jar
+  - C:\Users\jakub\.m2\repository\org\apache\commons\commons-text\1.14.0\commons-text-1.14.0.jar
+  - C:\Users\jakub\.m2\repository\org\apache\commons\commons-lang3\3.18.0\commons-lang3-3.18.0.jar
+  - C:\Users\jakub\.m2\repository\org\mockito\mockito-core\4.11.0\mockito-core-4.11.0.jar
+  - C:\Users\jakub\.m2\repository\net\bytebuddy\byte-buddy\1.12.19\byte-buddy-1.12.19.jar
+  - C:\Users\jakub\.m2\repository\net\bytebuddy\byte-buddy-agent\1.12.19\byte-buddy-agent-1.12.19.jar
+  - C:\Users\jakub\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar
+* Finished analyzing classpath
+* Generating tests for class org.apache.commons.cli.GnuParser
+* Test criteria:
+  - Line Coverage
+  - Branch Coverage
+  - Exception
+  - Mutation testing (weak)
+  - Method-Output Coverage
+  - Top-Level Method Coverage
+  - No-Exception Top-Level Method Coverage
+  - Context Branch Coverage
+* Setting up search algorithm for whole suite generation
+[MASTER] 20:15:34.871 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: C:\Users\jakub\OneDrive\Documents\SCHOOL\assignment2\.evosuite\evosuite-seeds\org.apache.commons.cli.GnuParser.seed
+* Loaded 0 tests from C:\Users\jakub\OneDrive\Documents\SCHOOL\assignment2\.evosuite\evosuite-seeds\org.apache.commons.cli.GnuParser.seed
+* Total number of test goals: 
+  - Line 31
+  - Branch 23
+  - Exception 0
+  - MutationFactory 57
+  - Output 3
+  - Method 2
+  - MethodNoException 2
+  - CBranchFitnessFactory 23
+* Using seed 1763169332123
+* Starting evolution
+* Search finished after 53s and 1131 generations, 415679 statements, best individual has fitness: 24.333331900028583
+* Writing sequences to pool
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion LINE
+* Coverage of criterion LINE: 84%
+* Total number of goals: 31
+* Number of covered goals: 26
+* Coverage analysis for criterion BRANCH
+* Coverage of criterion BRANCH: 87%
+* Total number of goals: 23
+* Number of covered goals: 20
+* Coverage analysis for criterion EXCEPTION
+* Coverage of criterion EXCEPTION: 100%
+* Total number of goals: 1
+* Number of covered goals: 1
+* Coverage analysis for criterion WEAKMUTATION
+* Coverage of criterion WEAKMUTATION: 74%
+* Total number of goals: 57
+* Number of covered goals: 42
+* Coverage analysis for criterion OUTPUT
+* Coverage of criterion OUTPUT: 67%
+* Total number of goals: 3
+* Number of covered goals: 2
+* Coverage analysis for criterion METHOD
+* Coverage of criterion METHOD: 100%
+* Total number of goals: 2
+* Number of covered goals: 2
+* Coverage analysis for criterion METHODNOEXCEPTION
+* Coverage of criterion METHODNOEXCEPTION: 100%
+* Total number of goals: 2
+* Number of covered goals: 2
+* Coverage analysis for criterion CBRANCH
+* Coverage of criterion CBRANCH: 87%
+* Total number of goals: 23
+* Number of covered goals: 20
+* Generated 7 tests with total length 29
+* Resulting test suite's coverage: 87% (average coverage for all fitness functions)
+* Generating assertions
+* Resulting test suite's mutation score: 56%
+* Compiling and checking tests
+* Permissions denied during test execution: 
+  - java.lang.RuntimePermission: 
+         writeFileDescriptor: 1
+* Writing JUnit test case 'GnuParser_ESTest' to C:\Users\jakub\OneDrive\Documents\SCHOOL\assignment2\.evosuite\tmp_2025_11_14_19_46_14\tests
+* Done!
+
