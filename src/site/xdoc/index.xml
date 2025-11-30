@@ -58,13 +58,13 @@ usage: ls
  -C                       list entries by columns
       </source>
       <p>
-        Check out the <a href="introduction.html">introduction</a> page for a detailed presentation.
+        Check out the <a href="apidocs/index.html#Introducing">introduction</a> page for a detailed presentation.
       </p>
     </section>
 
     <section name="Documentation">
       <p>
-        A full <a href="introduction.html">User's Guide</a> is available
+        A full <a href="apidocs/index.html">User's Guide</a> is available
         as are various <a href="project-reports.html">project reports</a>.
       </p>
       <p>
