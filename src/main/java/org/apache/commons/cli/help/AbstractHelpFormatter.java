@@ -122,7 +122,7 @@ public abstract class AbstractHelpFormatter {
          * Sets the comparator to use for sorting options. If set to {@code null} no sorting is performed.
          *
          * @param comparator The comparator to use for sorting options.
-         * @return this
+         * @return {@code this} instance.
          */
         public B setComparator(final Comparator<Option> comparator) {
             this.comparator = comparator;
@@ -133,7 +133,7 @@ public abstract class AbstractHelpFormatter {
          * Sets the {@link HelpAppendable}.
          *
          * @param helpAppendable the {@link HelpAppendable} to use.
-         * @return this
+         * @return {@code this} instance.
          */
         public B setHelpAppendable(final HelpAppendable helpAppendable) {
             this.helpAppendable = helpAppendable != null ? helpAppendable : TextHelpAppendable.systemOut();
@@ -144,7 +144,7 @@ public abstract class AbstractHelpFormatter {
          * Sets the {@link OptionFormatter.Builder}.
          *
          * @param optionFormatBuilder the {@link OptionFormatter.Builder} to use.
-         * @return this
+         * @return {@code this} instance.
          */
         public B setOptionFormatBuilder(final OptionFormatter.Builder optionFormatBuilder) {
             this.optionFormatBuilder = optionFormatBuilder != null ? optionFormatBuilder : OptionFormatter.builder();
@@ -155,7 +155,7 @@ public abstract class AbstractHelpFormatter {
          * Sets the OptionGroup separator. Normally " | " or something similar to denote that only one option may be chosen.
          *
          * @param optionGroupSeparator the string to separate option group elements with.
-         * @return this
+         * @return {@code this} instance.
          */
         public B setOptionGroupSeparator(final String optionGroupSeparator) {
             this.optionGroupSeparator = Util.defaultValue(optionGroupSeparator, "");

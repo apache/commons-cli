@@ -145,7 +145,7 @@ public final class TextStyle {
          * Sets the alignment.
          *
          * @param alignment the desired alignment.
-         * @return this
+         * @return {@code this} instance.
          */
         public Builder setAlignment(final Alignment alignment) {
             this.alignment = alignment;
@@ -156,7 +156,7 @@ public final class TextStyle {
          * Sets the indent value.
          *
          * @param indent the new indent value.
-         * @return this
+         * @return {@code this} instance.
          */
         public Builder setIndent(final int indent) {
             this.indent = indent;
@@ -167,7 +167,7 @@ public final class TextStyle {
          * Sets the left padding.
          *
          * @param leftPad the new left padding.
-         * @return this
+         * @return {@code this} instance.
          */
         public Builder setLeftPad(final int leftPad) {
             this.leftPad = leftPad;
@@ -178,7 +178,7 @@ public final class TextStyle {
          * Sets the currently specified minimum width.
          *
          * @param maxWidth The currently specified maximum width.
-         * @return this
+         * @return {@code this} instance.
          */
         public Builder setMaxWidth(final int maxWidth) {
             this.maxWidth = maxWidth;
@@ -189,7 +189,7 @@ public final class TextStyle {
          * Sets the currently specified minimum width.
          *
          * @param minWidth The currently specified minimum width.
-         * @return this
+         * @return {@code this} instance.
          */
         public Builder setMinWidth(final int minWidth) {
             this.minWidth = minWidth;

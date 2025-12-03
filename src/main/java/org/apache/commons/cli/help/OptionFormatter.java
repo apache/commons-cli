@@ -126,7 +126,7 @@ public final class OptionFormatter {
          * Sets the default argument name.
          *
          * @param name the new value of default argument name.
-         * @return this
+         * @return {@code this} instance.
          */
         public Builder setDefaultArgName(final String name) {
             this.defaultArgName = Util.defaultValue(name, DEFAULT_ARG_NAME);
@@ -148,7 +148,7 @@ public final class OptionFormatter {
          * Sets the long option prefix.
          *
          * @param prefix prefix for long options.
-         * @return this
+         * @return {@code this} instance.
          */
         public Builder setLongOptPrefix(final String prefix) {
             this.longOptPrefix = Util.defaultValue(prefix, "");
@@ -159,7 +159,7 @@ public final class OptionFormatter {
          * Sets the separator displayed between a options and the argument name. Typically ' ' or '='.
          *
          * @param optArgSeparator the separator.
-         * @return this
+         * @return {@code this} instance.
          * @since 1.3
          */
         public Builder setOptArgSeparator(final String optArgSeparator) {
@@ -195,7 +195,7 @@ public final class OptionFormatter {
          * Sets the separator displayed between a long option and short options. Typically ',' or ' '.
          *
          * @param optSeparator the separator.
-         * @return this
+         * @return {@code this} instance.
          * @since 1.3
          */
         public Builder setOptSeparator(final String optSeparator) {
@@ -207,7 +207,7 @@ public final class OptionFormatter {
          * Specifies the function to convert an {@link OptionFormatter} into the syntax format for the option.
          *
          * @param syntaxFormatFunction The function to convert an {@link OptionFormatter} into the syntax format for the option.
-         * @return this
+         * @return {@code this} instance.
          */
         public Builder setSyntaxFormatFunction(final BiFunction<OptionFormatter, Boolean, String> syntaxFormatFunction) {
             this.syntaxFormatFunction = syntaxFormatFunction;
