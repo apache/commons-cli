@@ -23,3 +23,7 @@ site-content
 *.iws
 *.ipr
 *.iml
+
+# NetBeans files
+nb-configuration.xml
+nbactions.xml
