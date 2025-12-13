@@ -25,6 +25,7 @@
     <release version="1.11.1" date="YYYY-MM-DD" description="This is a feature and maintenance release. Java 8 or later is required.">
       <!-- FIX -->
       <action type="fix" dev="ggregory" due-to="Elric">Fix broken Introduction links on the website #417.</action>
+      <action type="fix" dev="ggregory" due-to="Gary Gregory">Fix malformed Javadoc comments.</action>
       <!-- ADD -->
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 91 to 93 #414, #416.</action>
