@@ -136,7 +136,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      * <ul>
      * <li>The minimum size for a column may not be smaller than the length of the column header</li>
      * <li>The maximum size is set to the maximum of the length of the header or the longest line length.</li>
-     * <li>If the total size of the columns is greater than the page wight, adjust the size of VARIABLE columns to attempt reduce the width to the the maximum
+     * <li>If the total size of the columns is greater than the page wight, adjust the size of VARIABLE columns to attempt reduce the width to the maximum
      * size.</li>
      * </ul>
      * <p>
