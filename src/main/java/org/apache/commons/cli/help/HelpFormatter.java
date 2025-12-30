@@ -31,14 +31,14 @@ import org.apache.commons.cli.Option;
  *
  * <pre>
  * Options options = new Options();
- * options.addOption(OptionBuilder.withLongOpt("file").withDescription("The file to be processed").hasArg().withArgName("FILE").isRequired().create('f'));
- * options.addOption(OptionBuilder.withLongOpt("version").withDescription("Print the version of the application").create('v'));
- * options.addOption(OptionBuilder.withLongOpt("help").create('h'));
+ * options.addOption(Option.builder().longOpt("file").desc("The file to be processed").hasArg().argName("FILE").required().option("f").get());
+ * options.addOption(Option.builder().longOpt("version").desc("Print the version of the application").option("v").get());
+ * options.addOption(Option.builder().longOpt("help").option("h").get());
  *
  * String header = "Do something useful with an input file";
  * String footer = "Please report issues at https://example.com/issues";
  *
- * HelpFormatter formatter = new HelpFormatter();
+ * HelpFormatter formatter = HelpFormatter.builder().get();
  * formatter.printHelp("myapp", header, options, footer, true);
  * </pre>
  * <p>
