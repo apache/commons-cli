@@ -31,9 +31,9 @@ import org.apache.commons.cli.Option;
  *
  * <pre>
  * Options options = new Options();
- * options.addOption(Option.builder().longOpt("file").desc("The file to be processed").hasArg().argName("FILE").required().option("f").get());
- * options.addOption(Option.builder().longOpt("version").desc("Print the version of the application").option("v").get());
- * options.addOption(Option.builder().longOpt("help").option("h").get());
+ * options.addOption(Option.builder("f").longOpt("file").desc("The file to be processed").hasArg().argName("FILE").required().get());
+ * options.addOption(Option.builder("v").longOpt("version").desc("Print the version of the application").get());
+ * options.addOption(Option.builder("h").longOpt("help").get());
  *
  * String header = "Do something useful with an input file";
  * String footer = "Please report issues at https://example.com/issues";
