@@ -44,9 +44,9 @@ import org.apache.commons.cli.help.OptionFormatter;
  * </p>
  * <pre>
  * Options options = new Options();
- * options.addOption(OptionBuilder.withLongOpt("file").withDescription("The file to be processed").hasArg().withArgName("FILE").isRequired().create('f'));
- * options.addOption(OptionBuilder.withLongOpt("version").withDescription("Print the version of the application").create('v'));
- * options.addOption(OptionBuilder.withLongOpt("help").create('h'));
+ * options.addOption(Option.builder("f").longOpt("file").desc("The file to be processed").hasArg().argName("FILE").required().get());
+ * options.addOption(Option.builder("v").longOpt("version").desc("Print the version of the application").get());
+ * options.addOption(Option.builder("h").longOpt("help").get());
  *
  * String header = "Do something useful with an input file\n\n";
  * String footer = "\nPlease report issues at https://example.com/issues";
