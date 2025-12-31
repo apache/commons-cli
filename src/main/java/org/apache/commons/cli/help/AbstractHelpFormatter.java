@@ -410,6 +410,7 @@ public abstract class AbstractHelpFormatter {
      *     of option groups.  To display the option grouping use {@link #toSyntaxOptions(Options)} or
      *     {@link #toSyntaxOptions(OptionGroup)} for individual groups.
      * </p>
+     *
      * @param options The collection of {@link Option} instances to create the string representation for.
      * @return the string representation of the options as used in the syntax display.
      */

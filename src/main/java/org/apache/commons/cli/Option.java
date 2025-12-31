@@ -673,6 +673,7 @@ public class Option implements Cloneable, Serializable {
 
     /**
      * Gets the version when this option was added.
+     *
      * @return the version when this option was added, or {@code null} if not set.
      */
     public String getSince() {

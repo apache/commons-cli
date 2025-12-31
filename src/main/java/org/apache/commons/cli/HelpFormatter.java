@@ -67,6 +67,7 @@ import org.apache.commons.cli.help.OptionFormatter;
  *
  * Please report issues at https://example.com/issues
  * }</pre>
+ *
  * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter}.
  */
 @Deprecated
@@ -146,6 +147,7 @@ public class HelpFormatter {
 
         /**
          * Sets whether to show the date the option was first added.
+         *
          * @param showSince if @{code true} the date the options was first added will be shown.
          * @return this builder.
          * @since 1.9.0
@@ -232,6 +234,7 @@ public class HelpFormatter {
 
     /**
      * Gets the option description or an empty string if the description is {@code null}.
+     *
      * @param option The option to get the description from.
      * @return the option description or an empty string if the description is {@code null}.
      * @since 1.8.0
@@ -339,6 +342,7 @@ public class HelpFormatter {
 
     /**
      * Constructs a new instance.
+     *
      * @param printWriter TODO
      */
     private HelpFormatter(final Function<Option, String> deprecatedFormatFunction, final PrintWriter printWriter, final boolean showSince) {

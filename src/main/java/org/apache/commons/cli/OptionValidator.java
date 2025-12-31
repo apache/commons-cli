@@ -41,6 +41,7 @@ final class OptionValidator {
      * <li>isIdentifierIgnorable returns true for the character</li>
      * <li>it is a hyphen/dash ('-')</li>
      * </ul>
+     *
      * @param c the character to validate
      * @return true if {@code c} is a valid character letter.
      */
@@ -62,6 +63,7 @@ final class OptionValidator {
      * <li>isIdentifierIgnorable returns true for the character</li>
      * <li>it is a question mark or 'at' sign ('?' or '@')</li>
      * </ul>
+     *
      * @param c the option to validate
      * @return true if {@code c} is a letter, '?' or '@', otherwise false.
      */
@@ -71,6 +73,7 @@ final class OptionValidator {
 
     /**
      * Checks the char array for a matching char.
+     *
      * @param chars the char array to search
      * @param c the char to look for.
      * @return {@code true} if {@code c} was in {@code ary}, {@code false} otherwise.
