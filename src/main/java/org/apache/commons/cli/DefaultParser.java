@@ -162,19 +162,23 @@ public class DefaultParser implements CommandLineParser {
      * @since 1.10.0
      */
     public enum NonOptionAction {
+
         /**
          * Parsing continues and current token is ignored.
          */
         IGNORE,
+
         /**
          * Parsing continues and current token is added to command line arguments.
          */
         SKIP,
+
         /**
          * Parsing will stop and remaining tokens are added to command line arguments.
          * Equivalent of {@code stopAtNonOption = true}.
          */
         STOP,
+
         /**
          * Parsing will abort and exception is thrown.
          * Equivalent of {@code stopAtNonOption = false}.

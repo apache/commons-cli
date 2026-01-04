@@ -21,6 +21,7 @@ package org.apache.commons.cli;
  * Thrown when an option requiring an argument is not provided with an argument.
  */
 public class MissingArgumentException extends ParseException {
+
     /**
      * This exception {@code serialVersionUID}.
      */

@@ -40,6 +40,7 @@ import org.junit.jupiter.api.Test;
  */
 @SuppressWarnings("deprecation") // tests some deprecated classes
 class ApplicationTest {
+
     /**
      * Ant test
      */

@@ -181,6 +181,7 @@ public abstract class AbstractHelpFormatter {
 
     /** The comparator for sorting {@link Option} collections */
     private final Comparator<Option> comparator;
+
     /**
      * The {@link HelpAppendable} that produces the final output.
      */

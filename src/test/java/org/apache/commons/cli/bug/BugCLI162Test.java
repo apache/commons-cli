@@ -32,6 +32,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class BugCLI162Test {
+
     /** Constant for the line separator. */
     private static final String CR = System.lineSeparator();
 

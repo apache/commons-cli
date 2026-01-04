@@ -26,6 +26,7 @@ import java.util.Iterator;
  * @since 1.3
  */
 public class AmbiguousOptionException extends UnrecognizedOptionException {
+
     /**
      * This exception {@code serialVersionUID}.
      */
