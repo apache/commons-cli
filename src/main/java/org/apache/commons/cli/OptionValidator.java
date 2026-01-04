@@ -21,11 +21,14 @@ package org.apache.commons.cli;
  * Validates an Option string.
  */
 final class OptionValidator {
-    /* package private for testing access */
-    /** The array of additional characters allowed as the first character in the option but not in the rest of the option */
-    static final char[] ADDITIONAL_OPTION_CHARS = {'?', '@'};
-    /** The array of additional characters allowed in the rest of the option but not in the first position */
-    static final char[] ADDITIONAL_LONG_CHARS = {'-'};
+
+    /**
+     * The array of additional characters allowed as the first character in the option but not in the rest of the option. Package private for tests.
+     */
+    static final char[] ADDITIONAL_OPTION_CHARS = { '?', '@' };
+
+    /** The array of additional characters allowed in the rest of the option but not in the first position Package private for tests. */
+    static final char[] ADDITIONAL_LONG_CHARS = { '-' };
 
     /**
      * Returns whether the specified character is a valid character.
