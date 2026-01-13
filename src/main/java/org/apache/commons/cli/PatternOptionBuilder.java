@@ -146,9 +146,9 @@ public class PatternOptionBuilder {
             return FILES_VALUE;
         case '/':
             return URL_VALUE;
+        default:
+            return null;
         }
-
-        return null;
     }
 
     /**
