@@ -41,7 +41,7 @@ public abstract class Parser implements CommandLineParser {
     private Options options;
 
     /** List of required options strings */
-    private List requiredOptions;
+    private List<Object> requiredOptions;
 
     /**
      * Constructs a new instance.
@@ -87,7 +87,7 @@ public abstract class Parser implements CommandLineParser {
      *
      * @return the required options.
      */
-    protected List getRequiredOptions() {
+    protected List<Object> getRequiredOptions() {
         return requiredOptions;
     }
 
