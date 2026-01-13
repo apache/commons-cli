@@ -105,8 +105,7 @@ public final class OptionFormatter {
 
         @Override
         public OptionFormatter get() {
-            // TODO Auto-generated method stub
-            return null;
+            return build(null);
         }
 
         /**
