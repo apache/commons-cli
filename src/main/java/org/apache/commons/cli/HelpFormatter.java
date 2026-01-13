@@ -949,7 +949,7 @@ public class HelpFormatter {
     @SuppressWarnings("java:S1149") // StringBuffer is required for backward compatibility with subclasses
     protected StringBuffer renderOptions(final StringBuffer sb, final int width, final Options options, final int leftPad, final int descPad) {
         try {
-            return appendOptions(sb, width, options, leftPad, descPad);
+            return appendOptions(sb, width, options, leftPad, descPad); // NOSONAR
         } catch (final IOException e) {
             // Cannot happen
             throw new UncheckedIOException(e);
