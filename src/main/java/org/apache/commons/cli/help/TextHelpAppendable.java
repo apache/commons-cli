@@ -105,6 +105,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      *
      * @return a new TextHelpAppendable on {@link System#out}.
      */
+    @SuppressWarnings("java:S106") // System.out is intentional for CLI output
     protected static TextHelpAppendable systemOut() {
         return new TextHelpAppendable(System.out);
     }
