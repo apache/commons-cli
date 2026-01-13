@@ -67,10 +67,6 @@ import java.util.Map;
  * <pre>
  * Options options = PatternOptionBuilder.parsePattern("vp:!f/");
  * </pre>
- *
- * <p>
- * TODO These need to break out to OptionType and also to be pluggable.
- * </p>
  */
 public class PatternOptionBuilder {
 
