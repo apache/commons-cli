@@ -59,33 +59,7 @@ public class GnuParser extends Parser {
         for (int i = 0; i < arguments.length; i++) {
             final String arg = arguments[i];
             if (arg != null) {
-                if (OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(arg)) {
-                    eatTheRest = true;
-                    tokens.add(OptionFormatter.DEFAULT_LONG_OPT_PREFIX);
-                } else if (OptionFormatter.DEFAULT_OPT_PREFIX.equals(arg)) {
-                    tokens.add(OptionFormatter.DEFAULT_OPT_PREFIX);
-                } else if (arg.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX)) {
-                    final String opt = Util.stripLeadingHyphens(arg);
-                    if (options.hasOption(opt)) {
-                        tokens.add(arg);
-                    } else {
-                        final int equalPos = DefaultParser.indexOfEqual(opt);
-                        if (equalPos != -1 && options.hasOption(opt.substring(0, equalPos))) {
-                            // the format is --foo=value or -foo=value
-                            tokens.add(arg.substring(0, arg.indexOf(Char.EQUAL))); // --foo
-                            tokens.add(arg.substring(arg.indexOf(Char.EQUAL) + 1)); // value
-                        } else if (options.hasOption(arg.substring(0, 2))) {
-                            // the format is a special properties option (-Dproperty=value)
-                            tokens.add(arg.substring(0, 2)); // -D
-                            tokens.add(arg.substring(2)); // property=value
-                        } else {
-                            eatTheRest = stopAtNonOption;
-                            tokens.add(arg);
-                        }
-                    }
-                } else {
-                    tokens.add(arg);
-                }
+                eatTheRest = processArgument(options, tokens, arg, eatTheRest, stopAtNonOption);
                 if (eatTheRest) {
                     for (i++; i < arguments.length; i++) { // NOPMD
                         tokens.add(arguments[i]);
@@ -94,5 +68,46 @@ public class GnuParser extends Parser {
             }
         }
         return tokens.toArray(Util.EMPTY_STRING_ARRAY);
+    }
+
+    private boolean processArgument(final Options options, final List<String> tokens, final String arg,
+            final boolean eatTheRest, final boolean stopAtNonOption) {
+        if (OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(arg)) {
+            tokens.add(OptionFormatter.DEFAULT_LONG_OPT_PREFIX);
+            return true;
+        }
+        if (OptionFormatter.DEFAULT_OPT_PREFIX.equals(arg)) {
+            tokens.add(OptionFormatter.DEFAULT_OPT_PREFIX);
+            return eatTheRest;
+        }
+        if (arg.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX)) {
+            return processOptionArgument(options, tokens, arg, stopAtNonOption);
+        }
+        tokens.add(arg);
+        return eatTheRest;
+    }
+
+    private boolean processOptionArgument(final Options options, final List<String> tokens, final String arg,
+            final boolean stopAtNonOption) {
+        final String opt = Util.stripLeadingHyphens(arg);
+        if (options.hasOption(opt)) {
+            tokens.add(arg);
+            return false;
+        }
+        final int equalPos = DefaultParser.indexOfEqual(opt);
+        if (equalPos != -1 && options.hasOption(opt.substring(0, equalPos))) {
+            // the format is --foo=value or -foo=value
+            tokens.add(arg.substring(0, arg.indexOf(Char.EQUAL))); // --foo
+            tokens.add(arg.substring(arg.indexOf(Char.EQUAL) + 1)); // value
+            return false;
+        }
+        if (options.hasOption(arg.substring(0, 2))) {
+            // the format is a special properties option (-Dproperty=value)
+            tokens.add(arg.substring(0, 2)); // -D
+            tokens.add(arg.substring(2)); // property=value
+            return false;
+        }
+        tokens.add(arg);
+        return stopAtNonOption;
     }
 }
