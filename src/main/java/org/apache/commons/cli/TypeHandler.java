@@ -77,6 +77,7 @@ public class TypeHandler {
      * @return a default converter map.
      * @since 1.7.0
      */
+    @SuppressWarnings("java:S1452") // Wildcard type is intentional: map holds converters for different types
     public static Map<Class<?>, Converter<?, ? extends Throwable>> createDefaultMap() {
         return putDefaultMap(new HashMap<>());
     }
