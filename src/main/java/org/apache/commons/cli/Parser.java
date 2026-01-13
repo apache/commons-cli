@@ -165,45 +165,66 @@ public abstract class Parser implements CommandLineParser {
         while (iterator.hasNext()) {
             final String token = iterator.next();
             if (token != null) {
-                // the value is the double-dash
-                if (OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(token)) {
-                    eatTheRest = true;
-                } else if (OptionFormatter.DEFAULT_OPT_PREFIX.equals(token)) {
-                    // the value is a single dash
-                    if (stopAtNonOption) {
-                        eatTheRest = true;
-                    } else {
-                        cmd.addArg(token);
-                    }
-                } else if (token.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX)) {
-                    // the value is an option
-                    if (stopAtNonOption && !getOptions().hasOption(token)) {
-                        eatTheRest = true;
-                        cmd.addArg(token);
-                    } else {
-                        processOption(token, iterator);
-                    }
-                } else {
-                    // the value is an argument
-                    cmd.addArg(token);
-                    if (stopAtNonOption) {
-                        eatTheRest = true;
-                    }
-                }
-                // eat the remaining tokens
-                if (eatTheRest) {
-                    iterator.forEachRemaining(str -> {
-                        // ensure only one double-dash is added
-                        if (!OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(str)) {
-                            cmd.addArg(str);
-                        }
-                    });
-                }
+                eatTheRest = processToken(token, iterator, stopAtNonOption, eatTheRest);
             }
         }
         processProperties(properties);
         checkRequiredOptions();
         return cmd;
+    }
+
+    private boolean processToken(final String token, final ListIterator<String> iterator, final boolean stopAtNonOption, boolean eatTheRest)
+            throws ParseException {
+        // the value is the double-dash
+        if (OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(token)) {
+            eatTheRest = true;
+        } else if (OptionFormatter.DEFAULT_OPT_PREFIX.equals(token)) {
+            eatTheRest = processSingleDash(token, stopAtNonOption);
+        } else if (token.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX)) {
+            eatTheRest = processOptionToken(token, iterator, stopAtNonOption, eatTheRest);
+        } else {
+            eatTheRest = processArgToken(token, stopAtNonOption);
+        }
+        // eat the remaining tokens
+        if (eatTheRest) {
+            consumeRemainingTokens(iterator);
+        }
+        return eatTheRest;
+    }
+
+    private boolean processSingleDash(final String token, final boolean stopAtNonOption) {
+        // the value is a single dash
+        if (stopAtNonOption) {
+            return true;
+        }
+        cmd.addArg(token);
+        return false;
+    }
+
+    private boolean processOptionToken(final String token, final ListIterator<String> iterator, final boolean stopAtNonOption, final boolean eatTheRest)
+            throws ParseException {
+        // the value is an option
+        if (stopAtNonOption && !getOptions().hasOption(token)) {
+            cmd.addArg(token);
+            return true;
+        }
+        processOption(token, iterator);
+        return eatTheRest;
+    }
+
+    private boolean processArgToken(final String token, final boolean stopAtNonOption) {
+        // the value is an argument
+        cmd.addArg(token);
+        return stopAtNonOption;
+    }
+
+    private void consumeRemainingTokens(final ListIterator<String> iterator) {
+        iterator.forEachRemaining(str -> {
+            // ensure only one double-dash is added
+            if (!OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(str)) {
+                cmd.addArg(str);
+            }
+        });
     }
 
     /**
