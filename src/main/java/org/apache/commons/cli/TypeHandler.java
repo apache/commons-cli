@@ -175,6 +175,7 @@ public class TypeHandler {
      * @deprecated Use {@link #createValue(String, Class)}.
      */
     @Deprecated // since 1.7.0
+    @SuppressWarnings("java:S1133") // Deprecated code is kept for backward compatibility
     public static Object createValue(final String string, final Object obj) throws ParseException {
         return createValue(string, (Class<?>) obj);
     }
