@@ -109,7 +109,8 @@ class OptionTest {
 
     @Test
     void testBuilderDeprecatedBuildEmpty() {
-        assertThrows(IllegalStateException.class, () -> Option.builder().build());
+        final Option.Builder builder = Option.builder();
+        assertThrows(IllegalStateException.class, builder::build);
     }
 
     @Test
