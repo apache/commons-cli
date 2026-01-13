@@ -500,6 +500,28 @@ public class Option implements Cloneable, Serializable {
     }
 
     /**
+     * Copy constructor.
+     *
+     * @param option the Option to copy.
+     * @since 1.9.0
+     */
+    public Option(final Option option) {
+        this.argCount = option.argCount;
+        this.argName = option.argName;
+        this.converter = option.converter;
+        this.deprecated = option.deprecated;
+        this.description = option.description;
+        this.longOption = option.longOption;
+        this.option = option.option;
+        this.optionalArg = option.optionalArg;
+        this.required = option.required;
+        this.since = option.since;
+        this.type = option.type;
+        this.valueSeparator = option.valueSeparator;
+        this.values = new ArrayList<>(option.values);
+    }
+
+    /**
      * Tests whether the option can accept more arguments.
      *
      * @return false if the maximum number of arguments is reached.
@@ -554,7 +576,9 @@ public class Option implements Cloneable, Serializable {
      *
      * @return a clone of this Option instance.
      * @throws RuntimeException if a {@link CloneNotSupportedException} has been thrown by {@code super.clone()}.
+     * @deprecated Use {@link #Option(Option)} (the copy constructor) instead.
      */
+    @Deprecated
     @Override
     public Object clone() {
         try {
