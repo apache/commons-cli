@@ -30,7 +30,7 @@ import org.apache.commons.cli.help.OptionFormatter;
  *
  * @deprecated Since 1.3, use the {@link DefaultParser} instead.
  */
-@Deprecated
+@Deprecated // since 1.3, scheduled for removal in 2.0.0
 public class PosixParser extends Parser {
 
     /** Holder for flattened tokens. */
