@@ -61,6 +61,7 @@ public final class DeprecatedAttributes {
          * @deprecated Use {@link #builder()}.
          */
         @Deprecated
+        @SuppressWarnings("java:S1133") // Deprecated code retained for binary compatibility
         public Builder() {
             // empty
         }
