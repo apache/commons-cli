@@ -115,7 +115,8 @@ class OptionTest {
 
     @Test
     void testBuilderEmpty() {
-        assertThrows(IllegalStateException.class, () -> Option.builder().get());
+        final Option.Builder builder = Option.builder();
+        assertThrows(IllegalStateException.class, () -> builder.get());
     }
 
     @Test
