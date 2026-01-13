@@ -521,6 +521,7 @@ public class CommandLine implements Serializable {
      * @return Values of the argument if option group is selected, and has an argument, otherwise null.
      * @since 1.9.0
      */
+    @SuppressWarnings("java:S1168") // Returning null is part of the documented API contract
     public String[] getOptionValues(final OptionGroup optionGroup) {
         if (optionGroup == null || !optionGroup.isSelected()) {
             return null;
