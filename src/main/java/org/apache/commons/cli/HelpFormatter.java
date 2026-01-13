@@ -343,7 +343,9 @@ public class HelpFormatter {
     /**
      * Constructs a new instance.
      *
-     * @param printWriter TODO
+     * @param deprecatedFormatFunction the function to format deprecated options, may be null.
+     * @param printWriter the PrintWriter to write help output to.
+     * @param showSince whether to show the since version for options.
      */
     private HelpFormatter(final Function<Option, String> deprecatedFormatFunction, final PrintWriter printWriter, final boolean showSince) {
         // TODO All other instance HelpFormatter instance variables.
