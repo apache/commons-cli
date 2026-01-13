@@ -498,6 +498,7 @@ public class CommandLine implements Serializable {
      * @return Values of the argument if option is set, and has an argument, otherwise null.
      * @since 1.5.0
      */
+    @SuppressWarnings("java:S1168") // Returning null is part of the documented API contract
     public String[] getOptionValues(final Option option) {
         if (option == null) {
             return null;
