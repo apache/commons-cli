@@ -288,7 +288,7 @@ public class CommandLine implements Serializable {
         try {
             return getParsedOptionValue(optionName);
         } catch (final ParseException pe) {
-            System.err.println("Exception found converting " + optionName + " to desired type: " + pe.getMessage());
+            // Ignore exception and return null (deprecated method behavior)
             return null;
         }
     }
