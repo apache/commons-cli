@@ -238,19 +238,21 @@ public abstract class Parser implements CommandLineParser {
      */
     public void processArgs(final Option opt, final ListIterator<String> iter) throws ParseException {
         // loop until an option is found
-        while (iter.hasNext()) {
+        boolean done = false;
+        while (!done && iter.hasNext()) {
             final String str = iter.next();
             // found an Option, not an argument
             if (getOptions().hasOption(str) && str.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX)) {
                 iter.previous();
-                break;
-            }
-            // found a value
-            try {
-                opt.processValue(Util.stripLeadingAndTrailingQuotes(str));
-            } catch (final RuntimeException exp) {
-                iter.previous();
-                break;
+                done = true;
+            } else {
+                // found a value
+                try {
+                    opt.processValue(Util.stripLeadingAndTrailingQuotes(str));
+                } catch (final RuntimeException exp) {
+                    iter.previous();
+                    done = true;
+                }
             }
         }
         if (opt.isValuesEmpty() && !opt.hasOptionalArg()) {
