@@ -114,6 +114,7 @@ public class PatternOptionBuilder {
      * @deprecated Since 1.7.0, use {@link #getValueType(char)}. Scheduled for removal in 2.0.0.
      */
     @Deprecated
+    @SuppressWarnings("java:S1133") // Deprecated method retained for backward compatibility until 2.0.0
     public static Object getValueClass(final char ch) {
         return getValueType(ch);
     }
