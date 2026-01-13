@@ -129,9 +129,10 @@ public class Option implements Cloneable, Serializable {
          *
          * @return the new {@link Option}.
          * @throws IllegalArgumentException if neither {@code opt} or {@code longOpt} has been set.
-         * @deprecated Use {@link #get()}.
+         * @deprecated Use {@link #get()}. Scheduled for removal in 2.0.0.
          */
         @Deprecated
+        @SuppressWarnings("java:S1133") // Deprecated method retained for backward compatibility until 2.0.0
         public Option build() {
             return get();
         }
