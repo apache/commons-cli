@@ -118,6 +118,7 @@ public class TypeHandler {
      * @throws ParseException if {@code string} is not a number.
      */
     @Deprecated // since 1.7.0
+    @SuppressWarnings("java:S1133") // Deprecated code is kept for backward compatibility
     public static Number createNumber(final String string) throws ParseException {
         return createValue(string, Number.class);
     }
