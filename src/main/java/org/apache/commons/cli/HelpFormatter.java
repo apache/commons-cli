@@ -250,6 +250,7 @@ public class HelpFormatter {
      * @deprecated Scope will be made private for next major version - use get/setWidth methods instead.
      */
     @Deprecated
+    @SuppressWarnings("java:S1133") // Deprecated code is kept for backward compatibility
     public int defaultWidth = DEFAULT_WIDTH;
 
     /**
