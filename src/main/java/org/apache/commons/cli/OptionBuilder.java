@@ -284,6 +284,7 @@ public final class OptionBuilder {
      * @deprecated Since 1.3, use {@link #withType(Class)} instead.
      */
     @Deprecated
+    @SuppressWarnings("java:S1133") // Deprecated method retained for binary compatibility
     public static OptionBuilder withType(final Object newType) {
         return withType((Class<?>) newType);
     }
