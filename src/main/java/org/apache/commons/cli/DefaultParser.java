@@ -213,7 +213,8 @@ public class DefaultParser implements CommandLineParser {
      *
      * @deprecated Use {@link #nonOptionAction} instead. This field is unused, and left for binary compatibility reasons.
      */
-    @Deprecated
+    @Deprecated // Maintained for binary compatibility; see nonOptionAction field
+    @SuppressWarnings("java:S1133") // Deprecated code kept for binary compatibility
     protected boolean stopAtNonOption;
 
     /**
