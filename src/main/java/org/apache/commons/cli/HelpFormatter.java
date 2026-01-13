@@ -767,6 +767,7 @@ public class HelpFormatter {
      * @param autoUsage whether to print an automatically generated usage statement
      * @throws IllegalStateException if there is no room to print a line
      */
+    @SuppressWarnings("java:S107") // Method has many parameters for backwards compatibility
     public void printHelp(final PrintWriter pw, final int width, final String cmdLineSyntax, final String header, final Options options, final int leftPad,
         final int descPad, final String footer, final boolean autoUsage) {
         if (Util.isEmpty(cmdLineSyntax)) {
