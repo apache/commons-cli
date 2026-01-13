@@ -71,6 +71,7 @@ import org.apache.commons.cli.help.OptionFormatter;
  * @deprecated Use {@link org.apache.commons.cli.help.HelpFormatter}.
  */
 @Deprecated
+@SuppressWarnings("java:S1133") // Deprecated class retained for backward compatibility
 public class HelpFormatter {
 
     /**
