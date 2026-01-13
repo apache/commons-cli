@@ -940,23 +940,6 @@ public class CommandLine implements Serializable {
         }
     }
 
-    /**
-     * jkeyes - commented out until it is implemented properly
-     * <p>
-     * Dump state, suitable for debugging.
-     * </p>
-     *
-     * @return Stringified form of this object.
-     */
-
-    /*
-     * public String toString() { StringBuilder buf = new StringBuilder();
-     *
-     * buf.append("[ CommandLine: [ options: "); buf.append(options.toString()); buf.append(" ] [ args: ");
-     * buf.append(args.toString()); buf.append(" ] ]");
-     *
-     * return buf.toString(); }
-     */
 
     /**
      * Tests to see if an option has been set.
