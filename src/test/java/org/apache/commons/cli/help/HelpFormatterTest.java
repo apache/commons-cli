@@ -161,7 +161,7 @@ class HelpFormatterTest {
     }
 
     @Test
-    public void testPrintHelpWithIterableOptions() throws IOException {
+    void testPrintHelpWithIterableOptions() throws IOException {
         final StringBuilder sb = new StringBuilder();
         final TextHelpAppendable serializer = new TextHelpAppendable(sb);
         HelpFormatter formatter = HelpFormatter.builder().setHelpAppendable(serializer).get();
