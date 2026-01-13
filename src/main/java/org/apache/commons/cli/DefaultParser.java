@@ -508,29 +508,31 @@ public class DefaultParser implements CommandLineParser {
         }
         for (final Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();) {
             final String option = e.nextElement().toString();
-            final Option opt = options.getOption(option);
-            if (opt == null) {
-                throw new UnrecognizedOptionException("Default option wasn't defined", option);
-            }
-            // if the option is part of a group, check if another option of the group has been selected
-            final OptionGroup optionGroup = options.getOptionGroup(opt);
-            final boolean selected = optionGroup != null && optionGroup.isSelected();
-            if (!cmd.hasOption(option) && !selected) {
-                // get the value from the properties
-                final String value = properties.getProperty(option);
-
-                if (opt.hasArg()) {
-                    if (opt.isValuesEmpty()) {
-                        opt.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
-                    }
-                } else if (!("yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value) || "1".equalsIgnoreCase(value))) {
-                    // if the value is not yes, true or 1 then don't add the option to the CommandLine
-                    continue;
-                }
-                handleOption(opt);
-                currentOption = null;
-            }
+            handleProperty(option, properties.getProperty(option));
         }
+    }
+
+    private void handleProperty(final String option, final String value) throws ParseException {
+        final Option opt = options.getOption(option);
+        if (opt == null) {
+            throw new UnrecognizedOptionException("Default option wasn't defined", option);
+        }
+        // if the option is part of a group, check if another option of the group has been selected
+        final OptionGroup optionGroup = options.getOptionGroup(opt);
+        final boolean selected = optionGroup != null && optionGroup.isSelected();
+        if (cmd.hasOption(option) || selected) {
+            return;
+        }
+        if (opt.hasArg()) {
+            if (opt.isValuesEmpty()) {
+                opt.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
+            }
+        } else if (!("yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value) || "1".equalsIgnoreCase(value))) {
+            // if the value is not yes, true or 1 then don't add the option to the CommandLine
+            return;
+        }
+        handleOption(opt);
+        currentOption = null;
     }
 
     /**
