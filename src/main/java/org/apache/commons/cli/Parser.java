@@ -32,6 +32,7 @@ import org.apache.commons.cli.help.OptionFormatter;
  * @deprecated Since 1.3, the two-pass parsing with the flatten method is not enough flexible to handle complex cases.
  */
 @Deprecated
+@SuppressWarnings("java:S1133") // Deprecated class retained for backward compatibility
 public abstract class Parser implements CommandLineParser {
 
     /** CommandLine instance */
