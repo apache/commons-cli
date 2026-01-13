@@ -18,6 +18,7 @@
 package org.apache.commons.cli;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.cli.help.OptionFormatter;
@@ -62,9 +63,7 @@ public class GnuParser extends Parser {
             if (arg != null) {
                 eatTheRest = processArgument(options, tokens, arg, eatTheRest, stopAtNonOption);
                 if (eatTheRest) {
-                    for (int j = i + 1; j < arguments.length; j++) {
-                        tokens.add(arguments[j]);
-                    }
+                    tokens.addAll(Arrays.asList(arguments).subList(i + 1, arguments.length));
                     break;
                 }
             }
