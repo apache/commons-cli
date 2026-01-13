@@ -144,47 +144,59 @@ public class PosixParser extends Parser {
             // get the next command line token
             final String token = iter.next();
             if (token != null) {
-                // single or double hyphen
-                if (OptionFormatter.DEFAULT_OPT_PREFIX.equals(token) || OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(token)) {
-                    tokens.add(token);
-                } else if (token.startsWith(OptionFormatter.DEFAULT_LONG_OPT_PREFIX)) {
-                    // handle long option --foo or --foo=bar
-                    final int pos = DefaultParser.indexOfEqual(token);
-                    final String opt = pos == -1 ? token : token.substring(0, pos); // --foo
-                    final List<String> matchingOpts = options.getMatchingOptions(opt);
-                    if (matchingOpts.isEmpty()) {
-                        processNonOptionToken(token, stopAtNonOption);
-                    } else if (matchingOpts.size() > 1) {
-                        throw new AmbiguousOptionException(opt, matchingOpts);
-                    } else {
-                        currentOption = options.getOption(matchingOpts.get(0));
-                        tokens.add(OptionFormatter.DEFAULT_LONG_OPT_PREFIX + currentOption.getLongOpt());
-                        if (pos != -1) {
-                            tokens.add(token.substring(pos + 1));
-                        }
-                    }
-                } else if (token.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX)) {
-                    if (token.length() == 2 || options.hasOption(token)) {
-                        processOptionToken(token, stopAtNonOption);
-                    } else if (!options.getMatchingOptions(token).isEmpty()) {
-                        final List<String> matchingOpts = options.getMatchingOptions(token);
-                        if (matchingOpts.size() > 1) {
-                            throw new AmbiguousOptionException(token, matchingOpts);
-                        }
-                        final Option opt = options.getOption(matchingOpts.get(0));
-                        processOptionToken(OptionFormatter.DEFAULT_OPT_PREFIX + opt.getLongOpt(), stopAtNonOption);
-                    }
-                    // requires bursting
-                    else {
-                        burstToken(token, stopAtNonOption);
-                    }
-                } else {
-                    processNonOptionToken(token, stopAtNonOption);
-                }
+                processToken(token, stopAtNonOption);
             }
             addRemaining(iter);
         }
         return tokens.toArray(Util.EMPTY_STRING_ARRAY);
+    }
+
+    private void processToken(final String token, final boolean stopAtNonOption) throws ParseException {
+        // single or double hyphen
+        if (OptionFormatter.DEFAULT_OPT_PREFIX.equals(token) || OptionFormatter.DEFAULT_LONG_OPT_PREFIX.equals(token)) {
+            tokens.add(token);
+        } else if (token.startsWith(OptionFormatter.DEFAULT_LONG_OPT_PREFIX)) {
+            processLongOptionToken(token, stopAtNonOption);
+        } else if (token.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX)) {
+            processShortOptionToken(token, stopAtNonOption);
+        } else {
+            processNonOptionToken(token, stopAtNonOption);
+        }
+    }
+
+    private void processLongOptionToken(final String token, final boolean stopAtNonOption) throws ParseException {
+        // handle long option --foo or --foo=bar
+        final int pos = DefaultParser.indexOfEqual(token);
+        final String opt = pos == -1 ? token : token.substring(0, pos); // --foo
+        final List<String> matchingOpts = options.getMatchingOptions(opt);
+        if (matchingOpts.isEmpty()) {
+            processNonOptionToken(token, stopAtNonOption);
+        } else if (matchingOpts.size() > 1) {
+            throw new AmbiguousOptionException(opt, matchingOpts);
+        } else {
+            currentOption = options.getOption(matchingOpts.get(0));
+            tokens.add(OptionFormatter.DEFAULT_LONG_OPT_PREFIX + currentOption.getLongOpt());
+            if (pos != -1) {
+                tokens.add(token.substring(pos + 1));
+            }
+        }
+    }
+
+    private void processShortOptionToken(final String token, final boolean stopAtNonOption) throws ParseException {
+        if (token.length() == 2 || options.hasOption(token)) {
+            processOptionToken(token, stopAtNonOption);
+        } else if (!options.getMatchingOptions(token).isEmpty()) {
+            final List<String> matchingOpts = options.getMatchingOptions(token);
+            if (matchingOpts.size() > 1) {
+                throw new AmbiguousOptionException(token, matchingOpts);
+            }
+            final Option opt = options.getOption(matchingOpts.get(0));
+            processOptionToken(OptionFormatter.DEFAULT_OPT_PREFIX + opt.getLongOpt(), stopAtNonOption);
+        }
+        // requires bursting
+        else {
+            burstToken(token, stopAtNonOption);
+        }
     }
 
     /**
