@@ -40,7 +40,7 @@ public class MissingOptionException extends ParseException {
     }
 
     /** The list of missing options and groups */
-    private List<?> missingOptions;
+    private final List<?> missingOptions;
 
     /**
      * Constructs a new {@code MissingSelectedException} with the specified list of missing options.
@@ -49,7 +49,7 @@ public class MissingOptionException extends ParseException {
      * @since 1.2
      */
     public MissingOptionException(final List<?> missingOptions) {
-        this(createMessage(missingOptions));
+        super(createMessage(missingOptions));
         this.missingOptions = missingOptions;
     }
 
@@ -60,6 +60,7 @@ public class MissingOptionException extends ParseException {
      */
     public MissingOptionException(final String message) {
         super(message);
+        this.missingOptions = null;
     }
 
     /**
