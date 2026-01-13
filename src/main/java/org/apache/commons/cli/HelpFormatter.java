@@ -228,6 +228,7 @@ public class HelpFormatter {
         return new Builder();
     }
 
+    @SuppressWarnings("java:S106") // System.out is intentional for CLI output
     private static PrintWriter createDefaultPrintWriter() {
         return new PrintWriter(System.out);
     }
