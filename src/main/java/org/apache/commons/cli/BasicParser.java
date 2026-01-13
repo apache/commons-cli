@@ -24,6 +24,7 @@ package org.apache.commons.cli;
  * @deprecated Since 1.3, use the {@link DefaultParser} instead.
  */
 @Deprecated
+@SuppressWarnings("java:S1133") // Deprecated class retained for backward compatibility
 public class BasicParser extends Parser {
 
     /**
