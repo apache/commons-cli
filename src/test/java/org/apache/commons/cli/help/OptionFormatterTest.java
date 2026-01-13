@@ -135,14 +135,16 @@ class OptionFormatterTest {
 
     @Test
     void testCli343Part1() {
-        assertThrows(IllegalStateException.class, () -> Option.builder().required(false).build());
-        assertThrows(IllegalStateException.class, () -> Option.builder().required(false).get());
+        final Option.Builder builder = Option.builder().required(false);
+        assertThrows(IllegalStateException.class, () -> builder.build());
+        assertThrows(IllegalStateException.class, () -> builder.get());
     }
 
     @Test
     void testCli343Part2() {
-        assertThrows(IllegalStateException.class, () -> Option.builder().desc("description").build());
-        assertThrows(IllegalStateException.class, () -> Option.builder().desc("description").get());
+        final Option.Builder builder = Option.builder().desc("description");
+        assertThrows(IllegalStateException.class, () -> builder.build());
+        assertThrows(IllegalStateException.class, () -> builder.get());
     }
 
     @ParameterizedTest(name = "{index} {0}")
