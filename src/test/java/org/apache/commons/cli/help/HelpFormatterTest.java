@@ -16,6 +16,7 @@
  */
 package org.apache.commons.cli.help;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -155,9 +156,9 @@ class HelpFormatterTest {
      */
     @Test
     void testPrintHelpHeader() throws IOException {
-        HelpFormatter.builder().get().printHelp("CL syntax", "Header", Collections.emptyList(), "Footer", true);
-        HelpFormatter.builder().get().printHelp("CL syntax", "Header\n\n", // This makes printHelp enter into an infinite loop
-                Collections.emptyList(), "Footer", true);
+        assertDoesNotThrow(() -> HelpFormatter.builder().get().printHelp("CL syntax", "Header", Collections.emptyList(), "Footer", true));
+        assertDoesNotThrow(() -> HelpFormatter.builder().get().printHelp("CL syntax", "Header\n\n", // This makes printHelp enter into an infinite loop
+                Collections.emptyList(), "Footer", true));
     }
 
     @Test
