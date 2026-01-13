@@ -134,10 +134,15 @@ class OptionFormatterTest {
     }
 
     @Test
-    void testCli343Part1() {
+    void testCli343Part1Build() {
         final Option.Builder builder = Option.builder().required(false);
-        assertThrows(IllegalStateException.class, () -> builder.build());
-        assertThrows(IllegalStateException.class, () -> builder.get());
+        assertThrows(IllegalStateException.class, builder::build);
+    }
+
+    @Test
+    void testCli343Part1Get() {
+        final Option.Builder builder = Option.builder().required(false);
+        assertThrows(IllegalStateException.class, builder::get);
     }
 
     @Test
