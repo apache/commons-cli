@@ -40,7 +40,7 @@ public class MissingOptionException extends ParseException {
     }
 
     /** The list of missing options and groups */
-    private final List<?> missingOptions;
+    private final transient List<?> missingOptions;
 
     /**
      * Constructs a new {@code MissingSelectedException} with the specified list of missing options.
