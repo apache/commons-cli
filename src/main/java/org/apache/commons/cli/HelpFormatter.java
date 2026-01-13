@@ -268,6 +268,7 @@ public class HelpFormatter {
      * @deprecated Scope will be made private for next major version - use get/setDescPadding methods instead.
      */
     @Deprecated
+    @SuppressWarnings("java:S1133") // Deprecated code is kept for backward compatibility
     public int defaultDescPad = DEFAULT_DESC_PAD;
 
     /**
