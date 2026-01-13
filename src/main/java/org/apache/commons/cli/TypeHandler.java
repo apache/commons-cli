@@ -275,7 +275,7 @@ public class TypeHandler {
      * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
      * @since 1.7.0
      */
-    @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz
+    @SuppressWarnings({"unchecked", "java:S1452"}) // returned value will have type T because it is fixed by clazz; wildcard for exception type is intentional as different converters throw different exceptions
     public <T> Converter<T, ?> getConverter(final Class<T> clazz) {
         return (Converter<T, ?>) converterMap.getOrDefault(clazz, Converter.DEFAULT);
     }
