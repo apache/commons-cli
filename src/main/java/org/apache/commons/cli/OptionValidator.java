@@ -22,6 +22,10 @@ package org.apache.commons.cli;
  */
 final class OptionValidator {
 
+    private OptionValidator() {
+        // empty
+    }
+
     /**
      * The array of additional characters allowed as the first character in the option but not in the rest of the option. Package private for tests.
      */
