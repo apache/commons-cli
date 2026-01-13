@@ -79,8 +79,6 @@ public class HelpFormatter {
      * @since 1.7.0
      */
     public static class Builder implements Supplier<HelpFormatter> {
-        // TODO All other instance HelpFormatter instance variables.
-        // Make HelpFormatter immutable for 2.0
 
         /**
          * A function to convert a description (not null) and a deprecated Option (not null) to help description
