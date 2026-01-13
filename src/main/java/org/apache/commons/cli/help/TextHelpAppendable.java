@@ -130,6 +130,47 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     }
 
     /**
+     * Adjusts the style builder for a single column based on the header and row data.
+     *
+     * @param table   the table containing the data.
+     * @param builder the style builder to adjust.
+     * @param header  the column header.
+     * @param colIdx  the column index.
+     */
+    private void adjustStyleBuilderForColumn(final TableDefinition table, final TextStyle.Builder builder,
+            final String header, final int colIdx) {
+        if (builder.getMaxWidth() < header.length() || builder.getMaxWidth() == TextStyle.UNSET_MAX_WIDTH) {
+            builder.setMaxWidth(header.length());
+        }
+        if (builder.getMinWidth() < header.length()) {
+            builder.setMinWidth(header.length());
+        }
+        for (final List<String> row : table.rows()) {
+            final String cell = row.get(colIdx);
+            if (cell.length() > builder.getMaxWidth()) {
+                builder.setMaxWidth(cell.length());
+            }
+        }
+    }
+
+    /**
+     * Initializes style builders for all columns in the table.
+     *
+     * @param table the table to initialize builders for.
+     * @return a list of style builders, one per column.
+     */
+    private List<TextStyle.Builder> initializeStyleBuilders(final TableDefinition table) {
+        final List<TextStyle.Builder> styleBuilders = new ArrayList<>();
+        for (int i = 0; i < table.columnTextStyles().size(); i++) {
+            final TextStyle style = table.columnTextStyles().get(i);
+            final TextStyle.Builder builder = TextStyle.builder().setTextStyle(style);
+            styleBuilders.add(builder);
+            adjustStyleBuilderForColumn(table, builder, table.headers().get(i), i);
+        }
+        return styleBuilders;
+    }
+
+    /**
      * Adjusts the table format.
      * <p>
      * Given the width of the page and the size of the table attempt to resize the columns to fit the page width if necessary. Adjustments are made as follows:
@@ -148,26 +189,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      * @return a new TableDefinition with adjusted values.
      */
     protected TableDefinition adjustTableFormat(final TableDefinition table) {
-        final List<TextStyle.Builder> styleBuilders = new ArrayList<>();
-        for (int i = 0; i < table.columnTextStyles().size(); i++) {
-            final TextStyle style = table.columnTextStyles().get(i);
-            final TextStyle.Builder builder = TextStyle.builder().setTextStyle(style);
-            styleBuilders.add(builder);
-            final String header = table.headers().get(i);
-
-            if (style.getMaxWidth() < header.length() || style.getMaxWidth() == TextStyle.UNSET_MAX_WIDTH) {
-                builder.setMaxWidth(header.length());
-            }
-            if (style.getMinWidth() < header.length()) {
-                builder.setMinWidth(header.length());
-            }
-            for (final List<String> row : table.rows()) {
-                final String cell = row.get(i);
-                if (cell.length() > builder.getMaxWidth()) {
-                    builder.setMaxWidth(cell.length());
-                }
-            }
-        }
+        final List<TextStyle.Builder> styleBuilders = initializeStyleBuilders(table);
         // calculate the total width.
         int calcWidth = 0;
         int adjustedMaxWidth = textStyleBuilder.getMaxWidth();
