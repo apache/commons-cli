@@ -116,6 +116,7 @@ public class TypeHandler {
      * @param string the value.
      * @return the number represented by {@code string}.
      * @throws ParseException if {@code string} is not a number.
+     * @deprecated Use {@link #createValue(String, Class)}.
      */
     @Deprecated // since 1.7.0
     @SuppressWarnings("java:S1133") // Deprecated code is kept for backward compatibility
