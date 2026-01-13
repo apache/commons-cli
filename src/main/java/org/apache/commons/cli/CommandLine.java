@@ -269,7 +269,7 @@ public class CommandLine implements Serializable {
      *
      * @param optionChar the name of the option.
      * @return the type of opt.
-     * @deprecated due to System.err message; use {@link #getParsedOptionValue(char)} instead.
+     * @deprecated Since 1.4, due to System.err message; use {@link #getParsedOptionValue(char)} instead. Scheduled for removal in 2.0.0.
      */
     @Deprecated
     public Object getOptionObject(final char optionChar) {
