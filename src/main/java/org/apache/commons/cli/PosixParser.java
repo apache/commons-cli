@@ -84,7 +84,8 @@ public class PosixParser extends Parser {
      * @param stopAtNonOption Specifies whether to stop processing at the first non-Option encountered.
      */
     protected void burstToken(final String token, final boolean stopAtNonOption) {
-        for (int i = 1; i < token.length(); i++) {
+        boolean done = false;
+        for (int i = 1; i < token.length() && !done; i++) {
             final String ch = String.valueOf(token.charAt(i));
             if (!options.hasOption(ch)) {
                 if (stopAtNonOption) {
@@ -92,13 +93,14 @@ public class PosixParser extends Parser {
                 } else {
                     tokens.add(token);
                 }
-                break;
-            }
-            tokens.add(OptionFormatter.DEFAULT_OPT_PREFIX + ch);
-            currentOption = options.getOption(ch);
-            if (currentOption.hasArg() && token.length() != i + 1) {
-                tokens.add(token.substring(i + 1));
-                break;
+                done = true;
+            } else {
+                tokens.add(OptionFormatter.DEFAULT_OPT_PREFIX + ch);
+                currentOption = options.getOption(ch);
+                if (currentOption.hasArg() && token.length() != i + 1) {
+                    tokens.add(token.substring(i + 1));
+                    done = true;
+                }
             }
         }
     }
