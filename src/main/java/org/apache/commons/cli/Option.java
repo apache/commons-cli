@@ -582,9 +582,9 @@ public class Option implements Cloneable, Serializable {
     @Override
     public Object clone() {
         try {
-            final Option option = (Option) super.clone();
-            option.values = new ArrayList<>(values);
-            return option;
+            final Option clone = (Option) super.clone();
+            clone.values = new ArrayList<>(values);
+            return clone;
         } catch (final CloneNotSupportedException e) {
             throw new UnsupportedOperationException(e.getMessage(), e);
         }
