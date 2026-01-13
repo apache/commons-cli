@@ -61,9 +61,10 @@ public class GnuParser extends Parser {
             if (arg != null) {
                 eatTheRest = processArgument(options, tokens, arg, eatTheRest, stopAtNonOption);
                 if (eatTheRest) {
-                    for (i++; i < arguments.length; i++) { // NOPMD
-                        tokens.add(arguments[i]);
+                    for (int j = i + 1; j < arguments.length; j++) {
+                        tokens.add(arguments[j]);
                     }
+                    break;
                 }
             }
         }
