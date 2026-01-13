@@ -50,6 +50,7 @@ public class CommandLine implements Serializable {
         /**
          * Prints an Option to {@link System#out}.
          */
+        @SuppressWarnings("java:S106") // System.out is intentional for CLI output
         static final Consumer<Option> DEPRECATED_HANDLER = o -> System.out.println(o.toDeprecatedString());
 
         /** The unrecognized options/arguments */
