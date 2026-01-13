@@ -366,7 +366,12 @@ public final class OptionFormatter {
             if (!Util.isEmpty(argName)) {
                 buff.append(optArgSeparator).append(argName);
             }
-            final boolean requiredFlg = required == null ? o.isRequired() : required;
+            final boolean requiredFlg;
+            if (required == null) {
+                requiredFlg = o.isRequired();
+            } else {
+                requiredFlg = required;
+            }
             return requiredFlg ? buff.toString() : o.toOptional(buff.toString());
         };
     }
