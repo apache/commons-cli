@@ -51,7 +51,6 @@ public class Options implements Serializable {
 
     /** A map of the required options */
     // This can contain either a String (addOption) or an OptionGroup (addOptionGroup)
-    // TODO this seems wrong
     private final List<Object> requiredOpts = new ArrayList<>();
 
     /** A map of the option groups */
