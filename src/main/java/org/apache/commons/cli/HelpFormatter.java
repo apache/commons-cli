@@ -277,6 +277,7 @@ public class HelpFormatter {
      * @deprecated Scope will be made private for next major version - use get/setSyntaxPrefix methods instead.
      */
     @Deprecated
+    @SuppressWarnings("java:S1133") // Deprecated code is kept for backward compatibility
     public String defaultSyntaxPrefix = DEFAULT_SYNTAX_PREFIX;
 
     /**
