@@ -946,6 +946,7 @@ public class HelpFormatter {
      * @param descPad the number of characters of padding to be prefixed to each description line
      * @return the StringBuffer with the rendered Options contents.
      */
+    @SuppressWarnings("java:S1149") // StringBuffer is required for backward compatibility with subclasses
     protected StringBuffer renderOptions(final StringBuffer sb, final int width, final Options options, final int leftPad, final int descPad) {
         try {
             return appendOptions(sb, width, options, leftPad, descPad);
