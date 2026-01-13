@@ -313,6 +313,7 @@ public class HelpFormatter {
      * @deprecated Scope will be made private for next major version - use get/setArgName methods instead.
      */
     @Deprecated
+    @SuppressWarnings("java:S1133") // Deprecated code is kept for backward compatibility
     public String defaultArgName = DEFAULT_ARG_NAME;
 
     /**
