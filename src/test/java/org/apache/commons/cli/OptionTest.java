@@ -121,7 +121,8 @@ class OptionTest {
 
     @Test
     void testBuilderInsufficientParams1() {
-        assertThrows(IllegalStateException.class, () -> Option.builder().desc("desc").get());
+        final Option.Builder builder = Option.builder().desc("desc");
+        assertThrows(IllegalStateException.class, () -> builder.get());
     }
 
     @Test
