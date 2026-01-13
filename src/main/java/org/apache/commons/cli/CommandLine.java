@@ -104,9 +104,10 @@ public class CommandLine implements Serializable {
          * Creates a new instance.
          *
          * @return a new instance.
-         * @deprecated Use {@link #get()}.
+         * @deprecated Use {@link #get()}. Scheduled for removal in 2.0.0.
          */
         @Deprecated
+        @SuppressWarnings("java:S1133") // Deprecated method retained for backward compatibility until 2.0.0
         public CommandLine build() {
             return get();
         }
