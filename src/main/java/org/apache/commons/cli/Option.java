@@ -532,6 +532,7 @@ public class Option implements Cloneable, Serializable {
      * @deprecated Unused.
      */
     @Deprecated
+    @SuppressWarnings("java:S1133") // Deprecated method retained for binary compatibility
     public boolean addValue(final String value) {
         throw new UnsupportedOperationException("The addValue method is not intended for client use. Subclasses should use the processValue method instead.");
     }
