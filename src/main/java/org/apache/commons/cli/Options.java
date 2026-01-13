@@ -284,7 +284,7 @@ public class Options implements Serializable {
      *
      * @return read-only List of required options.
      */
-    public List<?> getRequiredOptions() {
+    public List<Object> getRequiredOptions() {
         return Collections.unmodifiableList(requiredOpts);
     }
 
