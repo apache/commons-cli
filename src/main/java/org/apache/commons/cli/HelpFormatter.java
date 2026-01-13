@@ -748,6 +748,7 @@ public class HelpFormatter {
      * @param footer the banner to display at the end of the help
      * @throws IllegalStateException if there is no room to print a line
      */
+    @SuppressWarnings("java:S107") // Method has 8 parameters for backwards compatibility
     public void printHelp(final PrintWriter pw, final int width, final String cmdLineSyntax, final String header, final Options options, final int leftPad,
         final int descPad, final String footer) {
         printHelp(pw, width, cmdLineSyntax, header, options, leftPad, descPad, footer, false);
