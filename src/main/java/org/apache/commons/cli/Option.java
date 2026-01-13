@@ -607,9 +607,9 @@ public class Option implements Cloneable, Serializable {
      * @return the value to type converter.
      * @since 1.7.0
      */
-    @SuppressWarnings("java:S1452") // wildcard type is intentional; converter type depends on runtime 'type' field
-    public Converter<?, ?> getConverter() {
-        return converter == null ? TypeHandler.getDefault().getConverter(type) : converter;
+    @SuppressWarnings("unchecked") // converter type depends on runtime 'type' field
+    public Converter<Object, Exception> getConverter() {
+        return (Converter<Object, Exception>) (converter == null ? TypeHandler.getDefault().getConverter(type) : converter);
     }
 
     /**
