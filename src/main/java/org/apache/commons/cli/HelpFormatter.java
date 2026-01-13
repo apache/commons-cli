@@ -347,8 +347,6 @@ public class HelpFormatter {
      * @param showSince whether to show the since version for options.
      */
     private HelpFormatter(final Function<Option, String> deprecatedFormatFunction, final PrintWriter printWriter, final boolean showSince) {
-        // TODO All other instance HelpFormatter instance variables.
-        // Make HelpFormatter immutable for 2.0
         this.deprecatedFormatFunction = deprecatedFormatFunction;
         this.printWriter = printWriter;
         this.showSince = showSince;
