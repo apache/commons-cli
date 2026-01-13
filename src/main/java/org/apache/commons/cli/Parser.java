@@ -46,7 +46,7 @@ public abstract class Parser implements CommandLineParser {
     /**
      * Constructs a new instance.
      */
-    public Parser() {
+    protected Parser() {
         // empty
     }
 
