@@ -29,6 +29,7 @@ package org.apache.commons.cli;
  * @deprecated Since 1.3, use {@link Option#builder(String)} instead.
  */
 @Deprecated
+@SuppressWarnings("java:S1133") // Deprecated class retained for binary compatibility
 public final class OptionBuilder {
 
     /** Long option. */
