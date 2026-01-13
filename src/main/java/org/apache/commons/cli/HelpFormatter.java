@@ -435,26 +435,7 @@ public class HelpFormatter {
             Collections.sort(optList, getOptionComparator());
         }
         for (final Option option : optList) {
-            final StringBuilder optBuf = new StringBuilder();
-            if (option.getOpt() == null) {
-                optBuf.append(lpad).append("   ").append(getLongOptPrefix()).append(option.getLongOpt());
-            } else {
-                optBuf.append(lpad).append(getOptPrefix()).append(option.getOpt());
-                if (option.hasLongOpt()) {
-                    optBuf.append(',').append(getLongOptPrefix()).append(option.getLongOpt());
-                }
-            }
-            if (option.hasArg()) {
-                final String argName = option.getArgName();
-                if (argName != null && argName.isEmpty()) {
-                    // if the option has a blank argname
-                    optBuf.append(' ');
-                } else {
-                    optBuf.append(option.hasLongOpt() ? longOptSeparator : " ");
-                    optBuf.append("<").append(argName != null ? option.getArgName() : getArgName()).append(">");
-                }
-            }
-
+            final StringBuilder optBuf = buildOptionPrefix(option, lpad);
             prefixList.add(optBuf);
             max = Math.max(optBuf.length() + maxSince, max);
         }
@@ -471,26 +452,61 @@ public class HelpFormatter {
         for (final Iterator<Option> it = optList.iterator(); it.hasNext();) {
             final Option option = it.next();
             final StringBuilder optBuf = new StringBuilder(prefixList.get(x++).toString());
-            if (optBuf.length() < max) {
-                optBuf.append(createPadding(max - maxSince - optBuf.length()));
-                if (showSince) {
-                    optBuf.append(lpad).append(option.getSince() == null ? OptionFormatter.DEFAULT_OPT_PREFIX : option.getSince());
-                }
-                optBuf.append(createPadding(max - optBuf.length()));
-            }
-            optBuf.append(dpad);
-
-            if (deprecatedFormatFunction != null && option.isDeprecated()) {
-                optBuf.append(deprecatedFormatFunction.apply(option).trim());
-            } else if (option.getDescription() != null) {
-                optBuf.append(option.getDescription());
-            }
+            formatOptionLine(optBuf, option, max, maxSince, lpad, dpad);
             appendWrappedText(sb, width, nextLineTabStop, optBuf.toString());
             if (it.hasNext()) {
                 sb.append(getNewLine());
             }
         }
         return sb;
+    }
+
+    private StringBuilder buildOptionPrefix(final Option option, final String lpad) {
+        final StringBuilder optBuf = new StringBuilder();
+        if (option.getOpt() == null) {
+            optBuf.append(lpad).append("   ").append(getLongOptPrefix()).append(option.getLongOpt());
+        } else {
+            optBuf.append(lpad).append(getOptPrefix()).append(option.getOpt());
+            if (option.hasLongOpt()) {
+                optBuf.append(',').append(getLongOptPrefix()).append(option.getLongOpt());
+            }
+        }
+        appendOptionArg(optBuf, option);
+        return optBuf;
+    }
+
+    private void appendOptionArg(final StringBuilder optBuf, final Option option) {
+        if (option.hasArg()) {
+            final String argName = option.getArgName();
+            if (argName != null && argName.isEmpty()) {
+                // if the option has a blank argname
+                optBuf.append(' ');
+            } else {
+                optBuf.append(option.hasLongOpt() ? longOptSeparator : " ");
+                optBuf.append("<").append(argName != null ? option.getArgName() : getArgName()).append(">");
+            }
+        }
+    }
+
+    private void formatOptionLine(final StringBuilder optBuf, final Option option, final int max, final int maxSince,
+            final String lpad, final String dpad) {
+        if (optBuf.length() < max) {
+            optBuf.append(createPadding(max - maxSince - optBuf.length()));
+            if (showSince) {
+                optBuf.append(lpad).append(option.getSince() == null ? OptionFormatter.DEFAULT_OPT_PREFIX : option.getSince());
+            }
+            optBuf.append(createPadding(max - optBuf.length()));
+        }
+        optBuf.append(dpad);
+        appendOptionDescription(optBuf, option);
+    }
+
+    private void appendOptionDescription(final StringBuilder optBuf, final Option option) {
+        if (deprecatedFormatFunction != null && option.isDeprecated()) {
+            optBuf.append(deprecatedFormatFunction.apply(option).trim());
+        } else if (option.getDescription() != null) {
+            optBuf.append(option.getDescription());
+        }
     }
 
     /**
