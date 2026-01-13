@@ -105,6 +105,7 @@ public class TypeHandler {
      * @deprecated Without replacement.
      */
     @Deprecated // since 1.7.0
+    @SuppressWarnings("java:S1133") // Deprecated code is kept for backward compatibility
     public static File[] createFiles(final String string) {
         // to implement/port:
         // return FileW.findFiles(string);
