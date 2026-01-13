@@ -345,45 +345,51 @@ public final class TextStyle {
         if (text.length() >= maxWidth) {
             return text;
         }
-        String indentPad;
-        String rest;
-        final StringBuilder sb = new StringBuilder();
         switch (alignment) {
         case CENTER:
-            int padLen;
-            if (maxWidth == UNSET_MAX_WIDTH) {
-                padLen = addIndent ? indent : 0;
-            } else {
-                padLen = maxWidth - text.length();
-            }
-            final int left = padLen / 2;
-            indentPad = Util.repeatSpace(left);
-            rest = Util.repeatSpace(padLen - left);
-            sb.append(indentPad).append(text).append(rest);
-            break;
+            return padCenter(addIndent, text);
         case LEFT:
         case RIGHT:
         default: // default should never happen. It is here to keep code coverage happy.
-            if (maxWidth == UNSET_MAX_WIDTH) {
-                indentPad = addIndent ? Util.repeatSpace(indent) : "";
-                rest = "";
-            } else {
-                int restLen = maxWidth - text.length();
-                if (addIndent && restLen > indent) {
-                    indentPad = Util.repeatSpace(indent);
-                    restLen -= indent;
-                } else {
-                    indentPad = "";
-                }
-                rest = Util.repeatSpace(restLen);
-            }
+            return padLeftOrRight(addIndent, text);
+        }
+    }
 
-            if (alignment == Alignment.LEFT) {
-                sb.append(indentPad).append(text).append(rest);
+    private CharSequence padCenter(final boolean addIndent, final CharSequence text) {
+        int padLen;
+        if (maxWidth == UNSET_MAX_WIDTH) {
+            padLen = addIndent ? indent : 0;
+        } else {
+            padLen = maxWidth - text.length();
+        }
+        final int left = padLen / 2;
+        final String indentPad = Util.repeatSpace(left);
+        final String rest = Util.repeatSpace(padLen - left);
+        return new StringBuilder().append(indentPad).append(text).append(rest).toString();
+    }
+
+    private CharSequence padLeftOrRight(final boolean addIndent, final CharSequence text) {
+        final String indentPad;
+        final String rest;
+        if (maxWidth == UNSET_MAX_WIDTH) {
+            indentPad = addIndent ? Util.repeatSpace(indent) : "";
+            rest = "";
+        } else {
+            int restLen = maxWidth - text.length();
+            if (addIndent && restLen > indent) {
+                indentPad = Util.repeatSpace(indent);
+                restLen -= indent;
             } else {
-                sb.append(indentPad).append(rest).append(text);
+                indentPad = "";
             }
-            break;
+            rest = Util.repeatSpace(restLen);
+        }
+
+        final StringBuilder sb = new StringBuilder();
+        if (alignment == Alignment.LEFT) {
+            sb.append(indentPad).append(text).append(rest);
+        } else {
+            sb.append(indentPad).append(rest).append(text);
         }
         return sb.toString();
     }
