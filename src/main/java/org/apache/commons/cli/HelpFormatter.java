@@ -969,6 +969,7 @@ public class HelpFormatter {
      * @param text The text to be rendered.
      * @return the StringBuffer with the rendered Options contents.
      */
+    @SuppressWarnings("java:S1149") // StringBuffer is required for backward compatibility with subclasses
     protected StringBuffer renderWrappedText(final StringBuffer sb, final int width, final int nextLineTabStop, final String text) {
         try {
             return appendWrappedText(sb, width, nextLineTabStop, text);
