@@ -157,7 +157,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Enum representing possible actions that may be done when "non option" is discovered during parsing.
+     * Enumerates possible actions that may be done when "non option" is discovered during parsing.
      *
      * @since 1.10.0
      */
