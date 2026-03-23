@@ -28,7 +28,7 @@ import java.util.function.Supplier;
 public final class TextStyle {
 
     /**
-     * The alignment possibilities.
+     * Enumerates alignment options.
       */
     public enum Alignment {
 
