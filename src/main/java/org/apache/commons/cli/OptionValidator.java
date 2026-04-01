@@ -98,8 +98,9 @@ final class OptionValidator {
      * <li>a single character {@code opt} that is either Chars.SP(special case), '?', '@' or a letter</li>
      * <li>a multi character {@code opt} that only contains valid characters</li>
      * </ul>
-     * </p><p>
+     * <p>
      * A character is valid if any of the following conditions are true:
+     * </p>
      * <ul>
      * <li>it is a letter</li>
      * <li>it is a currency symbol (such as '$')</li>
@@ -111,8 +112,9 @@ final class OptionValidator {
      * <li>isIdentifierIgnorable returns true for the character</li>
      * <li>it is a hyphen/dash ('-')</li>
      * </ul>
-     * </p><p>
+     * <p>
      * In case {@code opt} is {@code null} no further validation is performed.
+     * </p>
      *
      * @param option The option string to validate, may be null.
      * @throws IllegalArgumentException if the Option is not valid.
