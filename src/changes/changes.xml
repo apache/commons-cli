@@ -31,6 +31,7 @@
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 91 to 98 #414, #416.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.14.0 to 1.15.0.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-io:commons-io from 2.21.0 to 2.22.0.</action>
     </release>
     <release version="1.11.0" date="2025-11-08" description="This is a feature and maintenance release. Java 8 or later is required.">
       <!-- FIX -->
