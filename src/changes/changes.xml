@@ -29,7 +29,7 @@
       <action type="fix" dev="ggregory" due-to="Dan Ziemba, Ken Dombeck, Gary Gregory" issue="CLI-352">Correct HelpFormatter Javadoc #418.</action>
       <!-- ADD -->
       <!-- UPDATE -->
-      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 91 to 98 #414, #416.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 91 to 99 #414, #416.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.14.0 to 1.15.0.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-io:commons-io from 2.21.0 to 2.22.0.</action>
     </release>
