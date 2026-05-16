@@ -408,6 +408,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      */
     public void setIndent(final int indent) {
         textStyleBuilder.setIndent(indent);
+        // TODO return this in 2.0
     }
 
     /**
@@ -417,6 +418,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      */
     public void setLeftPad(final int leftPad) {
         textStyleBuilder.setLeftPad(leftPad);
+        // TODO return this in 2.0
     }
 
     /**
@@ -426,6 +428,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      */
     public void setMaxWidth(final int maxWidth) {
         textStyleBuilder.setMaxWidth(maxWidth);
+        // TODO return this in 2.0
     }
 
     /**
