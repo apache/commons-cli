@@ -18,7 +18,6 @@
 package org.apache.commons.cli.help;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.cli.Option;
@@ -61,6 +60,21 @@ import org.apache.commons.cli.Option;
  * @since 1.10.0
  */
 public class HelpFormatter extends AbstractHelpFormatter {
+
+    /**
+     * The default "Since" column label.
+     */
+    private static final String LABEL_SINCE = "Since";
+
+    /**
+     * The default "Description" column label.
+     */
+    private static final String LABEL_DESCRIPTION = "Description";
+
+    /**
+     * The default "Options" column label.
+     */
+    private static final String LABEL_OPTIONS = "Options";
 
     /**
      * A builder for the HelpFormatter. Intended to make more complex uses of the HelpFormatter class easier. Default values are:
@@ -184,6 +198,12 @@ public class HelpFormatter extends AbstractHelpFormatter {
             rows.add(row);
         });
         // return the TableDefinition with the proper column headers.
-        return TableDefinition.from("", styles, showSince ? Arrays.asList("Options", "Since", "Description") : Arrays.asList("Options", "Description"), rows);
+        List<String> headers = new ArrayList<>(3);
+        headers.add(LABEL_OPTIONS);
+        if (showSince) {
+            headers.add(LABEL_SINCE);
+        }
+        headers.add(LABEL_DESCRIPTION);
+        return TableDefinition.from("", styles, headers, rows);
     }
 }
