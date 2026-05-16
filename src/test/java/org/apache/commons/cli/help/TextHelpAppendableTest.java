@@ -37,13 +37,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Tests {@link TextHelpAppendable}.
  */
-public final class TextHelpAppendableTest {
+final class TextHelpAppendableTest {
 
     private StringBuilder sb;
     private TextHelpAppendable underTest;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         sb = new StringBuilder();
         underTest = new TextHelpAppendable(sb);
     }
