@@ -36,7 +36,7 @@
       <item name="Security" href="security.html" />
       <item name="License" href="https://www.apache.org/licenses/LICENSE-2.0" />
       <item name="Code of Conduct" href="https://www.apache.org/foundation/policies/conduct.html" />
-      <item name="Download" href="https://commons.apache.org/proper/commons-bcel/download_bcel.cgi" />
+      <item name="Download" href="https://commons.apache.org/proper/commons-cli/download_cli.cgi" />
       <item name="Javadoc">
         <item name="Javadoc Current" href="apidocs/index.html" />
         <item name="Javadoc Archive" href="https://javadoc.io/doc/commons-cli/commons-cli/" />
