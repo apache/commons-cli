@@ -62,21 +62,6 @@ import org.apache.commons.cli.Option;
 public class HelpFormatter extends AbstractHelpFormatter {
 
     /**
-     * The default "Since" column label.
-     */
-    private static final String LABEL_SINCE = "Since";
-
-    /**
-     * The default "Description" column label.
-     */
-    private static final String LABEL_DESCRIPTION = "Description";
-
-    /**
-     * The default "Options" column label.
-     */
-    private static final String LABEL_OPTIONS = "Options";
-
-    /**
      * A builder for the HelpFormatter. Intended to make more complex uses of the HelpFormatter class easier. Default values are:
      * <ul>
      * <li>showSince = true</li>
@@ -115,6 +100,21 @@ public class HelpFormatter extends AbstractHelpFormatter {
             return this;
         }
     }
+
+    /**
+     * The default "Since" column label.
+     */
+    private static final String LABEL_SINCE = "Since";
+
+    /**
+     * The default "Description" column label.
+     */
+    private static final String LABEL_DESCRIPTION = "Description";
+
+    /**
+     * The default "Options" column label.
+     */
+    private static final String LABEL_OPTIONS = "Options";
 
     /**
      * Default number of characters per line: {@value}.
