@@ -58,9 +58,9 @@ limitations under the License.
         to define the interface to the application.
       </p>
       <p>
-        CLI uses the <a href="javadocs/api-release/org/apache/commons/cli/Options.html">
+        CLI uses the <a href="org/apache/commons/cli/Options.html">
         Options</a> class, as a container for 
-        <a href="javadocs/api-release/org/apache/commons/cli/Option.html">
+        <a href="org/apache/commons/cli/Option.html">
         Option</a> instances.  There are two ways to create
         <code>Option</code>s in CLI.  One of them is via the constructors,
         the other way is via the factory methods defined in 
@@ -86,11 +86,11 @@ limitations under the License.
       </p>
       <p>
         The <code>parse</code> method defined on 
-        <a href="javadocs/api-release/org/apache/commons/cli/CommandLineParser.html">
+        <a href="org/apache/commons/cli/CommandLineParser.html">
         CommandLineParser</a> takes an <code>Options</code>
         instance and a <code>String[]</code> of arguments and 
         returns a 
-        <a href="javadocs/api-release/org/apache/commons/cli/CommandLine.html">
+        <a href="org/apache/commons/cli/CommandLine.html">
         CommandLine</a>.
       </p>
       <p>
@@ -142,7 +142,7 @@ limitations under the License.
       <section>
         <h2>Creating the Options</h2>
         <p>
-          An <a href="javadocs/api-release/org/apache/commons/cli/Options.html">
+          An <a href="org/apache/commons/cli/Options.html">
           Options</a> object must be created and the <code>Option</code> must be 
           added to it.
         </p>
@@ -177,7 +177,7 @@ CommandLine cmd = parser.parse(options, args);</code>
         <p>
           Now we need to check if the <code>t</code> option is present.  To do
           this we will interrogate the 
-          <a href="javadocs/api-release/org/apache/commons/cli/CommandLine.html">CommandLine
+          <a href="org/apache/commons/cli/CommandLine.html">CommandLine
           </a> object.  The <code>hasOption</code> method takes a 
           <code>java.lang.String</code> parameter and returns <code>true</code> if the option 
           represented by the <code>java.lang.String</code> is present, otherwise 
@@ -288,33 +288,33 @@ Option emacs = new Option("emacs",
                          .argName("file")
                          .hasArg()
                          .desc("use given file for log")
-                         .build();
+                         .get();
 
 Option logger = Option.builder("logger")
                          .argName("classname")
                          .hasArg()
                          .desc("the class which it to perform logging")
-                         .build();
+                         .get();
 
 Option listener = Option.builder("listener")
                          .argName("classname")
                          .hasArg()
                          .desc("add an instance of class as "
                                 + "a project listener")
-                         .build();
+                         .get();
 
 Option buildFile = Option.builder("buildfile")
                          .argName("file")
                          .hasArg()
                          .desc("use given buildfile")
-                         .build();
+                         .get();
 
 Option find = Option.builder("find")
                          .argName("file")
                          .hasArg()
                          .desc("search for buildfile towards the "
                                 + "root of the filesystem and use it")
-                         .build();</code></pre>
+                         .get();</code></pre>
       </section>
       <section>
         <h2>Defining Java Property Option</h2>
@@ -322,10 +322,10 @@ Option find = Option.builder("find")
           The last option to create is the Java property, and it is also created
           using the Option class' Builder.
         </p>
-        <code>Option property  = Option property  = Option.builder("D")
+        <pre><code>Option property = Option.builder("D")
                                 .hasArgs()
                                 .valueSeparator('=')
-                                .build();</code>
+                                .get();</code></pre>
         <p>
           The map of properties specified by this option can later be retrieved by
           calling <code>getOptionProperties("D")</code> on the <code>CommandLine</code>.
@@ -335,11 +335,11 @@ Option find = Option.builder("find")
         <h2>Creating the Options</h2>
         <p>
           Now that we have created each 
-          <a href="javadocs/api-release/org/apache/commons/cli/Option.html">Option</a> we need
+          <a href="org/apache/commons/cli/Option.html">Option</a> we need
           to create the 
-          <a href="javadocs/api-release/org/apache/commons/cli/Options.html">Options</a>
+          <a href="org/apache/commons/cli/Options.html">Options</a>
           instance.  This is achieved using the 
-          <a href="javadocs/api-release/org/apache/commons/cli/CommandLine.html#addOption(org.apache.commons.cli.Option)">addOption</a>
+          <a href="org/apache/commons/cli/CommandLine.html#addOption(org.apache.commons.cli.Option)">addOption</a>
           method of <code>Options</code>.
         </p>
         <pre><code>Options options = new Options();
@@ -351,10 +351,10 @@ options.addOption(quiet);
 options.addOption(verbose);
 options.addOption(debug);
 options.addOption(emacs);
-options.addOption(logfile);
+options.addOption(logFile);
 options.addOption(logger);
 options.addOption(listener);
-options.addOption(buildfile);
+options.addOption(buildFile);
 options.addOption(find);
 options.addOption(property);</code></pre>
         <p>
@@ -367,7 +367,7 @@ options.addOption(property);</code></pre>
         <p>
           We now need to create a <code>CommandLineParser</code>. This will parse the command
           line arguments, using the rules specified by the <code>Options</code> and
-          return an instance of <a href="javadocs/api-release/org/apache/commons/cli/CommandLine.html">CommandLine</a>.
+          return an instance of <a href="org/apache/commons/cli/CommandLine.html">CommandLine</a>.
         </p>
         <pre><code>public static void main(String[] args) {
     // create the parser
@@ -399,7 +399,7 @@ if (line.hasOption("buildfile")) {
         <p>
           CLI also provides the means to automatically generate usage
           and help information.  This is achieved with the
-          <a href="javadocs/api-release/org/apache/commons/cli/HelpFormatter.html">HelpFormatter</a>
+          <a href="apidocs/org/apache/commons/cli/help/HelpFormatter.html">HelpFormatter</a>
           class.
         </p>
         <pre><code>// automatically generate the help statement
@@ -454,7 +454,7 @@ Sort entries alphabetically if none of -cftuSUX nor --sort.
 -C                         list entries by columns</code></pre>
       <p>
         The following is the code that is used to create the 
-        <a href="javadocs/api-release/org/apache/commons/cli/Options.html">Options</a> for this example.
+        <a href="org/apache/commons/cli/Options.html">Options</a> for this example.
       </p>
       <pre><code>// create the command line parser
 CommandLineParser parser = new DefaultParser();
@@ -468,7 +468,7 @@ options.addOption("b", "escape", false, "print octal escapes for non-graphic "
 options.addOption(Option.builder("SIZE").longOpt("block-size")
                                 .desc("use SIZE-byte blocks")
                                 .hasArg()
-                                .build());
+                                .get());
 options.addOption("B", "ignore-backups", false, "do not list implied entries "
                                                  + "ending with ~");
 options.addOption("c", false, "with -lt: sort by, and show, ctime (time of last " 
@@ -506,7 +506,7 @@ public static void main(String[] args) {
                   .hasArg()
                   .desc("the number of things")
                   .type(Integer.class)
-                  .build();
+                  .get();
     Options options = new Options().addOption(count);
     // create the parser
     CommandLineParser parser = new DefaultParser();
@@ -561,7 +561,7 @@ public static void main(String[] args) {
           .hasArg()
           .desc("the foo arg")
           .converter(Foo::new)
-          .build();</code></pre>
+          .get();</code></pre>
         <p>
             The above will create an option that passes the string value to the Foo constructor when <code>commandLine.getParsedOptionValue(fooOpt)</code> is called.
         </p>
@@ -595,12 +595,12 @@ public static void main(String[] args) {
           .hasArg()
           .desc("the number of things")
           .type(Integer.class)
-          .build();
+          .get();
       Option count = Option.builder("count")
           .hasArg()
           .desc("the number of things")
           .type(Integer.class)
-          .build();
+          .get();
       Options options = new Options().addOption(n).addOption(count);
 
       doSomething(options);
@@ -653,7 +653,7 @@ public static void main(String[] args) {
           }
           System.err.printf("ERROR: Option %s: %s%n", buf, o.getDeprecated());
       };
-      DefaultParser parser = DefaultParser.builder().setDeprecatedHandler(deprecatedUsageAnnouncement).build();
+      DefaultParser parser = DefaultParser.builder().setDeprecatedHandler(deprecatedUsageAnnouncement).get();
       CommandLine line;
       try {
           // parse the command line arguments
@@ -728,10 +728,10 @@ public static void main(String[] args) {
       <h1><img src="org/apache/commons/cli/doc-files/leaf.svg" style="height: 1em; padding-right: 0.25em" alt="leaf">7. Defining Option Properties</h1>
       <p>
         The following are the properties that each 
-        <a href="javadocs/api-release/org/apache/commons/cli/Option.html">Option</a> has.  All of these
+        <a href="org/apache/commons/cli/Option.html">Option</a> has.  All of these
         can be set using the accessors or using the methods
         defined in the
-        <a href="javadocs/api-release/org/apache/commons/cli/Option.Builder.html">Option.Builder</a>.
+        <a href="org/apache/commons/cli/Option.Builder.html">Option.Builder</a>.
       </p>
       <table>
         <caption>Option Properties</caption>
