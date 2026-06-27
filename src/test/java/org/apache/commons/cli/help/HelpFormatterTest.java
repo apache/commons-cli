@@ -164,11 +164,11 @@ class HelpFormatterTest {
     void testPrintHelpWithDefaults() throws IOException {
         final StringBuilder sb = new StringBuilder();
         final TextHelpAppendable serializer = new TextHelpAppendable(sb);
-        HelpFormatter formatter = HelpFormatter.builder().setHelpAppendable(serializer).get();
+        final HelpFormatter formatter = HelpFormatter.builder().setHelpAppendable(serializer).get();
 
         final Options options = new Options().addOption(Option.builder("a").since("1853").hasArg().desc("aaaa aaaa aaaa aaaa aaaa").get());
 
-        List<String> expected = new ArrayList<>();
+        final List<String> expected = new ArrayList<>();
         expected.add(" usage:  commandSyntax");
         expected.add("");
         expected.add(" Options      Since           Description       ");
@@ -176,7 +176,7 @@ class HelpFormatterTest {
         expected.add("");
 
         formatter.printHelp("commandSyntax", options);
-        List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
+        final List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
         assertEquals(expected, actual);
     }
 
