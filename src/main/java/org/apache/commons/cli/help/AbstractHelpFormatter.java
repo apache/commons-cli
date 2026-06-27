@@ -292,8 +292,7 @@ public abstract class AbstractHelpFormatter {
      * @param options       the collection of {@link Option} objects to print.
      * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
-    public void printHelp(final String cmdLineSyntax, final Options options)
-            throws IOException {
+    public void printHelp(final String cmdLineSyntax, final Options options) throws IOException {
         printHelp(cmdLineSyntax, null, options, null, false);
     }
 
