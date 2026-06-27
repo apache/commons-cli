@@ -14,6 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 package org.apache.commons.cli;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
@@ -42,13 +42,13 @@ public class ConverterTests {
 
     // A class without a default constructor.
     public class AClassWithoutADefaultConstructor {
+
         public AClassWithoutADefaultConstructor(final int i) {
         }
     }
 
     private static Stream<Arguments> numberTestParameters() {
         final List<Arguments> lst = new ArrayList<>();
-
         lst.add(Arguments.of("123", Long.valueOf("123")));
         lst.add(Arguments.of("12.3", Double.valueOf("12.3")));
         lst.add(Arguments.of("-123", Long.valueOf("-123")));
@@ -58,38 +58,30 @@ public class ConverterTests {
         lst.add(Arguments.of("0x5F", null));
         lst.add(Arguments.of("2,3", null));
         lst.add(Arguments.of("1.2.3", null));
-
         return lst.stream();
     }
 
     @Test
     void testClass() throws Exception {
-
         assertNotNull(Converter.CLASS.apply(this.getClass().getName()), this.getClass().getName());
         assertNotNull(Converter.CLASS.apply(this.getClass().getCanonicalName()), this.getClass().getCanonicalName());
-        assertThrows(ClassNotFoundException.class, () -> Converter.CLASS.apply(this.getClass().getSimpleName()),
-                this.getClass().getSimpleName());
+        assertThrows(ClassNotFoundException.class, () -> Converter.CLASS.apply(this.getClass().getSimpleName()), this.getClass().getSimpleName());
         assertNotNull(Converter.CLASS.apply(this.getClass().getTypeName()), this.getClass().getTypeName());
-
         assertThrows(ClassNotFoundException.class, () -> Converter.CLASS.apply("foo.bar"));
         assertNotNull(Converter.CLASS.apply(AClassWithoutADefaultConstructor.class.getName()));
     }
-    
+
     @Test
     void testDate() throws Exception {
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("whatever"));
-
         /*
-         * Dates calculated from strings are dependent upon configuration and environment settings for the
-         * machine on which the test is running.  To avoid this problem, convert the time into a string
-         * and then unparse that using the converter.  This produces strings that always match the correct
-         * time zone.
+         * Dates calculated from strings are dependent upon configuration and environment settings for the machine on which the test is running. To avoid this
+         * problem, convert the time into a string and then unparse that using the converter. This produces strings that always match the correct time zone.
          */
         final Date expected = new Date(1023400137000L);
         final DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
         final String formatted = dateFormat.format(expected);
         assertEquals(expected, Converter.DATE.apply(formatted));
-
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("Jun 06 17:48:57 EDT 2002"));
     }
 
@@ -122,10 +114,8 @@ public class ConverterTests {
     void testObject() throws Exception {
         assertNotNull(Converter.OBJECT.apply(this.getClass().getName()), this.getClass().getName());
         assertNotNull(Converter.OBJECT.apply(this.getClass().getCanonicalName()), this.getClass().getCanonicalName());
-        assertThrows(ClassNotFoundException.class, () -> Converter.OBJECT.apply(this.getClass().getSimpleName()),
-                this.getClass().getSimpleName());
+        assertThrows(ClassNotFoundException.class, () -> Converter.OBJECT.apply(this.getClass().getSimpleName()), this.getClass().getSimpleName());
         assertNotNull(Converter.OBJECT.apply(this.getClass().getTypeName()), this.getClass().getTypeName());
-
         assertThrows(ClassNotFoundException.class, () -> Converter.OBJECT.apply("foo.bar"));
         assertThrows(NoSuchMethodException.class, () -> Converter.OBJECT.apply(AClassWithoutADefaultConstructor.class.getName()));
     }
