@@ -26,12 +26,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junitpioneer.jupiter.DefaultLocale;
 
 /**
  * Tests for standard Converters.
@@ -72,7 +74,7 @@ public class ConverterTests {
         assertThrows(ClassNotFoundException.class, () -> Converter.CLASS.apply("foo.bar"));
         assertNotNull(Converter.CLASS.apply(AClassWithoutADefaultConstructor.class.getName()));
     }
-
+    
     @Test
     void testDate() throws Exception {
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("whatever"));
@@ -89,6 +91,14 @@ public class ConverterTests {
         assertEquals(expected, Converter.DATE.apply(formatted));
 
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("Jun 06 17:48:57 EDT 2002"));
+    }
+
+    @Test
+    @DefaultLocale(language = "de", country = "DE")
+    void testDateLocaleDe() throws Exception {
+        final Date expected = new Date(1023400137000L);
+        final String formatted = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").format(expected);
+        assertEquals(expected, Converter.DATE.apply(formatted));
     }
 
     @Test
