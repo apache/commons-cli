@@ -285,6 +285,19 @@ public abstract class AbstractHelpFormatter {
     protected abstract TableDefinition getTableDefinition(Iterable<Option> options);
 
     /**
+     * Prints the help for {@link Options} with the specified command line syntax,
+     * without printing a header, footer, or autoUsage.
+     *
+     * @param cmdLineSyntax the syntax for this application.
+     * @param options       the collection of {@link Option} objects to print.
+     * @throws IOException If the output could not be written to the {@link HelpAppendable}.
+     * @since 1.12.0
+     */
+    public void printHelp(final String cmdLineSyntax, final Options options) throws IOException {
+        printHelp(cmdLineSyntax, null, options, null, false);
+    }
+
+    /**
      * Prints the help for {@link Options} with the specified command line syntax.
      *
      * @param cmdLineSyntax the syntax for this application.

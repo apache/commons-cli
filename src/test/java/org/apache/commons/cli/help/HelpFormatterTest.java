@@ -147,6 +147,26 @@ class HelpFormatterTest {
         assertEquals(0, sb.length(), "Should not write to output");
     }
 
+    @Test
+    void testPrintHelpWithDefaults() throws IOException {
+        final StringBuilder sb = new StringBuilder();
+        final TextHelpAppendable serializer = new TextHelpAppendable(sb);
+        HelpFormatter formatter = HelpFormatter.builder().setHelpAppendable(serializer).get();
+
+        final Options options = new Options().addOption(Option.builder("a").since("1853").hasArg().desc("aaaa aaaa aaaa aaaa aaaa").get());
+
+        List<String> expected = new ArrayList<>();
+        expected.add(" usage:  commandSyntax");
+        expected.add("");
+        expected.add(" Options      Since           Description       ");
+        expected.add(" -a <arg>     1853      aaaa aaaa aaaa aaaa aaaa");
+        expected.add("");
+
+        formatter.printHelp("commandSyntax", options);
+        List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+    }
+
     /**
      * Tests example from the mailing list that caused an infinite loop.
      *
