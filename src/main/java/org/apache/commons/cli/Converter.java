@@ -52,7 +52,7 @@ public interface Converter<T, E extends Exception> {
     Converter<File, NullPointerException> FILE = File::new;
 
     /**
-     * Converts a String to a {@link Path}. Calls {@link Paths#get(java.net.URI)}.
+     * Converts a String to a {@link Path}. Calls {@link Paths#get(String, String...)}.
      */
     Converter<Path, InvalidPathException> PATH = Paths::get;
 
