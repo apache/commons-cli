@@ -37,27 +37,27 @@ public interface Converter<T, E extends Exception> {
     // See also Apache Commons Lang FailableFunction
 
     /**
-     * The default converter. Does nothing.
+     * The default converter does nothing.
      */
     Converter<?, RuntimeException> DEFAULT = s -> s;
 
     /**
-     * Class name converter. Calls {@link Class#forName(String)}.
+     * Converts a String to a {@link Class}. Calls {@link Class#forName(String)}.
      */
     Converter<Class<?>, ClassNotFoundException> CLASS = Class::forName;
 
     /**
-     * File name converter. Calls {@link File#File(String)}.
+     * Converts a String to a {@link File}. Calls {@link File#File(String)}.
      */
     Converter<File, NullPointerException> FILE = File::new;
 
     /**
-     * Path converter. Calls {@link Paths#get(java.net.URI)}.
+     * Converts a String to a {@link Path}. Calls {@link Paths#get(java.net.URI)}.
      */
     Converter<Path, InvalidPathException> PATH = Paths::get;
 
     /**
-     * Number converter. Converts to a Double if a decimal point ('.') is in the string or a Long otherwise.
+     * Converts a String to a {@link Number}. Converts to a Double if a decimal point ('.') is in the string or a Long otherwise.
      */
     Converter<Number, NumberFormatException> NUMBER = s -> s.indexOf('.') != -1 ? (Number) Double.valueOf(s) : (Number) Long.valueOf(s);
 
@@ -69,12 +69,12 @@ public interface Converter<T, E extends Exception> {
     Converter<Object, ReflectiveOperationException> OBJECT = s -> CLASS.apply(s).getConstructor().newInstance();
 
     /**
-     * Creates a URL. Calls {@link URL#URL(String)}.
+     * Converts a String to a {@link URL}. Calls {@link URL#URL(String)}.
      */
     Converter<URL, MalformedURLException> URL = URL::new;
 
     /**
-     * Converts to a date using the format string Form "EEE MMM dd HH:mm:ss zzz yyyy".
+     * Converts a String to a {@link Date} using the format string Form "EEE MMM dd HH:mm:ss zzz yyyy".
      */
     Converter<Date, java.text.ParseException> DATE = s -> new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(s);
 
