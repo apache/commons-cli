@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
@@ -90,6 +91,16 @@ public class ConverterTests {
     void testDateLocaleDe() throws Exception {
         final Date expected = new Date(1023400137000L);
         final String formatted = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").format(expected);
+        assertEquals(expected, Converter.DATE.apply(formatted));
+    }
+
+    @Test
+    @DefaultLocale(language = "de", country = "DE")
+    void testDateLocaleDeEnglishInput() throws Exception {
+        // Date.toString() always emits English month/day names, so the converter must still parse
+        // them when the default locale is not English.
+        final Date expected = new Date(1023400137000L);
+        final String formatted = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).format(expected);
         assertEquals(expected, Converter.DATE.apply(formatted));
     }
 
