@@ -198,7 +198,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
             rows.add(row);
         });
         // return the TableDefinition with the proper column headers.
-        List<String> headers = new ArrayList<>(3);
+        final List<String> headers = new ArrayList<>(3);
         headers.add(LABEL_OPTIONS);
         if (showSince) {
             headers.add(LABEL_SINCE);
