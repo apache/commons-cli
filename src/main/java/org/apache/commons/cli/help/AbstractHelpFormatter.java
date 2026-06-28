@@ -309,7 +309,7 @@ public abstract class AbstractHelpFormatter {
      */
     public void printHelp(final String cmdLineSyntax, final String header, final Iterable<Option> options, final String footer, final boolean autoUsage)
             throws IOException {
-        Options optionsObject = new Options();
+        final Options optionsObject = new Options();
         options.forEach(optionsObject::addOption);
         printHelp(cmdLineSyntax, header, optionsObject, footer, autoUsage);
     }
