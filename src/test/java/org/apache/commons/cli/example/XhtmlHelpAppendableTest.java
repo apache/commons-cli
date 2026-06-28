@@ -85,9 +85,9 @@ class XhtmlHelpAppendableTest {
         final String[] headers = { "one", "two", "three" };
         // @formatter:off
         final List<List<String>> rows = Arrays.asList(
-                Arrays.asList(new String[]{"uno", "dos", "tres"}),
-                Arrays.asList(new String[]{"aon", "dhá", "trí"}),
-                Arrays.asList(new String[]{"واحد", "اثنين", "ثلاثة"})
+                Arrays.asList("uno", "dos", "tres"),
+                Arrays.asList("aon", "dhá", "trí"),
+                Arrays.asList("واحد", "اثنين", "ثلاثة")
         );
         // @formatter:on
         List<String> expected = new ArrayList<>();
