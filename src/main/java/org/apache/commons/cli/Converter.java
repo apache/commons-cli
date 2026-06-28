@@ -24,6 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * The definition of the functional interface to call when doing a conversion. Like {@code Function<String,T>} but can throw an Exception.
@@ -76,7 +77,16 @@ public interface Converter<T, E extends Exception> {
     /**
      * Converts a String to a {@link Date} using the format string Form "EEE MMM dd HH:mm:ss zzz yyyy".
      */
-    Converter<Date, java.text.ParseException> DATE = s -> new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(s);
+    Converter<Date, java.text.ParseException> DATE = s -> {
+        final String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
+        try {
+            return new SimpleDateFormat(pattern).parse(s);
+        } catch (final java.text.ParseException e) {
+            // Date.toString() always emits English month/day names, so fall back to Locale.ENGLISH
+            // when the default locale rejects the documented format.
+            return new SimpleDateFormat(pattern, Locale.ENGLISH).parse(s);
+        }
+    };
 
     /**
      * Applies the conversion function to the String argument.
