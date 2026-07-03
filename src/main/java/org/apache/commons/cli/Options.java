@@ -78,9 +78,7 @@ public class Options implements Serializable {
         }
         // if the option is required add it to the required list
         if (opt.isRequired()) {
-            if (requiredOpts.contains(key)) {
-                requiredOpts.remove(requiredOpts.indexOf(key));
-            }
+            requiredOpts.remove(key);
             requiredOpts.add(key);
         }
         shortOpts.put(key, opt);
@@ -265,8 +263,8 @@ public class Options implements Serializable {
 
         // The optionGroups map will have duplicates in the values() results. We
         // use the HashSet to filter out duplicates and return a collection of
-        // OpitonGroup. The decision to return a Collection rather than a set
-        // was probably to keep symmetry with the getOptions() method.
+        // OptionGroup. A Collection (not a Set) is returned to keep symmetry
+        // with the getOptions() method's return type.
         return new HashSet<>(optionGroups.values());
     }
 
@@ -336,14 +334,10 @@ public class Options implements Serializable {
      *
      * @return Stringified form of this object.
      */
+
     @Override
     public String toString() {
-        final StringBuilder buf = new StringBuilder();
-        buf.append("[ Options: [ short ");
-        buf.append(shortOpts.toString());
-        buf.append(" ] [ long ");
-        buf.append(longOpts);
-        buf.append(" ]");
-        return buf.toString();
+        return "[ Options: [ short " + shortOpts + " ] [ long " + longOpts + " ]";
+
     }
 }
