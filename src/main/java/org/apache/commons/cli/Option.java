@@ -845,31 +845,36 @@ public class Option implements Cloneable, Serializable {
         if (argCount == UNINITIALIZED) {
             throw new IllegalStateException("NO_ARGS_ALLOWED");
         }
+
         String add = Objects.requireNonNull(value, "value");
-        // this Option has a separator character
+
         if (hasValueSeparator()) {
-            // get the separator character
-            final char sep = getValueSeparator();
-            // store the index for the value separator
-            int index = add.indexOf(sep);
-            // while there are more value separators
-            while (index != -1) {
-                // next value to be added
-                if (values.size() == argCount - 1) {
-                    break;
-                }
-                // store
-                add(add.substring(0, index));
-                // parse
-                add = add.substring(index + 1);
-                // get new index
-                index = add.indexOf(sep);
-            }
+            add = processSeparatedValues(add);
         }
-        // store the actual value or the last value that has been parsed
+
         add(add);
     }
+    private String processSeparatedValues(String value) {
 
+        final char separator = getValueSeparator();
+
+        int index = value.indexOf(separator);
+
+        while (index != -1) {
+
+            if (values.size() == argCount - 1) {
+                break;
+            }
+
+            add(value.substring(0, index));
+
+            value = value.substring(index + 1);
+
+            index = value.indexOf(separator);
+        }
+
+        return value;
+    }
     /**
      * Tests whether the option requires more arguments to be valid.
      *
