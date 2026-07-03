@@ -546,63 +546,84 @@ public class DefaultParser implements CommandLineParser {
     private void handleShortAndLongOption(final String hyphenToken) throws ParseException {
         final String token = Util.stripLeadingHyphens(hyphenToken);
         final int pos = indexOfEqual(token);
+
         if (token.length() == 1) {
-            // -S
-            if (options.hasShortOption(token)) {
-                handleOption(options.getOption(token));
-            } else {
-                handleUnknownToken(hyphenToken);
-            }
+            handleSingleOption(token, hyphenToken);
         } else if (pos == -1) {
-            // no equal sign found (-xxx)
-            if (options.hasShortOption(token)) {
-                handleOption(options.getOption(token));
-            } else if (!getMatchingLongOptions(token).isEmpty()) {
-                // -L or -l
-                handleLongOptionWithoutEqual(hyphenToken);
-            } else {
-                // look for a long prefix (-Xmx512m)
-                final String opt = getLongPrefix(token);
-
-                if (opt != null && options.getOption(opt).acceptsArg()) {
-                    handleOption(options.getOption(opt));
-                    currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(token.substring(opt.length())));
-                    currentOption = null;
-                } else if (isJavaProperty(token)) {
-                    // -SV1 (-Dflag)
-                    handleOption(options.getOption(token.substring(0, 1)));
-                    currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(token.substring(1)));
-                    currentOption = null;
-                } else {
-                    // -S1S2S3 or -S1S2V
-                    handleConcatenatedOptions(hyphenToken);
-                }
-            }
+            handleOptionWithoutEqual(token, hyphenToken);
         } else {
-            // equal sign found (-xxx=yyy)
-            final String opt = token.substring(0, pos);
-            final String value = token.substring(pos + 1);
+            handleOptionWithEqual(token, hyphenToken, pos);
+        }
+    }
+    private void handleSingleOption(final String token, final String hyphenToken)
+            throws ParseException {
 
-            if (opt.length() == 1) {
-                // -S=V
-                final Option option = options.getOption(opt);
-                if (option != null && option.acceptsArg()) {
-                    handleOption(option);
-                    currentOption.processValue(value);
-                    currentOption = null;
-                } else {
-                    handleUnknownToken(hyphenToken);
-                }
-            } else if (isJavaProperty(opt)) {
-                // -SV1=V2 (-Dkey=value)
-                handleOption(options.getOption(opt.substring(0, 1)));
-                currentOption.processValue(opt.substring(1));
+        if (options.hasShortOption(token)) {
+            handleOption(options.getOption(token));
+        } else {
+            handleUnknownToken(hyphenToken);
+        }
+    }
+      private void handleOptionWithoutEqual(final String token,
+                                      final String hyphenToken)
+        throws ParseException {
+
+    if (options.hasShortOption(token)) {
+        handleOption(options.getOption(token));
+    } else if (!getMatchingLongOptions(token).isEmpty()) {
+        // -L or -l
+        handleLongOptionWithoutEqual(hyphenToken);
+    } else {
+        // look for a long prefix (-Xmx512m)
+        final String opt = getLongPrefix(token);
+
+        if (opt != null && options.getOption(opt).acceptsArg()) {
+            handleOption(options.getOption(opt));
+            currentOption.processValue(
+                    stripLeadingAndTrailingQuotesDefaultOff(token.substring(opt.length())));
+            currentOption = null;
+        } else if (isJavaProperty(token)) {
+            // -SV1 (-Dflag)
+            handleOption(options.getOption(token.substring(0, 1)));
+            currentOption.processValue(
+                    stripLeadingAndTrailingQuotesDefaultOff(token.substring(1)));
+            currentOption = null;
+        } else {
+            // -S1S2S3 or -S1S2V
+            handleConcatenatedOptions(hyphenToken);
+        }
+    }
+}
+    private void handleOptionWithEqual(final String token,
+                                       final String hyphenToken,
+                                       final int pos)
+            throws ParseException {
+
+        final String opt = token.substring(0, pos);
+        final String value = token.substring(pos + 1);
+
+        if (opt.length() == 1) {
+            final Option option = options.getOption(opt);
+
+            if (option != null && option.acceptsArg()) {
+                handleOption(option);
                 currentOption.processValue(value);
                 currentOption = null;
             } else {
-                // -L=V or -l=V
-                handleLongOptionWithEqual(hyphenToken);
+                handleUnknownToken(hyphenToken);
             }
+
+        } else if (isJavaProperty(opt)) {
+
+            handleOption(options.getOption(opt.substring(0, 1)));
+            currentOption.processValue(opt.substring(1));
+            currentOption.processValue(value);
+            currentOption = null;
+
+        } else {
+
+            handleLongOptionWithEqual(hyphenToken);
+
         }
     }
 
