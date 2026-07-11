@@ -230,7 +230,16 @@ public class TypeHandler {
         map.put(Integer.class, Integer::parseInt);
         map.put(Short.class, Short::parseShort);
         map.put(Byte.class, Byte::parseByte);
-        map.put(Character.class, s -> s.startsWith("\\u") ? Character.toChars(Integer.parseInt(s.substring(2), HEX_RADIX))[0] : s.charAt(0));
+        map.put(Character.class, s -> {
+            if (s.startsWith("\\u")) {
+                final int codePoint = Integer.parseInt(s.substring(2), HEX_RADIX);
+                if (!Character.isBmpCodePoint(codePoint)) {
+                    throw new IllegalArgumentException("Code point U+" + Integer.toHexString(codePoint) + " does not fit in a char");
+                }
+                return (char) codePoint;
+            }
+            return s.charAt(0);
+        });
         map.put(Double.class, Double::parseDouble);
         map.put(Float.class, Float::parseFloat);
         map.put(BigInteger.class, BigInteger::new);
