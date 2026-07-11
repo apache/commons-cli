@@ -29,6 +29,7 @@
       <action type="fix" dev="ggregory" due-to="Dan Ziemba, Ken Dombeck, Gary Gregory" issue="CLI-352">Correct HelpFormatter Javadoc #418.</action>
       <action type="fix" dev="ggregory" due-to="Elric, Gary Gregory">Fix broken Javadoc links, replace deprecated methods in usage examples, and add a missing method to HelpFormatter (#424).</action>
       <action type="fix" dev="ggregory" due-to="Dexter.k, Gary Gregory">Use Locale.ENGLISH when parsing dates in Converter.DATE (#426).</action>
+      <action type="fix" dev="ggregory" due-to="Digiscrypt Technologies, Gary Gregory">Reject non-BMP code points in the Character type converter (#425)..</action>
       <!-- ADD -->
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 91 to 102 #414, #416.</action>
