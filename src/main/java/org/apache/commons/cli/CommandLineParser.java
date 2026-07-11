@@ -26,8 +26,8 @@ public interface CommandLineParser {
     /**
      * Parses the arguments according to the specified options.
      *
-     * @param options the specified Options.
-     * @param arguments the command line arguments.
+     * @param options The specified Options.
+     * @param arguments The command line arguments.
      * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      */
@@ -36,8 +36,8 @@ public interface CommandLineParser {
     /**
      * Parses the arguments according to the specified options.
      *
-     * @param options the specified Options.
-     * @param arguments the command line arguments.
+     * @param options The specified Options.
+     * @param arguments The command line arguments.
      * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments
      *        are added to the {@link CommandLine}s args list. If {@code false} an unrecognized argument triggers a
      *        ParseException.

@@ -91,7 +91,7 @@ public interface Converter<T, E extends Exception> {
     /**
      * Applies the conversion function to the String argument.
      *
-     * @param string the String to convert.
+     * @param string The String to convert.
      * @return The Object from the conversion.
      * @throws E on error.
      */

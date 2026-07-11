@@ -61,8 +61,8 @@ public interface HelpAppendable extends Appendable {
     /**
      * Appends a header.
      *
-     * @param level the level of the header. This is equivalent to the "1", "2", or "3" in the HTML "h1", "h2", "h3" tags.
-     * @param text  the text for the header, null is a noop.
+     * @param level The level of the header. This is equivalent to the "1", "2", or "3" in the HTML "h1", "h2", "h3" tags.
+     * @param text  The text for the header, null is a noop.
      * @throws IOException If an output error occurs.
      */
     void appendHeader(int level, CharSequence text) throws IOException;
@@ -71,7 +71,7 @@ public interface HelpAppendable extends Appendable {
      * Appends a list.
      *
      * @param ordered {@code true} if the list should be ordered.
-     * @param list    the list to write, null is a noop.
+     * @param list    The list to write, null is a noop.
      * @throws IOException If an output error occurs.
      */
     void appendList(boolean ordered, Collection<CharSequence> list) throws IOException;
@@ -79,7 +79,7 @@ public interface HelpAppendable extends Appendable {
     /**
      * Appends a paragraph.
      *
-     * @param paragraph the paragraph to write, null is a noop.
+     * @param paragraph The paragraph to write, null is a noop.
      * @throws IOException If an output error occurs.
      */
     void appendParagraph(CharSequence paragraph) throws IOException;
@@ -106,7 +106,7 @@ public interface HelpAppendable extends Appendable {
     /**
      * Appends a table.
      *
-     * @param table the table definition to write, null is a noop.
+     * @param table The table definition to write, null is a noop.
      * @throws IOException If an output error occurs.
      */
     void appendTable(TableDefinition table) throws IOException;
@@ -114,7 +114,7 @@ public interface HelpAppendable extends Appendable {
     /**
      * Appends a title.
      *
-     * @param title the title to write, null is a noop.
+     * @param title The title to write, null is a noop.
      * @throws IOException If an output error occurs.
      */
     void appendTitle(CharSequence title) throws IOException;

@@ -92,7 +92,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
         /**
          * Sets the showSince flag.
          *
-         * @param showSince the desired value of the showSince flag.
+         * @param showSince The desired value of the showSince flag.
          * @return {@code this} instance.
          */
         public Builder setShowSince(final boolean showSince) {
@@ -146,7 +146,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
     /**
      * Constructs the Help formatter.
      *
-     * @param builder the Builder to build from.
+     * @param builder The Builder to build from.
      */
     protected HelpFormatter(final Builder builder) {
         super(builder);
@@ -156,7 +156,7 @@ public class HelpFormatter extends AbstractHelpFormatter {
     /**
      * Gets the table definition for the options.
      *
-     * @param options the collection of {@link Option} instances to create the table from.
+     * @param options The collection of {@link Option} instances to create the table from.
      * @return A {@link TableDefinition} to display the options.
      */
     @Override

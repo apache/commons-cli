@@ -32,7 +32,7 @@ final class Util {
     /**
      * Tests whether the given array is null or empty.
      *
-     * @param array the array to test.
+     * @param array The array to test.
      * @return The given array is null or empty.
      */
     static boolean isEmpty(final Object[] array) {

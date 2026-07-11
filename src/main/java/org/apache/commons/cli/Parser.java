@@ -94,8 +94,8 @@ public abstract class Parser implements CommandLineParser {
     /**
      * Parses the specified {@code arguments} based on the specified {@link Options}.
      *
-     * @param options the {@code Options}.
-     * @param arguments the {@code arguments}.
+     * @param options The {@code Options}.
+     * @param arguments The {@code arguments}.
      * @return The {@code CommandLine}.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      */
@@ -107,8 +107,8 @@ public abstract class Parser implements CommandLineParser {
     /**
      * Parses the specified {@code arguments} based on the specified {@link Options}.
      *
-     * @param options the {@code Options}.
-     * @param arguments the {@code arguments}.
+     * @param options The {@code Options}.
+     * @param arguments The {@code arguments}.
      * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments
      *        are added to the {@link CommandLine}s args list. If {@code false} an unrecognized argument triggers a
      *        ParseException.
@@ -123,8 +123,8 @@ public abstract class Parser implements CommandLineParser {
     /**
      * Parses the arguments according to the specified options and properties.
      *
-     * @param options the specified Options.
-     * @param arguments the command line arguments.
+     * @param options The specified Options.
+     * @param arguments The command line arguments.
      * @param properties command line option name-value pairs.
      * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
@@ -137,8 +137,8 @@ public abstract class Parser implements CommandLineParser {
     /**
      * Parses the arguments according to the specified options and properties.
      *
-     * @param options the specified Options.
-     * @param arguments the command line arguments.
+     * @param options The specified Options.
+     * @param arguments The command line arguments.
      * @param properties command line option name-value pairs.
      * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments
      *        are added to the {@link CommandLine}s args list. If {@code false} an unrecognized argument triggers a
@@ -306,7 +306,7 @@ public abstract class Parser implements CommandLineParser {
     /**
      * Sets the options.
      *
-     * @param options the options.
+     * @param options The options.
      */
     protected void setOptions(final Options options) {
         this.options = options;
@@ -316,7 +316,7 @@ public abstract class Parser implements CommandLineParser {
     /**
      * Removes the option or its group from the list of expected elements.
      *
-     * @param opt the option.
+     * @param opt The option.
      */
     private void updateRequiredOptions(final Option opt) throws ParseException {
         // if the option is a required option remove the option from

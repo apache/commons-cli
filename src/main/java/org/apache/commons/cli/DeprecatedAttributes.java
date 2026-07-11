@@ -73,7 +73,7 @@ public final class DeprecatedAttributes {
         /**
          * Sets the description.
          *
-         * @param description the description.
+         * @param description The description.
          * @return {@code this} instance.
          */
         public Builder setDescription(final String description) {
@@ -96,7 +96,7 @@ public final class DeprecatedAttributes {
         /**
          * Sets the version in which the option became deprecated.
          *
-         * @param since the version in which the option became deprecated.
+         * @param since The version in which the option became deprecated.
          * @return {@code this} instance.
          */
         public Builder setSince(final String since) {

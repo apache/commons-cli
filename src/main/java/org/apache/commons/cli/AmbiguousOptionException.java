@@ -62,8 +62,8 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
     /**
      * Constructs a new AmbiguousOptionException.
      *
-     * @param option the partial option name.
-     * @param matchingOptions the options matching the name.
+     * @param option The partial option name.
+     * @param matchingOptions The options matching the name.
      */
     public AmbiguousOptionException(final String option, final Collection<String> matchingOptions) {
         super(createMessage(option, matchingOptions), option);

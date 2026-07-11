@@ -45,7 +45,7 @@ final class OptionValidator {
      * <li>it is a hyphen/dash ('-')</li>
      * </ul>
      *
-     * @param c the character to validate
+     * @param c The character to validate
      * @return true if {@code c} is a valid character letter.
      */
     private static boolean isValidChar(final char c) {
@@ -67,7 +67,7 @@ final class OptionValidator {
      * <li>it is a question mark or 'at' sign ('?' or '@')</li>
      * </ul>
      *
-     * @param c the option to validate
+     * @param c The option to validate
      * @return true if {@code c} is a letter, '?' or '@', otherwise false.
      */
     private static boolean isValidOpt(final char c) {
@@ -77,8 +77,8 @@ final class OptionValidator {
     /**
      * Checks the char array for a matching char.
      *
-     * @param chars the char array to search
-     * @param c the char to look for.
+     * @param chars The char array to search
+     * @param c The char to look for.
      * @return {@code true} if {@code c} was in {@code ary}, {@code false} otherwise.
      */
     private static boolean search(final char[] chars, final char c) {

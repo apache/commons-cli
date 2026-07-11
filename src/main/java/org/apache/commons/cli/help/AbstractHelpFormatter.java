@@ -132,7 +132,7 @@ public abstract class AbstractHelpFormatter {
         /**
          * Sets the {@link HelpAppendable}.
          *
-         * @param helpAppendable the {@link HelpAppendable} to use.
+         * @param helpAppendable The {@link HelpAppendable} to use.
          * @return {@code this} instance.
          */
         public B setHelpAppendable(final HelpAppendable helpAppendable) {
@@ -143,7 +143,7 @@ public abstract class AbstractHelpFormatter {
         /**
          * Sets the {@link OptionFormatter.Builder}.
          *
-         * @param optionFormatBuilder the {@link OptionFormatter.Builder} to use.
+         * @param optionFormatBuilder The {@link OptionFormatter.Builder} to use.
          * @return {@code this} instance.
          */
         public B setOptionFormatBuilder(final OptionFormatter.Builder optionFormatBuilder) {
@@ -154,7 +154,7 @@ public abstract class AbstractHelpFormatter {
         /**
          * Sets the OptionGroup separator. Normally " | " or something similar to denote that only one option may be chosen.
          *
-         * @param optionGroupSeparator the string to separate option group elements with.
+         * @param optionGroupSeparator The string to separate option group elements with.
          * @return {@code this} instance.
          */
         public B setOptionGroupSeparator(final String optionGroupSeparator) {
@@ -203,7 +203,7 @@ public abstract class AbstractHelpFormatter {
     /**
      * Constructs the base formatter.
      *
-     * @param builder the builder.
+     * @param builder The builder.
      */
     protected AbstractHelpFormatter(final Builder<?, ?> builder) {
         this.helpAppendable = Objects.requireNonNull(builder.getHelpAppendable(), "helpAppendable");
@@ -288,8 +288,8 @@ public abstract class AbstractHelpFormatter {
      * Prints the help for {@link Options} with the specified command line syntax,
      * without printing a header, footer, or autoUsage.
      *
-     * @param cmdLineSyntax the syntax for this application.
-     * @param options       the collection of {@link Option} objects to print.
+     * @param cmdLineSyntax The syntax for this application.
+     * @param options       The collection of {@link Option} objects to print.
      * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      * @since 1.12.0
      */
@@ -300,10 +300,10 @@ public abstract class AbstractHelpFormatter {
     /**
      * Prints the help for {@link Options} with the specified command line syntax.
      *
-     * @param cmdLineSyntax the syntax for this application.
-     * @param header        the banner to display at the beginning of the help.
-     * @param options       the collection of {@link Option} objects to print.
-     * @param footer        the banner to display at the end of the help.
+     * @param cmdLineSyntax The syntax for this application.
+     * @param header        The banner to display at the beginning of the help.
+     * @param options       The collection of {@link Option} objects to print.
+     * @param footer        The banner to display at the end of the help.
      * @param autoUsage     whether to print an automatically generated usage statement.
      * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
@@ -317,10 +317,10 @@ public abstract class AbstractHelpFormatter {
     /**
      * Prints the help for a collection of {@link Option}s with the specified command line syntax.
      *
-     * @param cmdLineSyntax the syntax for this application.
-     * @param header        the banner to display at the beginning of the help.
-     * @param options       the collection of {@link Option} objects to print.
-     * @param footer        the banner to display at the end of the help.
+     * @param cmdLineSyntax The syntax for this application.
+     * @param header        The banner to display at the beginning of the help.
+     * @param options       The collection of {@link Option} objects to print.
+     * @param footer        The banner to display at the end of the help.
      * @param autoUsage     whether to print an automatically generated usage statement.
      * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
@@ -346,7 +346,7 @@ public abstract class AbstractHelpFormatter {
     /**
      * Prints the option table for a collection of {@link Option} objects to the {@link HelpAppendable}.
      *
-     * @param options the collection of Option objects to print in the table.
+     * @param options The collection of Option objects to print in the table.
      * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
     public final void printOptions(final Iterable<Option> options) throws IOException {
@@ -356,7 +356,7 @@ public abstract class AbstractHelpFormatter {
     /**
      * Prints the option table for the specified {@link Options} to the {@link HelpAppendable}.
      *
-     * @param options the Options to print in the table.
+     * @param options The Options to print in the table.
      * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
     public final void printOptions(final Options options) throws IOException {
@@ -366,7 +366,7 @@ public abstract class AbstractHelpFormatter {
     /**
      * Prints a {@link TableDefinition} to the {@link HelpAppendable}.
      *
-     * @param tableDefinition the {@link TableDefinition} to print.
+     * @param tableDefinition The {@link TableDefinition} to print.
      * @throws IOException If the output could not be written to the {@link HelpAppendable}.
      */
     public final void printOptions(final TableDefinition tableDefinition) throws IOException {
@@ -376,7 +376,7 @@ public abstract class AbstractHelpFormatter {
     /**
      * Sets the syntax prefix. This is the phrase that is printed before the syntax line.
      *
-     * @param prefix the new value for the syntax prefix.
+     * @param prefix The new value for the syntax prefix.
      */
     public final void setSyntaxPrefix(final String prefix) {
         this.syntaxPrefix = prefix;
@@ -385,7 +385,7 @@ public abstract class AbstractHelpFormatter {
     /**
      * Creates a new list of options ordered by the comparator.
      *
-     * @param options the Options to sort.
+     * @param options The Options to sort.
      * @return A new list of options ordered by the comparator.
      */
     public List<Option> sort(final Iterable<Option> options) {
@@ -400,7 +400,7 @@ public abstract class AbstractHelpFormatter {
     /**
      * Creates a new list of options ordered by the comparator.
      *
-     * @param options the Options to sort.
+     * @param options The Options to sort.
      * @return A new list of options ordered by the comparator.
      */
     public List<Option> sort(final Options options) {
@@ -410,7 +410,7 @@ public abstract class AbstractHelpFormatter {
     /**
      * Formats the {@code argName} as an argument a defined in the enclosed {@link OptionFormatter.Builder}.
      *
-     * @param argName the string to format as an argument.
+     * @param argName The string to format as an argument.
      * @return The {@code argName} formatted as an argument.
      */
     public final String toArgName(final String argName) {
@@ -436,7 +436,7 @@ public abstract class AbstractHelpFormatter {
      * Return the string representation of the options as used in the syntax display.
      *
      * @param options The options to create the string representation for.
-     * @param lookup  a function to determine if the Option is part of an OptionGroup that has already been processed.
+     * @param lookup  A function to determine if the Option is part of an OptionGroup that has already been processed.
      * @return The string representation of the options as used in the syntax display.
      */
     protected String toSyntaxOptions(final Iterable<Option> options, final Function<Option, OptionGroup> lookup) {

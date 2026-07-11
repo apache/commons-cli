@@ -80,7 +80,7 @@ public final class OptionBuilder {
     /**
      * Creates an Option using the current settings and with the specified Option {@code char}.
      *
-     * @param opt the character representation of the Option.
+     * @param opt The character representation of the Option.
      * @return The Option instance.
      * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
      */
@@ -91,7 +91,7 @@ public final class OptionBuilder {
     /**
      * Creates an Option using the current settings and with the specified Option {@code char}.
      *
-     * @param opt the {@code String} representation of the Option.
+     * @param opt The {@code String} representation of the Option.
      * @return The Option instance.
      * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
      */
@@ -151,7 +151,7 @@ public final class OptionBuilder {
     /**
      * The next Option created can have {@code num} argument values.
      *
-     * @param num the number of args that the option can have.
+     * @param num The number of args that the option can have.
      * @return The OptionBuilder instance.
      */
     public static OptionBuilder hasArgs(final int num) {
@@ -184,7 +184,7 @@ public final class OptionBuilder {
     /**
      * The next Option can have the specified number of optional arguments.
      *
-     * @param numArgs   the maximum number of optional arguments the next Option created can have.
+     * @param numArgs   The maximum number of optional arguments the next Option created can have.
      * @return The OptionBuilder instance.
      */
     public static OptionBuilder hasOptionalArgs(final int numArgs) {
@@ -231,7 +231,7 @@ public final class OptionBuilder {
     /**
      * The next Option created will have the specified argument value name.
      *
-     * @param name the name for the argument value.
+     * @param name The name for the argument value.
      * @return The OptionBuilder instance.
      */
     public static OptionBuilder withArgName(final String name) {
@@ -242,7 +242,7 @@ public final class OptionBuilder {
     /**
      * The next Option created will have the specified description
      *
-     * @param newDescription a description of the Option's purpose.
+     * @param newDescription A description of the Option's purpose.
      * @return The OptionBuilder instance.
      */
     public static OptionBuilder withDescription(final String newDescription) {
@@ -253,7 +253,7 @@ public final class OptionBuilder {
     /**
      * The next Option created will have the following long option value.
      *
-     * @param newLongopt the long option value.
+     * @param newLongopt The long option value.
      * @return The OptionBuilder instance.
      */
     public static OptionBuilder withLongOpt(final String newLongopt) {
@@ -264,7 +264,7 @@ public final class OptionBuilder {
     /**
      * The next Option created will have a value that will be an instance of {@code type}.
      *
-     * @param newType the type of the Options argument value.
+     * @param newType The type of the Options argument value.
      * @return The OptionBuilder instance.
      * @since 1.3
      */
@@ -279,7 +279,7 @@ public final class OptionBuilder {
      * <strong>Note:</strong> this method is kept for binary compatibility and the input type is supposed to be a {@link Class}
      * object.
      *
-     * @param newType the type of the Options argument value.
+     * @param newType The type of the Options argument value.
      * @return The OptionBuilder instance.
      * @deprecated Since 1.3, use {@link #withType(Class)} instead.
      */

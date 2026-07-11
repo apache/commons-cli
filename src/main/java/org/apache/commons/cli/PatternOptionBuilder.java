@@ -113,7 +113,7 @@ public class PatternOptionBuilder {
     /**
      * Retrieve the class that {@code ch} represents.
      *
-     * @param ch the specified character.
+     * @param ch The specified character.
      * @return The class that {@code ch} represents.
      * @deprecated Use {@link #getValueType(char)}.
      */
@@ -125,7 +125,7 @@ public class PatternOptionBuilder {
     /**
      * Retrieve the class that {@code ch} represents.
      *
-     * @param ch the specified character
+     * @param ch The specified character
      * @return The class that {@code ch} represents
      * @since 1.7.0
      */
@@ -157,7 +157,7 @@ public class PatternOptionBuilder {
     /**
      * Returns whether {@code ch} is a value code, i.e. whether it represents a class in a pattern.
      *
-     * @param ch the specified character
+     * @param ch The specified character
      * @return true if {@code ch} is a value code, otherwise false.
      */
     public static boolean isValueCode(final char ch) {
@@ -167,7 +167,7 @@ public class PatternOptionBuilder {
     /**
      * Returns the {@link Options} instance represented by {@code pattern}.
      *
-     * @param pattern the pattern string
+     * @param pattern The pattern string
      * @return The {@link Options} instance
      */
     public static Options parsePattern(final String pattern) {

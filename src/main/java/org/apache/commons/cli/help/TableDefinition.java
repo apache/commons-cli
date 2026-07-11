@@ -39,9 +39,9 @@ public interface TableDefinition {
      * A helper function to create a table instance from the various components.
      *
      * @param caption     The caption, may be {@code null}.
-     * @param columnStyle a list of TextStyle elements defining the columns.
-     * @param headers     the list of column headers.
-     * @param rows        a collection of rows.
+     * @param columnStyle A list of TextStyle elements defining the columns.
+     * @param headers     The list of column headers.
+     * @param rows        A collection of rows.
      * @return A TableDefinition returning the parameters as appropriate.
      */
     static TableDefinition from(final String caption, final List<TextStyle> columnStyle, final List<String> headers, final Iterable<List<String>> rows) {

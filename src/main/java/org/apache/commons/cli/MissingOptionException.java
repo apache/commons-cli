@@ -30,7 +30,7 @@ public class MissingOptionException extends ParseException {
     /**
      * Build the exception message from the specified list of options.
      *
-     * @param missingOptions the list of missing options and groups
+     * @param missingOptions The list of missing options and groups
      */
     private static String createMessage(final List<?> missingOptions) {
         final StringBuilder buf = new StringBuilder("Missing required option");
@@ -45,7 +45,7 @@ public class MissingOptionException extends ParseException {
     /**
      * Constructs a new {@code MissingSelectedException} with the specified list of missing options.
      *
-     * @param missingOptions the list of missing options and groups
+     * @param missingOptions The list of missing options and groups
      * @since 1.2
      */
     public MissingOptionException(final List missingOptions) {
@@ -56,7 +56,7 @@ public class MissingOptionException extends ParseException {
     /**
      * Constructs a new {@code MissingSelectedException} with the specified detail message.
      *
-     * @param message the detail message
+     * @param message The detail message
      */
     public MissingOptionException(final String message) {
         super(message);

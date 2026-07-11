@@ -60,7 +60,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * Returns the input Class or the default type (String) if null.
          *
-         * @param type the candidate Class.
+         * @param type The candidate Class.
          * @return The input Class or the default type (String) if null.
          */
         private static Class<?> toType(final Class<?> type) {
@@ -116,7 +116,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * Sets the display name for the argument value.
          *
-         * @param argName the display name for the argument value.
+         * @param argName The display name for the argument value.
          * @return {@code this} instance..
          */
         public Builder argName(final String argName) {
@@ -142,7 +142,7 @@ public class Option implements Cloneable, Serializable {
          * Note: See {@link TypeHandler} for serialization discussion.
          * </p>
          *
-         * @param converter the Converter to use.
+         * @param converter The Converter to use.
          * @return {@code this} instance..
          * @since 1.7.0
          */
@@ -176,7 +176,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * Sets the description for this option.
          *
-         * @param description the description of the option.
+         * @param description The description of the option.
          * @return {@code this} instance..
          */
         public Builder desc(final String description) {
@@ -229,7 +229,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * Sets the long name of the Option.
          *
-         * @param longOption the long name of the Option
+         * @param longOption The long name of the Option
          * @return this builder.
          */
         public Builder longOpt(final String longOption) {
@@ -240,7 +240,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * Sets the number of argument values the Option can take.
          *
-         * @param argCount the number of argument values
+         * @param argCount The number of argument values
          * @return this builder.
          */
         public Builder numberOfArgs(final int argCount) {
@@ -251,7 +251,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * Sets the name of the Option.
          *
-         * @param option the name of the Option.
+         * @param option The name of the Option.
          * @return this builder.
          * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}.
          * @since 1.5.0
@@ -297,7 +297,7 @@ public class Option implements Cloneable, Serializable {
 
         /** Sets the version number when this option was first defined."
          *
-         * @param since the version number when this option was first defined.
+         * @param since The version number when this option was first defined.
          * @return this builder.
          */
         public Builder since(final String since) {
@@ -308,7 +308,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * Sets the type of the Option.
          *
-         * @param type the type of the Option.
+         * @param type The type of the Option.
          * @return this builder.
          */
         public Builder type(final Class<?> type) {
@@ -481,7 +481,7 @@ public class Option implements Cloneable, Serializable {
      * Creates an Option using the specified parameters.
      *
      * @param option      short representation of the option.
-     * @param longOption  the long representation of the option.
+     * @param longOption  The long representation of the option.
      * @param hasArg      specifies whether the Option takes an argument or not.
      * @param description describes the function of the option.
      * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}.
@@ -525,7 +525,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * This method is not intended to be used. It was a piece of internal API that was made public in 1.0. It currently throws an UnsupportedOperationException.
      *
-     * @param value the value to add.
+     * @param value The value to add.
      * @return always throws an {@link UnsupportedOperationException}.
      * @throws UnsupportedOperationException always.
      * @deprecated Unused.
@@ -885,7 +885,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Sets the display name for the argument value.
      *
-     * @param argName the display name for the argument value.
+     * @param argName The display name for the argument value.
      */
     public void setArgName(final String argName) {
         this.argName = argName;
@@ -894,7 +894,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Sets the number of argument values this Option can take.
      *
-     * @param num the number of argument values.
+     * @param num The number of argument values.
      */
     public void setArgs(final int num) {
         this.argCount = num;
@@ -923,7 +923,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Sets the long name of this Option.
      *
-     * @param longOpt the long name of this Option.
+     * @param longOpt The long name of this Option.
      */
     public void setLongOpt(final String longOpt) {
         this.longOption = longOpt;
@@ -950,7 +950,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Sets the type of this Option.
      *
-     * @param type the type of this Option.
+     * @param type The type of this Option.
      * @since 1.3
      */
     public void setType(final Class<?> type) {
@@ -963,7 +963,7 @@ public class Option implements Cloneable, Serializable {
      * <strong>Note:</strong> this method is kept for binary compatibility and the input type is supposed to be a {@link Class} object.
      * </p>
      *
-     * @param type the type of this Option.
+     * @param type The type of this Option.
      * @deprecated Since 1.3, use {@link #setType(Class)} instead.
      */
     @Deprecated

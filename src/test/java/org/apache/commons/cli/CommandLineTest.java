@@ -374,14 +374,14 @@ class CommandLineTest {
     /**
      * Test for get option value with and without default values.  Verifies that deprecated options only report as
      * deprecated once.
-     * @param args the argument strings to parse.
-     * @param opt the option to check for values with.
-     * @param optionGroup the option group to check for values with.
+     * @param args The argument strings to parse.
+     * @param opt The option to check for values with.
+     * @param optionGroup The option group to check for values with.
      * @param optDep {@code true} if the opt is deprecated.
      * @param optValue  The value expected from opt.
      * @param grpDep {@code true} if the group is deprecated.
-     * @param grpValue the value expected from the group.
-     * @param grpOpt the option that is expected to be processed by the group.
+     * @param grpValue The value expected from the group.
+     * @param grpOpt The option that is expected to be processed by the group.
      * @throws ParseException on parse error.
      */
     @ParameterizedTest(name = "{0}, {1}")
@@ -480,14 +480,14 @@ class CommandLineTest {
     /**
      * Test for get option values with and without default values.  Verifies that deprecated options only report as
      * deprecated once.
-     * @param args the argument strings to parse.
-     * @param opt the option to check for values with.
-     * @param optionGroup the option group to check for values with.
+     * @param args The argument strings to parse.
+     * @param opt The option to check for values with.
+     * @param optionGroup The option group to check for values with.
      * @param optDep {@code true} if the opt is deprecated.
      * @param optValue  The value expected from opt.
      * @param grpDep {@code true} if the group is deprecated.
-     * @param grpValue the value expected from the group.
-     * @param grpOpt the option that is expected to be processed by the group.
+     * @param grpValue The value expected from the group.
+     * @param grpOpt The option that is expected to be processed by the group.
      * @throws ParseException on parse error.
      */
     @ParameterizedTest(name = "{0}, {1}")
@@ -724,14 +724,14 @@ class CommandLineTest {
 
     /**
      * Tests the hasOption calls.
-     * @param args the argument strings to parse.
-     * @param opt the option to check for values with.
-     * @param optionGroup the option group to check for values with.
+     * @param args The argument strings to parse.
+     * @param opt The option to check for values with.
+     * @param optionGroup The option group to check for values with.
      * @param optDep {@code true} if the opt is deprecated.
      * @param has {@code true} if the opt is present.
      * @param grpDep {@code true} if the group is deprecated.
      * @param hasGrp {@code true} if the group is present.
-     * @param grpOpt the option that is expected to be processed by the group.
+     * @param grpOpt The option that is expected to be processed by the group.
      * @throws ParseException on parsing error.
      */
     @ParameterizedTest(name = "{0}, {1}")
@@ -780,14 +780,14 @@ class CommandLineTest {
 
     /**
      * Tests the hasOption calls.
-     * @param args the argument strings to parse.
-     * @param opt the option to check for values with.
-     * @param optionGroup the option group to check for values with.
+     * @param args The argument strings to parse.
+     * @param opt The option to check for values with.
+     * @param optionGroup The option group to check for values with.
      * @param optDep {@code true} if the opt is deprecated.
      * @param has {@code true} if the opt is present.
      * @param grpDep {@code true} if the group is deprecated.
      * @param hasGrp {@code true} if the group is present.
-     * @param grpOpt the option that is expected to be processed by the group.
+     * @param grpOpt The option that is expected to be processed by the group.
      * @throws ParseException on parsing error.
      */
     @ParameterizedTest(name = "{0}, {1}")
@@ -831,14 +831,14 @@ class CommandLineTest {
 
     /**
      * Tests the hasOption calls.
-     * @param args the argument strings to parse.
-     * @param opt the option to check for values with.
-     * @param optionGroup the option group to check for values with.
+     * @param args The argument strings to parse.
+     * @param opt The option to check for values with.
+     * @param optionGroup The option group to check for values with.
      * @param optDep {@code true} if the opt is deprecated.
      * @param has {@code true} if the opt is present.
      * @param grpDep {@code true} if the group is deprecated.
      * @param hasGrp {@code true} if the group is present.
-     * @param grpOpt the option that is expected to be processed by the group.
+     * @param grpOpt The option that is expected to be processed by the group.
      * @throws ParseException on parsing error.
      */
     @ParameterizedTest(name = "{0}, {1}")

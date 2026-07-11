@@ -144,7 +144,7 @@ public final class TextStyle {
         /**
          * Sets the alignment.
          *
-         * @param alignment the desired alignment.
+         * @param alignment The desired alignment.
          * @return {@code this} instance.
          */
         public Builder setAlignment(final Alignment alignment) {
@@ -155,7 +155,7 @@ public final class TextStyle {
         /**
          * Sets the indent value.
          *
-         * @param indent the new indent value.
+         * @param indent The new indent value.
          * @return {@code this} instance.
          */
         public Builder setIndent(final int indent) {
@@ -166,7 +166,7 @@ public final class TextStyle {
         /**
          * Sets the left padding.
          *
-         * @param leftPad the new left padding.
+         * @param leftPad The new left padding.
          * @return {@code this} instance.
          */
         public Builder setLeftPad(final int leftPad) {
@@ -210,7 +210,7 @@ public final class TextStyle {
         /**
          * Sets all properties from the given text style.
          *
-         * @param style the source text style.
+         * @param style The source text style.
          * @return {@code this} instance.
          */
         public Builder setTextStyle(final TextStyle style) {
@@ -265,7 +265,7 @@ public final class TextStyle {
     /**
      * Constructs a new instance.
      *
-     * @param builder the builder to build the text style from.
+     * @param builder The builder to build the text style from.
      */
     private TextStyle(final Builder builder) {
         this.alignment = builder.alignment;
@@ -338,7 +338,7 @@ public final class TextStyle {
      * </ul>
      *
      * @param addIndent if {@code true} account for the indent when padding the string.
-     * @param text      the text to pad.
+     * @param text      The text to pad.
      * @return The padded string.
      */
     public CharSequence pad(final boolean addIndent, final CharSequence text) {

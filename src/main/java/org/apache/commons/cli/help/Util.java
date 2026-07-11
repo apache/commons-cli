@@ -33,7 +33,7 @@ final class Util {
      * Returns the {@code defaultValue} if {@code str} is empty.
      *
      * @param str          The string to check.
-     * @param defaultValue the default value if the string is empty.
+     * @param defaultValue The default value if the string is empty.
      * @param <T>          The type of arguments.
      * @return The {@code defaultValue} if {@code str} is empty,
      */
@@ -44,8 +44,8 @@ final class Util {
     /**
      * Finds the index of the first non whitespace character.
      *
-     * @param text     the text to search in.
-     * @param startPos the starting position to search from.
+     * @param text     The text to search in.
+     * @param startPos The starting position to search from.
      * @return The index of the first non whitespace character or -1 if non found.
      */
     static int indexOfNonWhitespace(final CharSequence text, final int startPos) {
@@ -93,8 +93,8 @@ final class Util {
     /**
      * Constructs a string of specified length filled with the specified char.
      *
-     * @param len      the length of the final string.
-     * @param fillChar the character to file it will.
+     * @param len      The length of the final string.
+     * @param fillChar The character to file it will.
      * @return A string of specified length filled with the specified char.
      */
     static String repeat(final int len, final char fillChar) {

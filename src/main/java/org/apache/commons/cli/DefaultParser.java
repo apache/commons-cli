@@ -125,7 +125,7 @@ public class DefaultParser implements CommandLineParser {
         /**
          * Sets the deprecated option handler.
          *
-         * @param deprecatedHandler the deprecated option handler.
+         * @param deprecatedHandler The deprecated option handler.
          * @return {@code this} instance.
          * @since 1.7.0
          */
@@ -318,7 +318,7 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Adds token to command line {@link CommandLine#addArg(String)}.
      *
-     * @param token the unrecognized option/argument.
+     * @param token The unrecognized option/argument.
      * @since 1.10.0
      */
     protected void addArg(final String token) {
@@ -371,7 +371,7 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Gets a list of matching option strings for the given token, depending on the selected partial matching policy.
      *
-     * @param token the token (may contain leading dashes).
+     * @param token The token (may contain leading dashes).
      * @return The list of matching option strings or an empty list if no matching option could be found.
      */
     private List<String> getMatchingLongOptions(final String token) {
@@ -427,7 +427,7 @@ public class DefaultParser implements CommandLineParser {
      * --L --L=V --L V --l
      * </pre>
      *
-     * @param token the command line token to handle.
+     * @param token The command line token to handle.
      */
     private void handleLongOption(final String token) throws ParseException {
         if (indexOfEqual(token) == -1) {
@@ -443,7 +443,7 @@ public class DefaultParser implements CommandLineParser {
      * --L=V -L=V --l=V -l=V
      * </pre>
      *
-     * @param token the command line token to handle.
+     * @param token The command line token to handle.
      */
     private void handleLongOptionWithEqual(final String token) throws ParseException {
         final int pos = indexOfEqual(token);
@@ -474,7 +474,7 @@ public class DefaultParser implements CommandLineParser {
      * --L -L --l -l
      * </pre>
      *
-     * @param token the command line token to handle.
+     * @param token The command line token to handle.
      */
     private void handleLongOptionWithoutEqual(final String token) throws ParseException {
         final List<String> matchingOpts = getMatchingLongOptions(token);
@@ -541,7 +541,7 @@ public class DefaultParser implements CommandLineParser {
      * -L -LV -L V -L=V -l
      * </pre>
      *
-     * @param hyphenToken the command line token to handle.
+     * @param hyphenToken The command line token to handle.
      */
     private void handleShortAndLongOption(final String hyphenToken) throws ParseException {
         final String token = Util.stripLeadingHyphens(hyphenToken);
@@ -609,7 +609,7 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Handles any command line token.
      *
-     * @param token the command line token to handle.
+     * @param token The command line token to handle.
      * @throws ParseException
      */
     private void handleToken(final String token) throws ParseException {
@@ -639,7 +639,7 @@ public class DefaultParser implements CommandLineParser {
      * token is added to the arguments of the command line. If the stopAtNonOption flag is set, this stops the parsing and
      * the remaining tokens are added as-is in the arguments of the command line.
      *
-     * @param token the command line token to handle.
+     * @param token The command line token to handle.
      * @throws ParseException if parsing should fail.
      * @since 1.10.0
      */
@@ -742,10 +742,10 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Parses the arguments according to the specified options and properties.
      *
-     * @param options the specified Options
+     * @param options The specified Options
      * @param properties command line option name-value pairs
      * @param nonOptionAction see {@link NonOptionAction}.
-     * @param arguments the command line arguments
+     * @param arguments The command line arguments
      *
      * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
@@ -792,8 +792,8 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Parses the arguments according to the specified options and properties.
      *
-     * @param options the specified Options.
-     * @param arguments the command line arguments.
+     * @param options The specified Options.
+     * @param arguments The command line arguments.
      * @param properties command line option name-value pairs.
      * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
@@ -805,8 +805,8 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Parses the arguments according to the specified options and properties.
      *
-     * @param options the specified Options.
-     * @param arguments the command line arguments.
+     * @param options The specified Options.
+     * @param arguments The command line arguments.
      * @param properties command line option name-value pairs.
      * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments
      *        are added to the {@link CommandLine}s args list. If {@code false} an unrecognized argument triggers a
@@ -824,7 +824,7 @@ public class DefaultParser implements CommandLineParser {
      * Strips balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
      * If stripLeadingAndTrailingQuotes is null, then do not strip
      *
-     * @param token a string.
+     * @param token A string.
      * @return token with the quotes stripped (if set).
      */
     private String stripLeadingAndTrailingQuotesDefaultOff(final String token) {
@@ -838,7 +838,7 @@ public class DefaultParser implements CommandLineParser {
      * Strips balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
      * If stripLeadingAndTrailingQuotes is null, then do not strip
      *
-     * @param token a string.
+     * @param token A string.
      * @return token with the quotes stripped (if set).
      */
     private String stripLeadingAndTrailingQuotesDefaultOn(final String token) {

@@ -34,7 +34,7 @@ public class ParseException extends Exception {
      * Note: {@code UnsupportedOperationException} are not wrapped. This is to solve a legacy expected exception problem and will be removed in the future.
      * </p>
      *
-     * @param e the exception to convert.
+     * @param e The exception to convert.
      * @return The ParseException.
      * @throws UnsupportedOperationException due to legacy expectations. Will be removed in the future.
      * @since 1.7.0
@@ -53,7 +53,7 @@ public class ParseException extends Exception {
     /**
      * Constructs a new {@code ParseException} with the specified detail message.
      *
-     * @param message the detail message.
+     * @param message The detail message.
      */
     public ParseException(final String message) {
         super(message);
@@ -62,7 +62,7 @@ public class ParseException extends Exception {
     /**
      * Constructs a new {@code ParseException} wrapping the specified exception.
      *
-     * @param e the Exception to wrap.
+     * @param e The Exception to wrap.
      */
     public ParseException(final Throwable e) {
         super(e);

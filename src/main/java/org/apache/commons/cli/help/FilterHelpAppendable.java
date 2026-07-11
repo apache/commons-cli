@@ -45,7 +45,7 @@ public abstract class FilterHelpAppendable implements HelpAppendable {
     /**
      * Constructs an appendable filter built on top of the specified underlying appendable.
      *
-     * @param output the underlying appendable to be assigned to the field {@code this.output} for later use, or {@code null} if this instance is to be created
+     * @param output The underlying appendable to be assigned to the field {@code this.output} for later use, or {@code null} if this instance is to be created
      *               without an underlying stream.
      */
     protected FilterHelpAppendable(final Appendable output) {

@@ -115,7 +115,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Constructs an appendable filter built on top of the specified underlying appendable.
      *
-     * @param output the underlying appendable to be assigned to the field {@code this.output} for later use, or {@code null} if this instance is to be created
+     * @param output The underlying appendable to be assigned to the field {@code this.output} for later use, or {@code null} if this instance is to be created
      *               without an underlying stream.
      */
     public TextHelpAppendable(final Appendable output) {
@@ -143,7 +143,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      * Note: it is possible for the size of the columns to exceed the declared page width. In this case the table will extend beyond the desired page width.
      * </p>
      *
-     * @param table the table to adjust.
+     * @param table The table to adjust.
      * @return A new TableDefinition with adjusted values.
      */
     protected TableDefinition adjustTableFormat(final TableDefinition table) {
@@ -327,7 +327,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      * + the left pad.
      *
      * @param columnData The column data to output.
-     * @param styles     the styles to apply.
+     * @param styles     The styles to apply.
      * @return A list of queues of strings that represent each column in the table.
      */
     protected List<Queue<String>> makeColumnQueues(final List<String> columnData, final List<TextStyle> styles) {
@@ -341,7 +341,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Prints a queue of text.
      *
-     * @param queue the queue of text to print.
+     * @param queue The queue of text to print.
      * @throws IOException on output error.
      */
     private void printQueue(final Queue<String> queue) throws IOException {
@@ -353,7 +353,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Prints wrapped text using the TextHelpAppendable output style.
      *
-     * @param text the text to wrap
+     * @param text The text to wrap
      * @throws IOException on output error.
      */
     public void printWrapped(final String text) throws IOException {
@@ -363,8 +363,8 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Prints wrapped text.
      *
-     * @param text  the text to wrap
-     * @param style the style for the wrapped text.
+     * @param text  The text to wrap
+     * @param style The style for the wrapped text.
      * @throws IOException on output error.
      */
     public void printWrapped(final String text, final TextStyle style) throws IOException {
@@ -374,8 +374,8 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Resizes an original width based on the fractional size it should be.
      *
-     * @param orig     the original size.
-     * @param fraction the fractional adjustment.
+     * @param orig     The original size.
+     * @param fraction The fractional adjustment.
      * @return The resized value.
      */
     private int resize(final int orig, final double fraction) {
@@ -385,8 +385,8 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Resizes a TextStyle builder based on the fractional size.
      *
-     * @param builder  the builder to adjust.
-     * @param fraction the fractional size (for example percentage of the current size) that the builder should be.
+     * @param builder  The builder to adjust.
+     * @param fraction The fractional size (for example percentage of the current size) that the builder should be.
      * @return The builder with the maximum width and indent values resized.
      */
     protected TextStyle.Builder resize(final TextStyle.Builder builder, final double fraction) {
@@ -404,7 +404,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Sets the indent for the output.
      *
-     * @param indent the indent used for paragraphs.
+     * @param indent The indent used for paragraphs.
      */
     public void setIndent(final int indent) {
         textStyleBuilder.setIndent(indent);
@@ -414,7 +414,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Sets the left padding: the number of characters from the left edge to start output.
      *
-     * @param leftPad the left padding.
+     * @param leftPad The left padding.
      */
     public void setLeftPad(final int leftPad) {
         textStyleBuilder.setLeftPad(leftPad);
@@ -424,7 +424,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Sets the maximum width for the output.
      *
-     * @param maxWidth the maximum width for the output.
+     * @param maxWidth The maximum width for the output.
      */
     public void setMaxWidth(final int maxWidth) {
         textStyleBuilder.setMaxWidth(maxWidth);
@@ -435,8 +435,8 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      * Writes one line from each of the {@code columnQueues} until all the queues are exhausted. If an exhausted queue is encountered while other queues
      * continue to have content the exhausted queue will produce empty text for the output width of the column (maximum width + left pad).
      *
-     * @param columnQueues the List of queues that represent the columns of data.
-     * @param styles       the TextStyle for each column.
+     * @param columnQueues The List of queues that represent the columns of data.
+     * @param styles       The TextStyle for each column.
      * @throws IOException on output error.
      */
     protected void writeColumnQueues(final List<Queue<String>> columnQueues, final List<TextStyle> styles) throws IOException {

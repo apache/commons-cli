@@ -112,8 +112,8 @@ public final class OptionFormatter {
         /**
          * Specifies the starting and ending argument name delimiters for {@link Option} instances.
          *
-         * @param begin the beginning delimiter.
-         * @param end   the ending delimiter.
+         * @param begin The beginning delimiter.
+         * @param end   The ending delimiter.
          * @return {@code this} instance.
          */
         public Builder setArgumentNameDelimiters(final String begin, final String end) {
@@ -125,7 +125,7 @@ public final class OptionFormatter {
         /**
          * Sets the default argument name.
          *
-         * @param name the new value of default argument name.
+         * @param name The new value of default argument name.
          * @return {@code this} instance.
          */
         public Builder setDefaultArgName(final String name) {
@@ -136,7 +136,7 @@ public final class OptionFormatter {
         /**
          * Specifies the function to construct the deprecated massage for the Option. Should include the description text if desired.
          *
-         * @param deprecatedFormatFunction the function to specify the deprecated message for the option.
+         * @param deprecatedFormatFunction The function to specify the deprecated message for the option.
          * @return {@code this} instance.
          */
         public Builder setDeprecatedFormatFunction(final Function<Option, String> deprecatedFormatFunction) {
@@ -158,7 +158,7 @@ public final class OptionFormatter {
         /**
          * Sets the separator displayed between a options and the argument name. Typically ' ' or '='.
          *
-         * @param optArgSeparator the separator.
+         * @param optArgSeparator The separator.
          * @return {@code this} instance.
          * @since 1.3
          */
@@ -170,8 +170,8 @@ public final class OptionFormatter {
         /**
          * Specifies the starting and ending delimiters for optional {@link Option} instances.
          *
-         * @param begin the beginning delimiter.
-         * @param end   the ending delimiter.
+         * @param begin The beginning delimiter.
+         * @param end   The ending delimiter.
          * @return {@code this} instance.
          */
         public Builder setOptionalDelimiters(final String begin, final String end) {
@@ -183,7 +183,7 @@ public final class OptionFormatter {
         /**
          * Specifies the short option prefix.
          *
-         * @param optPrefix the prefix for short options.
+         * @param optPrefix The prefix for short options.
          * @return {@code this} instance.
          */
         public Builder setOptPrefix(final String optPrefix) {
@@ -194,7 +194,7 @@ public final class OptionFormatter {
         /**
          * Sets the separator displayed between a long option and short options. Typically ',' or ' '.
          *
-         * @param optSeparator the separator.
+         * @param optSeparator The separator.
          * @return {@code this} instance.
          * @since 1.3
          */
@@ -217,7 +217,7 @@ public final class OptionFormatter {
         /**
          * A helper method to format any string as an argument name based on this builder.
          *
-         * @param argName the name of the argument.
+         * @param argName The name of the argument.
          * @return The formatted argument.
          */
         public String toArgName(final String argName) {
@@ -305,7 +305,7 @@ public final class OptionFormatter {
     /**
      * Construct the {@link OptionFormatter} from an {@link Option} using the default {@link OptionFormatter.Builder}.
      *
-     * @param option the option to format.
+     * @param option The option to format.
      * @return An OptionFormatter for the specified @{code option}.
      */
     public static OptionFormatter from(final Option option) {
@@ -347,7 +347,7 @@ public final class OptionFormatter {
     /**
      * An OptionFormatter applies formatting options to various {@link Option} attributes for textual display.
      *
-     * @param option  the Option to apply formatting to.
+     * @param option  The Option to apply formatting to.
      * @param builder The Builder that specifies the various formatting options.
      */
     private OptionFormatter(final Option option, final Builder builder) {
@@ -449,7 +449,7 @@ public final class OptionFormatter {
     /**
      * Wraps the provided text in the optional delimiters.
      *
-     * @param text the text to wrap.
+     * @param text The text to wrap.
      * @return The text wrapped in the optional delimiters or an eppty string of the text is null or an empty string.
      */
     public String toOptional(final String text) {

@@ -67,7 +67,7 @@ public class Options implements Serializable {
     /**
      * Adds an option instance.
      *
-     * @param opt the option that is to be added.
+     * @param opt The option that is to be added.
      * @return The resulting Options instance.
      */
     public Options addOption(final Option opt) {
@@ -143,7 +143,7 @@ public class Options implements Serializable {
      * the given group are set to optional.
      * </p>
      *
-     * @param optionGroup the OptionGroup that is to be added.
+     * @param optionGroup The OptionGroup that is to be added.
      * @return The resulting Options instance.
      */
     public Options addOptionGroup(final OptionGroup optionGroup) {
@@ -167,7 +167,7 @@ public class Options implements Serializable {
      * Adds options to this option.  If any Option in {@code options} already exists
      * in this Options an IllegalArgumentException is thrown.
      *
-     * @param options the options to add.
+     * @param options The options to add.
      * @return The resulting Options instance.
      * @since 1.7.0
      */
@@ -212,7 +212,7 @@ public class Options implements Serializable {
     /**
      * Gets the options with a long name starting with the name specified.
      *
-     * @param opt the partial name of the option.
+     * @param opt The partial name of the option.
      * @return The options matching the partial name specified, or an empty list if none matches.
      * @since 1.3
      */
@@ -249,7 +249,7 @@ public class Options implements Serializable {
     /**
      * Gets the OptionGroup the {@code opt} belongs to.
      *
-     * @param option the option whose OptionGroup is being queried.
+     * @param option The option whose OptionGroup is being queried.
      * @return The OptionGroup if {@code opt} is part of an OptionGroup, otherwise return null.
      */
     public OptionGroup getOptionGroup(final Option option) {

@@ -54,7 +54,7 @@ public class OptionGroup implements Serializable {
     /**
      * Adds the given {@code Option} to this group.
      *
-     * @param option the option to add to this group.
+     * @param option The option to add to this group.
      * @return this option group with the option added.
      */
     public OptionGroup addOption(final Option option) {
@@ -128,7 +128,7 @@ public class OptionGroup implements Serializable {
      *
      * If the selected option is deprecated <em>no warning is logged</em>.
      *
-     * @param option the option that is selected.
+     * @param option The option that is selected.
      * @throws AlreadySelectedException if an option from this group has already been selected.
      */
     public void setSelected(final Option option) throws AlreadySelectedException {
