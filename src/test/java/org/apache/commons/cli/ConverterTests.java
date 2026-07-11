@@ -105,6 +105,14 @@ public class ConverterTests {
     }
 
     @Test
+    void testDateRejectsInvalid() {
+        // A lenient SimpleDateFormat rolls "Feb 30" over to March 1; the converter must reject
+        // out-of-range fields instead of silently returning a wrong Date.
+        assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("Fri Feb 30 12:00:00 UTC 2024"));
+        assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("Mon Jan 32 00:00:00 UTC 2024"));
+    }
+
+    @Test
     void testFile() throws Exception {
         final URL url = this.getClass().getClassLoader().getResource("./org/apache/commons/cli/existing-readable.file");
         final String fileName = url.toString().substring("file:".length());

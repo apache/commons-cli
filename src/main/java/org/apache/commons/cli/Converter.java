@@ -79,12 +79,17 @@ public interface Converter<T, E extends Exception> {
      */
     Converter<Date, java.text.ParseException> DATE = s -> {
         final String pattern = "EEE MMM dd HH:mm:ss zzz yyyy";
+        final SimpleDateFormat format = new SimpleDateFormat(pattern);
+        // reject out-of-range fields (for example "Feb 30") instead of silently rolling them over.
+        format.setLenient(false);
         try {
-            return new SimpleDateFormat(pattern).parse(s);
+            return format.parse(s);
         } catch (final java.text.ParseException e) {
             // Date.toString() always emits English month/day names, so fall back to Locale.ENGLISH
             // when the default locale rejects the documented format.
-            return new SimpleDateFormat(pattern, Locale.ENGLISH).parse(s);
+            final SimpleDateFormat englishFormat = new SimpleDateFormat(pattern, Locale.ENGLISH);
+            englishFormat.setLenient(false);
+            return englishFormat.parse(s);
         }
     };
 
