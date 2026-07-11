@@ -35,7 +35,7 @@ public class ParseException extends Exception {
      * </p>
      *
      * @param e the exception to convert.
-     * @return the ParseException.
+     * @return The ParseException.
      * @throws UnsupportedOperationException due to legacy expectations. Will be removed in the future.
      * @since 1.7.0
      */

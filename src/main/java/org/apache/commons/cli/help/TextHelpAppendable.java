@@ -264,7 +264,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Gets the indent for the output.
      *
-     * @return the indent of the page.
+     * @return The indent of the page.
      */
     public int getIndent() {
         return textStyleBuilder.getIndent();
@@ -282,7 +282,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Gets the maximum width for the output
      *
-     * @return the maximum width for the output.
+     * @return The maximum width for the output.
      */
     public int getMaxWidth() {
         return textStyleBuilder.getMaxWidth();
@@ -376,7 +376,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      *
      * @param orig     the original size.
      * @param fraction the fractional adjustment.
-     * @return the resized value.
+     * @return The resized value.
      */
     private int resize(final int orig, final double fraction) {
         return (int) (orig * fraction);
@@ -387,7 +387,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      *
      * @param builder  the builder to adjust.
      * @param fraction the fractional size (for example percentage of the current size) that the builder should be.
-     * @return the builder with the maximum width and indent values resized.
+     * @return The builder with the maximum width and indent values resized.
      */
     protected TextStyle.Builder resize(final TextStyle.Builder builder, final double fraction) {
         final double indentFrac = builder.getIndent() * 1.0 / builder.getMaxWidth();

@@ -65,7 +65,7 @@ public class MissingOptionException extends ParseException {
     /**
      * Gets the list of options or option groups missing in the command line parsed.
      *
-     * @return the missing options, consisting of String instances for simple options, and OptionGroup instances for
+     * @return The missing options, consisting of String instances for simple options, and OptionGroup instances for
      *         required option groups.
      * @since 1.2
      */

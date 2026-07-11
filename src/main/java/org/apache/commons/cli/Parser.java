@@ -76,7 +76,7 @@ public abstract class Parser implements CommandLineParser {
     /**
      * Gets the options.
      *
-     * @return the options.
+     * @return The options.
      */
     protected Options getOptions() {
         return options;
@@ -85,7 +85,7 @@ public abstract class Parser implements CommandLineParser {
     /**
      * Gets the required options.
      *
-     * @return the required options.
+     * @return The required options.
      */
     protected List getRequiredOptions() {
         return requiredOptions;
@@ -96,7 +96,7 @@ public abstract class Parser implements CommandLineParser {
      *
      * @param options the {@code Options}.
      * @param arguments the {@code arguments}.
-     * @return the {@code CommandLine}.
+     * @return The {@code CommandLine}.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      */
     @Override
@@ -112,7 +112,7 @@ public abstract class Parser implements CommandLineParser {
      * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments
      *        are added to the {@link CommandLine}s args list. If {@code false} an unrecognized argument triggers a
      *        ParseException.
-     * @return the {@code CommandLine}.
+     * @return The {@code CommandLine}.
      * @throws ParseException if an error occurs when parsing the arguments.
      */
     @Override
@@ -126,7 +126,7 @@ public abstract class Parser implements CommandLineParser {
      * @param options the specified Options.
      * @param arguments the command line arguments.
      * @param properties command line option name-value pairs.
-     * @return the list of atomic option and value tokens.
+     * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      * @since 1.1
      */
@@ -143,7 +143,7 @@ public abstract class Parser implements CommandLineParser {
      * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments
      *        are added to the {@link CommandLine}s args list. If {@code false} an unrecognized argument triggers a
      *        ParseException.
-     * @return the list of atomic option and value tokens.
+     * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      * @since 1.1
      */

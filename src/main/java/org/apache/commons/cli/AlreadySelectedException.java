@@ -63,7 +63,7 @@ public class AlreadySelectedException extends ParseException {
     /**
      * Gets the option that was added to the group and triggered the exception.
      *
-     * @return the related option.
+     * @return The related option.
      * @since 1.2
      */
     public Option getOption() {
@@ -73,7 +73,7 @@ public class AlreadySelectedException extends ParseException {
     /**
      * Gets the option group where another option has been selected.
      *
-     * @return the related option group.
+     * @return The related option group.
      * @since 1.2
      */
     public OptionGroup getOptionGroup() {

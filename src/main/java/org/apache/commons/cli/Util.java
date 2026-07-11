@@ -33,7 +33,7 @@ final class Util {
      * Tests whether the given array is null or empty.
      *
      * @param array the array to test.
-     * @return the given array is null or empty.
+     * @return The given array is null or empty.
      */
     static boolean isEmpty(final Object[] array) {
         return array == null || array.length == 0;
@@ -70,7 +70,7 @@ final class Util {
      * Removes the hyphens from the beginning of {@code str} and return the new String.
      *
      * @param str The string from which the hyphens should be removed.
-     * @return the new String.
+     * @return The new String.
      */
     static String stripLeadingHyphens(final String str) {
         if (isEmpty(str)) {

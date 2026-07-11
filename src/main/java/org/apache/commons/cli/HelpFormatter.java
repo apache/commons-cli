@@ -236,7 +236,7 @@ public class HelpFormatter {
      * Gets the option description or an empty string if the description is {@code null}.
      *
      * @param option The option to get the description from.
-     * @return the option description or an empty string if the description is {@code null}.
+     * @return The option description or an empty string if the description is {@code null}.
      * @since 1.8.0
      */
     public static String getDescription(final Option option) {
@@ -417,7 +417,7 @@ public class HelpFormatter {
      * @param options The command line Options
      * @param leftPad the number of characters of padding to be prefixed to each line
      * @param descPad the number of characters of padding to be prefixed to each description line
-     * @return the StringBuffer with the rendered Options contents.
+     * @return The StringBuffer with the rendered Options contents.
      * @throws IOException if an I/O error occurs.
      */
     <A extends Appendable> A appendOptions(final A sb, final int width, final Options options, final int leftPad, final int descPad) throws IOException {
@@ -501,7 +501,7 @@ public class HelpFormatter {
      * @param width The number of characters to display per line
      * @param nextLineTabStop The position on the next line for the first tab.
      * @param text The text to be rendered.
-     * @return the StringBuffer with the rendered Options contents.
+     * @return The StringBuffer with the rendered Options contents.
      * @throws IOException if an I/O error occurs.
      */
     <A extends Appendable> A appendWrappedText(final A appendable, final int width, final int nextLineTabStop, final String text) throws IOException {
@@ -596,7 +596,7 @@ public class HelpFormatter {
     /**
      * Gets the 'argName'.
      *
-     * @return the 'argName'
+     * @return The 'argName'
      */
     public String getArgName() {
         return defaultArgName;
@@ -605,7 +605,7 @@ public class HelpFormatter {
     /**
      * Gets the 'descPadding'.
      *
-     * @return the 'descPadding'
+     * @return The 'descPadding'
      */
     public int getDescPadding() {
         return defaultDescPad;
@@ -614,7 +614,7 @@ public class HelpFormatter {
     /**
      * Gets the 'leftPadding'.
      *
-     * @return the 'leftPadding'
+     * @return The 'leftPadding'
      */
     public int getLeftPadding() {
         return defaultLeftPad;
@@ -623,7 +623,7 @@ public class HelpFormatter {
     /**
      * Gets the 'longOptPrefix'.
      *
-     * @return the 'longOptPrefix'
+     * @return The 'longOptPrefix'
      */
     public String getLongOptPrefix() {
         return defaultLongOptPrefix;
@@ -632,7 +632,7 @@ public class HelpFormatter {
     /**
      * Gets the separator displayed between a long option and its value.
      *
-     * @return the separator
+     * @return The separator
      * @since 1.3
      */
     public String getLongOptSeparator() {
@@ -642,7 +642,7 @@ public class HelpFormatter {
     /**
      * Gets the 'newLine'.
      *
-     * @return the 'newLine'
+     * @return The 'newLine'
      */
     public String getNewLine() {
         return defaultNewLine;
@@ -652,7 +652,7 @@ public class HelpFormatter {
      * Comparator used to sort the options when they output in help text. Defaults to case-insensitive alphabetical sorting
      * by option key.
      *
-     * @return the {@link Comparator} currently in use to sort the options
+     * @return The {@link Comparator} currently in use to sort the options
      * @since 1.2
      */
     public Comparator<Option> getOptionComparator() {
@@ -662,7 +662,7 @@ public class HelpFormatter {
     /**
      * Gets the 'optPrefix'.
      *
-     * @return the 'optPrefix'
+     * @return The 'optPrefix'
      */
     public String getOptPrefix() {
         return defaultOptPrefix;
@@ -671,7 +671,7 @@ public class HelpFormatter {
     /**
      * Gets the 'syntaxPrefix'.
      *
-     * @return the 'syntaxPrefix'
+     * @return The 'syntaxPrefix'
      */
     public String getSyntaxPrefix() {
         return defaultSyntaxPrefix;
@@ -680,7 +680,7 @@ public class HelpFormatter {
     /**
      * Gets the 'width'.
      *
-     * @return the 'width'
+     * @return The 'width'
      */
     public int getWidth() {
         return defaultWidth;
@@ -929,7 +929,7 @@ public class HelpFormatter {
      * @param options The command line Options
      * @param leftPad the number of characters of padding to be prefixed to each line
      * @param descPad the number of characters of padding to be prefixed to each description line
-     * @return the StringBuffer with the rendered Options contents.
+     * @return The StringBuffer with the rendered Options contents.
      */
     protected StringBuffer renderOptions(final StringBuffer sb, final int width, final Options options, final int leftPad, final int descPad) {
         try {
@@ -947,7 +947,7 @@ public class HelpFormatter {
      * @param width The number of characters to display per line
      * @param nextLineTabStop The position on the next line for the first tab.
      * @param text The text to be rendered.
-     * @return the StringBuffer with the rendered Options contents.
+     * @return The StringBuffer with the rendered Options contents.
      */
     protected StringBuffer renderWrappedText(final StringBuffer sb, final int width, final int nextLineTabStop, final String text) {
         try {

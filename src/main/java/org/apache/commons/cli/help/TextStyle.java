@@ -279,7 +279,7 @@ public final class TextStyle {
     /**
      * Gets the alignment.
      *
-     * @return the alignment.
+     * @return The alignment.
      */
     public Alignment getAlignment() {
         return alignment;
@@ -288,7 +288,7 @@ public final class TextStyle {
     /**
      * Gets the indent value.
      *
-     * @return the indent value.
+     * @return The indent value.
      */
     public int getIndent() {
         return indent;
@@ -297,7 +297,7 @@ public final class TextStyle {
     /**
      * Gets the left padding.
      *
-     * @return the left padding.
+     * @return The left padding.
      */
     public int getLeftPad() {
         return leftPad;
@@ -324,7 +324,7 @@ public final class TextStyle {
     /**
      * Specifies if the column can be made wider or to narrower width to fit constraints of the HelpAppendable and formatting.
      *
-     * @return the scaling value.
+     * @return The scaling value.
      */
     public boolean isScalable() {
         return scalable;
@@ -339,7 +339,7 @@ public final class TextStyle {
      *
      * @param addIndent if {@code true} account for the indent when padding the string.
      * @param text      the text to pad.
-     * @return the padded string.
+     * @return The padded string.
      */
     public CharSequence pad(final boolean addIndent, final CharSequence text) {
         if (text.length() >= maxWidth) {

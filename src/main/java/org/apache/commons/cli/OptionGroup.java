@@ -65,7 +65,7 @@ public class OptionGroup implements Serializable {
     /**
      * Gets the names of the options in this group as a {@code Collection}.
      *
-     * @return the names of the options in this group as a {@code Collection}.
+     * @return The names of the options in this group as a {@code Collection}.
      */
     public Collection<String> getNames() {
         // the key set is the collection of names
@@ -75,7 +75,7 @@ public class OptionGroup implements Serializable {
     /**
      * Gets the options in this group as a {@code Collection}.
      *
-     * @return the options in this group as a {@code Collection}.
+     * @return The options in this group as a {@code Collection}.
      */
     public Collection<Option> getOptions() {
         // the values are the collection of options
@@ -87,7 +87,7 @@ public class OptionGroup implements Serializable {
      *
      * If the selected option is deprecated <em>no warning is logged</em>.
      *
-     * @return the selected option name.
+     * @return The selected option name.
      */
     public String getSelected() {
         return selected;
@@ -149,7 +149,7 @@ public class OptionGroup implements Serializable {
     /**
      * Returns the stringified version of this OptionGroup.
      *
-     * @return the stringified representation of this group.
+     * @return The stringified representation of this group.
      */
     @Override
     public String toString() {

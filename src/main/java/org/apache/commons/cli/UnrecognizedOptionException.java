@@ -54,7 +54,7 @@ public class UnrecognizedOptionException extends ParseException {
     /**
      * Gets the unrecognized option.
      *
-     * @return the related option.
+     * @return The related option.
      * @since 1.2
      */
     public String getOption() {

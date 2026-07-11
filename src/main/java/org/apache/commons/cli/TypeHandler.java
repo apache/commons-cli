@@ -114,7 +114,7 @@ public class TypeHandler {
      * Creates a number from a String. If a '.' is present, it creates a Double, otherwise a Long.
      *
      * @param string the value.
-     * @return the number represented by {@code string}.
+     * @return The number represented by {@code string}.
      * @throws ParseException if {@code string} is not a number.
      */
     @Deprecated // since 1.7.0
@@ -126,7 +126,7 @@ public class TypeHandler {
      * Creates an Object from the class name and empty constructor.
      *
      * @param className the argument value.
-     * @return the initialized object.
+     * @return The initialized object.
      * @throws ParseException if the class could not be found or the object could not be created.
      * @deprecated Use {@link #createValue(String, Class)}.
      */
@@ -197,7 +197,7 @@ public class TypeHandler {
     /**
      * Gets the default TypeHandler.
      *
-     * @return the default TypeHandler.
+     * @return The default TypeHandler.
      * @since 1.7.0
      */
     public static TypeHandler getDefault() {
@@ -280,7 +280,7 @@ public class TypeHandler {
      *
      * @param <T>   The Class parameter type.
      * @param clazz The Class to get the Converter for.
-     * @return the registered converter if any, {@link Converter#DEFAULT} otherwise.
+     * @return The registered converter if any, {@link Converter#DEFAULT} otherwise.
      * @since 1.7.0
      */
     @SuppressWarnings("unchecked") // returned value will have type T because it is fixed by clazz

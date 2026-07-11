@@ -61,7 +61,7 @@ public class Option implements Cloneable, Serializable {
          * Returns the input Class or the default type (String) if null.
          *
          * @param type the candidate Class.
-         * @return the input Class or the default type (String) if null.
+         * @return The input Class or the default type (String) if null.
          */
         private static Class<?> toType(final Class<?> type) {
             return type != null ? type : DEFAULT_TYPE;
@@ -127,7 +127,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * Constructs an Option with the values declared by this {@link Builder}.
          *
-         * @return the new {@link Option}.
+         * @return The new {@link Option}.
          * @throws IllegalArgumentException if neither {@code opt} or {@code longOpt} has been set.
          * @deprecated Use {@link #get()}.
          */
@@ -187,7 +187,7 @@ public class Option implements Cloneable, Serializable {
         /**
          * Constructs an Option with the values declared by this {@link Builder}.
          *
-         * @return the new {@link Option}.
+         * @return The new {@link Option}.
          * @throws IllegalStateException if neither {@code opt} or {@code longOpt} has been set.
          */
         @Override
@@ -579,7 +579,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the display name for the argument value.
      *
-     * @return the display name for the argument value.
+     * @return The display name for the argument value.
      */
     public String getArgName() {
         return argName;
@@ -604,7 +604,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the value to type converter.
      *
-     * @return the value to type converter.
+     * @return The value to type converter.
      * @since 1.7.0
      */
     public Converter<?, ?> getConverter() {
@@ -633,7 +633,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the id of this Option. This is only set when the Option shortOpt is a single character. This is used for switch statements.
      *
-     * @return the id of this Option.
+     * @return The id of this Option.
      */
     public int getId() {
         return getKey().charAt(0);
@@ -642,7 +642,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the 'unique' Option identifier. This is the option value if set or the long value if the options value is not set.
      *
-     * @return the 'unique' Option identifier.
+     * @return The 'unique' Option identifier.
      * @since 1.7.0
      */
     public String getKey() {
@@ -674,7 +674,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the version when this option was added.
      *
-     * @return the version when this option was added, or {@code null} if not set.
+     * @return The version when this option was added, or {@code null} if not set.
      */
     public String getSince() {
         return since;
@@ -692,7 +692,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the specified value of this Option or {@code null} if there is no value.
      *
-     * @return the value/first value of this Option or {@code null} if there is no value.
+     * @return The value/first value of this Option or {@code null} if there is no value.
      */
     public String getValue() {
         return isValuesEmpty() ? null : values.get(0);
@@ -702,7 +702,7 @@ public class Option implements Cloneable, Serializable {
      * Gets the specified value of this Option or {@code null} if there is no value.
      *
      * @param index The index of the value to be returned.
-     * @return the specified value of this Option or {@code null} if there is no value.
+     * @return The specified value of this Option or {@code null} if there is no value.
      * @throws IndexOutOfBoundsException if index is less than 1 or greater than the number of the values for this Option.
      */
     public String getValue(final int index) throws IndexOutOfBoundsException {
@@ -713,7 +713,7 @@ public class Option implements Cloneable, Serializable {
      * Gets the value/first value of this Option or the {@code defaultValue} if there is no value.
      *
      * @param defaultValue The value to be returned if there is no value.
-     * @return the value/first value of this Option or the {@code defaultValue} if there are no values.
+     * @return The value/first value of this Option or the {@code defaultValue} if there are no values.
      */
     public String getValue(final String defaultValue) {
         final String value = getValue();
@@ -723,7 +723,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the values of this Option as a String array or an empty array if there are no values.
      *
-     * @return the values of this Option as a String array or an empty array if there are no values.
+     * @return The values of this Option as a String array or an empty array if there are no values.
      */
     public String[] getValues() {
         return isValuesEmpty() ? null : values.toArray(EMPTY_STRING_ARRAY);
@@ -732,7 +732,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the value separator character.
      *
-     * @return the value separator character.
+     * @return The value separator character.
      */
     public char getValueSeparator() {
         return valueSeparator;
@@ -741,7 +741,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Gets the values of this Option as a List.  Will return an empty list if there are no values.
      *
-     * @return the values of this Option as a List or an empty List if there are no values.
+     * @return The values of this Option as a List or an empty List if there are no values.
      */
     public List<String> getValuesList() {
         return values;

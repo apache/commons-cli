@@ -149,7 +149,7 @@ public final class DeprecatedAttributes {
     /**
      * Gets the descriptions.
      *
-     * @return the descriptions.
+     * @return The descriptions.
      */
     public String getDescription() {
         return description;
@@ -158,7 +158,7 @@ public final class DeprecatedAttributes {
     /**
      * Gets version in which the option became deprecated.
      *
-     * @return the version in which the option became deprecated.
+     * @return The version in which the option became deprecated.
      */
     public String getSince() {
         return since;

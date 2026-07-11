@@ -35,7 +35,7 @@ final class Util {
      * @param str          The string to check.
      * @param defaultValue the default value if the string is empty.
      * @param <T>          The type of arguments.
-     * @return the {@code defaultValue} if {@code str} is empty,
+     * @return The {@code defaultValue} if {@code str} is empty,
      */
     static <T extends CharSequence> T defaultValue(final T str, final T defaultValue) {
         return isEmpty(str) ? defaultValue : str;
@@ -46,7 +46,7 @@ final class Util {
      *
      * @param text     the text to search in.
      * @param startPos the starting position to search from.
-     * @return the index of the first non whitespace character or -1 if non found.
+     * @return The index of the first non whitespace character or -1 if non found.
      */
     static int indexOfNonWhitespace(final CharSequence text, final int startPos) {
         if (isEmpty(text)) {

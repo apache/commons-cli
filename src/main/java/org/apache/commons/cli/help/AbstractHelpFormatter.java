@@ -85,7 +85,7 @@ public abstract class AbstractHelpFormatter {
         /**
          * Gets the comparator to sort lists of options.
          *
-         * @return the comparator to sort lists of options.
+         * @return The comparator to sort lists of options.
          */
         protected Comparator<Option> getComparator() {
             return comparator;
@@ -94,7 +94,7 @@ public abstract class AbstractHelpFormatter {
         /**
          * Gets {@link HelpAppendable}.
          *
-         * @return the {@link HelpAppendable}.
+         * @return The {@link HelpAppendable}.
          */
         protected HelpAppendable getHelpAppendable() {
             return helpAppendable;
@@ -103,7 +103,7 @@ public abstract class AbstractHelpFormatter {
         /**
          * Gets {@link OptionFormatter.Builder} to use to format options in the table.
          *
-         * @return the {@link OptionFormatter.Builder} to use to format options in the table.
+         * @return The {@link OptionFormatter.Builder} to use to format options in the table.
          */
         protected OptionFormatter.Builder getOptionFormatBuilder() {
             return optionFormatBuilder;
@@ -112,7 +112,7 @@ public abstract class AbstractHelpFormatter {
         /**
          * Gets string to separate option groups.
          *
-         * @return the string to separate option groups.
+         * @return The string to separate option groups.
          */
         protected String getOptionGroupSeparator() {
             return optionGroupSeparator;
@@ -280,7 +280,7 @@ public abstract class AbstractHelpFormatter {
      * Converts a collection of {@link Option}s into a {@link TableDefinition}.
      *
      * @param options The options to create a table for.
-     * @return the TableDefinition.
+     * @return The TableDefinition.
      */
     protected abstract TableDefinition getTableDefinition(Iterable<Option> options);
 
@@ -411,7 +411,7 @@ public abstract class AbstractHelpFormatter {
      * Formats the {@code argName} as an argument a defined in the enclosed {@link OptionFormatter.Builder}.
      *
      * @param argName the string to format as an argument.
-     * @return the {@code argName} formatted as an argument.
+     * @return The {@code argName} formatted as an argument.
      */
     public final String toArgName(final String argName) {
         return optionFormatBuilder.toArgName(argName);
@@ -426,7 +426,7 @@ public abstract class AbstractHelpFormatter {
      * </p>
      *
      * @param options The collection of {@link Option} instances to create the string representation for.
-     * @return the string representation of the options as used in the syntax display.
+     * @return The string representation of the options as used in the syntax display.
      */
     public String toSyntaxOptions(final Iterable<Option> options) {
         return toSyntaxOptions(options, o -> null);
@@ -437,7 +437,7 @@ public abstract class AbstractHelpFormatter {
      *
      * @param options The options to create the string representation for.
      * @param lookup  a function to determine if the Option is part of an OptionGroup that has already been processed.
-     * @return the string representation of the options as used in the syntax display.
+     * @return The string representation of the options as used in the syntax display.
      */
     protected String toSyntaxOptions(final Iterable<Option> options, final Function<Option, OptionGroup> lookup) {
         // list of groups that have been processed.
@@ -475,7 +475,7 @@ public abstract class AbstractHelpFormatter {
      * Return the string representation of the options as used in the syntax display.
      *
      * @param group The OptionGroup to create the string representation for.
-     * @return the string representation of the options as used in the syntax display.
+     * @return The string representation of the options as used in the syntax display.
      */
     public String toSyntaxOptions(final OptionGroup group) {
         final StringBuilder buff = new StringBuilder();
@@ -501,7 +501,7 @@ public abstract class AbstractHelpFormatter {
      * Return the string representation of the options as used in the syntax display.
      *
      * @param options The {@link Options} to create the string representation for.
-     * @return the string representation of the options as used in the syntax display.
+     * @return The string representation of the options as used in the syntax display.
      */
     public String toSyntaxOptions(final Options options) {
         return toSyntaxOptions(options.getOptions(), options::getOptionGroup);

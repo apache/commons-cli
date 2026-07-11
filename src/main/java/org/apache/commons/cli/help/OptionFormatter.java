@@ -218,7 +218,7 @@ public final class OptionFormatter {
          * A helper method to format any string as an argument name based on this builder.
          *
          * @param argName the name of the argument.
-         * @return the formatted argument.
+         * @return The formatted argument.
          */
         public String toArgName(final String argName) {
             return argNameDelimiters[0] + Util.defaultValue(argName, "") + argNameDelimiters[1];
@@ -462,7 +462,7 @@ public final class OptionFormatter {
     /**
      * Gets the syntax format for this option.
      *
-     * @return the syntax format for this option as specified by the syntaxFormatFunction.
+     * @return The syntax format for this option as specified by the syntaxFormatFunction.
      */
     public String toSyntaxOption() {
         return toSyntaxOption(isRequired());
@@ -472,7 +472,7 @@ public final class OptionFormatter {
      * Gets the syntax format for this option.
      *
      * @param isRequired if {@code true} the options is printed as a required option, otherwise it is optional.
-     * @return the syntax format for this option as specified by the syntaxFormatFunction.
+     * @return The syntax format for this option as specified by the syntaxFormatFunction.
      */
     public String toSyntaxOption(final boolean isRequired) {
         return syntaxFormatFunction.apply(this, isRequired);

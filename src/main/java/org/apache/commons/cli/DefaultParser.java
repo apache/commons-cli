@@ -76,7 +76,7 @@ public class DefaultParser implements CommandLineParser {
         /**
          * Builds an DefaultParser with the values declared by this {@link Builder}.
          *
-         * @return the new {@link DefaultParser}.
+         * @return The new {@link DefaultParser}.
          * @since 1.5.0
          * @deprecated Use {@link #get()}.
          */
@@ -88,7 +88,7 @@ public class DefaultParser implements CommandLineParser {
         /**
          * Builds an DefaultParser with the values declared by this {@link Builder}.
          *
-         * @return the new {@link DefaultParser}.
+         * @return The new {@link DefaultParser}.
          * @since 1.10.0
          */
         @Override
@@ -372,7 +372,7 @@ public class DefaultParser implements CommandLineParser {
      * Gets a list of matching option strings for the given token, depending on the selected partial matching policy.
      *
      * @param token the token (may contain leading dashes).
-     * @return the list of matching option strings or an empty list if no matching option could be found.
+     * @return The list of matching option strings or an empty list if no matching option could be found.
      */
     private List<String> getMatchingLongOptions(final String token) {
         if (allowPartialMatching) {
@@ -747,7 +747,7 @@ public class DefaultParser implements CommandLineParser {
      * @param nonOptionAction see {@link NonOptionAction}.
      * @param arguments the command line arguments
      *
-     * @return the list of atomic option and value tokens.
+     * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      * @since 1.10.0
      */
@@ -795,7 +795,7 @@ public class DefaultParser implements CommandLineParser {
      * @param options the specified Options.
      * @param arguments the command line arguments.
      * @param properties command line option name-value pairs.
-     * @return the list of atomic option and value tokens.
+     * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      */
     public CommandLine parse(final Options options, final String[] arguments, final Properties properties) throws ParseException {
@@ -811,7 +811,7 @@ public class DefaultParser implements CommandLineParser {
      * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments
      *        are added to the {@link CommandLine}s args list. If {@code false} an unrecognized argument triggers a
      *        ParseException.
-     * @return the list of atomic option and value tokens.
+     * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      * @see #parse(Options, Properties, NonOptionAction, String[])
      */

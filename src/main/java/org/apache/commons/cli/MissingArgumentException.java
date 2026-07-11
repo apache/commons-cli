@@ -53,7 +53,7 @@ public class MissingArgumentException extends ParseException {
     /**
      * Gets the option requiring an argument that wasn't provided on the command line.
      *
-     * @return the related option
+     * @return The related option
      * @since 1.2
      */
     public Option getOption() {

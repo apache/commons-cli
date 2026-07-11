@@ -66,7 +66,7 @@ public final class OptionBuilder {
     /**
      * Creates an Option using the current settings.
      *
-     * @return the Option instance.
+     * @return The Option instance.
      * @throws IllegalArgumentException if {@code longOpt} has not been set.
      */
     public static Option create() throws IllegalArgumentException {
@@ -81,7 +81,7 @@ public final class OptionBuilder {
      * Creates an Option using the current settings and with the specified Option {@code char}.
      *
      * @param opt the character representation of the Option.
-     * @return the Option instance.
+     * @return The Option instance.
      * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
      */
     public static Option create(final char opt) throws IllegalArgumentException {
@@ -92,7 +92,7 @@ public final class OptionBuilder {
      * Creates an Option using the current settings and with the specified Option {@code char}.
      *
      * @param opt the {@code String} representation of the Option.
-     * @return the Option instance.
+     * @return The Option instance.
      * @throws IllegalArgumentException if {@code opt} is not a valid character. See Option.
      */
     public static Option create(final String opt) throws IllegalArgumentException {
@@ -120,7 +120,7 @@ public final class OptionBuilder {
     /**
      * The next Option created will require an argument value.
      *
-     * @return the OptionBuilder instance
+     * @return The OptionBuilder instance
      */
     public static OptionBuilder hasArg() {
         argCount = 1;
@@ -131,7 +131,7 @@ public final class OptionBuilder {
      * The next Option created will require an argument value if {@code hasArg} is true.
      *
      * @param hasArg if true then the Option has an argument value.
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder hasArg(final boolean hasArg) {
         argCount = hasArg ? 1 : Option.UNINITIALIZED;
@@ -141,7 +141,7 @@ public final class OptionBuilder {
     /**
      * The next Option created can have unlimited argument values.
      *
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder hasArgs() {
         argCount = Option.UNLIMITED_VALUES;
@@ -152,7 +152,7 @@ public final class OptionBuilder {
      * The next Option created can have {@code num} argument values.
      *
      * @param num the number of args that the option can have.
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder hasArgs(final int num) {
         argCount = num;
@@ -162,7 +162,7 @@ public final class OptionBuilder {
     /**
      * The next Option can have an optional argument.
      *
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder hasOptionalArg() {
         argCount = 1;
@@ -173,7 +173,7 @@ public final class OptionBuilder {
     /**
      * The next Option can have an unlimited number of optional arguments.
      *
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder hasOptionalArgs() {
         argCount = Option.UNLIMITED_VALUES;
@@ -185,7 +185,7 @@ public final class OptionBuilder {
      * The next Option can have the specified number of optional arguments.
      *
      * @param numArgs   the maximum number of optional arguments the next Option created can have.
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder hasOptionalArgs(final int numArgs) {
         argCount = numArgs;
@@ -196,7 +196,7 @@ public final class OptionBuilder {
     /**
      * The next Option created will be required.
      *
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder isRequired() {
         required = true;
@@ -207,7 +207,7 @@ public final class OptionBuilder {
      * The next Option created will be required if {@code required} is true.
      *
      * @param newRequired if true then the Option is required.
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder isRequired(final boolean newRequired) {
         required = newRequired;
@@ -232,7 +232,7 @@ public final class OptionBuilder {
      * The next Option created will have the specified argument value name.
      *
      * @param name the name for the argument value.
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder withArgName(final String name) {
         argName = name;
@@ -243,7 +243,7 @@ public final class OptionBuilder {
      * The next Option created will have the specified description
      *
      * @param newDescription a description of the Option's purpose.
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder withDescription(final String newDescription) {
         description = newDescription;
@@ -254,7 +254,7 @@ public final class OptionBuilder {
      * The next Option created will have the following long option value.
      *
      * @param newLongopt the long option value.
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder withLongOpt(final String newLongopt) {
         longOption = newLongopt;
@@ -265,7 +265,7 @@ public final class OptionBuilder {
      * The next Option created will have a value that will be an instance of {@code type}.
      *
      * @param newType the type of the Options argument value.
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      * @since 1.3
      */
     public static OptionBuilder withType(final Class<?> newType) {
@@ -280,7 +280,7 @@ public final class OptionBuilder {
      * object.
      *
      * @param newType the type of the Options argument value.
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      * @deprecated Since 1.3, use {@link #withType(Class)} instead.
      */
     @Deprecated
@@ -301,7 +301,7 @@ public final class OptionBuilder {
      * String propertyValue = opt.getValue(1);
      * </pre>
      *
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder withValueSeparator() {
         valueSeparator = Char.EQUAL;
@@ -323,7 +323,7 @@ public final class OptionBuilder {
      * </pre>
      *
      * @param sep The value separator to be used for the argument values.
-     * @return the OptionBuilder instance.
+     * @return The OptionBuilder instance.
      */
     public static OptionBuilder withValueSeparator(final char sep) {
         valueSeparator = sep;

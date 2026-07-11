@@ -79,7 +79,7 @@ public interface TableDefinition {
     /**
      * Gets the list TextStyles. One for each column in order.
      *
-     * @return the list of TextStyles.
+     * @return The list of TextStyles.
      */
     List<TextStyle> columnTextStyles();
 
