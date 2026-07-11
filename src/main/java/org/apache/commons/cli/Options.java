@@ -259,7 +259,7 @@ public class Options implements Serializable {
     /**
      * Gets the OptionGroups that are members of this Options instance.
      *
-     * @return a Collection of OptionGroup instances.
+     * @return A Collection of OptionGroup instances.
      */
     Collection<OptionGroup> getOptionGroups() {
 

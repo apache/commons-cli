@@ -68,7 +68,7 @@ public abstract class Parser implements CommandLineParser {
      * @param opts The Options to parse the arguments by.
      * @param arguments The arguments that have to be flattened.
      * @param stopAtNonOption specifies whether to stop flattening when a non option has been encountered.
-     * @return a String array of the flattened arguments.
+     * @return A String array of the flattened arguments.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      */
     protected abstract String[] flatten(Options opts, String[] arguments, boolean stopAtNonOption) throws ParseException;

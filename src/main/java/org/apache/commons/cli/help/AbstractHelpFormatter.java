@@ -243,7 +243,7 @@ public abstract class AbstractHelpFormatter {
      * Constructs an {@link OptionFormatter} for the specified {@link Option}.
      *
      * @param option The Option to format.
-     * @return an {@link OptionFormatter} for the specified {@link Option}.
+     * @return An {@link OptionFormatter} for the specified {@link Option}.
      */
     public final OptionFormatter getOptionFormatter(final Option option) {
         return optionFormatBuilder.build(option);
@@ -386,7 +386,7 @@ public abstract class AbstractHelpFormatter {
      * Creates a new list of options ordered by the comparator.
      *
      * @param options the Options to sort.
-     * @return a new list of options ordered by the comparator.
+     * @return A new list of options ordered by the comparator.
      */
     public List<Option> sort(final Iterable<Option> options) {
         final List<Option> result = new ArrayList<>();
@@ -401,7 +401,7 @@ public abstract class AbstractHelpFormatter {
      * Creates a new list of options ordered by the comparator.
      *
      * @param options the Options to sort.
-     * @return a new list of options ordered by the comparator.
+     * @return A new list of options ordered by the comparator.
      */
     public List<Option> sort(final Options options) {
         return sort(options == null ? null : options.getOptions());

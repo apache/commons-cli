@@ -296,7 +296,7 @@ public final class OptionFormatter {
     /**
      * Creates a new builder.
      *
-     * @return a new builder.
+     * @return A new builder.
      */
     public static Builder builder() {
         return new Builder();
@@ -306,7 +306,7 @@ public final class OptionFormatter {
      * Construct the {@link OptionFormatter} from an {@link Option} using the default {@link OptionFormatter.Builder}.
      *
      * @param option the option to format.
-     * @return an OptionFormatter for the specified @{code option}.
+     * @return An OptionFormatter for the specified @{code option}.
      */
     public static OptionFormatter from(final Option option) {
         return new Builder().build(option);

@@ -190,7 +190,7 @@ public class DefaultParser implements CommandLineParser {
      * Creates a new {@link Builder} to create an {@link DefaultParser} using descriptive
      * methods.
      *
-     * @return a new {@link Builder} instance
+     * @return A new {@link Builder} instance
      * @since 1.5.0
      */
     public static Builder builder() {

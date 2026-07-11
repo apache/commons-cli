@@ -103,7 +103,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     /**
      * Creates a new TextHelpAppendable on {@link System#out}.
      *
-     * @return a new TextHelpAppendable on {@link System#out}.
+     * @return A new TextHelpAppendable on {@link System#out}.
      */
     protected static TextHelpAppendable systemOut() {
         return new TextHelpAppendable(System.out);
@@ -144,7 +144,7 @@ public class TextHelpAppendable extends FilterHelpAppendable {
      * </p>
      *
      * @param table the table to adjust.
-     * @return a new TableDefinition with adjusted values.
+     * @return A new TableDefinition with adjusted values.
      */
     protected TableDefinition adjustTableFormat(final TableDefinition table) {
         final List<TextStyle.Builder> styleBuilders = new ArrayList<>();

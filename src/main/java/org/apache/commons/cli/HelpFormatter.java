@@ -172,7 +172,7 @@ public class HelpFormatter {
          *
          * @param opt1 The first Option to be compared.
          * @param opt2 The second Option to be compared.
-         * @return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than
+         * @return A negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than
          *         the second.
          */
         @Override
@@ -221,7 +221,7 @@ public class HelpFormatter {
     /**
      * Creates a new builder.
      *
-     * @return a new builder.
+     * @return A new builder.
      * @since 1.7.0
      */
     public static Builder builder() {

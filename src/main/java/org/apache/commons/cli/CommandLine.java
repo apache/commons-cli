@@ -102,7 +102,7 @@ public class CommandLine implements Serializable {
         /**
          * Creates a new instance.
          *
-         * @return a new instance.
+         * @return A new instance.
          * @deprecated Use {@link #get()}.
          */
         @Deprecated
@@ -113,7 +113,7 @@ public class CommandLine implements Serializable {
         /**
          * Creates a new instance.
          *
-         * @return a new instance.
+         * @return A new instance.
          * @since 1.10.0
          */
         @Override
@@ -140,7 +140,7 @@ public class CommandLine implements Serializable {
     /**
      * Creates a new builder.
      *
-     * @return a new builder.
+     * @return A new builder.
      * @since 1.7.0
      */
     public static Builder builder() {
@@ -337,7 +337,7 @@ public class CommandLine implements Serializable {
     /**
      * Gets an array of the processed {@link Option}s.
      *
-     * @return an array of the processed {@link Option}s.
+     * @return An array of the processed {@link Option}s.
      */
     public Option[] getOptions() {
         return options.toArray(Option.EMPTY_ARRAY);
@@ -1006,7 +1006,7 @@ public class CommandLine implements Serializable {
     /**
      * Returns an iterator over the Option members of CommandLine.
      *
-     * @return an {@code Iterator} over the processed {@link Option} members of this {@link CommandLine}.
+     * @return An {@code Iterator} over the processed {@link Option} members of this {@link CommandLine}.
      */
     public Iterator<Option> iterator() {
         return options.iterator();

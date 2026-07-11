@@ -367,7 +367,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Returns a {@link Builder} to create an {@link Option} using descriptive methods.
      *
-     * @return a new {@link Builder} instance.
+     * @return A new {@link Builder} instance.
      * @since 1.3
      */
     public static Builder builder() {
@@ -378,7 +378,7 @@ public class Option implements Cloneable, Serializable {
      * Returns a {@link Builder} to create an {@link Option} using descriptive methods.
      *
      * @param option short representation of the option.
-     * @return a new {@link Builder} instance.
+     * @return A new {@link Builder} instance.
      * @throws IllegalArgumentException if there are any non valid Option characters in {@code opt}.
      * @since 1.3
      */
@@ -550,7 +550,7 @@ public class Option implements Cloneable, Serializable {
      *
      * After calling this method, it is very likely you will want to call clearValues().
      *
-     * @return a clone of this Option instance.
+     * @return A clone of this Option instance.
      * @throws RuntimeException if a {@link CloneNotSupportedException} has been thrown by {@code super.clone()}.
      */
     @Override
@@ -1000,7 +1000,7 @@ public class Option implements Cloneable, Serializable {
     /**
      * Creates a String suitable for debugging.
      *
-     * @return a String suitable for debugging.
+     * @return A String suitable for debugging.
      */
     @Override
     public String toString() {

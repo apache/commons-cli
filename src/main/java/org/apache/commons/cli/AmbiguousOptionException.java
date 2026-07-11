@@ -73,7 +73,7 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
     /**
      * Gets the options matching the partial name.
      *
-     * @return a collection of options matching the name.
+     * @return A collection of options matching the name.
      */
     public Collection<String> getMatchingOptions() {
         return matchingOptions;

@@ -50,7 +50,7 @@ public class GnuParser extends Parser {
      * @param options The Options to parse the arguments by.
      * @param arguments The arguments that have to be flattened.
      * @param stopAtNonOption specifies whether to stop flattening when a non option has been encountered.
-     * @return a String array of the flattened arguments.
+     * @return A String array of the flattened arguments.
      */
     @Override
     protected String[] flatten(final Options options, final String[] arguments, final boolean stopAtNonOption) {

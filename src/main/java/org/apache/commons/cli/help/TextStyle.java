@@ -238,7 +238,7 @@ public final class TextStyle {
     /**
      * Creates a new builder.
      *
-     * @return a new builder.
+     * @return A new builder.
      */
     public static Builder builder() {
         return new Builder();

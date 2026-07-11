@@ -74,7 +74,7 @@ public class TypeHandler {
     /**
      * Creates a default converter map.
      *
-     * @return a default converter map.
+     * @return A default converter map.
      * @since 1.7.0
      */
     public static Map<Class<?>, Converter<?, ? extends Throwable>> createDefaultMap() {

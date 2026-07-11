@@ -118,7 +118,7 @@ public final class DeprecatedAttributes {
     /**
      * Creates a new builder.
      *
-     * @return a new builder.
+     * @return A new builder.
      */
     public static Builder builder() {
         return new Builder();
