@@ -56,9 +56,15 @@ public class ConverterTests {
         lst.add(Arguments.of("-12.3", Double.valueOf("-12.3")));
         lst.add(Arguments.of(".3", Double.valueOf("0.3")));
         lst.add(Arguments.of("-.3", Double.valueOf("-0.3")));
+        lst.add(Arguments.of("1.2e3", Double.valueOf("1.2e3")));
         lst.add(Arguments.of("0x5F", null));
         lst.add(Arguments.of("2,3", null));
         lst.add(Arguments.of("1.2.3", null));
+        // Double.valueOf() accepts these, but a decimal number does not; the Long branch already rejects the same junk.
+        lst.add(Arguments.of("1.0d", null));
+        lst.add(Arguments.of("1.0f", null));
+        lst.add(Arguments.of("0x1.8p1", null));
+        lst.add(Arguments.of(" 1.2 ", null));
         return lst.stream();
     }
 

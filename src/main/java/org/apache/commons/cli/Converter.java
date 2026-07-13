@@ -17,6 +17,7 @@
 package org.apache.commons.cli;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.InvalidPathException;
@@ -60,7 +61,16 @@ public interface Converter<T, E extends Exception> {
     /**
      * Converts a String to a {@link Number}. Converts to a Double if a decimal point ('.') is in the string or a Long otherwise.
      */
-    Converter<Number, NumberFormatException> NUMBER = s -> s.indexOf('.') != -1 ? (Number) Double.valueOf(s) : (Number) Long.valueOf(s);
+    Converter<Number, NumberFormatException> NUMBER = s -> {
+        if (s.indexOf('.') != -1) {
+            // Double.valueOf() also accepts hexadecimal floating point (0x1.8p1), type suffixes (1.0d, 1.0f)
+            // and surrounding whitespace; validate with a strict BigDecimal parse so those are rejected like
+            // the Long branch already rejects them.
+            new BigDecimal(s);
+            return Double.valueOf(s);
+        }
+        return Long.valueOf(s);
+    };
 
     /**
      * Converts a class name to an instance of the class. Uses the Class converter to find the class and then call the default constructor.
