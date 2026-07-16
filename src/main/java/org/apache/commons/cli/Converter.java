@@ -64,10 +64,8 @@ public interface Converter<T, E extends Exception> {
     Converter<Number, NumberFormatException> NUMBER = s -> {
         if (s.indexOf('.') != -1) {
             // Double.valueOf() also accepts hexadecimal floating point (0x1.8p1), type suffixes (1.0d, 1.0f)
-            // and surrounding whitespace; validate with a strict BigDecimal parse so those are rejected like
-            // the Long branch already rejects them.
-            new BigDecimal(s);
-            return Double.valueOf(s);
+            // and surrounding whitespace; a strict BigDecimal parse rejects those like the Long branch already does.
+            return new BigDecimal(s).doubleValue();
         }
         return Long.valueOf(s);
     };
