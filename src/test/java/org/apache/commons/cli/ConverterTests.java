@@ -18,8 +18,10 @@
 package org.apache.commons.cli;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.URL;
 import java.text.DateFormat;
@@ -41,12 +43,23 @@ import org.junitpioneer.jupiter.DefaultLocale;
  */
 public class ConverterTests {
 
+    // A class whose static initializer has an observable side effect.
+    public static class AClassWithAStaticInitializer {
+
+        static {
+            classInitializerRan = true;
+        }
+    }
+
     // A class without a default constructor.
     public class AClassWithoutADefaultConstructor {
 
         public AClassWithoutADefaultConstructor(final int i) {
         }
     }
+
+    // Set by the static initializer of AClassWithAStaticInitializer; readable without initializing that class.
+    private static boolean classInitializerRan;
 
     private static Stream<Arguments> numberTestParameters() {
         final List<Arguments> lst = new ArrayList<>();
@@ -70,6 +83,15 @@ public class ConverterTests {
         assertNotNull(Converter.CLASS.apply(this.getClass().getTypeName()), this.getClass().getTypeName());
         assertThrows(ClassNotFoundException.class, () -> Converter.CLASS.apply("foo.bar"));
         assertNotNull(Converter.CLASS.apply(AClassWithoutADefaultConstructor.class.getName()));
+    }
+
+    @Test
+    void testClassDoesNotInitialize() throws Exception {
+        final Class<?> cls = Converter.CLASS.apply(AClassWithAStaticInitializer.class.getName());
+        assertFalse(classInitializerRan);
+        assertEquals(AClassWithAStaticInitializer.class, cls);
+        cls.getConstructor().newInstance();
+        assertTrue(classInitializerRan);
     }
 
     @Test

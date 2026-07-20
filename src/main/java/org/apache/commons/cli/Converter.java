@@ -43,9 +43,10 @@ public interface Converter<T, E extends Exception> {
     Converter<?, RuntimeException> DEFAULT = s -> s;
 
     /**
-     * Converts a String to a {@link Class}. Calls {@link Class#forName(String)}.
+     * Converts a String to a {@link Class}. Calls {@link Class#forName(String, boolean, ClassLoader)} with {@code initialize} set to {@code false} so that
+     * naming a class does not run its static initializer.
      */
-    Converter<Class<?>, ClassNotFoundException> CLASS = Class::forName;
+    Converter<Class<?>, ClassNotFoundException> CLASS = s -> Class.forName(s, false, Converter.class.getClassLoader());
 
     /**
      * Converts a String to a {@link File}. Calls {@link File#File(String)}.
