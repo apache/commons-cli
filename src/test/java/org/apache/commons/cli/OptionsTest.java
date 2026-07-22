@@ -183,6 +183,19 @@ class OptionsTest {
     }
 
     @Test
+    void testGetMatchingOptsEmptyName() throws Exception {
+        final Options options = new Options();
+        options.addOption(Option.builder("c").longOpt("config-file").hasArg().get());
+        assertTrue(options.getMatchingOptions("").isEmpty());
+        assertTrue(options.getMatchingOptions("-").isEmpty());
+        assertTrue(options.getMatchingOptions("--").isEmpty());
+        // "--=value" names no option, so it must not bind a value to config-file
+        for (final CommandLineParser parser : new CommandLineParser[] { new DefaultParser(), new PosixParser() }) {
+            assertThrows(UnrecognizedOptionException.class, () -> parser.parse(options, new String[] { "--=/etc/shadow" }));
+        }
+    }
+
+    @Test
     void testGetOptionsGroups() {
         final Options options = new Options();
 

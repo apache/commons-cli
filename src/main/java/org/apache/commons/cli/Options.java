@@ -219,6 +219,10 @@ public class Options implements Serializable {
     public List<String> getMatchingOptions(final String opt) {
         final String clean = Util.stripLeadingHyphens(opt);
         final List<String> matchingOpts = new ArrayList<>();
+        // an empty name is not a partial name, it would match every long option
+        if (Util.isEmpty(clean)) {
+            return matchingOpts;
+        }
         // for a perfect match return the single option only
         if (longOpts.containsKey(clean)) {
             return Collections.singletonList(clean);
