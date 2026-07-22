@@ -284,10 +284,12 @@ public abstract class Parser implements CommandLineParser {
             if (!cmd.hasOption(option) && !selected) {
                 // get the value from the properties instance
                 final String value = properties.getProperty(option);
-                if (opt.hasArg()) {
-                    if (opt.isValuesEmpty()) {
+                // the Options belong to the caller and outlive this parse, so hold the value on a copy
+                final Option copy = (Option) opt.clone();
+                if (copy.hasArg()) {
+                    if (copy.isValuesEmpty()) {
                         try {
-                            opt.processValue(value);
+                            copy.processValue(value);
                         } catch (final RuntimeException exp) { // NOPMD
                             // if we cannot add the value don't worry about it
                         }
@@ -297,8 +299,8 @@ public abstract class Parser implements CommandLineParser {
                     // option to the CommandLine
                     continue;
                 }
-                cmd.addOption(opt);
-                updateRequiredOptions(opt);
+                cmd.addOption(copy);
+                updateRequiredOptions(copy);
             }
         }
     }
