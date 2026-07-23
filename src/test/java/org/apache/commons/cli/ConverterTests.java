@@ -87,6 +87,13 @@ public class ConverterTests {
     }
 
     @Test
+    void testDateRejectsTrailingText() throws Exception {
+        final Date expected = new Date(1023400137000L);
+        final String formatted = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").format(expected);
+        assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply(formatted + " trailing"));
+    }
+
+    @Test
     @DefaultLocale(language = "de", country = "DE")
     void testDateLocaleDe() throws Exception {
         final Date expected = new Date(1023400137000L);

@@ -22,6 +22,7 @@ import java.net.URL;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -82,15 +83,24 @@ public interface Converter<T, E extends Exception> {
         final SimpleDateFormat format = new SimpleDateFormat(pattern);
         // reject out-of-range fields (for example "Feb 30") instead of silently rolling them over.
         format.setLenient(false);
-        try {
-            return format.parse(s);
-        } catch (final java.text.ParseException e) {
+        // SimpleDateFormat.parse(String) stops at the first character it cannot use and ignores any
+        // trailing text, so "<valid date> garbage" would be accepted. Parse from an explicit position
+        // and reject the value unless the whole string is consumed.
+        final ParsePosition pos = new ParsePosition(0);
+        Date date = format.parse(s, pos);
+        if (date == null || pos.getIndex() != s.length()) {
             // Date.toString() always emits English month/day names, so fall back to Locale.ENGLISH
             // when the default locale rejects the documented format.
             final SimpleDateFormat englishFormat = new SimpleDateFormat(pattern, Locale.ENGLISH);
             englishFormat.setLenient(false);
-            return englishFormat.parse(s);
+            final ParsePosition englishPos = new ParsePosition(0);
+            date = englishFormat.parse(s, englishPos);
+            if (date == null || englishPos.getIndex() != s.length()) {
+                final int errorIndex = englishPos.getErrorIndex() >= 0 ? englishPos.getErrorIndex() : englishPos.getIndex();
+                throw new java.text.ParseException(String.format("Unparseable date: \"%s\"", s), errorIndex);
+            }
         }
+        return date;
     };
 
     /**
