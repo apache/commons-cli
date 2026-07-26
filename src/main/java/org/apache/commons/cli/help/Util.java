@@ -54,10 +54,11 @@ final class Util {
         }
         // the line ends before the max wrap pos or a new line char found
         int idx = startPos;
-        while (idx < text.length() && isWhitespace(text.charAt(idx))) {
+        final int length = text.length();
+        while (idx < length && isWhitespace(text.charAt(idx))) {
             idx++;
         }
-        return idx < text.length() ? idx : NOT_FOUND;
+        return idx < length ? idx : NOT_FOUND;
     }
 
     /**
