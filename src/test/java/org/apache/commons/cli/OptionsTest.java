@@ -186,6 +186,7 @@ class OptionsTest {
     void testGetMatchingOptsEmptyName() throws Exception {
         final Options options = new Options();
         options.addOption(Option.builder("c").longOpt("config-file").hasArg().get());
+        assertTrue(options.getMatchingOptions(null).isEmpty());
         assertTrue(options.getMatchingOptions("").isEmpty());
         assertTrue(options.getMatchingOptions("-").isEmpty());
         assertTrue(options.getMatchingOptions("--").isEmpty());
