@@ -58,8 +58,23 @@ public class ConverterTests {
         }
     }
 
+    // Marker type a caller might validate a resolved Class against before touching it.
+    public interface Plugin {
+    }
+
+    // A Plugin whose static initializer has an observable side effect.
+    public static class PluginImpl implements Plugin {
+
+        static {
+            pluginInitializerRan = true;
+        }
+    }
+
     // Set by the static initializer of AClassWithAStaticInitializer; readable without initializing that class.
     private static boolean classInitializerRan;
+
+    // Set by the static initializer of PluginImpl; readable without initializing that class.
+    private static boolean pluginInitializerRan;
 
     private static Stream<Arguments> numberTestParameters() {
         final List<Arguments> lst = new ArrayList<>();
@@ -92,6 +107,18 @@ public class ConverterTests {
         assertEquals(AClassWithAStaticInitializer.class, cls);
         cls.getConstructor().newInstance();
         assertTrue(classInitializerRan);
+    }
+
+    @Test
+    void testClassValidatedBeforeInitialization() throws Exception {
+        // The caller pattern this enables: resolve the option, gate it with isAssignableFrom, then instantiate.
+        // The assignability check must not run the class's static initializer; only newInstance() should.
+        final Class<?> cls = Converter.CLASS.apply(PluginImpl.class.getName());
+        assertTrue(Plugin.class.isAssignableFrom(cls));
+        assertFalse(pluginInitializerRan);
+        final Object instance = cls.getConstructor().newInstance();
+        assertTrue(instance instanceof Plugin);
+        assertTrue(pluginInitializerRan);
     }
 
     @Test
