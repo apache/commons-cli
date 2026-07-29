@@ -88,17 +88,19 @@ public interface Converter<T, E extends Exception> {
         // and reject the value unless the whole string is consumed.
         final ParsePosition pos = new ParsePosition(0);
         Date date = format.parse(s, pos);
-        if (date == null || pos.getIndex() != s.length()) {
+        if (date == null) {
             // Date.toString() always emits English month/day names, so fall back to Locale.ENGLISH
-            // when the default locale rejects the documented format.
+            // when the default locale rejects the documented format. Only retry when the default
+            // locale matched nothing; a partial match is a trailing-text failure, handled below.
             final SimpleDateFormat englishFormat = new SimpleDateFormat(pattern, Locale.ENGLISH);
             englishFormat.setLenient(false);
-            final ParsePosition englishPos = new ParsePosition(0);
-            date = englishFormat.parse(s, englishPos);
-            if (date == null || englishPos.getIndex() != s.length()) {
-                final int errorIndex = englishPos.getErrorIndex() >= 0 ? englishPos.getErrorIndex() : englishPos.getIndex();
-                throw new java.text.ParseException(String.format("Unparseable date: \"%s\"", s), errorIndex);
-            }
+            pos.setIndex(0);
+            pos.setErrorIndex(-1);
+            date = englishFormat.parse(s, pos);
+        }
+        if (date == null || pos.getIndex() != s.length()) {
+            final int errorIndex = pos.getErrorIndex() >= 0 ? pos.getErrorIndex() : pos.getIndex();
+            throw new java.text.ParseException(String.format("Unparseable date: \"%s\"", s), errorIndex);
         }
         return date;
     };
