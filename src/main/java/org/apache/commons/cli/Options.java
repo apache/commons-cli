@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Main entry-point into the library.
@@ -227,12 +228,7 @@ public class Options implements Serializable {
         if (longOpts.containsKey(clean)) {
             return Collections.singletonList(clean);
         }
-        longOpts.keySet().forEach(longOpt -> {
-            if (longOpt.startsWith(clean)) {
-                matchingOpts.add(longOpt);
-            }
-        });
-        return matchingOpts;
+        return longOpts.keySet().stream().filter(s -> s.startsWith(clean)).collect(Collectors.toList());
     }
 
     /**
