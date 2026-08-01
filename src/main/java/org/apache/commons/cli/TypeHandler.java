@@ -236,6 +236,9 @@ public class TypeHandler {
                 if (!Character.isBmpCodePoint(codePoint)) {
                     throw new IllegalArgumentException("Code point U+" + Integer.toHexString(codePoint) + " does not fit in a char");
                 }
+                if (Character.isSurrogate((char) codePoint)) {
+                    throw new IllegalArgumentException("Code point U+" + Integer.toHexString(codePoint) + " is an unpaired UTF-16 surrogate");
+                }
                 return (char) codePoint;
             }
             return s.charAt(0);
