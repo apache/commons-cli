@@ -22,6 +22,7 @@ import java.net.URL;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -82,15 +83,26 @@ public interface Converter<T, E extends Exception> {
         final SimpleDateFormat format = new SimpleDateFormat(pattern);
         // reject out-of-range fields (for example "Feb 30") instead of silently rolling them over.
         format.setLenient(false);
-        try {
-            return format.parse(s);
-        } catch (final java.text.ParseException e) {
+        // SimpleDateFormat.parse(String) stops at the first character it cannot use and ignores any
+        // trailing text, so "<valid date> garbage" would be accepted. Parse from an explicit position
+        // and reject the value unless the whole string is consumed.
+        final ParsePosition pos = new ParsePosition(0);
+        Date date = format.parse(s, pos);
+        if (date == null) {
             // Date.toString() always emits English month/day names, so fall back to Locale.ENGLISH
-            // when the default locale rejects the documented format.
+            // when the default locale rejects the documented format. Only retry when the default
+            // locale matched nothing; a partial match is a trailing-text failure, handled below.
             final SimpleDateFormat englishFormat = new SimpleDateFormat(pattern, Locale.ENGLISH);
             englishFormat.setLenient(false);
-            return englishFormat.parse(s);
+            pos.setIndex(0);
+            pos.setErrorIndex(-1);
+            date = englishFormat.parse(s, pos);
         }
+        if (date == null || pos.getIndex() != s.length()) {
+            final int errorIndex = pos.getErrorIndex() >= 0 ? pos.getErrorIndex() : pos.getIndex();
+            throw new java.text.ParseException(String.format("Unparseable date: \"%s\"", s), errorIndex);
+        }
+        return date;
     };
 
     /**
