@@ -87,26 +87,6 @@ public class ConverterTests {
     }
 
     @Test
-    void testDateRejectsTrailingText() throws Exception {
-        final Date expected = new Date(1023400137000L);
-        final String formatted = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").format(expected);
-        assertEquals(expected, Converter.DATE.apply(formatted));
-        assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply(formatted + " trailing"));
-    }
-
-    @Test
-    @DefaultLocale(language = "de", country = "DE")
-    void testDateRejectsTrailingTextLocaleDe() throws Exception {
-        // Trailing text must be rejected even when a non-English default locale parses the date, and
-        // the reported error position should point past the parsed date rather than at index 0.
-        final Date expected = new Date(1023400137000L);
-        final String formatted = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").format(expected);
-        assertEquals(expected, Converter.DATE.apply(formatted));
-        final java.text.ParseException e = assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply(formatted + " trailing"));
-        assertEquals(formatted.length(), e.getErrorOffset());
-    }
-
-    @Test
     @DefaultLocale(language = "de", country = "DE")
     void testDateLocaleDe() throws Exception {
         final Date expected = new Date(1023400137000L);
@@ -130,6 +110,26 @@ public class ConverterTests {
         // out-of-range fields instead of silently returning a wrong Date.
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("Fri Feb 30 12:00:00 UTC 2024"));
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply("Mon Jan 32 00:00:00 UTC 2024"));
+    }
+
+    @Test
+    void testDateRejectsTrailingText() throws Exception {
+        final Date expected = new Date(1023400137000L);
+        final String formatted = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").format(expected);
+        assertEquals(expected, Converter.DATE.apply(formatted));
+        assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply(formatted + " trailing"));
+    }
+
+    @Test
+    @DefaultLocale(language = "de", country = "DE")
+    void testDateRejectsTrailingTextLocaleDe() throws Exception {
+        // Trailing text must be rejected even when a non-English default locale parses the date, and
+        // the reported error position should point past the parsed date rather than at index 0.
+        final Date expected = new Date(1023400137000L);
+        final String formatted = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").format(expected);
+        assertEquals(expected, Converter.DATE.apply(formatted));
+        final java.text.ParseException e = assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply(formatted + " trailing"));
+        assertEquals(formatted.length(), e.getErrorOffset());
     }
 
     @Test
