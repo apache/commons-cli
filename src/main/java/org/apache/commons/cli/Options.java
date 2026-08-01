@@ -212,7 +212,7 @@ public class Options implements Serializable {
     /**
      * Gets the options with a long name starting with the name specified.
      *
-     * @param opt The partial name of the option, or {@code null}.
+     * @param opt The partial name of the option, may be {@code null}.
      * @return The options matching the partial name specified, or an empty list if none matches or the name is null or empty.
      * @since 1.3
      */
