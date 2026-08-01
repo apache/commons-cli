@@ -90,6 +90,7 @@ public class ConverterTests {
     void testDateRejectsTrailingText() throws Exception {
         final Date expected = new Date(1023400137000L);
         final String formatted = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").format(expected);
+        assertEquals(expected, Converter.DATE.apply(formatted));
         assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply(formatted + " trailing"));
     }
 
@@ -100,6 +101,7 @@ public class ConverterTests {
         // the reported error position should point past the parsed date rather than at index 0.
         final Date expected = new Date(1023400137000L);
         final String formatted = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").format(expected);
+        assertEquals(expected, Converter.DATE.apply(formatted));
         final java.text.ParseException e = assertThrows(java.text.ParseException.class, () -> Converter.DATE.apply(formatted + " trailing"));
         assertEquals(formatted.length(), e.getErrorOffset());
     }
