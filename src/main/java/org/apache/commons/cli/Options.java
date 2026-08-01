@@ -212,13 +212,17 @@ public class Options implements Serializable {
     /**
      * Gets the options with a long name starting with the name specified.
      *
-     * @param opt The partial name of the option.
-     * @return The options matching the partial name specified, or an empty list if none matches.
+     * @param opt The partial name of the option, may be {@code null}.
+     * @return The options matching the partial name specified, or an empty list if none matches or the name is null or empty.
      * @since 1.3
      */
     public List<String> getMatchingOptions(final String opt) {
         final String clean = Util.stripLeadingHyphens(opt);
         final List<String> matchingOpts = new ArrayList<>();
+        // a null or empty name is not a partial name; empty would match every long option
+        if (Util.isEmpty(clean)) {
+            return matchingOpts;
+        }
         // for a perfect match return the single option only
         if (longOpts.containsKey(clean)) {
             return Collections.singletonList(clean);
