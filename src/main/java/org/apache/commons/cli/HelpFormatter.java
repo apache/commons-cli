@@ -418,7 +418,7 @@ public class HelpFormatter {
      * @param leftPad The number of characters of padding to be prefixed to each line
      * @param descPad The number of characters of padding to be prefixed to each description line
      * @return The StringBuffer with the rendered Options contents.
-     * @throws IOException if an I/O error occurs.
+     * @throws IOException Thrown if an I/O error occurs.
      */
     <A extends Appendable> A appendOptions(final A sb, final int width, final Options options, final int leftPad, final int descPad) throws IOException {
         final String lpad = createPadding(leftPad);
@@ -502,7 +502,7 @@ public class HelpFormatter {
      * @param nextLineTabStop The position on the next line for the first tab.
      * @param text The text to be rendered.
      * @return The StringBuffer with the rendered Options contents.
-     * @throws IOException if an I/O error occurs.
+     * @throws IOException Thrown if an I/O error occurs.
      */
     <A extends Appendable> A appendWrappedText(final A appendable, final int width, final int nextLineTabStop, final String text) throws IOException {
         if (width <= 0) {
