@@ -76,19 +76,22 @@ public class TextHelpAppendable extends FilterHelpAppendable {
         if (width < 1) {
             throw new IllegalArgumentException("Width must be greater than 0");
         }
+        // width can be Integer.MAX_VALUE (TextStyle.UNSET_MAX_WIDTH), so keep the wrap boundary in a long;
+        // startPos + width as an int overflows to a negative value and yields a negative wrap index.
+        final long end = (long) startPos + width;
         // handle case of width > text.
         // the line ends before the max wrap pos or a new line char found
-        int limit = Math.min(startPos + width, text.length());
+        int limit = (int) Math.min(end, text.length());
         for (int idx = startPos; idx < limit; idx++) {
             if (BREAK_CHAR_SET.contains(text.charAt(idx))) {
                 return idx;
             }
         }
-        if (startPos + width >= text.length()) {
+        if (end >= text.length()) {
             return text.length();
         }
 
-        limit = Math.min(startPos + width, text.length() - 1);
+        limit = (int) Math.min(end, text.length() - 1);
         int pos;
         // look for the last whitespace character before limit
         for (pos = limit; pos >= startPos; --pos) {
