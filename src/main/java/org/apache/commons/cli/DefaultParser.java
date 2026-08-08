@@ -35,15 +35,11 @@ import org.apache.commons.cli.help.OptionFormatter;
 public class DefaultParser implements CommandLineParser {
 
     /**
-     * A nested builder class to create {@code DefaultParser} instances
-     * using descriptive methods.
+     * A nested builder class to create {@code DefaultParser} instances using descriptive methods. Example usage:
      *
-     * Example usage:
      * <pre>
-     * DefaultParser parser = Option.builder()
-     *     .setAllowPartialMatching(false)
-     *     .setStripLeadingAndTrailingQuotes(false)
-     *     .build();
+     *
+     * DefaultParser parser = Option.builder().setAllowPartialMatching(false).setStripLeadingAndTrailingQuotes(false).build();
      * </pre>
      *
      * @since 1.5.0
@@ -110,7 +106,7 @@ public class DefaultParser implements CommandLineParser {
          * }</pre>
          * <p>
          * If "partial matching" is turned on, {@code -de} only matches the {@code "debug"} option. However, with "partial matching" disabled, {@code -de} would
-         * enable both {@code debug} as well as {@code extract}
+         * enable both {@code debug} as well as {@code extract}.
          * </p>
          *
          * @param allowPartialMatching whether to allow partial matching of long options.
@@ -136,7 +132,6 @@ public class DefaultParser implements CommandLineParser {
 
         /**
          * Sets if balanced leading and trailing double quotes should be stripped from option arguments.
-         *
          * <p>
          * If "stripping of balanced leading and trailing double quotes from option arguments" is true, the outermost balanced double quotes of option arguments
          * values will be removed. For example, {@code -o '"x"'} getValue() will return {@code x}, instead of {@code "x"}
@@ -167,28 +162,22 @@ public class DefaultParser implements CommandLineParser {
          * Parsing continues and current token is ignored.
          */
         IGNORE,
-
         /**
          * Parsing continues and current token is added to command line arguments.
          */
         SKIP,
-
         /**
-         * Parsing will stop and remaining tokens are added to command line arguments.
-         * Equivalent of {@code stopAtNonOption = true}.
+         * Parsing will stop and remaining tokens are added to command line arguments. Equivalent of {@code stopAtNonOption = true}.
          */
         STOP,
-
         /**
-         * Parsing will abort and exception is thrown.
-         * Equivalent of {@code stopAtNonOption = false}.
+         * Parsing will abort and exception is thrown. Equivalent of {@code stopAtNonOption = false}.
          */
         THROW;
     }
 
     /**
-     * Creates a new {@link Builder} to create an {@link DefaultParser} using descriptive
-     * methods.
+     * Creates a new {@link Builder} to create an {@link DefaultParser} using descriptive methods.
      *
      * @return A new {@link Builder} instance
      * @since 1.5.0
@@ -208,8 +197,8 @@ public class DefaultParser implements CommandLineParser {
     protected Options options;
 
     /**
-     * Flag indicating how unrecognized tokens are handled. {@code true} to stop the parsing and add the remaining
-     * tokens to the args list. {@code false} to throw an exception.
+     * Flag indicating how unrecognized tokens are handled. {@code true} to stop the parsing and add the remaining tokens to the args list. {@code false} to
+     * throw an exception.
      *
      * @deprecated Use {@link #nonOptionAction} instead. This field is unused, and left for binary compatibility reasons.
      */
@@ -240,8 +229,9 @@ public class DefaultParser implements CommandLineParser {
     /** Flag indicating if partial matching of long options is supported. */
     private final boolean allowPartialMatching;
 
-    /** Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments.
-     * null represents the historic arbitrary behavior */
+    /**
+     * Flag indicating if balanced leading and trailing double quotes should be stripped from option arguments. null represents the historic arbitrary behavior
+     */
     private final Boolean stripLeadingAndTrailingQuotes;
 
     /**
@@ -266,9 +256,8 @@ public class DefaultParser implements CommandLineParser {
      * }
      * </pre>
      *
-     * with "partial matching" turned on, {@code -de} only matches the {@code "debug"} option. However, with
-     * "partial matching" disabled, {@code -de} would enable both {@code debug} as well as {@code extract}
-     * options.
+     * with "partial matching" turned on, {@code -de} only matches the {@code "debug"} option. However, with "partial matching" disabled, {@code -de} would
+     * enable both {@code debug} as well as {@code extract} options.
      */
     public DefaultParser() {
         this.allowPartialMatching = true;
@@ -281,20 +270,20 @@ public class DefaultParser implements CommandLineParser {
      * <p>
      * By "partial matching" we mean that given the following code:
      * </p>
+     *
      * <pre>{@code
-     *     final Options options = new Options();
-     *     options.addOption(new Option("d", "debug", false, "Turn on debug."));
-     *     options.addOption(new Option("e", "extract", false, "Turn on extract."));
-     *     options.addOption(new Option("o", "option", true, "Turn on option with argument."));
+     * final Options options = new Options();
+     * options.addOption(new Option("d", "debug", false, "Turn on debug."));
+     * options.addOption(new Option("e", "extract", false, "Turn on extract."));
+     * options.addOption(new Option("o", "option", true, "Turn on option with argument."));
      * }
      * </pre>
      * <p>
-     * with "partial matching" turned on, {@code -de} only matches the {@code "debug"} option. However, with
-     * "partial matching" disabled, {@code -de} would enable both {@code debug} as well as {@code extract}
-     * options.
+     * with "partial matching" turned on, {@code -de} only matches the {@code "debug"} option. However, with "partial matching" disabled, {@code -de} would
+     * enable both {@code debug} as well as {@code extract} options.
      * </p>
      *
-     * @param allowPartialMatching if partial matching of long options shall be enabled
+     * @param allowPartialMatching if partial matching of long options shall be enabled.
      */
     public DefaultParser(final boolean allowPartialMatching) {
         this.allowPartialMatching = allowPartialMatching;
@@ -303,11 +292,10 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Creates a new DefaultParser instance with the specified partial matching and quote
-     * stripping policy.
+     * Creates a new DefaultParser instance with the specified partial matching and quote stripping policy.
      *
-     * @param allowPartialMatching if partial matching of long options shall be enabled
-     * @param stripLeadingAndTrailingQuotes if balanced outer double quoutes should be stripped
+     * @param allowPartialMatching          if partial matching of long options shall be enabled.
+     * @param stripLeadingAndTrailingQuotes if balanced outer double quoutes should be stripped.
      */
     private DefaultParser(final boolean allowPartialMatching, final Boolean stripLeadingAndTrailingQuotes, final Consumer<Option> deprecatedHandler) {
         this.allowPartialMatching = allowPartialMatching;
@@ -352,7 +340,7 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Searches for a prefix that is the long name of an option (-Xmx512m).
      *
-     * @param token
+     * @param token The command line token to test.
      */
     private String getLongPrefix(final String token) {
         final String t = Util.stripLeadingHyphens(token);
@@ -387,19 +375,16 @@ public class DefaultParser implements CommandLineParser {
 
     /**
      * Breaks {@code token} into its constituent parts using the following algorithm.
-     *
      * <ul>
      * <li>ignore the first character ("<strong>-</strong>")</li>
      * <li>for each remaining character check if an {@link Option} exists with that id.</li>
-     * <li>if an {@link Option} does exist then add that character prepended with "<strong>-</strong>" to the list of processed
-     * tokens.</li>
-     * <li>if the {@link Option} can have an argument value and there are remaining characters in the token then add the
-     * remaining characters as a token to the list of processed tokens.</li>
-     * <li>if an {@link Option} does <strong>NOT</strong> exist <strong>AND</strong> {@code stopAtNonOption} <strong>IS</strong> set then add the
-     * special token "<strong>--</strong>" followed by the remaining characters and also the remaining tokens directly to the
-     * processed tokens list.</li>
-     * <li>if an {@link Option} does <strong>NOT</strong> exist <strong>AND</strong> {@code stopAtNonOption} <strong>IS NOT</strong> set then add
-     * that character prepended with "<strong>-</strong>".</li>
+     * <li>if an {@link Option} does exist then add that character prepended with "<strong>-</strong>" to the list of processed tokens.</li>
+     * <li>if the {@link Option} can have an argument value and there are remaining characters in the token then add the remaining characters as a token to the
+     * list of processed tokens.</li>
+     * <li>if an {@link Option} does <strong>NOT</strong> exist <strong>AND</strong> {@code stopAtNonOption} <strong>IS</strong> set then add the special token
+     * "<strong>--</strong>" followed by the remaining characters and also the remaining tokens directly to the processed tokens list.</li>
+     * <li>if an {@link Option} does <strong>NOT</strong> exist <strong>AND</strong> {@code stopAtNonOption} <strong>IS NOT</strong> set then add that character
+     * prepended with "<strong>-</strong>".</li>
      * </ul>
      *
      * @param token The current token to be <strong>burst</strong> at the first non-Option encountered.
@@ -423,6 +408,7 @@ public class DefaultParser implements CommandLineParser {
 
     /**
      * Handles the following tokens:
+     *
      * <pre>
      * --L --L=V --L V --l
      * </pre>
@@ -439,6 +425,7 @@ public class DefaultParser implements CommandLineParser {
 
     /**
      * Handles the following tokens:
+     *
      * <pre>
      * --L=V -L=V --l=V -l=V
      * </pre>
@@ -518,7 +505,6 @@ public class DefaultParser implements CommandLineParser {
             if (!cmd.hasOption(option) && !selected) {
                 // get the value from the properties
                 final String value = properties.getProperty(option);
-
                 if (opt.hasArg()) {
                     if (opt.isValuesEmpty()) {
                         opt.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
@@ -535,6 +521,7 @@ public class DefaultParser implements CommandLineParser {
 
     /**
      * Handles the following tokens:
+     *
      * <pre>
      * -S -SV -S V -S=V -S1S2 -S1S2 V -SV1=V2
      *
@@ -563,7 +550,6 @@ public class DefaultParser implements CommandLineParser {
             } else {
                 // look for a long prefix (-Xmx512m)
                 final String opt = getLongPrefix(token);
-
                 if (opt != null && options.getOption(opt).acceptsArg()) {
                     handleOption(options.getOption(opt));
                     currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(token.substring(opt.length())));
@@ -582,7 +568,6 @@ public class DefaultParser implements CommandLineParser {
             // equal sign found (-xxx=yyy)
             final String opt = token.substring(0, pos);
             final String value = token.substring(pos + 1);
-
             if (opt.length() == 1) {
                 // -S=V
                 final Option option = options.getOption(opt);
@@ -635,9 +620,8 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Handles an unknown token. If the token starts with a dash an UnrecognizedOptionException is thrown. Otherwise the
-     * token is added to the arguments of the command line. If the stopAtNonOption flag is set, this stops the parsing and
-     * the remaining tokens are added as-is in the arguments of the command line.
+     * Handles an unknown token. If the token starts with a dash an UnrecognizedOptionException is thrown. Otherwise the token is added to the arguments of the
+     * command line. If the stopAtNonOption flag is set, this stops the parsing and the remaining tokens are added as-is in the arguments of the command line.
      *
      * @param token The command line token to handle.
      * @throws ParseException if parsing should fail.
@@ -659,7 +643,7 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Tests if the token is a valid argument.
      *
-     * @param token
+     * @param token The command line token to test.
      */
     private boolean isArgument(final String token) {
         return !isOption(token) || isNegativeNumber(token);
@@ -667,6 +651,8 @@ public class DefaultParser implements CommandLineParser {
 
     /**
      * Tests if the specified token is a Java-like property (-Dkey=value).
+     *
+     * @param token The command line token to test.
      */
     private boolean isJavaProperty(final String token) {
         final String opt = token.isEmpty() ? null : token.substring(0, 1);
@@ -677,7 +663,7 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Tests if the token looks like a long option.
      *
-     * @param token
+     * @param token The command line token to test.
      */
     private boolean isLongOption(final String token) {
         if (token == null || !token.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX) || token.length() == 1) {
@@ -699,7 +685,7 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Tests if the token is a negative number.
      *
-     * @param token
+     * @param token The command line token to test.
      */
     private boolean isNegativeNumber(final String token) {
         try {
@@ -713,7 +699,7 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Tests if the token looks like an option.
      *
-     * @param token
+     * @param token The command line token to test.
      */
     private boolean isOption(final String token) {
         return isLongOption(token) || isShortOption(token);
@@ -722,7 +708,7 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Tests if the token looks like a short option.
      *
-     * @param token
+     * @param token The command line token to test.
      */
     private boolean isShortOption(final String token) {
         // short options (-S, -SV, -S=V, -SV1=V2, -S1S2)
@@ -742,11 +728,10 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Parses the arguments according to the specified options and properties.
      *
-     * @param options The specified Options
-     * @param properties command line option name-value pairs
+     * @param options         The specified Options.
+     * @param properties      command line option name-value pairs.
      * @param nonOptionAction see {@link NonOptionAction}.
-     * @param arguments The command line arguments
-     *
+     * @param arguments       The command line arguments.
      * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      * @since 1.10.0
@@ -782,6 +767,14 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
+     * Parses the arguments according to the specified options and properties.
+     *
+     * @param options         The specified Options.
+     * @param arguments       The command line arguments.
+     * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments are added to the {@link CommandLine}s args
+     *                        list. If {@code false} an unrecognized argument triggers a ParseException.
+     * @return The list of atomic option and value tokens.
+     * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      * @see #parse(Options, Properties, NonOptionAction, String[])
      */
     @Override
@@ -792,8 +785,8 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Parses the arguments according to the specified options and properties.
      *
-     * @param options The specified Options.
-     * @param arguments The command line arguments.
+     * @param options    The specified Options.
+     * @param arguments  The command line arguments.
      * @param properties command line option name-value pairs.
      * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
@@ -805,24 +798,22 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Parses the arguments according to the specified options and properties.
      *
-     * @param options The specified Options.
-     * @param arguments The command line arguments.
-     * @param properties command line option name-value pairs.
-     * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments
-     *        are added to the {@link CommandLine}s args list. If {@code false} an unrecognized argument triggers a
-     *        ParseException.
+     * @param options         The specified Options.
+     * @param arguments       The command line arguments.
+     * @param properties      command line option name-value pairs.
+     * @param stopAtNonOption if {@code true} an unrecognized argument stops the parsing and the remaining arguments are added to the {@link CommandLine}s args
+     *                        list. If {@code false} an unrecognized argument triggers a ParseException.
      * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
      * @see #parse(Options, Properties, NonOptionAction, String[])
      */
     public CommandLine parse(final Options options, final String[] arguments, final Properties properties, final boolean stopAtNonOption)
-        throws ParseException {
+            throws ParseException {
         return parse(options, properties, stopAtNonOption ? NonOptionAction.STOP : NonOptionAction.THROW, arguments);
     }
 
     /**
-     * Strips balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
-     * If stripLeadingAndTrailingQuotes is null, then do not strip
+     * Strips balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set If stripLeadingAndTrailingQuotes is null, then do not strip
      *
      * @param token A string.
      * @return token with the quotes stripped (if set).
@@ -835,8 +826,7 @@ public class DefaultParser implements CommandLineParser {
     }
 
     /**
-     * Strips balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set
-     * If stripLeadingAndTrailingQuotes is null, then do not strip
+     * Strips balanced leading and trailing quotes if the stripLeadingAndTrailingQuotes is set If stripLeadingAndTrailingQuotes is null, then do not strip
      *
      * @param token A string.
      * @return token with the quotes stripped (if set).
@@ -851,7 +841,7 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Removes the option or its group from the list of expected elements.
      *
-     * @param option
+     * @param option The option to remove from the list of expected elements.
      */
     private void updateRequiredOptions(final Option option) throws AlreadySelectedException {
         if (option.isRequired()) {
