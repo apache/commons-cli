@@ -33,6 +33,7 @@
       <action type="fix" dev="ggregory" due-to="Digiscrypt Technologies, Gary Gregory">Reject invalid dates in Converter.DATE (#430).</action>
       <action type="fix" dev="ggregory" due-to="farkhalit rida, Gary Gregory">Reject an empty option name in getMatchingOptions (#434).</action>
       <action type="fix" dev="ggregory" due-to="farkhalit rida, Gary Gregory">Reject trailing text after the date in Converter.DATE (#435).</action>
+      <action type="fix" dev="ggregory" due-to="Naveed Khan, Gary Gregory">Fix integer overflow in TextHelpAppendable.indexOfWrap (#437).</action>
       <!-- ADD -->
       <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 91 to 103 #414, #416.</action>
