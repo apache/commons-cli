@@ -135,6 +135,8 @@ class TypeHandlerTest {
         list.add(Arguments.of("5.5", Character.class, '5'));
         list.add(Arguments.of("\\u0124", Character.class, Character.toChars(0x0124)[0]));
         list.add(Arguments.of("\\u1F600", Character.class, ParseException.class));
+        list.add(Arguments.of("\\uD800", Character.class, ParseException.class));
+        list.add(Arguments.of("\\uDFFF", Character.class, ParseException.class));
 
         list.add(Arguments.of("just-a-string", Double.class, ParseException.class));
         list.add(Arguments.of("5", Double.class, 5d));
