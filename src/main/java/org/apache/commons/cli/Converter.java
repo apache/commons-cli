@@ -44,7 +44,7 @@ public interface Converter<T, E extends Exception> {
 
     /**
      * Converts a String to a {@link Class}. Calls {@link Class#forName(String, boolean, ClassLoader)} with {@code initialize} set to {@code false} so that
-     * naming a class does not run its static initializer.
+     * resolving the name does not by itself trigger the class's static initializer.
      */
     Converter<Class<?>, ClassNotFoundException> CLASS = s -> Class.forName(s, false, Converter.class.getClassLoader());
 
