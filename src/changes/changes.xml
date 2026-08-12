@@ -34,6 +34,7 @@
       <action type="fix" dev="ggregory" due-to="farkhalit rida, Gary Gregory">Reject an empty option name in getMatchingOptions (#434).</action>
       <action type="fix" dev="ggregory" due-to="farkhalit rida, Gary Gregory">Reject trailing text after the date in Converter.DATE (#435).</action>
       <action type="fix" dev="ggregory" due-to="Naveed Khan, Gary Gregory">Fix integer overflow in TextHelpAppendable.indexOfWrap (#437).</action>
+      <action type="fix" dev="ggregory" due-to="Naveed Khan, Gary Gregory">Reject UTF-16 surrogate values in Character converter (#438).</action>
       <!-- ADD -->
       <action type="fix" dev="ggregory" due-to="Elric, Gary Gregory">Add AbstractHelpFormatter.printHelp(String, Options).</action>
       <!-- UPDATE -->
