@@ -70,11 +70,22 @@ public class ConverterTests {
         }
     }
 
+    // A Plugin used by the end-to-end public-API test; kept separate so it is not initialized by another test first.
+    public static class ApiPluginImpl implements Plugin {
+
+        static {
+            apiPluginInitializerRan = true;
+        }
+    }
+
     // Set by the static initializer of AClassWithAStaticInitializer; readable without initializing that class.
     private static boolean classInitializerRan;
 
     // Set by the static initializer of PluginImpl; readable without initializing that class.
     private static boolean pluginInitializerRan;
+
+    // Set by the static initializer of ApiPluginImpl; readable without initializing that class.
+    private static boolean apiPluginInitializerRan;
 
     private static Stream<Arguments> numberTestParameters() {
         final List<Arguments> lst = new ArrayList<>();
@@ -119,6 +130,24 @@ public class ConverterTests {
         final Object instance = cls.getConstructor().newInstance();
         assertTrue(instance instanceof Plugin);
         assertTrue(pluginInitializerRan);
+    }
+
+    @Test
+    void testClassNotInitializedThroughPublicApi() throws Exception {
+        // What an application using the public API actually does: declare a Class-typed option via a pattern,
+        // parse argv, query the value, then gate it. Parsing and querying must not run the named class's
+        // static initializer; only the application deciding to instantiate it should.
+        final Options options = PatternOptionBuilder.parsePattern("c+");
+        final CommandLine line = new DefaultParser().parse(options, new String[] {"-c", ApiPluginImpl.class.getName()});
+        final Class<?> cls = line.getParsedOptionValue("c");
+        assertEquals(ApiPluginImpl.class, cls);
+        // The isAssignableFrom gate a caller uses to reject non-plugins runs without initializing the class.
+        assertTrue(Plugin.class.isAssignableFrom(cls));
+        assertFalse(apiPluginInitializerRan);
+        // Only when the application instantiates the class does its static initializer run.
+        final Object instance = cls.getConstructor().newInstance();
+        assertTrue(instance instanceof Plugin);
+        assertTrue(apiPluginInitializerRan);
     }
 
     @Test
