@@ -38,7 +38,7 @@
       <!-- ADD -->
       <action type="fix" dev="ggregory" due-to="Elric, Gary Gregory">Add AbstractHelpFormatter.printHelp(String, Options).</action>
       <!-- UPDATE -->
-      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 91 to 103 #414, #416.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump org.apache.commons:commons-parent from 91 to 104 #414, #416.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">[test] Bump org.apache.commons:commons-text from 1.14.0 to 1.15.0.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-io:commons-io from 2.21.0 to 2.22.0.</action>
     </release>
