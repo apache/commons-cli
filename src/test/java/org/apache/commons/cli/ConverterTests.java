@@ -18,8 +18,10 @@
 package org.apache.commons.cli;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.URL;
 import java.text.DateFormat;
@@ -41,12 +43,49 @@ import org.junitpioneer.jupiter.DefaultLocale;
  */
 public class ConverterTests {
 
+    // A class whose static initializer has an observable side effect.
+    public static class AClassWithAStaticInitializer {
+
+        static {
+            classInitializerRan = true;
+        }
+    }
+
     // A class without a default constructor.
     public class AClassWithoutADefaultConstructor {
 
         public AClassWithoutADefaultConstructor(final int i) {
         }
     }
+
+    // Marker type a caller might validate a resolved Class against before touching it.
+    public interface Plugin {
+    }
+
+    // A Plugin whose static initializer has an observable side effect.
+    public static class PluginImpl implements Plugin {
+
+        static {
+            pluginInitializerRan = true;
+        }
+    }
+
+    // A Plugin used by the end-to-end public-API test; kept separate so it is not initialized by another test first.
+    public static class ApiPluginImpl implements Plugin {
+
+        static {
+            apiPluginInitializerRan = true;
+        }
+    }
+
+    // Set by the static initializer of AClassWithAStaticInitializer; readable without initializing that class.
+    private static boolean classInitializerRan;
+
+    // Set by the static initializer of PluginImpl; readable without initializing that class.
+    private static boolean pluginInitializerRan;
+
+    // Set by the static initializer of ApiPluginImpl; readable without initializing that class.
+    private static boolean apiPluginInitializerRan;
 
     private static Stream<Arguments> numberTestParameters() {
         final List<Arguments> lst = new ArrayList<>();
@@ -70,6 +109,45 @@ public class ConverterTests {
         assertNotNull(Converter.CLASS.apply(this.getClass().getTypeName()), this.getClass().getTypeName());
         assertThrows(ClassNotFoundException.class, () -> Converter.CLASS.apply("foo.bar"));
         assertNotNull(Converter.CLASS.apply(AClassWithoutADefaultConstructor.class.getName()));
+    }
+
+    @Test
+    void testClassDoesNotInitialize() throws Exception {
+        final Class<?> cls = Converter.CLASS.apply(AClassWithAStaticInitializer.class.getName());
+        assertFalse(classInitializerRan);
+        assertEquals(AClassWithAStaticInitializer.class, cls);
+        cls.getConstructor().newInstance();
+        assertTrue(classInitializerRan);
+    }
+
+    @Test
+    void testClassValidatedBeforeInitialization() throws Exception {
+        // The caller pattern this enables: resolve the option, gate it with isAssignableFrom, then instantiate.
+        // The assignability check must not run the class's static initializer; only newInstance() should.
+        final Class<?> cls = Converter.CLASS.apply(PluginImpl.class.getName());
+        assertTrue(Plugin.class.isAssignableFrom(cls));
+        assertFalse(pluginInitializerRan);
+        final Object instance = cls.getConstructor().newInstance();
+        assertTrue(instance instanceof Plugin);
+        assertTrue(pluginInitializerRan);
+    }
+
+    @Test
+    void testClassNotInitializedThroughPublicApi() throws Exception {
+        // What an application using the public API actually does: declare a Class-typed option via a pattern,
+        // parse argv, query the value, then gate it. Parsing and querying must not run the named class's
+        // static initializer; only the application deciding to instantiate it should.
+        final Options options = PatternOptionBuilder.parsePattern("c+");
+        final CommandLine line = new DefaultParser().parse(options, new String[] {"-c", ApiPluginImpl.class.getName()});
+        final Class<?> cls = line.getParsedOptionValue("c");
+        assertEquals(ApiPluginImpl.class, cls);
+        // The isAssignableFrom gate a caller uses to reject non-plugins runs without initializing the class.
+        assertTrue(Plugin.class.isAssignableFrom(cls));
+        assertFalse(apiPluginInitializerRan);
+        // Only when the application instantiates the class does its static initializer run.
+        final Object instance = cls.getConstructor().newInstance();
+        assertTrue(instance instanceof Plugin);
+        assertTrue(apiPluginInitializerRan);
     }
 
     @Test
