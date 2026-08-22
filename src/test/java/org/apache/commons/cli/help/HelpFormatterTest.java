@@ -340,6 +340,39 @@ class HelpFormatterTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Continuation description lines must share the same indent.
+     *
+     * @see <a href="https://issues.apache.org/jira/browse/CLI-354">[CLI-354] HelpFormatter: Description indentation is incorrect</a>
+     */
+    @Test
+    void testPrintHelpWrappedDescriptionIndent() throws IOException {
+        final StringBuilder sb = new StringBuilder();
+        final TextHelpAppendable serializer = new TextHelpAppendable(sb);
+        final HelpFormatter formatter = HelpFormatter.builder().setHelpAppendable(serializer).setShowSince(false).get();
+        final String description = "an argument passed to the remote command. The value will be wrapped in double quotes "
+                + "and appended to the command-line. This option can be added multiple times.";
+        final Options options = new Options().addOption(Option.builder("V").longOpt("argument-value").hasArg().desc(description).get());
+
+        final List<String> expected = new ArrayList<>();
+        expected.add(" usage:  cs [-V <arg>]");
+        expected.add("");
+        expected.add(" header");
+        expected.add("");
+        expected.add("          Options                               Description                ");
+        expected.add(" -V, --argument-value <arg>     an argument passed to the remote command.  ");
+        expected.add("                                 The value will be wrapped in double quotes");
+        expected.add("                                 and appended to the command-line. This    ");
+        expected.add("                                 option can be added multiple times.       ");
+        expected.add("");
+        expected.add(" footer");
+        expected.add("");
+
+        formatter.printHelp("cs", "header", options, "footer", true);
+        final List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+    }
+
     @Test
     void testSetOptionFormatBuilderTest() {
         final HelpFormatter.Builder underTest = HelpFormatter.builder();
