@@ -527,6 +527,23 @@ class HelpFormatterTest {
     }
 
     @Test
+    void testPrintHelpWithSinceShortOptions() {
+        // the option column is narrower than the "Options" header
+        final String[] expected = {"usage: Command syntax", "Header", "Options  Since   Description", "  -n     -          Description for n",
+                "  -W     1.19.0     Descripton for W", "footer"};
+        final Options options = new Options()
+                .addOption(Option.builder("W").since("1.19.0").desc("Descripton for W").get())
+                .addOption(Option.builder("n").desc("Description for n").get());
+
+        final HelpFormatter formatter = HelpFormatter.builder().setShowSince(true).get();
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(baos))) {
+            formatter.printHelp(pw, 80, "Command syntax", "Header", options, 2, 5, "footer", false);
+        }
+        assertArrayEquals(expected, baos.toString().split(System.lineSeparator()));
+    }
+
+    @Test
     void testPrintOptionGroupUsage() {
         final OptionGroup optionGroup = new OptionGroup();
         optionGroup.addOption(Option.builder("a").get());
