@@ -509,12 +509,11 @@ public class DefaultParser implements CommandLineParser {
                     // if the value is not yes, true or 1 then don't add the option to the CommandLine
                     continue;
                 }
-                // the Options belong to the caller and outlive this parse, so hold the value on a copy
-                final Option copy = (Option) opt.clone();
-                if (copy.hasArg() && copy.isValuesEmpty()) {
-                    copy.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
+                handleOption(opt);
+                // the Options belong to the caller and outlive this parse, so hold the value on the copy made by handleOption
+                if (currentOption != null && currentOption.isValuesEmpty()) {
+                    currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
                 }
-                handleOption(copy);
                 currentOption = null;
             }
         }
