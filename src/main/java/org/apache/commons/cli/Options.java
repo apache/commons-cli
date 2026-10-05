@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Main entry-point into the library.
@@ -212,23 +213,22 @@ public class Options implements Serializable {
     /**
      * Gets the options with a long name starting with the name specified.
      *
-     * @param opt The partial name of the option.
-     * @return The options matching the partial name specified, or an empty list if none matches.
+     * @param opt The partial name of the option, may be {@code null}.
+     * @return A list of matching long option names, or an empty list if no matches were found.
      * @since 1.3
      */
     public List<String> getMatchingOptions(final String opt) {
         final String clean = Util.stripLeadingHyphens(opt);
         final List<String> matchingOpts = new ArrayList<>();
+        // a null or empty name is not a partial name; empty would match every long option
+        if (Util.isEmpty(clean)) {
+            return matchingOpts;
+        }
         // for a perfect match return the single option only
         if (longOpts.containsKey(clean)) {
             return Collections.singletonList(clean);
         }
-        longOpts.keySet().forEach(longOpt -> {
-            if (longOpt.startsWith(clean)) {
-                matchingOpts.add(longOpt);
-            }
-        });
-        return matchingOpts;
+        return longOpts.keySet().stream().filter(s -> s.startsWith(clean)).collect(Collectors.toList());
     }
 
     /**

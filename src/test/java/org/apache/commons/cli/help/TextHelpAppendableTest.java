@@ -280,6 +280,10 @@ final class TextHelpAppendableTest {
 
         assertThrows(IllegalArgumentException.class, () -> TextHelpAppendable.indexOfWrap("", 0, 0));
         assertEquals(3, TextHelpAppendable.indexOfWrap("Hello", 4, 0));
+
+        // startPos + width must not overflow when width is TextStyle.UNSET_MAX_WIDTH
+        assertEquals(30, TextHelpAppendable.indexOfWrap(testString, TextStyle.UNSET_MAX_WIDTH, 0), "did not find break character with unbounded width");
+        assertEquals(testString.length(), TextHelpAppendable.indexOfWrap(testString, TextStyle.UNSET_MAX_WIDTH, 31), "overflow produced a negative wrap index");
     }
 
     @ParameterizedTest

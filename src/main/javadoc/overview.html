@@ -172,8 +172,8 @@ options.addOption("t", false, "display current time");
           of the <code>CommandLineParser</code> interface, the recommended one is the
           <code>DefaultParser</code>.
         </p>
-        <code>CommandLineParser parser = new DefaultParser();
-CommandLine cmd = parser.parse(options, args);</code>
+        <pre><code>CommandLineParser parser = new DefaultParser();
+CommandLine cmd = parser.parse(options, args);</code></pre>
         <p>
           Now we need to check if the <code>t</code> option is present.  To do
           this we will interrogate the 
@@ -183,7 +183,7 @@ CommandLine cmd = parser.parse(options, args);</code>
           represented by the <code>java.lang.String</code> is present, otherwise 
           it returns <code>false</code>.
         </p>
-        <pre><code>if(cmd.hasOption("t")) {
+        <pre><code>if (cmd.hasOption("t")) {
     // print the date and time
 } else {
     // print the date
@@ -232,7 +232,7 @@ options.addOption("c", true, "country code");</code></pre>
         <pre><code>// get c option value
 String countryCode = cmd.getOptionValue("c");
 
-if(countryCode == null) {
+if (countryCode == null) {
     // print default date
 } else {
     // print date for country specified by countryCode

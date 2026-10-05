@@ -369,7 +369,7 @@ public final class TextStyle {
                 rest = "";
             } else {
                 int restLen = maxWidth - text.length();
-                if (addIndent && restLen > indent) {
+                if (addIndent && restLen >= indent) {
                     indentPad = Util.repeatSpace(indent);
                     restLen -= indent;
                 } else {

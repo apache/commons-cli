@@ -71,6 +71,17 @@ class TextStyleTest {
         builder.setAlignment(TextStyle.Alignment.CENTER);
         lst.add(Arguments.of(builder.get(), "    Hello world     ", "    Hello world     "));
 
+        // width equal to text length + indent applies indent on continuation lines
+        builder.setMaxWidth(16);
+        builder.setAlignment(TextStyle.Alignment.LEFT);
+        lst.add(Arguments.of(builder.get(), "Hello world     ", "     Hello world"));
+
+        builder.setAlignment(TextStyle.Alignment.RIGHT);
+        lst.add(Arguments.of(builder.get(), "     Hello world", "     Hello world"));
+
+        builder.setAlignment(TextStyle.Alignment.CENTER);
+        lst.add(Arguments.of(builder.get(), "  Hello world   ", "  Hello world   "));
+
         // width greater than text length and less than text length + indent creates result of text length + pad
         builder.setMaxWidth(14);
         builder.setAlignment(TextStyle.Alignment.LEFT);
