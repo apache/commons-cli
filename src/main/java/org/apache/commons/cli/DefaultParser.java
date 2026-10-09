@@ -568,8 +568,10 @@ public class DefaultParser implements CommandLineParser {
             // equal sign found (-xxx=yyy)
             final String opt = token.substring(0, pos);
             final String value = token.substring(pos + 1);
-            if (opt.length() == 1) {
-                // -S=V
+            // Prefer an exact short-option match (including multi-character short opts; CLI-300)
+            // before falling through to Java-property or long-option handling.
+            if (options.hasShortOption(opt)) {
+                // -S=V or -short=V
                 final Option option = options.getOption(opt);
                 if (option != null && option.acceptsArg()) {
                     handleOption(option);
