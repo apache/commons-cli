@@ -16,6 +16,8 @@
 github:
   description: Apache Commons CLI
   homepage: http://commons.apache.org/cli/
+  autolink_jira:
+    - CLI
   
   pull_requests:
     # allow auto-merge
