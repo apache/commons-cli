@@ -505,16 +505,17 @@ public class DefaultParser implements CommandLineParser {
             if (!cmd.hasOption(option) && !selected) {
                 // get the value from the properties
                 final String value = properties.getProperty(option);
-                if (opt.hasArg()) {
-                    if (opt.isValuesEmpty()) {
-                        opt.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
-                    }
-                } else if (!("yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value) || "1".equalsIgnoreCase(value))) {
+                if (!opt.hasArg() && !("yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value) || "1".equalsIgnoreCase(value))) {
                     // if the value is not yes, true or 1 then don't add the option to the CommandLine
                     continue;
                 }
+                // handleOption() adds a copy of the option to the CommandLine; apply the value to that copy, not to the
+                // option registered in options, otherwise the value survives this parse() call and is reused by the next one
                 handleOption(opt);
-                currentOption = null;
+                if (currentOption != null) {
+                    currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
+                    currentOption = null;
+                }
             }
         }
     }
