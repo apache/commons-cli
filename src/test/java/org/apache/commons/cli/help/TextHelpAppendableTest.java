@@ -158,6 +158,21 @@ final class TextHelpAppendableTest {
     }
 
     @Test
+    void testAppendListWithLineBreak() throws IOException {
+        // an entry shorter than the list indent used to throw and an 8 character entry used to loop until the heap was exhausted
+        final List<String> expected = new ArrayList<>();
+        expected.add("  * a");
+        expected.add("        b");
+        expected.add("  * ab");
+        expected.add("        cd");
+        expected.add("");
+
+        underTest.appendList(false, Arrays.asList("a\nb", "ab\ncd"));
+        final List<String> actual = IOUtils.readLines(new StringReader(sb.toString()));
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void testAppendParagraph() throws IOException {
         final String[] expected = { " Hello World", "" };
 
@@ -281,6 +296,10 @@ final class TextHelpAppendableTest {
         assertThrows(IllegalArgumentException.class, () -> TextHelpAppendable.indexOfWrap("", 0, 0));
         assertEquals(3, TextHelpAppendable.indexOfWrap("Hello", 4, 0));
 
+        // a width of 1 must still consume one character, otherwise makeColumnQueue never advances
+        assertEquals(1, TextHelpAppendable.indexOfWrap("Hello", 1, 0), "width of 1 did not advance");
+        assertEquals(3, TextHelpAppendable.indexOfWrap("Hello", 1, 2), "width of 1 did not advance past startPos");
+
         // startPos + width must not overflow when width is TextStyle.UNSET_MAX_WIDTH
         assertEquals(30, TextHelpAppendable.indexOfWrap(testString, TextStyle.UNSET_MAX_WIDTH, 0), "did not find break character with unbounded width");
         assertEquals(testString.length(), TextHelpAppendable.indexOfWrap(testString, TextStyle.UNSET_MAX_WIDTH, 31), "overflow produced a negative wrap index");
@@ -355,6 +374,24 @@ final class TextHelpAppendableTest {
 
         final Queue<String> result = underTest.makeColumnQueue(text, styleBuilder.get());
         assertEquals(expected, result, "left aligned failed");
+    }
+
+    @Test
+    void testMakeColumnQueueWithWidthOfOne() {
+        // an indent one less than the max width leaves a usable width of 1 for the continuation lines, which used to loop forever
+        final String text = "hello world";
+        final TextStyle.Builder styleBuilder = TextStyle.builder().setMaxWidth(5).setIndent(4).setLeftPad(0);
+
+        final Queue<String> expected = new LinkedList<>();
+        expected.add("hello");
+        expected.add("    w");
+        expected.add("    o");
+        expected.add("    r");
+        expected.add("    l");
+        expected.add("    d");
+
+        final Queue<String> result = underTest.makeColumnQueue(text, styleBuilder.get());
+        assertEquals(expected, result);
     }
 
     @Test
