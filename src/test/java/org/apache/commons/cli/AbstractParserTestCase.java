@@ -668,6 +668,23 @@ public abstract class AbstractParserTestCase {
     }
 
     @Test
+    void testReuseOptionsWithProperties() throws Exception {
+        final Options options = new Options();
+        options.addOption(OptionBuilder.hasArg().create('a'));
+        // first parsing, the value comes from the properties
+        final Properties properties = new Properties();
+        properties.setProperty("a", "one");
+        assertEquals("one", parse(parser, options, null, properties).getOptionValue("a"));
+        // second parsing, with the same Options instance and the value on the command line
+        final CommandLine cmd = parser.parse(options, new String[] { "-a", "two" });
+        assertEquals("two", cmd.getOptionValue("a"));
+        assertEquals(0, cmd.getArgList().size());
+        // third parsing, with the same Options instance and another default value
+        properties.setProperty("a", "three");
+        assertEquals("three", parse(parser, options, null, properties).getOptionValue("a"));
+    }
+
+    @Test
     void testShortOptionConcatenatedQuoteHandling() throws Exception {
         final CommandLine cl = parser.parse(options, new String[] { "-b\"quoted string\"" });
         assertEquals("quoted string", cl.getOptionValue("b"), "Confirm -b\"arg\" strips quotes");
