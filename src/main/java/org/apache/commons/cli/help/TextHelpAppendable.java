@@ -99,8 +99,9 @@ public class TextHelpAppendable extends FilterHelpAppendable {
                 break;
             }
         }
-        // if we found it return it, otherwise just chop at limit
-        return pos > startPos ? pos : limit - 1;
+        // if we found it return it, otherwise just chop at limit, always consuming at least one character so that a width of 1
+        // still advances past startPos and the wrap loop in makeColumnQueue terminates.
+        return pos > startPos ? pos : Math.max(limit - 1, startPos + 1);
     }
 
     /**
@@ -218,12 +219,14 @@ public class TextHelpAppendable extends FilterHelpAppendable {
     @Override
     public void appendList(final boolean ordered, final Collection<CharSequence> list) throws IOException {
         if (list != null && !list.isEmpty()) {
-            final TextStyle.Builder builder = TextStyle.builder().setLeftPad(textStyleBuilder.getLeftPad()).setIndent(DEFAULT_LIST_INDENT);
+            // wrap at the configured width rather than the entry length: an entry with a line break that is shorter than the
+            // list indent would otherwise leave no room for its continuation lines.
+            final TextStyle.Builder builder = TextStyle.builder().setLeftPad(textStyleBuilder.getLeftPad()).setIndent(DEFAULT_LIST_INDENT)
+                    .setMaxWidth(textStyleBuilder.getMaxWidth());
             int i = 1;
             for (final CharSequence line : list) {
                 final String entry = ordered ? String.format(" %s. %s", i++, Util.defaultValue(line, BLANK_LINE))
                         : String.format(" * %s", Util.defaultValue(line, BLANK_LINE));
-                builder.setMaxWidth(Math.min(textStyleBuilder.getMaxWidth(), entry.length()));
                 printQueue(makeColumnQueue(entry, builder.get()));
             }
             output.append(System.lineSeparator());
