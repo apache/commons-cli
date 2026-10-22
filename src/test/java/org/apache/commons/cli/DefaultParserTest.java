@@ -400,6 +400,30 @@ class DefaultParserTest extends AbstractParserTestCase {
         assertTrue(e.getMessage().contains("-d"));
     }
 
+    /**
+     * CLI-300: multi-character short options must accept {@code -opt=value} the same way
+     * single-character short options do.
+     */
+    @Test
+    void testMultiCharShortOptionWithEqual() throws Exception {
+        final Options options = new Options();
+        options.addOption(Option.builder("foo").hasArg().build());
+        final CommandLine cmdLine = parser.parse(options, new String[] {"-foo=bar"});
+        assertEquals("bar", cmdLine.getOptionValue("foo"));
+    }
+
+    /**
+     * CLI-300: multi-character short option without an equals sign already worked via
+     * {@code hasShortOption}; keep a paired regression for the non-equals form.
+     */
+    @Test
+    void testMultiCharShortOptionWithoutEqual() throws Exception {
+        final Options options = new Options();
+        options.addOption(Option.builder("foo").hasArg().build());
+        final CommandLine cmdLine = parser.parse(options, new String[] {"-foo", "bar"});
+        assertEquals("bar", cmdLine.getOptionValue("foo"));
+    }
+
     @Override
     @Test
     @Disabled("Test case handled in the parameterized tests as \"DEFAULT behavior\"")
