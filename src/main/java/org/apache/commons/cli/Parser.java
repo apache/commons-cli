@@ -47,7 +47,6 @@ public abstract class Parser implements CommandLineParser {
      * Constructs a new instance.
      */
     public Parser() {
-        // empty
     }
 
     /**
@@ -245,21 +244,16 @@ public abstract class Parser implements CommandLineParser {
      * @throws ParseException if {@code arg} does not represent an Option.
      */
     protected void processOption(final String arg, final ListIterator<String> iter) throws ParseException {
-        final boolean hasOption = getOptions().hasOption(arg);
-        // if there is no option throw an UnrecognizedOptionException
-        if (!hasOption) {
+        final boolean optionIsRecognized = getOptions().hasOption(arg);
+        if (!optionIsRecognized) {
             throw new UnrecognizedOptionException("Unrecognized option: " + arg, arg);
         }
-        // get the option represented by arg
-        final Option opt = (Option) getOptions().getOption(arg).clone();
-        // update the required options and groups
-        updateRequiredOptions(opt);
-        // if the option takes an argument value
-        if (opt.hasArg()) {
-            processArgs(opt, iter);
+        final Option optionToProcess = (Option) getOptions().getOption(arg).clone();
+        updateRequiredOptions(optionToProcess);
+        if (optionToProcess.hasArg()) {
+            processArgs(optionToProcess, iter);
         }
-        // set the option on the command line
-        cmd.addOption(opt);
+        cmd.addOption(optionToProcess);
     }
 
     /**

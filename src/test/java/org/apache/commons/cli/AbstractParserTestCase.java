@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -185,6 +186,18 @@ public abstract class AbstractParserTestCase {
         final String[] args = { "--bfile", "\"quoted string\"" };
         final CommandLine cl = parser.parse(options, args);
         assertEquals("quoted string", cl.getOptionValue("b"), "Confirm --bfile \"arg\" strips quotes");
+    }
+
+    @Test
+    void testParsedArgumentIsStoredOnOptionClone() throws Exception {
+        final Option option = Option.builder("b").hasArg().get();
+        final Options options = new Options().addOption(option);
+        final CommandLine commandLine = parser.parse(options, new String[] { "-b", "value" });
+        final Option parsedOption = commandLine.getOptions()[0];
+
+        assertNotSame(option, parsedOption);
+        assertEquals("value", parsedOption.getValue());
+        assertTrue(option.isValuesEmpty());
     }
 
     @Test
