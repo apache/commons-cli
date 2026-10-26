@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -398,6 +399,17 @@ class DefaultParserTest extends AbstractParserTestCase {
         final UnrecognizedOptionException e = assertThrows(UnrecognizedOptionException.class,
                 () -> parser.parse(specificOptions, null, DefaultParser.NonOptionAction.THROW, args));
         assertTrue(e.getMessage().contains("-d"));
+    }
+
+    @Test
+    void testPropertyDoesNotOverridePresetValue() throws ParseException {
+        final Option a = Option.builder("a").hasArg().get();
+        a.getValuesList().add("preset");
+        final Options options = new Options().addOption(a);
+        final Properties properties = new Properties();
+        properties.setProperty("a", "fromProperties");
+        assertEquals("preset", new DefaultParser().parse(options, null, properties).getOptionValue("a"));
+        assertEquals("[preset]", a.getValuesList().toString());
     }
 
     @Override

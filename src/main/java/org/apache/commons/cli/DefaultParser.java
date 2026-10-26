@@ -512,10 +512,10 @@ public class DefaultParser implements CommandLineParser {
                 // handleOption() adds a copy of the option to the CommandLine; apply the value to that copy, not to the
                 // option registered in options, otherwise the value survives this parse() call and is reused by the next one
                 handleOption(opt);
-                if (currentOption != null) {
+                if (currentOption != null && currentOption.isValuesEmpty()) {
                     currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
-                    currentOption = null;
                 }
+                currentOption = null;
             }
         }
     }
