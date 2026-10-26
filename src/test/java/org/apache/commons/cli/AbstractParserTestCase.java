@@ -617,6 +617,26 @@ public abstract class AbstractParserTestCase {
     }
 
     @Test
+    void testPropertyOptionReusedOptions() throws Exception {
+        final Options options = new Options();
+        options.addOption(Option.builder("k").hasArg().get());
+
+        final Properties first = new Properties();
+        first.setProperty("k", "one");
+        final CommandLine firstCmd = parse(parser, options, null, first);
+        assertEquals("one", firstCmd.getOptionValue('k'));
+
+        final Properties second = new Properties();
+        second.setProperty("k", "two");
+        final CommandLine secondCmd = parse(parser, options, null, second);
+        assertEquals("two", secondCmd.getOptionValue('k'));
+
+        // the second parse must not reach back into the first result, and the Options must be left alone
+        assertEquals("one", firstCmd.getOptionValue('k'));
+        assertNull(options.getOption("k").getValue());
+    }
+
+    @Test
     void testPropertyOptionSingularValue() throws Exception {
         final Options options = new Options();
         options.addOption(OptionBuilder.hasOptionalArgs(2).withLongOpt("hide").create());
