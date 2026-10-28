@@ -506,14 +506,16 @@ public class DefaultParser implements CommandLineParser {
                 // get the value from the properties
                 final String value = properties.getProperty(option);
                 if (opt.hasArg()) {
-                    if (opt.isValuesEmpty()) {
-                        opt.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
+                    // add the value to the copy of the option in the CommandLine, not to the option registered in Options,
+                    // and keep a value the option already has
+                    handleOption(opt);
+                    if (currentOption.isValuesEmpty()) {
+                        currentOption.processValue(stripLeadingAndTrailingQuotesDefaultOff(value));
                     }
-                } else if (!("yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value) || "1".equalsIgnoreCase(value))) {
-                    // if the value is not yes, true or 1 then don't add the option to the CommandLine
-                    continue;
+                } else if ("yes".equalsIgnoreCase(value) || "true".equalsIgnoreCase(value) || "1".equalsIgnoreCase(value)) {
+                    // only add the option to the CommandLine if the value is yes, true or 1
+                    handleOption(opt);
                 }
-                handleOption(opt);
                 currentOption = null;
             }
         }
@@ -727,6 +729,10 @@ public class DefaultParser implements CommandLineParser {
 
     /**
      * Parses the arguments according to the specified options and properties.
+     * <p>
+     * A value from {@code properties} is only used for an option that is not on the command line and has no value yet. It goes into the returned
+     * {@link CommandLine}; {@code options} itself is not modified.
+     * </p>
      *
      * @param options         The specified Options.
      * @param properties      command line option name-value pairs.
@@ -790,6 +796,7 @@ public class DefaultParser implements CommandLineParser {
      * @param properties command line option name-value pairs.
      * @return The list of atomic option and value tokens.
      * @throws ParseException if there are any problems encountered while parsing the command line tokens.
+     * @see #parse(Options, Properties, NonOptionAction, String[])
      */
     public CommandLine parse(final Options options, final String[] arguments, final Properties properties) throws ParseException {
         return parse(options, arguments, properties, false);

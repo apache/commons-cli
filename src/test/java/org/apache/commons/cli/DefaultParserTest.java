@@ -19,6 +19,7 @@ package org.apache.commons.cli;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -402,6 +403,36 @@ class DefaultParserTest extends AbstractParserTestCase {
     }
 
     @Test
+    void testPropertiesDoNotChangeRegisteredOption() throws ParseException {
+        final Options options = new Options();
+        options.addOption(Option.builder("o").hasArg().get());
+        final Properties properties = new Properties();
+        properties.setProperty("o", "fromProperties");
+        final CommandLine cmd = new DefaultParser().parse(options, new String[0], properties);
+        assertEquals("fromProperties", cmd.getOptionValue("o"));
+        assertNull(options.getOption("o").getValues());
+    }
+
+    @Test
+    void testPropertiesDoNotLeakIntoNextParse() throws ParseException {
+        final Options options = new Options();
+        options.addOption(Option.builder("o").hasArg().get());
+        options.addOption(Option.builder("D").hasArgs().valueSeparator('=').get());
+        final Properties properties = new Properties();
+        properties.setProperty("o", "fromProperties");
+        properties.setProperty("D", "key1=value1");
+        final DefaultParser defaultParser = new DefaultParser();
+        defaultParser.parse(options, new String[0], properties);
+        // parse again with the same Options and without properties
+        final CommandLine cmd = defaultParser.parse(options, new String[] { "-o", "fromArgs", "-Dkey2=value2" });
+        assertEquals("fromArgs", cmd.getOptionValue("o"));
+        assertTrue(cmd.getArgList().isEmpty());
+        final Properties expected = new Properties();
+        expected.setProperty("key2", "value2");
+        assertEquals(expected, cmd.getOptionProperties("D"));
+    }
+
+    @Test
     void testPropertiesPreserveExistingOptionValue() throws ParseException {
         final Option option = Option.builder("o").hasArg().get();
         option.getValuesList().add("preset");
@@ -413,6 +444,19 @@ class DefaultParserTest extends AbstractParserTestCase {
 
         assertEquals("preset", cmd.getOptionValue("o"));
         assertEquals("preset", option.getValue());
+    }
+
+    @Test
+    void testPropertiesReuseOptions() throws ParseException {
+        final Options options = new Options();
+        options.addOption(Option.builder("o").hasArg().get());
+        final DefaultParser defaultParser = new DefaultParser();
+        final Properties first = new Properties();
+        first.setProperty("o", "first");
+        assertEquals("first", defaultParser.parse(options, new String[0], first).getOptionValue("o"));
+        final Properties second = new Properties();
+        second.setProperty("o", "second");
+        assertEquals("second", defaultParser.parse(options, new String[0], second).getOptionValue("o"));
     }
 
     @Override
