@@ -60,8 +60,8 @@ import java.util.Map;
  * </table>
  *
  * <p>
- * For example, the following allows command line flags of '-v -p string-value -f /dir/file'. The exclamation mark
- * precede a mandatory option.
+ * For example, the following allows command line flags of '-v -p string-value -f /dir/file'. An exclamation mark
+ * before an option character marks that option as required, here {@code -f}.
  * </p>
  *
  * <pre>
@@ -169,10 +169,12 @@ public class PatternOptionBuilder {
      *
      * @param pattern The pattern string
      * @return The {@link Options} instance
+     * @throws IllegalArgumentException if an exclamation mark is not followed by an option character.
      */
     public static Options parsePattern(final String pattern) {
         char opt = Char.SP;
         boolean required = false;
+        boolean requiredNext = false;
         Class<?> type = null;
         Converter<?, ?> converter = Converter.DEFAULT;
 
@@ -182,7 +184,7 @@ public class PatternOptionBuilder {
             final char ch = pattern.charAt(i);
 
             // a value code comes after an option and specifies
-            // details about it
+            // details about it, except '!' which precedes the option it marks as required
             if (!isValueCode(ch)) {
                 if (opt != Char.SP) {
                     // @formatter:off
@@ -195,14 +197,15 @@ public class PatternOptionBuilder {
                     // @formatter:on
                     // we have a previous one to deal with
                     options.addOption(option);
-                    required = false;
                     type = null;
                     converter = Converter.DEFAULT;
                 }
 
                 opt = ch;
+                required = requiredNext;
+                requiredNext = false;
             } else if (ch == '!') {
-                required = true;
+                requiredNext = true;
             } else {
                 type = getValueType(ch);
                 final Map<Class<?>, Converter<?, ? extends Throwable>> map = TypeHandler.createDefaultMap();
@@ -210,6 +213,10 @@ public class PatternOptionBuilder {
                 map.put(FILES_VALUE, unsupported());
                 converter = new TypeHandler(map).getConverter(getValueType(ch));
             }
+        }
+
+        if (requiredNext) {
+            throw new IllegalArgumentException(String.format("Missing option character after '!' in pattern '%s'.", pattern));
         }
 
         if (opt != Char.SP) {

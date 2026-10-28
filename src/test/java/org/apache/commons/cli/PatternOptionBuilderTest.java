@@ -100,12 +100,45 @@ class PatternOptionBuilderTest {
     }
 
     @Test
+    void testRequiredMarkPrecedesOption() throws Exception {
+        // The class Javadoc example: '!' marks the following option, -f, as required.
+        final Options options = PatternOptionBuilder.parsePattern("vp:!f/");
+        assertFalse(options.getOption("v").isRequired(), "v");
+        assertFalse(options.getOption("p").isRequired(), "p");
+        assertTrue(options.getOption("f").isRequired(), "f");
+        final MissingOptionException e = assertThrows(MissingOptionException.class,
+                () -> new DefaultParser().parse(options, new String[] { "-v", "-p", "value" }));
+        assertEquals(1, e.getMissingOptions().size());
+        assertTrue(e.getMissingOptions().contains("f"));
+    }
+
+    @Test
+    void testRequiredMarkWithoutOption() {
+        assertThrows(IllegalArgumentException.class, () -> PatternOptionBuilder.parsePattern("!"));
+        assertThrows(IllegalArgumentException.class, () -> PatternOptionBuilder.parsePattern("a!"));
+        assertThrows(IllegalArgumentException.class, () -> PatternOptionBuilder.parsePattern("a:b!"));
+        assertThrows(IllegalArgumentException.class, () -> PatternOptionBuilder.parsePattern("a!:"));
+    }
+
+    @Test
     void testRequiredOption() throws Exception {
         final Options options = PatternOptionBuilder.parsePattern("!n%m%");
         final CommandLineParser parser = new PosixParser();
         final MissingOptionException e = assertThrows(MissingOptionException.class, () -> parser.parse(options, new String[] { "" }));
         assertEquals(1, e.getMissingOptions().size());
         assertTrue(e.getMissingOptions().contains("n"));
+    }
+
+    @Test
+    void testRequiredOptions() throws Exception {
+        Options options = PatternOptionBuilder.parsePattern("a:!b:c:");
+        assertFalse(options.getOption("a").isRequired(), "a");
+        assertTrue(options.getOption("b").isRequired(), "b");
+        assertFalse(options.getOption("c").isRequired(), "c");
+        options = PatternOptionBuilder.parsePattern("!a!b:c");
+        assertTrue(options.getOption("a").isRequired(), "a");
+        assertTrue(options.getOption("b").isRequired(), "b");
+        assertFalse(options.getOption("c").isRequired(), "c");
     }
 
     @Test
