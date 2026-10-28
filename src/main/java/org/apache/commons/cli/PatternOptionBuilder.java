@@ -35,7 +35,7 @@ import java.util.Map;
  * </tr>
  * <tr>
  * <td>b@</td>
- * <td>-b [class name]</td>
+ * <td>-b [class name] (creates object via empty constructor)</td>
  * </tr>
  * <tr>
  * <td>c&gt;</td>
@@ -43,7 +43,7 @@ import java.util.Map;
  * </tr>
  * <tr>
  * <td>d+</td>
- * <td>-d [class name] (creates object via empty constructor)</td>
+ * <td>-d [class name]</td>
  * </tr>
  * <tr>
  * <td>e%</td>
@@ -67,6 +67,11 @@ import java.util.Map;
  * <pre>
  * Options options = PatternOptionBuilder.parsePattern("vp:!f/");
  * </pre>
+ *
+ * <p>
+ * The {@code @} and {@code +} codes load the class named by the option value, and {@code @} also creates an instance by calling its public no-argument
+ * constructor. Do not use these codes for values from an untrusted source.
+ * </p>
  *
  * <p>
  * TODO These need to break out to OptionType and also to be pluggable.
