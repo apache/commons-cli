@@ -730,8 +730,8 @@ public class DefaultParser implements CommandLineParser {
     /**
      * Parses the arguments according to the specified options and properties.
      * <p>
-     * A value from {@code properties} is only used for an option that is not on the command line and has no value yet. It goes into the returned
-     * {@link CommandLine}; {@code options} itself is not modified.
+     * A value from {@code properties} is only used for an option that is not on the command line and has no value yet. Property values are added to the
+     * returned {@link CommandLine} without changing the values of the registered options.
      * </p>
      *
      * @param options         The specified Options.
