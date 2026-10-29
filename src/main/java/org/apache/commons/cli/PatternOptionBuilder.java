@@ -24,18 +24,23 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * Allows Options to be created from a single String. The pattern contains various single character flags and via an
- * optional punctuation character, their expected type.
+ * Creates options from a single string.
+ *
+ * <p>The pattern contains single-character option names, each optionally followed by a punctuation character that specifies the expected value type.</p>
  *
  * <table border="1">
  * <caption>Overview of PatternOptionBuilder patterns</caption>
+ * <tr>
+ * <th scope="col">Pattern</th>
+ * <th scope="col">Command-line option</th>
+ * </tr>
  * <tr>
  * <td>a</td>
  * <td>-a flag</td>
  * </tr>
  * <tr>
  * <td>b@</td>
- * <td>-b [class name]</td>
+ * <td>-b [class name] (creates an object using its public no-argument constructor)</td>
  * </tr>
  * <tr>
  * <td>c&gt;</td>
@@ -43,11 +48,11 @@ import java.util.Map;
  * </tr>
  * <tr>
  * <td>d+</td>
- * <td>-d [class name] (creates object via empty constructor)</td>
+ * <td>-d [class name]</td>
  * </tr>
  * <tr>
  * <td>e%</td>
- * <td>-e [number] (creates Double/Long instance depending on existing of a '.')</td>
+ * <td>-e [number] (creates a Double or Long instance depending on whether the value contains a '.')</td>
  * </tr>
  * <tr>
  * <td>f/</td>
@@ -57,11 +62,15 @@ import java.util.Map;
  * <td>g:</td>
  * <td>-g [string]</td>
  * </tr>
+ * <tr>
+ * <td>h&lt;</td>
+ * <td>-h [file name] (opens the existing file for reading when the value is converted; the caller must close the stream)</td>
+ * </tr>
  * </table>
  *
  * <p>
- * For example, the following allows command line flags of '-v -p string-value -f /dir/file'. An exclamation mark
- * before an option character marks that option as required, here {@code -f}.
+ * For example, the following accepts command-line arguments such as {@code -v -p string-value -f https://example.com}. The exclamation mark makes the
+ * preceding option mandatory.
  * </p>
  *
  * <pre>
@@ -69,49 +78,74 @@ import java.util.Map;
  * </pre>
  *
  * <p>
- * TODO These need to break out to OptionType and also to be pluggable.
+ * When a converted option value is retrieved, for example through {@link CommandLine#getParsedOptionValue(String)}, the {@code @} and {@code +} codes
+ * load the class named by the option value, and {@code @} also creates an instance by calling its public no-argument constructor. Do not use these codes
+ * for values from an untrusted source.
  * </p>
+ *
+ * <p>
+ * ODO Extract these types into OptionType and make them pluggable.</p>
  */
 public class PatternOptionBuilder {
 
-    /** String class */
+    /**
+     * String class.
+     */
     public static final Class<String> STRING_VALUE = String.class;
 
-    /** Object class */
+    /**
+     * Object class.
+     */
     public static final Class<Object> OBJECT_VALUE = Object.class;
 
-    /** Number class */
+    /**
+     * Number class.
+     */
     public static final Class<Number> NUMBER_VALUE = Number.class;
 
-    /** Date class */
+    /**
+     * Date class.
+     */
     public static final Class<Date> DATE_VALUE = Date.class;
 
-    /** Class class */
+    /**
+     * Class class.
+     */
     public static final Class<?> CLASS_VALUE = Class.class;
 
-    /** FileInputStream class */
+    /**
+     * FileInputStream class.
+     */
     public static final Class<FileInputStream> EXISTING_FILE_VALUE = FileInputStream.class;
 
     /// can we do this one??
     // is meant to check that the file exists, else it errors.
     // ie) it's for reading not writing.
 
-    /** File class */
+    /**
+     * File class.
+     */
     public static final Class<File> FILE_VALUE = File.class;
 
-    /** File array class */
+    /**
+     * File array class.
+     */
     public static final Class<File[]> FILES_VALUE = File[].class;
 
-    /** URL class */
+    /**
+     * URL class.
+     */
     public static final Class<URL> URL_VALUE = URL.class;
 
-    /** The converter to use for Unimplemented data types */
+    /**
+     * The converter to use for unimplemented data types.
+     */
     private static final Converter<?, UnsupportedOperationException> UNSUPPORTED = s -> {
         throw new UnsupportedOperationException("Not yet implemented");
     };
 
     /**
-     * Retrieve the class that {@code ch} represents.
+     * Gets the class that {@code ch} represents.
      *
      * @param ch The specified character.
      * @return The class that {@code ch} represents.
@@ -123,10 +157,10 @@ public class PatternOptionBuilder {
     }
 
     /**
-     * Retrieve the class that {@code ch} represents.
+     * Gets the class that {@code ch} represents.
      *
-     * @param ch The specified character
-     * @return The class that {@code ch} represents
+     * @param ch The specified character.
+     * @return The class that {@code ch} represents.
      * @since 1.7.0
      */
     public static Class<?> getValueType(final char ch) {
@@ -155,9 +189,9 @@ public class PatternOptionBuilder {
     }
 
     /**
-     * Returns whether {@code ch} is a value code, i.e. whether it represents a class in a pattern.
+     * Tests whether {@code ch} specifies a value type or marks an option as required in a pattern.
      *
-     * @param ch The specified character
+     * @param ch The specified character.
      * @return true if {@code ch} is a value code, otherwise false.
      */
     public static boolean isValueCode(final char ch) {
@@ -165,11 +199,10 @@ public class PatternOptionBuilder {
     }
 
     /**
-     * Returns the {@link Options} instance represented by {@code pattern}.
+     * Parses the pattern into an {@link Options} instance.
      *
-     * @param pattern The pattern string
-     * @return The {@link Options} instance
-     * @throws IllegalArgumentException if an exclamation mark is not followed by an option character.
+     * @param pattern The pattern string.
+     * @return The {@link Options} instance.
      */
     public static Options parsePattern(final String pattern) {
         char opt = Char.SP;
@@ -235,9 +268,9 @@ public class PatternOptionBuilder {
     }
 
     /**
-     * Deprecated, only provides static methods.
+     * Constructs an instance of this utility class.
      *
-     * @deprecated Will be private or class will be final.
+     * @deprecated This constructor will be made private, or this class will be made final.
      */
     @Deprecated
     public PatternOptionBuilder() {

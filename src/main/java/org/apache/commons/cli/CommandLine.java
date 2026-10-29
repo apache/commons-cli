@@ -31,11 +31,16 @@ import java.util.function.Supplier;
 /**
  * Represents list of arguments parsed against a {@link Options} descriptor.
  * <p>
- * It allows querying of a boolean {@link #hasOption(String optionName)}, in addition to retrieving the
- * {@link #getOptionValue(String optionName)} for options requiring arguments.
+ * It allows querying of a boolean {@link #hasOption(String optionName)}, in addition to retrieving the {@link #getOptionValue(String optionName)} for options
+ * requiring arguments.
  * </p>
  * <p>
  * Additionally, any left-over or unrecognized arguments, are available for further processing.
+ * </p>
+ * <p>
+ * The {@code getParsedOptionValue} and {@code getParsedOptionValues} methods apply the option's {@link Converter} each time stored option values are retrieved
+ * and do not cache the result, so a converter with side effects repeats them on each call. For example, the default converter for {@code FileInputStream}
+ * options opens a new stream every time.
  * </p>
  */
 public class CommandLine implements Serializable {
