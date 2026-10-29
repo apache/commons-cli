@@ -70,7 +70,7 @@ import java.util.Map;
  *
  * <p>
  * For example, the following accepts command-line arguments such as {@code -v -p string-value -f https://example.com}. The exclamation mark makes the
- * preceding option mandatory.
+ * preceding option mandatory, here {@code -p}. An exclamation mark at the start of the pattern makes the first option mandatory.
  * </p>
  *
  * <pre>
@@ -207,7 +207,6 @@ public class PatternOptionBuilder {
     public static Options parsePattern(final String pattern) {
         char opt = Char.SP;
         boolean required = false;
-        boolean requiredNext = false;
         Class<?> type = null;
         Converter<?, ?> converter = Converter.DEFAULT;
 
@@ -217,7 +216,7 @@ public class PatternOptionBuilder {
             final char ch = pattern.charAt(i);
 
             // a value code comes after an option and specifies
-            // details about it, except '!' which precedes the option it marks as required
+            // details about it
             if (!isValueCode(ch)) {
                 if (opt != Char.SP) {
                     // @formatter:off
@@ -230,15 +229,14 @@ public class PatternOptionBuilder {
                     // @formatter:on
                     // we have a previous one to deal with
                     options.addOption(option);
+                    required = false;
                     type = null;
                     converter = Converter.DEFAULT;
                 }
 
                 opt = ch;
-                required = requiredNext;
-                requiredNext = false;
             } else if (ch == '!') {
-                requiredNext = true;
+                required = true;
             } else {
                 type = getValueType(ch);
                 final Map<Class<?>, Converter<?, ? extends Throwable>> map = TypeHandler.createDefaultMap();
@@ -246,10 +244,6 @@ public class PatternOptionBuilder {
                 map.put(FILES_VALUE, unsupported());
                 converter = new TypeHandler(map).getConverter(getValueType(ch));
             }
-        }
-
-        if (requiredNext) {
-            throw new IllegalArgumentException(String.format("Missing option character after '!' in pattern '%s'.", pattern));
         }
 
         if (opt != Char.SP) {

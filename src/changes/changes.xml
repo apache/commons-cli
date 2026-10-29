@@ -38,7 +38,6 @@
       <action type="fix" dev="ggregory" due-to="dev_Hakaze, Gary Gregory" issue="CLI-354">Fix HelpFormatter wrapped description indent (#439).</action>
       <action type="fix" dev="acosentino" due-to="Andrea Cosentino">Fix DefaultParser keeping values from its Properties argument across parses that reuse the same Options.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory, farkhalit rida">Load classes without initializing them in Converter.CLASS (#432).</action>
-      <action type="fix" dev="acosentino" due-to="Andrea Cosentino">Fix PatternOptionBuilder '!' marking the option before it as required instead of the option after it, as documented; a '!' that isn't followed by an option now throws IllegalArgumentException.</action>
       <!-- ADD -->
       <action type="fix" dev="ggregory" due-to="Elric, Gary Gregory">Add AbstractHelpFormatter.printHelp(String, Options).</action>
       <!-- UPDATE -->
