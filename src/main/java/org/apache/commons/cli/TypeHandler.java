@@ -49,6 +49,9 @@ public class TypeHandler {
 
     /**
      * Returns the class whose name is {@code className}.
+     * <p>
+     * Do not pass a class name from an untrusted source, see {@link Converter#CLASS}.
+     * </p>
      *
      * @param className The class name.
      * @return The class if it is found.
@@ -124,6 +127,10 @@ public class TypeHandler {
 
     /**
      * Creates an Object from the class name and empty constructor.
+     * <p>
+     * This initializes the named class and runs its public no-argument constructor. Do not pass a class name from an untrusted source, see
+     * {@link Converter#OBJECT}.
+     * </p>
      *
      * @param className The argument value.
      * @return The initialized object.

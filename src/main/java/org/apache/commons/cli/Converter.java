@@ -46,6 +46,10 @@ public interface Converter<T, E extends Exception> {
     /**
      * Converts a String to a {@link Class}. Calls {@link Class#forName(String, boolean, ClassLoader)} with {@code initialize} set to {@code false} so that
      * resolving the name does not by itself trigger the class's static initializer.
+     * <p>
+     * The value can name any class visible to the class loader of this library. Do not apply this converter, the default for options of type {@link Class},
+     * to values from an untrusted source.
+     * </p>
      */
     Converter<Class<?>, ClassNotFoundException> CLASS = s -> Class.forName(s, false, Converter.class.getClassLoader());
 
@@ -66,6 +70,10 @@ public interface Converter<T, E extends Exception> {
 
     /**
      * Converts a class name to an instance of the class. Uses the Class converter to find the class and then call the default constructor.
+     * <p>
+     * Creating the instance initializes the named class and runs its public no-argument constructor, so the value decides which code runs. Do not apply this
+     * converter, the default for options of type {@link Object}, to values from an untrusted source.
+     * </p>
      *
      * @see #CLASS
      */
