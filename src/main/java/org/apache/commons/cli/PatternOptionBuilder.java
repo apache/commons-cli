@@ -35,7 +35,7 @@ import java.util.Map;
  * </tr>
  * <tr>
  * <td>b@</td>
- * <td>-b [class name] (creates object via empty constructor)</td>
+ * <td>-b [class name] (creates object via public no-argument constructor)</td>
  * </tr>
  * <tr>
  * <td>c&gt;</td>
