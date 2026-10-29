@@ -37,6 +37,11 @@ import java.util.function.Supplier;
  * <p>
  * Additionally, any left-over or unrecognized arguments, are available for further processing.
  * </p>
+ * <p>
+ * The {@code getParsedOptionValue} and {@code getParsedOptionValues} methods apply the option's {@link Converter} on every call and do not cache the result,
+ * so a converter with side effects repeats them on each call. For example, the default converter for {@code FileInputStream} options opens a new stream
+ * every time.
+ * </p>
  */
 public class CommandLine implements Serializable {
 
