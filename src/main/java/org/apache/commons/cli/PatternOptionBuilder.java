@@ -57,6 +57,10 @@ import java.util.Map;
  * <td>g:</td>
  * <td>-g [string]</td>
  * </tr>
+ * <tr>
+ * <td>h&lt;</td>
+ * <td>-h [file name] (opens the existing file for reading, the caller must close the stream)</td>
+ * </tr>
  * </table>
  *
  * <p>
