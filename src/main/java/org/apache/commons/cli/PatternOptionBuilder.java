@@ -69,8 +69,9 @@ import java.util.Map;
  * </pre>
  *
  * <p>
- * The {@code @} and {@code +} codes load the class named by the option value, and {@code @} also creates an instance by calling its public no-argument
- * constructor. Do not use these codes for values from an untrusted source.
+ * When a converted option value is retrieved, for example through {@link CommandLine#getParsedOptionValue(String)}, the {@code @} and {@code +} codes
+ * load the class named by the option value, and {@code @} also creates an instance by calling its public no-argument constructor. Do not use these codes
+ * for values from an untrusted source.
  * </p>
  *
  * <p>
