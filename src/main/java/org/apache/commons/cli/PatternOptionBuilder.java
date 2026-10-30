@@ -70,7 +70,7 @@ import java.util.Map;
  *
  * <p>
  * For example, the following accepts command-line arguments such as {@code -v -p string-value -f https://example.com}. The exclamation mark makes the
- * preceding option mandatory.
+ * preceding option mandatory, here {@code -p}. An exclamation mark at the start of the pattern makes the first option mandatory.
  * </p>
  *
  * <pre>
