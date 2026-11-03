@@ -35,9 +35,9 @@ public class AmbiguousOptionException extends UnrecognizedOptionException {
     /**
      * Build the exception message from the specified list of options.
      *
-     * @param option
-     * @param matchingOptions
-     * @return
+     * @param option          The ambiguous option.
+     * @param matchingOptions The list of matching options.
+     * @return The exception message.
      */
     private static String createMessage(final String option, final Collection<String> matchingOptions) {
         final StringBuilder buf = new StringBuilder("Ambiguous option: '");

@@ -84,7 +84,7 @@ import java.util.Map;
  * </p>
  *
  * <p>
- * ODO Extract these types into OptionType and make them pluggable.</p>
+ * TODO Extract these types into OptionType and make them pluggable.</p>
  */
 public class PatternOptionBuilder {
 
