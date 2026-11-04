@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
@@ -151,6 +152,52 @@ class DefaultParserTest extends AbstractParserTestCase {
                     )
             );
         }
+    }
+
+    /**
+     * A numerical argument takes precedence over the option it looks like, in every position on the command line.
+     */
+    @Test
+    void testNegativeNumberArgument() throws ParseException {
+        final Options opts = new Options().addOption("a", false, "a flag").addOption("b", true, "an option with a value");
+        // The token is the only one on the line
+        CommandLine cl = parser.parse(opts, new String[] { "-1" });
+        assertEquals(Arrays.asList("-1"), cl.getArgList());
+        cl = parser.parse(opts, new String[] { "-1.5" });
+        assertEquals(Arrays.asList("-1.5"), cl.getArgList());
+        // The token follows an option that does not expect a value
+        cl = parser.parse(opts, new String[] { "-a", "-1" });
+        assertTrue(cl.hasOption('a'));
+        assertEquals(Arrays.asList("-1"), cl.getArgList());
+        // The token follows an option whose value has already been consumed
+        cl = parser.parse(opts, new String[] { "-b", "value", "-1" });
+        assertTrue(cl.hasOption('b'));
+        assertEquals(Arrays.asList("-1"), cl.getArgList());
+        // The token follows an option that consumed the first of two negative numbers
+        cl = parser.parse(opts, new String[] { "-b", "-1", "-1.5" });
+        assertTrue(cl.hasOption('b'));
+        assertEquals("-1", cl.getOptionValue('b'));
+        assertEquals(Arrays.asList("-1.5"), cl.getArgList());
+    }
+
+    /**
+     * A registered option that looks like a numerical argument still wins over the numerical-argument rule.
+     */
+    @Test
+    void testNegativeNumberOption() throws ParseException {
+        final Options opts = new Options().addOption("1", false, "an option named 1");
+        final CommandLine cl = parser.parse(opts, new String[] { "-1", "-2" });
+        assertTrue(cl.hasOption('1'));
+        assertEquals(Arrays.asList("-2"), cl.getArgList());
+    }
+
+    /**
+     * The {@code --} end of options marker still routes the remaining tokens to the arguments.
+     */
+    @Test
+    void testNegativeNumberAfterEndOfOptions() throws ParseException {
+        final CommandLine cl = parser.parse(new Options(), new String[] { "--", "-1" });
+        assertEquals(Arrays.asList("-1"), cl.getArgList());
     }
 
     @Override
