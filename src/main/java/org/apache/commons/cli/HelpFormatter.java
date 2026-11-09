@@ -427,8 +427,10 @@ public class HelpFormatter {
         // -a is opt and --aaa is long opt; in parallel look for
         // the longest opt string this list will be then used to
         // sort options ascending
-        int max = 0;
         final int maxSince = showSince ? determineMaxSinceLength(options) + leftPad : 0;
+        // determineMaxSinceLength() already reserves the width of the "Since" header; the option column needs the
+        // same floor for the "Options" header, otherwise the gap in front of "Since" below is computed negative.
+        int max = showSince ? HEADER_OPTIONS.length() + maxSince : 0;
         final List<StringBuilder> prefixList = new ArrayList<>();
         final List<Option> optList = options.helpOptions();
         if (getOptionComparator() != null) {
