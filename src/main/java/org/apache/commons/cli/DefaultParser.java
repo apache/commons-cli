@@ -611,7 +611,12 @@ public class DefaultParser implements CommandLineParser {
             } else if (token.startsWith(OptionFormatter.DEFAULT_LONG_OPT_PREFIX)) {
                 handleLongOption(token);
             } else if (token.startsWith(OptionFormatter.DEFAULT_OPT_PREFIX) && !OptionFormatter.DEFAULT_OPT_PREFIX.equals(token)) {
-                handleShortAndLongOption(token);
+                // A negative number is an argument, not the unknown option it looks like
+                if (isNegativeNumber(token) && !isOption(token)) {
+                    addArg(token);
+                } else {
+                    handleShortAndLongOption(token);
+                }
             } else {
                 handleUnknownToken(token);
             }
